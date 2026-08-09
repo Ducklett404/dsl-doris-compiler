@@ -1,0 +1,13 @@
+{
+  "functions": [
+    {
+      "name": "ABS_CHANGE",
+      "minArgs": 2,
+      "maxArgs": 2,
+      "returnType": "NUMBER",
+      "loweringKind": "TEMPLATE",
+      "sqlTemplate": "ABS({0} - {1})",
+      "requiredFields": []
+    }
+  ]
+}

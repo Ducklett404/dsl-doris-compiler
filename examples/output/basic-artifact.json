@@ -1,0 +1,310 @@
+{
+  "compilerVersion" : "0.1.0",
+  "ast" : {
+    "asOf" : "2026-08-07",
+    "where" : {
+      "kind" : "Binary",
+      "operator" : "AND",
+      "left" : {
+        "kind" : "Binary",
+        "operator" : "AND",
+        "left" : {
+          "kind" : "Binary",
+          "operator" : "AND",
+          "left" : {
+            "kind" : "Between",
+            "value" : {
+              "kind" : "FunctionCall",
+              "name" : "PE_TTM",
+              "arguments" : [ ],
+              "type" : "RATIO",
+              "span" : {
+                "line" : 2,
+                "column" : 7,
+                "endLine" : 2,
+                "endColumn" : 15
+              }
+            },
+            "lower" : {
+              "kind" : "Literal",
+              "value" : 0,
+              "type" : "NUMBER",
+              "span" : {
+                "line" : 2,
+                "column" : 24,
+                "endLine" : 2,
+                "endColumn" : 25
+              }
+            },
+            "upper" : {
+              "kind" : "Literal",
+              "value" : 20,
+              "type" : "NUMBER",
+              "span" : {
+                "line" : 2,
+                "column" : 30,
+                "endLine" : 2,
+                "endColumn" : 32
+              }
+            },
+            "type" : "BOOLEAN",
+            "span" : {
+              "line" : 2,
+              "column" : 7,
+              "endLine" : 2,
+              "endColumn" : 32
+            }
+          },
+          "right" : {
+            "kind" : "Binary",
+            "operator" : ">=",
+            "left" : {
+              "kind" : "FunctionCall",
+              "name" : "ROE_TTM",
+              "arguments" : [ ],
+              "type" : "RATIO",
+              "span" : {
+                "line" : 3,
+                "column" : 7,
+                "endLine" : 3,
+                "endColumn" : 16
+              }
+            },
+            "right" : {
+              "kind" : "Literal",
+              "value" : 0.15,
+              "type" : "PERCENT",
+              "span" : {
+                "line" : 3,
+                "column" : 20,
+                "endLine" : 3,
+                "endColumn" : 23
+              }
+            },
+            "type" : "BOOLEAN",
+            "span" : {
+              "line" : 3,
+              "column" : 7,
+              "endLine" : 3,
+              "endColumn" : 23
+            }
+          },
+          "type" : "BOOLEAN",
+          "span" : {
+            "line" : 2,
+            "column" : 7,
+            "endLine" : 5,
+            "endColumn" : 29
+          }
+        },
+        "right" : {
+          "kind" : "FunctionCall",
+          "name" : "CROSS_UP",
+          "arguments" : [ {
+            "kind" : "FunctionCall",
+            "name" : "MA",
+            "arguments" : [ {
+              "kind" : "Identifier",
+              "name" : "CLOSE",
+              "type" : "PRICE",
+              "span" : {
+                "line" : 4,
+                "column" : 19,
+                "endLine" : 4,
+                "endColumn" : 24
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : 5,
+              "type" : "NUMBER",
+              "span" : {
+                "line" : 4,
+                "column" : 26,
+                "endLine" : 4,
+                "endColumn" : 27
+              }
+            } ],
+            "type" : "PRICE",
+            "span" : {
+              "line" : 4,
+              "column" : 16,
+              "endLine" : 4,
+              "endColumn" : 28
+            }
+          }, {
+            "kind" : "FunctionCall",
+            "name" : "MA",
+            "arguments" : [ {
+              "kind" : "Identifier",
+              "name" : "CLOSE",
+              "type" : "PRICE",
+              "span" : {
+                "line" : 4,
+                "column" : 33,
+                "endLine" : 4,
+                "endColumn" : 38
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : 20,
+              "type" : "NUMBER",
+              "span" : {
+                "line" : 4,
+                "column" : 40,
+                "endLine" : 4,
+                "endColumn" : 42
+              }
+            } ],
+            "type" : "PRICE",
+            "span" : {
+              "line" : 4,
+              "column" : 30,
+              "endLine" : 4,
+              "endColumn" : 43
+            }
+          } ],
+          "type" : "BOOLEAN",
+          "span" : {
+            "line" : 4,
+            "column" : 7,
+            "endLine" : 4,
+            "endColumn" : 44
+          }
+        },
+        "type" : "BOOLEAN",
+        "span" : {
+          "line" : 2,
+          "column" : 7,
+          "endLine" : 5,
+          "endColumn" : 29
+        }
+      },
+      "right" : {
+        "kind" : "InList",
+        "value" : {
+          "kind" : "Identifier",
+          "name" : "MARKET",
+          "type" : "STRING",
+          "span" : {
+            "line" : 5,
+            "column" : 7,
+            "endLine" : 5,
+            "endColumn" : 13
+          }
+        },
+        "options" : [ {
+          "kind" : "Literal",
+          "value" : "SH",
+          "type" : "STRING",
+          "span" : {
+            "line" : 5,
+            "column" : 18,
+            "endLine" : 5,
+            "endColumn" : 22
+          }
+        }, {
+          "kind" : "Literal",
+          "value" : "SZ",
+          "type" : "STRING",
+          "span" : {
+            "line" : 5,
+            "column" : 24,
+            "endLine" : 5,
+            "endColumn" : 28
+          }
+        } ],
+        "type" : "BOOLEAN",
+        "span" : {
+          "line" : 5,
+          "column" : 7,
+          "endLine" : 5,
+          "endColumn" : 29
+        }
+      },
+      "type" : "BOOLEAN",
+      "span" : {
+        "line" : 2,
+        "column" : 7,
+        "endLine" : 5,
+        "endColumn" : 29
+      }
+    },
+    "adjustment" : "FORWARD",
+    "orderBy" : {
+      "expression" : {
+        "kind" : "Identifier",
+        "name" : "TURNOVER_RATE",
+        "type" : "RATIO",
+        "span" : {
+          "line" : 7,
+          "column" : 10,
+          "endLine" : 7,
+          "endColumn" : 23
+        }
+      },
+      "direction" : "DESC"
+    },
+    "limit" : 100,
+    "span" : {
+      "line" : 1,
+      "column" : 1,
+      "endLine" : 9,
+      "endColumn" : 6
+    }
+  },
+  "logicalPlan" : {
+    "nodes" : [ {
+      "kind" : "Scan",
+      "detail" : "market.dwd_quote_daily"
+    }, {
+      "kind" : "PointInTimeJoin",
+      "detail" : "market.dwd_financial_pit"
+    }, {
+      "kind" : "Window",
+      "detail" : "ma_close_5, ma_close_20"
+    }, {
+      "kind" : "Signal",
+      "detail" : "LAG operands for CROSS_UP"
+    }, {
+      "kind" : "Filter",
+      "detail" : "Target-date predicate"
+    }, {
+      "kind" : "Sort",
+      "detail" : "DESC"
+    }, {
+      "kind" : "Limit",
+      "detail" : "100"
+    } ],
+    "accessPath" : {
+      "selected" : "DETAIL_TABLE",
+      "candidates" : [ {
+        "path" : "DETAIL_TABLE",
+        "cost" : 142.0,
+        "eligible" : true,
+        "reason" : "Always semantically complete; cost grows with window lookback"
+      }, {
+        "path" : "FEATURE_TABLE",
+        "cost" : 9999.0,
+        "eligible" : false,
+        "reason" : "At least one indicator lacks a feature column"
+      }, {
+        "path" : "PREFIX_SUM",
+        "cost" : 35.0,
+        "eligible" : true,
+        "reason" : "Window aggregate may be lowered to prefix sums in the next data-model iteration"
+      } ],
+      "reason" : "Selected correctness-first detail path"
+    }
+  },
+  "sql" : "WITH base AS (\n  SELECT\n    q.symbol AS symbol,\n    q.trade_date AS trade_date,\n    q.close_qfq AS `close`,\n    q.market AS `market`,\n    q.turnover_rate AS `turnover_rate`,\n    f.pe_ttm AS `pe_ttm`,\n    f.roe_ttm AS `roe_ttm`\n  FROM market.dwd_quote_daily q\n  LEFT JOIN market.dwd_financial_pit f\n    ON f.symbol = q.symbol\n   AND f.visible_from <= q.trade_date\n   AND q.trade_date < f.visible_to\n  WHERE q.trade_date BETWEEN (\n    SELECT MIN(cal_date) FROM (\n      SELECT cal_date FROM market.dim_trade_calendar\n      WHERE market = 'CN' AND is_open = 1 AND cal_date <= ?\n      ORDER BY cal_date DESC LIMIT 22\n    ) trading_days\n  ) AND ?\n),\nmetrics AS (\n  SELECT base.*,\n    AVG(`close`) OVER (PARTITION BY symbol ORDER BY trade_date ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) AS `ma_close_5`,\n    AVG(`close`) OVER (PARTITION BY symbol ORDER BY trade_date ROWS BETWEEN 19 PRECEDING AND CURRENT ROW) AS `ma_close_20`\n  FROM base\n),\nsignals AS (\n  SELECT metrics.*,\n    LAG(`ma_close_5`) OVER (PARTITION BY symbol ORDER BY trade_date) AS `prev_ma_close_5`,\n    LAG(`ma_close_20`) OVER (PARTITION BY symbol ORDER BY trade_date) AS `prev_ma_close_20`\n  FROM metrics\n)\nSELECT `symbol`, `trade_date`, `pe_ttm`, `roe_ttm`, `ma_close_5`, `ma_close_20`\nFROM signals\nWHERE trade_date = ?\n  AND ((((`pe_ttm` BETWEEN ? AND ?) AND (`roe_ttm` >= ?)) AND (`ma_close_5` > `ma_close_20` AND `prev_ma_close_5` <= `prev_ma_close_20`)) AND (`market` IN (?, ?)))\nORDER BY `turnover_rate` DESC\nLIMIT 100;",
+  "bindings" : [ "2026-08-07", "2026-08-07", "2026-08-07", 0, 20, 0.15, "SH", "SZ" ],
+  "requiredLookbackTradingDays" : 21,
+  "ruleTrace" : [ {
+    "ruleId" : "R-010",
+    "description" : "Canonicalized expression tree and preserved predicate order"
+  }, {
+    "ruleId" : "R-104",
+    "description" : "Deduplicated common window expressions and emitted layered CTEs"
+  } ],
+  "diagnostics" : [ ]
+}
