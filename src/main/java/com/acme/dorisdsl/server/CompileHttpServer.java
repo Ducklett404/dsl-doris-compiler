@@ -37,7 +37,8 @@ public final class CompileHttpServer implements AutoCloseable {
             if (!(dsl instanceof String source)) throw new CompileException("MISSING_DSL", "JSON field 'dsl' is required", 1, 1);
             respond(exchange, 200, compiler.compile(source));
         } catch (CompileException e) {
-            respond(exchange, 400, Map.of("error", e.code(), "message", e.getMessage(), "line", e.line(), "column", e.column()));
+            respond(exchange, 400, Map.of("error", e.code(), "message", e.getMessage(), "line", e.line(),
+                    "column", e.column(), "fragment", e.fragment(), "suggestion", e.suggestion()));
         } catch (Exception e) {
             respond(exchange, 500, Map.of("error", "internal_error", "message", e.getMessage()));
         }

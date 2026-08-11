@@ -15,7 +15,7 @@ public final class RuleEngine {
         Ast.OrderBy orderBy = query.orderBy() == null ? null
                 : new Ast.OrderBy(fold(query.orderBy().expression(), trace), query.orderBy().direction());
         trace.add(new CompilationArtifact.RuleTrace("R-010", "Canonicalized expression tree and preserved predicate order"));
-        return new Result(new Ast.Query(query.asOf(), where, query.adjustment(), orderBy, query.limit(), query.span()), trace);
+        return new Result(new Ast.Query(query.asOf(), query.context(), where, query.adjustment(), orderBy, query.limit(), query.span()), trace);
     }
 
     private Ast.Expr fold(Ast.Expr expr, List<CompilationArtifact.RuleTrace> trace) {
@@ -42,6 +42,8 @@ public final class RuleEngine {
             case Ast.FunctionCall call -> new Ast.FunctionCall(call.name(), call.arguments().stream().map(e -> fold(e, trace)).toList(), call.type(), call.span());
             case Ast.Between between -> new Ast.Between(fold(between.value(), trace), fold(between.lower(), trace), fold(between.upper(), trace), between.type(), between.span());
             case Ast.InList in -> new Ast.InList(fold(in.value(), trace), in.options().stream().map(e -> fold(e, trace)).toList(), in.type(), in.span());
+            case Ast.IsNull isNull -> new Ast.IsNull(fold(isNull.value(), trace), isNull.negated(), isNull.type(), isNull.span());
+            case Ast.NamedArgument named -> new Ast.NamedArgument(named.name(), fold(named.value(), trace), named.type(), named.span());
             default -> expr;
         };
     }
