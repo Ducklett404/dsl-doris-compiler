@@ -1,0 +1,7 @@
+cal_date,market,is_open,scenario
+2026-08-03,CN,1,normal
+2026-08-04,CN,1,normal
+2026-08-05,CN,0,suspended_day_gap
+2026-08-06,CN,1,resume_after_suspension
+2026-08-07,CN,1,target_date
+

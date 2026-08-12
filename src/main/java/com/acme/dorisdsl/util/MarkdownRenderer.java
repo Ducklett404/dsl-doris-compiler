@@ -11,6 +11,7 @@ public final class MarkdownRenderer {
                 .append("| Compiler | ").append(artifact.compilerVersion()).append(" |\n")
                 .append("| Access path | ").append(artifact.logicalPlan().accessPath().selected()).append(" |\n")
                 .append("| Lookback | ").append(artifact.requiredLookbackTradingDays()).append(" trading days |\n")
+                .append("| Window specs | ").append(artifact.windowSpecs().size()).append(" |\n")
                 .append("| Bindings | ").append(artifact.bindings().size()).append(" |\n\n")
                 .append("## Doris SQL\n\n```sql\n").append(artifact.sql()).append("\n```\n\n")
                 .append("## 参数\n\n| # | 值 |\n|---:|---|\n");
