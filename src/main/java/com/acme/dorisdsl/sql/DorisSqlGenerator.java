@@ -1,6 +1,7 @@
 package com.acme.dorisdsl.sql;
 
 import com.acme.dorisdsl.ast.Ast;
+import com.acme.dorisdsl.catalog.CatalogSnapshot;
 import com.acme.dorisdsl.compiler.CompilationArtifact;
 import com.acme.dorisdsl.compiler.CompileException;
 import com.acme.dorisdsl.plan.AccessPathPlanner;
@@ -21,8 +22,12 @@ import java.util.regex.Pattern;
 public final class DorisSqlGenerator {
     private static final Pattern SAFE_ALIAS = Pattern.compile("[a-z_][a-z0-9_]*");
     private final Registry registry;
+    private final CatalogSnapshot catalog;
 
-    public DorisSqlGenerator(Registry registry) { this.registry = registry; }
+    public DorisSqlGenerator(Registry registry, CatalogSnapshot catalog) {
+        this.registry = registry;
+        this.catalog = catalog;
+    }
 
     public Result generate(Ast.Query query) { return new Generation(query).run(); }
 
@@ -48,12 +53,10 @@ public final class DorisSqlGenerator {
             collect(query.where());
             if (query.orderBy() != null) collect(query.orderBy().expression());
             int lookback = maxWindow + (hasCross && maxWindow > 0 ? 1 : 0);
-            var accessPath = new AccessPathPlanner(registry).choose(query, lookback);
+            var accessPath = new AccessPathPlanner(registry, catalog).choose(query, lookback, needsFinancial);
             if (!"DETAIL_TABLE".equals(accessPath.selected())) {
                 diagnostics.add(new CompilationArtifact.Diagnostic("INFO", "ACCESS_PATH_CANDIDATE",
-                        "Feature path is eligible, but V1 SQL lowering stays on the detail path until feature freshness validation is connected."));
-                accessPath = new LogicalPlan.AccessPathDecision("DETAIL_TABLE", accessPath.candidates(),
-                        "V1 safety fallback: feature freshness is not connected to runtime metadata");
+                        accessPath.selected() + " has the lowest eligible cost; V1 SQL execution remains detail-table compatible."));
             }
             String sql = buildSql(lookback);
             List<LogicalPlan.PlanNode> nodes = new ArrayList<>();
