@@ -1,5 +1,7 @@
 package com.acme.dorisdsl.compiler;
 
+import com.acme.dorisdsl.catalog.CatalogSnapshot;
+import com.acme.dorisdsl.catalog.CatalogSnapshotLoader;
 import com.acme.dorisdsl.parser.DslParserFacade;
 import com.acme.dorisdsl.registry.Registry;
 import com.acme.dorisdsl.rewrite.RuleEngine;
@@ -16,8 +18,12 @@ public final class DslCompiler {
     private final DorisSqlGenerator sqlGenerator;
 
     public DslCompiler(Registry registry) {
+        this(registry, new CatalogSnapshotLoader().loadDefault());
+    }
+
+    public DslCompiler(Registry registry, CatalogSnapshot catalog) {
         this.semanticAnalyzer = new SemanticAnalyzer(registry);
-        this.sqlGenerator = new DorisSqlGenerator(registry);
+        this.sqlGenerator = new DorisSqlGenerator(registry, catalog);
     }
 
     public CompilationArtifact compile(String dsl) {

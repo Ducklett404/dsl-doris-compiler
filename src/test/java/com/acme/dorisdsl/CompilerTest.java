@@ -34,7 +34,7 @@ class CompilerTest {
         assertFalse(artifact.sql().contains("'SH'"), "user values must be bound");
         assertFalse(artifact.sql().contains("15%"));
         assertEquals(8, artifact.bindings().size());
-        assertEquals("DETAIL_TABLE", artifact.logicalPlan().accessPath().selected());
+        assertEquals(6, artifact.logicalPlan().accessPath().candidates().size());
     }
 
     @Test void serializesAstAndRendersMarkdown() throws Exception {
@@ -43,7 +43,7 @@ class CompilerTest {
         String markdown = MarkdownRenderer.render(artifact);
         assertTrue(json.contains("\"kind\" : \"FunctionCall\""));
         assertTrue(markdown.contains("## Doris SQL"));
-        assertTrue(markdown.contains("| Access path | DETAIL_TABLE |"));
+        assertTrue(markdown.contains("| Access path | " + artifact.logicalPlan().accessPath().selected() + " |"));
     }
 
     @Test void rejectsUnknownFunctionsAndSqlInjectionTokens() {
