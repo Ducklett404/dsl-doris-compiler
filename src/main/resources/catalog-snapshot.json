@@ -1,0 +1,59 @@
+{
+  "version": "catalog-2026-08-12.1",
+  "capturedAt": "2026-08-12T08:00:00Z",
+  "tables": {
+    "detailTable": "market.dwd_quote_daily",
+    "financialPitTable": "market.dwd_financial_pit",
+    "calendarTable": "market.dim_trade_calendar",
+    "featureTable": "market.dws_quote_feature_daily",
+    "prefixSumTable": "market.dws_quote_prefix_sum_daily"
+  },
+  "tableMetadata": {
+    "DETAIL": {
+      "partitionRange": {"from": "2000-01-01", "to": "2026-08-11"},
+      "estimatedRows": 1850000000,
+      "bucketInfo": {"keys": ["symbol"], "count": 128},
+      "indexes": ["idx_market", "idx_trade_date"],
+      "materializedViews": ["mv_quote_daily_active"]
+    },
+    "FINANCIAL_PIT": {
+      "partitionRange": {"from": "2000-01-01", "to": "2026-08-11"},
+      "estimatedRows": 42000000,
+      "bucketInfo": {"keys": ["symbol"], "count": 64},
+      "indexes": ["idx_visible_range"],
+      "materializedViews": []
+    },
+    "CALENDAR": {
+      "partitionRange": {"from": "1990-01-01", "to": "2035-12-31"},
+      "estimatedRows": 17000,
+      "bucketInfo": {"keys": ["market"], "count": 8},
+      "indexes": ["idx_market_open_date"],
+      "materializedViews": []
+    },
+    "FEATURE": {
+      "partitionRange": {"from": "2010-01-01", "to": "2026-08-11"},
+      "estimatedRows": 920000000,
+      "bucketInfo": {"keys": ["symbol"], "count": 128},
+      "indexes": ["idx_feature_version"],
+      "materializedViews": ["mv_latest_features"]
+    },
+    "PREFIX_SUM": {
+      "partitionRange": {"from": "2010-01-01", "to": "2026-08-11"},
+      "estimatedRows": 910000000,
+      "bucketInfo": {"keys": ["symbol"], "count": 128},
+      "indexes": [],
+      "materializedViews": []
+    }
+  },
+  "feature": {"version": "feature-v17", "refreshedAt": "2026-08-12T07:30:00Z"},
+  "doris": {
+    "version": "3.0.5",
+    "matrix": {
+      "windowFunctions": true,
+      "bitmapIndex": true,
+      "invertedIndex": true,
+      "asyncMaterializedView": true,
+      "qualify": false
+    }
+  }
+}

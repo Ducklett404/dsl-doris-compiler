@@ -1,6 +1,7 @@
 package com.acme.dorisdsl.sql;
 
 import com.acme.dorisdsl.ast.Ast;
+import com.acme.dorisdsl.catalog.CatalogSnapshot;
 import com.acme.dorisdsl.compiler.CompilationArtifact;
 import com.acme.dorisdsl.compiler.CompileException;
 import com.acme.dorisdsl.plan.AccessPathPlanner;
@@ -21,8 +22,12 @@ import java.util.regex.Pattern;
 public final class DorisSqlGenerator {
     private static final Pattern SAFE_ALIAS = Pattern.compile("[a-z_][a-z0-9_]*");
     private final Registry registry;
+    private final CatalogSnapshot catalog;
 
-    public DorisSqlGenerator(Registry registry) { this.registry = registry; }
+    public DorisSqlGenerator(Registry registry, CatalogSnapshot catalog) {
+        this.registry = registry;
+        this.catalog = catalog;
+    }
 
     public Result generate(Ast.Query query) { return new Generation(query).run(); }
 
@@ -48,7 +53,7 @@ public final class DorisSqlGenerator {
             collect(query.where());
             if (query.orderBy() != null) collect(query.orderBy().expression());
             int lookback = maxWindow + (hasCross && maxWindow > 0 ? 1 : 0);
-            var accessPath = new AccessPathPlanner(registry).choose(query, lookback);
+            var accessPath = new AccessPathPlanner(registry, catalog).choose(query, lookback);
             if (!"DETAIL_TABLE".equals(accessPath.selected())) {
                 diagnostics.add(new CompilationArtifact.Diagnostic("INFO", "ACCESS_PATH_CANDIDATE",
                         "Feature path is eligible, but V1 SQL lowering stays on the detail path until feature freshness validation is connected."));
@@ -57,8 +62,8 @@ public final class DorisSqlGenerator {
             }
             String sql = buildSql(lookback);
             List<LogicalPlan.PlanNode> nodes = new ArrayList<>();
-            nodes.add(new LogicalPlan.PlanNode("Scan", registry.datasets().quoteTable()));
-            if (needsFinancial) nodes.add(new LogicalPlan.PlanNode("PointInTimeJoin", registry.datasets().financialTable()));
+            nodes.add(new LogicalPlan.PlanNode("Scan", catalog.tables().detailTable()));
+            if (needsFinancial) nodes.add(new LogicalPlan.PlanNode("PointInTimeJoin", catalog.tables().financialPitTable()));
             if (!windowMetrics.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Window", String.join(", ", windowMetrics.keySet())));
             if (!previousAliases.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Signal", "LAG operands for CROSS_UP"));
             nodes.add(new LogicalPlan.PlanNode("Filter", "Target-date predicate"));
@@ -150,9 +155,9 @@ public final class DorisSqlGenerator {
 
             StringBuilder sql = new StringBuilder("WITH base AS (\n  SELECT\n    ")
                     .append(String.join(",\n    ", baseSelect))
-                    .append("\n  FROM ").append(registry.datasets().quoteTable()).append(" q\n");
+                    .append("\n  FROM ").append(catalog.tables().detailTable()).append(" q\n");
             if (needsFinancial) {
-                sql.append("  LEFT JOIN ").append(registry.datasets().financialTable()).append(" f\n")
+                sql.append("  LEFT JOIN ").append(catalog.tables().financialPitTable()).append(" f\n")
                         .append("    ON f.symbol = q.symbol\n")
                         .append("   AND f.visible_from <= q.trade_date\n")
                         .append("   AND q.trade_date < f.visible_to\n");
@@ -160,7 +165,7 @@ public final class DorisSqlGenerator {
             if (lookback > 0) {
                 sql.append("  WHERE q.trade_date BETWEEN (\n")
                         .append("    SELECT MIN(cal_date) FROM (\n")
-                        .append("      SELECT cal_date FROM ").append(registry.datasets().calendarTable()).append("\n")
+                        .append("      SELECT cal_date FROM ").append(catalog.tables().calendarTable()).append("\n")
                         .append("      WHERE market = 'CN' AND is_open = 1 AND cal_date <= ?\n")
                         .append("      ORDER BY cal_date DESC LIMIT ").append(lookback + 1).append("\n")
                         .append("    ) trading_days\n  ) AND ?\n");

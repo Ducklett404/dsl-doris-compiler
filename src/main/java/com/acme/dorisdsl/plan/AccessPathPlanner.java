@@ -1,6 +1,7 @@
 package com.acme.dorisdsl.plan;
 
 import com.acme.dorisdsl.ast.Ast;
+import com.acme.dorisdsl.catalog.CatalogSnapshot;
 import com.acme.dorisdsl.registry.Registry;
 import com.acme.dorisdsl.registry.RegistryConfig;
 
@@ -9,22 +10,36 @@ import java.util.List;
 
 public final class AccessPathPlanner {
     private final Registry registry;
+    private final CatalogSnapshot catalog;
 
-    public AccessPathPlanner(Registry registry) { this.registry = registry; }
+    public AccessPathPlanner(Registry registry, CatalogSnapshot catalog) {
+        this.registry = registry;
+        this.catalog = catalog;
+    }
 
     public LogicalPlan.AccessPathDecision choose(Ast.Query query, int lookback) {
         boolean hasWindow = containsKind(query.where(), RegistryConfig.LoweringKind.WINDOW_AVG);
         boolean allFeatureBacked = allFunctionsFeatureBacked(query.where());
         List<LogicalPlan.Candidate> candidates = new ArrayList<>();
-        candidates.add(new LogicalPlan.Candidate("DETAIL_TABLE", 100 + lookback * 2.0, true,
+        candidates.add(new LogicalPlan.Candidate("DETAIL_TABLE", cost("DETAIL", 100) + lookback * 2.0, true,
                 "Always semantically complete; cost grows with window lookback"));
-        candidates.add(new LogicalPlan.Candidate("FEATURE_TABLE", allFeatureBacked ? 12 : 9999, allFeatureBacked,
-                allFeatureBacked ? "Every referenced indicator has a registered feature column" : "At least one indicator lacks a feature column"));
-        candidates.add(new LogicalPlan.Candidate("PREFIX_SUM", hasWindow ? 35 : 9999, hasWindow,
+        boolean featureFresh = !catalog.feature().refreshedAt()
+                .isBefore(query.asOf().atStartOfDay(java.time.ZoneOffset.UTC).toInstant());
+        boolean featureEligible = allFeatureBacked && featureFresh;
+        candidates.add(new LogicalPlan.Candidate("FEATURE_TABLE", featureEligible ? cost("FEATURE", 12) : 9999, featureEligible,
+                featureEligible ? "Feature coverage and snapshot freshness are sufficient" : "Feature coverage or snapshot freshness is insufficient"));
+        boolean prefixEligible = hasWindow && catalog.doris().supports("windowFunctions");
+        candidates.add(new LogicalPlan.Candidate("PREFIX_SUM", prefixEligible ? cost("PREFIX_SUM", 35) : 9999, prefixEligible,
                 hasWindow ? "Window aggregate may be lowered to prefix sums in the next data-model iteration" : "No additive window aggregate"));
-        String selected = allFeatureBacked ? "FEATURE_TABLE" : "DETAIL_TABLE";
-        String reason = allFeatureBacked ? "Selected lowest-cost fully covered feature path" : "Selected correctness-first detail path";
+        String selected = featureEligible ? "FEATURE_TABLE" : "DETAIL_TABLE";
+        String reason = featureEligible ? "Selected lowest-cost fresh, fully covered feature path" : "Selected correctness-first detail path";
         return new LogicalPlan.AccessPathDecision(selected, candidates, reason);
+    }
+
+    private double cost(String table, double fallback) {
+        var metadata = catalog.tableMetadata().get(table);
+        return metadata == null || metadata.estimatedRows() <= 0
+                ? fallback : Math.max(1, Math.log10(metadata.estimatedRows()) * fallback / 10.0);
     }
 
     private boolean containsKind(Ast.Expr expr, RegistryConfig.LoweringKind kind) {
