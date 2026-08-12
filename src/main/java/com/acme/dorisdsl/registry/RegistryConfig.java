@@ -15,7 +15,12 @@ public record RegistryConfig(
     }
 
     public record Datasets(String quoteTable, String financialTable, String calendarTable, String featureTable) {}
-    public record FieldDefinition(String name, Ast.DataType type, String sourceSql) {}
+    public record FieldDefinition(String name, Ast.DataType type, String sourceSql, String version,
+                                  String description, String signature, List<String> boundaryTests) {
+        public FieldDefinition {
+            boundaryTests = boundaryTests == null ? List.of() : List.copyOf(boundaryTests);
+        }
+    }
     public record FunctionDefinition(
             String name,
             int minArgs,
@@ -24,13 +29,24 @@ public record RegistryConfig(
             LoweringKind loweringKind,
             String sqlTemplate,
             String featureColumn,
+            FinancialMetadata financialMetadata,
             Integer lookbackArg,
-            List<String> requiredFields
+            List<String> requiredFields,
+            String version,
+            String description,
+            String signature,
+            List<String> boundaryTests
     ) {
         public FunctionDefinition {
             requiredFields = requiredFields == null ? List.of() : List.copyOf(requiredFields);
+            boundaryTests = boundaryTests == null ? List.of() : List.copyOf(boundaryTests);
         }
     }
 
-    public enum LoweringKind { COLUMN, WINDOW_AVG, CROSS_UP, TEMPLATE }
+    public record FinancialMetadata(String visibleFromColumn, String visibleToColumn, String reportPeriodColumn) {}
+
+    public enum LoweringKind {
+        COLUMN, WINDOW_AVG, WINDOW_EMA, WINDOW_STDDEV, RETURN_N, RSI,
+        CROSS_UP, CROSS_DOWN, RANK_BY, PERCENTILE_RANK, TEMPLATE
+    }
 }

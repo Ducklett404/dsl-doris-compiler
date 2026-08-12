@@ -30,6 +30,6 @@ public final class DslCompiler {
         var trace = new ArrayList<>(rewritten.trace());
         trace.add(new CompilationArtifact.RuleTrace("R-104", "Deduplicated common window expressions and emitted layered CTEs"));
         return new CompilationArtifact(VERSION, rewritten.query(), generated.logicalPlan(), generated.sql(),
-                generated.bindings(), generated.lookback(), trace, generated.diagnostics());
+                generated.bindings(), generated.lookback(), generated.indicatorVersions(), trace, generated.diagnostics());
     }
 }

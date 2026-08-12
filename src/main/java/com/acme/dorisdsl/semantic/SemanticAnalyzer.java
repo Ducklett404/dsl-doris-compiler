@@ -35,12 +35,13 @@ public final class SemanticAnalyzer {
                 if (count < definition.minArgs() || count > definition.maxArgs())
                     throw error("FUNCTION_ARITY", call.name() + " expects " + definition.minArgs() + ".." + definition.maxArgs() + " arguments", call.span());
                 var arguments = call.arguments().stream().map(this::infer).toList();
-                if (definition.loweringKind() == com.acme.dorisdsl.registry.RegistryConfig.LoweringKind.WINDOW_AVG) {
+                if (isWindowFunction(definition.loweringKind())) {
                     requireNumeric(arguments.get(0));
                     if (!(arguments.get(1) instanceof Ast.Literal l) || l.type() != Ast.DataType.NUMBER)
                         throw error("WINDOW_LITERAL", call.name() + " window must be a numeric literal", arguments.get(1).span());
                 }
-                if (definition.loweringKind() == com.acme.dorisdsl.registry.RegistryConfig.LoweringKind.CROSS_UP) {
+                if (definition.loweringKind() == com.acme.dorisdsl.registry.RegistryConfig.LoweringKind.CROSS_UP ||
+                        definition.loweringKind() == com.acme.dorisdsl.registry.RegistryConfig.LoweringKind.CROSS_DOWN) {
                     requireNumeric(arguments.get(0));
                     requireNumeric(arguments.get(1));
                 }
@@ -110,6 +111,13 @@ public final class SemanticAnalyzer {
     private boolean isNumeric(Ast.DataType type) {
         return switch (type) {
             case NUMBER, PRICE, RATIO, PERCENT, VOLUME -> true;
+            default -> false;
+        };
+    }
+
+    private boolean isWindowFunction(com.acme.dorisdsl.registry.RegistryConfig.LoweringKind kind) {
+        return switch (kind) {
+            case WINDOW_AVG, WINDOW_EMA, WINDOW_STDDEV, RETURN_N, RSI -> true;
             default -> false;
         };
     }

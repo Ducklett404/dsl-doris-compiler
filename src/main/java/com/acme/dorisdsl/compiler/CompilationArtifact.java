@@ -12,14 +12,17 @@ public record CompilationArtifact(
         String sql,
         List<Object> bindings,
         int requiredLookbackTradingDays,
+        List<IndicatorVersion> indicatorVersions,
         List<RuleTrace> ruleTrace,
         List<Diagnostic> diagnostics
 ) {
     public CompilationArtifact {
         bindings = List.copyOf(bindings);
+        indicatorVersions = List.copyOf(indicatorVersions);
         ruleTrace = List.copyOf(ruleTrace);
         diagnostics = List.copyOf(diagnostics);
     }
     public record RuleTrace(String ruleId, String description) {}
     public record Diagnostic(String severity, String code, String message) {}
+    public record IndicatorVersion(String name, String version) {}
 }
