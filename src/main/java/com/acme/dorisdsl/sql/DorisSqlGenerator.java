@@ -1,6 +1,7 @@
 package com.acme.dorisdsl.sql;
 
 import com.acme.dorisdsl.ast.Ast;
+import com.acme.dorisdsl.catalog.CatalogSnapshot;
 import com.acme.dorisdsl.compiler.CompilationArtifact;
 import com.acme.dorisdsl.compiler.CompileException;
 import com.acme.dorisdsl.plan.AccessPathPlanner;
@@ -21,8 +22,12 @@ import java.util.regex.Pattern;
 public final class DorisSqlGenerator {
     private static final Pattern SAFE_ALIAS = Pattern.compile("[a-z_][a-z0-9_]*");
     private final Registry registry;
+    private final CatalogSnapshot catalog;
 
-    public DorisSqlGenerator(Registry registry) { this.registry = registry; }
+    public DorisSqlGenerator(Registry registry, CatalogSnapshot catalog) {
+        this.registry = registry;
+        this.catalog = catalog;
+    }
 
     public Result generate(Ast.Query query) { return new Generation(query).run(); }
 
@@ -48,18 +53,18 @@ public final class DorisSqlGenerator {
             collect(query.where());
             if (query.orderBy() != null) collect(query.orderBy().expression());
             int lookback = maxWindow + (hasCross && maxWindow > 0 ? 1 : 0);
-            var accessPath = new AccessPathPlanner(registry).choose(query, lookback);
+            var accessPath = new AccessPathPlanner(registry, catalog).choose(query, lookback, needsFinancial);
             if (!"DETAIL_TABLE".equals(accessPath.selected())) {
                 diagnostics.add(new CompilationArtifact.Diagnostic("INFO", "ACCESS_PATH_CANDIDATE",
-                        "Feature path is eligible, but V1 SQL lowering stays on the detail path until feature freshness validation is connected."));
-                accessPath = new LogicalPlan.AccessPathDecision("DETAIL_TABLE", accessPath.candidates(),
-                        "V1 safety fallback: feature freshness is not connected to runtime metadata");
+                        accessPath.selected() + " has the lowest eligible cost."));
             }
-            String sql = buildSql(lookback);
+            boolean usePrefixDaily = "PREFIX_DAILY".equals(accessPath.selected());
+            String sql = usePrefixDaily ? buildPrefixDailySql() : buildSql(lookback);
             List<LogicalPlan.PlanNode> nodes = new ArrayList<>();
-            nodes.add(new LogicalPlan.PlanNode("Scan", registry.datasets().quoteTable()));
+            nodes.add(new LogicalPlan.PlanNode("Scan", usePrefixDaily ? catalog.tables().prefixSumTable() : registry.datasets().quoteTable()));
             if (needsFinancial) nodes.add(new LogicalPlan.PlanNode("PointInTimeJoin", registry.datasets().financialTable()));
-            if (!windowMetrics.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Window", String.join(", ", windowMetrics.keySet())));
+            if (usePrefixDaily) nodes.add(new LogicalPlan.PlanNode("PrefixDifference", "current cumulative value minus N-day-prior cumulative value"));
+            else if (!windowMetrics.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Window", String.join(", ", windowMetrics.keySet())));
             if (!previousAliases.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Signal", "LAG operands for CROSS_UP"));
             nodes.add(new LogicalPlan.PlanNode("Filter", "Target-date predicate"));
             if (query.orderBy() != null) nodes.add(new LogicalPlan.PlanNode("Sort", query.orderBy().direction().name()));
@@ -110,8 +115,10 @@ public final class DorisSqlGenerator {
                     throw new CompileException("WINDOW_RANGE", "Window must be between 1 and 5000", call.span().line(), call.span().column());
                 maxWindow = Math.max(maxWindow, window);
                 alias = uniqueAlias(call.name().toLowerCase(Locale.ROOT) + "_" + inputAlias + "_" + window);
-                windowMetrics.put(alias, "AVG(" + q(inputAlias) + ") OVER (PARTITION BY symbol ORDER BY trade_date ROWS BETWEEN "
-                        + (window - 1) + " PRECEDING AND CURRENT ROW)");
+                String frame = " OVER (PARTITION BY symbol ORDER BY trade_date ROWS BETWEEN "
+                        + (window - 1) + " PRECEDING AND CURRENT ROW)";
+                windowMetrics.put(alias, "CASE WHEN COUNT(" + q(inputAlias) + ")" + frame + " = " + window
+                        + " THEN AVG(" + q(inputAlias) + ")" + frame + " ELSE NULL END");
             } else {
                 throw new CompileException("LOWERING_ERROR", "Function is not a metric: " + call.name(), call.span().line(), call.span().column());
             }
@@ -205,6 +212,62 @@ public final class DorisSqlGenerator {
             sql.append("\nLIMIT ").append(query.limit()).append(';');
             return sql.toString();
         }
+
+        private String buildPrefixDailySql() {
+            Map<String, PrefixMetric> prefixMetrics = new LinkedHashMap<>();
+            collectPrefixMetrics(query.where(), prefixMetrics);
+            if (query.orderBy() != null) collectPrefixMetrics(query.orderBy().expression(), prefixMetrics);
+            if (prefixMetrics.isEmpty()) throw new IllegalStateException("PREFIX_DAILY selected without prefix metrics");
+
+            String sequence = catalog.prefixDaily().tradingDaySequenceColumn();
+            StringBuilder sql = new StringBuilder("WITH target_day AS (\n")
+                    .append("  SELECT symbol, trade_date, ").append(sequence).append("\n")
+                    .append("  FROM ").append(catalog.tables().prefixSumTable()).append("\n")
+                    .append("  WHERE trade_date = ?\n),\nprefix_points AS (\n  SELECT t.symbol, t.trade_date");
+            bindings.add(query.asOf());
+            for (PrefixMetric metric : prefixMetrics.values()) {
+                sql.append(",\n    CASE WHEN (cur.").append(metric.countColumn()).append(" - COALESCE(prev_")
+                        .append(metric.alias()).append('.').append(metric.countColumn()).append(", 0)) = ")
+                        .append(metric.window()).append(" THEN (cur.").append(metric.sumColumn())
+                        .append(" - COALESCE(prev_").append(metric.alias()).append('.').append(metric.sumColumn())
+                        .append(", 0)) / ").append(metric.window()).append(" ELSE NULL END AS ").append(q(metric.alias()));
+            }
+            sql.append("\n  FROM target_day t\n  JOIN ").append(catalog.tables().prefixSumTable())
+                    .append(" cur ON cur.symbol = t.symbol AND cur.").append(sequence).append(" = t.").append(sequence);
+            for (PrefixMetric metric : prefixMetrics.values()) {
+                sql.append("\n  LEFT JOIN ").append(catalog.tables().prefixSumTable()).append(" prev_").append(metric.alias())
+                        .append(" ON prev_").append(metric.alias()).append(".symbol = t.symbol")
+                        .append(" AND prev_").append(metric.alias()).append('.').append(sequence)
+                        .append(" = t.").append(sequence).append(" - ").append(metric.window());
+            }
+            sql.append("\n)\nSELECT `symbol`, `trade_date`");
+            prefixMetrics.values().forEach(metric -> sql.append(", ").append(q(metric.alias())));
+            sql.append("\nFROM prefix_points\nWHERE ").append(render(query.where()));
+            if (query.orderBy() != null) sql.append("\nORDER BY ").append(render(query.orderBy().expression()))
+                    .append(' ').append(query.orderBy().direction().name());
+            sql.append("\nLIMIT ").append(query.limit()).append(';');
+            return sql.toString();
+        }
+
+        private void collectPrefixMetrics(Ast.Expr expr, Map<String, PrefixMetric> metrics) {
+            if (expr == null) return;
+            if (expr instanceof Ast.FunctionCall call) {
+                if (fn(call).loweringKind() == RegistryConfig.LoweringKind.WINDOW_AVG) {
+                    var field = (Ast.Identifier) call.arguments().get(0);
+                    int window = literalInt(call.arguments().get(fn(call).lookbackArg()));
+                    var columns = catalog.prefixDaily().fields().get(field.name().toUpperCase(Locale.ROOT));
+                    String alias = metricAliases.get(signature(call));
+                    metrics.putIfAbsent(alias, new PrefixMetric(alias, columns.cumulativeValueColumn(),
+                            columns.cumulativeCountColumn(), window));
+                }
+                call.arguments().forEach(argument -> collectPrefixMetrics(argument, metrics));
+            } else if (expr instanceof Ast.Binary e) { collectPrefixMetrics(e.left(), metrics); collectPrefixMetrics(e.right(), metrics); }
+            else if (expr instanceof Ast.Unary e) collectPrefixMetrics(e.operand(), metrics);
+            else if (expr instanceof Ast.Between e) { collectPrefixMetrics(e.value(), metrics); collectPrefixMetrics(e.lower(), metrics); collectPrefixMetrics(e.upper(), metrics); }
+            else if (expr instanceof Ast.InList e) { collectPrefixMetrics(e.value(), metrics); e.options().forEach(option -> collectPrefixMetrics(option, metrics)); }
+        }
+
+        private record PrefixMetric(String alias, String sumColumn, String countColumn, int window) {}
 
         private String render(Ast.Expr expr) {
             return switch (expr) {

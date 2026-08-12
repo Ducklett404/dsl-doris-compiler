@@ -1,0 +1,58 @@
+{
+  "version": "catalog-2026-08-12.1",
+  "capturedAt": "2026-08-12T08:00:00Z",
+  "tables": {
+    "detailTable": "market.dwd_quote_daily",
+    "financialPitTable": "market.dwd_financial_pit",
+    "calendarTable": "market.dim_trade_calendar",
+    "featureTable": "market.dws_quote_feature_daily",
+    "prefixSumTable": "market.dws_quote_prefix_daily"
+  },
+  "tableMetadata": {
+    "DETAIL": {
+      "estimatedRows": 1850000000,
+      "estimatedRowBytes": 96,
+      "partitionRange": {"from": "2000-01-01", "to": "2026-08-12"},
+      "bucketInfo": {"keys": ["symbol"], "count": 128},
+      "indexes": ["idx_market", "idx_trade_date"],
+      "materializedViews": ["mv_quote_daily_active"]
+    },
+    "PREFIX_DAILY": {
+      "estimatedRows": 910000000,
+      "estimatedRowBytes": 48,
+      "partitionRange": {"from": "2010-01-01", "to": "2026-08-12"},
+      "bucketInfo": {"keys": ["symbol"], "count": 128},
+      "indexes": [],
+      "materializedViews": []
+    },
+    "FEATURE_DAILY": {
+      "estimatedRows": 920000000,
+      "estimatedRowBytes": 64,
+      "partitionRange": {"from": "2010-01-01", "to": "2026-08-12"},
+      "bucketInfo": {"keys": ["symbol"], "count": 128},
+      "indexes": ["idx_feature_version"],
+      "materializedViews": ["mv_latest_features"]
+    }
+  },
+  "prefixDaily": {
+    "tradingDaySequenceColumn": "trading_day_seq",
+    "fields": {
+      "CLOSE": {"cumulativeValueColumn": "close_sum", "cumulativeCountColumn": "close_count"},
+      "OPEN": {"cumulativeValueColumn": "open_sum", "cumulativeCountColumn": "open_count"},
+      "VOLUME": {"cumulativeValueColumn": "volume_sum", "cumulativeCountColumn": "volume_count"}
+    },
+    "suspensionGapPolicy": "COUNT_VALID_OBSERVATIONS",
+    "insufficientWindowPolicy": "STRICT_NULL"
+  },
+  "feature": {"version": "feature-v17", "refreshedAt": "2026-08-12T23:59:59Z"},
+  "doris": {
+    "version": "3.0.5",
+    "matrix": {
+      "windowFunctions": true,
+      "prefixDaily": true,
+      "materializedViewRewrite": true,
+      "queryCache": true,
+      "bitmapIndex": true
+    }
+  }
+}
