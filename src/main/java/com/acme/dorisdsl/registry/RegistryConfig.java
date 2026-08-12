@@ -24,6 +24,7 @@ public record RegistryConfig(
             LoweringKind loweringKind,
             String sqlTemplate,
             String featureColumn,
+            FinancialMetadata financialMetadata,
             Integer lookbackArg,
             List<String> requiredFields
     ) {
@@ -31,6 +32,8 @@ public record RegistryConfig(
             requiredFields = requiredFields == null ? List.of() : List.copyOf(requiredFields);
         }
     }
+
+    public record FinancialMetadata(String visibleFromColumn, String visibleToColumn, String reportPeriodColumn) {}
 
     public enum LoweringKind { COLUMN, WINDOW_AVG, CROSS_UP, TEMPLATE }
 }
