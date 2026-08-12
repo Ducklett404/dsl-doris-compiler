@@ -1,0 +1,12 @@
+com\acme\dorisdsl\executor\doris\JdbcDorisQueryExecutor.class
+com\acme\dorisdsl\executor\doris\DorisQueryExecutor$QueryExecution.class
+com\acme\dorisdsl\executor\doris\ExplainService$Ratio.class
+com\acme\dorisdsl\executor\doris\QueryProfileCollector$ProfileTextClient.class
+com\acme\dorisdsl\executor\doris\BenchmarkRunner.class
+com\acme\dorisdsl\executor\doris\ExplainService.class
+com\acme\dorisdsl\executor\doris\QueryProfileCollector$QueryProfile.class
+com\acme\dorisdsl\executor\doris\JdbcDorisQueryExecutor$ConnectionFactory.class
+com\acme\dorisdsl\executor\doris\DorisQueryExecutor.class
+com\acme\dorisdsl\executor\doris\QueryProfileCollector.class
+com\acme\dorisdsl\executor\doris\ExplainService$ExplainEvidence.class
+com\acme\dorisdsl\executor\doris\BenchmarkRunner$PerformanceReport.class

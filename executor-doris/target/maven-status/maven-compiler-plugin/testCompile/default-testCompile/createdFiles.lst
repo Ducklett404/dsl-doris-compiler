@@ -1,0 +1,4 @@
+com\acme\dorisdsl\executor\doris\QueryProfileCollectorTest.class
+com\acme\dorisdsl\executor\doris\BenchmarkRunnerTest.class
+com\acme\dorisdsl\executor\doris\ExplainServiceTest.class
+com\acme\dorisdsl\executor\doris\ExplainServiceTest$StubExecutor.class
