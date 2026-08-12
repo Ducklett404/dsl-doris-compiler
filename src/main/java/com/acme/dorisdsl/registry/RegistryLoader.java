@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public final class RegistryLoader {
     private final ObjectMapper mapper = new ObjectMapper()
@@ -39,7 +40,9 @@ public final class RegistryLoader {
         List<RegistryConfig> plugins = new ArrayList<>();
         for (Path path : pluginPaths) {
             try (InputStream input = Files.newInputStream(path)) {
-                plugins.add(mapper.readValue(input, RegistryConfig.class));
+                JsonNode source = mapper.readTree(input);
+                PluginVerifier.verify(source, mapper);
+                plugins.add(mapper.treeToValue(source, RegistryConfig.class));
             }
         }
         validate(base, true);
@@ -50,6 +53,10 @@ public final class RegistryLoader {
     private void validate(RegistryConfig config, boolean requireDatasets) {
         if (requireDatasets && config.datasets() == null)
             throw new CompileException("REGISTRY_INVALID", "Base registry requires datasets", 1, 1);
+        if (!requireDatasets && (config.id() == null || config.version() == null || config.signature() == null))
+            throw new CompileException("PLUGIN_METADATA_REQUIRED", "Plugin id, version, and signature are required", 1, 1);
+        if (!requireDatasets && config.datasets() != null)
+            throw new CompileException("PLUGIN_DATASET_FORBIDDEN", "Plugins cannot define or override datasets", 1, 1);
         for (var field : config.fields()) validateSqlFragment(field.sourceSql(), "field " + field.name());
         for (var function : config.functions()) {
             if (function.minArgs() < 0 || function.maxArgs() < function.minArgs())
@@ -63,8 +70,9 @@ public final class RegistryLoader {
 
     private void validateSqlFragment(String sql, String owner) {
         if (sql == null || sql.isBlank()) throw new CompileException("REGISTRY_INVALID", "Missing SQL for " + owner, 1, 1);
-        String lower = sql.toLowerCase();
-        if (sql.contains(";") || sql.contains("--") || sql.contains("/*") || lower.contains(" select ") || lower.startsWith("select "))
+        String lower = " " + sql.toLowerCase() + " ";
+        if (sql.contains(";") || sql.contains("--") || sql.contains("/*") || sql.contains("*/")
+                || lower.matches(".*\\b(select|with|insert|update|delete|drop|alter|create|grant|revoke|from|join)\\b.*"))
             throw new CompileException("REGISTRY_UNSAFE", "Unsafe SQL fragment in " + owner, 1, 1);
     }
 }

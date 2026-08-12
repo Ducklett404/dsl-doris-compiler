@@ -7,6 +7,10 @@ import com.acme.dorisdsl.registry.RegistryConfig;
 import com.acme.dorisdsl.rewrite.RuleEngine;
 import com.acme.dorisdsl.semantic.SemanticAnalyzer;
 import com.acme.dorisdsl.sql.DorisSqlGenerator;
+import com.acme.dorisdsl.security.CompilationSecurity;
+import com.acme.dorisdsl.security.SecurityPolicy;
+import com.acme.dorisdsl.security.SecurityAudit;
+import com.acme.dorisdsl.security.SecurityAuditLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,24 +26,39 @@ public final class DslCompiler {
     private final CompilerVersions versions;
     private final CompilationCache cache;
     private final NormalizedAstHasher hasher;
+    private final CompilationSecurity security;
+    private final SecurityAuditLog auditLog;
 
     public DslCompiler(Registry registry) {
         this(registry, new CompilerVersions(RuleEngine.VERSION, registry.catalogVersion(),
-                DEFAULT_DORIS_CAPABILITY_VERSION), new CompilationCache(1_024));
+                DEFAULT_DORIS_CAPABILITY_VERSION), new CompilationCache(1_024), SecurityPolicy.defaults(),
+                new SecurityAuditLog(10_000));
     }
 
     public DslCompiler(Registry registry, CompilerVersions versions, CompilationCache cache) {
+        this(registry, versions, cache, SecurityPolicy.defaults(), new SecurityAuditLog(10_000));
+    }
+
+    public DslCompiler(Registry registry, CompilerVersions versions, CompilationCache cache, SecurityPolicy securityPolicy) {
+        this(registry, versions, cache, securityPolicy, new SecurityAuditLog(10_000));
+    }
+
+    public DslCompiler(Registry registry, CompilerVersions versions, CompilationCache cache,
+                       SecurityPolicy securityPolicy, SecurityAuditLog auditLog) {
         this.registry = registry;
         this.versions = versions;
         this.cache = cache;
         this.semanticAnalyzer = new SemanticAnalyzer(registry);
         this.sqlGenerator = new DorisSqlGenerator(registry);
         this.hasher = new NormalizedAstHasher(registry);
+        this.security = new CompilationSecurity(securityPolicy);
+        this.auditLog = auditLog;
     }
 
     public CompilationArtifact compile(String dsl) {
         if (dsl == null || dsl.isBlank()) throw new CompileException("EMPTY_DSL", "DSL cannot be empty", 1, 1);
         if (dsl.length() > 100_000) throw new CompileException("DSL_TOO_LARGE", "DSL exceeds 100000 characters", 1, 1);
+        security.validateDsl(dsl);
         Ast.Query parsed = parser.parse(dsl);
         Ast.Query typed = semanticAnalyzer.analyze(parsed);
         RuleEngine.Result rewritten = ruleEngine.rewrite(typed);
@@ -66,11 +85,14 @@ public final class DslCompiler {
 
     public CompilationCache.Stats cacheStats() { return cache.stats(); }
     public CompilerVersions versions() { return versions; }
+    public List<SecurityAudit> securityAudits() { return auditLog.snapshot(); }
 
     private CompilationArtifact artifact(Ast.Query ast, com.acme.dorisdsl.plan.LogicalPlan logicalPlan,
                                          String sql, List<Object> bindings,
                                          List<CompilationArtifact.Diagnostic> diagnostics,
                                          List<CompilationArtifact.RuleTrace> trace, int lookback) {
+        var securityAudit = security.auditAndEnforce(sql, bindings, logicalPlan, lookback);
+        auditLog.append(securityAudit);
         return new CompilationArtifact(ast, logicalPlan, sql, bindings, diagnostics, trace,
                 logicalPlan.accessPath(), lookback, VERSION, versions.ruleSetVersion());
     }

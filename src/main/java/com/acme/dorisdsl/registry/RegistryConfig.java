@@ -5,6 +5,11 @@ import com.acme.dorisdsl.ast.Ast;
 import java.util.List;
 
 public record RegistryConfig(
+        String id,
+        String version,
+        String signature,
+        String minCompilerVersion,
+        String maxCompilerVersion,
         Datasets datasets,
         List<FieldDefinition> fields,
         List<FunctionDefinition> functions

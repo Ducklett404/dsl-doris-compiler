@@ -16,7 +16,7 @@ public final class CompileHttpServer implements AutoCloseable {
     private final HttpServer server;
 
     public CompileHttpServer(DslCompiler compiler, String host, int port) throws IOException {
-        this(compiler, host, port, CompileAuthorizer.ALLOW_ALL);
+        this(compiler, host, port, new PermissionGate());
     }
 
     public CompileHttpServer(DslCompiler compiler, String host, int port, CompileAuthorizer authorizer) throws IOException {
@@ -43,10 +43,19 @@ public final class CompileHttpServer implements AutoCloseable {
             authorizer.authorize(context, source);
             respond(exchange, 200, compiler.compile(source));
         } catch (CompileException e) {
-            respond(exchange, 400, Map.of("error", e.code(), "message", e.getMessage(), "line", e.line(), "column", e.column()));
+            respond(exchange, statusFor(e), Map.of("error", e.code(), "message", e.getMessage(), "line", e.line(), "column", e.column()));
         } catch (Exception e) {
             respond(exchange, 500, Map.of("error", "internal_error", "message", e.getMessage()));
         }
+    }
+
+    private int statusFor(CompileException exception) {
+        return switch (exception.code()) {
+            case "AUTH_REQUIRED" -> 401;
+            case "AUTH_FORBIDDEN" -> 403;
+            case "SCAN_LIMIT_EXCEEDED", "COST_LIMIT_EXCEEDED" -> 422;
+            default -> 400;
+        };
     }
 
     @SuppressWarnings("unchecked")

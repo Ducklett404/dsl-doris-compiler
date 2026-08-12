@@ -18,6 +18,22 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HttpServerTest {
+    @Test void defaultServerRejectsCompileWithoutPermissionContext() throws Exception {
+        var compiler = new DslCompiler(new RegistryLoader().loadDefault(List.of()));
+        try (var server = new CompileHttpServer(compiler, "127.0.0.1", 0)) {
+            server.start();
+            String body = JsonSupport.MAPPER.writeValueAsString(Map.of(
+                    "dsl", "SCREEN ON 2026-08-07 WHERE CLOSE > 10 LIMIT 5"));
+            var response = HttpClient.newHttpClient().send(HttpRequest.newBuilder(
+                            URI.create("http://127.0.0.1:" + server.port() + "/compile"))
+                            .header("Content-Type", "application/json")
+                            .POST(HttpRequest.BodyPublishers.ofString(body)).build(),
+                    HttpResponse.BodyHandlers.ofString());
+            assertEquals(401, response.statusCode());
+            assertTrue(response.body().contains("AUTH_REQUIRED"));
+        }
+    }
+
     @Test void servesHealthCompileAndStructuredErrors() throws Exception {
         var compiler = new DslCompiler(new RegistryLoader().loadDefault(List.of()));
         AtomicInteger authorizationChecks = new AtomicInteger();

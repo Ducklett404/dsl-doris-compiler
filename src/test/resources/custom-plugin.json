@@ -1,4 +1,9 @@
 {
+  "id": "custom-indicators",
+  "version": "1.0.0",
+  "signature": "sha256:0bc751123b0796ad4bf2bebac25c942f539577da9286dc9846d9277ef5f4f308",
+  "minCompilerVersion": "0.1.0",
+  "maxCompilerVersion": "0.1.0",
   "functions": [
     {
       "name":"ABS_CHANGE",
