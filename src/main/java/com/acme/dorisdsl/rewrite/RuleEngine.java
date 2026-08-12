@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class RuleEngine {
+    public static final String VERSION = "rules-1.0.0";
+
     public Result rewrite(Ast.Query query) {
         List<CompilationArtifact.RuleTrace> trace = new ArrayList<>();
         Ast.Expr where = query.where() == null ? null : fold(query.where(), trace);

@@ -6,20 +6,25 @@ import com.acme.dorisdsl.plan.LogicalPlan;
 import java.util.List;
 
 public record CompilationArtifact(
-        String compilerVersion,
         Ast.Query ast,
         LogicalPlan logicalPlan,
         String sql,
         List<Object> bindings,
-        int requiredLookbackTradingDays,
+        List<Diagnostic> diagnostics,
         List<RuleTrace> ruleTrace,
-        List<Diagnostic> diagnostics
+        LogicalPlan.AccessPathDecision accessPath,
+        int lookback,
+        String compilerVersion,
+        String ruleSetVersion
 ) {
     public CompilationArtifact {
         bindings = List.copyOf(bindings);
-        ruleTrace = List.copyOf(ruleTrace);
         diagnostics = List.copyOf(diagnostics);
+        ruleTrace = List.copyOf(ruleTrace);
     }
+
+    public int requiredLookbackTradingDays() { return lookback; }
+
     public record RuleTrace(String ruleId, String description) {}
     public record Diagnostic(String severity, String code, String message) {}
 }

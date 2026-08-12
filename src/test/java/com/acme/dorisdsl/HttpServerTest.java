@@ -12,13 +12,17 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class HttpServerTest {
     @Test void servesHealthCompileAndStructuredErrors() throws Exception {
         var compiler = new DslCompiler(new RegistryLoader().loadDefault(List.of()));
-        try (var server = new CompileHttpServer(compiler, "127.0.0.1", 0)) {
+        AtomicInteger authorizationChecks = new AtomicInteger();
+        try (var server = new CompileHttpServer(compiler, "127.0.0.1", 0,
+                (context, dsl) -> authorizationChecks.incrementAndGet())) {
             server.start();
             var client = HttpClient.newHttpClient();
             var health = client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + server.port() + "/health")).GET().build(),
@@ -31,6 +35,18 @@ class HttpServerTest {
                     HttpResponse.BodyHandlers.ofString());
             assertEquals(200, response.statusCode());
             assertTrue(response.body().contains("market.dwd_quote_daily"));
+            @SuppressWarnings("unchecked")
+            Map<String, Object> artifact = JsonSupport.MAPPER.readValue(response.body(), Map.class);
+            assertEquals(Set.of("ast", "logicalPlan", "sql", "bindings", "diagnostics", "ruleTrace",
+                    "accessPath", "lookback", "compilerVersion", "ruleSetVersion"), artifact.keySet());
+            assertFalse(artifact.containsKey("requiredLookbackTradingDays"));
+
+            var cachedResponse = client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + server.port() + "/compile"))
+                            .header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(body)).build(),
+                    HttpResponse.BodyHandlers.ofString());
+            assertEquals(200, cachedResponse.statusCode());
+            assertEquals(2, authorizationChecks.get(), "authorization must run even when compilation is cached");
+            assertEquals(1, compiler.cacheStats().hits());
 
             String bad = JsonSupport.MAPPER.writeValueAsString(Map.of("dsl", "SCREEN ON 2026-08-07 WHERE UNKNOWN()"));
             var error = client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + server.port() + "/compile"))
@@ -38,6 +54,7 @@ class HttpServerTest {
                     HttpResponse.BodyHandlers.ofString());
             assertEquals(400, error.statusCode());
             assertTrue(error.body().contains("UNKNOWN_FUNCTION"));
+            assertEquals(3, authorizationChecks.get());
         }
     }
 }
