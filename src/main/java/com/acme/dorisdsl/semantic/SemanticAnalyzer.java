@@ -35,9 +35,12 @@ public final class SemanticAnalyzer {
                 if (count < definition.minArgs() || count > definition.maxArgs())
                     throw error("FUNCTION_ARITY", call.name() + " expects " + definition.minArgs() + ".." + definition.maxArgs() + " arguments", call.span());
                 var arguments = call.arguments().stream().map(this::infer).toList();
-                if (definition.loweringKind() == com.acme.dorisdsl.registry.RegistryConfig.LoweringKind.WINDOW_AVG) {
+                if (definition.loweringKind() == com.acme.dorisdsl.registry.RegistryConfig.LoweringKind.WINDOW_AVG ||
+                        definition.loweringKind() == com.acme.dorisdsl.registry.RegistryConfig.LoweringKind.WINDOW_STDDEV) {
                     requireNumeric(arguments.get(0));
-                    if (!(arguments.get(1) instanceof Ast.Literal l) || l.type() != Ast.DataType.NUMBER)
+                    int lookbackArg = definition.lookbackArg() == null && definition.windowSpec() != null
+                            ? definition.windowSpec().lengthArg() : definition.lookbackArg() == null ? 1 : definition.lookbackArg();
+                    if (!(arguments.get(lookbackArg) instanceof Ast.Literal l) || l.type() != Ast.DataType.NUMBER)
                         throw error("WINDOW_LITERAL", call.name() + " window must be a numeric literal", arguments.get(1).span());
                 }
                 if (definition.loweringKind() == com.acme.dorisdsl.registry.RegistryConfig.LoweringKind.CROSS_UP) {

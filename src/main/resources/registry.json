@@ -20,8 +20,8 @@
   "functions": [
     {"name":"MA","minArgs":2,"maxArgs":2,"returnType":"PRICE","loweringKind":"WINDOW_AVG","lookbackArg":1,"requiredFields":[]},
     {"name":"CROSS_UP","minArgs":2,"maxArgs":2,"returnType":"BOOLEAN","loweringKind":"CROSS_UP","requiredFields":[]},
-    {"name":"PE_TTM","minArgs":0,"maxArgs":0,"returnType":"RATIO","loweringKind":"COLUMN","sqlTemplate":"f.pe_ttm","featureColumn":"pe_ttm","requiredFields":[]},
-    {"name":"ROE_TTM","minArgs":0,"maxArgs":0,"returnType":"RATIO","loweringKind":"COLUMN","sqlTemplate":"f.roe_ttm","featureColumn":"roe_ttm","requiredFields":[]},
+    {"name":"PE_TTM","minArgs":0,"maxArgs":0,"returnType":"RATIO","loweringKind":"COLUMN","sqlTemplate":"f.pe_ttm","featureColumn":"pe_ttm","financialMetadata":{"visibleFromColumn":"visible_from","visibleToColumn":"visible_to","reportPeriodColumn":"report_period"},"requiredFields":[]},
+    {"name":"ROE_TTM","minArgs":0,"maxArgs":0,"returnType":"RATIO","loweringKind":"COLUMN","sqlTemplate":"f.roe_ttm","featureColumn":"roe_ttm","financialMetadata":{"visibleFromColumn":"visible_from","visibleToColumn":"visible_to","reportPeriodColumn":"report_period"},"requiredFields":[]},
     {"name":"ABS","minArgs":1,"maxArgs":1,"returnType":"NUMBER","loweringKind":"TEMPLATE","sqlTemplate":"ABS({0})","requiredFields":[]}
   ]
 }

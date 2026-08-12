@@ -1,0 +1,5 @@
+{
+  "functions": [
+    {"name":"BAD_COMMENT","id":"bad.comment","version":"1.0.0","signature":{"arguments":[{"name":"value","type":"PRICE"}],"returnType":"NUMBER"},"returnType":"NUMBER","loweringKind":"TEMPLATE","sqlTemplate":"ABS({0}) -- hide","requiredFields":[]}
+  ]
+}

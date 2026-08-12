@@ -38,6 +38,7 @@ public final class DorisSqlGenerator {
         private final Map<String, String> previousAliases = new LinkedHashMap<>();
         private final List<Object> bindings = new ArrayList<>();
         private final List<CompilationArtifact.Diagnostic> diagnostics = new ArrayList<>();
+        private RegistryConfig.FinancialMetadata financialMetadata;
         private int maxWindow;
         private boolean hasCross;
         private boolean needsFinancial;
@@ -75,7 +76,7 @@ public final class DorisSqlGenerator {
                     var definition = fn(call);
                     definition.requiredFields().forEach(this::ensureField);
                     switch (definition.loweringKind()) {
-                        case COLUMN, WINDOW_AVG -> ensureMetric(call);
+                        case COLUMN, WINDOW_AVG, WINDOW_STDDEV -> ensureMetric(call);
                         case CROSS_UP -> {
                             hasCross = true;
                             String left = ensureValueAlias(call.arguments().get(0));
@@ -102,15 +103,29 @@ public final class DorisSqlGenerator {
             if (definition.loweringKind() == RegistryConfig.LoweringKind.COLUMN) {
                 alias = uniqueAlias(call.name().toLowerCase(Locale.ROOT));
                 columnMetrics.put(alias, definition.sqlTemplate());
-                needsFinancial |= definition.sqlTemplate().contains("f.");
-            } else if (definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_AVG) {
+                if (definition.sqlTemplate().contains("f.")) {
+                    needsFinancial = true;
+                    financialMetadata = mergeFinancialMetadata(financialMetadata, definition.financialMetadata(), call);
+                    diagnostics.add(new CompilationArtifact.Diagnostic("INFO", "FINANCIAL_PIT",
+                            call.name() + " uses point-in-time financial visibility: f." +
+                                    financialMetadata.visibleFromColumn() + " <= q.trade_date < f." +
+                                    financialMetadata.visibleToColumn() + "; report period column f." +
+                                    financialMetadata.reportPeriodColumn() + " is not used for direct joins."));
+                }
+            } else if (definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_AVG ||
+                    definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_STDDEV) {
                 String inputAlias = ensureValueAlias(call.arguments().get(0));
-                int window = literalInt(call.arguments().get(definition.lookbackArg()));
+                int lookbackArg = definition.lookbackArg() == null && definition.windowSpec() != null
+                        ? definition.windowSpec().lengthArg() : definition.lookbackArg() == null ? 1 : definition.lookbackArg();
+                int window = literalInt(call.arguments().get(lookbackArg));
                 if (window < 1 || window > 5000)
                     throw new CompileException("WINDOW_RANGE", "Window must be between 1 and 5000", call.span().line(), call.span().column());
                 maxWindow = Math.max(maxWindow, window);
                 alias = uniqueAlias(call.name().toLowerCase(Locale.ROOT) + "_" + inputAlias + "_" + window);
-                windowMetrics.put(alias, "AVG(" + q(inputAlias) + ") OVER (PARTITION BY symbol ORDER BY trade_date ROWS BETWEEN "
+                String aggregate = definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_STDDEV
+                        ? "STDDEV_SAMP(" + q(inputAlias) + ")"
+                        : "AVG(" + q(inputAlias) + ")";
+                windowMetrics.put(alias, aggregate + " OVER (PARTITION BY symbol ORDER BY trade_date ROWS BETWEEN "
                         + (window - 1) + " PRECEDING AND CURRENT ROW)");
             } else {
                 throw new CompileException("LOWERING_ERROR", "Function is not a metric: " + call.name(), call.span().line(), call.span().column());
@@ -123,7 +138,8 @@ public final class DorisSqlGenerator {
             if (expr instanceof Ast.Identifier id) return ensureField(id.name());
             if (expr instanceof Ast.FunctionCall call) {
                 var kind = fn(call).loweringKind();
-                if (kind == RegistryConfig.LoweringKind.COLUMN || kind == RegistryConfig.LoweringKind.WINDOW_AVG)
+                if (kind == RegistryConfig.LoweringKind.COLUMN || kind == RegistryConfig.LoweringKind.WINDOW_AVG
+                        || kind == RegistryConfig.LoweringKind.WINDOW_STDDEV)
                     return ensureMetric(call);
             }
             throw new CompileException("METRIC_ARGUMENT", "Window/cross operand must resolve to a field or metric", expr.span().line(), expr.span().column());
@@ -154,8 +170,8 @@ public final class DorisSqlGenerator {
             if (needsFinancial) {
                 sql.append("  LEFT JOIN ").append(registry.datasets().financialTable()).append(" f\n")
                         .append("    ON f.symbol = q.symbol\n")
-                        .append("   AND f.visible_from <= q.trade_date\n")
-                        .append("   AND q.trade_date < f.visible_to\n");
+                        .append("   AND f.").append(financialMetadata.visibleFromColumn()).append(" <= q.trade_date\n")
+                        .append("   AND q.trade_date < f.").append(financialMetadata.visibleToColumn()).append("\n");
             }
             if (lookback > 0) {
                 sql.append("  WHERE q.trade_date BETWEEN (\n")
@@ -222,7 +238,7 @@ public final class DorisSqlGenerator {
         private String renderFunction(Ast.FunctionCall call) {
             var definition = fn(call);
             return switch (definition.loweringKind()) {
-                case COLUMN, WINDOW_AVG -> q(ensureMetric(call));
+                case COLUMN, WINDOW_AVG, WINDOW_STDDEV -> q(ensureMetric(call));
                 case CROSS_UP -> {
                     String left = ensureValueAlias(call.arguments().get(0));
                     String right = ensureValueAlias(call.arguments().get(1));
@@ -254,6 +270,19 @@ public final class DorisSqlGenerator {
 
         private RegistryConfig.FunctionDefinition fn(Ast.FunctionCall call) {
             return registry.function(call.name(), call.span().line(), call.span().column());
+        }
+
+        private RegistryConfig.FinancialMetadata mergeFinancialMetadata(RegistryConfig.FinancialMetadata current,
+                                                                        RegistryConfig.FinancialMetadata next,
+                                                                        Ast.FunctionCall call) {
+            if (next == null)
+                throw new CompileException("FINANCIAL_METADATA", "Financial function requires point-in-time metadata: " + call.name(),
+                        call.span().line(), call.span().column());
+            if (current == null) return next;
+            if (!current.equals(next))
+                throw new CompileException("FINANCIAL_METADATA", "Financial functions use incompatible point-in-time metadata",
+                        call.span().line(), call.span().column());
+            return current;
         }
 
         private String signature(Ast.Expr expr) {
