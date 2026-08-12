@@ -1,0 +1,86 @@
+{
+  "schemaVersion" : "1.0.0",
+  "kind" : "Query",
+  "asOf" : "2026-08-07",
+  "adjustment" : "FORWARD",
+  "where" : {
+    "kind" : "Binary",
+    "type" : "BOOLEAN",
+    "operator" : "AND",
+    "left" : {
+      "kind" : "Binary",
+      "type" : "BOOLEAN",
+      "operator" : "AND",
+      "left" : {
+        "kind" : "Between",
+        "type" : "BOOLEAN",
+        "value" : {
+          "kind" : "FunctionCall",
+          "type" : "RATIO",
+          "name" : "PE_TTM",
+          "arguments" : [ ]
+        },
+        "lower" : {
+          "kind" : "Literal",
+          "type" : "NUMBER",
+          "value" : 0
+        },
+        "upper" : {
+          "kind" : "Literal",
+          "type" : "NUMBER",
+          "value" : 20
+        }
+      },
+      "right" : {
+        "kind" : "Binary",
+        "type" : "BOOLEAN",
+        "operator" : ">=",
+        "left" : {
+          "kind" : "FunctionCall",
+          "type" : "RATIO",
+          "name" : "ROE_TTM",
+          "arguments" : [ ]
+        },
+        "right" : {
+          "kind" : "Literal",
+          "type" : "PERCENT",
+          "value" : 0.15
+        }
+      }
+    },
+    "right" : {
+      "kind" : "FunctionCall",
+      "type" : "BOOLEAN",
+      "name" : "CROSS_UP",
+      "arguments" : [ {
+        "kind" : "FunctionCall",
+        "type" : "PRICE",
+        "name" : "MA",
+        "arguments" : [ {
+          "kind" : "Identifier",
+          "type" : "PRICE",
+          "name" : "CLOSE"
+        }, {
+          "kind" : "Literal",
+          "type" : "NUMBER",
+          "value" : 5
+        } ]
+      }, {
+        "kind" : "FunctionCall",
+        "type" : "PRICE",
+        "name" : "MA",
+        "arguments" : [ {
+          "kind" : "Identifier",
+          "type" : "PRICE",
+          "name" : "CLOSE"
+        }, {
+          "kind" : "Literal",
+          "type" : "NUMBER",
+          "value" : 20
+        } ]
+      } ]
+    }
+  },
+  "orderBy" : null,
+  "limit" : 100
+}

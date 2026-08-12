@@ -55,7 +55,7 @@ public final class DorisSqlGenerator {
                 accessPath = new LogicalPlan.AccessPathDecision("DETAIL_TABLE", accessPath.candidates(),
                         "V1 safety fallback: feature freshness is not connected to runtime metadata");
             }
-            String sql = buildSql(lookback);
+            String sql = StableSqlFormatter.format(buildSql(lookback));
             List<LogicalPlan.PlanNode> nodes = new ArrayList<>();
             nodes.add(new LogicalPlan.PlanNode("Scan", registry.datasets().quoteTable()));
             if (needsFinancial) nodes.add(new LogicalPlan.PlanNode("PointInTimeJoin", registry.datasets().financialTable()));
