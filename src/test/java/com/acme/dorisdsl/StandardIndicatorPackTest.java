@@ -142,6 +142,20 @@ class StandardIndicatorPackTest {
         assertTrue(error.getMessage().contains("refusing to lower it as MA"));
     }
 
+    @Test void rsiSeparatesLagAndAverageWindowsAndMatchesKnownSequence() {
+        var artifact = compiler().compile(
+                "SCREEN ON 2026-08-07 WHERE RSI(CLOSE, 3) > 50 LIMIT 5");
+
+        String sql = artifact.sql();
+        assertEquals(4, artifact.requiredLookbackTradingDays());
+        assertTrue(sql.indexOf("changes AS (") < sql.indexOf("metrics AS ("));
+        assertTrue(sql.contains("`close` - LAG(`close`) OVER (PARTITION BY symbol ORDER BY trade_date) AS `change_close`"));
+        assertTrue(sql.contains("AVG(GREATEST(`change_close`, 0)) OVER"));
+        assertTrue(sql.contains("AVG(ABS(LEAST(`change_close`, 0))) OVER"));
+        assertFalse(sql.contains("AVG(GREATEST((`close` - LAG("));
+        assertEquals(75.0, referenceRsi(List.of(10.0, 11.0, 10.0, 12.0), 3), 0.000001);
+    }
+
     private static DslCompiler compiler() {
         return new DslCompiler(new RegistryLoader().loadDefault(List.of()));
     }
@@ -166,6 +180,19 @@ class StandardIndicatorPackTest {
             result.add(previous);
         }
         return result;
+    }
+
+    private static double referenceRsi(List<Double> values, int window) {
+        double gains = 0.0;
+        double losses = 0.0;
+        for (int index = values.size() - window; index < values.size(); index++) {
+            double change = values.get(index) - values.get(index - 1);
+            gains += Math.max(change, 0.0);
+            losses += Math.max(-change, 0.0);
+        }
+        double averageGain = gains / window;
+        double averageLoss = losses / window;
+        return averageLoss == 0.0 ? 100.0 : 100.0 - 100.0 / (1.0 + averageGain / averageLoss);
     }
 
     private static void assertMetadata(String name, String version, String description, String signature,

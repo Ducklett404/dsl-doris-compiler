@@ -35,6 +35,8 @@ public final class DorisSqlGenerator {
         private final Set<String> baseFields = new LinkedHashSet<>();
         private final Map<String, String> columnMetrics = new LinkedHashMap<>();
         private final Map<String, String> windowMetrics = new LinkedHashMap<>();
+        private final Map<String, String> changeMetrics = new LinkedHashMap<>();
+        private final Map<String, String> rsiMetrics = new LinkedHashMap<>();
         private final Map<String, String> metricAliases = new LinkedHashMap<>();
         private final Map<String, String> previousAliases = new LinkedHashMap<>();
         private final Map<String, CompilationArtifact.IndicatorVersion> indicatorVersions = new LinkedHashMap<>();
@@ -62,7 +64,12 @@ public final class DorisSqlGenerator {
             List<LogicalPlan.PlanNode> nodes = new ArrayList<>();
             nodes.add(new LogicalPlan.PlanNode("Scan", registry.datasets().quoteTable()));
             if (needsFinancial) nodes.add(new LogicalPlan.PlanNode("PointInTimeJoin", registry.datasets().financialTable()));
-            if (!windowMetrics.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Window", String.join(", ", windowMetrics.keySet())));
+            if (!changeMetrics.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Change", String.join(", ", changeMetrics.keySet())));
+            if (!windowMetrics.isEmpty() || !rsiMetrics.isEmpty()) {
+                List<String> metrics = new ArrayList<>(windowMetrics.keySet());
+                metrics.addAll(rsiMetrics.keySet());
+                nodes.add(new LogicalPlan.PlanNode("Window", String.join(", ", metrics)));
+            }
             if (!previousAliases.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Signal", "LAG operands for cross signals"));
             nodes.add(new LogicalPlan.PlanNode("Filter", "Target-date predicate"));
             if (query.orderBy() != null) nodes.add(new LogicalPlan.PlanNode("Sort", query.orderBy().direction().name()));
@@ -146,14 +153,20 @@ public final class DorisSqlGenerator {
                         + ") OVER (PARTITION BY symbol ORDER BY trade_date) - 1)");
             } else if (definition.loweringKind() == RegistryConfig.LoweringKind.RSI) {
                 String inputAlias = ensureValueAlias(call.arguments().get(0));
+                if (rsiMetrics.containsKey(inputAlias))
+                    throw new CompileException("RSI_NESTING_UNSUPPORTED", "RSI cannot consume another RSI in the same lowering pipeline",
+                            call.span().line(), call.span().column());
                 int window = literalInt(call.arguments().get(definition.lookbackArg()));
                 maxWindow = Math.max(maxWindow, window + 1);
                 alias = uniqueAlias("rsi_" + inputAlias + "_" + window);
-                String diff = "(" + q(inputAlias) + " - LAG(" + q(inputAlias) + ") OVER (PARTITION BY symbol ORDER BY trade_date))";
-                windowMetrics.put(alias, "(100 - 100 / (1 + AVG(GREATEST(" + diff + ", 0)) OVER (PARTITION BY symbol ORDER BY trade_date ROWS BETWEEN "
-                        + (window - 1) + " PRECEDING AND CURRENT ROW) / NULLIF(AVG(ABS(LEAST(" + diff
-                        + ", 0))) OVER (PARTITION BY symbol ORDER BY trade_date ROWS BETWEEN " + (window - 1)
-                        + " PRECEDING AND CURRENT ROW), 0)))");
+                String changeAlias = "change_" + inputAlias;
+                changeMetrics.putIfAbsent(changeAlias, q(inputAlias) + " - LAG(" + q(inputAlias)
+                        + ") OVER (PARTITION BY symbol ORDER BY trade_date)");
+                String frame = " OVER (PARTITION BY symbol ORDER BY trade_date ROWS BETWEEN "
+                        + (window - 1) + " PRECEDING AND CURRENT ROW)";
+                String averageGain = "AVG(GREATEST(" + q(changeAlias) + ", 0))" + frame;
+                String averageLoss = "AVG(ABS(LEAST(" + q(changeAlias) + ", 0)))" + frame;
+                rsiMetrics.put(alias, "(100 - 100 / (1 + " + averageGain + " / NULLIF(" + averageLoss + ", 0)))");
             } else if (definition.loweringKind() == RegistryConfig.LoweringKind.RANK_BY ||
                     definition.loweringKind() == RegistryConfig.LoweringKind.PERCENTILE_RANK) {
                 String inputAlias = ensureValueAlias(call.arguments().get(0));
@@ -226,9 +239,23 @@ public final class DorisSqlGenerator {
 
             String source = "base";
             if (!windowMetrics.isEmpty()) {
-                sql.append(",\nmetrics AS (\n  SELECT base.*");
+                String cte = rsiMetrics.isEmpty() ? "metrics" : "window_inputs";
+                sql.append(",\n").append(cte).append(" AS (\n  SELECT base.*");
                 windowMetrics.forEach((alias, expression) -> sql.append(",\n    ").append(expression).append(" AS ").append(q(alias)));
                 sql.append("\n  FROM base\n)");
+                source = cte;
+            }
+            if (!changeMetrics.isEmpty()) {
+                String from = source;
+                sql.append(",\nchanges AS (\n  SELECT ").append(from).append(".*");
+                changeMetrics.forEach((alias, expression) -> sql.append(",\n    ").append(expression).append(" AS ").append(q(alias)));
+                sql.append("\n  FROM ").append(from).append("\n)");
+                source = "changes";
+            }
+            if (!rsiMetrics.isEmpty()) {
+                sql.append(",\nmetrics AS (\n  SELECT changes.*");
+                rsiMetrics.forEach((alias, expression) -> sql.append(",\n    ").append(expression).append(" AS ").append(q(alias)));
+                sql.append("\n  FROM changes\n)");
                 source = "metrics";
             }
             if (!previousAliases.isEmpty()) {
@@ -245,6 +272,7 @@ public final class DorisSqlGenerator {
             outputs.add("trade_date");
             outputs.addAll(columnMetrics.keySet());
             outputs.addAll(windowMetrics.keySet());
+            outputs.addAll(rsiMetrics.keySet());
             sql.append("\nSELECT ").append(outputs.stream().map(this::q).reduce((a, b) -> a + ", " + b).orElse("symbol"))
                     .append("\nFROM ").append(source)
                     .append("\nWHERE trade_date = ?");
@@ -370,6 +398,7 @@ public final class DorisSqlGenerator {
             int suffix = 2;
             Set<String> used = new LinkedHashSet<>();
             used.addAll(baseFields); used.addAll(columnMetrics.keySet()); used.addAll(windowMetrics.keySet());
+            used.addAll(changeMetrics.keySet()); used.addAll(rsiMetrics.keySet());
             while (used.contains(alias)) alias = base + "_" + suffix++;
             return alias;
         }
