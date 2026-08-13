@@ -50,7 +50,7 @@ public final class DorisSqlGenerator {
         private Result run() {
             collect(query.where());
             if (query.orderBy() != null) collect(query.orderBy().expression());
-            int lookback = maxWindow + (hasCross && maxWindow > 0 ? 1 : 0);
+            int lookback = hasCross ? maxWindow + 1 : maxWindow;
             var accessPath = new AccessPathPlanner(registry).choose(query, lookback);
             if (!"DETAIL_TABLE".equals(accessPath.selected())) {
                 diagnostics.add(new CompilationArtifact.Diagnostic("INFO", "ACCESS_PATH_CANDIDATE",
@@ -63,7 +63,7 @@ public final class DorisSqlGenerator {
             nodes.add(new LogicalPlan.PlanNode("Scan", registry.datasets().quoteTable()));
             if (needsFinancial) nodes.add(new LogicalPlan.PlanNode("PointInTimeJoin", registry.datasets().financialTable()));
             if (!windowMetrics.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Window", String.join(", ", windowMetrics.keySet())));
-            if (!previousAliases.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Signal", "LAG operands for CROSS_UP"));
+            if (!previousAliases.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Signal", "LAG operands for cross signals"));
             nodes.add(new LogicalPlan.PlanNode("Filter", "Target-date predicate"));
             if (query.orderBy() != null) nodes.add(new LogicalPlan.PlanNode("Sort", query.orderBy().direction().name()));
             nodes.add(new LogicalPlan.PlanNode("Limit", Integer.toString(query.limit())));
@@ -125,6 +125,10 @@ public final class DorisSqlGenerator {
                                     financialMetadata.visibleToColumn() + "; report period column f." +
                                     financialMetadata.reportPeriodColumn() + " is not used for direct joins."));
                 }
+            } else if (definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_EMA) {
+                throw new CompileException("EMA_LOWERING_UNAVAILABLE",
+                        "EMA requires recursive semantics or a versioned precomputed feature; refusing to lower it as MA",
+                        call.span().line(), call.span().column());
             } else if (isWindowMetric(definition.loweringKind())) {
                 String inputAlias = ensureValueAlias(call.arguments().get(0));
                 int window = literalInt(call.arguments().get(definition.lookbackArg()));
@@ -311,7 +315,6 @@ public final class DorisSqlGenerator {
 
         private boolean isWindowMetric(RegistryConfig.LoweringKind kind) {
             return kind == RegistryConfig.LoweringKind.WINDOW_AVG
-                    || kind == RegistryConfig.LoweringKind.WINDOW_EMA
                     || kind == RegistryConfig.LoweringKind.WINDOW_STDDEV;
         }
 
@@ -319,7 +322,6 @@ public final class DorisSqlGenerator {
             String frame = " OVER (PARTITION BY symbol ORDER BY trade_date ROWS BETWEEN " + (window - 1) + " PRECEDING AND CURRENT ROW)";
             return switch (kind) {
                 case WINDOW_STDDEV -> "STDDEV_SAMP(" + q(inputAlias) + ")" + frame;
-                case WINDOW_EMA -> "AVG(" + q(inputAlias) + ")" + frame;
                 default -> "AVG(" + q(inputAlias) + ")" + frame;
             };
         }

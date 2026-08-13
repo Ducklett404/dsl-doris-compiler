@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,7 +56,7 @@ class StandardIndicatorPackTest {
                 WHERE OPEN > 1
                   AND HIGH >= LOW
                   AND CLOSE > MA(CLOSE, 20)
-                  AND EMA(CLOSE, 12) > MA(CLOSE, 26)
+                  AND CLOSE > MA(CLOSE, 26)
                   AND VOLUME > 0
                   AND AMOUNT > 1000000
                   AND TURNOVER_RATE > 1%
@@ -87,7 +88,8 @@ class StandardIndicatorPackTest {
                 .collect(Collectors.toMap(CompilationArtifact.IndicatorVersion::name,
                         CompilationArtifact.IndicatorVersion::version, (left, right) -> left));
         STANDARD_FIELDS.forEach(name -> assertEquals("std@1.0.0", versions.get(name), name));
-        STANDARD_FUNCTIONS.forEach(name -> assertEquals("std@1.0.0", versions.get(name), name));
+        STANDARD_FUNCTIONS.stream().filter(name -> !name.equals("EMA"))
+                .forEach(name -> assertEquals("std@1.0.0", versions.get(name), name));
     }
 
     @Test void boundaryCasesRejectInvalidStandardIndicatorUsage() {
@@ -101,8 +103,69 @@ class StandardIndicatorPackTest {
                 () -> compiler().compile("SCREEN ON 2026-08-07 WHERE RANK_BY(CLOSE, OPEN) > 1 LIMIT 5")).code());
     }
 
+    @Test void baseFieldCrossSignalsScanThePreviousTradingDay() {
+        var crossUp = compiler().compile(
+                "SCREEN ON 2026-08-07 WHERE CROSS_UP(CLOSE, OPEN) LIMIT 5");
+        var crossDown = compiler().compile(
+                "SCREEN ON 2026-08-07 WHERE CROSS_DOWN(CLOSE, OPEN) LIMIT 5");
+
+        assertCrossScan(crossUp, 1, 2);
+        assertCrossScan(crossDown, 1, 2);
+        assertTrue(crossUp.sql().contains("LAG(`close`) OVER (PARTITION BY symbol ORDER BY trade_date)"));
+        assertTrue(crossDown.sql().contains("LAG(`open`) OVER (PARTITION BY symbol ORDER BY trade_date)"));
+        assertTrue(crossUp.sql().contains("`close` > `open` AND `prev_close` <= `prev_open`"));
+        assertTrue(crossDown.sql().contains("`close` < `open` AND `prev_close` >= `prev_open`"));
+    }
+
+    @Test void windowCrossSignalsScanOneMoreTradingDayThanTheLargestWindow() {
+        var crossUp = compiler().compile(
+                "SCREEN ON 2026-08-07 WHERE CROSS_UP(MA(CLOSE, 5), MA(CLOSE, 20)) LIMIT 5");
+        var crossDown = compiler().compile(
+                "SCREEN ON 2026-08-07 WHERE CROSS_DOWN(MA(CLOSE, 10), MA(CLOSE, 30)) LIMIT 5");
+
+        assertCrossScan(crossUp, 21, 22);
+        assertCrossScan(crossDown, 31, 32);
+        assertTrue(crossUp.sql().contains("FROM metrics\n)"));
+        assertTrue(crossDown.sql().contains("FROM metrics\n)"));
+        assertTrue(crossUp.sql().contains("LAG(`ma_close_20`) OVER (PARTITION BY symbol ORDER BY trade_date)"));
+        assertTrue(crossDown.sql().contains("LAG(`ma_close_30`) OVER (PARTITION BY symbol ORDER BY trade_date)"));
+    }
+
+    @Test void emaUsesRecursiveReferenceSemanticsAndNeverDegradesToMovingAverage() {
+        assertEquals(List.of(10.0, 11.0, 12.5, 12.75),
+                referenceEma(List.of(10.0, 12.0, 14.0, 13.0), 3));
+
+        CompileException error = assertThrows(CompileException.class,
+                () -> compiler().compile("SCREEN ON 2026-08-07 WHERE EMA(CLOSE, 20) > 10 LIMIT 5"));
+        assertEquals("EMA_LOWERING_UNAVAILABLE", error.code());
+        assertTrue(error.getMessage().contains("recursive semantics"));
+        assertTrue(error.getMessage().contains("refusing to lower it as MA"));
+    }
+
     private static DslCompiler compiler() {
         return new DslCompiler(new RegistryLoader().loadDefault(List.of()));
+    }
+
+    private static void assertCrossScan(CompilationArtifact artifact, int lookback, int calendarLimit) {
+        assertEquals(lookback, artifact.requiredLookbackTradingDays());
+        assertTrue(artifact.sql().contains("q.trade_date BETWEEN ("));
+        assertTrue(artifact.sql().contains("ORDER BY cal_date DESC LIMIT " + calendarLimit));
+        assertTrue(artifact.sql().contains("WHERE trade_date = ?"),
+                "target-date filtering must remain in the final layer");
+        assertFalse(artifact.sql().contains("FROM market.dwd_quote_daily q\n  WHERE q.trade_date = ?"),
+                "base scan must not be truncated to the target date");
+    }
+
+    private static List<Double> referenceEma(List<Double> values, int window) {
+        double alpha = 2.0 / (window + 1.0);
+        List<Double> result = new ArrayList<>();
+        double previous = values.getFirst();
+        result.add(previous);
+        for (int index = 1; index < values.size(); index++) {
+            previous = alpha * values.get(index) + (1.0 - alpha) * previous;
+            result.add(previous);
+        }
+        return result;
     }
 
     private static void assertMetadata(String name, String version, String description, String signature,
