@@ -9,6 +9,7 @@ import com.acme.dorisdsl.registry.RegistryLoader;
 import com.acme.dorisdsl.security.ReadOnlyExecutionAccount;
 import com.acme.dorisdsl.security.SecurityPolicy;
 import com.acme.dorisdsl.server.PermissionGate;
+import com.acme.dorisdsl.server.AuthenticatedIdentity;
 import com.acme.dorisdsl.util.JsonSupport;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -29,12 +30,11 @@ class SecurityGateTest {
     @TempDir Path temporaryDirectory;
 
     @Test void permissionGateRequiresIdentityAndCompilePermission() {
-        PermissionGate gate = new PermissionGate();
-        assertEquals("AUTH_REQUIRED", assertThrows(CompileException.class,
-                () -> gate.authorize(Map.of(), "dsl")).code());
+        PermissionGate gate = new PermissionGate((userId, permission) -> false);
         assertEquals("AUTH_FORBIDDEN", assertThrows(CompileException.class,
-                () -> gate.authorize(Map.of("userId", "u1", "permissions", List.of("READ")), "dsl")).code());
-        gate.authorize(Map.of("userId", "u1", "permissions", List.of("COMPILE_DSL")), "dsl");
+                () -> gate.authorize(new AuthenticatedIdentity("u1"))).code());
+        new PermissionGate((userId, permission) -> userId.equals("u1") && permission.equals("COMPILE_DSL"))
+                .authorize(new AuthenticatedIdentity("u1"));
     }
 
     @Test void scanAndCostGatesRejectExpensivePlans() {

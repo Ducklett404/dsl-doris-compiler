@@ -16,31 +16,35 @@ public final class CompileHttpServer implements AutoCloseable {
     private final HttpServer server;
 
     public CompileHttpServer(DslCompiler compiler, String host, int port) throws IOException {
-        this(compiler, host, port, new PermissionGate());
+        this(compiler, host, port, RequestAuthenticator.REJECT_ALL, (userId, permission) -> false);
     }
 
-    public CompileHttpServer(DslCompiler compiler, String host, int port, CompileAuthorizer authorizer) throws IOException {
+    public CompileHttpServer(DslCompiler compiler, String host, int port,
+                             RequestAuthenticator authenticator, PermissionService permissionService) throws IOException {
+        PermissionGate permissionGate = new PermissionGate(permissionService);
         server = HttpServer.create(new InetSocketAddress(host, port), 32);
         server.createContext("/health", exchange -> respond(exchange, 200, Map.of("status", "ok")));
-        server.createContext("/compile", exchange -> compile(exchange, compiler, authorizer));
+        server.createContext("/compile", exchange -> compile(exchange, compiler, authenticator, permissionGate));
         server.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
     }
 
     public void start() { server.start(); }
     public int port() { return server.getAddress().getPort(); }
 
-    private void compile(HttpExchange exchange, DslCompiler compiler, CompileAuthorizer authorizer) throws IOException {
+    private void compile(HttpExchange exchange, DslCompiler compiler,
+                         RequestAuthenticator authenticator, PermissionGate permissionGate) throws IOException {
         if (!"POST".equals(exchange.getRequestMethod())) {
             respond(exchange, 405, Map.of("error", "method_not_allowed"));
             return;
         }
         try {
+            AuthenticatedIdentity identity = authenticator.authenticate(exchange);
             @SuppressWarnings("unchecked")
             Map<String, Object> input = JsonSupport.MAPPER.readValue(exchange.getRequestBody(), Map.class);
+            rejectClientAuthorizationContext(input);
             Object dsl = input.get("dsl");
             if (!(dsl instanceof String source)) throw new CompileException("MISSING_DSL", "JSON field 'dsl' is required", 1, 1);
-            Map<String, Object> context = requestContext(input.get("context"));
-            authorizer.authorize(context, source);
+            permissionGate.authorize(identity);
             respond(exchange, 200, compiler.compile(source));
         } catch (CompileException e) {
             respond(exchange, statusFor(e), Map.of("error", e.code(), "message", e.getMessage(), "line", e.line(), "column", e.column()));
@@ -58,12 +62,11 @@ public final class CompileHttpServer implements AutoCloseable {
         };
     }
 
-    @SuppressWarnings("unchecked")
-    private Map<String, Object> requestContext(Object value) {
-        if (value == null) return Map.of();
-        if (!(value instanceof Map<?, ?> map))
-            throw new CompileException("INVALID_CONTEXT", "JSON field 'context' must be an object", 1, 1);
-        return Map.copyOf((Map<String, Object>) map);
+    private void rejectClientAuthorizationContext(Map<String, Object> input) {
+        if (input.containsKey("context") || input.containsKey("userId") || input.containsKey("permissions")) {
+            throw new CompileException("CLIENT_AUTH_CONTEXT_FORBIDDEN",
+                    "Identity and permissions must come from the trusted server authentication layer", 1, 1);
+        }
     }
 
     private static void respond(HttpExchange exchange, int status, Object body) throws IOException {
