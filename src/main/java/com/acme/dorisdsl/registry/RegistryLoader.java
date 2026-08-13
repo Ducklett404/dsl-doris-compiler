@@ -11,8 +11,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class RegistryLoader {
+    private static final Pattern TEMPLATE_PLACEHOLDER = Pattern.compile("\\{(\\d+)}");
+
     private final ObjectMapper mapper = new ObjectMapper()
             .registerModule(new JavaTimeModule())
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
@@ -59,9 +65,43 @@ public final class RegistryLoader {
                     function.loweringKind() == RegistryConfig.LoweringKind.COLUMN) {
                 validateSqlFragment(function.sqlTemplate(), "function " + function.name());
             }
+            if (function.loweringKind() == RegistryConfig.LoweringKind.TEMPLATE)
+                validateTemplatePlaceholders(function);
             if (function.sqlTemplate() != null && function.sqlTemplate().contains("f."))
                 validateFinancialMetadata(function);
         }
+    }
+
+    private void validateTemplatePlaceholders(RegistryConfig.FunctionDefinition function) {
+        String template = function.sqlTemplate();
+        Matcher matcher = TEMPLATE_PLACEHOLDER.matcher(template);
+        Set<Integer> usedArguments = new TreeSet<>();
+        StringBuilder nonPlaceholders = new StringBuilder();
+        while (matcher.find()) {
+            matcher.appendReplacement(nonPlaceholders, "");
+            int index;
+            try {
+                index = Integer.parseInt(matcher.group(1));
+            } catch (NumberFormatException e) {
+                throw invalidTemplate(function, "placeholder index is too large");
+            }
+            if (index >= function.maxArgs())
+                throw invalidTemplate(function, "placeholder {" + index + "} is outside maxArgs=" + function.maxArgs());
+            if (index >= function.minArgs())
+                throw invalidTemplate(function, "placeholder {" + index + "} refers to an optional argument, but templates have no conditional placeholders");
+            usedArguments.add(index);
+        }
+        matcher.appendTail(nonPlaceholders);
+        if (nonPlaceholders.indexOf("{") >= 0 || nonPlaceholders.indexOf("}") >= 0)
+            throw invalidTemplate(function, "malformed placeholder; expected {n}");
+        for (int index = 0; index < function.minArgs(); index++) {
+            if (!usedArguments.contains(index))
+                throw invalidTemplate(function, "required argument " + index + " is not used");
+        }
+    }
+
+    private CompileException invalidTemplate(RegistryConfig.FunctionDefinition function, String problem) {
+        return new CompileException("REGISTRY_INVALID", "Invalid SQL template for " + function.name() + ": " + problem, 1, 1);
     }
 
     private void validatePluginContract(RegistryConfig.FunctionDefinition function) {

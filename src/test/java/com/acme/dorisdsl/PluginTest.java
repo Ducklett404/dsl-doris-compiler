@@ -4,7 +4,9 @@ import com.acme.dorisdsl.compiler.DslCompiler;
 import com.acme.dorisdsl.compiler.CompileException;
 import com.acme.dorisdsl.registry.RegistryLoader;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -13,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PluginTest {
+    @TempDir Path tempDir;
+
     @Test void addsIndicatorWithoutChangingCompilerCore() throws Exception {
         Path plugin = Path.of(getClass().getResource("/custom-plugin.json").toURI());
         var compiler = new DslCompiler(new RegistryLoader().loadDefault(List.of(plugin)));
@@ -56,10 +60,72 @@ class PluginTest {
         assertTrue(error.getMessage().contains("WindowStddevBuilder") || error.getMessage().contains("nullPolicy"));
     }
 
+    @Test void rejectsTemplatePlaceholderOutsideDeclaredArity() throws Exception {
+        CompileException error = loadTemplateExpectingFailure("ABS({1})", requiredArguments("value"));
+        assertEquals("REGISTRY_INVALID", error.code());
+        assertTrue(error.getMessage().contains("{1}") && error.getMessage().contains("maxArgs=1"));
+    }
+
+    @Test void rejectsTemplateThatOmitsARequiredArgument() throws Exception {
+        CompileException error = loadTemplateExpectingFailure("ABS({0})", requiredArguments("left", "right"));
+        assertEquals("REGISTRY_INVALID", error.code());
+        assertTrue(error.getMessage().contains("required argument 1"));
+    }
+
+    @Test void rejectsOptionalPlaceholderWithoutConditionalTemplateSupport() throws Exception {
+        String arguments = """
+                [{"name":"value","type":"NUMBER"},
+                 {"name":"scale","type":"NUMBER","defaultValue":1}]
+                """;
+        CompileException error = loadTemplateExpectingFailure("ABS({0}) * {1}", arguments);
+        assertEquals("REGISTRY_INVALID", error.code());
+        assertTrue(error.getMessage().contains("optional argument"));
+    }
+
+    @Test void rejectsMalformedTemplatePlaceholder() throws Exception {
+        CompileException error = loadTemplateExpectingFailure("ABS({value})", requiredArguments("value"));
+        assertEquals("REGISTRY_INVALID", error.code());
+        assertTrue(error.getMessage().contains("expected {n}"));
+    }
+
+    @Test void permitsRepeatedUseOfEveryRequiredArgument() throws Exception {
+        Path plugin = writeTemplatePlugin("ABS({0}) + ABS({0})", requiredArguments("value"));
+        var compiler = new DslCompiler(new RegistryLoader().loadDefault(List.of(plugin)));
+        var artifact = compiler.compile("SCREEN ON 2026-08-07 WHERE TEMPLATE_TEST(1) > 0 LIMIT 1");
+        assertTrue(artifact.sql().contains("ABS(?) + ABS(?) > ?"));
+    }
+
     private void assertUnsafePlugin(String resource) throws Exception {
         Path plugin = Path.of(getClass().getResource(resource).toURI());
         CompileException error = assertThrows(CompileException.class,
                 () -> new RegistryLoader().loadDefault(List.of(plugin)));
         assertTrue(error.code().equals("REGISTRY_UNSAFE") || error.code().equals("REGISTRY_INVALID"));
+    }
+
+    private CompileException loadTemplateExpectingFailure(String template, String arguments) throws Exception {
+        Path plugin = writeTemplatePlugin(template, arguments);
+        return assertThrows(CompileException.class, () -> new RegistryLoader().loadDefault(List.of(plugin)));
+    }
+
+    private Path writeTemplatePlugin(String template, String arguments) throws Exception {
+        Path plugin = tempDir.resolve("template-plugin-" + Math.abs(template.hashCode()) + ".json");
+        Files.writeString(plugin, """
+                {"functions":[{
+                  "name":"TEMPLATE_TEST",
+                  "id":"test.template",
+                  "version":"1.0.0",
+                  "signature":{"arguments":%s,"returnType":"NUMBER"},
+                  "returnType":"NUMBER",
+                  "loweringKind":"TEMPLATE",
+                  "sqlTemplate":"%s"
+                }]}
+                """.formatted(arguments, template));
+        return plugin;
+    }
+
+    private String requiredArguments(String... names) {
+        return java.util.Arrays.stream(names)
+                .map(name -> "{\"name\":\"" + name + "\",\"type\":\"NUMBER\"}")
+                .collect(java.util.stream.Collectors.joining(",", "[", "]"));
     }
 }

@@ -247,6 +247,10 @@ public final class DorisSqlGenerator {
                 case TEMPLATE -> {
                     String rendered = definition.sqlTemplate();
                     for (int i = 0; i < call.arguments().size(); i++) rendered = rendered.replace("{" + i + "}", render(call.arguments().get(i)));
+                    if (rendered.contains("{") || rendered.contains("}"))
+                        throw new CompileException("TEMPLATE_UNRESOLVED",
+                                "SQL template for " + call.name() + " contains an unresolved placeholder",
+                                call.span().line(), call.span().column());
                     yield rendered;
                 }
             };
