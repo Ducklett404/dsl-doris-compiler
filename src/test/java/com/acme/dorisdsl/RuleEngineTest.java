@@ -74,7 +74,10 @@ class RuleEngineTest {
     }
 
     private String golden(String name) throws Exception {
-        return Files.readString(Path.of(getClass().getResource("/golden/" + name).toURI())).trim();
+        return Files.readString(Path.of(getClass().getResource("/golden/" + name).toURI()))
+                .replace("\r\n", "\n")
+                .replace('\r', '\n')
+                .stripTrailing();
     }
 
     private static int occurrences(String value, String token) {
