@@ -93,6 +93,33 @@ class SecurityGateTest {
                 .sql().contains("db.table.column"));
     }
 
+    @Test void sqlLikeTextInsideStringLiteralsRemainsValidDslData() {
+        DslCompiler compiler = new DslCompiler(new RegistryLoader().loadDefault(List.of()));
+
+        var result = compiler.compile("""
+                SCREEN ON 2026-08-07
+                WHERE MARKET IN ['SELECT', 'DROP TABLE', '--literal', 'x; y', 'it''s WITH text']
+                LIMIT 5
+                """);
+
+        assertTrue(result.bindings().containsAll(List.of(
+                "SELECT", "DROP TABLE", "--literal", "x; y", "it's WITH text")));
+    }
+
+    @Test void unsafeTokenLocationStillUsesOriginalMultilineSource() {
+        DslCompiler compiler = new DslCompiler(new RegistryLoader().loadDefault(List.of()));
+
+        CompileException exception = assertThrows(CompileException.class, () -> compiler.compile("""
+                SCREEN ON 2026-08-07
+                WHERE MARKET = 'SELECT' -- bypass
+                LIMIT 5
+                """));
+
+        assertEquals("DSL_UNSAFE_TOKEN", exception.code());
+        assertEquals(2, exception.line());
+        assertEquals(25, exception.column());
+    }
+
     @Test void pluginSignatureVersionAndSqlFragmentsAreEnforced() throws Exception {
         String valid = Files.readString(Path.of(getClass().getResource("/custom-plugin.json").toURI()));
         assertPluginRejected(valid.replace("ABS({0} - {1})", "ABS({0} + {1})"), "PLUGIN_SIGNATURE_INVALID");

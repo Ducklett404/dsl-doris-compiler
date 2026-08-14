@@ -20,11 +20,53 @@ public final class CompilationSecurity {
     public CompilationSecurity(SecurityPolicy policy) { this.policy = policy; }
 
     public void validateDsl(String dsl) {
-        var match = FORBIDDEN_DSL.matcher(dsl);
+        var match = FORBIDDEN_DSL.matcher(maskStringLiterals(dsl));
         if (match.find()) {
+            int[] location = location(dsl, match.start());
             throw new CompileException("DSL_UNSAFE_TOKEN",
-                    "Arbitrary SQL, comments, subqueries, and semicolons are not allowed: " + match.group(), 1, match.start() + 1);
+                    "Arbitrary SQL, comments, subqueries, and semicolons are not allowed: " + match.group(),
+                    location[0], location[1]);
         }
+    }
+
+    private String maskStringLiterals(String dsl) {
+        StringBuilder masked = new StringBuilder(dsl);
+        boolean inString = false;
+        for (int index = 0; index < dsl.length(); index++) {
+            char current = dsl.charAt(index);
+            if (!inString) {
+                if (current == '\'') {
+                    inString = true;
+                    masked.setCharAt(index, ' ');
+                }
+                continue;
+            }
+
+            if (current == '\'' && index + 1 < dsl.length() && dsl.charAt(index + 1) == '\'') {
+                masked.setCharAt(index, ' ');
+                masked.setCharAt(++index, ' ');
+            } else if (current == '\'') {
+                inString = false;
+                masked.setCharAt(index, ' ');
+            } else if (current != '\r' && current != '\n') {
+                masked.setCharAt(index, ' ');
+            }
+        }
+        return masked.toString();
+    }
+
+    private int[] location(String source, int offset) {
+        int line = 1;
+        int column = 1;
+        for (int index = 0; index < offset; index++) {
+            if (source.charAt(index) == '\n') {
+                line++;
+                column = 1;
+            } else {
+                column++;
+            }
+        }
+        return new int[]{line, column};
     }
 
     public SecurityAudit auditAndEnforce(String sql, List<Object> bindings,
