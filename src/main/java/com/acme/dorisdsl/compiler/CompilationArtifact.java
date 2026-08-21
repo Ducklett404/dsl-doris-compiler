@@ -7,6 +7,8 @@ import java.util.List;
 
 public record CompilationArtifact(
         String compilerVersion,
+        String metadataVersion,
+        CacheKey cacheKey,
         Ast.Query ast,
         LogicalPlan logicalPlan,
         String sql,
@@ -20,6 +22,7 @@ public record CompilationArtifact(
         ruleTrace = List.copyOf(ruleTrace);
         diagnostics = List.copyOf(diagnostics);
     }
+    public record CacheKey(String sourceHash, String compilerVersion, String metadataVersion) {}
     public record RuleTrace(String ruleId, String description) {}
     public record Diagnostic(String severity, String code, String message) {}
 }
