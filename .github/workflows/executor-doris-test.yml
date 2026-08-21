@@ -1,0 +1,41 @@
+name: Doris executor tests
+
+on:
+  push:
+    paths:
+      - "executor-doris/**"
+      - ".github/workflows/executor-doris-test.yml"
+      - ".gitignore"
+  pull_request:
+    paths:
+      - "executor-doris/**"
+      - ".github/workflows/executor-doris-test.yml"
+      - ".gitignore"
+
+permissions:
+  contents: read
+
+jobs:
+  test-executor-doris:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+
+      - name: Reject tracked Maven build output
+        shell: bash
+        run: |
+          if git ls-files | grep -E '(^|/)target/'; then
+            echo "Tracked Maven target/ output is not allowed."
+            exit 1
+          fi
+
+      - name: Test Doris executor
+        run: mvn --batch-mode --no-transfer-progress -f executor-doris/pom.xml test
