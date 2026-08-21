@@ -8,5 +8,15 @@ public record LogicalPlan(List<PlanNode> nodes, AccessPathDecision accessPath) {
     public record AccessPathDecision(String selected, List<Candidate> candidates, String reason) {
         public AccessPathDecision { candidates = List.copyOf(candidates); }
     }
-    public record Candidate(String path, double cost, boolean eligible, String reason) {}
+    public record Candidate(String path, CostBreakdown costs, boolean eligible,
+                            List<String> eliminationReasons, String reason) {
+        public Candidate { eliminationReasons = List.copyOf(eliminationReasons); }
+        public double cost() { return costs.total(); }
+    }
+    public record CostBreakdown(double estimatedScanBytes, double windowComputeCost, double joinCost,
+                                double freshnessPenalty, double unsupportedRiskPenalty) {
+        public double total() {
+            return estimatedScanBytes + windowComputeCost + joinCost + freshnessPenalty + unsupportedRiskPenalty;
+        }
+    }
 }

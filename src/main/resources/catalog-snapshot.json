@@ -10,46 +10,54 @@
   },
   "tableMetadata": {
     "DETAIL": {
-      "partitionRange": {"from": "2000-01-01", "to": "2026-08-11"},
       "estimatedRows": 1850000000,
+      "estimatedRowBytes": 96,
+      "partitionRange": {"from": "2000-01-01", "to": "2026-08-12"},
       "bucketInfo": {"keys": ["symbol"], "count": 128},
       "indexes": ["idx_market", "idx_trade_date"],
       "materializedViews": ["mv_quote_daily_active"]
     },
     "FINANCIAL_PIT": {
-      "partitionRange": {"from": "2000-01-01", "to": "2026-08-11"},
       "estimatedRows": 42000000,
+      "estimatedRowBytes": 80,
+      "partitionRange": {"from": "2000-01-01", "to": "2026-08-12"},
       "bucketInfo": {"keys": ["symbol"], "count": 64},
       "indexes": ["idx_visible_range"],
       "materializedViews": []
     },
     "CALENDAR": {
-      "partitionRange": {"from": "1990-01-01", "to": "2035-12-31"},
       "estimatedRows": 17000,
+      "estimatedRowBytes": 24,
+      "partitionRange": {"from": "1990-01-01", "to": "2035-12-31"},
       "bucketInfo": {"keys": ["market"], "count": 8},
       "indexes": ["idx_market_open_date"],
       "materializedViews": []
     },
-    "FEATURE": {
-      "partitionRange": {"from": "2010-01-01", "to": "2026-08-11"},
+    "FEATURE_DAILY": {
       "estimatedRows": 920000000,
+      "estimatedRowBytes": 64,
+      "partitionRange": {"from": "2010-01-01", "to": "2026-08-12"},
       "bucketInfo": {"keys": ["symbol"], "count": 128},
       "indexes": ["idx_feature_version"],
       "materializedViews": ["mv_latest_features"]
     },
-    "PREFIX_SUM": {
-      "partitionRange": {"from": "2010-01-01", "to": "2026-08-11"},
+    "PREFIX_DAILY": {
       "estimatedRows": 910000000,
+      "estimatedRowBytes": 48,
+      "partitionRange": {"from": "2010-01-01", "to": "2026-08-12"},
       "bucketInfo": {"keys": ["symbol"], "count": 128},
       "indexes": [],
       "materializedViews": []
     }
   },
-  "feature": {"version": "feature-v17", "refreshedAt": "2026-08-12T07:30:00Z"},
+  "feature": {"version": "feature-v17", "refreshedAt": "2026-08-12T23:59:59Z"},
   "doris": {
     "version": "3.0.5",
     "matrix": {
       "windowFunctions": true,
+      "prefixDaily": true,
+      "materializedViewRewrite": true,
+      "queryCache": true,
       "bitmapIndex": true,
       "invertedIndex": true,
       "asyncMaterializedView": true,

@@ -53,12 +53,10 @@ public final class DorisSqlGenerator {
             collect(query.where());
             if (query.orderBy() != null) collect(query.orderBy().expression());
             int lookback = maxWindow + (hasCross && maxWindow > 0 ? 1 : 0);
-            var accessPath = new AccessPathPlanner(registry, catalog).choose(query, lookback);
+            var accessPath = new AccessPathPlanner(registry, catalog).choose(query, lookback, needsFinancial);
             if (!"DETAIL_TABLE".equals(accessPath.selected())) {
                 diagnostics.add(new CompilationArtifact.Diagnostic("INFO", "ACCESS_PATH_CANDIDATE",
-                        "Feature path is eligible, but V1 SQL lowering stays on the detail path until feature freshness validation is connected."));
-                accessPath = new LogicalPlan.AccessPathDecision("DETAIL_TABLE", accessPath.candidates(),
-                        "V1 safety fallback: feature freshness is not connected to runtime metadata");
+                        accessPath.selected() + " has the lowest eligible cost; V1 SQL execution remains detail-table compatible."));
             }
             String sql = StableSqlFormatter.format(buildSql(lookback));
             List<LogicalPlan.PlanNode> nodes = new ArrayList<>();

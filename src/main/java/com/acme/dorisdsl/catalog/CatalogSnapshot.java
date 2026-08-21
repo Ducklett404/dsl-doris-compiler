@@ -23,8 +23,8 @@ public record CatalogSnapshot(
     public record TableMappings(String detailTable, String financialPitTable, String calendarTable,
                                 String featureTable, String prefixSumTable) {}
 
-    public record TableMetadata(PartitionRange partitionRange, long estimatedRows, BucketInfo bucketInfo,
-                                List<String> indexes, List<String> materializedViews) {
+    public record TableMetadata(long estimatedRows, int estimatedRowBytes, PartitionRange partitionRange,
+                                BucketInfo bucketInfo, List<String> indexes, List<String> materializedViews) {
         public TableMetadata {
             indexes = indexes == null ? List.of() : List.copyOf(indexes);
             materializedViews = materializedViews == null ? List.of() : List.copyOf(materializedViews);
@@ -32,15 +32,12 @@ public record CatalogSnapshot(
     }
 
     public record PartitionRange(LocalDate from, LocalDate to) {}
-
     public record BucketInfo(List<String> keys, int count) {
         public BucketInfo { keys = keys == null ? List.of() : List.copyOf(keys); }
     }
-
     public record FeatureMetadata(String version, Instant refreshedAt) {}
-
     public record DorisCapabilities(String version, Map<String, Boolean> matrix) {
         public DorisCapabilities { matrix = matrix == null ? Map.of() : Map.copyOf(matrix); }
-        public boolean supports(String capability) { return Boolean.TRUE.equals(matrix.get(capability)); }
+        public boolean supports(String name) { return Boolean.TRUE.equals(matrix.get(name)); }
     }
 }
