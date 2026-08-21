@@ -6,7 +6,7 @@
     "financialPitTable": "market.dwd_financial_pit",
     "calendarTable": "market.dim_trade_calendar",
     "featureTable": "market.dws_quote_feature_daily",
-    "prefixSumTable": "market.dws_quote_prefix_sum_daily"
+    "prefixSumTable": "market.dws_quote_prefix_daily"
   },
   "tableMetadata": {
     "DETAIL": {
@@ -33,14 +33,6 @@
       "indexes": ["idx_market_open_date"],
       "materializedViews": []
     },
-    "FEATURE_DAILY": {
-      "estimatedRows": 920000000,
-      "estimatedRowBytes": 64,
-      "partitionRange": {"from": "2010-01-01", "to": "2026-08-12"},
-      "bucketInfo": {"keys": ["symbol"], "count": 128},
-      "indexes": ["idx_feature_version"],
-      "materializedViews": ["mv_latest_features"]
-    },
     "PREFIX_DAILY": {
       "estimatedRows": 910000000,
       "estimatedRowBytes": 48,
@@ -48,7 +40,25 @@
       "bucketInfo": {"keys": ["symbol"], "count": 128},
       "indexes": [],
       "materializedViews": []
+    },
+    "FEATURE_DAILY": {
+      "estimatedRows": 920000000,
+      "estimatedRowBytes": 64,
+      "partitionRange": {"from": "2010-01-01", "to": "2026-08-12"},
+      "bucketInfo": {"keys": ["symbol"], "count": 128},
+      "indexes": ["idx_feature_version"],
+      "materializedViews": ["mv_latest_features"]
     }
+  },
+  "prefixDaily": {
+    "tradingDaySequenceColumn": "trading_day_seq",
+    "fields": {
+      "CLOSE": {"cumulativeValueColumn": "close_sum", "cumulativeCountColumn": "close_count"},
+      "OPEN": {"cumulativeValueColumn": "open_sum", "cumulativeCountColumn": "open_count"},
+      "VOLUME": {"cumulativeValueColumn": "volume_sum", "cumulativeCountColumn": "volume_count"}
+    },
+    "suspensionGapPolicy": "COUNT_VALID_OBSERVATIONS",
+    "insufficientWindowPolicy": "STRICT_NULL"
   },
   "feature": {"version": "feature-v17", "refreshedAt": "2026-08-12T23:59:59Z"},
   "doris": {

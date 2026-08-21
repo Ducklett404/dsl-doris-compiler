@@ -23,6 +23,8 @@ public final class AccessPathPlanner {
 
     public LogicalPlan.AccessPathDecision choose(Ast.Query query, int lookback, boolean needsFinancial) {
         boolean hasWindow = containsKind(query.where(), RegistryConfig.LoweringKind.WINDOW_AVG);
+        boolean prefixLowerable = hasWindow && !needsFinancial && prefixLowerable(query.where(), false)
+                && (query.orderBy() == null || prefixLowerable(query.orderBy().expression(), false));
         boolean featureCovered = allFunctionsFeatureBacked(query.where());
         boolean fresh = !catalog.feature().refreshedAt()
                 .isBefore(query.asOf().atStartOfDay(ZoneOffset.UTC).toInstant());
@@ -36,8 +38,10 @@ public final class AccessPathPlanner {
                 candidate("PARTITION_BUCKET_INDEX", "DETAIL", lookback, needsFinancial, hasIndex && hasBuckets,
                         false, false, reasons(hasIndex && hasBuckets, "No usable bucket/index metadata")),
                 candidate("PREFIX_DAILY", "PREFIX_DAILY", lookback, needsFinancial,
-                        hasWindow && catalog.doris().supports("prefixDaily"), false,
-                        !catalog.doris().supports("prefixDaily"), reasons(hasWindow, "No supported window aggregate")),
+                        prefixLowerable && catalog.doris().supports("prefixDaily"), false,
+                        !catalog.doris().supports("prefixDaily"),
+                        combine(reasons(hasWindow, "No supported window aggregate"),
+                                reasons(prefixLowerable, "Expression requires unsupported prefix lowering"))),
                 candidate("FEATURE_DAILY", "FEATURE_DAILY", lookback, needsFinancial,
                         featureCovered && fresh, !fresh, false,
                         combine(reasons(featureCovered, "Referenced expressions are not fully feature-backed"),
@@ -72,6 +76,7 @@ public final class AccessPathPlanner {
         var metadata = metadata(metadataKey);
         double scan = estimatedScanBytes(metadata, lookback);
         if (path.equals("PARTITION_BUCKET_INDEX")) scan *= 0.12;
+        if (path.equals("PREFIX_DAILY")) scan *= 0.02;
         if (path.equals("MATERIALIZED_VIEW")) scan *= 0.08;
         if (path.equals("QUERY_CACHE_FRIENDLY")) scan *= 0.04;
         double window = lookback == 0 ? 0 : scan * Math.log1p(lookback) / 12.0;
@@ -107,6 +112,28 @@ public final class AccessPathPlanner {
         if (expr instanceof Ast.Between e) return containsKind(e.value(), kind) || containsKind(e.lower(), kind) || containsKind(e.upper(), kind);
         if (expr instanceof Ast.InList e) return containsKind(e.value(), kind) || e.options().stream().anyMatch(v -> containsKind(v, kind));
         return false;
+    }
+
+    private boolean prefixLowerable(Ast.Expr expr, boolean windowInput) {
+        if (expr == null) return true;
+        if (expr instanceof Ast.FunctionCall call) {
+            var kind = registry.function(call.name(), call.span().line(), call.span().column()).loweringKind();
+            if (kind == RegistryConfig.LoweringKind.CROSS_UP || kind == RegistryConfig.LoweringKind.COLUMN) return false;
+            if (kind == RegistryConfig.LoweringKind.WINDOW_AVG) {
+                if (call.arguments().isEmpty() || !(call.arguments().get(0) instanceof Ast.Identifier id)) return false;
+                if (!catalog.prefixDaily().fields().containsKey(id.name().toUpperCase(java.util.Locale.ROOT))) return false;
+                return call.arguments().stream().allMatch(argument -> prefixLowerable(argument, true));
+            }
+            return call.arguments().stream().allMatch(argument -> prefixLowerable(argument, windowInput));
+        }
+        if (expr instanceof Ast.Identifier) return windowInput;
+        if (expr instanceof Ast.Binary e) return prefixLowerable(e.left(), windowInput) && prefixLowerable(e.right(), windowInput);
+        if (expr instanceof Ast.Unary e) return prefixLowerable(e.operand(), windowInput);
+        if (expr instanceof Ast.Between e) return prefixLowerable(e.value(), windowInput)
+                && prefixLowerable(e.lower(), windowInput) && prefixLowerable(e.upper(), windowInput);
+        if (expr instanceof Ast.InList e) return prefixLowerable(e.value(), windowInput)
+                && e.options().stream().allMatch(option -> prefixLowerable(option, windowInput));
+        return true;
     }
 
     private boolean allFunctionsFeatureBacked(Ast.Expr expr) {

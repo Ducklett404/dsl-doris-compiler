@@ -10,12 +10,13 @@ public record CatalogSnapshot(
         Instant capturedAt,
         TableMappings tables,
         Map<String, TableMetadata> tableMetadata,
+        PrefixDailyMetadata prefixDaily,
         FeatureMetadata feature,
         DorisCapabilities doris
 ) {
     public CatalogSnapshot {
         if (version == null || version.isBlank()) throw new IllegalArgumentException("Catalog version is required");
-        if (capturedAt == null || tables == null || feature == null || doris == null)
+        if (capturedAt == null || tables == null || prefixDaily == null || feature == null || doris == null)
             throw new IllegalArgumentException("Catalog snapshot is incomplete");
         tableMetadata = tableMetadata == null ? Map.of() : Map.copyOf(tableMetadata);
     }
@@ -35,6 +36,15 @@ public record CatalogSnapshot(
     public record BucketInfo(List<String> keys, int count) {
         public BucketInfo { keys = keys == null ? List.of() : List.copyOf(keys); }
     }
+    public record PrefixDailyMetadata(String tradingDaySequenceColumn,
+                                      Map<String, PrefixColumns> fields,
+                                      GapPolicy suspensionGapPolicy,
+                                      InsufficientWindowPolicy insufficientWindowPolicy) {
+        public PrefixDailyMetadata { fields = fields == null ? Map.of() : Map.copyOf(fields); }
+    }
+    public record PrefixColumns(String cumulativeValueColumn, String cumulativeCountColumn) {}
+    public enum GapPolicy { COUNT_VALID_OBSERVATIONS }
+    public enum InsufficientWindowPolicy { STRICT_NULL, ALLOW_PARTIAL }
     public record FeatureMetadata(String version, Instant refreshedAt) {}
     public record DorisCapabilities(String version, Map<String, Boolean> matrix) {
         public DorisCapabilities { matrix = matrix == null ? Map.of() : Map.copyOf(matrix); }
