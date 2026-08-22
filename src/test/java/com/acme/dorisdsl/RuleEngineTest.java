@@ -50,7 +50,8 @@ class RuleEngineTest {
                 """);
 
         assertEquals(golden("rule-engine-window.sql"), artifact.sql());
-        assertEquals(1, occurrences(artifact.sql(), "AVG("));
+        assertEquals(1, occurrences(artifact.sql(), "AS `ma_close_5`"));
+        assertEquals("PREFIX_DAILY", artifact.accessPath().selected());
         assertRuleTraceComplete(artifact);
         assertHasRule(artifact, "R-102");
         assertHasRule(artifact, "R-103");
@@ -76,8 +77,7 @@ class RuleEngineTest {
     private String golden(String name) throws Exception {
         return Files.readString(Path.of(getClass().getResource("/golden/" + name).toURI()))
                 .replace("\r\n", "\n")
-                .replace('\r', '\n')
-                .stripTrailing();
+                .replace('\r', '\n');
     }
 
     private static int occurrences(String value, String token) {

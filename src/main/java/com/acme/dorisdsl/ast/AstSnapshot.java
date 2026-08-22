@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public final class AstSnapshot {
-    public static final String SCHEMA_VERSION = "1.0.0";
+    public static final String SCHEMA_VERSION = "2.0.0";
 
     private AstSnapshot() {}
 

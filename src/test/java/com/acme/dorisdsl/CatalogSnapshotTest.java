@@ -25,7 +25,7 @@ class CatalogSnapshotTest {
         assertEquals("market.dwd_financial_pit", snapshot.tables().financialPitTable());
         assertEquals("market.dim_trade_calendar", snapshot.tables().calendarTable());
         assertEquals("market.dws_quote_feature_daily", snapshot.tables().featureTable());
-        assertEquals("market.dws_quote_prefix_sum_daily", snapshot.tables().prefixSumTable());
+        assertEquals("market.dws_quote_prefix_daily", snapshot.tables().prefixSumTable());
         assertTrue(snapshot.tableMetadata().get("DETAIL").estimatedRows() > 0);
         assertNotNull(snapshot.tableMetadata().get("DETAIL").partitionRange());
         assertFalse(snapshot.tableMetadata().get("DETAIL").bucketInfo().keys().isEmpty());
@@ -46,7 +46,8 @@ class CatalogSnapshotTest {
         var cached = compiler.compile(DSL);
         var secondVersion = new DslCompiler(registry, snapshot("meta-v2", "tenant_v2.quote_daily")).compile(DSL);
 
-        assertSame(first, cached, "same DSL and metadata version should hit the in-memory cache");
+        assertEquals(first, cached, "same DSL and metadata version should reuse the cached structure");
+        assertEquals(1, compiler.cacheStats().hits());
         assertTrue(first.sql().contains("tenant_v1.quote_daily"));
         assertEquals("meta-v1", first.metadataVersion());
         assertEquals("meta-v1", first.cacheKey().metadataVersion());

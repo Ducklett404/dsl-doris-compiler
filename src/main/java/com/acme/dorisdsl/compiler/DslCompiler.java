@@ -25,6 +25,7 @@ public final class DslCompiler {
     private final RuleEngine ruleEngine = new RuleEngine();
     private final DorisSqlGenerator sqlGenerator;
     private final CompilerVersions versions;
+    private final String metadataVersion;
     private final CompilationCache cache;
     private final NormalizedAstHasher hasher;
     private final CompilationSecurity security;
@@ -39,7 +40,8 @@ public final class DslCompiler {
                 new CompilerVersions(RuleEngine.VERSION,
                         catalogSnapshot.version() + ":" + registry.catalogVersion(),
                         "doris-" + catalogSnapshot.doris().version()),
-                new CompilationCache(1_024), SecurityPolicy.defaults(), new SecurityAuditLog(10_000));
+                new CompilationCache(1_024), SecurityPolicy.defaults(), new SecurityAuditLog(10_000),
+                catalogSnapshot.version());
     }
 
     public DslCompiler(Registry registry, CompilerVersions versions, CompilationCache cache) {
@@ -60,7 +62,14 @@ public final class DslCompiler {
 
     public DslCompiler(Registry registry, CatalogSnapshot catalogSnapshot, CompilerVersions versions,
                        CompilationCache cache, SecurityPolicy securityPolicy, SecurityAuditLog auditLog) {
+        this(registry, catalogSnapshot, versions, cache, securityPolicy, auditLog, versions.catalogVersion());
+    }
+
+    private DslCompiler(Registry registry, CatalogSnapshot catalogSnapshot, CompilerVersions versions,
+                        CompilationCache cache, SecurityPolicy securityPolicy, SecurityAuditLog auditLog,
+                        String metadataVersion) {
         this.versions = versions;
+        this.metadataVersion = metadataVersion;
         this.cache = cache;
         this.semanticAnalyzer = new SemanticAnalyzer(registry);
         this.sqlGenerator = new DorisSqlGenerator(registry, catalogSnapshot);
@@ -128,8 +137,8 @@ public final class DslCompiler {
         var audit = security.auditAndEnforce(compiled.sql(), bindings,
                 compiled.logicalPlan(), compiled.lookback());
         auditLog.append(audit);
-        return new CompilationArtifact(VERSION, versions.ruleSetVersion(), versions.catalogVersion(),
-                new CompilationArtifact.CacheKey(normalizedHash, VERSION, versions.catalogVersion()),
+        return new CompilationArtifact(VERSION, versions.ruleSetVersion(), metadataVersion,
+                new CompilationArtifact.CacheKey(normalizedHash, VERSION, metadataVersion),
                 ast, compiled.logicalPlan(), compiled.logicalPlan().accessPath(), compiled.sql(), bindings,
                 compiled.lookback(), compiled.windowSpecs(), compiled.indicatorVersions(),
                 compiled.ruleTrace(), compiled.diagnostics());

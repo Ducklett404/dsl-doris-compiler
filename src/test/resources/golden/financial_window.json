@@ -1,81 +1,82 @@
 {
-  "schemaVersion" : "1.0.0",
+  "schemaVersion" : "2.0.0",
   "kind" : "Query",
   "asOf" : "2026-08-07",
+  "context" : { },
   "adjustment" : "FORWARD",
   "where" : {
     "kind" : "Binary",
-    "type" : "BOOLEAN",
+    "type" : "BooleanSeries",
     "operator" : "AND",
     "left" : {
       "kind" : "Binary",
-      "type" : "BOOLEAN",
+      "type" : "BooleanSeries",
       "operator" : "AND",
       "left" : {
         "kind" : "Between",
-        "type" : "BOOLEAN",
+        "type" : "BooleanSeries",
         "value" : {
           "kind" : "FunctionCall",
-          "type" : "RATIO",
+          "type" : "RatioSeries",
           "name" : "PE_TTM",
           "arguments" : [ ]
         },
         "lower" : {
           "kind" : "Literal",
-          "type" : "NUMBER",
+          "type" : "ScalarNumber",
           "value" : 0
         },
         "upper" : {
           "kind" : "Literal",
-          "type" : "NUMBER",
+          "type" : "ScalarNumber",
           "value" : 20
         }
       },
       "right" : {
         "kind" : "Binary",
-        "type" : "BOOLEAN",
+        "type" : "BooleanSeries",
         "operator" : ">=",
         "left" : {
           "kind" : "FunctionCall",
-          "type" : "RATIO",
+          "type" : "RatioSeries",
           "name" : "ROE_TTM",
           "arguments" : [ ]
         },
         "right" : {
           "kind" : "Literal",
-          "type" : "PERCENT",
+          "type" : "Percent",
           "value" : 0.15
         }
       }
     },
     "right" : {
       "kind" : "FunctionCall",
-      "type" : "BOOLEAN",
+      "type" : "BooleanSeries",
       "name" : "CROSS_UP",
       "arguments" : [ {
         "kind" : "FunctionCall",
-        "type" : "PRICE",
+        "type" : "PriceSeries",
         "name" : "MA",
         "arguments" : [ {
           "kind" : "Identifier",
-          "type" : "PRICE",
+          "type" : "PriceSeries",
           "name" : "CLOSE"
         }, {
           "kind" : "Literal",
-          "type" : "NUMBER",
+          "type" : "ScalarNumber",
           "value" : 5
         } ]
       }, {
         "kind" : "FunctionCall",
-        "type" : "PRICE",
+        "type" : "PriceSeries",
         "name" : "MA",
         "arguments" : [ {
           "kind" : "Identifier",
-          "type" : "PRICE",
+          "type" : "PriceSeries",
           "name" : "CLOSE"
         }, {
           "kind" : "Literal",
-          "type" : "NUMBER",
+          "type" : "ScalarNumber",
           "value" : 20
         } ]
       } ]

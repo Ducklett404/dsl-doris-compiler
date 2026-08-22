@@ -1,42 +1,43 @@
 {
-  "schemaVersion" : "1.0.0",
+  "schemaVersion" : "2.0.0",
   "kind" : "Query",
   "asOf" : "2026-08-07",
+  "context" : { },
   "adjustment" : "NONE",
   "where" : {
     "kind" : "Binary",
-    "type" : "BOOLEAN",
+    "type" : "BooleanSeries",
     "operator" : "AND",
     "left" : {
       "kind" : "Binary",
-      "type" : "BOOLEAN",
+      "type" : "BooleanSeries",
       "operator" : ">",
       "left" : {
         "kind" : "Identifier",
-        "type" : "PRICE",
+        "type" : "PriceSeries",
         "name" : "CLOSE"
       },
       "right" : {
         "kind" : "Literal",
-        "type" : "NUMBER",
+        "type" : "ScalarNumber",
         "value" : 15
       }
     },
     "right" : {
       "kind" : "InList",
-      "type" : "BOOLEAN",
+      "type" : "BooleanSeries",
       "value" : {
         "kind" : "Identifier",
-        "type" : "STRING",
+        "type" : "StringCategory",
         "name" : "MARKET"
       },
       "options" : [ {
         "kind" : "Literal",
-        "type" : "STRING",
+        "type" : "StringCategory",
         "value" : "SH"
       }, {
         "kind" : "Literal",
-        "type" : "STRING",
+        "type" : "StringCategory",
         "value" : "SZ"
       } ]
     }
@@ -44,7 +45,7 @@
   "orderBy" : {
     "expression" : {
       "kind" : "Identifier",
-      "type" : "RATIO",
+      "type" : "RatioSeries",
       "name" : "TURNOVER_RATE"
     },
     "direction" : "DESC"
