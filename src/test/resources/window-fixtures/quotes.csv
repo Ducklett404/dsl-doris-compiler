@@ -1,0 +1,7 @@
+symbol,trade_date,close_qfq,scenario
+AAA,2026-08-03,10.00,normal
+AAA,2026-08-04,11.00,normal
+AAA,2026-08-06,12.00,resume_after_suspension
+AAA,2026-08-07,13.00,target_date_after_suspension
+IPO,2026-08-07,20.00,listed_first_day_window_shortage
+

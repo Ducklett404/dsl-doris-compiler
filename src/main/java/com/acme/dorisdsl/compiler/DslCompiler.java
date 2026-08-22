@@ -50,7 +50,7 @@ public final class DslCompiler {
         trace.add(new CompilationArtifact.RuleTrace("R-104", "Deduplicated common window expressions and emitted layered CTEs"));
         return new CompilationArtifact(VERSION, catalogSnapshot.version(), cacheKey,
                 rewritten.query(), generated.logicalPlan(), generated.sql(),
-                generated.bindings(), generated.lookback(), trace, generated.diagnostics());
+                generated.bindings(), generated.lookback(), generated.windowSpecs(), trace, generated.diagnostics());
     }
 
     private String hash(String source) {

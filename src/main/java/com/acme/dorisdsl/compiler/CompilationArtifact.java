@@ -2,6 +2,7 @@ package com.acme.dorisdsl.compiler;
 
 import com.acme.dorisdsl.ast.Ast;
 import com.acme.dorisdsl.plan.LogicalPlan;
+import com.acme.dorisdsl.plan.WindowSpec;
 
 import java.util.List;
 
@@ -14,11 +15,13 @@ public record CompilationArtifact(
         String sql,
         List<Object> bindings,
         int requiredLookbackTradingDays,
+        List<WindowSpec> windowSpecs,
         List<RuleTrace> ruleTrace,
         List<Diagnostic> diagnostics
 ) {
     public CompilationArtifact {
         bindings = List.copyOf(bindings);
+        windowSpecs = List.copyOf(windowSpecs);
         ruleTrace = List.copyOf(ruleTrace);
         diagnostics = List.copyOf(diagnostics);
     }

@@ -6,6 +6,7 @@ import com.acme.dorisdsl.compiler.CompilationArtifact;
 import com.acme.dorisdsl.compiler.CompileException;
 import com.acme.dorisdsl.plan.AccessPathPlanner;
 import com.acme.dorisdsl.plan.LogicalPlan;
+import com.acme.dorisdsl.plan.WindowSpec;
 import com.acme.dorisdsl.registry.Registry;
 import com.acme.dorisdsl.registry.RegistryConfig;
 
@@ -32,7 +33,7 @@ public final class DorisSqlGenerator {
     public Result generate(Ast.Query query) { return new Generation(query).run(); }
 
     public record Result(String sql, List<Object> bindings, int lookback, LogicalPlan logicalPlan,
-                         List<CompilationArtifact.Diagnostic> diagnostics) {}
+                         List<WindowSpec> windowSpecs, List<CompilationArtifact.Diagnostic> diagnostics) {}
 
     private final class Generation {
         private final Ast.Query query;
@@ -41,6 +42,7 @@ public final class DorisSqlGenerator {
         private final Map<String, String> windowMetrics = new LinkedHashMap<>();
         private final Map<String, String> metricAliases = new LinkedHashMap<>();
         private final Map<String, String> previousAliases = new LinkedHashMap<>();
+        private final Map<String, WindowSpec> windowSpecs = new LinkedHashMap<>();
         private final List<Object> bindings = new ArrayList<>();
         private final List<CompilationArtifact.Diagnostic> diagnostics = new ArrayList<>();
         private RegistryConfig.FinancialMetadata financialMetadata;
@@ -53,7 +55,11 @@ public final class DorisSqlGenerator {
         private Result run() {
             collect(query.where());
             if (query.orderBy() != null) collect(query.orderBy().expression());
-            int lookback = maxWindow + (hasCross && maxWindow > 0 ? 1 : 0);
+            int lookback = windowSpecs.values().stream()
+                    .mapToInt(WindowSpec::requiredLookbackTradingDays)
+                    .max()
+                    .orElse(0);
+            if (hasCross) lookback = Math.max(lookback, maxWindow + 1);
             var accessPath = new AccessPathPlanner(registry, catalog).choose(query, lookback, needsFinancial);
             if (!"DETAIL_TABLE".equals(accessPath.selected())) {
                 diagnostics.add(new CompilationArtifact.Diagnostic("INFO", "ACCESS_PATH_CANDIDATE",
@@ -76,7 +82,8 @@ public final class DorisSqlGenerator {
             nodes.add(new LogicalPlan.PlanNode("Filter", "Target-date predicate"));
             if (query.orderBy() != null) nodes.add(new LogicalPlan.PlanNode("Sort", query.orderBy().direction().name()));
             nodes.add(new LogicalPlan.PlanNode("Limit", Integer.toString(query.limit())));
-            return new Result(sql, List.copyOf(bindings), lookback, new LogicalPlan(nodes, accessPath), List.copyOf(diagnostics));
+            return new Result(sql, List.copyOf(bindings), lookback, new LogicalPlan(nodes, accessPath),
+                    List.copyOf(windowSpecs.values()), List.copyOf(diagnostics));
         }
 
         private void collect(Ast.Expr expr) {
@@ -94,6 +101,8 @@ public final class DorisSqlGenerator {
                             String right = ensureValueAlias(call.arguments().get(1));
                             previousAliases.putIfAbsent(left, "prev_" + left);
                             previousAliases.putIfAbsent(right, "prev_" + right);
+                            ensureLagSpec(left, previousAliases.get(left));
+                            ensureLagSpec(right, previousAliases.get(right));
                         }
                         case TEMPLATE -> call.arguments().forEach(this::collect);
                     }
@@ -135,6 +144,8 @@ public final class DorisSqlGenerator {
                         + (window - 1) + " PRECEDING AND CURRENT ROW)";
                 windowMetrics.put(alias, "CASE WHEN COUNT(" + q(inputAlias) + ")" + frame + " = " + window
                         + " THEN AVG(" + q(inputAlias) + ")" + frame + " ELSE NULL END");
+                windowSpecs.put(alias, new WindowSpec(alias, "MA", window, WindowSpec.Unit.TRADING_DAY,
+                        List.of("symbol"), List.of("trade_date"), WindowSpec.NullPolicy.STRICT_FULL_WINDOW, true));
             } else if (definition.loweringKind() == RegistryConfig.LoweringKind.RANK_BY) {
                 String inputAlias = ensureValueAlias(call.arguments().get(0));
                 String direction = rankDirection(call);
@@ -145,6 +156,11 @@ public final class DorisSqlGenerator {
             }
             metricAliases.put(key, alias);
             return alias;
+        }
+
+        private void ensureLagSpec(String inputAlias, String previousAlias) {
+            windowSpecs.putIfAbsent(previousAlias, new WindowSpec(previousAlias, "LAG", 1, WindowSpec.Unit.TRADING_DAY,
+                    List.of("symbol"), List.of("trade_date"), WindowSpec.NullPolicy.ALLOW_PARTIAL_WINDOW, true));
         }
 
         private String ensureValueAlias(Ast.Expr expr) {
