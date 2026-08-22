@@ -26,6 +26,10 @@ public record CompilationArtifact(
         diagnostics = List.copyOf(diagnostics);
     }
     public record CacheKey(String sourceHash, String compilerVersion, String metadataVersion) {}
-    public record RuleTrace(String ruleId, String description) {}
+    public record RuleTrace(String ruleId, String description, String semanticProofTag, int priority, String version) {
+        public RuleTrace(String ruleId, String description) {
+            this(ruleId, description, "", 0, "");
+        }
+    }
     public record Diagnostic(String severity, String code, String message) {}
 }

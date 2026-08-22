@@ -47,7 +47,14 @@ public final class DslCompiler {
         var rewritten = ruleEngine.rewrite(typed);
         var generated = sqlGenerator.generate(rewritten.query());
         var trace = new ArrayList<>(rewritten.trace());
-        trace.add(new CompilationArtifact.RuleTrace("R-104", "Deduplicated common window expressions and emitted layered CTEs"));
+        trace.add(new CompilationArtifact.RuleTrace("R-101", "Pruned projection to referenced fields and generated metrics",
+                "PROJECTION_EQUIVALENCE", 200, "1.0.0"));
+        trace.add(new CompilationArtifact.RuleTrace("R-102", "Shared common metric expressions by stable function signature",
+                "COMMON_SUBEXPRESSION", 210, "1.0.0"));
+        trace.add(new CompilationArtifact.RuleTrace("R-103", "Merged windows with identical partition and order keys",
+                "WINDOW_EQUIVALENCE", 220, "1.0.0"));
+        trace.add(new CompilationArtifact.RuleTrace("R-104", "Deduplicated common window expressions and emitted layered CTEs",
+                "WINDOW_LAYERING", 230, "1.0.0"));
         return new CompilationArtifact(VERSION, catalogSnapshot.version(), cacheKey,
                 rewritten.query(), generated.logicalPlan(), generated.sql(),
                 generated.bindings(), generated.lookback(), generated.windowSpecs(), trace, generated.diagnostics());
