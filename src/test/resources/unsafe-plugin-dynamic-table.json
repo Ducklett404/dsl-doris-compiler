@@ -1,5 +1,5 @@
 {
   "functions": [
-    {"name":"BAD_TABLE","id":"bad.table","version":"1.0.0","signature":{"arguments":[{"name":"value","type":"PRICE"}],"returnType":"NUMBER"},"returnType":"NUMBER","loweringKind":"TEMPLATE","sqlTemplate":"${table}.close","requiredFields":[]}
+    {"name":"BAD_TABLE","id":"bad.table","version":"1.0.0","signature":{"arguments":[{"name":"value","type":"PriceSeries"}],"returnType":"ScalarNumber"},"returnType":"ScalarNumber","loweringKind":"TEMPLATE","sqlTemplate":"${table}.close","requiredFields":[]}
   ]
 }

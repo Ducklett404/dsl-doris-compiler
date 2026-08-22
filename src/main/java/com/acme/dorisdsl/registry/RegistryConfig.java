@@ -15,7 +15,12 @@ public record RegistryConfig(
     }
 
     public record Datasets(String quoteTable, String financialTable, String calendarTable, String featureTable) {}
-    public record FieldDefinition(String name, Ast.DataType type, String sourceSql) {}
+    public record FieldDefinition(String name, Ast.DataType type, String sourceSql, String version,
+                                  String description, String signature, List<String> boundaryTests) {
+        public FieldDefinition {
+            boundaryTests = boundaryTests == null ? List.of() : List.copyOf(boundaryTests);
+        }
+    }
     public record FunctionDefinition(
             String name,
             String id,
@@ -35,11 +40,14 @@ public record RegistryConfig(
             FinancialMetadata financialMetadata,
             Integer lookbackArg,
             Capabilities capabilities,
-            List<TestVector> tests
+            List<TestVector> tests,
+            String description,
+            List<String> boundaryTests
     ) {
         public FunctionDefinition {
             requiredFields = requiredFields == null ? List.of() : List.copyOf(requiredFields);
             tests = tests == null ? List.of() : List.copyOf(tests);
+            boundaryTests = boundaryTests == null ? List.of() : List.copyOf(boundaryTests);
             int signatureMin = signature == null ? minArgs : signature.minArgs();
             int signatureMax = signature == null ? maxArgs : signature.maxArgs();
             minArgs = signatureMin;
@@ -71,5 +79,8 @@ public record RegistryConfig(
 
     public enum AdjustmentRequirement { NONE, FORWARD, BACKWARD, ANY }
     public enum NullPolicy { STRICT_FULL_WINDOW, ALLOW_PARTIAL_WINDOW }
-    public enum LoweringKind { COLUMN, WINDOW_AVG, WINDOW_STDDEV, CROSS_UP, RANK_BY, TEMPLATE }
+    public enum LoweringKind {
+        COLUMN, WINDOW_AVG, WINDOW_EMA, WINDOW_STDDEV, RETURN_N, RSI,
+        CROSS_UP, CROSS_DOWN, RANK_BY, PERCENTILE_RANK, TEMPLATE
+    }
 }

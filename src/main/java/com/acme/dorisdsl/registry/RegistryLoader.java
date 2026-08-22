@@ -113,7 +113,7 @@ public final class RegistryLoader {
         if (function.signature() != null) {
             if (function.returnType() != null && function.returnType() != function.signature().returnType())
                 throw new CompileException("REGISTRY_INVALID", "returnType must match signature for " + function.name(), 1, 1);
-            if (function.signature().arguments().isEmpty())
+            if (function.signature().arguments().isEmpty() && function.maxArgs() != 0)
                 throw new CompileException("REGISTRY_INVALID", "Signature requires arguments for " + function.name(), 1, 1);
             for (var argument : function.signature().arguments()) {
                 if (isBlank(argument.name()) || argument.type() == null)

@@ -57,7 +57,8 @@ public final class DslCompiler {
                 "WINDOW_LAYERING", 230, "1.0.0"));
         return new CompilationArtifact(VERSION, catalogSnapshot.version(), cacheKey,
                 rewritten.query(), generated.logicalPlan(), generated.sql(),
-                generated.bindings(), generated.lookback(), generated.windowSpecs(), trace, generated.diagnostics());
+                generated.bindings(), generated.lookback(), generated.windowSpecs(),
+                generated.indicatorVersions(), trace, generated.diagnostics());
     }
 
     private String hash(String source) {

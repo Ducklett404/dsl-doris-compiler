@@ -16,12 +16,14 @@ public record CompilationArtifact(
         List<Object> bindings,
         int requiredLookbackTradingDays,
         List<WindowSpec> windowSpecs,
+        List<IndicatorVersion> indicatorVersions,
         List<RuleTrace> ruleTrace,
         List<Diagnostic> diagnostics
 ) {
     public CompilationArtifact {
         bindings = List.copyOf(bindings);
         windowSpecs = List.copyOf(windowSpecs);
+        indicatorVersions = List.copyOf(indicatorVersions);
         ruleTrace = List.copyOf(ruleTrace);
         diagnostics = List.copyOf(diagnostics);
     }
@@ -32,4 +34,5 @@ public record CompilationArtifact(
         }
     }
     public record Diagnostic(String severity, String code, String message) {}
+    public record IndicatorVersion(String name, String version) {}
 }

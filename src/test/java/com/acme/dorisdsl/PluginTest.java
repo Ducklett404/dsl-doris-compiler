@@ -74,8 +74,8 @@ class PluginTest {
 
     @Test void rejectsOptionalPlaceholderWithoutConditionalTemplateSupport() throws Exception {
         String arguments = """
-                [{"name":"value","type":"NUMBER"},
-                 {"name":"scale","type":"NUMBER","defaultValue":1}]
+                [{"name":"value","type":"ScalarNumber"},
+                 {"name":"scale","type":"ScalarNumber","defaultValue":1}]
                 """;
         CompileException error = loadTemplateExpectingFailure("ABS({0}) * {1}", arguments);
         assertEquals("REGISTRY_INVALID", error.code());
@@ -114,8 +114,8 @@ class PluginTest {
                   "name":"TEMPLATE_TEST",
                   "id":"test.template",
                   "version":"1.0.0",
-                  "signature":{"arguments":%s,"returnType":"NUMBER"},
-                  "returnType":"NUMBER",
+                  "signature":{"arguments":%s,"returnType":"ScalarNumber"},
+                  "returnType":"ScalarNumber",
                   "loweringKind":"TEMPLATE",
                   "sqlTemplate":"%s"
                 }]}
@@ -125,7 +125,7 @@ class PluginTest {
 
     private String requiredArguments(String... names) {
         return java.util.Arrays.stream(names)
-                .map(name -> "{\"name\":\"" + name + "\",\"type\":\"NUMBER\"}")
+                .map(name -> "{\"name\":\"" + name + "\",\"type\":\"ScalarNumber\"}")
                 .collect(java.util.stream.Collectors.joining(",", "[", "]"));
     }
 }

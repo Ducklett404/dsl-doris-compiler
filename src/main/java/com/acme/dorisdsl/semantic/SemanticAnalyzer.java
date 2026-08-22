@@ -49,15 +49,16 @@ public final class SemanticAnalyzer {
                 if (count < definition.minArgs() || count > definition.maxArgs())
                     throw error("FUNCTION_ARITY", call.name() + " expects " + definition.minArgs() + ".." + definition.maxArgs() + " arguments", call.span());
                 var arguments = call.arguments().stream().map(argument -> inferFunctionArgument(argument, depth + 1)).toList();
-                if (definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_AVG
-                        || definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_STDDEV) {
+                if (isWindowFunction(definition.loweringKind())) {
                     validateWindowFunction(call.name(), arguments, call.span());
                 }
-                if (definition.loweringKind() == RegistryConfig.LoweringKind.CROSS_UP) {
-                    requireTimeSeries(arguments.get(0), "CROSS_UP operands must be numeric series ordered by symbol and trade_date.");
-                    requireTimeSeries(arguments.get(1), "CROSS_UP operands must be numeric series ordered by symbol and trade_date.");
+                if (definition.loweringKind() == RegistryConfig.LoweringKind.CROSS_UP
+                        || definition.loweringKind() == RegistryConfig.LoweringKind.CROSS_DOWN) {
+                    requireTimeSeries(arguments.get(0), call.name() + " operands must be numeric series ordered by symbol and trade_date.");
+                    requireTimeSeries(arguments.get(1), call.name() + " operands must be numeric series ordered by symbol and trade_date.");
                 }
                 if (definition.loweringKind() == RegistryConfig.LoweringKind.RANK_BY) validateRankBy(call.name(), arguments, call.span());
+                if (definition.loweringKind() == RegistryConfig.LoweringKind.PERCENTILE_RANK) requireNumeric(arguments.get(0));
                 yield new Ast.FunctionCall(call.name(), arguments, definition.returnType(), call.span());
             }
             case Ast.Binary binary -> inferBinary(binary, depth);
@@ -204,6 +205,13 @@ public final class SemanticAnalyzer {
     private boolean isSeries(Ast.DataType type) {
         return switch (type) {
             case PriceSeries, RatioSeries, VolumeSeries, BooleanSeries -> true;
+            default -> false;
+        };
+    }
+
+    private boolean isWindowFunction(RegistryConfig.LoweringKind kind) {
+        return switch (kind) {
+            case WINDOW_AVG, WINDOW_EMA, WINDOW_STDDEV, RETURN_N, RSI -> true;
             default -> false;
         };
     }

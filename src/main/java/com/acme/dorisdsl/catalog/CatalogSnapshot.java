@@ -21,6 +21,15 @@ public record CatalogSnapshot(
         tableMetadata = tableMetadata == null ? Map.of() : Map.copyOf(tableMetadata);
     }
 
+    public CatalogSnapshot(String version, Instant capturedAt, TableMappings tables,
+                           Map<String, TableMetadata> tableMetadata, FeatureMetadata feature,
+                           DorisCapabilities doris) {
+        this(version, capturedAt, tables, tableMetadata,
+                new PrefixDailyMetadata("trading_day_seq", Map.of(), GapPolicy.COUNT_VALID_OBSERVATIONS,
+                        InsufficientWindowPolicy.STRICT_NULL),
+                feature, doris);
+    }
+
     public record TableMappings(String detailTable, String financialPitTable, String calendarTable,
                                 String featureTable, String prefixSumTable) {}
 
@@ -29,6 +38,11 @@ public record CatalogSnapshot(
         public TableMetadata {
             indexes = indexes == null ? List.of() : List.copyOf(indexes);
             materializedViews = materializedViews == null ? List.of() : List.copyOf(materializedViews);
+        }
+
+        public TableMetadata(PartitionRange partitionRange, long estimatedRows, BucketInfo bucketInfo,
+                             List<String> indexes, List<String> materializedViews) {
+            this(estimatedRows, 96, partitionRange, bucketInfo, indexes, materializedViews);
         }
     }
 
@@ -53,6 +67,11 @@ public record CatalogSnapshot(
                     || sourceSnapshot == null || sourceSnapshot.isBlank() || sourceSnapshotAsOf == null || refreshedAt == null)
                 throw new IllegalArgumentException("Feature metadata is incomplete");
             indicatorColumns = indicatorColumns == null ? Map.of() : Map.copyOf(indicatorColumns);
+        }
+
+        public FeatureMetadata(String version, Instant refreshedAt) {
+            this(version, "qfq-v1", "compatibility-snapshot",
+                    refreshedAt.atZone(java.time.ZoneOffset.UTC).toLocalDate(), refreshedAt, Map.of());
         }
     }
     public record DorisCapabilities(String version, Map<String, Boolean> matrix) {

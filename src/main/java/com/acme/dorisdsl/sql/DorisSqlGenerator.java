@@ -33,16 +33,21 @@ public final class DorisSqlGenerator {
     public Result generate(Ast.Query query) { return new Generation(query).run(); }
 
     public record Result(String sql, List<Object> bindings, int lookback, LogicalPlan logicalPlan,
-                         List<WindowSpec> windowSpecs, List<CompilationArtifact.Diagnostic> diagnostics) {}
+                         List<WindowSpec> windowSpecs,
+                         List<CompilationArtifact.IndicatorVersion> indicatorVersions,
+                         List<CompilationArtifact.Diagnostic> diagnostics) {}
 
     private final class Generation {
         private final Ast.Query query;
         private final Set<String> baseFields = new LinkedHashSet<>();
         private final Map<String, String> columnMetrics = new LinkedHashMap<>();
         private final Map<String, String> windowMetrics = new LinkedHashMap<>();
+        private final Map<String, String> changeMetrics = new LinkedHashMap<>();
+        private final Map<String, String> rsiMetrics = new LinkedHashMap<>();
         private final Map<String, String> metricAliases = new LinkedHashMap<>();
         private final Map<String, String> previousAliases = new LinkedHashMap<>();
         private final Map<String, WindowSpec> windowSpecs = new LinkedHashMap<>();
+        private final Map<String, CompilationArtifact.IndicatorVersion> indicatorVersions = new LinkedHashMap<>();
         private final List<Object> bindings = new ArrayList<>();
         private final List<CompilationArtifact.Diagnostic> diagnostics = new ArrayList<>();
         private RegistryConfig.FinancialMetadata financialMetadata;
@@ -77,13 +82,19 @@ public final class DorisSqlGenerator {
             if (useFeatureDaily) nodes.add(new LogicalPlan.PlanNode("FeatureVersionFilter",
                     catalog.feature().version() + "/" + catalog.feature().adjustmentVersion() + "/" + catalog.feature().sourceSnapshot()));
             if (usePrefixDaily) nodes.add(new LogicalPlan.PlanNode("PrefixDifference", "current cumulative value minus N-day-prior cumulative value"));
-            else if (!windowMetrics.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Window", String.join(", ", windowMetrics.keySet())));
-            if (!previousAliases.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Signal", "LAG operands for CROSS_UP"));
+            if (!changeMetrics.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Change", String.join(", ", changeMetrics.keySet())));
+            if (!usePrefixDaily && (!windowMetrics.isEmpty() || !rsiMetrics.isEmpty())) {
+                List<String> metrics = new ArrayList<>(windowMetrics.keySet());
+                metrics.addAll(rsiMetrics.keySet());
+                nodes.add(new LogicalPlan.PlanNode("Window", String.join(", ", metrics)));
+            }
+            if (!previousAliases.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Signal", "LAG operands for cross signals"));
             nodes.add(new LogicalPlan.PlanNode("Filter", "Target-date predicate"));
             if (query.orderBy() != null) nodes.add(new LogicalPlan.PlanNode("Sort", query.orderBy().direction().name()));
             nodes.add(new LogicalPlan.PlanNode("Limit", Integer.toString(query.limit())));
             return new Result(sql, List.copyOf(bindings), lookback, new LogicalPlan(nodes, accessPath),
-                    List.copyOf(windowSpecs.values()), List.copyOf(diagnostics));
+                    List.copyOf(windowSpecs.values()), List.copyOf(indicatorVersions.values()),
+                    List.copyOf(diagnostics));
         }
 
         private void collect(Ast.Expr expr) {
@@ -94,8 +105,19 @@ public final class DorisSqlGenerator {
                     var definition = fn(call);
                     definition.requiredFields().forEach(this::ensureField);
                     switch (definition.loweringKind()) {
-                        case COLUMN, WINDOW_AVG, WINDOW_STDDEV, RANK_BY -> ensureMetric(call);
+                        case COLUMN, WINDOW_AVG, WINDOW_EMA, WINDOW_STDDEV, RETURN_N, RSI, RANK_BY, PERCENTILE_RANK -> ensureMetric(call);
                         case CROSS_UP -> {
+                            recordIndicator(definition);
+                            hasCross = true;
+                            String left = ensureValueAlias(call.arguments().get(0));
+                            String right = ensureValueAlias(call.arguments().get(1));
+                            previousAliases.putIfAbsent(left, "prev_" + left);
+                            previousAliases.putIfAbsent(right, "prev_" + right);
+                            ensureLagSpec(left, previousAliases.get(left));
+                            ensureLagSpec(right, previousAliases.get(right));
+                        }
+                        case CROSS_DOWN -> {
+                            recordIndicator(definition);
                             hasCross = true;
                             String left = ensureValueAlias(call.arguments().get(0));
                             String right = ensureValueAlias(call.arguments().get(1));
@@ -119,6 +141,7 @@ public final class DorisSqlGenerator {
             String key = signature(call);
             if (metricAliases.containsKey(key)) return metricAliases.get(key);
             var definition = fn(call);
+            recordIndicator(definition);
             String alias;
             if (definition.loweringKind() == RegistryConfig.LoweringKind.COLUMN) {
                 alias = uniqueAlias(call.name().toLowerCase(Locale.ROOT));
@@ -132,8 +155,11 @@ public final class DorisSqlGenerator {
                                     financialMetadata.visibleToColumn() + "; report period column f." +
                                     financialMetadata.reportPeriodColumn() + " is not used for direct joins."));
                 }
-            } else if (definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_AVG
-                    || definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_STDDEV) {
+            } else if (definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_EMA) {
+                throw new CompileException("EMA_LOWERING_UNAVAILABLE",
+                        "EMA requires recursive semantics or a versioned precomputed feature; refusing to lower it as MA",
+                        call.span().line(), call.span().column());
+            } else if (isWindowMetric(definition.loweringKind())) {
                 String inputAlias = ensureValueAlias(call.arguments().get(0));
                 int lookbackArg = definition.lookbackArg() == null && definition.windowSpec() != null
                         ? definition.windowSpec().lengthArg() : definition.lookbackArg() == null ? 1 : definition.lookbackArg();
@@ -151,11 +177,41 @@ public final class DorisSqlGenerator {
                         + " THEN " + aggregate + frame + " ELSE NULL END");
                 windowSpecs.put(alias, new WindowSpec(alias, call.name(), window, WindowSpec.Unit.TRADING_DAY,
                         List.of("symbol"), List.of("trade_date"), WindowSpec.NullPolicy.STRICT_FULL_WINDOW, true));
-            } else if (definition.loweringKind() == RegistryConfig.LoweringKind.RANK_BY) {
+            } else if (definition.loweringKind() == RegistryConfig.LoweringKind.RETURN_N) {
                 String inputAlias = ensureValueAlias(call.arguments().get(0));
-                String direction = rankDirection(call);
-                alias = uniqueAlias("rank_by_" + inputAlias + "_" + direction.toLowerCase(Locale.ROOT));
-                windowMetrics.put(alias, "DENSE_RANK() OVER (PARTITION BY trade_date ORDER BY " + q(inputAlias) + " " + direction + ")");
+                int window = literalInt(call.arguments().get(definition.lookbackArg()));
+                maxWindow = Math.max(maxWindow, window);
+                alias = uniqueAlias("return_n_" + inputAlias + "_" + window);
+                windowMetrics.put(alias, "(" + q(inputAlias) + " / LAG(" + q(inputAlias) + ", " + window
+                        + ") OVER (PARTITION BY symbol ORDER BY trade_date) - 1)");
+                windowSpecs.put(alias, new WindowSpec(alias, call.name(), window, WindowSpec.Unit.TRADING_DAY,
+                        List.of("symbol"), List.of("trade_date"), WindowSpec.NullPolicy.ALLOW_PARTIAL_WINDOW, true));
+            } else if (definition.loweringKind() == RegistryConfig.LoweringKind.RSI) {
+                String inputAlias = ensureValueAlias(call.arguments().get(0));
+                if (rsiMetrics.containsKey(inputAlias))
+                    throw new CompileException("RSI_NESTING_UNSUPPORTED", "RSI cannot consume another RSI in the same lowering pipeline",
+                            call.span().line(), call.span().column());
+                int window = literalInt(call.arguments().get(definition.lookbackArg()));
+                maxWindow = Math.max(maxWindow, window + 1);
+                alias = uniqueAlias("rsi_" + inputAlias + "_" + window);
+                String changeAlias = "change_" + inputAlias;
+                changeMetrics.putIfAbsent(changeAlias, q(inputAlias) + " - LAG(" + q(inputAlias)
+                        + ") OVER (PARTITION BY symbol ORDER BY trade_date)");
+                String frame = " OVER (PARTITION BY symbol ORDER BY trade_date ROWS BETWEEN "
+                        + (window - 1) + " PRECEDING AND CURRENT ROW)";
+                String averageGain = "AVG(GREATEST(" + q(changeAlias) + ", 0))" + frame;
+                String averageLoss = "AVG(ABS(LEAST(" + q(changeAlias) + ", 0)))" + frame;
+                rsiMetrics.put(alias, "(100 - 100 / (1 + " + averageGain + " / NULLIF(" + averageLoss + ", 0)))");
+                windowSpecs.put(alias, new WindowSpec(alias, call.name(), window + 1, WindowSpec.Unit.TRADING_DAY,
+                        List.of("symbol"), List.of("trade_date"), WindowSpec.NullPolicy.ALLOW_PARTIAL_WINDOW, true));
+            } else if (definition.loweringKind() == RegistryConfig.LoweringKind.RANK_BY ||
+                    definition.loweringKind() == RegistryConfig.LoweringKind.PERCENTILE_RANK) {
+                String inputAlias = ensureValueAlias(call.arguments().get(0));
+                String direction = definition.loweringKind() == RegistryConfig.LoweringKind.RANK_BY
+                        ? rankDirection(call) : "DESC";
+                alias = uniqueAlias(call.name().toLowerCase(Locale.ROOT) + "_" + inputAlias + "_" + direction.toLowerCase(Locale.ROOT));
+                String fn = definition.loweringKind() == RegistryConfig.LoweringKind.PERCENTILE_RANK ? "PERCENT_RANK()" : "DENSE_RANK()";
+                windowMetrics.put(alias, fn + " OVER (PARTITION BY trade_date ORDER BY " + q(inputAlias) + " " + direction + ")");
             } else {
                 throw new CompileException("LOWERING_ERROR", "Function is not a metric: " + call.name(), call.span().line(), call.span().column());
             }
@@ -173,15 +229,17 @@ public final class DorisSqlGenerator {
             if (expr instanceof Ast.FunctionCall call) {
                 var kind = fn(call).loweringKind();
                 if (kind == RegistryConfig.LoweringKind.COLUMN || kind == RegistryConfig.LoweringKind.WINDOW_AVG
-                        || kind == RegistryConfig.LoweringKind.WINDOW_STDDEV
-                        || kind == RegistryConfig.LoweringKind.RANK_BY)
+                        || kind == RegistryConfig.LoweringKind.WINDOW_EMA || kind == RegistryConfig.LoweringKind.WINDOW_STDDEV
+                        || kind == RegistryConfig.LoweringKind.RETURN_N || kind == RegistryConfig.LoweringKind.RSI
+                        || kind == RegistryConfig.LoweringKind.RANK_BY || kind == RegistryConfig.LoweringKind.PERCENTILE_RANK)
                     return ensureMetric(call);
             }
             throw new CompileException("METRIC_ARGUMENT", "Window/cross operand must resolve to a field or metric", expr.span().line(), expr.span().column());
         }
 
         private String ensureField(String name) {
-            registry.field(name, 1, 1);
+            var field = registry.field(name, 1, 1);
+            recordIndicator(field);
             String alias = name.toLowerCase(Locale.ROOT);
             baseFields.add(alias);
             return alias;
@@ -226,9 +284,23 @@ public final class DorisSqlGenerator {
 
             String source = "base";
             if (!windowMetrics.isEmpty()) {
-                sql.append(",\nmetrics AS (\n  SELECT base.*");
+                String cte = rsiMetrics.isEmpty() ? "metrics" : "window_inputs";
+                sql.append(",\n").append(cte).append(" AS (\n  SELECT base.*");
                 windowMetrics.forEach((alias, expression) -> sql.append(",\n    ").append(expression).append(" AS ").append(q(alias)));
                 sql.append("\n  FROM base\n)");
+                source = cte;
+            }
+            if (!changeMetrics.isEmpty()) {
+                String from = source;
+                sql.append(",\nchanges AS (\n  SELECT ").append(from).append(".*");
+                changeMetrics.forEach((alias, expression) -> sql.append(",\n    ").append(expression).append(" AS ").append(q(alias)));
+                sql.append("\n  FROM ").append(from).append("\n)");
+                source = "changes";
+            }
+            if (!rsiMetrics.isEmpty()) {
+                sql.append(",\nmetrics AS (\n  SELECT changes.*");
+                rsiMetrics.forEach((alias, expression) -> sql.append(",\n    ").append(expression).append(" AS ").append(q(alias)));
+                sql.append("\n  FROM changes\n)");
                 source = "metrics";
             }
             if (!previousAliases.isEmpty()) {
@@ -245,6 +317,7 @@ public final class DorisSqlGenerator {
             outputs.add("trade_date");
             outputs.addAll(columnMetrics.keySet());
             outputs.addAll(windowMetrics.keySet());
+            outputs.addAll(rsiMetrics.keySet());
             sql.append("\nSELECT ").append(outputs.stream().map(this::q).reduce((a, b) -> a + ", " + b).orElse("symbol"))
                     .append("\nFROM ").append(source)
                     .append("\nWHERE trade_date = ?");
@@ -383,11 +456,16 @@ public final class DorisSqlGenerator {
         private String renderFunction(Ast.FunctionCall call) {
             var definition = fn(call);
             return switch (definition.loweringKind()) {
-                case COLUMN, WINDOW_AVG, WINDOW_STDDEV, RANK_BY -> q(ensureMetric(call));
+                case COLUMN, WINDOW_AVG, WINDOW_EMA, WINDOW_STDDEV, RETURN_N, RSI, RANK_BY, PERCENTILE_RANK -> q(ensureMetric(call));
                 case CROSS_UP -> {
                     String left = ensureValueAlias(call.arguments().get(0));
                     String right = ensureValueAlias(call.arguments().get(1));
                     yield "(" + q(left) + " > " + q(right) + " AND " + q(previousAliases.get(left)) + " <= " + q(previousAliases.get(right)) + ")";
+                }
+                case CROSS_DOWN -> {
+                    String left = ensureValueAlias(call.arguments().get(0));
+                    String right = ensureValueAlias(call.arguments().get(1));
+                    yield "(" + q(left) + " < " + q(right) + " AND " + q(previousAliases.get(left)) + " >= " + q(previousAliases.get(right)) + ")";
                 }
                 case TEMPLATE -> {
                     String rendered = definition.sqlTemplate();
@@ -453,6 +531,23 @@ public final class DorisSqlGenerator {
             return registry.function(call.name(), call.span().line(), call.span().column());
         }
 
+        private boolean isWindowMetric(RegistryConfig.LoweringKind kind) {
+            return kind == RegistryConfig.LoweringKind.WINDOW_AVG
+                    || kind == RegistryConfig.LoweringKind.WINDOW_STDDEV;
+        }
+
+        private void recordIndicator(RegistryConfig.FunctionDefinition definition) {
+            String version = definition.version() == null || definition.version().isBlank() ? "builtin" : definition.version();
+            indicatorVersions.putIfAbsent(definition.name().toUpperCase(Locale.ROOT),
+                    new CompilationArtifact.IndicatorVersion(definition.name().toUpperCase(Locale.ROOT), version));
+        }
+
+        private void recordIndicator(RegistryConfig.FieldDefinition definition) {
+            String version = definition.version() == null || definition.version().isBlank() ? "builtin" : definition.version();
+            indicatorVersions.putIfAbsent(definition.name().toUpperCase(Locale.ROOT),
+                    new CompilationArtifact.IndicatorVersion(definition.name().toUpperCase(Locale.ROOT), version));
+        }
+
         private RegistryConfig.FinancialMetadata mergeFinancialMetadata(RegistryConfig.FinancialMetadata current,
                                                                         RegistryConfig.FinancialMetadata next,
                                                                         Ast.FunctionCall call) {
@@ -487,6 +582,7 @@ public final class DorisSqlGenerator {
             int suffix = 2;
             Set<String> used = new LinkedHashSet<>();
             used.addAll(baseFields); used.addAll(columnMetrics.keySet()); used.addAll(windowMetrics.keySet());
+            used.addAll(changeMetrics.keySet()); used.addAll(rsiMetrics.keySet());
             while (used.contains(alias)) alias = base + "_" + suffix++;
             return alias;
         }

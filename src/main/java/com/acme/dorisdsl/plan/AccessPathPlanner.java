@@ -136,13 +136,14 @@ public final class AccessPathPlanner {
         if (expr == null) return true;
         if (expr instanceof Ast.FunctionCall call) {
             var kind = registry.function(call.name(), call.span().line(), call.span().column()).loweringKind();
-            if (kind == RegistryConfig.LoweringKind.CROSS_UP || kind == RegistryConfig.LoweringKind.COLUMN) return false;
             if (kind == RegistryConfig.LoweringKind.WINDOW_AVG) {
                 if (call.arguments().isEmpty() || !(call.arguments().get(0) instanceof Ast.Identifier id)) return false;
                 if (!catalog.prefixDaily().fields().containsKey(id.name().toUpperCase(java.util.Locale.ROOT))) return false;
                 return call.arguments().stream().allMatch(argument -> prefixLowerable(argument, true));
             }
-            return call.arguments().stream().allMatch(argument -> prefixLowerable(argument, windowInput));
+            if (kind == RegistryConfig.LoweringKind.TEMPLATE)
+                return call.arguments().stream().allMatch(argument -> prefixLowerable(argument, windowInput));
+            return false;
         }
         if (expr instanceof Ast.Identifier) return windowInput;
         if (expr instanceof Ast.Binary e) return prefixLowerable(e.left(), windowInput) && prefixLowerable(e.right(), windowInput);
@@ -159,7 +160,9 @@ public final class AccessPathPlanner {
     private boolean featureCovered(Ast.Expr expr) {
         if (expr == null) return true;
         if (expr instanceof Ast.FunctionCall call) {
-            return catalog.feature().indicatorColumns().containsKey(signature(call));
+            var definition = registry.function(call.name(), call.span().line(), call.span().column());
+            return definition.featureColumn() != null
+                    && catalog.feature().indicatorColumns().containsKey(signature(call));
         }
         if (expr instanceof Ast.Identifier id)
             return id.name().equalsIgnoreCase("SYMBOL") || id.name().equalsIgnoreCase("TRADE_DATE");
