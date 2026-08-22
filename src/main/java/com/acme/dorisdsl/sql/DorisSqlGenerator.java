@@ -94,7 +94,7 @@ public final class DorisSqlGenerator {
                     var definition = fn(call);
                     definition.requiredFields().forEach(this::ensureField);
                     switch (definition.loweringKind()) {
-                        case COLUMN, WINDOW_AVG, RANK_BY -> ensureMetric(call);
+                        case COLUMN, WINDOW_AVG, WINDOW_STDDEV, RANK_BY -> ensureMetric(call);
                         case CROSS_UP -> {
                             hasCross = true;
                             String left = ensureValueAlias(call.arguments().get(0));
@@ -132,9 +132,12 @@ public final class DorisSqlGenerator {
                                     financialMetadata.visibleToColumn() + "; report period column f." +
                                     financialMetadata.reportPeriodColumn() + " is not used for direct joins."));
                 }
-            } else if (definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_AVG) {
+            } else if (definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_AVG
+                    || definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_STDDEV) {
                 String inputAlias = ensureValueAlias(call.arguments().get(0));
-                int window = literalInt(call.arguments().get(definition.lookbackArg()));
+                int lookbackArg = definition.lookbackArg() == null && definition.windowSpec() != null
+                        ? definition.windowSpec().lengthArg() : definition.lookbackArg() == null ? 1 : definition.lookbackArg();
+                int window = literalInt(call.arguments().get(lookbackArg));
                 if (window < 1 || window > com.acme.dorisdsl.semantic.SemanticAnalyzer.MAX_WINDOW_LENGTH)
                     throw new CompileException("WINDOW_RANGE", "Window must be between 1 and " +
                             com.acme.dorisdsl.semantic.SemanticAnalyzer.MAX_WINDOW_LENGTH, call.span().line(), call.span().column());
@@ -142,9 +145,11 @@ public final class DorisSqlGenerator {
                 alias = uniqueAlias(call.name().toLowerCase(Locale.ROOT) + "_" + inputAlias + "_" + window);
                 String frame = " OVER (PARTITION BY symbol ORDER BY trade_date ROWS BETWEEN "
                         + (window - 1) + " PRECEDING AND CURRENT ROW)";
+                String aggregate = definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_STDDEV
+                        ? "STDDEV_SAMP(" + q(inputAlias) + ")" : "AVG(" + q(inputAlias) + ")";
                 windowMetrics.put(alias, "CASE WHEN COUNT(" + q(inputAlias) + ")" + frame + " = " + window
-                        + " THEN AVG(" + q(inputAlias) + ")" + frame + " ELSE NULL END");
-                windowSpecs.put(alias, new WindowSpec(alias, "MA", window, WindowSpec.Unit.TRADING_DAY,
+                        + " THEN " + aggregate + frame + " ELSE NULL END");
+                windowSpecs.put(alias, new WindowSpec(alias, call.name(), window, WindowSpec.Unit.TRADING_DAY,
                         List.of("symbol"), List.of("trade_date"), WindowSpec.NullPolicy.STRICT_FULL_WINDOW, true));
             } else if (definition.loweringKind() == RegistryConfig.LoweringKind.RANK_BY) {
                 String inputAlias = ensureValueAlias(call.arguments().get(0));
@@ -168,6 +173,7 @@ public final class DorisSqlGenerator {
             if (expr instanceof Ast.FunctionCall call) {
                 var kind = fn(call).loweringKind();
                 if (kind == RegistryConfig.LoweringKind.COLUMN || kind == RegistryConfig.LoweringKind.WINDOW_AVG
+                        || kind == RegistryConfig.LoweringKind.WINDOW_STDDEV
                         || kind == RegistryConfig.LoweringKind.RANK_BY)
                     return ensureMetric(call);
             }
@@ -377,8 +383,7 @@ public final class DorisSqlGenerator {
         private String renderFunction(Ast.FunctionCall call) {
             var definition = fn(call);
             return switch (definition.loweringKind()) {
-                case COLUMN, WINDOW_AVG -> q(ensureMetric(call));
-                case RANK_BY -> q(ensureMetric(call));
+                case COLUMN, WINDOW_AVG, WINDOW_STDDEV, RANK_BY -> q(ensureMetric(call));
                 case CROSS_UP -> {
                     String left = ensureValueAlias(call.arguments().get(0));
                     String right = ensureValueAlias(call.arguments().get(1));
@@ -387,6 +392,10 @@ public final class DorisSqlGenerator {
                 case TEMPLATE -> {
                     String rendered = definition.sqlTemplate();
                     for (int i = 0; i < call.arguments().size(); i++) rendered = rendered.replace("{" + i + "}", render(call.arguments().get(i)));
+                    if (rendered.contains("{") || rendered.contains("}"))
+                        throw new CompileException("TEMPLATE_UNRESOLVED",
+                                "SQL template for " + call.name() + " contains an unresolved placeholder",
+                                call.span().line(), call.span().column());
                     yield rendered;
                 }
             };

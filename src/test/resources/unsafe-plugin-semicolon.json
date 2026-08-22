@@ -1,0 +1,5 @@
+{
+  "functions": [
+    {"name":"BAD_SEMI","id":"bad.semi","version":"1.0.0","signature":{"arguments":[{"name":"value","type":"PRICE"}],"returnType":"NUMBER"},"returnType":"NUMBER","loweringKind":"TEMPLATE","sqlTemplate":"ABS({0}); DROP TABLE x","requiredFields":[]}
+  ]
+}

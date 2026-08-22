@@ -2,12 +2,58 @@
   "functions": [
     {
       "name":"ABS_CHANGE",
+      "id":"custom.abs_change",
+      "version":"1.0.0",
+      "signature":{
+        "arguments":[
+          {"name":"left","type":"PriceSeries"},
+          {"name":"right","type":"PriceSeries"}
+        ],
+        "returnType":"ScalarNumber"
+      },
       "minArgs":2,
       "maxArgs":2,
       "returnType":"ScalarNumber",
+      "requiredFields":[],
+      "adjustmentRequirement":"ANY",
+      "nullPolicy":"ALLOW_PARTIAL_WINDOW",
       "loweringKind":"TEMPLATE",
       "sqlTemplate":"ABS({0} - {1})",
-      "requiredFields":[]
+      "capabilities":{"minDorisVersion":"2.1","requiredFunctions":["ABS"]},
+      "tests":[
+        {"dsl":"SCREEN ON 2026-08-07 WHERE ABS_CHANGE(CLOSE, OPEN) > 1 LIMIT 10","expectedSqlContains":"ABS(`close` - `open`) > ?"}
+      ]
+    },
+    {
+      "name":"VOLATILITY",
+      "id":"custom.volatility",
+      "version":"1.0.0",
+      "signature":{
+        "arguments":[
+          {"name":"value","type":"PriceSeries"},
+          {"name":"window","type":"ScalarNumber"}
+        ],
+        "returnType":"ScalarNumber"
+      },
+      "returnType":"ScalarNumber",
+      "requiredFields":[],
+      "windowSpec":{
+        "lengthArg":1,
+        "unit":"TRADING_DAY",
+        "partitionKeys":["symbol"],
+        "orderKeys":["trade_date"],
+        "nullPolicy":"STRICT_FULL_WINDOW",
+        "requireFullWindow":true
+      },
+      "adjustmentRequirement":"ANY",
+      "nullPolicy":"STRICT_FULL_WINDOW",
+      "loweringKind":"WINDOW_STDDEV",
+      "irBuilder":"WindowStddevBuilder",
+      "lookbackArg":1,
+      "capabilities":{"minDorisVersion":"2.1","requiredFunctions":["STDDEV_SAMP"]},
+      "tests":[
+        {"dsl":"SCREEN ON 2026-08-07 WHERE VOLATILITY(CLOSE, 20) > 1 LIMIT 10","expectedSqlContains":"STDDEV_SAMP(`close`) OVER"}
+      ]
     }
   ]
 }

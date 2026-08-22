@@ -49,7 +49,8 @@ public final class SemanticAnalyzer {
                 if (count < definition.minArgs() || count > definition.maxArgs())
                     throw error("FUNCTION_ARITY", call.name() + " expects " + definition.minArgs() + ".." + definition.maxArgs() + " arguments", call.span());
                 var arguments = call.arguments().stream().map(argument -> inferFunctionArgument(argument, depth + 1)).toList();
-                if (definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_AVG) {
+                if (definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_AVG
+                        || definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_STDDEV) {
                     validateWindowFunction(call.name(), arguments, call.span());
                 }
                 if (definition.loweringKind() == RegistryConfig.LoweringKind.CROSS_UP) {
