@@ -24,7 +24,7 @@ class CompilerTest {
     @Test void compilesComplexDslIntoLayeredParameterizedDorisSql() {
         var artifact = compiler.compile(sampleDsl());
         assertEquals(21, artifact.requiredLookbackTradingDays());
-        assertEquals(Ast.DataType.BOOLEAN, artifact.ast().where().type());
+        assertEquals(Ast.DataType.BooleanSeries, artifact.ast().where().type());
         assertTrue(artifact.sql().contains("WITH base AS"));
         assertTrue(artifact.sql().contains("metrics AS"));
         assertTrue(artifact.sql().contains("signals AS"));

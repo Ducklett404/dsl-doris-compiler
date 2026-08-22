@@ -14,6 +14,7 @@ public final class AstSnapshot {
         snapshot.put("schemaVersion", SCHEMA_VERSION);
         snapshot.put("kind", "Query");
         snapshot.put("asOf", query.asOf().toString());
+        snapshot.put("context", query.context().values());
         snapshot.put("adjustment", query.adjustment().name());
         snapshot.put("where", expression(query.where()));
         snapshot.put("orderBy", query.orderBy() == null ? null : orderBy(query.orderBy()));
@@ -57,6 +58,14 @@ public final class AstSnapshot {
             case Ast.InList in -> {
                 value.put("value", expression(in.value()));
                 value.put("options", in.options().stream().map(AstSnapshot::expression).toList());
+            }
+            case Ast.IsNull isNull -> {
+                value.put("value", expression(isNull.value()));
+                value.put("negated", isNull.negated());
+            }
+            case Ast.NamedArgument named -> {
+                value.put("name", named.name());
+                value.put("value", expression(named.value()));
             }
         }
         return value;

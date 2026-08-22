@@ -7,14 +7,17 @@ import org.antlr.v4.runtime.Token;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public final class AstBuilder extends StockDslBaseVisitor<Object> {
     @Override
     public Ast.Query visitQuery(StockDslParser.QueryContext ctx) {
         var asOf = LocalDate.parse(ctx.DATE().getText());
         int expressionIndex = 0;
+        Ast.QueryContext context = ctx.contextClause() == null ? Ast.QueryContext.empty() : visitContextClause(ctx.contextClause());
         Ast.Expr where = ctx.WHERE() == null ? null : expr(ctx.expression(expressionIndex++));
         Ast.Adjustment adjustment = ctx.adjustmentMode() == null
                 ? Ast.Adjustment.NONE
@@ -26,7 +29,25 @@ public final class AstBuilder extends StockDslBaseVisitor<Object> {
             orderBy = new Ast.OrderBy(expr(ctx.expression(expressionIndex)), direction);
         }
         int limit = ctx.LIMIT() == null ? 100 : Integer.parseInt(ctx.INT().getText());
-        return new Ast.Query(asOf, where, adjustment, orderBy, limit, span(ctx));
+        return new Ast.Query(asOf, context, where, adjustment, orderBy, limit, span(ctx));
+    }
+
+    @Override
+    public Ast.QueryContext visitContextClause(StockDslParser.ContextClauseContext ctx) {
+        Map<String, List<Object>> values = new LinkedHashMap<>();
+        for (var item : ctx.contextItem()) {
+            String key = item.identifier().getText().toUpperCase(Locale.ROOT);
+            List<Object> itemValues = new ArrayList<>();
+            if (item.literal() != null) {
+                itemValues.add(((Ast.Literal) visit(item.literal())).value());
+            } else {
+                @SuppressWarnings("unchecked")
+                List<Ast.Expr> literals = (List<Ast.Expr>) visit(item.listLiteral());
+                for (Ast.Expr literal : literals) itemValues.add(((Ast.Literal) literal).value());
+            }
+            values.put(key, List.copyOf(itemValues));
+        }
+        return new Ast.QueryContext(values);
     }
 
     @Override public Ast.Expr visitExpression(StockDslParser.ExpressionContext ctx) { return expr(ctx.orExpression()); }
@@ -70,6 +91,9 @@ public final class AstBuilder extends StockDslBaseVisitor<Object> {
             List<Ast.Expr> values = (List<Ast.Expr>) visit(ctx.listLiteral());
             return new Ast.InList(first, values, Ast.DataType.UNKNOWN, span(ctx));
         }
+        if (ctx.IS() != null) {
+            return new Ast.IsNull(first, ctx.NOT() != null, Ast.DataType.UNKNOWN, span(ctx));
+        }
         return first;
     }
 
@@ -111,10 +135,19 @@ public final class AstBuilder extends StockDslBaseVisitor<Object> {
     public Ast.Expr visitFunctionCall(StockDslParser.FunctionCallContext ctx) {
         List<Ast.Expr> args = new ArrayList<>();
         if (ctx.argumentList() != null) {
-            for (var e : ctx.argumentList().expression()) args.add(expr(e));
+            for (var argument : ctx.argumentList().functionArgument()) args.add(expr(argument));
         }
         return new Ast.FunctionCall(ctx.identifier().getText().toUpperCase(Locale.ROOT), args,
                 Ast.DataType.UNKNOWN, span(ctx));
+    }
+
+    @Override
+    public Ast.Expr visitFunctionArgument(StockDslParser.FunctionArgumentContext ctx) {
+        if (ctx.identifier() != null) {
+            return new Ast.NamedArgument(ctx.identifier().getText().toUpperCase(Locale.ROOT),
+                    expr(ctx.expression()), Ast.DataType.UNKNOWN, span(ctx));
+        }
+        return expr(ctx.expression());
     }
 
     @Override
@@ -127,15 +160,15 @@ public final class AstBuilder extends StockDslBaseVisitor<Object> {
         String text = ctx.getText();
         if (ctx.PERCENT() != null) {
             return new Ast.Literal(new BigDecimal(text.substring(0, text.length() - 1)).movePointLeft(2),
-                    Ast.DataType.PERCENT, span(ctx));
+                    Ast.DataType.Percent, span(ctx));
         }
         if (ctx.DECIMAL() != null || ctx.INT() != null)
-            return new Ast.Literal(new BigDecimal(text), Ast.DataType.NUMBER, span(ctx));
+            return new Ast.Literal(new BigDecimal(text), Ast.DataType.ScalarNumber, span(ctx));
         if (ctx.STRING() != null)
-            return new Ast.Literal(text.substring(1, text.length() - 1).replace("''", "'"), Ast.DataType.STRING, span(ctx));
-        if (ctx.DATE() != null) return new Ast.Literal(LocalDate.parse(text), Ast.DataType.TRADE_DATE, span(ctx));
+            return new Ast.Literal(text.substring(1, text.length() - 1).replace("''", "'"), Ast.DataType.StringCategory, span(ctx));
+        if (ctx.DATE() != null) return new Ast.Literal(LocalDate.parse(text), Ast.DataType.TradeDate, span(ctx));
         if (ctx.TRUE() != null || ctx.FALSE() != null)
-            return new Ast.Literal(Boolean.valueOf(text), Ast.DataType.BOOLEAN, span(ctx));
+            return new Ast.Literal(Boolean.valueOf(text), Ast.DataType.BooleanSeries, span(ctx));
         return new Ast.Literal(null, Ast.DataType.NULL, span(ctx));
     }
 

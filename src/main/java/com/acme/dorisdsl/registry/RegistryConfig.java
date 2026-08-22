@@ -32,5 +32,5 @@ public record RegistryConfig(
         }
     }
 
-    public enum LoweringKind { COLUMN, WINDOW_AVG, CROSS_UP, TEMPLATE }
+    public enum LoweringKind { COLUMN, WINDOW_AVG, CROSS_UP, RANK_BY, TEMPLATE }
 }

@@ -127,6 +127,8 @@ public final class AccessPathPlanner {
         if (expr instanceof Ast.Unary e) return containsKind(e.operand(), kind);
         if (expr instanceof Ast.Between e) return containsKind(e.value(), kind) || containsKind(e.lower(), kind) || containsKind(e.upper(), kind);
         if (expr instanceof Ast.InList e) return containsKind(e.value(), kind) || e.options().stream().anyMatch(v -> containsKind(v, kind));
+        if (expr instanceof Ast.IsNull e) return containsKind(e.value(), kind);
+        if (expr instanceof Ast.NamedArgument e) return containsKind(e.value(), kind);
         return false;
     }
 
@@ -149,6 +151,8 @@ public final class AccessPathPlanner {
                 && prefixLowerable(e.lower(), windowInput) && prefixLowerable(e.upper(), windowInput);
         if (expr instanceof Ast.InList e) return prefixLowerable(e.value(), windowInput)
                 && e.options().stream().allMatch(option -> prefixLowerable(option, windowInput));
+        if (expr instanceof Ast.IsNull e) return prefixLowerable(e.value(), windowInput);
+        if (expr instanceof Ast.NamedArgument e) return prefixLowerable(e.value(), windowInput);
         return true;
     }
 
@@ -163,6 +167,8 @@ public final class AccessPathPlanner {
         if (expr instanceof Ast.Unary e) return featureCovered(e.operand());
         if (expr instanceof Ast.Between e) return featureCovered(e.value()) && featureCovered(e.lower()) && featureCovered(e.upper());
         if (expr instanceof Ast.InList e) return featureCovered(e.value()) && e.options().stream().allMatch(this::featureCovered);
+        if (expr instanceof Ast.IsNull e) return featureCovered(e.value());
+        if (expr instanceof Ast.NamedArgument e) return featureCovered(e.value());
         return true;
     }
 
@@ -176,6 +182,8 @@ public final class AccessPathPlanner {
             case Ast.Unary unary -> unary.operator() + signature(unary.operand());
             case Ast.Between between -> signature(between.value()) + "BETWEEN" + signature(between.lower()) + "AND" + signature(between.upper());
             case Ast.InList in -> signature(in.value()) + "IN" + in.options().stream().map(this::signature).toList();
+            case Ast.IsNull isNull -> signature(isNull.value()) + (isNull.negated() ? "ISNOTNULL" : "ISNULL");
+            case Ast.NamedArgument named -> named.name() + "=" + signature(named.value());
         };
     }
 }

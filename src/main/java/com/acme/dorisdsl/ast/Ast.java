@@ -6,12 +6,14 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public final class Ast {
     private Ast() {}
 
     public enum DataType {
-        UNKNOWN, BOOLEAN, NUMBER, PRICE, RATIO, PERCENT, VOLUME, STRING, TRADE_DATE, SECURITY_ID, NULL
+        UNKNOWN, BooleanSeries, ScalarNumber, PriceSeries, RatioSeries, Percent, VolumeSeries,
+        TradeDate, SecurityId, StringCategory, NULL
     }
 
     public enum Adjustment { FORWARD, BACKWARD, NONE }
@@ -27,16 +29,18 @@ public final class Ast {
             @JsonSubTypes.Type(value = Binary.class, name = "Binary"),
             @JsonSubTypes.Type(value = Unary.class, name = "Unary"),
             @JsonSubTypes.Type(value = Between.class, name = "Between"),
-            @JsonSubTypes.Type(value = InList.class, name = "InList")
+            @JsonSubTypes.Type(value = InList.class, name = "InList"),
+            @JsonSubTypes.Type(value = IsNull.class, name = "IsNull"),
+            @JsonSubTypes.Type(value = NamedArgument.class, name = "NamedArgument")
     })
-    public sealed interface Expr permits Literal, Identifier, FunctionCall, Binary, Unary, Between, InList {
+    public sealed interface Expr permits Literal, Identifier, FunctionCall, Binary, Unary, Between, InList, IsNull, NamedArgument {
         DataType type();
         SourceSpan span();
     }
 
     public record Literal(Object value, DataType type, SourceSpan span) implements Expr {
         public static Literal number(BigDecimal value, SourceSpan span) {
-            return new Literal(value, DataType.NUMBER, span);
+            return new Literal(value, DataType.ScalarNumber, span);
         }
     }
 
@@ -52,7 +56,17 @@ public final class Ast {
     public record InList(Expr value, List<Expr> options, DataType type, SourceSpan span) implements Expr {
         public InList { options = List.copyOf(options); }
     }
+    public record IsNull(Expr value, boolean negated, DataType type, SourceSpan span) implements Expr {}
+    public record NamedArgument(String name, Expr value, DataType type, SourceSpan span) implements Expr {}
 
     public record OrderBy(Expr expression, Direction direction) {}
-    public record Query(LocalDate asOf, Expr where, Adjustment adjustment, OrderBy orderBy, int limit, SourceSpan span) {}
+    public record QueryContext(Map<String, List<Object>> values) {
+        public QueryContext { values = Map.copyOf(values); }
+        public static QueryContext empty() { return new QueryContext(Map.of()); }
+    }
+    public record Query(LocalDate asOf, QueryContext context, Expr where, Adjustment adjustment, OrderBy orderBy, int limit, SourceSpan span) {
+        public Query {
+            context = context == null ? QueryContext.empty() : context;
+        }
+    }
 }

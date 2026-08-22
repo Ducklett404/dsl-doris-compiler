@@ -86,7 +86,7 @@ public final class DorisSqlGenerator {
                     var definition = fn(call);
                     definition.requiredFields().forEach(this::ensureField);
                     switch (definition.loweringKind()) {
-                        case COLUMN, WINDOW_AVG -> ensureMetric(call);
+                        case COLUMN, WINDOW_AVG, RANK_BY -> ensureMetric(call);
                         case CROSS_UP -> {
                             hasCross = true;
                             String left = ensureValueAlias(call.arguments().get(0));
@@ -117,14 +117,20 @@ public final class DorisSqlGenerator {
             } else if (definition.loweringKind() == RegistryConfig.LoweringKind.WINDOW_AVG) {
                 String inputAlias = ensureValueAlias(call.arguments().get(0));
                 int window = literalInt(call.arguments().get(definition.lookbackArg()));
-                if (window < 1 || window > 5000)
-                    throw new CompileException("WINDOW_RANGE", "Window must be between 1 and 5000", call.span().line(), call.span().column());
+                if (window < 1 || window > com.acme.dorisdsl.semantic.SemanticAnalyzer.MAX_WINDOW_LENGTH)
+                    throw new CompileException("WINDOW_RANGE", "Window must be between 1 and " +
+                            com.acme.dorisdsl.semantic.SemanticAnalyzer.MAX_WINDOW_LENGTH, call.span().line(), call.span().column());
                 maxWindow = Math.max(maxWindow, window);
                 alias = uniqueAlias(call.name().toLowerCase(Locale.ROOT) + "_" + inputAlias + "_" + window);
                 String frame = " OVER (PARTITION BY symbol ORDER BY trade_date ROWS BETWEEN "
                         + (window - 1) + " PRECEDING AND CURRENT ROW)";
                 windowMetrics.put(alias, "CASE WHEN COUNT(" + q(inputAlias) + ")" + frame + " = " + window
                         + " THEN AVG(" + q(inputAlias) + ")" + frame + " ELSE NULL END");
+            } else if (definition.loweringKind() == RegistryConfig.LoweringKind.RANK_BY) {
+                String inputAlias = ensureValueAlias(call.arguments().get(0));
+                String direction = rankDirection(call);
+                alias = uniqueAlias("rank_by_" + inputAlias + "_" + direction.toLowerCase(Locale.ROOT));
+                windowMetrics.put(alias, "DENSE_RANK() OVER (PARTITION BY trade_date ORDER BY " + q(inputAlias) + " " + direction + ")");
             } else {
                 throw new CompileException("LOWERING_ERROR", "Function is not a metric: " + call.name(), call.span().line(), call.span().column());
             }
@@ -136,7 +142,8 @@ public final class DorisSqlGenerator {
             if (expr instanceof Ast.Identifier id) return ensureField(id.name());
             if (expr instanceof Ast.FunctionCall call) {
                 var kind = fn(call).loweringKind();
-                if (kind == RegistryConfig.LoweringKind.COLUMN || kind == RegistryConfig.LoweringKind.WINDOW_AVG)
+                if (kind == RegistryConfig.LoweringKind.COLUMN || kind == RegistryConfig.LoweringKind.WINDOW_AVG
+                        || kind == RegistryConfig.LoweringKind.RANK_BY)
                     return ensureMetric(call);
             }
             throw new CompileException("METRIC_ARGUMENT", "Window/cross operand must resolve to a field or metric", expr.span().line(), expr.span().column());
@@ -183,6 +190,7 @@ public final class DorisSqlGenerator {
                 sql.append("  WHERE q.trade_date = ?\n");
                 bindings.add(query.asOf());
             }
+            appendContextFilters(sql);
             sql.append(")");
 
             String source = "base";
@@ -322,6 +330,8 @@ public final class DorisSqlGenerator {
                 case Ast.Unary unary -> unary.operator() + featureSignature(unary.operand());
                 case Ast.Between between -> featureSignature(between.value()) + "BETWEEN" + featureSignature(between.lower()) + "AND" + featureSignature(between.upper());
                 case Ast.InList in -> featureSignature(in.value()) + "IN" + in.options().stream().map(this::featureSignature).toList();
+                case Ast.IsNull isNull -> featureSignature(isNull.value()) + (isNull.negated() ? "ISNOTNULL" : "ISNULL");
+                case Ast.NamedArgument named -> named.name() + "=" + featureSignature(named.value());
             };
         }
         private String render(Ast.Expr expr) {
@@ -334,6 +344,8 @@ public final class DorisSqlGenerator {
                         ? "(NOT " + render(unary.operand()) + ")" : "(" + unary.operator() + render(unary.operand()) + ")";
                 case Ast.Between between -> "(" + render(between.value()) + " BETWEEN " + render(between.lower()) + " AND " + render(between.upper()) + ")";
                 case Ast.InList in -> "(" + render(in.value()) + " IN (" + in.options().stream().map(this::render).reduce((a,b) -> a + ", " + b).orElse("") + "))";
+                case Ast.IsNull isNull -> "(" + render(isNull.value()) + " IS " + (isNull.negated() ? "NOT " : "") + "NULL)";
+                case Ast.NamedArgument named -> throw new CompileException("NAMED_ARGUMENT_RENDER", "Named argument cannot be rendered directly", named.span().line(), named.span().column());
             };
         }
 
@@ -341,6 +353,7 @@ public final class DorisSqlGenerator {
             var definition = fn(call);
             return switch (definition.loweringKind()) {
                 case COLUMN, WINDOW_AVG -> q(ensureMetric(call));
+                case RANK_BY -> q(ensureMetric(call));
                 case CROSS_UP -> {
                     String left = ensureValueAlias(call.arguments().get(0));
                     String right = ensureValueAlias(call.arguments().get(1));
@@ -370,6 +383,38 @@ public final class DorisSqlGenerator {
             throw new CompileException("WINDOW_LITERAL", "Window must be an integer literal", expr.span().line(), expr.span().column());
         }
 
+        private String rankDirection(Ast.FunctionCall call) {
+            if (call.arguments().size() < 2) return "DESC";
+            Ast.Expr argument = call.arguments().get(1);
+            if (argument instanceof Ast.NamedArgument named) argument = named.value();
+            if (argument instanceof Ast.Literal literal && literal.value() instanceof String value) {
+                String direction = value.toUpperCase(Locale.ROOT);
+                if (direction.equals("ASC") || direction.equals("DESC")) return direction;
+            }
+            throw new CompileException("RANK_DIRECTION", "RANK_BY direction must be ASC or DESC", argument.span().line(), argument.span().column());
+        }
+
+        private void appendContextFilters(StringBuilder sql) {
+            for (var entry : query.context().values().entrySet()) {
+                String key = entry.getKey().toUpperCase(Locale.ROOT);
+                if (key.equals("USER")) continue;
+                String field = switch (key) {
+                    case "MARKET", "INDUSTRY", "UNIVERSE" -> adjust(registry.field(key, query.span().line(), query.span().column()).sourceSql());
+                    default -> throw new CompileException("CONTEXT_KEY", "Unsupported context key: " + key, query.span().line(), query.span().column());
+                };
+                if (entry.getValue().size() == 1) {
+                    sql.append("    AND ").append(field).append(" = ?\n");
+                    bindings.add(entry.getValue().get(0));
+                } else {
+                    sql.append("    AND ").append(field).append(" IN (")
+                            .append("?,".repeat(entry.getValue().size()));
+                    sql.setLength(sql.length() - 1);
+                    sql.append(")\n");
+                    bindings.addAll(entry.getValue());
+                }
+            }
+        }
+
         private RegistryConfig.FunctionDefinition fn(Ast.FunctionCall call) {
             return registry.function(call.name(), call.span().line(), call.span().column());
         }
@@ -383,6 +428,8 @@ public final class DorisSqlGenerator {
                 case Ast.Unary u -> u.operator() + signature(u.operand());
                 case Ast.Between b -> signature(b.value()) + " BETWEEN " + signature(b.lower()) + " AND " + signature(b.upper());
                 case Ast.InList in -> signature(in.value()) + " IN " + in.options().stream().map(this::signature).toList();
+                case Ast.IsNull isNull -> signature(isNull.value()) + (isNull.negated() ? " IS NOT NULL" : " IS NULL");
+                case Ast.NamedArgument named -> named.name() + "=" + signature(named.value());
             };
         }
 

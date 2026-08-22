@@ -26,6 +26,8 @@ final class ExpressionRuntime {
                 Object value = evaluate(in.value(), values);
                 yield in.options().stream().map(option -> evaluate(option, values)).anyMatch(option -> equal(value, option));
             }
+            case Ast.IsNull isNull -> (evaluate(isNull.value(), values) == null) != isNull.negated();
+            case Ast.NamedArgument named -> evaluate(named.value(), values);
         };
     }
 
