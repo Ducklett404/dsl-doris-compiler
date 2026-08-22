@@ -1,0 +1,16 @@
+{
+  "datasets": {
+    "quoteTable": "market.dwd_quote_daily",
+    "financialTable": "market.dwd_financial_pit",
+    "calendarTable": "market.dim_trade_calendar",
+    "featureTable": "market.dws_quote_feature_daily"
+  },
+  "fields": [
+    {"name":"SYMBOL","type":"SECURITY_ID","sourceSql":"q.symbol"},
+    {"name":"TRADE_DATE","type":"TRADE_DATE","sourceSql":"q.trade_date"},
+    {"name":"CLOSE","type":"PRICE","sourceSql":"q.close_qfq"}
+  ],
+  "functions": [
+    {"name":"BAD_PE","minArgs":0,"maxArgs":0,"returnType":"RATIO","loweringKind":"COLUMN","sqlTemplate":"f.pe_ttm","featureColumn":"pe_ttm","requiredFields":[]}
+  ]
+}

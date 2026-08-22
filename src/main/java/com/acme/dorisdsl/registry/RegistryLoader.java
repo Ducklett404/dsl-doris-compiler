@@ -58,7 +58,20 @@ public final class RegistryLoader {
                     function.loweringKind() == RegistryConfig.LoweringKind.COLUMN) {
                 validateSqlFragment(function.sqlTemplate(), "function " + function.name());
             }
+            if (function.sqlTemplate() != null && function.sqlTemplate().contains("f."))
+                validateFinancialMetadata(function);
         }
+    }
+
+    private void validateFinancialMetadata(RegistryConfig.FunctionDefinition function) {
+        var metadata = function.financialMetadata();
+        if (metadata == null)
+            throw new CompileException("REGISTRY_INVALID", "Financial function requires PIT metadata: " + function.name(), 1, 1);
+        if (isBlank(metadata.visibleFromColumn()) || isBlank(metadata.visibleToColumn()) || isBlank(metadata.reportPeriodColumn()))
+            throw new CompileException("REGISTRY_INVALID", "Incomplete PIT metadata for " + function.name(), 1, 1);
+        validateIdentifier(metadata.visibleFromColumn(), "visibleFromColumn for " + function.name());
+        validateIdentifier(metadata.visibleToColumn(), "visibleToColumn for " + function.name());
+        validateIdentifier(metadata.reportPeriodColumn(), "reportPeriodColumn for " + function.name());
     }
 
     private void validateSqlFragment(String sql, String owner) {
@@ -66,5 +79,14 @@ public final class RegistryLoader {
         String lower = sql.toLowerCase();
         if (sql.contains(";") || sql.contains("--") || sql.contains("/*") || lower.contains(" select ") || lower.startsWith("select "))
             throw new CompileException("REGISTRY_UNSAFE", "Unsafe SQL fragment in " + owner, 1, 1);
+    }
+
+    private void validateIdentifier(String value, String owner) {
+        if (!value.matches("[a-zA-Z_][a-zA-Z0-9_]*"))
+            throw new CompileException("REGISTRY_UNSAFE", "Unsafe identifier in " + owner, 1, 1);
+    }
+
+    private boolean isBlank(String value) {
+        return value == null || value.isBlank();
     }
 }
