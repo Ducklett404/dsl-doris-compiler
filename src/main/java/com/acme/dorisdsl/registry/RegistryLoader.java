@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public final class RegistryLoader {
     private static final Pattern TEMPLATE_PLACEHOLDER = Pattern.compile("\\{(\\d+)}");
@@ -42,20 +43,25 @@ public final class RegistryLoader {
 
     private Registry load(InputStream baseInput, List<Path> pluginPaths) throws IOException {
         RegistryConfig base = mapper.readValue(baseInput, RegistryConfig.class);
+        validate(base, true);
         List<RegistryConfig> plugins = new ArrayList<>();
         for (Path path : pluginPaths) {
             try (InputStream input = Files.newInputStream(path)) {
-                plugins.add(mapper.readValue(input, RegistryConfig.class));
+                JsonNode source = mapper.readTree(input);
+                RegistryConfig plugin = mapper.treeToValue(source, RegistryConfig.class);
+                validate(plugin, false);
+                PluginVerifier.verify(source, mapper);
+                plugins.add(plugin);
             }
         }
-        validate(base, true);
-        plugins.forEach(plugin -> validate(plugin, false));
         return Registry.from(base, plugins);
     }
 
     private void validate(RegistryConfig config, boolean requireDatasets) {
         if (requireDatasets && config.datasets() == null)
             throw new CompileException("REGISTRY_INVALID", "Base registry requires datasets", 1, 1);
+        if (!requireDatasets && config.datasets() != null)
+            throw new CompileException("PLUGIN_DATASET_FORBIDDEN", "Plugins cannot define or override datasets", 1, 1);
         for (var field : config.fields()) validateSqlFragment(field.sourceSql(), "field " + field.name());
         for (var function : config.functions()) {
             validatePluginContract(function);
@@ -70,6 +76,8 @@ public final class RegistryLoader {
             if (function.sqlTemplate() != null && function.sqlTemplate().contains("f."))
                 validateFinancialMetadata(function);
         }
+        if (!requireDatasets && (config.id() == null || config.version() == null || config.signature() == null))
+            throw new CompileException("PLUGIN_METADATA_REQUIRED", "Plugin id, version, and signature are required", 1, 1);
     }
 
     private void validateTemplatePlaceholders(RegistryConfig.FunctionDefinition function) {
@@ -157,9 +165,9 @@ public final class RegistryLoader {
 
     private void validateSqlFragment(String sql, String owner) {
         if (sql == null || sql.isBlank()) throw new CompileException("REGISTRY_INVALID", "Missing SQL for " + owner, 1, 1);
-        String lower = sql.toLowerCase();
-        if (sql.contains(";") || sql.contains("--") || sql.contains("/*") || lower.contains(" select ")
-                || lower.startsWith("select ") || lower.contains("(select")
+        String lower = " " + sql.toLowerCase() + " ";
+        if (sql.contains(";") || sql.contains("--") || sql.contains("/*") || sql.contains("*/")
+                || lower.matches(".*\\b(select|with|insert|update|delete|drop|alter|create|grant|revoke|from|join|call)\\b.*")
                 || sql.contains("$") || sql.contains("`"))
             throw new CompileException("REGISTRY_UNSAFE", "Unsafe SQL fragment in " + owner, 1, 1);
     }

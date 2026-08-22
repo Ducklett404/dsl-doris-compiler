@@ -8,13 +8,15 @@ import java.util.List;
 
 public record CompilationArtifact(
         String compilerVersion,
+        String ruleSetVersion,
         String metadataVersion,
         CacheKey cacheKey,
         Ast.Query ast,
         LogicalPlan logicalPlan,
+        LogicalPlan.AccessPathDecision accessPath,
         String sql,
         List<Object> bindings,
-        int requiredLookbackTradingDays,
+        int lookback,
         List<WindowSpec> windowSpecs,
         List<IndicatorVersion> indicatorVersions,
         List<RuleTrace> ruleTrace,
@@ -27,6 +29,9 @@ public record CompilationArtifact(
         ruleTrace = List.copyOf(ruleTrace);
         diagnostics = List.copyOf(diagnostics);
     }
+
+    public int requiredLookbackTradingDays() { return lookback; }
+
     public record CacheKey(String sourceHash, String compilerVersion, String metadataVersion) {}
     public record RuleTrace(String ruleId, String description, String semanticProofTag, int priority, String version) {
         public RuleTrace(String ruleId, String description) {

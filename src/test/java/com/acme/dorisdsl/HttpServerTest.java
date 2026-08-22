@@ -3,6 +3,7 @@ package com.acme.dorisdsl;
 import com.acme.dorisdsl.compiler.DslCompiler;
 import com.acme.dorisdsl.registry.RegistryLoader;
 import com.acme.dorisdsl.server.CompileHttpServer;
+import com.acme.dorisdsl.server.AuthenticatedIdentity;
 import com.acme.dorisdsl.util.JsonSupport;
 import org.junit.jupiter.api.Test;
 
@@ -12,13 +13,65 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class HttpServerTest {
-    @Test void servesHealthCompileAndStructuredErrors() throws Exception {
+    @Test void defaultServerRejectsForgedClientAuthorizationContext() throws Exception {
         var compiler = new DslCompiler(new RegistryLoader().loadDefault(List.of()));
         try (var server = new CompileHttpServer(compiler, "127.0.0.1", 0)) {
+            server.start();
+            String body = JsonSupport.MAPPER.writeValueAsString(Map.of(
+                    "dsl", "SCREEN ON 2026-08-07 WHERE CLOSE > 10 LIMIT 5",
+                    "context", Map.of("userId", "attacker", "permissions", List.of("COMPILE_DSL"))));
+            var response = HttpClient.newHttpClient().send(HttpRequest.newBuilder(
+                            URI.create("http://127.0.0.1:" + server.port() + "/compile"))
+                            .header("Content-Type", "application/json")
+                            .POST(HttpRequest.BodyPublishers.ofString(body)).build(),
+                    HttpResponse.BodyHandlers.ofString());
+            assertEquals(401, response.statusCode());
+            assertTrue(response.body().contains("AUTH_REQUIRED"));
+        }
+    }
+
+    @Test void trustedIdentityStillRejectsAuthorizationFieldsInRequestBody() throws Exception {
+        var compiler = new DslCompiler(new RegistryLoader().loadDefault(List.of()));
+        try (var server = new CompileHttpServer(compiler, "127.0.0.1", 0,
+                exchange -> new AuthenticatedIdentity("trusted-user"),
+                (userId, permission) -> true)) {
+            server.start();
+            String body = JsonSupport.MAPPER.writeValueAsString(Map.of(
+                    "dsl", "SCREEN ON 2026-08-07 WHERE CLOSE > 10 LIMIT 5",
+                    "permissions", List.of("COMPILE_DSL")));
+            var response = HttpClient.newHttpClient().send(HttpRequest.newBuilder(
+                            URI.create("http://127.0.0.1:" + server.port() + "/compile"))
+                            .POST(HttpRequest.BodyPublishers.ofString(body)).build(),
+                    HttpResponse.BodyHandlers.ofString());
+            assertEquals(400, response.statusCode());
+            assertTrue(response.body().contains("CLIENT_AUTH_CONTEXT_FORBIDDEN"));
+            assertEquals(0, compiler.cacheStats().size());
+        }
+    }
+
+    @Test void servesHealthCompileAndStructuredErrors() throws Exception {
+        var compiler = new DslCompiler(new RegistryLoader().loadDefault(List.of()));
+        AtomicInteger authenticationChecks = new AtomicInteger();
+        AtomicInteger authorizationChecks = new AtomicInteger();
+        try (var server = new CompileHttpServer(compiler, "127.0.0.1", 0,
+                exchange -> {
+                    authenticationChecks.incrementAndGet();
+                    if (!"Bearer verified-token".equals(exchange.getRequestHeaders().getFirst("Authorization"))) {
+                        throw new com.acme.dorisdsl.compiler.CompileException(
+                                "AUTH_REQUIRED", "Valid trusted credentials are required", 1, 1);
+                    }
+                    return new AuthenticatedIdentity("trusted-user");
+                },
+                (userId, permission) -> {
+                    authorizationChecks.incrementAndGet();
+                    return userId.equals("trusted-user") && permission.equals("COMPILE_DSL");
+                })) {
             server.start();
             var client = HttpClient.newHttpClient();
             var health = client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + server.port() + "/health")).GET().build(),
@@ -27,17 +80,36 @@ class HttpServerTest {
 
             String body = JsonSupport.MAPPER.writeValueAsString(Map.of("dsl", "SCREEN ON 2026-08-07 WHERE CLOSE > 10 LIMIT 5"));
             var response = client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + server.port() + "/compile"))
-                            .header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(body)).build(),
+                            .header("Content-Type", "application/json").header("Authorization", "Bearer verified-token")
+                            .POST(HttpRequest.BodyPublishers.ofString(body)).build(),
                     HttpResponse.BodyHandlers.ofString());
             assertEquals(200, response.statusCode());
             assertTrue(response.body().contains("market.dwd_quote_daily"));
+            @SuppressWarnings("unchecked")
+            Map<String, Object> artifact = JsonSupport.MAPPER.readValue(response.body(), Map.class);
+            assertEquals(Set.of("compilerVersion", "ruleSetVersion", "metadataVersion", "cacheKey",
+                    "ast", "logicalPlan", "accessPath", "sql", "bindings", "lookback", "windowSpecs",
+                    "indicatorVersions", "ruleTrace", "diagnostics"), artifact.keySet());
+            assertFalse(artifact.containsKey("requiredLookbackTradingDays"));
+
+            var cachedResponse = client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + server.port() + "/compile"))
+                            .header("Content-Type", "application/json").header("Authorization", "Bearer verified-token")
+                            .POST(HttpRequest.BodyPublishers.ofString(body)).build(),
+                    HttpResponse.BodyHandlers.ofString());
+            assertEquals(200, cachedResponse.statusCode());
+            assertEquals(2, authorizationChecks.get(), "authorization must run even when compilation is cached");
+            assertEquals(2, authenticationChecks.get(), "authentication must run for every request");
+            assertEquals(1, compiler.cacheStats().hits());
 
             String bad = JsonSupport.MAPPER.writeValueAsString(Map.of("dsl", "SCREEN ON 2026-08-07 WHERE UNKNOWN()"));
             var error = client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + server.port() + "/compile"))
-                            .header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(bad)).build(),
+                            .header("Content-Type", "application/json").header("Authorization", "Bearer verified-token")
+                            .POST(HttpRequest.BodyPublishers.ofString(bad)).build(),
                     HttpResponse.BodyHandlers.ofString());
             assertEquals(400, error.statusCode());
             assertTrue(error.body().contains("UNKNOWN_FUNCTION"));
+            assertEquals(3, authorizationChecks.get());
+            assertEquals(3, authenticationChecks.get());
         }
     }
 }

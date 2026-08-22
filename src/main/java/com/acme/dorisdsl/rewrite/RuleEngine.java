@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 public final class RuleEngine {
+    public static final String VERSION = "rules-1.0.0";
     private static final RewriteRule CONSTANT_FOLDING = rule("R-001", "numeric literal arithmetic",
             "both operands are numeric literals", "replace binary arithmetic with one numeric literal", "ALGEBRAIC_IDENTITY", 10);
     private static final RewriteRule BOOLEAN_SIMPLIFICATION = rule("R-002", "boolean literal identities",

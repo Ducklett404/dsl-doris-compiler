@@ -3,6 +3,8 @@ package com.acme.dorisdsl;
 import com.acme.dorisdsl.compiler.DslCompiler;
 import com.acme.dorisdsl.compiler.CompileException;
 import com.acme.dorisdsl.registry.RegistryLoader;
+import com.acme.dorisdsl.registry.PluginVerifier;
+import com.acme.dorisdsl.util.JsonSupport;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -109,8 +111,10 @@ class PluginTest {
 
     private Path writeTemplatePlugin(String template, String arguments) throws Exception {
         Path plugin = tempDir.resolve("template-plugin-" + Math.abs(template.hashCode()) + ".json");
-        Files.writeString(plugin, """
-                {"functions":[{
+        String unsigned = """
+                {"id":"test-template","version":"1.0.0",
+                 "minCompilerVersion":"0.1.0","maxCompilerVersion":"0.1.0",
+                 "functions":[{
                   "name":"TEMPLATE_TEST",
                   "id":"test.template",
                   "version":"1.0.0",
@@ -119,7 +123,10 @@ class PluginTest {
                   "loweringKind":"TEMPLATE",
                   "sqlTemplate":"%s"
                 }]}
-                """.formatted(arguments, template));
+                """.formatted(arguments, template);
+        var node = (com.fasterxml.jackson.databind.node.ObjectNode) JsonSupport.MAPPER.readTree(unsigned);
+        node.put("signature", PluginVerifier.signature(node, JsonSupport.MAPPER));
+        Files.writeString(plugin, JsonSupport.MAPPER.writeValueAsString(node));
         return plugin;
     }
 
