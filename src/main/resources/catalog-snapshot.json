@@ -60,7 +60,19 @@
     "suspensionGapPolicy": "COUNT_VALID_OBSERVATIONS",
     "insufficientWindowPolicy": "STRICT_NULL"
   },
-  "feature": {"version": "feature-v17", "refreshedAt": "2026-08-12T23:59:59Z"},
+  "feature": {
+    "version": "feature-v17",
+    "adjustmentVersion": "qfq-v3",
+    "sourceSnapshot": "quote-financial-2026-08-12.1",
+    "sourceSnapshotAsOf": "2026-08-12",
+    "refreshedAt": "2026-08-12T23:59:59Z",
+    "indicatorColumns": {
+      "MA(CLOSE,5)": "ma_close_5",
+      "MA(CLOSE,20)": "ma_close_20",
+      "ROE_TTM()": "roe_ttm",
+      "VOLATILITY(CLOSE,20)": "volatility_20"
+    }
+  },
   "doris": {
     "version": "3.0.5",
     "matrix": {

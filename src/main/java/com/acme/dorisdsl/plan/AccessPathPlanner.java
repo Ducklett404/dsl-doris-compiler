@@ -25,9 +25,10 @@ public final class AccessPathPlanner {
         boolean hasWindow = containsKind(query.where(), RegistryConfig.LoweringKind.WINDOW_AVG);
         boolean prefixLowerable = hasWindow && !needsFinancial && prefixLowerable(query.where(), false)
                 && (query.orderBy() == null || prefixLowerable(query.orderBy().expression(), false));
-        boolean featureCovered = allFunctionsFeatureBacked(query.where());
-        boolean fresh = !catalog.feature().refreshedAt()
-                .isBefore(query.asOf().atStartOfDay(ZoneOffset.UTC).toInstant());
+        boolean featureCovered = featureCovered(query.where())
+                && (query.orderBy() == null || featureCovered(query.orderBy().expression()));
+        boolean sourceFresh = sourceFresh(query);
+        boolean featureFresh = sourceFresh && adjustmentMatches(query);
         var detail = metadata("DETAIL");
         boolean hasIndex = detail != null && !detail.indexes().isEmpty();
         boolean hasBuckets = detail != null && detail.bucketInfo() != null && detail.bucketInfo().count() > 0;
@@ -43,13 +44,13 @@ public final class AccessPathPlanner {
                         combine(reasons(hasWindow, "No supported window aggregate"),
                                 reasons(prefixLowerable, "Expression requires unsupported prefix lowering"))),
                 candidate("FEATURE_DAILY", "FEATURE_DAILY", lookback, needsFinancial,
-                        featureCovered && fresh, !fresh, false,
+                        featureCovered && featureFresh, !featureFresh, false,
                         combine(reasons(featureCovered, "Referenced expressions are not fully feature-backed"),
-                                reasons(fresh, "Feature snapshot is stale for target date"))),
+                                reasons(featureFresh, "Feature version, adjustment version, or source snapshot is stale"))),
                 candidate("MATERIALIZED_VIEW", "DETAIL", lookback, needsFinancial,
-                        hasMv && fresh && catalog.doris().supports("materializedViewRewrite"), !fresh,
+                        hasMv && featureFresh && catalog.doris().supports("materializedViewRewrite"), !featureFresh,
                         !catalog.doris().supports("materializedViewRewrite"),
-                        combine(reasons(hasMv, "No applicable materialized view"), reasons(fresh, "Materialized view is stale"))),
+                        combine(reasons(hasMv, "No applicable materialized view"), reasons(featureFresh, "Materialized view is stale"))),
                 candidate("QUERY_CACHE_FRIENDLY", "DETAIL", lookback, needsFinancial,
                         catalog.doris().supports("queryCache"), false, !catalog.doris().supports("queryCache"),
                         reasons(catalog.doris().supports("queryCache"), "Doris query cache capability is unavailable"))
@@ -57,7 +58,7 @@ public final class AccessPathPlanner {
 
         LogicalPlan.Candidate selected;
         String reason;
-        if (!fresh) {
+        if (!sourceFresh) {
             selected = candidates.get(0);
             reason = "Freshness requirement failed; mandatory fallback to DETAIL_TABLE";
         } else {
@@ -68,6 +69,20 @@ public final class AccessPathPlanner {
         return new LogicalPlan.AccessPathDecision(selected.path(), candidates, reason);
     }
 
+    private boolean sourceFresh(Ast.Query query) {
+        var feature = catalog.feature();
+        return !feature.refreshedAt().isBefore(query.asOf().atStartOfDay(ZoneOffset.UTC).toInstant())
+                && !feature.sourceSnapshotAsOf().isBefore(query.asOf());
+    }
+
+    private boolean adjustmentMatches(Ast.Query query) {
+        String requiredAdjustment = switch (query.adjustment()) {
+            case FORWARD -> "qfq";
+            case BACKWARD -> "hfq";
+            case NONE -> "raw";
+        };
+        return catalog.feature().adjustmentVersion().toLowerCase(java.util.Locale.ROOT).startsWith(requiredAdjustment);
+    }
     private LogicalPlan.Candidate candidate(String path, String metadataKey, int lookback, boolean needsFinancial,
                                             boolean eligible, boolean stale, boolean unsupported,
                                             List<String> eliminationReasons) {
@@ -77,6 +92,7 @@ public final class AccessPathPlanner {
         double scan = estimatedScanBytes(metadata, lookback);
         if (path.equals("PARTITION_BUCKET_INDEX")) scan *= 0.12;
         if (path.equals("PREFIX_DAILY")) scan *= 0.02;
+        if (path.equals("FEATURE_DAILY")) scan *= 0.01;
         if (path.equals("MATERIALIZED_VIEW")) scan *= 0.08;
         if (path.equals("QUERY_CACHE_FRIENDLY")) scan *= 0.04;
         double window = lookback == 0 ? 0 : scan * Math.log1p(lookback) / 12.0;
@@ -136,21 +152,30 @@ public final class AccessPathPlanner {
         return true;
     }
 
-    private boolean allFunctionsFeatureBacked(Ast.Expr expr) {
-        if (expr == null) return false;
-        List<Ast.FunctionCall> calls = new ArrayList<>();
-        collect(expr, calls);
-        return !calls.isEmpty() && calls.stream().allMatch(call -> {
-            var fn = registry.function(call.name(), call.span().line(), call.span().column());
-            return fn.featureColumn() != null && !fn.featureColumn().isBlank();
-        });
+    private boolean featureCovered(Ast.Expr expr) {
+        if (expr == null) return true;
+        if (expr instanceof Ast.FunctionCall call) {
+            return catalog.feature().indicatorColumns().containsKey(signature(call));
+        }
+        if (expr instanceof Ast.Identifier id)
+            return id.name().equalsIgnoreCase("SYMBOL") || id.name().equalsIgnoreCase("TRADE_DATE");
+        if (expr instanceof Ast.Binary e) return featureCovered(e.left()) && featureCovered(e.right());
+        if (expr instanceof Ast.Unary e) return featureCovered(e.operand());
+        if (expr instanceof Ast.Between e) return featureCovered(e.value()) && featureCovered(e.lower()) && featureCovered(e.upper());
+        if (expr instanceof Ast.InList e) return featureCovered(e.value()) && e.options().stream().allMatch(this::featureCovered);
+        return true;
     }
 
-    private void collect(Ast.Expr expr, List<Ast.FunctionCall> out) {
-        if (expr instanceof Ast.FunctionCall call) { out.add(call); call.arguments().forEach(e -> collect(e, out)); }
-        else if (expr instanceof Ast.Binary e) { collect(e.left(), out); collect(e.right(), out); }
-        else if (expr instanceof Ast.Unary e) collect(e.operand(), out);
-        else if (expr instanceof Ast.Between e) { collect(e.value(), out); collect(e.lower(), out); collect(e.upper(), out); }
-        else if (expr instanceof Ast.InList e) { collect(e.value(), out); e.options().forEach(v -> collect(v, out)); }
+    private String signature(Ast.Expr expr) {
+        return switch (expr) {
+            case Ast.Identifier id -> id.name().toUpperCase(java.util.Locale.ROOT);
+            case Ast.Literal literal -> String.valueOf(literal.value()).replace(".0", "");
+            case Ast.FunctionCall call -> call.name().toUpperCase(java.util.Locale.ROOT) + "("
+                    + call.arguments().stream().map(this::signature).reduce((a, b) -> a + "," + b).orElse("") + ")";
+            case Ast.Binary binary -> signature(binary.left()) + binary.operator() + signature(binary.right());
+            case Ast.Unary unary -> unary.operator() + signature(unary.operand());
+            case Ast.Between between -> signature(between.value()) + "BETWEEN" + signature(between.lower()) + "AND" + signature(between.upper());
+            case Ast.InList in -> signature(in.value()) + "IN" + in.options().stream().map(this::signature).toList();
+        };
     }
 }

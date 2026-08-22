@@ -37,7 +37,9 @@ class AccessPathPlannerTest {
     @Test void staleMetadataForcesDetailTableFallback() {
         var current = new CatalogSnapshotLoader().loadDefault();
         var stale = new CatalogSnapshot("stale-v1", current.capturedAt(), current.tables(), current.tableMetadata(), current.prefixDaily(),
-                new CatalogSnapshot.FeatureMetadata(current.feature().version(), Instant.parse("2026-08-06T23:59:59Z")),
+                new CatalogSnapshot.FeatureMetadata(current.feature().version(), current.feature().adjustmentVersion(),
+                        current.feature().sourceSnapshot(), current.feature().sourceSnapshotAsOf(),
+                        Instant.parse("2026-08-06T23:59:59Z"), current.feature().indicatorColumns()),
                 current.doris());
 
         var decision = compiler(stale).compile(CompilerTest.sampleDsl()).logicalPlan().accessPath();

@@ -1,6 +1,8 @@
 package com.acme.dorisdsl;
 
 import com.acme.dorisdsl.compiler.DslCompiler;
+import com.acme.dorisdsl.catalog.CatalogSnapshot;
+import com.acme.dorisdsl.catalog.CatalogSnapshotLoader;
 import com.acme.dorisdsl.registry.RegistryLoader;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PrefixDailyLoweringTest {
-    private final DslCompiler compiler = new DslCompiler(new RegistryLoader().loadDefault(List.of()));
+    private final DslCompiler compiler = prefixCompiler();
 
     @Test void lowersMovingAverageToTwoPointPrefixDifference() {
         var artifact = compiler.compile("SCREEN ON 2026-08-07 WHERE MA(CLOSE, 20) > 10 LIMIT 5");
@@ -63,4 +65,14 @@ class PrefixDailyLoweringTest {
     }
 
     private static Double nullValue() { return Double.NaN; }
+
+    private static DslCompiler prefixCompiler() {
+        var snapshot = new CatalogSnapshotLoader().loadDefault();
+        var feature = new CatalogSnapshot.FeatureMetadata(snapshot.feature().version(),
+                snapshot.feature().adjustmentVersion(), snapshot.feature().sourceSnapshot(),
+                snapshot.feature().sourceSnapshotAsOf(), snapshot.feature().refreshedAt(), java.util.Map.of());
+        var prefixSnapshot = new CatalogSnapshot(snapshot.version(), snapshot.capturedAt(), snapshot.tables(),
+                snapshot.tableMetadata(), snapshot.prefixDaily(), feature, snapshot.doris());
+        return new DslCompiler(new RegistryLoader().loadDefault(List.of()), prefixSnapshot);
+    }
 }

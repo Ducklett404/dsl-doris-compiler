@@ -45,7 +45,16 @@ public record CatalogSnapshot(
     public record PrefixColumns(String cumulativeValueColumn, String cumulativeCountColumn) {}
     public enum GapPolicy { COUNT_VALID_OBSERVATIONS }
     public enum InsufficientWindowPolicy { STRICT_NULL, ALLOW_PARTIAL }
-    public record FeatureMetadata(String version, Instant refreshedAt) {}
+    public record FeatureMetadata(String version, String adjustmentVersion, String sourceSnapshot,
+                                  LocalDate sourceSnapshotAsOf, Instant refreshedAt,
+                                  Map<String, String> indicatorColumns) {
+        public FeatureMetadata {
+            if (version == null || version.isBlank() || adjustmentVersion == null || adjustmentVersion.isBlank()
+                    || sourceSnapshot == null || sourceSnapshot.isBlank() || sourceSnapshotAsOf == null || refreshedAt == null)
+                throw new IllegalArgumentException("Feature metadata is incomplete");
+            indicatorColumns = indicatorColumns == null ? Map.of() : Map.copyOf(indicatorColumns);
+        }
+    }
     public record DorisCapabilities(String version, Map<String, Boolean> matrix) {
         public DorisCapabilities { matrix = matrix == null ? Map.of() : Map.copyOf(matrix); }
         public boolean supports(String name) { return Boolean.TRUE.equals(matrix.get(name)); }

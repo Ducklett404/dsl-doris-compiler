@@ -59,10 +59,16 @@ public final class DorisSqlGenerator {
                         accessPath.selected() + " has the lowest eligible cost."));
             }
             boolean usePrefixDaily = "PREFIX_DAILY".equals(accessPath.selected());
-            String sql = StableSqlFormatter.format(usePrefixDaily ? buildPrefixDailySql() : buildSql(lookback));
+            boolean useFeatureDaily = "FEATURE_DAILY".equals(accessPath.selected());
+            String sql = StableSqlFormatter.format(useFeatureDaily ? buildFeatureDailySql()
+                    : usePrefixDaily ? buildPrefixDailySql() : buildSql(lookback));
             List<LogicalPlan.PlanNode> nodes = new ArrayList<>();
-            nodes.add(new LogicalPlan.PlanNode("Scan", usePrefixDaily ? catalog.tables().prefixSumTable() : catalog.tables().detailTable()));
-            if (needsFinancial) nodes.add(new LogicalPlan.PlanNode("PointInTimeJoin", catalog.tables().financialPitTable()));
+            String scanTable = useFeatureDaily ? catalog.tables().featureTable()
+                    : usePrefixDaily ? catalog.tables().prefixSumTable() : catalog.tables().detailTable();
+            nodes.add(new LogicalPlan.PlanNode("Scan", scanTable));
+            if (needsFinancial && !useFeatureDaily) nodes.add(new LogicalPlan.PlanNode("PointInTimeJoin", catalog.tables().financialPitTable()));
+            if (useFeatureDaily) nodes.add(new LogicalPlan.PlanNode("FeatureVersionFilter",
+                    catalog.feature().version() + "/" + catalog.feature().adjustmentVersion() + "/" + catalog.feature().sourceSnapshot()));
             if (usePrefixDaily) nodes.add(new LogicalPlan.PlanNode("PrefixDifference", "current cumulative value minus N-day-prior cumulative value"));
             else if (!windowMetrics.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Window", String.join(", ", windowMetrics.keySet())));
             if (!previousAliases.isEmpty()) nodes.add(new LogicalPlan.PlanNode("Signal", "LAG operands for CROSS_UP"));
@@ -269,6 +275,55 @@ public final class DorisSqlGenerator {
 
         private record PrefixMetric(String alias, String sumColumn, String countColumn, int window) {}
 
+        private String buildFeatureDailySql() {
+            Map<String, String> features = new LinkedHashMap<>();
+            collectFeatureColumns(query.where(), features);
+            if (query.orderBy() != null) collectFeatureColumns(query.orderBy().expression(), features);
+            StringBuilder sql = new StringBuilder("WITH features AS (\n  SELECT symbol, trade_date");
+            features.forEach((alias, column) -> sql.append(",\n    ").append(q(column)).append(" AS ").append(q(alias)));
+            sql.append("\n  FROM ").append(catalog.tables().featureTable())
+                    .append("\n  WHERE trade_date = ?")
+                    .append("\n    AND feature_version = ?")
+                    .append("\n    AND adjustment_version = ?")
+                    .append("\n    AND source_snapshot = ?\n)")
+                    .append("\nSELECT `symbol`, `trade_date`");
+            bindings.add(query.asOf());
+            bindings.add(catalog.feature().version());
+            bindings.add(catalog.feature().adjustmentVersion());
+            bindings.add(catalog.feature().sourceSnapshot());
+            features.keySet().forEach(alias -> sql.append(", ").append(q(alias)));
+            sql.append("\nFROM features\nWHERE ").append(render(query.where()));
+            if (query.orderBy() != null) sql.append("\nORDER BY ").append(render(query.orderBy().expression()))
+                    .append(' ').append(query.orderBy().direction().name());
+            sql.append("\nLIMIT ").append(query.limit()).append(';');
+            return sql.toString();
+        }
+
+        private void collectFeatureColumns(Ast.Expr expr, Map<String, String> features) {
+            if (expr == null) return;
+            if (expr instanceof Ast.FunctionCall call) {
+                String column = catalog.feature().indicatorColumns().get(featureSignature(call));
+                if (column != null) features.putIfAbsent(metricAliases.get(signature(call)), column);
+                return;
+            }
+            if (expr instanceof Ast.Binary e) { collectFeatureColumns(e.left(), features); collectFeatureColumns(e.right(), features); }
+            else if (expr instanceof Ast.Unary e) collectFeatureColumns(e.operand(), features);
+            else if (expr instanceof Ast.Between e) { collectFeatureColumns(e.value(), features); collectFeatureColumns(e.lower(), features); collectFeatureColumns(e.upper(), features); }
+            else if (expr instanceof Ast.InList e) { collectFeatureColumns(e.value(), features); e.options().forEach(option -> collectFeatureColumns(option, features)); }
+        }
+
+        private String featureSignature(Ast.Expr expr) {
+            return switch (expr) {
+                case Ast.Identifier id -> id.name().toUpperCase(Locale.ROOT);
+                case Ast.Literal literal -> String.valueOf(literal.value()).replace(".0", "");
+                case Ast.FunctionCall call -> call.name().toUpperCase(Locale.ROOT) + "("
+                        + call.arguments().stream().map(this::featureSignature).reduce((a, b) -> a + "," + b).orElse("") + ")";
+                case Ast.Binary binary -> featureSignature(binary.left()) + binary.operator() + featureSignature(binary.right());
+                case Ast.Unary unary -> unary.operator() + featureSignature(unary.operand());
+                case Ast.Between between -> featureSignature(between.value()) + "BETWEEN" + featureSignature(between.lower()) + "AND" + featureSignature(between.upper());
+                case Ast.InList in -> featureSignature(in.value()) + "IN" + in.options().stream().map(this::featureSignature).toList();
+            };
+        }
         private String render(Ast.Expr expr) {
             return switch (expr) {
                 case Ast.Literal literal -> bind(literal.value());
