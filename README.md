@@ -1,6 +1,8 @@
 # 行情选股 DSL → Doris SQL 编译器 V1
 
-> 参赛适配提示：原有 `SCREEN ON` 编译入口和演示表结构尚不兼容主办方的槽位 DSL 与 `hsj_stock_*` 表。第二周已新增独立槽位 DSL 解析入口，但尚不生成赛事 SQL。第一周基线见 [比赛资料基线](docs/competition/WEEK1_BASELINE.md)，第二周解析结果见 [第二周解析报告](docs/competition/WEEK2_PARSER.md)。不能把解析率当作 SQL 或结果正确率。
+> 参赛适配提示：原有 `SCREEN ON` 编译入口和演示表结构尚不兼容主办方的槽位 DSL 与 `hsj_stock_*` 表。第二周新增的独立解析入口本身不生成赛事 SQL；第三周仅为经人工核验的狭窄子集提供 SQL 编译。第一周基线见 [比赛资料基线](docs/competition/WEEK1_BASELINE.md)，第二周解析结果见 [第二周解析报告](docs/competition/WEEK2_PARSER.md)。不能把解析率当作 SQL 或结果正确率。
+
+第三周新增[已核验指标安全子集](docs/competition/WEEK3_SEMANTICS.md)：只有提供经人工复核的指标字段、单位和倍率目录，才允许把绝对日期的直接数值比较编成参数化赛事 SQL。仓库内不预置任何真实指标的“已核验”映射，也不声称连接过赛事 Doris 数据。
 
 这是报告方案的第一版可运行原型。核心链路为：
 
@@ -39,6 +41,12 @@
 ```bash
 java -jar target/dsl-doris-compiler.jar parse-slot examples/competition_slot.dsl
 java -jar target/dsl-doris-compiler.jar measure-slot-corpus build/competition-corpus/corpus.jsonl --max-failures 100 -o build/competition-corpus/slot-parse-coverage.json
+```
+
+安全子集 CLI 必须显式传入 `status=VERIFIED` 的人工核验目录；仓库示例 `examples/competition_verified_catalog.template.json` 为 `DRAFT`，会被拒绝。以下命令**只用合成测试数据演示流程，不能用于真实选股**：
+
+```bash
+java -jar target/dsl-doris-compiler.jar compile-slot-safe src/test/resources/safe-slot.synthetic.dsl --catalog src/test/resources/verified-slot-catalog.synthetic.json
 ```
 
 赛事入口与下面的旧 `compile` 入口互相独立；`limit x,y` 在赛事入口中只保存两项数值（包括语料里的 `-1`），尚不做数据库分页解释。

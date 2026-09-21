@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "status": "VERIFIED",
+  "table": "newzl.hsj_stock_hq_basic",
+  "mappings": [
+    {
+      "name": "测试价",
+      "aliases": ["测试现价"],
+      "column": "LAST_PX",
+      "unit": "NUMBER",
+      "rawPerDisplayUnit": "100",
+      "evidence": "Synthetic test fixture only; not an organizer-verified unit"
+    },
+    {
+      "name": "测试率",
+      "aliases": [],
+      "column": "TURN_RATIO",
+      "unit": "PERCENT",
+      "rawPerDisplayUnit": "100",
+      "evidence": "Synthetic test fixture only; not an organizer-verified unit"
+    }
+  ]
+}
