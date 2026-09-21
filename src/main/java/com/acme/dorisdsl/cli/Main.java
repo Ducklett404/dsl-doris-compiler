@@ -2,6 +2,8 @@ package com.acme.dorisdsl.cli;
 
 import com.acme.dorisdsl.compiler.CompileException;
 import com.acme.dorisdsl.compiler.DslCompiler;
+import com.acme.dorisdsl.competition.SlotCorpusCoverage;
+import com.acme.dorisdsl.competition.SlotDslParserFacade;
 import com.acme.dorisdsl.registry.RegistryLoader;
 import com.acme.dorisdsl.server.CompileHttpServer;
 import com.acme.dorisdsl.util.JsonSupport;
@@ -18,7 +20,8 @@ import java.util.concurrent.Callable;
 
 @CommandLine.Command(name = "dsl-doris-compiler", mixinStandardHelpOptions = true, version = DslCompiler.VERSION,
         description = "Compile stock-screening DSL to parameterized Apache Doris SQL",
-        subcommands = {Main.CompileCommand.class, Main.ServeCommand.class, Main.BenchmarkCommand.class})
+        subcommands = {Main.CompileCommand.class, Main.ServeCommand.class, Main.BenchmarkCommand.class,
+                Main.ParseSlotCommand.class, Main.MeasureSlotCorpusCommand.class})
 public final class Main implements Runnable {
     public static void main(String[] args) { System.exit(new CommandLine(new Main()).execute(args)); }
     @Override public void run() { CommandLine.usage(this, System.out); }
@@ -26,6 +29,45 @@ public final class Main implements Runnable {
     static DslCompiler compiler(Path registry, List<Path> plugins) {
         var loader = new RegistryLoader();
         return new DslCompiler(registry == null ? loader.loadDefault(plugins) : loader.load(registry, plugins));
+    }
+
+    @CommandLine.Command(name = "parse-slot", description = "Parse organizer slot DSL to a syntax AST (no SQL generation)")
+    static final class ParseSlotCommand implements Callable<Integer> {
+        @CommandLine.Parameters(index = "0", description = "UTF-8 slot DSL file") Path input;
+
+        @Override public Integer call() {
+            try {
+                var ast = new SlotDslParserFacade().parse(Files.readString(input, StandardCharsets.UTF_8));
+                System.out.println(JsonSupport.MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(ast));
+                return 0;
+            } catch (CompileException e) {
+                System.err.printf("%s at %d:%d: %s%n", e.code(), e.line(), e.column(), e.getMessage());
+                return 2;
+            } catch (Exception e) {
+                System.err.println("parse_slot_failed: " + e.getMessage());
+                return 1;
+            }
+        }
+    }
+
+    @CommandLine.Command(name = "measure-slot-corpus", description = "Measure slot DSL syntax/contract acceptance on JSONL corpus")
+    static final class MeasureSlotCorpusCommand implements Callable<Integer> {
+        @CommandLine.Parameters(index = "0", description = "Corpus JSONL from prepare_competition_corpus.py") Path input;
+        @CommandLine.Option(names = "--max-failures", defaultValue = "30", description = "Maximum example failures in report") int maxFailures;
+        @CommandLine.Option(names = {"-o", "--output"}, description = "Output JSON report; defaults to stdout") Path output;
+
+        @Override public Integer call() {
+            try {
+                var report = SlotCorpusCoverage.measure(input, maxFailures);
+                String json = JsonSupport.MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(report);
+                if (output == null) System.out.println(json);
+                else Files.writeString(output, json + System.lineSeparator(), StandardCharsets.UTF_8);
+                return 0;
+            } catch (Exception e) {
+                System.err.println("slot_corpus_measure_failed: " + e.getMessage());
+                return 1;
+            }
+        }
     }
 
     static abstract class RegistryOptions {

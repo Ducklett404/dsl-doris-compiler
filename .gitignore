@@ -4,4 +4,6 @@
 /.DS_Store
 /.mvn-cache/
 /.tools/
+/build/
+__pycache__/
 *.log

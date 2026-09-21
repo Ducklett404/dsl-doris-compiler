@@ -1,0 +1,52 @@
+{
+  "version": "competition-slot-dsl-v0.1",
+  "status": "provisional-source-locked-semantics-pending",
+  "source_sha256": "b7e90108f9e281be4a2eccb6e260b1d7b3dcab27611d15f65d8b16dcede811b9",
+  "functions": {
+    "indicator": ["market", "filter_scope", "indicator_name", "date", "select_type", "agg_func", "count_exp"],
+    "rank": ["market", "filter_scope", "indicator_name", "direction", "date", "select_type", "agg_func", "count_exp"],
+    "belong_industry": ["market", "filter_scope", "indicator_name", "date", "agg_func"],
+    "queryData": ["market", "keywords", "indicator_name", "date", "agg_func"],
+    "cross_above": ["market", "filter_scope", "indicator_name_1", "indicator_name_2", "date", "select_type", "count_exp"],
+    "cross_down": ["market", "filter_scope", "indicator_name_1", "indicator_name_2", "date", "select_type", "count_exp"],
+    "close_together": ["market", "filter_scope", "indicator_name_1", "indicator_name_2", "date", "select_type", "count_exp"],
+    "reset": ["market", "filter_scope", "indicator_name_1", "indicator_name_2", "date", "select_type", "count_exp"],
+    "golden_cross": ["market", "filter_scope", "indicator_name_1", "indicator_name_2", "date", "select_type", "count_exp"],
+    "record_high": ["market", "filter_scope", "indicator_name", "period", "date", "select_type", "agg_func", "count_exp"],
+    "record_low": ["market", "filter_scope", "indicator_name", "period", "date", "select_type", "agg_func", "count_exp"],
+    "position": ["market", "filter_scope", "indicator_name", "period", "date", "select_type", "agg_func", "count_exp"]
+  },
+  "slots": {
+    "market": {
+      "allowed_atoms": ["沪", "深", "京", "港", "美", "新三板", "沪主板", "深主板", "科创板", "创业板", "日", "韩", "德", "法", "英", "其他"],
+      "set_operators": ["|", "&", "^"]
+    },
+    "select_type": {
+      "allowed_atoms": ["行业", "概念", "指数", "板块", "可转债", "债券", "场内基金", "场外基金", "公募基金", "私募基金", "ETF", "LOF", "REITs", "期货", "货币"],
+      "set_operators": ["|", "&", "^"]
+    },
+    "direction": ["asc", "desc"],
+    "agg_func": ["", "MAX", "MIN", "AVG", "SUM", "GROWTH_RISE", "GROWTH_FALL"],
+    "filter_scope": "source-text-preserved",
+    "keywords": "source-text-preserved",
+    "date": "natural-language-time-expression",
+    "period": "natural-language-time-expression",
+    "count_exp": "empty-or-CONS/EXIST-comparison-count-unit"
+  },
+  "expression_operators": ["and", "or", "then", "+", "-", "*", "/", "=", "!=", ">", ">=", "<", "<=", "~=", "between"],
+  "special_rules": {
+    "then": "may precede rank only; filters candidate set before ranking",
+    "limit": "two values x,y are minimum and maximum result counts; not SQL offset,count",
+    "percent_literal": "retain percent notation until indicator unit and scale are resolved",
+    "between": "interval boundary characters are meaningful and supplied as a quoted string",
+    "unsupported_semantics": "reject explicitly rather than silently approximate"
+  },
+  "unresolved": [
+    "complete indicator catalog and aliases",
+    "indicator physical units and scales",
+    "relative-date reference and trading-calendar rules",
+    "approximate comparison tolerance",
+    "rank tie and percentile semantics",
+    "market code mapping and source tables for scopes and select types"
+  ]
+}
