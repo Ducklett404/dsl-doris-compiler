@@ -4,6 +4,7 @@ options { caseInsensitive = true; }
 
 query
     : SCREEN ON DATE
+      contextClause?
       (WHERE expression)?
       (ADJUST adjustmentMode)?
       (ORDER BY expression direction?)?
@@ -13,6 +14,8 @@ query
 
 adjustmentMode : FORWARD | BACKWARD | NONE;
 direction      : ASC | DESC;
+contextClause  : USING contextItem (COMMA contextItem)*;
+contextItem    : identifier (EQ literal | IN listLiteral);
 
 expression     : orExpression;
 orExpression   : andExpression (OR andExpression)*;
@@ -23,6 +26,7 @@ predicate
       ( comparisonOperator additiveExpression
       | BETWEEN additiveExpression AND additiveExpression
       | IN listLiteral
+      | IS NOT? NULL
       )?
     ;
 comparisonOperator : EQ | NE | GT | GE | LT | LE;
@@ -31,7 +35,8 @@ multiplicativeExpression : unaryExpression ((STAR | SLASH) unaryExpression)*;
 unaryExpression          : (PLUS | MINUS) unaryExpression | primary;
 primary                  : functionCall | identifier | literal | LPAREN expression RPAREN;
 functionCall             : identifier LPAREN argumentList? RPAREN;
-argumentList             : expression (COMMA expression)*;
+argumentList             : functionArgument (COMMA functionArgument)*;
+functionArgument         : identifier EQ expression | expression;
 identifier               : IDENTIFIER;
 listLiteral              : LBRACK (literal (COMMA literal)*)? RBRACK;
 literal                  : PERCENT | DECIMAL | INT | STRING | DATE | TRUE | FALSE | NULL;
@@ -48,11 +53,13 @@ BY       : 'BY';
 ASC      : 'ASC';
 DESC     : 'DESC';
 LIMIT    : 'LIMIT';
+USING    : 'USING';
 AND      : 'AND';
 OR       : 'OR';
 NOT      : 'NOT';
 BETWEEN  : 'BETWEEN';
 IN       : 'IN';
+IS       : 'IS';
 TRUE     : 'TRUE';
 FALSE    : 'FALSE';
 NULL     : 'NULL';

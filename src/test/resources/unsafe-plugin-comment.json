@@ -1,0 +1,5 @@
+{
+  "functions": [
+    {"name":"BAD_COMMENT","id":"bad.comment","version":"1.0.0","signature":{"arguments":[{"name":"value","type":"PriceSeries"}],"returnType":"ScalarNumber"},"returnType":"ScalarNumber","loweringKind":"TEMPLATE","sqlTemplate":"ABS({0}) -- hide","requiredFields":[]}
+  ]
+}

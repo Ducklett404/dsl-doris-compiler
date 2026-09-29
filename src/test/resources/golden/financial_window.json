@@ -1,0 +1,87 @@
+{
+  "schemaVersion" : "2.0.0",
+  "kind" : "Query",
+  "asOf" : "2026-08-07",
+  "context" : { },
+  "adjustment" : "FORWARD",
+  "where" : {
+    "kind" : "Binary",
+    "type" : "BooleanSeries",
+    "operator" : "AND",
+    "left" : {
+      "kind" : "Binary",
+      "type" : "BooleanSeries",
+      "operator" : "AND",
+      "left" : {
+        "kind" : "Between",
+        "type" : "BooleanSeries",
+        "value" : {
+          "kind" : "FunctionCall",
+          "type" : "RatioSeries",
+          "name" : "PE_TTM",
+          "arguments" : [ ]
+        },
+        "lower" : {
+          "kind" : "Literal",
+          "type" : "ScalarNumber",
+          "value" : 0
+        },
+        "upper" : {
+          "kind" : "Literal",
+          "type" : "ScalarNumber",
+          "value" : 20
+        }
+      },
+      "right" : {
+        "kind" : "Binary",
+        "type" : "BooleanSeries",
+        "operator" : ">=",
+        "left" : {
+          "kind" : "FunctionCall",
+          "type" : "RatioSeries",
+          "name" : "ROE_TTM",
+          "arguments" : [ ]
+        },
+        "right" : {
+          "kind" : "Literal",
+          "type" : "Percent",
+          "value" : 0.15
+        }
+      }
+    },
+    "right" : {
+      "kind" : "FunctionCall",
+      "type" : "BooleanSeries",
+      "name" : "CROSS_UP",
+      "arguments" : [ {
+        "kind" : "FunctionCall",
+        "type" : "PriceSeries",
+        "name" : "MA",
+        "arguments" : [ {
+          "kind" : "Identifier",
+          "type" : "PriceSeries",
+          "name" : "CLOSE"
+        }, {
+          "kind" : "Literal",
+          "type" : "ScalarNumber",
+          "value" : 5
+        } ]
+      }, {
+        "kind" : "FunctionCall",
+        "type" : "PriceSeries",
+        "name" : "MA",
+        "arguments" : [ {
+          "kind" : "Identifier",
+          "type" : "PriceSeries",
+          "name" : "CLOSE"
+        }, {
+          "kind" : "Literal",
+          "type" : "ScalarNumber",
+          "value" : 20
+        } ]
+      } ]
+    }
+  },
+  "orderBy" : null,
+  "limit" : 100
+}

@@ -1,4 +1,9 @@
 {
+  "id": "config-extension-template-calculation",
+  "version": "1.0.0",
+  "signature": "sha256:4fcd4d74eaa2c262a03da8f12eba9998cb762f1bf5667511fac0119feda01fd4",
+  "minCompilerVersion": "0.1.0",
+  "maxCompilerVersion": "0.1.0",
   "functions": [
     {
       "name": "PRICE_SPREAD",

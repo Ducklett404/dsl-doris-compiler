@@ -2,162 +2,180 @@ package com.acme.dorisdsl.rewrite;
 
 import com.acme.dorisdsl.ast.Ast;
 import com.acme.dorisdsl.compiler.CompilationArtifact;
-import com.acme.dorisdsl.compiler.CompileException;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-/** Deterministic, phased executor for a validated declarative rule set. */
 public final class RuleEngine {
-    private static final Comparator<RuleCatalog.RuleDefinition> ORDER = Comparator
-            .comparingInt(RuleCatalog.RuleDefinition::priority).reversed()
-            .thenComparing(RuleCatalog.RuleDefinition::id);
-    private final RuleCatalog.RuleSet ruleSet;
+    public static final String VERSION = "rules-1.0.0";
+    private static final RewriteRule CONSTANT_FOLDING = rule("R-001", "numeric literal arithmetic",
+            "both operands are numeric literals", "replace binary arithmetic with one numeric literal", "ALGEBRAIC_IDENTITY", 10);
+    private static final RewriteRule BOOLEAN_SIMPLIFICATION = rule("R-002", "boolean literal identities",
+            "AND/OR has a boolean literal operand", "remove neutral terms or collapse decisive terms", "BOOLEAN_ALGEBRA", 20);
+    private static final RewriteRule DEDUPLICATE_PREDICATES = rule("R-003", "duplicate AND predicates",
+            "AND tree contains equivalent predicate signatures", "remove repeated predicates", "IDEMPOTENT_AND", 30);
+    private static final RewriteRule COMPARISON_CANONICALIZATION = rule("R-004", "literal-on-left comparison",
+            "comparison has literal left and expression right", "swap operands and invert comparison direction", "COMPARISON_SYMMETRY", 40);
+    private static final RewriteRule CANONICALIZE_TREE = rule("R-010", "expression tree canonical form",
+            "typed AST is valid", "preserve predicate order after local rewrites", "SEMANTIC_PRESERVING", 100);
 
-    public RuleEngine(RuleCatalog.RuleSet ruleSet) { this.ruleSet = ruleSet; }
-
-    public Result rewrite(Ast.Query input) {
-        Ast.Query query = input;
+    public Result rewrite(Ast.Query query) {
         List<CompilationArtifact.RuleTrace> trace = new ArrayList<>();
-        for (var phase : RuleCatalog.Phase.values()) {
-            List<RuleCatalog.RuleDefinition> rules = ruleSet.rules().stream()
-                    .filter(RuleCatalog.RuleDefinition::enabled)
-                    .filter(rule -> rule.phase() == phase)
-                    .sorted(ORDER).toList();
-            if (rules.isEmpty()) continue;
-            Set<String> seen = new HashSet<>();
-            seen.add(query.toString());
-            boolean converged = false;
-            for (int iteration = 1; iteration <= ruleSet.maxIterations(); iteration++) {
-                QueryRewrite rewritten = rewriteQuery(query, rules, phase, iteration, trace);
-                if (!rewritten.changed()) { converged = true; break; }
-                query = rewritten.query();
-                if (!seen.add(query.toString())) throw failure("RULE_CYCLE",
-                        "Rule cycle in " + phase + " for config " + ruleSet.version());
-            }
-            if (!converged) throw failure("RULE_ITERATION_LIMIT",
-                    "Rule phase " + phase + " exceeded maxIterations=" + ruleSet.maxIterations());
-        }
-        return new Result(query, ruleSet.version(), trace);
-    }
-
-    private QueryRewrite rewriteQuery(Ast.Query query, List<RuleCatalog.RuleDefinition> rules,
-                                      RuleCatalog.Phase phase, int iteration,
-                                      List<CompilationArtifact.RuleTrace> trace) {
-        NodeRewrite where = query.where() == null ? new NodeRewrite(null, false)
-                : rewriteExpr(query.where(), rules, phase, iteration, trace);
-        NodeRewrite order = query.orderBy() == null ? new NodeRewrite(null, false)
-                : rewriteExpr(query.orderBy().expression(), rules, phase, iteration, trace);
-        if (!where.changed() && !order.changed()) return new QueryRewrite(query, false);
+        Ast.Expr where = query.where() == null ? null : rewriteExpr(query.where(), trace);
+        where = where == null ? null : deduplicateAnd(where, trace);
         Ast.OrderBy orderBy = query.orderBy() == null ? null
-                : new Ast.OrderBy(order.expr(), query.orderBy().direction());
-        return new QueryRewrite(new Ast.Query(query.asOf(), where.expr(), query.adjustment(), orderBy,
-                query.limit(), query.span()), true);
+                : new Ast.OrderBy(rewriteExpr(query.orderBy().expression(), trace), query.orderBy().direction());
+        trace(trace, CANONICALIZE_TREE, "Canonicalized expression tree and preserved predicate order");
+        return new Result(new Ast.Query(query.asOf(), query.context(), where, query.adjustment(), orderBy, query.limit(), query.span()), trace);
     }
 
-    private NodeRewrite rewriteExpr(Ast.Expr original, List<RuleCatalog.RuleDefinition> rules,
-                                    RuleCatalog.Phase phase, int iteration,
-                                    List<CompilationArtifact.RuleTrace> trace) {
-        Ast.Expr children = switch (original) {
-            case Ast.Binary value -> new Ast.Binary(value.operator(),
-                    rewriteExpr(value.left(), rules, phase, iteration, trace).expr(),
-                    rewriteExpr(value.right(), rules, phase, iteration, trace).expr(), value.type(), value.span());
-            case Ast.Unary value -> new Ast.Unary(value.operator(),
-                    rewriteExpr(value.operand(), rules, phase, iteration, trace).expr(), value.type(), value.span());
-            case Ast.FunctionCall value -> new Ast.FunctionCall(value.name(), value.arguments().stream()
-                    .map(arg -> rewriteExpr(arg, rules, phase, iteration, trace).expr()).toList(), value.type(), value.span());
-            case Ast.Between value -> new Ast.Between(
-                    rewriteExpr(value.value(), rules, phase, iteration, trace).expr(),
-                    rewriteExpr(value.lower(), rules, phase, iteration, trace).expr(),
-                    rewriteExpr(value.upper(), rules, phase, iteration, trace).expr(), value.type(), value.span());
-            case Ast.InList value -> new Ast.InList(rewriteExpr(value.value(), rules, phase, iteration, trace).expr(),
-                    value.options().stream().map(arg -> rewriteExpr(arg, rules, phase, iteration, trace).expr()).toList(),
-                    value.type(), value.span());
-            default -> original;
-        };
-        boolean childrenChanged = !children.equals(original);
-        List<RuleCatalog.RuleDefinition> candidates = rules.stream().filter(rule -> matches(rule, children)).toList();
-        if (candidates.isEmpty()) return new NodeRewrite(children, childrenChanged);
-        RuleCatalog.RuleDefinition winner = candidates.getFirst();
-        List<RuleCatalog.RuleDefinition> conflicting = candidates.stream()
-                .filter(rule -> rule.conflictGroup().equals(winner.conflictGroup())).toList();
-        if (conflicting.size() > 1 && ruleSet.conflictPolicy() == RuleCatalog.ConflictPolicy.ERROR)
-            throw failure("RULE_CONFLICT", "Rules conflict on " + nodeType(children) + ": "
-                    + conflicting.stream().map(RuleCatalog.RuleDefinition::id).collect(Collectors.joining(",")));
-
-        Ast.Expr output = apply(winner, children);
-        if (nodeType(output) != winner.outputNodeType()) throw failure("RULE_OUTPUT_TYPE",
-                winner.id() + " declared " + winner.outputNodeType() + " but produced " + nodeType(output));
-        String conflict = conflicting.size() == 1 ? "NONE" : "HIGHEST_PRIORITY[" + winner.conflictGroup() + "]:"
-                + winner.id() + ">" + conflicting.subList(1, conflicting.size()).stream().map(RuleCatalog.RuleDefinition::id)
-                .collect(Collectors.joining(","));
-        trace.add(new CompilationArtifact.RuleTrace(winner.id(), ruleSet.version(), phase.name(), iteration,
-                nodeType(children).name(), nodeType(output).name(), winner.priority(), conflict,
-                winner.equivalence(), winner.description()));
-        return new NodeRewrite(output, true);
-    }
-
-    private boolean matches(RuleCatalog.RuleDefinition rule, Ast.Expr expr) {
-        if (nodeType(expr) != rule.matchNodeType()) return false;
-        var when = rule.when();
-        if (!(expr instanceof Ast.Binary binary)) return when == null;
-        if (when == null) return true;
-        if (!when.operators().isEmpty() && !when.operators().contains(binary.operator())) return false;
-        if (Boolean.TRUE.equals(when.numericLiteralOperands()) && !(numeric(binary.left()) && numeric(binary.right()))) return false;
-        if (Boolean.TRUE.equals(when.nonZeroRightOperand()) && "/".equals(binary.operator()) && numeric(binary.right())
-                && ((BigDecimal) ((Ast.Literal) binary.right()).value()).compareTo(BigDecimal.ZERO) == 0) return false;
-        return !Boolean.TRUE.equals(when.commutativeOnly()) || Set.of("+", "*").contains(binary.operator());
-    }
-
-    private Ast.Expr apply(RuleCatalog.RuleDefinition rule, Ast.Expr expr) {
-        Ast.Binary binary = (Ast.Binary) expr;
-        return switch (rule.action()) {
-            case FOLD_NUMERIC_BINARY -> {
-                BigDecimal left = (BigDecimal) ((Ast.Literal) binary.left()).value();
-                BigDecimal right = (BigDecimal) ((Ast.Literal) binary.right()).value();
-                BigDecimal value = switch (binary.operator()) {
-                    case "+" -> left.add(right);
-                    case "-" -> left.subtract(right);
-                    case "*" -> left.multiply(right);
-                    case "/" -> left.divide(right, MathContext.DECIMAL64);
-                    default -> throw failure("RULE_ACTION_INVALID", "Unsupported numeric operator: " + binary.operator());
-                };
-                yield new Ast.Literal(value, binary.type(), binary.span());
-            }
-            case SWAP_COMMUTATIVE_OPERANDS -> new Ast.Binary(binary.operator(), binary.right(), binary.left(),
-                    binary.type(), binary.span());
+    private Ast.Expr rewriteExpr(Ast.Expr expr, List<CompilationArtifact.RuleTrace> trace) {
+        return switch (expr) {
+            case Ast.Binary binary -> rewriteBinary(binary, trace);
+            case Ast.Unary unary -> rewriteUnary(unary, trace);
+            case Ast.FunctionCall call -> new Ast.FunctionCall(call.name(), call.arguments().stream().map(e -> rewriteExpr(e, trace)).toList(), call.type(), call.span());
+            case Ast.Between between -> new Ast.Between(rewriteExpr(between.value(), trace), rewriteExpr(between.lower(), trace), rewriteExpr(between.upper(), trace), between.type(), between.span());
+            case Ast.InList in -> new Ast.InList(rewriteExpr(in.value(), trace), in.options().stream().map(e -> rewriteExpr(e, trace)).toList(), in.type(), in.span());
+            case Ast.IsNull isNull -> new Ast.IsNull(rewriteExpr(isNull.value(), trace), isNull.negated(), isNull.type(), isNull.span());
+            case Ast.NamedArgument named -> new Ast.NamedArgument(named.name(), rewriteExpr(named.value(), trace), named.type(), named.span());
+            default -> expr;
         };
     }
 
-    private static boolean numeric(Ast.Expr expression) {
-        return expression instanceof Ast.Literal literal && literal.value() instanceof BigDecimal;
+    private Ast.Expr rewriteBinary(Ast.Binary binary, List<CompilationArtifact.RuleTrace> trace) {
+        Ast.Expr left = rewriteExpr(binary.left(), trace);
+        Ast.Expr right = rewriteExpr(binary.right(), trace);
+        String op = binary.operator().toUpperCase();
+        Ast.Binary rewritten = new Ast.Binary(op, left, right, binary.type(), binary.span());
+        Ast.Expr folded = foldNumeric(rewritten, trace);
+        if (folded != rewritten) return folded;
+        Ast.Expr simplified = simplifyBoolean(rewritten, trace);
+        if (simplified != rewritten) return simplified;
+        if (isComparison(op) && left instanceof Ast.Literal && !(right instanceof Ast.Literal)) {
+            trace(trace, COMPARISON_CANONICALIZATION, "Moved literal to the right side of comparison");
+            return new Ast.Binary(invert(op), right, left, binary.type(), binary.span());
+        }
+        return rewritten;
     }
 
-    private static RuleCatalog.NodeType nodeType(Ast.Expr expression) {
-        return switch (expression) {
-            case Ast.Literal ignored -> RuleCatalog.NodeType.LITERAL;
-            case Ast.Identifier ignored -> RuleCatalog.NodeType.IDENTIFIER;
-            case Ast.FunctionCall ignored -> RuleCatalog.NodeType.FUNCTION_CALL;
-            case Ast.Binary ignored -> RuleCatalog.NodeType.BINARY;
-            case Ast.Unary ignored -> RuleCatalog.NodeType.UNARY;
-            case Ast.Between ignored -> RuleCatalog.NodeType.BETWEEN;
-            case Ast.InList ignored -> RuleCatalog.NodeType.IN_LIST;
+    private Ast.Expr rewriteUnary(Ast.Unary unary, List<CompilationArtifact.RuleTrace> trace) {
+        Ast.Expr operand = rewriteExpr(unary.operand(), trace);
+        if (unary.operator().equalsIgnoreCase("NOT") && operand instanceof Ast.Literal literal
+                && literal.value() instanceof Boolean value) {
+            trace(trace, BOOLEAN_SIMPLIFICATION, "Folded NOT boolean literal");
+            return new Ast.Literal(!value, Ast.DataType.BooleanSeries, unary.span());
+        }
+        return new Ast.Unary(unary.operator().toUpperCase(), operand, unary.type(), unary.span());
+    }
+
+    private Ast.Expr foldNumeric(Ast.Binary binary, List<CompilationArtifact.RuleTrace> trace) {
+        if (binary.left() instanceof Ast.Literal l && binary.right() instanceof Ast.Literal r
+                && l.value() instanceof BigDecimal lv && r.value() instanceof BigDecimal rv
+                && binary.operator().matches("[+\\-*/]")) {
+            BigDecimal value = switch (binary.operator()) {
+                case "+" -> lv.add(rv);
+                case "-" -> lv.subtract(rv);
+                case "*" -> lv.multiply(rv);
+                case "/" -> lv.divide(rv, MathContext.DECIMAL64);
+                default -> throw new IllegalStateException();
+            };
+            trace(trace, CONSTANT_FOLDING, "Folded numeric constant expression");
+            return new Ast.Literal(value, binary.type(), binary.span());
+        }
+        return binary;
+    }
+
+    private Ast.Expr simplifyBoolean(Ast.Binary binary, List<CompilationArtifact.RuleTrace> trace) {
+        String op = binary.operator().toUpperCase();
+        if (!op.equals("AND") && !op.equals("OR")) return binary;
+        Boolean left = booleanLiteral(binary.left());
+        Boolean right = booleanLiteral(binary.right());
+        if (op.equals("AND")) {
+            if (Boolean.TRUE.equals(left)) return traceAndReturn(trace, BOOLEAN_SIMPLIFICATION, "Removed TRUE left operand from AND", binary.right());
+            if (Boolean.TRUE.equals(right)) return traceAndReturn(trace, BOOLEAN_SIMPLIFICATION, "Removed TRUE right operand from AND", binary.left());
+            if (Boolean.FALSE.equals(left) || Boolean.FALSE.equals(right)) return traceAndReturn(trace, BOOLEAN_SIMPLIFICATION, "Collapsed AND with FALSE", new Ast.Literal(false, Ast.DataType.BooleanSeries, binary.span()));
+        }
+        if (op.equals("OR")) {
+            if (Boolean.FALSE.equals(left)) return traceAndReturn(trace, BOOLEAN_SIMPLIFICATION, "Removed FALSE left operand from OR", binary.right());
+            if (Boolean.FALSE.equals(right)) return traceAndReturn(trace, BOOLEAN_SIMPLIFICATION, "Removed FALSE right operand from OR", binary.left());
+            if (Boolean.TRUE.equals(left) || Boolean.TRUE.equals(right)) return traceAndReturn(trace, BOOLEAN_SIMPLIFICATION, "Collapsed OR with TRUE", new Ast.Literal(true, Ast.DataType.BooleanSeries, binary.span()));
+        }
+        return binary;
+    }
+
+    private Ast.Expr deduplicateAnd(Ast.Expr expr, List<CompilationArtifact.RuleTrace> trace) {
+        List<Ast.Expr> predicates = new ArrayList<>();
+        flattenAnd(expr, predicates);
+        if (predicates.size() < 2) return expr;
+        Set<String> seen = new LinkedHashSet<>();
+        List<Ast.Expr> unique = new ArrayList<>();
+        for (Ast.Expr predicate : predicates) if (seen.add(signature(predicate))) unique.add(predicate);
+        if (unique.size() == predicates.size()) return expr;
+        trace(trace, DEDUPLICATE_PREDICATES, "Removed duplicate AND predicate");
+        return rebuildAnd(unique, expr.type(), expr.span());
+    }
+
+    private void flattenAnd(Ast.Expr expr, List<Ast.Expr> out) {
+        if (expr instanceof Ast.Binary binary && binary.operator().equalsIgnoreCase("AND")) {
+            flattenAnd(binary.left(), out);
+            flattenAnd(binary.right(), out);
+        } else out.add(expr);
+    }
+
+    private Ast.Expr rebuildAnd(List<Ast.Expr> predicates, Ast.DataType type, Ast.SourceSpan span) {
+        Ast.Expr result = predicates.get(0);
+        for (int i = 1; i < predicates.size(); i++) result = new Ast.Binary("AND", result, predicates.get(i), type, span);
+        return result;
+    }
+
+    private Ast.Expr traceAndReturn(List<CompilationArtifact.RuleTrace> trace, RewriteRule rule, String description, Ast.Expr expr) {
+        trace(trace, rule, description);
+        return expr;
+    }
+
+    private Boolean booleanLiteral(Ast.Expr expr) {
+        return expr instanceof Ast.Literal literal && literal.value() instanceof Boolean value ? value : null;
+    }
+
+    private boolean isComparison(String op) { return op.matches("=|!=|<>|>|>=|<|<="); }
+
+    private String invert(String op) {
+        return switch (op) {
+            case ">" -> "<";
+            case ">=" -> "<=";
+            case "<" -> ">";
+            case "<=" -> ">=";
+            default -> op;
         };
     }
 
-    private static CompileException failure(String code, String message) {
-        return new CompileException(code, message, 1, 1);
+    private String signature(Ast.Expr expr) {
+        return switch (expr) {
+            case Ast.Identifier id -> id.name();
+            case Ast.Literal literal -> String.valueOf(literal.value());
+            case Ast.FunctionCall call -> call.name() + "(" + call.arguments().stream().map(this::signature).reduce((a, b) -> a + "," + b).orElse("") + ")";
+            case Ast.Binary binary -> "(" + signature(binary.left()) + binary.operator().toUpperCase() + signature(binary.right()) + ")";
+            case Ast.Unary unary -> unary.operator().toUpperCase() + signature(unary.operand());
+            case Ast.Between between -> signature(between.value()) + " BETWEEN " + signature(between.lower()) + " AND " + signature(between.upper());
+            case Ast.InList in -> signature(in.value()) + " IN " + in.options().stream().map(this::signature).toList();
+            case Ast.IsNull isNull -> signature(isNull.value()) + (isNull.negated() ? " IS NOT NULL" : " IS NULL");
+            case Ast.NamedArgument named -> named.name() + "=" + signature(named.value());
+        };
     }
 
-    private record NodeRewrite(Ast.Expr expr, boolean changed) {}
-    private record QueryRewrite(Ast.Query query, boolean changed) {}
-    public record Result(Ast.Query query, String ruleConfigVersion, List<CompilationArtifact.RuleTrace> trace) {
+    private static RewriteRule rule(String id, String pattern, String precondition, String transform, String proof, int priority) {
+        return new RewriteRule(id, pattern, precondition, transform, proof, priority, "1.0.0", List.of());
+    }
+
+    private static void trace(List<CompilationArtifact.RuleTrace> trace, RewriteRule rule, String description) {
+        trace.add(new CompilationArtifact.RuleTrace(rule.ruleId(), description, rule.semanticProofTag(), rule.priority(), rule.version()));
+    }
+
+    public record Result(Ast.Query query, List<CompilationArtifact.RuleTrace> trace) {
         public Result { trace = List.copyOf(trace); }
     }
 }

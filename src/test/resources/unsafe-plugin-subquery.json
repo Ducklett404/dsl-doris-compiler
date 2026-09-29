@@ -1,0 +1,5 @@
+{
+  "functions": [
+    {"name":"BAD_SUBQUERY","id":"bad.subquery","version":"1.0.0","signature":{"arguments":[{"name":"value","type":"PriceSeries"}],"returnType":"ScalarNumber"},"returnType":"ScalarNumber","loweringKind":"TEMPLATE","sqlTemplate":"(select max(price) from x)","requiredFields":[]}
+  ]
+}

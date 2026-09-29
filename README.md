@@ -3,6 +3,11 @@
 项目包含两个隔离的版本化入口：正式提槽 DSL 使用 `stock-slot-v1`，原有
 `SCREEN ON` 方言保留为 `screen-v1` 兼容模式。兼容模式的完整编译链路为：
 
+比赛适配的演进记录见[第一周基线](docs/competition/WEEK1_BASELINE.md)、
+[第二周解析报告](docs/competition/WEEK2_PARSER.md)和
+[第三周已核验指标安全子集](docs/competition/WEEK3_SEMANTICS.md)。完整实现仍要求指标目录、
+单位和倍率经过人工复核；仓库不声称已经连接赛事 Doris 数据。
+
 `ANTLR4 Parse Tree → 不可变 Typed AST → 语义检查 → 等价规则 → 逻辑计划 → AccessPathPlanner → 分层 Doris SQL`
 
 当前版本已接入真实 Doris JDBC 执行：执行前强制校验已冻结且状态为
@@ -63,6 +68,21 @@ $env:DORIS_PASSWORD = '<装载账号密码>'
 最终可执行文件为 `target/dsl-doris-compiler.jar`。
 
 ## 使用
+
+仅解析主办方槽位 DSL，输出保留槽位原文和源码位置的 AST；不会执行或生成 SQL：
+
+```bash
+java -jar target/dsl-doris-compiler.jar parse-slot examples/competition_slot.dsl
+java -jar target/dsl-doris-compiler.jar measure-slot-corpus build/competition-corpus/corpus.jsonl --max-failures 100 -o build/competition-corpus/slot-parse-coverage.json
+```
+
+安全子集 CLI 必须显式传入 `status=VERIFIED` 的人工核验目录；仓库示例 `examples/competition_verified_catalog.template.json` 为 `DRAFT`，会被拒绝。以下命令**只用合成测试数据演示流程，不能用于真实选股**：
+
+```bash
+java -jar target/dsl-doris-compiler.jar compile-slot-safe src/test/resources/safe-slot.synthetic.dsl --catalog src/test/resources/verified-slot-catalog.synthetic.json
+```
+
+赛事入口与下面的旧 `compile` 入口互相独立；`limit x,y` 在赛事入口中只保存两项数值（包括语料里的 `-1`），尚不做数据库分页解释。
 
 生成 Markdown：
 

@@ -1,8 +1,10 @@
-/target/
+**/target/
 /.idea/
 /*.iml
 /.DS_Store
 /.mvn-cache/
 /.tools/
+/build/
+__pycache__/
 *.log
 __pycache__/

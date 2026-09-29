@@ -23,6 +23,6 @@ public record RuleCatalog(int schemaVersion, String activeVersion, List<RuleSet>
 
     public enum Phase { NORMALIZE, SIMPLIFY, CANONICALIZE }
     public enum ConflictPolicy { HIGHEST_PRIORITY, ERROR }
-    public enum NodeType { LITERAL, IDENTIFIER, FUNCTION_CALL, BINARY, UNARY, BETWEEN, IN_LIST }
+    public enum NodeType { LITERAL, IDENTIFIER, FUNCTION_CALL, BINARY, UNARY, BETWEEN, IN_LIST, IS_NULL, NAMED_ARGUMENT }
     public enum Action { FOLD_NUMERIC_BINARY, SWAP_COMMUTATIVE_OPERANDS }
 }

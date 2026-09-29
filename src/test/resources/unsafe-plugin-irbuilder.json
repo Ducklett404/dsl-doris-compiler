@@ -1,0 +1,15 @@
+{
+  "functions": [
+    {
+      "name":"BAD_VOL",
+      "id":"bad.vol",
+      "version":"1.0.0",
+      "signature":{"arguments":[{"name":"value","type":"PriceSeries"},{"name":"window","type":"ScalarNumber"}],"returnType":"ScalarNumber"},
+      "returnType":"ScalarNumber",
+      "windowSpec":{"lengthArg":1,"unit":"TRADING_DAY","partitionKeys":["symbol"],"orderKeys":["trade_date"],"nullPolicy":"STRICT_FULL_WINDOW","requireFullWindow":true},
+      "nullPolicy":"STRICT_FULL_WINDOW",
+      "loweringKind":"WINDOW_STDDEV",
+      "irBuilder":"ArbitrarySqlBuilder"
+    }
+  ]
+}

@@ -23,7 +23,7 @@
       "plugin": "config/extensions/window-lowering/registry-plugin.json",
       "dsl": "SCREEN ON 2026-08-07 WHERE SMA(CLOSE, 10) > 5 ADJUST FORWARD LIMIT 10",
       "baseErrorCode": "UNKNOWN_FUNCTION",
-      "expectedSqlFragments": ["AVG(`close`) OVER", "ROWS BETWEEN 9 PRECEDING AND CURRENT ROW", "`sma_close_10` > ?"],
+      "expectedSqlFragments": ["cur.close_sum - COALESCE(prev_sma_close_10.close_sum, 0)", "trading_day_seq - 10", "`sma_close_10` > ?"],
       "forbiddenSqlFragments": ["SMA(CLOSE", "2026-08-07"],
       "expectedLookback": 10
     }

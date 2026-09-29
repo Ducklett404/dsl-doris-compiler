@@ -1,4 +1,9 @@
 {
+  "id": "config-extension-direct-field",
+  "version": "1.0.0",
+  "signature": "sha256:ff2962584980a4a8ebcfdda809f9109cf8bf5fba6436b2f40073717006df6dc5",
+  "minCompilerVersion": "0.1.0",
+  "maxCompilerVersion": "0.1.0",
   "fields": [
     {
       "name": "CLOSE_MIRROR",

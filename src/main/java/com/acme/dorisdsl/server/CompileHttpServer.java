@@ -18,13 +18,24 @@ public final class CompileHttpServer implements AutoCloseable {
     private final HttpServer server;
 
     public CompileHttpServer(DslCompiler compiler, String host, int port) throws IOException {
-        this(compiler, null, host, port);
+        this(compiler, null, host, port, RequestAuthenticator.REJECT_ALL, (userId, permission) -> false);
     }
 
     public CompileHttpServer(DslCompiler compiler, DorisExecutionEndpoint execution, String host, int port) throws IOException {
+        this(compiler, execution, host, port, RequestAuthenticator.REJECT_ALL, (userId, permission) -> false);
+    }
+
+    public CompileHttpServer(DslCompiler compiler, String host, int port,
+                             RequestAuthenticator authenticator, PermissionService permissionService) throws IOException {
+        this(compiler, null, host, port, authenticator, permissionService);
+    }
+
+    private CompileHttpServer(DslCompiler compiler, DorisExecutionEndpoint execution, String host, int port,
+                              RequestAuthenticator authenticator, PermissionService permissionService) throws IOException {
+        PermissionGate permissionGate = new PermissionGate(permissionService);
         server = HttpServer.create(new InetSocketAddress(host, port), 32);
         server.createContext("/health", exchange -> respond(exchange, 200, Map.of("status", "ok")));
-        server.createContext("/compile", exchange -> compile(exchange, compiler));
+        server.createContext("/compile", exchange -> compile(exchange, compiler, authenticator, permissionGate));
         if (execution != null) server.createContext("/execute", exchange -> execute(exchange, execution));
         server.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
     }
@@ -75,27 +86,45 @@ public final class CompileHttpServer implements AutoCloseable {
     public void start() { server.start(); }
     public int port() { return server.getAddress().getPort(); }
 
-    private void compile(HttpExchange exchange, DslCompiler compiler) throws IOException {
+    private void compile(HttpExchange exchange, DslCompiler compiler,
+                         RequestAuthenticator authenticator, PermissionGate permissionGate) throws IOException {
         if (!"POST".equals(exchange.getRequestMethod())) {
             respond(exchange, 405, Map.of("error", "method_not_allowed"));
             return;
         }
         try {
+            AuthenticatedIdentity identity = authenticator.authenticate(exchange);
             @SuppressWarnings("unchecked")
             Map<String, Object> input = JsonSupport.MAPPER.readValue(exchange.getRequestBody(), Map.class);
+            rejectClientAuthorizationContext(input);
             Object dsl = input.get("dsl");
             if (!(dsl instanceof String source)) throw new CompileException("MISSING_DSL", "JSON field 'dsl' is required", 1, 1);
+            permissionGate.authorize(identity);
             Object dslVersion = input.get("dslVersion");
             if (dslVersion != null && !(dslVersion instanceof String))
                 throw new CompileException("INVALID_DSL_VERSION", "JSON field 'dslVersion' must be a string", 1, 1);
             respond(exchange, 200, compiler.compile(source, (String) dslVersion));
         } catch (CompileException e) {
-            boolean syntax = isSyntax(e.code());
-            respond(exchange, syntax ? 400 : 422, Map.of(
-                    "category", syntax ? "syntax_error" : "semantic_error",
-                    "error", e.code(), "message", e.getMessage(), "line", e.line(), "column", e.column()));
+            respond(exchange, statusFor(e), Map.of("error", e.code(), "message", e.getMessage(), "line", e.line(),
+                    "column", e.column(), "fragment", e.fragment(), "suggestion", e.suggestion()));
         } catch (Exception e) {
             respond(exchange, 500, Map.of("error", "internal_error", "message", e.getMessage()));
+        }
+    }
+
+    private int statusFor(CompileException exception) {
+        return switch (exception.code()) {
+            case "AUTH_REQUIRED" -> 401;
+            case "AUTH_FORBIDDEN" -> 403;
+            case "SCAN_LIMIT_EXCEEDED", "COST_LIMIT_EXCEEDED" -> 422;
+            default -> 400;
+        };
+    }
+
+    private void rejectClientAuthorizationContext(Map<String, Object> input) {
+        if (input.containsKey("context") || input.containsKey("userId") || input.containsKey("permissions")) {
+            throw new CompileException("CLIENT_AUTH_CONTEXT_FORBIDDEN",
+                    "Identity and permissions must come from the trusted server authentication layer", 1, 1);
         }
     }
 

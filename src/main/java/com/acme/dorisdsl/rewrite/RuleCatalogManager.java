@@ -45,7 +45,7 @@ public final class RuleCatalogManager {
         }
     }
 
-    public RuleEngine engine() { return new RuleEngine(versions.get(activeVersion)); }
+    public DeclarativeRuleEngine engine() { return new DeclarativeRuleEngine(versions.get(activeVersion)); }
 
     private void requireCompatible(String version) {
         RuleCatalog.RuleSet set = versions.get(version);

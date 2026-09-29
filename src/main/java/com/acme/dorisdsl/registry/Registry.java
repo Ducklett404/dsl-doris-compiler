@@ -7,6 +7,10 @@ import com.acme.dorisdsl.registry.RegistryConfig.FunctionDefinition;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HexFormat;
 
 public final class Registry {
     private final RegistryConfig.Datasets datasets;
@@ -23,6 +27,25 @@ public final class Registry {
     public RegistryConfig.Datasets datasets() { return datasets; }
     public Map<String, FieldDefinition> fields() { return fields; }
     public Map<String, FunctionDefinition> functions() { return functions; }
+
+    public String catalogVersion() {
+        StringBuilder canonical = new StringBuilder()
+                .append(datasets.quoteTable()).append('|')
+                .append(datasets.financialTable()).append('|')
+                .append(datasets.calendarTable()).append('|')
+                .append(datasets.featureTable());
+        fields.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry -> canonical
+                .append("|field:").append(entry.getKey()).append(':').append(entry.getValue()));
+        functions.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry -> canonical
+                .append("|function:").append(entry.getKey()).append(':').append(entry.getValue()));
+        try {
+            byte[] digest = MessageDigest.getInstance("SHA-256")
+                    .digest(canonical.toString().getBytes(StandardCharsets.UTF_8));
+            return "catalog-" + HexFormat.of().formatHex(digest, 0, 8);
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException("SHA-256 is unavailable", e);
+        }
+    }
 
     public FieldDefinition field(String name, int line, int column) {
         var value = fields.get(name.toUpperCase(Locale.ROOT));

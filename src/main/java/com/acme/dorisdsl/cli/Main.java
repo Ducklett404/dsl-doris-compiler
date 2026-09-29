@@ -2,6 +2,10 @@ package com.acme.dorisdsl.cli;
 
 import com.acme.dorisdsl.compiler.CompileException;
 import com.acme.dorisdsl.compiler.DslCompiler;
+import com.acme.dorisdsl.competition.SlotCorpusCoverage;
+import com.acme.dorisdsl.competition.SlotDslParserFacade;
+import com.acme.dorisdsl.competition.SlotSafeSqlCompiler;
+import com.acme.dorisdsl.competition.VerifiedIndicatorCatalog;
 import com.acme.dorisdsl.registry.RegistryLoader;
 import com.acme.dorisdsl.rewrite.RuleCatalogLoader;
 import com.acme.dorisdsl.server.CompileHttpServer;
@@ -36,7 +40,9 @@ import java.util.concurrent.Callable;
                 Main.AuditCorpusCommand.class, Main.CompileStockSlotSqlCommand.class,
                 Main.ExecuteStockSlotSqlCommand.class, Main.BenchmarkDorisCommand.class,
                 Main.ServeDorisCommand.class, Main.BenchmarkMatrixCommand.class,
-                Main.BenchmarkStockSlotCompilerCommand.class})
+                Main.BenchmarkStockSlotCompilerCommand.class,
+                Main.ParseSlotCommand.class, Main.MeasureSlotCorpusCommand.class,
+                Main.CompileSlotSafeCommand.class})
 public final class Main implements Runnable {
     public static void main(String[] args) { System.exit(new CommandLine(new Main()).execute(args)); }
     @Override public void run() { CommandLine.usage(this, System.out); }
@@ -51,6 +57,68 @@ public final class Main implements Runnable {
                 : new RuleCatalogLoader().load(rules, DslCompiler.VERSION);
         if (ruleVersion != null && !ruleVersion.isBlank()) ruleCatalog.activate(ruleVersion);
         return new DslCompiler(registry == null ? loader.loadDefault(plugins) : loader.load(registry, plugins), ruleCatalog);
+    }
+
+    @CommandLine.Command(name = "parse-slot", description = "Parse organizer slot DSL to a syntax AST (no SQL generation)")
+    static final class ParseSlotCommand implements Callable<Integer> {
+        @CommandLine.Parameters(index = "0", description = "UTF-8 slot DSL file") Path input;
+
+        @Override public Integer call() {
+            try {
+                var ast = new SlotDslParserFacade().parse(Files.readString(input, StandardCharsets.UTF_8));
+                System.out.println(JsonSupport.MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(ast));
+                return 0;
+            } catch (CompileException e) {
+                System.err.printf("%s at %d:%d: %s%n", e.code(), e.line(), e.column(), e.getMessage());
+                return 2;
+            } catch (Exception e) {
+                System.err.println("parse_slot_failed: " + e.getMessage());
+                return 1;
+            }
+        }
+    }
+
+    @CommandLine.Command(name = "measure-slot-corpus", description = "Measure slot DSL syntax/contract acceptance on JSONL corpus")
+    static final class MeasureSlotCorpusCommand implements Callable<Integer> {
+        @CommandLine.Parameters(index = "0", description = "Corpus JSONL from prepare_competition_corpus.py") Path input;
+        @CommandLine.Option(names = "--max-failures", defaultValue = "30", description = "Maximum example failures in report") int maxFailures;
+        @CommandLine.Option(names = {"-o", "--output"}, description = "Output JSON report; defaults to stdout") Path output;
+
+        @Override public Integer call() {
+            try {
+                var report = SlotCorpusCoverage.measure(input, maxFailures);
+                String json = JsonSupport.MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(report);
+                if (output == null) System.out.println(json);
+                else Files.writeString(output, json + System.lineSeparator(), StandardCharsets.UTF_8);
+                return 0;
+            } catch (Exception e) {
+                System.err.println("slot_corpus_measure_failed: " + e.getMessage());
+                return 1;
+            }
+        }
+    }
+
+    @CommandLine.Command(name = "compile-slot-safe", description = "Compile only verified direct-indicator slot DSL to parameterized SQL JSON")
+    static final class CompileSlotSafeCommand implements Callable<Integer> {
+        @CommandLine.Parameters(index = "0", description = "UTF-8 slot DSL file") Path input;
+        @CommandLine.Option(names = "--catalog", required = true,
+                description = "Human-reviewed VERIFIED indicator catalog JSON") Path catalog;
+
+        @Override public Integer call() {
+            try {
+                var verified = VerifiedIndicatorCatalog.load(catalog);
+                var artifact = new SlotSafeSqlCompiler(verified)
+                        .compile(Files.readString(input, StandardCharsets.UTF_8));
+                System.out.println(JsonSupport.MAPPER.writeValueAsString(artifact));
+                return 0;
+            } catch (CompileException e) {
+                System.err.printf("%s at %d:%d: %s%n", e.code(), e.line(), e.column(), e.getMessage());
+                return 2;
+            } catch (Exception e) {
+                System.err.println("compile_slot_safe_failed: " + e.getMessage());
+                return 1;
+            }
+        }
     }
 
     static abstract class RegistryOptions {
