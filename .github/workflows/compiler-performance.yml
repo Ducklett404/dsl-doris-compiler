@@ -1,0 +1,40 @@
+name: formal-dsl-compiler-performance
+
+on:
+  pull_request:
+    paths:
+      - 'src/main/java/com/acme/dorisdsl/stockslot/**'
+      - 'src/main/antlr4/com/acme/dorisdsl/stockslot/**'
+      - 'src/main/resources/stock-slot-registry-v1.json'
+      - 'benchmarks/compiler/**'
+      - 'pom.xml'
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  p95-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Run 5000-iteration formal compiler regression gate
+        run: mvn -B -Dtest=StockSlotCompilerPerformanceTest,StockSlotCompilerCacheTest test
+      - name: Package benchmark CLI
+        run: mvn -B -DskipTests package
+      - name: Generate phase and allocation evidence
+        run: >-
+          java -jar target/dsl-doris-compiler.jar benchmark-stock-slot-compiler
+          --corpus benchmarks/compiler/stock-slot-complex-v1.json
+          --warmup 1000 --iterations 5000 --p95-threshold-ms 50
+          --json-output reports/compiler-performance/latest.json
+          --markdown-output reports/compiler-performance/latest.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compiler-performance-report
+          path: reports/compiler-performance/

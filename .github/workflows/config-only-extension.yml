@@ -1,0 +1,27 @@
+name: config-only-extension
+
+on:
+  pull_request:
+    paths:
+      - 'config/extensions/**'
+      - 'src/test/resources/config-only-extensions/**'
+      - 'src/main/resources/rewrite-rules.json'
+      - 'plugins/**'
+
+jobs:
+  zero-core-change:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Reject compiler-core changes
+        shell: pwsh
+        run: ./scripts/ci/verify-config-only-extension.ps1 -BaseRef "origin/${{ github.base_ref }}" -HeadRef "${{ github.sha }}"
+      - name: Run generic extension vectors
+        run: mvn -B -Dtest=ConfigOnlyExtensionAcceptanceTest test

@@ -1,0 +1,221 @@
+{
+  "compilation" : {
+    "dslVersion" : "stock-slot-v1",
+    "semanticModel" : {
+      "document" : {
+        "expression" : {
+          "kind" : "Binary",
+          "operator" : ">",
+          "left" : {
+            "kind" : "FunctionCall",
+            "name" : "indicator",
+            "arguments" : [ {
+              "kind" : "Literal",
+              "value" : "沪",
+              "type" : "STRING",
+              "span" : {
+                "line" : 1,
+                "column" : 11,
+                "endLine" : 1,
+                "endColumn" : 14
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "",
+              "type" : "STRING",
+              "span" : {
+                "line" : 1,
+                "column" : 16,
+                "endLine" : 1,
+                "endColumn" : 18
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "60日均线",
+              "type" : "STRING",
+              "span" : {
+                "line" : 1,
+                "column" : 20,
+                "endLine" : 1,
+                "endColumn" : 27
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "2026-04-14",
+              "type" : "STRING",
+              "span" : {
+                "line" : 1,
+                "column" : 29,
+                "endLine" : 1,
+                "endColumn" : 41
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "",
+              "type" : "STRING",
+              "span" : {
+                "line" : 1,
+                "column" : 43,
+                "endLine" : 1,
+                "endColumn" : 45
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "",
+              "type" : "STRING",
+              "span" : {
+                "line" : 1,
+                "column" : 47,
+                "endLine" : 1,
+                "endColumn" : 49
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "",
+              "type" : "STRING",
+              "span" : {
+                "line" : 1,
+                "column" : 51,
+                "endLine" : 1,
+                "endColumn" : 53
+              }
+            } ],
+            "type" : "NUMBER",
+            "span" : {
+              "line" : 1,
+              "column" : 1,
+              "endLine" : 1,
+              "endColumn" : 54
+            }
+          },
+          "right" : {
+            "kind" : "Literal",
+            "value" : 1,
+            "type" : "NUMBER",
+            "span" : {
+              "line" : 1,
+              "column" : 57,
+              "endLine" : 1,
+              "endColumn" : 58
+            }
+          },
+          "type" : "BOOLEAN",
+          "span" : {
+            "line" : 1,
+            "column" : 1,
+            "endLine" : 1,
+            "endColumn" : 58
+          }
+        },
+        "selectionLimit" : {
+          "minimum" : 0,
+          "maximum" : 100,
+          "span" : {
+            "line" : 1,
+            "column" : 1,
+            "endLine" : 2,
+            "endColumn" : 6
+          }
+        },
+        "span" : {
+          "line" : 1,
+          "column" : 1,
+          "endLine" : 2,
+          "endColumn" : 6
+        }
+      },
+      "calls" : [ {
+        "function" : "indicator",
+        "span" : {
+          "line" : 1,
+          "column" : 1,
+          "endLine" : 1,
+          "endColumn" : 54
+        },
+        "slots" : [ {
+          "name" : "market",
+          "rawValue" : "沪",
+          "structuredValue" : {
+            "value" : "沪"
+          }
+        }, {
+          "name" : "filter_scope",
+          "rawValue" : "",
+          "structuredValue" : {
+            "value" : ""
+          }
+        }, {
+          "name" : "indicator_name",
+          "rawValue" : "60日均线",
+          "structuredValue" : {
+            "value" : "60日均线",
+            "template" : "X日均线",
+            "parameters" : {
+              "X" : "60"
+            }
+          }
+        }, {
+          "name" : "date",
+          "rawValue" : "2026-04-14",
+          "structuredValue" : {
+            "raw" : "2026-04-14",
+            "reportPeriod" : null,
+            "offsets" : [ ]
+          }
+        }, {
+          "name" : "select_type",
+          "rawValue" : "",
+          "structuredValue" : {
+            "value" : ""
+          }
+        }, {
+          "name" : "agg_func",
+          "rawValue" : "",
+          "structuredValue" : ""
+        }, {
+          "name" : "count_exp",
+          "rawValue" : "",
+          "structuredValue" : null
+        } ]
+      } ]
+    },
+    "logicalPlan" : [ {
+      "kind" : "FeatureScan",
+      "detail" : "newzl.stock_daily_features_v1 through 2026-04-14"
+    }, {
+      "kind" : "Window",
+      "detail" : "1 contract(s)"
+    }, {
+      "kind" : "EvaluationDateFilter",
+      "detail" : "2026-04-14"
+    }, {
+      "kind" : "Sort",
+      "detail" : "mktcode,tgtcode"
+    }, {
+      "kind" : "CardinalityConstraint",
+      "detail" : "0,100"
+    }, {
+      "kind" : "Project",
+      "detail" : "mktcode,tgtcode"
+    } ],
+    "windowContracts" : [ {
+      "function" : "indicator:MA",
+      "partitionKeys" : [ "mktcode", "tgtcode" ],
+      "orderKeys" : [ "bizdate" ],
+      "unit" : "TRADING_DAY",
+      "lookback" : 60,
+      "suspensionPolicy" : "OBSERVED_ROWS_SKIP_SUSPENSION",
+      "insufficientHistoryPolicy" : "NULL",
+      "nullPolicy" : "STRICT_NO_IMPUTATION",
+      "requireFullWindow" : true
+    } ],
+    "sql" : "WITH history AS (\n  SELECT pf.mktcode AS mktcode,pf.tgtcode AS tgtcode,pf.bizdate AS bizdate,\n    pf.ma60 AS `v1`\n  FROM newzl.stock_daily_features_v1 pf\n  WHERE pf.bizdate = ?\n    AND pf.mktcode=1\n),\nfeatures AS (\n  SELECT history.*,\n    `v1` AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` > ?)\nORDER BY mktcode,tgtcode\nLIMIT 100;",
+    "bindings" : [ "2026-04-14", "2026-04-14", 1 ],
+    "ordered" : false
+  },
+  "columns" : [ "mktcode", "tgtcode" ],
+  "rows" : [ [ "1", "600000" ], [ "1", "600004" ], [ "1", "600006" ], [ "1", "600007" ], [ "1", "600008" ], [ "1", "600009" ], [ "1", "600010" ], [ "1", "600011" ], [ "1", "600012" ], [ "1", "600015" ], [ "1", "600016" ], [ "1", "600017" ], [ "1", "600018" ], [ "1", "600019" ], [ "1", "600020" ], [ "1", "600021" ], [ "1", "600022" ], [ "1", "600023" ], [ "1", "600025" ], [ "1", "600026" ], [ "1", "600027" ], [ "1", "600028" ], [ "1", "600029" ], [ "1", "600030" ], [ "1", "600031" ], [ "1", "600032" ], [ "1", "600033" ], [ "1", "600035" ], [ "1", "600036" ], [ "1", "600037" ], [ "1", "600038" ], [ "1", "600039" ], [ "1", "600048" ], [ "1", "600050" ], [ "1", "600051" ], [ "1", "600052" ], [ "1", "600053" ], [ "1", "600054" ], [ "1", "600055" ], [ "1", "600056" ], [ "1", "600057" ], [ "1", "600058" ], [ "1", "600059" ], [ "1", "600060" ], [ "1", "600061" ], [ "1", "600062" ], [ "1", "600063" ], [ "1", "600064" ], [ "1", "600066" ], [ "1", "600067" ], [ "1", "600071" ], [ "1", "600072" ], [ "1", "600073" ], [ "1", "600075" ], [ "1", "600076" ], [ "1", "600078" ], [ "1", "600079" ], [ "1", "600080" ], [ "1", "600081" ], [ "1", "600082" ], [ "1", "600084" ], [ "1", "600085" ], [ "1", "600088" ], [ "1", "600089" ], [ "1", "600094" ], [ "1", "600095" ], [ "1", "600096" ], [ "1", "600097" ], [ "1", "600098" ], [ "1", "600099" ], [ "1", "600100" ], [ "1", "600101" ], [ "1", "600103" ], [ "1", "600104" ], [ "1", "600105" ], [ "1", "600106" ], [ "1", "600107" ], [ "1", "600108" ], [ "1", "600109" ], [ "1", "600110" ], [ "1", "600111" ], [ "1", "600113" ], [ "1", "600114" ], [ "1", "600115" ], [ "1", "600116" ], [ "1", "600117" ], [ "1", "600118" ], [ "1", "600119" ], [ "1", "600120" ], [ "1", "600121" ], [ "1", "600123" ], [ "1", "600125" ], [ "1", "600126" ], [ "1", "600127" ], [ "1", "600128" ], [ "1", "600129" ], [ "1", "600130" ], [ "1", "600131" ], [ "1", "600132" ], [ "1", "600133" ] ],
+  "truncated" : false,
+  "compileMillis" : 34.0346,
+  "queryMillis" : 33.7511
+}

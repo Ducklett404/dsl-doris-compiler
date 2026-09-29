@@ -1,0 +1,13 @@
+{
+  "functions": [
+    {
+      "name": "PRICE_SPREAD",
+      "minArgs": 2,
+      "maxArgs": 2,
+      "returnType": "PRICE",
+      "loweringKind": "TEMPLATE",
+      "sqlTemplate": "({0} - {1})",
+      "requiredFields": []
+    }
+  ]
+}

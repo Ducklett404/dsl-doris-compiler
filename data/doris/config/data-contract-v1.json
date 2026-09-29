@@ -1,0 +1,25 @@
+{
+  "contractVersion": "1.0.0",
+  "physicalNaming": {
+    "quantRatio": "CSV is authoritative; quanRatio is a compatibility alias in the semantic view",
+    "ahFlag": "CSV is authoritative; documentation spelling aHFlag is not used physically"
+  },
+  "scales": {
+    "price": {"divisor": 10000, "unit": "CNY", "evidence": "integer price magnitudes and turnover/volume cross-check"},
+    "amount": {"divisor": 100, "unit": "CNY", "evidence": "median (turnover/100/volume)/(closePx/10000) is approximately 1"},
+    "ratio": {"divisor": 10000, "unit": "documented display unit; risePct is percentage points", "fields": ["quantRatio", "turnRatio", "trueTurnRatio", "amplitude", "pBR", "dynPE", "staticPE", "pETTM"]},
+    "count": {"divisor": 1, "fields": ["volume", "totalShare", "listedShare", "freeShare"]}
+  },
+  "nullPolicy": {"csvEmptyString": "NULL", "numericSentinel": -999999, "semanticViewSentinel": "NULL"},
+  "timePolicy": {"physicalType": "DATETIME", "observedFormat": "yyyy-MM-dd HH:mm:ss", "documentationTypeTIME": "rejected because it loses the observed date"},
+  "derived": {
+    "marketValue": "lastPx / 10000.0 * totalShare",
+    "listedMarketValue": "lastPx / 10000.0 * listedShare",
+    "risePct": "(lastPx - preClosePx) * 100.0 / preClosePx",
+    "avgPx": "turnover / 100.0 / volume",
+    "qfqPrice": "rawPrice / 10000.0 * qfqMulti + qfqAdd",
+    "hfqPrice": "rawPrice / 10000.0 * hfqMulti + hfqAdd"
+  },
+  "knownLimitation": "The supplied snapshot has only factor tuple (1,0,1,0); a non-default authoritative example is required before accepting corporate-action adjustment accuracy."
+}
+

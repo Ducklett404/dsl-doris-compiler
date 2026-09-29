@@ -1,0 +1,30 @@
+{
+  "snapshotVersion": "stock-slot-sql-v1",
+  "cases": [
+    {
+      "id": "simple-field",
+      "dsl": "indicator('沪', '', '收盘价', '2026-04-14', '', '', '') > 10 limit 0,100",
+      "expectedSha256": "1a9f3aa969f0876e151c0523f5d33f3819113e0580b8583bacb1da181913f52d"
+    },
+    {
+      "id": "cross-table-sentinel",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', '') > 0 limit 0,100",
+      "expectedSha256": "3f4a8ddefac5afb89ba1d10958bc6c02a3e0a194174103e5e1a4648a9bad030f"
+    },
+    {
+      "id": "rank-then",
+      "dsl": "indicator('', '', '成交量', '2026-04-14', '', '', '') > 0 then rank('', '', '收盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 3 limit 0,100",
+      "expectedSha256": "2ffe2c28e75cc3df63041811fe109208d5df2be780b013c15bca373d685eac4b"
+    },
+    {
+      "id": "window-cross",
+      "dsl": "cross_above('', '', '收盘价', '开盘价', '2026-04-14', '', '') = True limit 0,100",
+      "expectedSha256": "220c4c2c129d9f4fe9d114098988fc0d999f65b468578f35744e04703f6842de"
+    },
+    {
+      "id": "cons-window",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', 'CONS>=3日') > 10 limit 0,100",
+      "expectedSha256": "41654b3a90730188eca15f48760ebc82daa9213f46eeda67550d0ab8f4ecffd5"
+    }
+  ]
+}

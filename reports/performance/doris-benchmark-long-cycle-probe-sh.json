@@ -1,0 +1,29 @@
+{
+  "snapshotId" : "stock-20060104-20260414-v1",
+  "warmup" : 0,
+  "iterations" : 1,
+  "resultRows" : 100,
+  "compile" : {
+    "p50Millis" : 32.4771,
+    "p95Millis" : 32.4771,
+    "p99Millis" : 32.4771,
+    "maxMillis" : 32.4771
+  },
+  "query" : {
+    "p50Millis" : 118.187,
+    "p95Millis" : 118.187,
+    "p99Millis" : 118.187,
+    "maxMillis" : 118.187
+  },
+  "fullScanBaseline" : {
+    "p50Millis" : 4441.2533,
+    "p95Millis" : 4441.2533,
+    "p99Millis" : 4441.2533,
+    "maxMillis" : 4441.2533
+  },
+  "fullScanSpeedup" : 37.57818795637422,
+  "compileP95Below50Millis" : true,
+  "queryP95AtMost10Seconds" : true,
+  "fullScanSpeedupAtLeastTen" : true,
+  "passed" : true
+}

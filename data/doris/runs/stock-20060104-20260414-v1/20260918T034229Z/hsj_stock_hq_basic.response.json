@@ -1,0 +1,20 @@
+{
+    "TxnId": 1007,
+    "Label": "stock_20060104_20260414_v1_hsj_stock_hq_basic_20260918T034229254Z",
+    "Comment": "",
+    "TwoPhaseCommit": "false",
+    "Status": "Success",
+    "Message": "OK",
+    "NumberTotalRows": 13650347,
+    "NumberLoadedRows": 13650347,
+    "NumberFilteredRows": 0,
+    "NumberUnselectedRows": 0,
+    "LoadBytes": 3102429166,
+    "LoadTimeMs": 156005,
+    "BeginTxnTimeMs": 1,
+    "StreamLoadPutTimeMs": 16,
+    "ReadDataTimeMs": 152871,
+    "WriteDataTimeMs": 155940,
+    "ReceiveDataTimeMs": 1183,
+    "CommitAndPublishTimeMs": 54
+}

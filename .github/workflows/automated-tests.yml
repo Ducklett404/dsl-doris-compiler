@@ -1,0 +1,31 @@
+name: automated-acceptance
+
+on:
+  pull_request:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  offline-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Run grammar, semantics, security, snapshots, performance and plugin tests
+        run: mvn -B test package
+      - name: Generate formal compiler performance evidence
+        run: >-
+          java -jar target/dsl-doris-compiler.jar benchmark-stock-slot-compiler
+          --warmup 1000 --iterations 5000 --p95-threshold-ms 50
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: offline-acceptance-evidence
+          path: |
+            target/surefire-reports/
+            reports/compiler-performance/

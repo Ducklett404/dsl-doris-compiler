@@ -1,0 +1,5 @@
+config/extensions/direct-field/registry-plugin.json
+config/extensions/template-calculation/registry-plugin.json
+config/extensions/window-lowering/registry-plugin.json
+src/test/resources/config-only-extensions/manifest.json
+src/main/resources/rewrite-rules.json

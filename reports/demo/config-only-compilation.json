@@ -1,0 +1,98 @@
+{
+  "compilerVersion" : "0.1.0",
+  "ruleConfigVersion" : "rules-v1",
+  "ast" : {
+    "asOf" : "2026-08-07",
+    "where" : {
+      "kind" : "Binary",
+      "operator" : ">",
+      "left" : {
+        "kind" : "Identifier",
+        "name" : "CLOSE_MIRROR",
+        "type" : "PRICE",
+        "span" : {
+          "line" : 2,
+          "column" : 7,
+          "endLine" : 2,
+          "endColumn" : 19
+        }
+      },
+      "right" : {
+        "kind" : "Literal",
+        "value" : 10,
+        "type" : "NUMBER",
+        "span" : {
+          "line" : 2,
+          "column" : 22,
+          "endLine" : 2,
+          "endColumn" : 24
+        }
+      },
+      "type" : "BOOLEAN",
+      "span" : {
+        "line" : 2,
+        "column" : 7,
+        "endLine" : 2,
+        "endColumn" : 24
+      }
+    },
+    "adjustment" : "FORWARD",
+    "orderBy" : null,
+    "limit" : 10,
+    "span" : {
+      "line" : 1,
+      "column" : 1,
+      "endLine" : 5,
+      "endColumn" : 6
+    }
+  },
+  "logicalPlan" : {
+    "nodes" : [ {
+      "kind" : "Scan",
+      "detail" : "market.dwd_quote_daily"
+    }, {
+      "kind" : "Filter",
+      "detail" : "Target-date predicate"
+    }, {
+      "kind" : "Limit",
+      "detail" : "10"
+    } ],
+    "accessPath" : {
+      "selected" : "DETAIL_TABLE",
+      "candidates" : [ {
+        "path" : "DETAIL_TABLE",
+        "cost" : 100.0,
+        "eligible" : true,
+        "reason" : "Always semantically complete; cost grows with window lookback"
+      }, {
+        "path" : "FEATURE_TABLE",
+        "cost" : 9999.0,
+        "eligible" : false,
+        "reason" : "At least one indicator lacks a feature column"
+      }, {
+        "path" : "PREFIX_SUM",
+        "cost" : 9999.0,
+        "eligible" : false,
+        "reason" : "No additive window aggregate"
+      } ],
+      "reason" : "Selected correctness-first detail path"
+    }
+  },
+  "sql" : "WITH base AS (\n  SELECT\n    q.symbol AS symbol,\n    q.trade_date AS trade_date,\n    q.close_qfq AS `close_mirror`\n  FROM market.dwd_quote_daily q\n  WHERE q.trade_date = ?\n)\nSELECT `symbol`, `trade_date`\nFROM base\nWHERE trade_date = ?\n  AND (`close_mirror` > ?)\nLIMIT 10;",
+  "bindings" : [ "2026-08-07", "2026-08-07", 10 ],
+  "requiredLookbackTradingDays" : 0,
+  "windowSpecs" : [ ],
+  "ruleTrace" : [ {
+    "ruleId" : "R-104",
+    "configVersion" : "compiler-builtin",
+    "phase" : "PLAN",
+    "iteration" : 1,
+    "inputNodeType" : "LOGICAL_PLAN",
+    "outputNodeType" : "LOGICAL_PLAN",
+    "priority" : 0,
+    "conflictResolution" : "NONE",
+    "equivalence" : "Plan construction preserves query semantics.",
+    "description" : "Deduplicated common window expressions and emitted layered CTEs"
+  } ],
+  "diagnostics" : [ ]
+}

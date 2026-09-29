@@ -1,0 +1,9 @@
+{
+  "fields": [
+    {
+      "name": "CLOSE_MIRROR",
+      "type": "PRICE",
+      "sourceSql": "q.close_qfq"
+    }
+  ]
+}

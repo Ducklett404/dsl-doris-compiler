@@ -1,10 +1,39 @@
 # 行情选股 DSL → Doris SQL 编译器 V1
 
-这是报告方案的第一版可运行原型。核心链路为：
+项目包含两个隔离的版本化入口：正式提槽 DSL 使用 `stock-slot-v1`，原有
+`SCREEN ON` 方言保留为 `screen-v1` 兼容模式。兼容模式的完整编译链路为：
 
 `ANTLR4 Parse Tree → 不可变 Typed AST → 语义检查 → 等价规则 → 逻辑计划 → AccessPathPlanner → 分层 Doris SQL`
 
-当前版本重点验证确定性编译、复杂窗口正确分层、声明式扩展和编译延迟；不连接真实 Doris，也不声称已经达到 19 年查询 10 倍加速。SQL 执行性能需要接入比赛数据快照和目标 Doris 集群后验收。
+当前版本已接入真实 Doris JDBC 执行：执行前强制校验已冻结且状态为
+`VALIDATED` 的数据快照，只执行编译器生成的参数化 `SELECT`，并对 10 秒查询上限、
+编译 P95 和 19 年等价计算加速倍数执行自动验收。
+
+## 最终交付入口
+
+- 交付物总索引：[`DELIVERY.md`](DELIVERY.md)
+- 最终验收摘要：[`reports/final/FINAL_DELIVERY.md`](reports/final/FINAL_DELIVERY.md)
+- CLI、HTTP、Docker 运行说明：[`docs/runtime-guide.md`](docs/runtime-guide.md)
+- 编译器架构说明：[`docs/compiler-architecture.md`](docs/compiler-architecture.md)
+- 指标注册与插件开发：[`docs/registry-plugin-guide.md`](docs/registry-plugin-guide.md)
+- 首期数据指标范围冻结书：[`docs/phase1-data-indicator-scope-v1.md`](docs/phase1-data-indicator-scope-v1.md)
+- 最终编译和查询表格：[`reports/final/compilation-and-query.md`](reports/final/compilation-and-query.md)
+- 最终七步演示说明：[`docs/final-demo.md`](docs/final-demo.md)
+
+一键构建、测试并启动 HTTP 服务：
+
+```powershell
+& .\scripts\build-test-start.ps1 -Mode Http
+```
+
+一键重建三张 Doris 表、导入 CSV、校验并登记固定快照：
+
+```powershell
+$env:DORIS_PASSWORD = '<装载账号密码>'
+& .\scripts\doris\setup-load-validate.ps1 `
+  -DataRoot '<Doris A股行情数据集目录>' `
+  -SnapshotId 'stock-20060104-20260414-v1'
+```
 
 ## 已实现
 
@@ -17,6 +46,9 @@
 - 编译产物包含 Typed AST、逻辑计划、访问路径候选、SQL、绑定参数、规则轨迹和诊断。
 - CLI、Markdown/JSON/SQL 输出、HTTP `/compile` API、Dockerfile。
 - JUnit 单元/集成/安全/插件/性能冒烟测试。
+- 独立的 `stock-slot-v1` ANTLR 文法、Typed AST、槽位语义模型和全语料分类器。
+- 正式 DSL 覆盖 12 类函数、空字符串槽位、`and/or/then`、比较与约等于、
+  指标四则运算、提槽 `limit x,y`、集合表达式、`CONS/EXIST`、中文时间和占位指标。
 
 ## 环境与构建
 
@@ -45,6 +77,105 @@ java -jar target/dsl-doris-compiler.jar compile examples/basic.dsl --format sql
 java -jar target/dsl-doris-compiler.jar compile examples/basic.dsl --format json
 ```
 
+解析正式提槽 DSL（当前产出 AST 和语义模型，不把未完成的数据映射伪装成 SQL）：
+
+```bash
+java -jar target/dsl-doris-compiler.jar compile examples/stock-slot-v1.dsl \
+  --dsl-version stock-slot-v1 --format json
+```
+
+把已具备真实数据契约的正式 DSL 子集编译为参数化 Doris SQL：
+
+```bash
+java -jar target/dsl-doris-compiler.jar compile-stock-slot-sql \
+  examples/stock-slot-v1.dsl --format json
+```
+
+在已装载并登记的冻结快照上执行正式 DSL：
+
+```powershell
+$env:DORIS_PASSWORD = '<本机 Doris 用户密码>'
+java -jar target/dsl-doris-compiler.jar execute-stock-slot-sql `
+  examples/registry-smoke.dsl --user dsl_runtime_reader `
+  --snapshot-id stock-20060104-20260414-v1 `
+  --timeout-seconds 10 --max-rows 100 `
+  -o reports/performance/doris-execution-smoke.json
+```
+
+生产式执行必须使用只读账号。先以管理员身份复制并替换
+[`data/doris/ddl/007_runtime_guardrails.template.sql`](data/doris/ddl/007_runtime_guardrails.template.sql)
+中的用户名和密码占位符，再执行该脚本；它会配置仅 `SELECT_PRIV` 的账号、独立 Workload
+Group，以及 100 万实际扫描行/10 秒的 Doris 端取消策略。不要提交替换后的含密码文件。
+
+完整的受控执行和 Markdown 报告示例：
+
+```powershell
+$env:DORIS_PASSWORD = '<只读账号密码>'
+java -jar target/dsl-doris-compiler.jar execute-stock-slot-sql `
+  examples/performance-long-cycle.dsl `
+  --user dsl_runtime_reader `
+  --snapshot-id stock-20060104-20260414-v1 `
+  --timeout-seconds 10 --max-scan-rows 1000000 `
+  --max-return-rows 1000 --max-rows 100 `
+  --format markdown -o reports/e2e/doris-execution.md
+```
+
+输出记录编译、应用排队、EXPLAIN 门禁、Doris 执行至结果可读、结果读取和总耗时，
+同时保存 SQL SHA-256 指纹、快照/契约/清单版本、编译器版本、EXPLAIN 和 Query Profile
+摘要。SQL 与 EXPLAIN 均复用 JDBC 占位符绑定，用户值不会拼进 SQL。
+
+启动带 Doris 执行能力的 HTTP 服务：
+
+```powershell
+java -jar target/dsl-doris-compiler.jar serve-doris `
+  --user dsl_runtime_reader --bind-host 127.0.0.1 --http-port 8080
+```
+
+```bash
+curl -X POST http://127.0.0.1:8080/execute \
+  -H 'Content-Type: application/json' \
+  --data-binary '{"dsl":"indicator('\''沪'\'', '\'''\'', '\''60日均线'\'', '\''2026-04-14'\'', '\'''\'', '\'''\'', '\'''\'') > 1 limit 0,100","snapshotId":"stock-20060104-20260414-v1","maxRows":100,"format":"markdown"}'
+```
+
+`/execute` 的错误契约为：语法错误 `400`、语义错误 `422`、安全配额 `429`、Doris
+错误 `502`、数据不可用 `503`、超时 `504`。服务端配置的返回行上限优先于请求中的
+`maxRows`。
+
+旧的性能基准命令仍可在本机无密码测试实例中显式使用 `--user root
+--allow-empty-password`；受控 `execute-stock-slot-sql` 和 `serve-doris` 会检查授权并拒绝含
+管理、建表、装载、修改或删除权限的账号。执行器拒绝超过 10 秒的业务查询超时配置。
+
+复跑长周期性能验收：
+
+```powershell
+java -jar target/dsl-doris-compiler.jar benchmark-doris `
+  examples/performance-long-cycle.dsl `
+  --user root --allow-empty-password --warmup 1 --iterations 5 `
+  --timeout-seconds 10 --baseline-timeout-seconds 120 `
+  -o reports/performance/doris-benchmark-long-cycle-v1.json
+```
+
+运行“先基准、后选优化”的 12 类冷热缓存矩阵：
+
+```powershell
+$env:DORIS_PASSWORD = '<基准只读账号密码>'
+java -jar target/dsl-doris-compiler.jar benchmark-matrix `
+  --user dsl_benchmark_reader --iterations 30 --cold-restart-container doris
+```
+
+矩阵定义、冷/热口径、证据目录和输出说明见
+[`benchmarks/README.md`](benchmarks/README.md)。基准程序不接受少于 30 次的配置，并在每轮
+逐行验证全表扫描参考与优化查询结果完全一致。
+
+验收同时要求加速路径与等价全周期窗口计算返回完全相同的证券及顺序，否则立即失败。
+当前基准、环境、结果及边界见
+[`reports/performance/PERFORMANCE_REPORT.md`](reports/performance/PERFORMANCE_REPORT.md)。
+
+黄金集三层正确性闭环的口径和复跑命令见
+[`accuracy/README.md`](accuracy/README.md)。
+函数、窗口、停牌、空值和新股处理的冻结语义见
+[`docs/stock-slot-function-semantics-v1.md`](docs/stock-slot-function-semantics-v1.md)。
+
 加载插件（不修改编译核心）：
 
 ```bash
@@ -60,6 +191,10 @@ curl http://127.0.0.1:8080/health
 curl -X POST http://127.0.0.1:8080/compile \
   -H 'Content-Type: application/json' \
   --data-binary '{"dsl":"SCREEN ON 2026-08-07 WHERE CLOSE > 10 LIMIT 5"}'
+
+curl -X POST http://127.0.0.1:8080/compile \
+  -H 'Content-Type: application/json' \
+  --data-binary '{"dslVersion":"stock-slot-v1","dsl":"indicator('\''沪'\'', '\'''\'', '\''10日均线'\'', '\''今天'\'', '\'''\'', '\'''\'', '\'''\'') > 5 limit 0,10"}'
 ```
 
 编译基准与整套自测：
@@ -68,6 +203,28 @@ curl -X POST http://127.0.0.1:8080/compile \
 java -jar target/dsl-doris-compiler.jar benchmark examples/basic.dsl --iterations 5000
 ./scripts/self-test.sh
 ```
+
+Windows 上的一键自动化验收入口为：
+
+```powershell
+./scripts/test-all.ps1 -MavenExecutable mvn.cmd
+```
+
+加入固定 Doris 快照差分可追加 `-WithDoris`；完整 19 年冷热性能矩阵再追加
+`-RunNineteenYearBenchmark`。覆盖矩阵及“未连接数据库不得伪报通过”的规则见
+[`docs/automated-testing.md`](docs/automated-testing.md)。
+
+正式 `stock-slot-v1` 的复杂语料性能门禁（预热后 5,000 次，缓存旁路 P95 必须小于 50ms）：
+
+```powershell
+java -jar target/dsl-doris-compiler.jar benchmark-stock-slot-compiler `
+  --warmup 1000 --iterations 5000 --p95-threshold-ms 50
+```
+
+它会分别输出解析、语义、重写、规划、SQL 生成和总耗时的 P50/P95/P99/最大值，以及每次
+编译内存分配和有界缓存统计。完整口径见
+[`docs/compiler-performance.md`](docs/compiler-performance.md)，最近一次实测见
+[`reports/compiler-performance/latest.md`](reports/compiler-performance/latest.md)。
 
 ## DSL 示例
 
@@ -82,6 +239,20 @@ ORDER BY TURNOVER_RATE DESC
 LIMIT 100
 ```
 
+正式提槽 DSL 的 `limit 0,10` 是选取数量上下界，不等于 SQL `LIMIT 10`；两者
+位于不同 AST 中。`then` 的优先级低于 `or`，且语义检查要求其右侧包含 `rank`。
+
+## 声明式规则
+
+`screen-v1` 的等价重写由版本化规则目录驱动，规则声明包含前置条件、输入/输出节点类型、
+阶段、优先级、冲突策略、等价性说明和最大迭代次数。编译产物记录所用规则版本和完整轨迹。
+可通过 `--rules` 加载外部目录、通过 `--rule-version` 固定或回滚版本；详细契约见
+[`docs/declarative-rule-engine.md`](docs/declarative-rule-engine.md)。
+
+已有注册类型/lowering 的“核心代码 0 行改动”验收包含直接字段、模板计算和窗口指标三类样例，
+并由 PR 门禁自动拒绝核心目录变更，详见
+[`docs/config-only-extension-acceptance.md`](docs/config-only-extension-acceptance.md)。
+
 ## 插件契约
 
 `examples/custom-plugin.json` 演示通过 `TEMPLATE` 注册 `ABS_CHANGE`。插件模板只能是表达式片段；加载器拒绝分号、注释和 `SELECT`，DSL 的字段和函数也必须通过白名单解析。
@@ -91,15 +262,23 @@ V1 支持 `COLUMN`、`WINDOW_AVG`、`CROSS_UP` 和 `TEMPLATE` 四类 lowering。
 ## 目录
 
 - `src/main/antlr4`：DSL 文法。
+- `src/main/antlr4/.../stockslot`：正式 `stock-slot-v1` 文法。
+- `src/main/java/.../stockslot`：正式 DSL AST、语义分析和语料审计器。
 - `src/main/java/.../ast`：版本化 AST 数据结构。
 - `semantic`、`rewrite`、`plan`、`sql`：确定性编译核心。
 - `src/main/resources/registry.json`：字段、指标、表映射和 lowering 元数据。
+- `src/main/resources/rewrite-rules.json`：版本化声明式规则目录和回滚版本。
 - `src/test`：正确性、安全性、插件、HTTP 和性能测试。
 - `examples`：可运行 DSL 与插件样例。
 
 ## 当前边界
 
-- V1 只生成 SQL，不直接执行 Doris，也不接受任意 SQL 片段。
-- AccessPathPlanner 会列出特征表和前缀和候选，但在接入新鲜度元数据前安全回退到明细表。
-- 表名和列名是演示逻辑模型，接入真实环境时修改注册表并补充数据版本治理。
-- 编译 P95 指标只覆盖内存编译链路；查询 10 秒和 10 倍加速必须在同集群、同快照、冷热分离的基准下验证。
+- 编译器自身不接受任意 SQL 片段；数据库执行由正确率/装载验收脚本显式完成。
+- `stock-slot-v1` 已完成解析和语义分类；只有具备真实指标映射、确定日期语义的首期子集
+  才能进入 `compile-stock-slot-sql`。其他表达式返回稳定的不支持分类，不生成伪 SQL。
+- 访问路径只在注册表中的窗口、字段和冻结日期完全匹配时选用特征表；不匹配时安全回退到明细表。
+- 当前真实加速路径只覆盖冻结验收日 `2026-04-14` 的 `60日均线`；其他窗口或日期安全回退
+  到明细表，特征表和历史指标混用会返回 `EXECUTION_FEATURE_MIXED`，不会静默生成错误 SQL。
+- 真实表名、字段、倍率、空值策略和 lowering 均由版本化注册表约束；新增已有 lowering 类型
+  的普通指标无需修改核心 Java 代码。
+- 仓库内性能数字针对本机单节点 Doris 和固定快照，不等同于其他硬件、并发或数据版本的保证。

@@ -1,0 +1,13 @@
+{
+  "functions": [
+    {
+      "name": "SMA",
+      "minArgs": 2,
+      "maxArgs": 2,
+      "returnType": "PRICE",
+      "loweringKind": "WINDOW_AVG",
+      "lookbackArg": 1,
+      "requiredFields": []
+    }
+  ]
+}

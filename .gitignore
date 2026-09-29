@@ -5,3 +5,4 @@
 /.mvn-cache/
 /.tools/
 *.log
+__pycache__/

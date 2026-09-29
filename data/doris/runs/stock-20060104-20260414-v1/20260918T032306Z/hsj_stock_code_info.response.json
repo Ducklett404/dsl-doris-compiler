@@ -1,0 +1,22 @@
+{
+    "TxnId": 7,
+    "Label": "stock_20060104_20260414_v1_hsj_stock_code_info_20260918T032306766Z",
+    "Comment": "",
+    "TwoPhaseCommit": "false",
+    "Status": "Fail",
+    "Message": "[DATA_QUALITY_ERROR]too many filtered rows",
+    "NumberTotalRows": 5686,
+    "NumberLoadedRows": 0,
+    "NumberFilteredRows": 6,
+    "NumberUnselectedRows": 0,
+    "LoadBytes": 321850,
+    "LoadTimeMs": 70,
+    "BeginTxnTimeMs": 1,
+    "StreamLoadPutTimeMs": 19,
+    "ReadDataTimeMs": 0,
+    "WriteDataTimeMs": 48,
+    "ReceiveDataTimeMs": 26,
+    "CommitAndPublishTimeMs": 0,
+    "ErrorURL": "http://127.0.0.1:8040/api/_load_error_log?file=__shard_0/error_log_insert_stmt_60493df2d263ba3c-c1a77dd00bafa9b7_60493df2d263ba3c_c1a77dd00bafa9b7",
+    "FirstErrorMsg": "column(marketNo) value is incorrect while strict mode is true, src value is . Src line: 1 603963 *ST大药 603963  0  0 0 0 0 0 0 1 0 0 0"
+}

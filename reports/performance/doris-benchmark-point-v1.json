@@ -1,0 +1,21 @@
+{
+  "snapshotId" : "stock-20060104-20260414-v1",
+  "warmup" : 5,
+  "iterations" : 30,
+  "resultRows" : 5471,
+  "compile" : {
+    "p50Millis" : 0.7082,
+    "p95Millis" : 1.0864,
+    "p99Millis" : 1.4765,
+    "maxMillis" : 1.4765
+  },
+  "query" : {
+    "p50Millis" : 53.783,
+    "p95Millis" : 103.9398,
+    "p99Millis" : 121.1556,
+    "maxMillis" : 121.1556
+  },
+  "compileP95Below50Millis" : true,
+  "queryP95AtMost10Seconds" : true,
+  "passed" : true
+}

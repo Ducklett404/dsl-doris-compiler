@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2026-09-28T23:34:29.8828314+08:00",
+  "dorisMode": "HistoricalEvidence",
+  "overall": "PARTIAL_PASS（脚本/编译器通过；实时 Doris 步骤 NOT_RUN）",
+  "liveDorisExecution": "NOT_RUN",
+  "formalCompilation": "PASS",
+  "resultRows": 20,
+  "optimizedP95Millis": 52.5262,
+  "baselineP95Millis": 4070.1145,
+  "speedup": 77.48732061333202,
+  "resultEquality": "PASS",
+  "configOnlyCompile": "PASS",
+  "coreChanges": 0,
+  "coreFingerprint": "b188d0f56cbe8b9ec1caee1ca5bb9e20d1006b558d7f84be41c7e6b5d3b19874",
+  "accuracy": 1.0,
+  "compilerP95Millis": 0.1218,
+  "markdown": "C:\\Users\\scx\\Desktop\\Dsl-Doris-Compiler\\dsl-doris-compiler\\reports\\demo\\latest.md"
+}

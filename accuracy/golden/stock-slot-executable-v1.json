@@ -1,0 +1,192 @@
+{
+  "goldenVersion": "stock-slot-executable-v1",
+  "dslVersion": "stock-slot-v1",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "splitPolicy": "Stratified by function, indicator type, time type, and complexity; known badcases are pinned to regression.",
+  "blindPolicy": "Repository-internal frozen holdout; external organizer-owned blind evaluation remains required for final acceptance.",
+  "resultContract": {
+    "identityColumns": ["mktcode", "tgtcode"],
+    "unorderedQueriesCompare": "set",
+    "orderedQueriesCompare": "sequence",
+    "absoluteTolerance": 0.000001,
+    "relativeTolerance": 0.00000001
+  },
+  "denominatorPolicy": "Only cases with accepted metric mappings and executable=true are included.",
+  "excludedCapabilities": [
+    "financial indicators without a source table",
+    "industry/concept/index membership without a source table",
+    "fund/bond/security-type filters without a source table",
+    "relative Chinese dates that require an evaluation-date contract",
+    "CONS/EXIST and multi-period aggregation pending window semantics"
+  ],
+  "cases": [
+    {
+      "id": "DEV-001", "split": "development", "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "price", "timeType": "absolute", "complexity": "single"},
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', '') > 10",
+      "expect": {"rootOperator": ">", "functions": ["indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.closePrice AS `m1`", "`m1` > ?"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 2, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "predicate": "b.closePrice > 10"}
+    },
+    {
+      "id": "DEV-002", "split": "development", "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "volume", "timeType": "absolute", "complexity": "between"},
+      "dsl": "indicator('', '', '成交量', '2026年4月14日', '', '', '') between '[1000,100000)'",
+      "expect": {"rootOperator": "BETWEEN", "functions": ["indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.volume AS `m1`", "`m1` >= ? AND `m1` < ?"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 3, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "predicate": "b.volume >= 1000 AND b.volume < 100000"}
+    },
+    {
+      "id": "DEV-003", "split": "development", "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "amount", "timeType": "absolute", "complexity": "market-union"},
+      "dsl": "indicator('沪|深', '', '成交额', '2026-04-14', '', '', '') > 1000000",
+      "expect": {"rootOperator": ">", "functions": ["indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.turnoverAmount AS `m1`", "b.mktcode = 1 OR b.mktcode = 0"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 2, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "market": "b.mktcode IN (0,1)", "predicate": "b.turnoverAmount > 1000000"}
+    },
+    {
+      "id": "DEV-004", "split": "development", "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "ratio", "timeType": "absolute", "complexity": "and"},
+      "dsl": "indicator('', '', '量比', '2026-04-14', '', '', '') > 1 and indicator('', '', '换手率', '2026-04-14', '', '', '') > 0.01",
+      "expect": {"rootOperator": "AND", "functions": ["indicator", "indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.quantityRatio AS `m1`", "b.turnoverRatio AS `m2`"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 3, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "predicate": "b.quantityRatio > 1 AND b.turnoverRatio > 0.01"}
+    },
+    {
+      "id": "DEV-005", "split": "development", "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "market-value", "timeType": "absolute", "complexity": "single"},
+      "dsl": "indicator('沪', '', '总市值', '2026-04-14', '', '', '') > 1000000000",
+      "expect": {"rootOperator": ">", "functions": ["indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.marketValue AS `m1`", "b.mktcode = 1"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 2, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "market": "b.mktcode = 1", "predicate": "b.marketValue > 1000000000"}
+    },
+    {
+      "id": "DEV-006", "split": "development", "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "percent", "timeType": "absolute", "complexity": "or"},
+      "dsl": "indicator('', '', '涨跌幅', '2026-04-14', '', '', '') > 5% or indicator('', '', '涨跌幅', '2026-04-14', '', '', '') < -5%",
+      "expect": {"rootOperator": "OR", "functions": ["indicator", "indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.risePct AS `m1`"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 3, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "predicate": "b.risePct > 5 OR b.risePct < -5"}
+    },
+    {
+      "id": "DEV-007", "split": "development", "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "derived-price", "timeType": "absolute", "complexity": "arithmetic"},
+      "dsl": "indicator('', '', '成交额', '2026-04-14', '', '', '') / indicator('', '', '成交量', '2026-04-14', '', '', '') > 10",
+      "expect": {"rootOperator": ">", "functions": ["indicator", "indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.turnoverAmount AS `m1`", "b.volume AS `m2`", "`m1` / `m2`"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 2, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "predicate": "b.turnoverAmount / b.volume > 10"}
+    },
+    {
+      "id": "DEV-008", "split": "development", "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "price", "timeType": "absolute", "complexity": "limit"},
+      "dsl": "indicator('', '', '最高价', '2026-04-14', '', '', '') > 20 limit 0,5",
+      "expect": {"rootOperator": ">", "functions": ["indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "CardinalityConstraint", "Project"], "requiredSql": ["b.highPrice AS `m1`", "LIMIT 5"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 2, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "predicate": "b.highPrice > 20", "limit": 5}
+    },
+    {
+      "id": "REG-001", "split": "regression", "badcase": true, "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "price", "timeType": "absolute", "complexity": "approx"},
+      "dsl": "indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') ~= indicator('', '', '收盘价', '2026-04-14', '', '', '')",
+      "expect": {"rootOperator": "~=", "functions": ["indicator", "indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.closeQfq AS `m1`", "b.closePrice AS `m2`", "ABS(`m1` - `m2`) <= ?"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 2, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "predicate": "ABS(b.closeQfq - b.closePrice) <= 0.000001"}
+    },
+    {
+      "id": "REG-002", "split": "regression", "badcase": true, "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "extension", "timeType": "absolute", "complexity": "join"},
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', '') > 0",
+      "expect": {"rootOperator": ">", "functions": ["indicator"], "planKinds": ["Scan", "LeftJoin", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["LEFT JOIN newzl.v_hsj_stock_hq_ext", "e.ZJLXMainNetTur AS `m1`"], "forbiddenSql": [], "bindingCount": 2, "ordered": false},
+      "reference": {"dataset": "basic_ext", "date": "2026-04-14", "predicate": "e.ZJLXMainNetTur > 0"}
+    },
+    {
+      "id": "REG-003", "split": "regression", "badcase": true, "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "price", "timeType": "absolute", "complexity": "market-exclusion"},
+      "dsl": "indicator('^京', '', '最低价', '2026-04-14', '', '', '') < 10",
+      "expect": {"rootOperator": "<", "functions": ["indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["NOT (b.mktcode = 103)", "b.lowPrice AS `m1`"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 2, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "market": "b.mktcode <> 103", "predicate": "b.lowPrice < 10"}
+    },
+    {
+      "id": "REG-004", "split": "regression", "badcase": true, "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "price", "timeType": "absolute", "complexity": "closed-between"},
+      "dsl": "indicator('京', '', '开盘价', '2026-04-14', '', '', '') between '[5,15]'",
+      "expect": {"rootOperator": "BETWEEN", "functions": ["indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.mktcode = 103", "`m1` >= ? AND `m1` <= ?"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 3, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "market": "b.mktcode = 103", "predicate": "b.openPrice >= 5 AND b.openPrice <= 15"}
+    },
+    {
+      "id": "REG-005", "split": "regression", "badcase": true, "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "market-value", "timeType": "absolute", "complexity": "and"},
+      "dsl": "indicator('', '', '流通市值', '2026-04-14', '', '', '') > 500000000 and indicator('', '', '真实换手率', '2026-04-14', '', '', '') > 0",
+      "expect": {"rootOperator": "AND", "functions": ["indicator", "indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.listedMarketValue AS `m1`", "b.trueTurnoverRatio AS `m2`"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 3, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "predicate": "b.listedMarketValue > 500000000 AND b.trueTurnoverRatio > 0"}
+    },
+    {
+      "id": "REG-006", "split": "regression", "badcase": true, "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "derived-price", "timeType": "absolute", "complexity": "comparison"},
+      "dsl": "indicator('', '', '均价', '2026-04-14', '', '', '') > indicator('', '', '收盘价', '2026-04-14', '', '', '')",
+      "expect": {"rootOperator": ">", "functions": ["indicator", "indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.avgPx AS `m1`", "b.closePrice AS `m2`"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 1, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "predicate": "b.avgPx > b.closePrice"}
+    },
+    {
+      "id": "REG-007", "split": "regression", "badcase": true, "executable": true,
+      "strata": {"function": "rank", "indicatorType": "amount", "timeType": "absolute", "complexity": "then-rank"},
+      "dsl": "indicator('', '', '成交量', '2026-04-14', '', '', '') > 0 then rank('', '', '成交额', 'desc', '2026-04-14', '', '', '') <= 10",
+      "expect": {"rootOperator": "THEN", "functions": ["indicator", "rank"], "planKinds": ["Scan", "DateAndMarketFilter", "Filter", "Rank", "Sort", "Project"], "requiredSql": ["prefiltered AS", "DENSE_RANK() OVER", "`r1` <= ?"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 3, "ordered": true},
+      "reference": {"rawSql": "WITH p AS (SELECT b.mktcode,b.tgtcode,b.turnoverAmount FROM newzl.v_hsj_stock_hq_basic b WHERE b.bizdate='2026-04-14' AND b.volume>0), r AS (SELECT p.*,DENSE_RANK() OVER(ORDER BY turnoverAmount DESC) rk FROM p) SELECT mktcode,tgtcode FROM r WHERE rk<=10 ORDER BY rk,mktcode,tgtcode"}
+    },
+    {
+      "id": "REG-008", "split": "regression", "badcase": true, "executable": true,
+      "strata": {"function": "rank", "indicatorType": "price", "timeType": "absolute", "complexity": "rank-limit"},
+      "dsl": "rank('沪', '', '收盘价', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,5",
+      "expect": {"rootOperator": "<=", "functions": ["rank"], "planKinds": ["Scan", "DateAndMarketFilter", "Rank", "Sort", "CardinalityConstraint", "Project"], "requiredSql": ["DENSE_RANK() OVER", "b.mktcode = 1", "LIMIT 5"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 2, "ordered": true},
+      "reference": {"rawSql": "WITH r AS (SELECT b.mktcode,b.tgtcode,DENSE_RANK() OVER(ORDER BY b.closePrice ASC) rk FROM newzl.v_hsj_stock_hq_basic b WHERE b.bizdate='2026-04-14' AND b.mktcode=1 AND b.closePrice IS NOT NULL) SELECT mktcode,tgtcode FROM r WHERE rk<=5 ORDER BY rk,mktcode,tgtcode LIMIT 5"}
+    },
+    {
+      "id": "BLIND-001", "split": "blind", "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "price", "timeType": "absolute", "complexity": "comparison"},
+      "dsl": "indicator('', '', '开盘价', '2026-04-14', '', '', '') > indicator('', '', '收盘价', '2026-04-14', '', '', '')",
+      "expect": {"rootOperator": ">", "functions": ["indicator", "indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.openPrice AS `m1`", "b.closePrice AS `m2`"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 1, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "predicate": "b.openPrice > b.closePrice"}
+    },
+    {
+      "id": "BLIND-002", "split": "blind", "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "price", "timeType": "absolute", "complexity": "arithmetic"},
+      "dsl": "indicator('', '', '最高价', '2026-04-14', '', '', '') - indicator('', '', '最低价', '2026-04-14', '', '', '') > 1",
+      "expect": {"rootOperator": ">", "functions": ["indicator", "indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.highPrice AS `m1`", "b.lowPrice AS `m2`", "`m1` - `m2`"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 2, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "predicate": "b.highPrice - b.lowPrice > 1"}
+    },
+    {
+      "id": "BLIND-003", "split": "blind", "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "ratio", "timeType": "absolute", "complexity": "between"},
+      "dsl": "indicator('深', '', '换手率', '2026-04-14', '', '', '') between '(0.01,0.05]'",
+      "expect": {"rootOperator": "BETWEEN", "functions": ["indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.mktcode = 0", "`m1` > ? AND `m1` <= ?"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 3, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "market": "b.mktcode=0", "predicate": "b.turnoverRatio > 0.01 AND b.turnoverRatio <= 0.05"}
+    },
+    {
+      "id": "BLIND-004", "split": "blind", "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "extension", "timeType": "absolute", "complexity": "join"},
+      "dsl": "indicator('沪|深|京', '', '主力净流入', '2026-04-14', '', '', '') < 0",
+      "expect": {"rootOperator": "<", "functions": ["indicator"], "planKinds": ["Scan", "LeftJoin", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["LEFT JOIN newzl.v_hsj_stock_hq_ext", "e.ZJLXMainNetTur AS `m1`"], "forbiddenSql": [], "bindingCount": 2, "ordered": false},
+      "reference": {"dataset": "basic_ext", "date": "2026-04-14", "market": "b.mktcode IN (0,1,103)", "predicate": "e.ZJLXMainNetTur < 0"}
+    },
+    {
+      "id": "BLIND-005", "split": "blind", "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "adjusted-price", "timeType": "absolute", "complexity": "and"},
+      "dsl": "indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') = indicator('', '', '收盘价', '2026-04-14', '', '', '') and indicator('', '', '后复权收盘价', '2026-04-14', '', '', '') = indicator('', '', '收盘价', '2026-04-14', '', '', '')",
+      "expect": {"rootOperator": "AND", "functions": ["indicator", "indicator", "indicator", "indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.closeQfq AS `m1`", "b.closePrice AS `m2`", "b.closeHfq AS `m3`"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 1, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "predicate": "b.closeQfq = b.closePrice AND b.closeHfq = b.closePrice"}
+    },
+    {
+      "id": "BLIND-006", "split": "blind", "executable": true,
+      "strata": {"function": "indicator", "indicatorType": "price", "timeType": "absolute", "complexity": "or-and"},
+      "dsl": "(indicator('', '', '收盘价', '2026-04-14', '', '', '') < 5 or indicator('', '', '收盘价', '2026-04-14', '', '', '') > 100) and indicator('', '', '成交量', '2026-04-14', '', '', '') > 0",
+      "expect": {"rootOperator": "AND", "functions": ["indicator", "indicator", "indicator"], "planKinds": ["Scan", "DateAndMarketFilter", "Sort", "Project"], "requiredSql": ["b.closePrice AS `m1`", "b.volume AS `m2`"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 4, "ordered": false},
+      "reference": {"dataset": "basic", "date": "2026-04-14", "predicate": "(b.closePrice < 5 OR b.closePrice > 100) AND b.volume > 0"}
+    },
+    {
+      "id": "BLIND-007", "split": "blind", "executable": true,
+      "strata": {"function": "rank", "indicatorType": "market-value", "timeType": "absolute", "complexity": "then-rank"},
+      "dsl": "indicator('', '', '流通市值', '2026-04-14', '', '', '') > 0 then rank('', '', '流通市值', 'desc', '2026-04-14', '', '', '') <= 8",
+      "expect": {"rootOperator": "THEN", "functions": ["indicator", "rank"], "planKinds": ["Scan", "DateAndMarketFilter", "Filter", "Rank", "Sort", "Project"], "requiredSql": ["prefiltered AS", "DENSE_RANK() OVER", "`r1` <= ?"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 3, "ordered": true},
+      "reference": {"rawSql": "WITH p AS (SELECT b.mktcode,b.tgtcode,b.listedMarketValue FROM newzl.v_hsj_stock_hq_basic b WHERE b.bizdate='2026-04-14' AND b.listedMarketValue>0), r AS (SELECT p.*,DENSE_RANK() OVER(ORDER BY listedMarketValue DESC) rk FROM p) SELECT mktcode,tgtcode FROM r WHERE rk<=8 ORDER BY rk,mktcode,tgtcode"}
+    },
+    {
+      "id": "BLIND-008", "split": "blind", "executable": true,
+      "strata": {"function": "rank", "indicatorType": "price", "timeType": "absolute", "complexity": "rank"},
+      "dsl": "rank('京', '', '最高价', 'desc', '2026-04-14', '', '', '') <= 6",
+      "expect": {"rootOperator": "<=", "functions": ["rank"], "planKinds": ["Scan", "DateAndMarketFilter", "Rank", "Sort", "Project"], "requiredSql": ["b.mktcode = 103", "DENSE_RANK() OVER", "`r1` <= ?"], "forbiddenSql": ["v_hsj_stock_hq_ext"], "bindingCount": 2, "ordered": true},
+      "reference": {"rawSql": "WITH r AS (SELECT b.mktcode,b.tgtcode,DENSE_RANK() OVER(ORDER BY b.highPrice DESC) rk FROM newzl.v_hsj_stock_hq_basic b WHERE b.bizdate='2026-04-14' AND b.mktcode=103 AND b.highPrice IS NOT NULL) SELECT mktcode,tgtcode FROM r WHERE rk<=6 ORDER BY rk,mktcode,tgtcode"}
+    }
+  ]
+}

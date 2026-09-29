@@ -1,0 +1,194 @@
+{
+  "compilation" : {
+    "dslVersion" : "stock-slot-v1",
+    "semanticModel" : {
+      "document" : {
+        "expression" : {
+          "kind" : "Binary",
+          "operator" : ">",
+          "left" : {
+            "kind" : "FunctionCall",
+            "name" : "indicator",
+            "arguments" : [ {
+              "kind" : "Literal",
+              "value" : "",
+              "type" : "STRING",
+              "span" : {
+                "line" : 1,
+                "column" : 11,
+                "endLine" : 1,
+                "endColumn" : 13
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "",
+              "type" : "STRING",
+              "span" : {
+                "line" : 1,
+                "column" : 15,
+                "endLine" : 1,
+                "endColumn" : 17
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "振幅",
+              "type" : "STRING",
+              "span" : {
+                "line" : 1,
+                "column" : 19,
+                "endLine" : 1,
+                "endColumn" : 23
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "2026-04-14",
+              "type" : "STRING",
+              "span" : {
+                "line" : 1,
+                "column" : 25,
+                "endLine" : 1,
+                "endColumn" : 37
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "",
+              "type" : "STRING",
+              "span" : {
+                "line" : 1,
+                "column" : 39,
+                "endLine" : 1,
+                "endColumn" : 41
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "",
+              "type" : "STRING",
+              "span" : {
+                "line" : 1,
+                "column" : 43,
+                "endLine" : 1,
+                "endColumn" : 45
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "",
+              "type" : "STRING",
+              "span" : {
+                "line" : 1,
+                "column" : 47,
+                "endLine" : 1,
+                "endColumn" : 49
+              }
+            } ],
+            "type" : "PERCENT",
+            "span" : {
+              "line" : 1,
+              "column" : 1,
+              "endLine" : 1,
+              "endColumn" : 50
+            }
+          },
+          "right" : {
+            "kind" : "Literal",
+            "value" : 1,
+            "type" : "NUMBER",
+            "span" : {
+              "line" : 1,
+              "column" : 53,
+              "endLine" : 1,
+              "endColumn" : 54
+            }
+          },
+          "type" : "BOOLEAN",
+          "span" : {
+            "line" : 1,
+            "column" : 1,
+            "endLine" : 1,
+            "endColumn" : 54
+          }
+        },
+        "selectionLimit" : null,
+        "span" : {
+          "line" : 1,
+          "column" : 1,
+          "endLine" : 2,
+          "endColumn" : 6
+        }
+      },
+      "calls" : [ {
+        "function" : "indicator",
+        "span" : {
+          "line" : 1,
+          "column" : 1,
+          "endLine" : 1,
+          "endColumn" : 50
+        },
+        "slots" : [ {
+          "name" : "market",
+          "rawValue" : "",
+          "structuredValue" : {
+            "value" : ""
+          }
+        }, {
+          "name" : "filter_scope",
+          "rawValue" : "",
+          "structuredValue" : {
+            "value" : ""
+          }
+        }, {
+          "name" : "indicator_name",
+          "rawValue" : "振幅",
+          "structuredValue" : {
+            "value" : "振幅",
+            "template" : "振幅",
+            "parameters" : { }
+          }
+        }, {
+          "name" : "date",
+          "rawValue" : "2026-04-14",
+          "structuredValue" : {
+            "raw" : "2026-04-14",
+            "reportPeriod" : null,
+            "offsets" : [ ]
+          }
+        }, {
+          "name" : "select_type",
+          "rawValue" : "",
+          "structuredValue" : {
+            "value" : ""
+          }
+        }, {
+          "name" : "agg_func",
+          "rawValue" : "",
+          "structuredValue" : ""
+        }, {
+          "name" : "count_exp",
+          "rawValue" : "",
+          "structuredValue" : null
+        } ]
+      } ]
+    },
+    "logicalPlan" : [ {
+      "kind" : "Scan",
+      "detail" : "newzl.v_hsj_stock_hq_basic"
+    }, {
+      "kind" : "DateAndMarketFilter",
+      "detail" : "2026-04-14"
+    }, {
+      "kind" : "Sort",
+      "detail" : "mktcode, tgtcode"
+    }, {
+      "kind" : "Project",
+      "detail" : "mktcode,tgtcode"
+    } ],
+    "windowContracts" : [ ],
+    "sql" : "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    (b.amplitude * 1 / 10000) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+    "bindings" : [ "2026-04-14", 1 ],
+    "ordered" : false
+  },
+  "columns" : [ "mktcode", "tgtcode" ],
+  "rows" : [ [ "0", "000002" ], [ "0", "000004" ], [ "0", "000006" ], [ "0", "000007" ], [ "0", "000008" ], [ "0", "000009" ], [ "0", "000010" ], [ "0", "000011" ], [ "0", "000012" ], [ "0", "000014" ], [ "0", "000016" ], [ "0", "000017" ], [ "0", "000019" ], [ "0", "000020" ], [ "0", "000021" ], [ "0", "000026" ], [ "0", "000027" ], [ "0", "000028" ], [ "0", "000029" ], [ "0", "000030" ] ],
+  "truncated" : true,
+  "compileMillis" : 30.2279,
+  "queryMillis" : 100.3504
+}

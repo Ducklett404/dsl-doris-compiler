@@ -1,0 +1,6 @@
+Reason: column(marketNo) value is incorrect while strict mode is true, src value is . src line [1 603963 *ST大药 603963  0  0 0 0 0 0 0 1 0 0 0]; 
+Reason: column(marketNo) value is incorrect while strict mode is true, src value is . src line [1 600837 海通证券 600837  0  0 0 0 0 0 0 1 0 0 0]; 
+Reason: column(marketNo) value is incorrect while strict mode is true, src value is . src line [1 600083 *ST博信 600083  0  0 0 0 0 0 0 1 0 0 0]; 
+Reason: column(marketNo) value is incorrect while strict mode is true, src value is . src line [1 688808 联讯仪器 688808  0  0 0 0 0 0 0 1 0 0 0]; 
+Reason: column(marketNo) value is incorrect while strict mode is true, src value is . src line [1 600225 退市卓朗 600225  0  0 0 0 0 0 0 1 0 0 0]; 
+Reason: column(marketNo) value is incorrect while strict mode is true, src value is . src line [1 600898 *ST美讯 600898  0  0 0 0 0 0 0 1 0 0 0]; 

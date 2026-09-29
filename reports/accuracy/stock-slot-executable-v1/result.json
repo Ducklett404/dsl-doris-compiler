@@ -1,0 +1,795 @@
+{
+  "goldenVersion": "stock-slot-executable-v1",
+  "dslVersion": "stock-slot-v1",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "executedAtUtc": "2026-09-18T05:10:04.912292+00:00",
+  "artifactHashes": {
+    "goldenSha256": "6d2f3159668081ca57aa217b4b4b29e86fcd79f47576eced446d20739bc992ae",
+    "snapshotManifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+    "compilerJarSha256": "a9ea5470b65fc9066b4cfa8479c82e40c4a438fc3ab33449cd94d7f400bb1760"
+  },
+  "snapshotVerified": true,
+  "snapshotChecks": {
+    "codeRows": 5686,
+    "basicRows": 13650347,
+    "extRows": 6170822,
+    "basicDateRange": [
+      "2006-01-04",
+      "2026-04-14"
+    ],
+    "extDateRange": [
+      "2018-08-20",
+      "2026-04-14"
+    ]
+  },
+  "denominatorPolicy": "Only cases with accepted metric mappings and executable=true are included.",
+  "excludedCapabilities": [
+    "financial indicators without a source table",
+    "industry/concept/index membership without a source table",
+    "fund/bond/security-type filters without a source table",
+    "relative Chinese dates that require an evaluation-date contract",
+    "CONS/EXIST and multi-period aggregation pending window semantics"
+  ],
+  "tolerance": {
+    "identityColumns": [
+      "mktcode",
+      "tgtcode"
+    ],
+    "unorderedQueriesCompare": "set",
+    "orderedQueriesCompare": "sequence",
+    "absoluteTolerance": 1e-06,
+    "relativeTolerance": 1e-08
+  },
+  "overall": {
+    "total": 24,
+    "correct": 24,
+    "accuracy": 1.0
+  },
+  "splits": {
+    "development": {
+      "total": 8,
+      "correct": 8,
+      "accuracy": 1.0
+    },
+    "regression": {
+      "total": 8,
+      "correct": 8,
+      "accuracy": 1.0
+    },
+    "blind": {
+      "total": 8,
+      "correct": 8,
+      "accuracy": 1.0
+    }
+  },
+  "failureCategories": {},
+  "cases": [
+    {
+      "id": "DEV-001",
+      "split": "development",
+      "badcase": false,
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', '') > 10",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "price",
+        "timeType": "absolute",
+        "complexity": "single"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.closePrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          10
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.closePrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > 10)\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.closePrice > 10) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 3836,
+      "referenceRowCount": 3836,
+      "correct": true
+    },
+    {
+      "id": "DEV-002",
+      "split": "development",
+      "badcase": false,
+      "dsl": "indicator('', '', '成交量', '2026年4月14日', '', '', '') between '[1000,100000)'",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "volume",
+        "timeType": "absolute",
+        "complexity": "between"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.volume AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` >= ? AND `m1` < ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          1000,
+          100000
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.volume AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` >= 1000 AND `m1` < 100000)\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.volume >= 1000 AND b.volume < 100000) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 23,
+      "referenceRowCount": 23,
+      "correct": true
+    },
+    {
+      "id": "DEV-003",
+      "split": "development",
+      "badcase": false,
+      "dsl": "indicator('沪|深', '', '成交额', '2026-04-14', '', '', '') > 1000000",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "amount",
+        "timeType": "absolute",
+        "complexity": "market-union"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.turnoverAmount AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n    AND (b.mktcode = 1 OR b.mktcode = 0)\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          1000000
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.turnoverAmount AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n    AND (b.mktcode = 1 OR b.mktcode = 0)\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > 1000000)\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.mktcode IN (0,1)) AND (b.turnoverAmount > 1000000) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 5205,
+      "referenceRowCount": 5205,
+      "correct": true
+    },
+    {
+      "id": "DEV-004",
+      "split": "development",
+      "badcase": false,
+      "dsl": "indicator('', '', '量比', '2026-04-14', '', '', '') > 1 and indicator('', '', '换手率', '2026-04-14', '', '', '') > 0.01",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "ratio",
+        "timeType": "absolute",
+        "complexity": "and"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.quantityRatio AS `m1`,\n    b.turnoverRatio AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` > ?) AND (`m2` > ?))\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          1,
+          0.01
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.quantityRatio AS `m1`,\n    b.turnoverRatio AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` > 1) AND (`m2` > 0.01))\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.quantityRatio > 1 AND b.turnoverRatio > 0.01) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 2413,
+      "referenceRowCount": 2413,
+      "correct": true
+    },
+    {
+      "id": "DEV-005",
+      "split": "development",
+      "badcase": false,
+      "dsl": "indicator('沪', '', '总市值', '2026-04-14', '', '', '') > 1000000000",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "market-value",
+        "timeType": "absolute",
+        "complexity": "single"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.marketValue AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n    AND b.mktcode = 1\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          1000000000
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.marketValue AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n    AND b.mktcode = 1\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > 1000000000)\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.mktcode = 1) AND (b.marketValue > 1000000000) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 2323,
+      "referenceRowCount": 2323,
+      "correct": true
+    },
+    {
+      "id": "DEV-006",
+      "split": "development",
+      "badcase": false,
+      "dsl": "indicator('', '', '涨跌幅', '2026-04-14', '', '', '') > 5% or indicator('', '', '涨跌幅', '2026-04-14', '', '', '') < -5%",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "percent",
+        "timeType": "absolute",
+        "complexity": "or"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.risePct AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` > ?) OR (`m1` < (-?)))\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          5,
+          5
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.risePct AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` > 5) OR (`m1` < (-5)))\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.risePct > 5 OR b.risePct < -5) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 348,
+      "referenceRowCount": 348,
+      "correct": true
+    },
+    {
+      "id": "DEV-007",
+      "split": "development",
+      "badcase": false,
+      "dsl": "indicator('', '', '成交额', '2026-04-14', '', '', '') / indicator('', '', '成交量', '2026-04-14', '', '', '') > 10",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "derived-price",
+        "timeType": "absolute",
+        "complexity": "arithmetic"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.turnoverAmount AS `m1`,\n    b.volume AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` / `m2`) > ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          10
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.turnoverAmount AS `m1`,\n    b.volume AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` / `m2`) > 10)\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.turnoverAmount / b.volume > 10) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 3828,
+      "referenceRowCount": 3828,
+      "correct": true
+    },
+    {
+      "id": "DEV-008",
+      "split": "development",
+      "badcase": false,
+      "dsl": "indicator('', '', '最高价', '2026-04-14', '', '', '') > 20 limit 0,5",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "price",
+        "timeType": "absolute",
+        "complexity": "limit"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.highPrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode\nLIMIT 5;",
+        "bindings": [
+          "2026-04-14",
+          20
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.highPrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > 20)\nORDER BY mktcode, tgtcode\nLIMIT 5;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.highPrice > 20) ORDER BY b.mktcode,b.tgtcode LIMIT 5"
+      },
+      "generatedRowCount": 5,
+      "referenceRowCount": 5,
+      "correct": true
+    },
+    {
+      "id": "REG-001",
+      "split": "regression",
+      "badcase": true,
+      "dsl": "indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') ~= indicator('', '', '收盘价', '2026-04-14', '', '', '')",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "price",
+        "timeType": "absolute",
+        "complexity": "approx"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.closeQfq AS `m1`,\n    b.closePrice AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (ABS(`m1` - `m2`) <= ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          1e-06
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.closeQfq AS `m1`,\n    b.closePrice AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (ABS(`m1` - `m2`) <= 1e-06)\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (ABS(b.closeQfq - b.closePrice) <= 0.000001) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 5573,
+      "referenceRowCount": 5573,
+      "correct": true
+    },
+    {
+      "id": "REG-002",
+      "split": "regression",
+      "badcase": true,
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', '') > 0",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "extension",
+        "timeType": "absolute",
+        "complexity": "join"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    e.ZJLXMainNetTur AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          0
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    e.ZJLXMainNetTur AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE b.bizdate = '2026-04-14'\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > 0)\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate WHERE (b.bizdate='2026-04-14') AND (e.ZJLXMainNetTur > 0) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 2247,
+      "referenceRowCount": 2247,
+      "correct": true
+    },
+    {
+      "id": "REG-003",
+      "split": "regression",
+      "badcase": true,
+      "dsl": "indicator('^京', '', '最低价', '2026-04-14', '', '', '') < 10",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "price",
+        "timeType": "absolute",
+        "complexity": "market-exclusion"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.lowPrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n    AND NOT (b.mktcode = 103)\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` < ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          10
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.lowPrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n    AND NOT (b.mktcode = 103)\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` < 10)\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.mktcode <> 103) AND (b.lowPrice < 10) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 1726,
+      "referenceRowCount": 1726,
+      "correct": true
+    },
+    {
+      "id": "REG-004",
+      "split": "regression",
+      "badcase": true,
+      "dsl": "indicator('京', '', '开盘价', '2026-04-14', '', '', '') between '[5,15]'",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "price",
+        "timeType": "absolute",
+        "complexity": "closed-between"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.openPrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n    AND b.mktcode = 103\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` >= ? AND `m1` <= ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          5,
+          15
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.openPrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n    AND b.mktcode = 103\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` >= 5 AND `m1` <= 15)\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.mktcode = 103) AND (b.openPrice >= 5 AND b.openPrice <= 15) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 106,
+      "referenceRowCount": 106,
+      "correct": true
+    },
+    {
+      "id": "REG-005",
+      "split": "regression",
+      "badcase": true,
+      "dsl": "indicator('', '', '流通市值', '2026-04-14', '', '', '') > 500000000 and indicator('', '', '真实换手率', '2026-04-14', '', '', '') > 0",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "market-value",
+        "timeType": "absolute",
+        "complexity": "and"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.listedMarketValue AS `m1`,\n    b.trueTurnoverRatio AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` > ?) AND (`m2` > ?))\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          500000000,
+          0
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.listedMarketValue AS `m1`,\n    b.trueTurnoverRatio AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` > 500000000) AND (`m2` > 0))\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.listedMarketValue > 500000000 AND b.trueTurnoverRatio > 0) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 5473,
+      "referenceRowCount": 5473,
+      "correct": true
+    },
+    {
+      "id": "REG-006",
+      "split": "regression",
+      "badcase": true,
+      "dsl": "indicator('', '', '均价', '2026-04-14', '', '', '') > indicator('', '', '收盘价', '2026-04-14', '', '', '')",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "derived-price",
+        "timeType": "absolute",
+        "complexity": "comparison"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.avgPx AS `m1`,\n    b.closePrice AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > `m2`)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14"
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.avgPx AS `m1`,\n    b.closePrice AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > `m2`)\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.avgPx > b.closePrice) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 1227,
+      "referenceRowCount": 1227,
+      "correct": true
+    },
+    {
+      "id": "REG-007",
+      "split": "regression",
+      "badcase": true,
+      "dsl": "indicator('', '', '成交量', '2026-04-14', '', '', '') > 0 then rank('', '', '成交额', 'desc', '2026-04-14', '', '', '') <= 10",
+      "strata": {
+        "function": "rank",
+        "indicatorType": "amount",
+        "timeType": "absolute",
+        "complexity": "then-rank"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.volume AS `m1`,\n    b.turnoverAmount AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n),\nprefiltered AS (\n  SELECT * FROM base WHERE (`m1` > ?)\n),\nrank_input AS (\n  SELECT * FROM prefiltered WHERE `m2` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    DENSE_RANK() OVER (ORDER BY `m2` DESC) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode, tgtcode\nFROM ranked\nWHERE (`r1` <= ?)\nORDER BY `r1`, mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          0,
+          10
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.volume AS `m1`,\n    b.turnoverAmount AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n),\nprefiltered AS (\n  SELECT * FROM base WHERE (`m1` > 0)\n),\nrank_input AS (\n  SELECT * FROM prefiltered WHERE `m2` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    DENSE_RANK() OVER (ORDER BY `m2` DESC) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode, tgtcode\nFROM ranked\nWHERE (`r1` <= 10)\nORDER BY `r1`, mktcode, tgtcode;",
+        "referenceSql": "WITH p AS (SELECT b.mktcode,b.tgtcode,b.turnoverAmount FROM newzl.v_hsj_stock_hq_basic b WHERE b.bizdate='2026-04-14' AND b.volume>0), r AS (SELECT p.*,DENSE_RANK() OVER(ORDER BY turnoverAmount DESC) rk FROM p) SELECT mktcode,tgtcode FROM r WHERE rk<=10 ORDER BY rk,mktcode,tgtcode"
+      },
+      "generatedRowCount": 10,
+      "referenceRowCount": 10,
+      "correct": true
+    },
+    {
+      "id": "REG-008",
+      "split": "regression",
+      "badcase": true,
+      "dsl": "rank('沪', '', '收盘价', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,5",
+      "strata": {
+        "function": "rank",
+        "indicatorType": "price",
+        "timeType": "absolute",
+        "complexity": "rank-limit"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.closePrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n    AND b.mktcode = 1\n),\nrank_input AS (\n  SELECT * FROM base WHERE `m1` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    DENSE_RANK() OVER (ORDER BY `m1` ASC) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode, tgtcode\nFROM ranked\nWHERE (`r1` <= ?)\nORDER BY `r1`, mktcode, tgtcode\nLIMIT 5;",
+        "bindings": [
+          "2026-04-14",
+          5
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.closePrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n    AND b.mktcode = 1\n),\nrank_input AS (\n  SELECT * FROM base WHERE `m1` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    DENSE_RANK() OVER (ORDER BY `m1` ASC) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode, tgtcode\nFROM ranked\nWHERE (`r1` <= 5)\nORDER BY `r1`, mktcode, tgtcode\nLIMIT 5;",
+        "referenceSql": "WITH r AS (SELECT b.mktcode,b.tgtcode,DENSE_RANK() OVER(ORDER BY b.closePrice ASC) rk FROM newzl.v_hsj_stock_hq_basic b WHERE b.bizdate='2026-04-14' AND b.mktcode=1 AND b.closePrice IS NOT NULL) SELECT mktcode,tgtcode FROM r WHERE rk<=5 ORDER BY rk,mktcode,tgtcode LIMIT 5"
+      },
+      "generatedRowCount": 5,
+      "referenceRowCount": 5,
+      "correct": true
+    },
+    {
+      "id": "BLIND-001",
+      "split": "blind",
+      "badcase": false,
+      "dsl": "indicator('', '', '开盘价', '2026-04-14', '', '', '') > indicator('', '', '收盘价', '2026-04-14', '', '', '')",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "price",
+        "timeType": "absolute",
+        "complexity": "comparison"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.openPrice AS `m1`,\n    b.closePrice AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > `m2`)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14"
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.openPrice AS `m1`,\n    b.closePrice AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > `m2`)\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.openPrice > b.closePrice) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 2685,
+      "referenceRowCount": 2685,
+      "correct": true
+    },
+    {
+      "id": "BLIND-002",
+      "split": "blind",
+      "badcase": false,
+      "dsl": "indicator('', '', '最高价', '2026-04-14', '', '', '') - indicator('', '', '最低价', '2026-04-14', '', '', '') > 1",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "price",
+        "timeType": "absolute",
+        "complexity": "arithmetic"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.highPrice AS `m1`,\n    b.lowPrice AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` - `m2`) > ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          1
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.highPrice AS `m1`,\n    b.lowPrice AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` - `m2`) > 1)\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.highPrice - b.lowPrice > 1) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 1410,
+      "referenceRowCount": 1410,
+      "correct": true
+    },
+    {
+      "id": "BLIND-003",
+      "split": "blind",
+      "badcase": false,
+      "dsl": "indicator('深', '', '换手率', '2026-04-14', '', '', '') between '(0.01,0.05]'",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "ratio",
+        "timeType": "absolute",
+        "complexity": "between"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.turnoverRatio AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n    AND b.mktcode = 0\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ? AND `m1` <= ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          0.01,
+          0.05
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.turnoverRatio AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n    AND b.mktcode = 0\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > 0.01 AND `m1` <= 0.05)\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.mktcode=0) AND (b.turnoverRatio > 0.01 AND b.turnoverRatio <= 0.05) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 7,
+      "referenceRowCount": 7,
+      "correct": true
+    },
+    {
+      "id": "BLIND-004",
+      "split": "blind",
+      "badcase": false,
+      "dsl": "indicator('沪|深|京', '', '主力净流入', '2026-04-14', '', '', '') < 0",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "extension",
+        "timeType": "absolute",
+        "complexity": "join"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    e.ZJLXMainNetTur AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE b.bizdate = ?\n    AND (b.mktcode = 1 OR b.mktcode = 0 OR b.mktcode = 103)\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` < ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          0
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    e.ZJLXMainNetTur AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE b.bizdate = '2026-04-14'\n    AND (b.mktcode = 1 OR b.mktcode = 0 OR b.mktcode = 103)\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` < 0)\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate WHERE (b.bizdate='2026-04-14') AND (b.mktcode IN (0,1,103)) AND (e.ZJLXMainNetTur < 0) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 2963,
+      "referenceRowCount": 2963,
+      "correct": true
+    },
+    {
+      "id": "BLIND-005",
+      "split": "blind",
+      "badcase": false,
+      "dsl": "indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') = indicator('', '', '收盘价', '2026-04-14', '', '', '') and indicator('', '', '后复权收盘价', '2026-04-14', '', '', '') = indicator('', '', '收盘价', '2026-04-14', '', '', '')",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "adjusted-price",
+        "timeType": "absolute",
+        "complexity": "and"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.closeQfq AS `m1`,\n    b.closePrice AS `m2`,\n    b.closeHfq AS `m3`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` = `m2`) AND (`m3` = `m2`))\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14"
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.closeQfq AS `m1`,\n    b.closePrice AS `m2`,\n    b.closeHfq AS `m3`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` = `m2`) AND (`m3` = `m2`))\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND (b.closeQfq = b.closePrice AND b.closeHfq = b.closePrice) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 5573,
+      "referenceRowCount": 5573,
+      "correct": true
+    },
+    {
+      "id": "BLIND-006",
+      "split": "blind",
+      "badcase": false,
+      "dsl": "(indicator('', '', '收盘价', '2026-04-14', '', '', '') < 5 or indicator('', '', '收盘价', '2026-04-14', '', '', '') > 100) and indicator('', '', '成交量', '2026-04-14', '', '', '') > 0",
+      "strata": {
+        "function": "indicator",
+        "indicatorType": "price",
+        "timeType": "absolute",
+        "complexity": "or-and"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.closePrice AS `m1`,\n    b.volume AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (((`m1` < ?) OR (`m1` > ?)) AND (`m2` > ?))\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          5,
+          100,
+          0
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.closePrice AS `m1`,\n    b.volume AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (((`m1` < 5) OR (`m1` > 100)) AND (`m2` > 0))\nORDER BY mktcode, tgtcode;",
+        "referenceSql": "SELECT b.mktcode,b.tgtcode FROM newzl.v_hsj_stock_hq_basic b WHERE (b.bizdate='2026-04-14') AND ((b.closePrice < 5 OR b.closePrice > 100) AND b.volume > 0) ORDER BY b.mktcode,b.tgtcode"
+      },
+      "generatedRowCount": 825,
+      "referenceRowCount": 825,
+      "correct": true
+    },
+    {
+      "id": "BLIND-007",
+      "split": "blind",
+      "badcase": false,
+      "dsl": "indicator('', '', '流通市值', '2026-04-14', '', '', '') > 0 then rank('', '', '流通市值', 'desc', '2026-04-14', '', '', '') <= 8",
+      "strata": {
+        "function": "rank",
+        "indicatorType": "market-value",
+        "timeType": "absolute",
+        "complexity": "then-rank"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.listedMarketValue AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n),\nprefiltered AS (\n  SELECT * FROM base WHERE (`m1` > ?)\n),\nrank_input AS (\n  SELECT * FROM prefiltered WHERE `m1` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    DENSE_RANK() OVER (ORDER BY `m1` DESC) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode, tgtcode\nFROM ranked\nWHERE (`r1` <= ?)\nORDER BY `r1`, mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          0,
+          8
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.listedMarketValue AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n),\nprefiltered AS (\n  SELECT * FROM base WHERE (`m1` > 0)\n),\nrank_input AS (\n  SELECT * FROM prefiltered WHERE `m1` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    DENSE_RANK() OVER (ORDER BY `m1` DESC) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode, tgtcode\nFROM ranked\nWHERE (`r1` <= 8)\nORDER BY `r1`, mktcode, tgtcode;",
+        "referenceSql": "WITH p AS (SELECT b.mktcode,b.tgtcode,b.listedMarketValue FROM newzl.v_hsj_stock_hq_basic b WHERE b.bizdate='2026-04-14' AND b.listedMarketValue>0), r AS (SELECT p.*,DENSE_RANK() OVER(ORDER BY listedMarketValue DESC) rk FROM p) SELECT mktcode,tgtcode FROM r WHERE rk<=8 ORDER BY rk,mktcode,tgtcode"
+      },
+      "generatedRowCount": 8,
+      "referenceRowCount": 8,
+      "correct": true
+    },
+    {
+      "id": "BLIND-008",
+      "split": "blind",
+      "badcase": false,
+      "dsl": "rank('京', '', '最高价', 'desc', '2026-04-14', '', '', '') <= 6",
+      "strata": {
+        "function": "rank",
+        "indicatorType": "price",
+        "timeType": "absolute",
+        "complexity": "rank"
+      },
+      "layers": {
+        "astSemantic": true,
+        "sqlStructure": true,
+        "result": true
+      },
+      "failures": [],
+      "reproduction": {
+        "parameterizedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.highPrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n    AND b.mktcode = 103\n),\nrank_input AS (\n  SELECT * FROM base WHERE `m1` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    DENSE_RANK() OVER (ORDER BY `m1` DESC) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode, tgtcode\nFROM ranked\nWHERE (`r1` <= ?)\nORDER BY `r1`, mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          6
+        ],
+        "generatedSql": "WITH base AS (\n  SELECT b.mktcode, b.tgtcode, b.bizdate,\n    b.highPrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = '2026-04-14'\n    AND b.mktcode = 103\n),\nrank_input AS (\n  SELECT * FROM base WHERE `m1` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    DENSE_RANK() OVER (ORDER BY `m1` DESC) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode, tgtcode\nFROM ranked\nWHERE (`r1` <= 6)\nORDER BY `r1`, mktcode, tgtcode;",
+        "referenceSql": "WITH r AS (SELECT b.mktcode,b.tgtcode,DENSE_RANK() OVER(ORDER BY b.highPrice DESC) rk FROM newzl.v_hsj_stock_hq_basic b WHERE b.bizdate='2026-04-14' AND b.mktcode=103 AND b.highPrice IS NOT NULL) SELECT mktcode,tgtcode FROM r WHERE rk<=6 ORDER BY rk,mktcode,tgtcode"
+      },
+      "generatedRowCount": 6,
+      "referenceRowCount": 6,
+      "correct": true
+    }
+  ]
+}

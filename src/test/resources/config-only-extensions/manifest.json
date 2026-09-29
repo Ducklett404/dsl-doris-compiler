@@ -1,0 +1,31 @@
+{
+  "cases": [
+    {
+      "id": "direct-field",
+      "plugin": "config/extensions/direct-field/registry-plugin.json",
+      "dsl": "SCREEN ON 2026-08-07 WHERE CLOSE_MIRROR > 10 ADJUST FORWARD LIMIT 10",
+      "baseErrorCode": "UNKNOWN_FIELD",
+      "expectedSqlFragments": ["q.close_qfq AS `close_mirror`", "`close_mirror` > ?"],
+      "forbiddenSqlFragments": ["CLOSE_MIRROR", "2026-08-07"],
+      "expectedLookback": 0
+    },
+    {
+      "id": "template-calculation",
+      "plugin": "config/extensions/template-calculation/registry-plugin.json",
+      "dsl": "SCREEN ON 2026-08-07 WHERE PRICE_SPREAD(CLOSE, OPEN) > 1 ADJUST FORWARD LIMIT 10",
+      "baseErrorCode": "UNKNOWN_FUNCTION",
+      "expectedSqlFragments": ["(`close` - `open`)", "q.close_qfq AS `close`", "q.open_qfq AS `open`"],
+      "forbiddenSqlFragments": ["PRICE_SPREAD", "2026-08-07"],
+      "expectedLookback": 0
+    },
+    {
+      "id": "existing-window-lowering",
+      "plugin": "config/extensions/window-lowering/registry-plugin.json",
+      "dsl": "SCREEN ON 2026-08-07 WHERE SMA(CLOSE, 10) > 5 ADJUST FORWARD LIMIT 10",
+      "baseErrorCode": "UNKNOWN_FUNCTION",
+      "expectedSqlFragments": ["AVG(`close`) OVER", "ROWS BETWEEN 9 PRECEDING AND CURRENT ROW", "`sma_close_10` > ?"],
+      "forbiddenSqlFragments": ["SMA(CLOSE", "2026-08-07"],
+      "expectedLookback": 10
+    }
+  ]
+}

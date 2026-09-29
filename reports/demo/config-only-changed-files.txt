@@ -1,0 +1,1 @@
+config/extensions/direct-field/registry-plugin.json

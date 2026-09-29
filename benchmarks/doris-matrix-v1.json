@@ -1,0 +1,66 @@
+{
+  "matrixVersion": "doris-matrix-v1",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "cases": [
+    {
+      "id": "single-day-simple-filter",
+      "category": "SINGLE_DAY",
+      "dsl": "indicator('沪', '', '收盘价', '2026-04-14', '', '', '') > 10 limit 0,100"
+    },
+    {
+      "id": "multi-indicator-cross-table",
+      "category": "CROSS_TABLE",
+      "dsl": "indicator('沪', '', '收盘价', '2026-04-14', '', '', '') > 10 and indicator('沪', '', '主力净流入', '2026-04-14', '', '', '') > 0 limit 0,100"
+    },
+    {
+      "id": "ma20",
+      "category": "WINDOW",
+      "dsl": "indicator('沪', '', '20日均线', '2026-04-14', '', '', '') > 10 limit 0,100"
+    },
+    {
+      "id": "ma60",
+      "category": "WINDOW",
+      "dsl": "indicator('沪', '', '60日均线', '2026-04-14', '', '', '') > 10 limit 0,100"
+    },
+    {
+      "id": "ma120",
+      "category": "WINDOW",
+      "dsl": "indicator('沪', '', '120日均线', '2026-04-14', '', '', '') > 10 limit 0,100"
+    },
+    {
+      "id": "ma250",
+      "category": "WINDOW",
+      "dsl": "indicator('沪', '', '250日均线', '2026-04-14', '', '', '') > 10 limit 0,100"
+    },
+    {
+      "id": "cross-above",
+      "category": "CROSS",
+      "dsl": "cross_above('沪', '', '收盘价', '开盘价', '2026-04-14', '', '') = True limit 0,100"
+    },
+    {
+      "id": "record-high",
+      "category": "WINDOW",
+      "dsl": "record_high('沪', '', '最高价', '250日', '2026-04-14', '', '', '') = True limit 0,100"
+    },
+    {
+      "id": "record-low",
+      "category": "WINDOW",
+      "dsl": "record_low('沪', '', '最低价', '250日', '2026-04-14', '', '', '') = True limit 0,100"
+    },
+    {
+      "id": "consecutive-three",
+      "category": "OCCURRENCE",
+      "dsl": "indicator('沪', '', '收盘价', '2026-04-14', '', '', 'CONS>=3日') > 10 limit 0,100"
+    },
+    {
+      "id": "daily-rank",
+      "category": "RANK",
+      "dsl": "rank('沪', '', '收盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 100 limit 0,100"
+    },
+    {
+      "id": "nineteen-year-history",
+      "category": "LONG_RANGE",
+      "dsl": "record_high('沪', '', '最高价', '历史', '2026-04-14', '', '', '') = True limit 0,100"
+    }
+  ]
+}

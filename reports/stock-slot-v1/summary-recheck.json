@@ -1,0 +1,13 @@
+{
+  "total" : 5799,
+  "parsed" : 5770,
+  "unsupported" : 29,
+  "unexplained" : 0,
+  "reasons" : {
+    "DSL_SYNTAX" : 9,
+    "STOCK_SLOT_SYNTAX" : 1,
+    "THEN_REQUIRES_RANK" : 4,
+    "COUNT_EXPRESSION" : 15,
+    "BETWEEN_RANGE" : 2
+  }
+}

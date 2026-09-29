@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "activeVersion": "rules-v1",
+  "versions": [
+    {
+      "version": "rules-v0",
+      "minCompilerVersion": "0.1.0",
+      "maxCompilerVersionExclusive": "1.0.0",
+      "maxIterations": 16,
+      "conflictPolicy": "HIGHEST_PRIORITY",
+      "rules": []
+    },
+    {
+      "version": "rules-v1",
+      "minCompilerVersion": "0.1.0",
+      "maxCompilerVersionExclusive": "1.0.0",
+      "maxIterations": 16,
+      "conflictPolicy": "HIGHEST_PRIORITY",
+      "rules": [
+        {
+          "id": "R-001",
+          "enabled": true,
+          "phase": "SIMPLIFY",
+          "priority": 1000,
+          "matchNodeType": "BINARY",
+          "outputNodeType": "LITERAL",
+          "conflictGroup": "constant-evaluation",
+          "when": {
+            "operators": ["+", "-", "*", "/"],
+            "numericLiteralOperands": true,
+            "nonZeroRightOperand": true,
+            "commutativeOnly": false
+          },
+          "action": "FOLD_NUMERIC_BINARY",
+          "equivalence": "Exact decimal arithmetic for +,-,*; DECIMAL64 rounding for /, matching the previous compiler contract.",
+          "description": "Fold a numeric binary expression with two constant operands."
+        }
+      ]
+    }
+  ]
+}

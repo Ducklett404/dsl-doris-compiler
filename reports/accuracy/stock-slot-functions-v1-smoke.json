@@ -1,0 +1,360 @@
+{
+  "executedAtUtc": "2026-09-18T05:09:44.249008+00:00",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "total": 15,
+  "passed": 15,
+  "results": [
+    {
+      "name": "indicator-ma",
+      "dsl": "indicator('京', '', '5日均线', '2026-04-14', '', '', '') > 1",
+      "status": "PASS",
+      "rowCount": 304,
+      "windowContracts": [
+        {
+          "function": "indicator:MA",
+          "partitionKeys": [
+            "mktcode",
+            "tgtcode"
+          ],
+          "orderKeys": [
+            "bizdate"
+          ],
+          "unit": "TRADING_DAY",
+          "lookback": 5,
+          "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+          "insufficientHistoryPolicy": "NULL",
+          "nullPolicy": "STRICT_NO_IMPUTATION",
+          "requireFullWindow": true
+        }
+      ]
+    },
+    {
+      "name": "rank-row-number",
+      "dsl": "rank('京', '', '收盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 3",
+      "status": "PASS",
+      "rowCount": 3,
+      "windowContracts": [
+        {
+          "function": "rank:ROW_NUMBER",
+          "partitionKeys": [],
+          "orderKeys": [
+            "v1"
+          ],
+          "unit": "CROSS_SECTION",
+          "lookback": 1,
+          "suspensionPolicy": "NOT_APPLICABLE",
+          "insufficientHistoryPolicy": "NULL",
+          "nullPolicy": "EXCLUDE_NULL_METRIC",
+          "requireFullWindow": false
+        }
+      ]
+    },
+    {
+      "name": "queryData",
+      "dsl": "indicator('京', '', '收盘价', '2026-04-14', '', '', '') > queryData('京', '920690', '收盘价', '2026-04-14', '')",
+      "status": "PASS",
+      "rowCount": 94,
+      "windowContracts": [
+        {
+          "function": "queryData:MAX",
+          "partitionKeys": [
+            "bizdate"
+          ],
+          "orderKeys": [],
+          "unit": "CROSS_SECTION",
+          "lookback": 1,
+          "suspensionPolicy": "NOT_APPLICABLE",
+          "insufficientHistoryPolicy": "NULL_IF_TARGET_MISSING",
+          "nullPolicy": "IGNORE_NULL_INPUTS",
+          "requireFullWindow": false
+        }
+      ]
+    },
+    {
+      "name": "record-high",
+      "dsl": "record_high('京', '', '最高价', '5日', '2026-04-14', '', '', '') = True",
+      "status": "PASS",
+      "rowCount": 34,
+      "windowContracts": [
+        {
+          "function": "record_high",
+          "partitionKeys": [
+            "mktcode",
+            "tgtcode"
+          ],
+          "orderKeys": [
+            "bizdate"
+          ],
+          "unit": "TRADING_DAY",
+          "lookback": 5,
+          "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+          "insufficientHistoryPolicy": "NULL",
+          "nullPolicy": "STRICT_NO_IMPUTATION",
+          "requireFullWindow": true
+        }
+      ]
+    },
+    {
+      "name": "record-low",
+      "dsl": "record_low('京', '', '最低价', '5日', '2026-04-14', '', '', '') = True",
+      "status": "PASS",
+      "rowCount": 45,
+      "windowContracts": [
+        {
+          "function": "record_low",
+          "partitionKeys": [
+            "mktcode",
+            "tgtcode"
+          ],
+          "orderKeys": [
+            "bizdate"
+          ],
+          "unit": "TRADING_DAY",
+          "lookback": 5,
+          "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+          "insufficientHistoryPolicy": "NULL",
+          "nullPolicy": "STRICT_NO_IMPUTATION",
+          "requireFullWindow": true
+        }
+      ]
+    },
+    {
+      "name": "cross-above",
+      "dsl": "cross_above('京', '', '收盘价', '开盘价', '2026-04-14', '', '') = True",
+      "status": "PASS",
+      "rowCount": 89,
+      "windowContracts": [
+        {
+          "function": "cross_above",
+          "partitionKeys": [
+            "mktcode",
+            "tgtcode"
+          ],
+          "orderKeys": [
+            "bizdate"
+          ],
+          "unit": "TRADING_DAY",
+          "lookback": 2,
+          "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+          "insufficientHistoryPolicy": "NULL",
+          "nullPolicy": "STRICT_NO_IMPUTATION",
+          "requireFullWindow": true
+        }
+      ]
+    },
+    {
+      "name": "position",
+      "dsl": "position('京', '', '收盘价', '5日', '2026-04-14', '', '', '') = '高'",
+      "status": "PASS",
+      "rowCount": 102,
+      "windowContracts": [
+        {
+          "function": "position",
+          "partitionKeys": [
+            "mktcode",
+            "tgtcode"
+          ],
+          "orderKeys": [
+            "bizdate"
+          ],
+          "unit": "TRADING_DAY",
+          "lookback": 5,
+          "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+          "insufficientHistoryPolicy": "NULL",
+          "nullPolicy": "STRICT_NO_IMPUTATION",
+          "requireFullWindow": true
+        }
+      ]
+    },
+    {
+      "name": "belong-industry",
+      "dsl": "indicator('京', '', '收盘价', '2026-04-14', '', '', '') > belong_industry('京', '', '收盘价', '2026-04-14', 'AVG')",
+      "status": "PASS",
+      "rowCount": 95,
+      "windowContracts": [
+        {
+          "function": "belong_industry:AVG",
+          "partitionKeys": [
+            "hyBlkRefName",
+            "bizdate"
+          ],
+          "orderKeys": [],
+          "unit": "CROSS_SECTION",
+          "lookback": 1,
+          "suspensionPolicy": "NOT_APPLICABLE",
+          "insufficientHistoryPolicy": "NULL_IF_INDUSTRY_MISSING",
+          "nullPolicy": "IGNORE_NULL_INPUTS",
+          "requireFullWindow": false
+        }
+      ]
+    },
+    {
+      "name": "close-together",
+      "dsl": "close_together('京', '', '收盘价', '开盘价', '2026-04-14', '', '') = True",
+      "status": "PASS",
+      "rowCount": 215,
+      "windowContracts": [
+        {
+          "function": "close_together",
+          "partitionKeys": [
+            "mktcode",
+            "tgtcode"
+          ],
+          "orderKeys": [
+            "bizdate"
+          ],
+          "unit": "TRADING_DAY",
+          "lookback": 1,
+          "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+          "insufficientHistoryPolicy": "NULL",
+          "nullPolicy": "STRICT_NO_IMPUTATION",
+          "requireFullWindow": true
+        }
+      ]
+    },
+    {
+      "name": "reset",
+      "dsl": "reset('京', '', '收盘价', '开盘价', '2026-04-14', '', '') = True",
+      "status": "PASS",
+      "rowCount": 89,
+      "windowContracts": [
+        {
+          "function": "reset",
+          "partitionKeys": [
+            "mktcode",
+            "tgtcode"
+          ],
+          "orderKeys": [
+            "bizdate"
+          ],
+          "unit": "TRADING_DAY",
+          "lookback": 2,
+          "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+          "insufficientHistoryPolicy": "NULL",
+          "nullPolicy": "STRICT_NO_IMPUTATION",
+          "requireFullWindow": true
+        }
+      ]
+    },
+    {
+      "name": "golden-cross",
+      "dsl": "golden_cross('京', '', '收盘价', '开盘价', '2026-04-14', '', '') = True",
+      "status": "PASS",
+      "rowCount": 89,
+      "windowContracts": [
+        {
+          "function": "golden_cross",
+          "partitionKeys": [
+            "mktcode",
+            "tgtcode"
+          ],
+          "orderKeys": [
+            "bizdate"
+          ],
+          "unit": "TRADING_DAY",
+          "lookback": 2,
+          "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+          "insufficientHistoryPolicy": "NULL",
+          "nullPolicy": "STRICT_NO_IMPUTATION",
+          "requireFullWindow": true
+        }
+      ]
+    },
+    {
+      "name": "CONS",
+      "dsl": "indicator('京', '', '收盘价', '2026-04-14', '', '', 'CONS>=3日') > 1",
+      "status": "PASS",
+      "rowCount": 305,
+      "windowContracts": [
+        {
+          "function": "CONS",
+          "partitionKeys": [
+            "mktcode",
+            "tgtcode"
+          ],
+          "orderKeys": [
+            "bizdate"
+          ],
+          "unit": "TRADING_DAY",
+          "lookback": 3,
+          "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+          "insufficientHistoryPolicy": "NULL",
+          "nullPolicy": "STRICT_NO_IMPUTATION",
+          "requireFullWindow": true
+        }
+      ]
+    },
+    {
+      "name": "CONS-exact",
+      "dsl": "indicator('京', '', '收盘价', '2026-04-14', '', '', 'CONS=2日') > 1",
+      "status": "PASS",
+      "rowCount": 0,
+      "windowContracts": [
+        {
+          "function": "CONS",
+          "partitionKeys": [
+            "mktcode",
+            "tgtcode"
+          ],
+          "orderKeys": [
+            "bizdate"
+          ],
+          "unit": "TRADING_DAY",
+          "lookback": 3,
+          "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+          "insufficientHistoryPolicy": "NULL",
+          "nullPolicy": "STRICT_NO_IMPUTATION",
+          "requireFullWindow": true
+        }
+      ]
+    },
+    {
+      "name": "EXIST",
+      "dsl": "indicator('京', '', '成交量', '2026-04-14', '', '', 'EXIST>=3日') > 0",
+      "status": "PASS",
+      "rowCount": 298,
+      "windowContracts": [
+        {
+          "function": "EXIST",
+          "partitionKeys": [
+            "mktcode",
+            "tgtcode"
+          ],
+          "orderKeys": [
+            "bizdate"
+          ],
+          "unit": "TRADING_DAY",
+          "lookback": 20,
+          "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+          "insufficientHistoryPolicy": "NULL",
+          "nullPolicy": "STRICT_NO_IMPUTATION",
+          "requireFullWindow": true
+        }
+      ]
+    },
+    {
+      "name": "EXIST-exact",
+      "dsl": "indicator('京', '', '成交量', '2026-04-14', '', '', 'EXIST=3日') > 0",
+      "status": "PASS",
+      "rowCount": 0,
+      "windowContracts": [
+        {
+          "function": "EXIST",
+          "partitionKeys": [
+            "mktcode",
+            "tgtcode"
+          ],
+          "orderKeys": [
+            "bizdate"
+          ],
+          "unit": "TRADING_DAY",
+          "lookback": 20,
+          "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+          "insufficientHistoryPolicy": "NULL",
+          "nullPolicy": "STRICT_NO_IMPUTATION",
+          "requireFullWindow": true
+        }
+      ]
+    }
+  ]
+}

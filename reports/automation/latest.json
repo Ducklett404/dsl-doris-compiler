@@ -1,0 +1,31 @@
+{
+  "suiteVersion": "automated-acceptance-v1",
+  "startedAt": "2026-09-29T12:39:22.5064361+08:00",
+  "completedAt": "2026-09-29T12:39:37.4038790+08:00",
+  "checks": {
+    "phase1-scope-freeze": {
+      "status": "PASS",
+      "elapsedSeconds": 0.154
+    },
+    "maven-all-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 13.629
+    },
+    "formal-compiler-p95": {
+      "status": "PASS",
+      "elapsedSeconds": 1.098
+    },
+    "doris-golden-result-differential": {
+      "status": "NOT_RUN",
+      "reason": "Use -WithDoris and set DORIS_PASSWORD"
+    },
+    "doris-12-function-smoke": {
+      "status": "NOT_RUN",
+      "reason": "Use -WithDoris and set DORIS_PASSWORD"
+    },
+    "doris-19-year-matrix": {
+      "status": "NOT_RUN",
+      "reason": "Use -RunNineteenYearBenchmark (long-running: 720 container restarts)"
+    }
+  }
+}

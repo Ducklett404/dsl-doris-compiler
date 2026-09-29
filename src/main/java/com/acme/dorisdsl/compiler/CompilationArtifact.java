@@ -8,6 +8,7 @@ import java.util.List;
 
 public record CompilationArtifact(
         String compilerVersion,
+        String ruleConfigVersion,
         Ast.Query ast,
         LogicalPlan logicalPlan,
         String sql,
@@ -23,6 +24,13 @@ public record CompilationArtifact(
         ruleTrace = List.copyOf(ruleTrace);
         diagnostics = List.copyOf(diagnostics);
     }
-    public record RuleTrace(String ruleId, String description) {}
+    public record RuleTrace(String ruleId, String configVersion, String phase, int iteration,
+                            String inputNodeType, String outputNodeType, int priority,
+                            String conflictResolution, String equivalence, String description) {
+        public RuleTrace(String ruleId, String description) {
+            this(ruleId, "compiler-builtin", "PLAN", 1, "LOGICAL_PLAN", "LOGICAL_PLAN", 0,
+                    "NONE", "Plan construction preserves query semantics.", description);
+        }
+    }
     public record Diagnostic(String severity, String code, String message) {}
 }

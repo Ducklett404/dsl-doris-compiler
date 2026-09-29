@@ -1,0 +1,55 @@
+{
+  "corpusVersion": "stock-slot-complex-v1",
+  "cases": [
+    {
+      "id": "rank-then-industry",
+      "category": "rank/then/industry-partition",
+      "dsl": "indicator('', '行业', '成交量', '2026-04-14', '', '', '') > 0 then rank('', '行业', '收盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 3 limit 0,100"
+    },
+    {
+      "id": "query-data-arithmetic",
+      "category": "queryData/arithmetic/cross-table",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', '') > queryData('', '600000', '收盘价', '2026-04-14', '') * 1.1 limit 0,100"
+    },
+    {
+      "id": "ma-rsi-combination",
+      "category": "moving-average/RSI/boolean",
+      "dsl": "indicator('', '', '20日均线', '2026-04-14', '', '', '') > 10 and indicator('', '', 'RSI(14)', '2026-04-14', '', '', '') < 70 limit 0,100"
+    },
+    {
+      "id": "cross-close-together",
+      "category": "cross/lag/relative-distance",
+      "dsl": "cross_above('', '', '收盘价', '开盘价', '2026-04-14', '', '') = True and close_together('', '', '收盘价', '开盘价', '2026-04-14', '', '') = True limit 0,100"
+    },
+    {
+      "id": "record-high-position",
+      "category": "record-high/position/window",
+      "dsl": "record_high('', '', '最高价', '250日', '2026-04-14', '', '', '') = True and position('', '', '收盘价', '60日', '2026-04-14', '', '', '') = '高' limit 0,100"
+    },
+    {
+      "id": "cons-exist",
+      "category": "CONS/EXIST/occurrence-window",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', 'CONS>=3日') > 10 and indicator('', '', '成交量', '2026-04-14', '', '', 'EXIST>=3日') > 0 limit 0,100"
+    },
+    {
+      "id": "industry-aggregate",
+      "category": "belong-industry/cross-section-aggregate",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', '') > belong_industry('', '', '收盘价', '2026-04-14', 'AVG') limit 0,100"
+    },
+    {
+      "id": "multi-market-cross-table",
+      "category": "market-set/extension-table",
+      "dsl": "indicator('沪|深', '', '收盘价', '2026-04-14', '', '', '') > 10 and indicator('沪|深', '', '主力净流入', '2026-04-14', '', '', '') > 0 limit 0,100"
+    },
+    {
+      "id": "history-record-low",
+      "category": "history/unbounded-window",
+      "dsl": "record_low('', '', '最低价', '历史', '2026-04-14', '', '', '') = True limit 0,100"
+    },
+    {
+      "id": "range-aggregate-between",
+      "category": "date-range/aggregate/between",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14近20日', '', 'AVG', '') between '[10,100]' limit 0,100"
+    }
+  ]
+}

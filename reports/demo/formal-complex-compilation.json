@@ -1,0 +1,570 @@
+{
+  "dslVersion" : "stock-slot-v1",
+  "semanticModel" : {
+    "document" : {
+      "expression" : {
+        "kind" : "Binary",
+        "operator" : "THEN",
+        "left" : {
+          "kind" : "Binary",
+          "operator" : "AND",
+          "left" : {
+            "kind" : "Binary",
+            "operator" : ">",
+            "left" : {
+              "kind" : "FunctionCall",
+              "name" : "indicator",
+              "arguments" : [ {
+                "kind" : "Literal",
+                "value" : "沪",
+                "type" : "STRING",
+                "span" : {
+                  "line" : 1,
+                  "column" : 11,
+                  "endLine" : 1,
+                  "endColumn" : 14
+                }
+              }, {
+                "kind" : "Literal",
+                "value" : "",
+                "type" : "STRING",
+                "span" : {
+                  "line" : 1,
+                  "column" : 16,
+                  "endLine" : 1,
+                  "endColumn" : 18
+                }
+              }, {
+                "kind" : "Literal",
+                "value" : "收盘价",
+                "type" : "STRING",
+                "span" : {
+                  "line" : 1,
+                  "column" : 20,
+                  "endLine" : 1,
+                  "endColumn" : 25
+                }
+              }, {
+                "kind" : "Literal",
+                "value" : "2026-04-14",
+                "type" : "STRING",
+                "span" : {
+                  "line" : 1,
+                  "column" : 27,
+                  "endLine" : 1,
+                  "endColumn" : 39
+                }
+              }, {
+                "kind" : "Literal",
+                "value" : "",
+                "type" : "STRING",
+                "span" : {
+                  "line" : 1,
+                  "column" : 41,
+                  "endLine" : 1,
+                  "endColumn" : 43
+                }
+              }, {
+                "kind" : "Literal",
+                "value" : "",
+                "type" : "STRING",
+                "span" : {
+                  "line" : 1,
+                  "column" : 45,
+                  "endLine" : 1,
+                  "endColumn" : 47
+                }
+              }, {
+                "kind" : "Literal",
+                "value" : "",
+                "type" : "STRING",
+                "span" : {
+                  "line" : 1,
+                  "column" : 49,
+                  "endLine" : 1,
+                  "endColumn" : 51
+                }
+              } ],
+              "type" : "NUMBER",
+              "span" : {
+                "line" : 1,
+                "column" : 1,
+                "endLine" : 1,
+                "endColumn" : 52
+              }
+            },
+            "right" : {
+              "kind" : "Literal",
+              "value" : 10,
+              "type" : "NUMBER",
+              "span" : {
+                "line" : 1,
+                "column" : 55,
+                "endLine" : 1,
+                "endColumn" : 57
+              }
+            },
+            "type" : "BOOLEAN",
+            "span" : {
+              "line" : 1,
+              "column" : 1,
+              "endLine" : 1,
+              "endColumn" : 57
+            }
+          },
+          "right" : {
+            "kind" : "Binary",
+            "operator" : ">",
+            "left" : {
+              "kind" : "FunctionCall",
+              "name" : "indicator",
+              "arguments" : [ {
+                "kind" : "Literal",
+                "value" : "沪",
+                "type" : "STRING",
+                "span" : {
+                  "line" : 2,
+                  "column" : 15,
+                  "endLine" : 2,
+                  "endColumn" : 18
+                }
+              }, {
+                "kind" : "Literal",
+                "value" : "",
+                "type" : "STRING",
+                "span" : {
+                  "line" : 2,
+                  "column" : 20,
+                  "endLine" : 2,
+                  "endColumn" : 22
+                }
+              }, {
+                "kind" : "Literal",
+                "value" : "主力净流入",
+                "type" : "STRING",
+                "span" : {
+                  "line" : 2,
+                  "column" : 24,
+                  "endLine" : 2,
+                  "endColumn" : 31
+                }
+              }, {
+                "kind" : "Literal",
+                "value" : "2026-04-14",
+                "type" : "STRING",
+                "span" : {
+                  "line" : 2,
+                  "column" : 33,
+                  "endLine" : 2,
+                  "endColumn" : 45
+                }
+              }, {
+                "kind" : "Literal",
+                "value" : "",
+                "type" : "STRING",
+                "span" : {
+                  "line" : 2,
+                  "column" : 47,
+                  "endLine" : 2,
+                  "endColumn" : 49
+                }
+              }, {
+                "kind" : "Literal",
+                "value" : "",
+                "type" : "STRING",
+                "span" : {
+                  "line" : 2,
+                  "column" : 51,
+                  "endLine" : 2,
+                  "endColumn" : 53
+                }
+              }, {
+                "kind" : "Literal",
+                "value" : "",
+                "type" : "STRING",
+                "span" : {
+                  "line" : 2,
+                  "column" : 55,
+                  "endLine" : 2,
+                  "endColumn" : 57
+                }
+              } ],
+              "type" : "NUMBER",
+              "span" : {
+                "line" : 2,
+                "column" : 5,
+                "endLine" : 2,
+                "endColumn" : 58
+              }
+            },
+            "right" : {
+              "kind" : "Literal",
+              "value" : 0,
+              "type" : "NUMBER",
+              "span" : {
+                "line" : 2,
+                "column" : 61,
+                "endLine" : 2,
+                "endColumn" : 62
+              }
+            },
+            "type" : "BOOLEAN",
+            "span" : {
+              "line" : 2,
+              "column" : 5,
+              "endLine" : 2,
+              "endColumn" : 62
+            }
+          },
+          "type" : "BOOLEAN",
+          "span" : {
+            "line" : 1,
+            "column" : 1,
+            "endLine" : 2,
+            "endColumn" : 62
+          }
+        },
+        "right" : {
+          "kind" : "Binary",
+          "operator" : "<=",
+          "left" : {
+            "kind" : "FunctionCall",
+            "name" : "rank",
+            "arguments" : [ {
+              "kind" : "Literal",
+              "value" : "沪",
+              "type" : "STRING",
+              "span" : {
+                "line" : 3,
+                "column" : 11,
+                "endLine" : 3,
+                "endColumn" : 14
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "",
+              "type" : "STRING",
+              "span" : {
+                "line" : 3,
+                "column" : 16,
+                "endLine" : 3,
+                "endColumn" : 18
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "涨跌幅",
+              "type" : "STRING",
+              "span" : {
+                "line" : 3,
+                "column" : 20,
+                "endLine" : 3,
+                "endColumn" : 25
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "desc:row_number",
+              "type" : "STRING",
+              "span" : {
+                "line" : 3,
+                "column" : 27,
+                "endLine" : 3,
+                "endColumn" : 44
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "2026-04-14",
+              "type" : "STRING",
+              "span" : {
+                "line" : 3,
+                "column" : 46,
+                "endLine" : 3,
+                "endColumn" : 58
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "",
+              "type" : "STRING",
+              "span" : {
+                "line" : 3,
+                "column" : 60,
+                "endLine" : 3,
+                "endColumn" : 62
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "",
+              "type" : "STRING",
+              "span" : {
+                "line" : 3,
+                "column" : 64,
+                "endLine" : 3,
+                "endColumn" : 66
+              }
+            }, {
+              "kind" : "Literal",
+              "value" : "",
+              "type" : "STRING",
+              "span" : {
+                "line" : 3,
+                "column" : 68,
+                "endLine" : 3,
+                "endColumn" : 70
+              }
+            } ],
+            "type" : "NUMBER",
+            "span" : {
+              "line" : 3,
+              "column" : 6,
+              "endLine" : 3,
+              "endColumn" : 71
+            }
+          },
+          "right" : {
+            "kind" : "Literal",
+            "value" : 20,
+            "type" : "NUMBER",
+            "span" : {
+              "line" : 3,
+              "column" : 75,
+              "endLine" : 3,
+              "endColumn" : 77
+            }
+          },
+          "type" : "BOOLEAN",
+          "span" : {
+            "line" : 3,
+            "column" : 6,
+            "endLine" : 3,
+            "endColumn" : 77
+          }
+        },
+        "type" : "BOOLEAN",
+        "span" : {
+          "line" : 1,
+          "column" : 1,
+          "endLine" : 3,
+          "endColumn" : 77
+        }
+      },
+      "selectionLimit" : {
+        "minimum" : 0,
+        "maximum" : 20,
+        "span" : {
+          "line" : 1,
+          "column" : 1,
+          "endLine" : 5,
+          "endColumn" : 6
+        }
+      },
+      "span" : {
+        "line" : 1,
+        "column" : 1,
+        "endLine" : 5,
+        "endColumn" : 6
+      }
+    },
+    "calls" : [ {
+      "function" : "indicator",
+      "span" : {
+        "line" : 1,
+        "column" : 1,
+        "endLine" : 1,
+        "endColumn" : 52
+      },
+      "slots" : [ {
+        "name" : "market",
+        "rawValue" : "沪",
+        "structuredValue" : {
+          "value" : "沪"
+        }
+      }, {
+        "name" : "filter_scope",
+        "rawValue" : "",
+        "structuredValue" : {
+          "value" : ""
+        }
+      }, {
+        "name" : "indicator_name",
+        "rawValue" : "收盘价",
+        "structuredValue" : {
+          "value" : "收盘价",
+          "template" : "收盘价",
+          "parameters" : { }
+        }
+      }, {
+        "name" : "date",
+        "rawValue" : "2026-04-14",
+        "structuredValue" : {
+          "raw" : "2026-04-14",
+          "reportPeriod" : null,
+          "offsets" : [ ]
+        }
+      }, {
+        "name" : "select_type",
+        "rawValue" : "",
+        "structuredValue" : {
+          "value" : ""
+        }
+      }, {
+        "name" : "agg_func",
+        "rawValue" : "",
+        "structuredValue" : ""
+      }, {
+        "name" : "count_exp",
+        "rawValue" : "",
+        "structuredValue" : null
+      } ]
+    }, {
+      "function" : "indicator",
+      "span" : {
+        "line" : 2,
+        "column" : 5,
+        "endLine" : 2,
+        "endColumn" : 58
+      },
+      "slots" : [ {
+        "name" : "market",
+        "rawValue" : "沪",
+        "structuredValue" : {
+          "value" : "沪"
+        }
+      }, {
+        "name" : "filter_scope",
+        "rawValue" : "",
+        "structuredValue" : {
+          "value" : ""
+        }
+      }, {
+        "name" : "indicator_name",
+        "rawValue" : "主力净流入",
+        "structuredValue" : {
+          "value" : "主力净流入",
+          "template" : "主力净流入",
+          "parameters" : { }
+        }
+      }, {
+        "name" : "date",
+        "rawValue" : "2026-04-14",
+        "structuredValue" : {
+          "raw" : "2026-04-14",
+          "reportPeriod" : null,
+          "offsets" : [ ]
+        }
+      }, {
+        "name" : "select_type",
+        "rawValue" : "",
+        "structuredValue" : {
+          "value" : ""
+        }
+      }, {
+        "name" : "agg_func",
+        "rawValue" : "",
+        "structuredValue" : ""
+      }, {
+        "name" : "count_exp",
+        "rawValue" : "",
+        "structuredValue" : null
+      } ]
+    }, {
+      "function" : "rank",
+      "span" : {
+        "line" : 3,
+        "column" : 6,
+        "endLine" : 3,
+        "endColumn" : 71
+      },
+      "slots" : [ {
+        "name" : "market",
+        "rawValue" : "沪",
+        "structuredValue" : {
+          "value" : "沪"
+        }
+      }, {
+        "name" : "filter_scope",
+        "rawValue" : "",
+        "structuredValue" : {
+          "value" : ""
+        }
+      }, {
+        "name" : "indicator_name",
+        "rawValue" : "涨跌幅",
+        "structuredValue" : {
+          "value" : "涨跌幅",
+          "template" : "涨跌幅",
+          "parameters" : { }
+        }
+      }, {
+        "name" : "direction",
+        "rawValue" : "desc:row_number",
+        "structuredValue" : "desc:row_number"
+      }, {
+        "name" : "date",
+        "rawValue" : "2026-04-14",
+        "structuredValue" : {
+          "raw" : "2026-04-14",
+          "reportPeriod" : null,
+          "offsets" : [ ]
+        }
+      }, {
+        "name" : "select_type",
+        "rawValue" : "",
+        "structuredValue" : {
+          "value" : ""
+        }
+      }, {
+        "name" : "agg_func",
+        "rawValue" : "",
+        "structuredValue" : ""
+      }, {
+        "name" : "count_exp",
+        "rawValue" : "",
+        "structuredValue" : null
+      } ]
+    } ]
+  },
+  "logicalPlan" : [ {
+    "kind" : "HistoryScan",
+    "detail" : "newzl.v_hsj_stock_hq_basic through 2026-04-14"
+  }, {
+    "kind" : "LeftJoin",
+    "detail" : "newzl.v_hsj_stock_hq_ext on (mktcode,tgtcode,bizdate)"
+  }, {
+    "kind" : "Window",
+    "detail" : "1 contract(s)"
+  }, {
+    "kind" : "EvaluationDateFilter",
+    "detail" : "2026-04-14"
+  }, {
+    "kind" : "Filter",
+    "detail" : "then precondition before ranking"
+  }, {
+    "kind" : "NullFilter",
+    "detail" : "exclude NULL rank metrics"
+  }, {
+    "kind" : "Rank",
+    "detail" : "[ROW_NUMBER]"
+  }, {
+    "kind" : "Sort",
+    "detail" : "rank,mktcode,tgtcode"
+  }, {
+    "kind" : "CardinalityConstraint",
+    "detail" : "0,20"
+  }, {
+    "kind" : "Project",
+    "detail" : "mktcode,tgtcode"
+  } ],
+  "windowContracts" : [ {
+    "function" : "rank:ROW_NUMBER",
+    "partitionKeys" : [ ],
+    "orderKeys" : [ "v3" ],
+    "unit" : "CROSS_SECTION",
+    "lookback" : 1,
+    "suspensionPolicy" : "NOT_APPLICABLE",
+    "insufficientHistoryPolicy" : "NULL",
+    "nullPolicy" : "EXCLUDE_NULL_METRIC",
+    "requireFullWindow" : false
+  } ],
+  "sql" : "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    NULLIF(e.ZJLXMainNetTur,-999999) AS `v2`,\n    b.risePct AS `v3`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE b.bizdate <= ?\n    AND b.mktcode=1\n),\nfeatures AS (\n  SELECT history.*,\n    `v1` AS `f1`,\n    `v2` AS `f2`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n),\nprefiltered AS (\n  SELECT * FROM current_rows WHERE ((`f1` > ?) AND (`f2` > ?))\n),\nrank_input AS (\n  SELECT * FROM prefiltered WHERE `v3` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    ROW_NUMBER() OVER (ORDER BY `v3` DESC,mktcode,tgtcode) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode,tgtcode\nFROM ranked\nWHERE (`r1` <= ?)\nORDER BY `r1`,mktcode,tgtcode\nLIMIT 20;",
+  "bindings" : [ "2026-04-14", "2026-04-14", 10, 0, 20 ],
+  "ordered" : true
+}
