@@ -1,0 +1,12 @@
+*.json text eol=lf
+*.sql text eol=lf
+*.java text eol=lf
+*.g4 text eol=lf
+*.ps1 text eol=lf
+*.py text eol=lf
+*.sh text eol=lf
+
+# Preserve frozen inputs and measured artifacts exactly as hashed by the reports.
+/reports/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+/data/doris/snapshots/stock-20060104-20260414-v1/manifest.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+/accuracy/golden/stock-slot-executable-v1.0.1.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

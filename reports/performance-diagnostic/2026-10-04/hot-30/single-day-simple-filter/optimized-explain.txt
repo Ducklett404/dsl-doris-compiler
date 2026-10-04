@@ -1,0 +1,52 @@
+PLAN FRAGMENT 0
+  OUTPUT EXPRS:
+    mktcode[#60]
+    tgtcode[#61]
+  PARTITION: UNPARTITIONED
+
+  HAS_COLO_PLAN_NODE: false
+
+  VRESULT SINK
+     MYSQL_PROTOCOL
+
+  2:VMERGING-EXCHANGE
+     offset: 0
+     limit: 100
+     distribute expr lists: 
+
+PLAN FRAGMENT 1
+
+  PARTITION: HASH_PARTITIONED: mktcode[#0], tgtcode[#1]
+
+  HAS_COLO_PLAN_NODE: false
+
+  STREAM DATA SINK
+    EXCHANGE ID: 02
+    UNPARTITIONED
+IS_MERGE: true
+
+  1:VTOP-N(393)
+  |  order by: tgtcode[#61] ASC
+  |  TOPN filter targets: [0:1]
+  |  algorithm: heap sort
+  |  local merge sort
+  |  merge by exchange
+  |  offset: 0
+  |  limit: 100
+  |  distribute expr lists: mktcode[#58], tgtcode[#59]
+  |  
+  0:VOlapScanNode(381)
+     TABLE: newzl.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON
+     TOPN OPT:1
+     PREDICATES: ((((CAST(closePx[#8] AS double) / 10000) > 10) AND (bizdate[#2] = '2026-04-14')) AND ((mktcode[#0] = 1) AND (__DORIS_DELETE_SIGN__[#56] = 0)))
+     partitions=1/21 (p20260101000000)
+     tablets=16/16, tabletList=1791094084447,1791094084449,1791094084451 ...
+     cardinality=361758, avgRowSize=319.5836, numNodes=1
+     pushAggOp=NONE
+     final projections: mktcode[#0], tgtcode[#1]
+     final project output tuple id: 1
+
+
+
+========== STATISTICS ==========
+planned with unknown column statistics

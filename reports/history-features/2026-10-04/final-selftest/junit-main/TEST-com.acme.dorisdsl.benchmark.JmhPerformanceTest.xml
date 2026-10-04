@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.acme.dorisdsl.benchmark.JmhPerformanceTest" time="16.552" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="GBK"/>
+    <property name="java.class.path" value="D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\target\test-classes;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\target\classes;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\antlr\antlr4-runtime\4.13.2\antlr4-runtime-4.13.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\core\jackson-databind\2.19.2\jackson-databind-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\core\jackson-annotations\2.19.2\jackson-annotations-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\core\jackson-core\2.19.2\jackson-core-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.19.2\jackson-datatype-jsr310-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\info\picocli\picocli\4.7.7\picocli-4.7.7.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\mysql\mysql-connector-j\9.4.0\mysql-connector-j-9.4.0.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\google\protobuf\protobuf-java\4.31.1\protobuf-java-4.31.1.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter\5.13.4\junit-jupiter-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter-api\5.13.4\junit-jupiter-api-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\platform\junit-platform-commons\1.13.4\junit-platform-commons-1.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter-params\5.13.4\junit-jupiter-params-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter-engine\5.13.4\junit-jupiter-engine-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\platform\junit-platform-engine\1.13.4\junit-platform-engine-1.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\openjdk\jmh\jmh-core\1.37\jmh-core-1.37.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\net\sf\jopt-simple\jopt-simple\5.0.4\jopt-simple-5.0.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\openjdk\jmh\jmh-generator-annprocess\1.37\jmh-generator-annprocess-1.37.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="user.timezone" value="Asia/Shanghai"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.boot.library.path" value="D:\Java\jdk-21\bin"/>
+    <property name="sun.java.command" value="C:\Users\shiyilang\AppData\Local\Temp\surefire16594810258473209377\surefirebooter-20261004184201692_3.jar C:\Users\shiyilang\AppData\Local\Temp\surefire16594810258473209377 2026-10-04T18-42-01_502-jvmRun1 surefire-20261004184201692_1tmp surefire_0-20261004184201692_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\target\test-classes;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\target\classes;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\antlr\antlr4-runtime\4.13.2\antlr4-runtime-4.13.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\core\jackson-databind\2.19.2\jackson-databind-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\core\jackson-annotations\2.19.2\jackson-annotations-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\core\jackson-core\2.19.2\jackson-core-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.19.2\jackson-datatype-jsr310-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\info\picocli\picocli\4.7.7\picocli-4.7.7.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\mysql\mysql-connector-j\9.4.0\mysql-connector-j-9.4.0.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\google\protobuf\protobuf-java\4.31.1\protobuf-java-4.31.1.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter\5.13.4\junit-jupiter-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter-api\5.13.4\junit-jupiter-api-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\platform\junit-platform-commons\1.13.4\junit-platform-commons-1.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter-params\5.13.4\junit-jupiter-params-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter-engine\5.13.4\junit-jupiter-engine-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\platform\junit-platform-engine\1.13.4\junit-platform-engine-1.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\openjdk\jmh\jmh-core\1.37\jmh-core-1.37.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\net\sf\jopt-simple\jopt-simple\5.0.4\jopt-simple-5.0.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\openjdk\jmh\jmh-generator-annprocess\1.37\jmh-generator-annprocess-1.37.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\shiyilang"/>
+    <property name="user.language" value="zh"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-07-15"/>
+    <property name="java.home" value="D:\Java\jdk-21"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler"/>
+    <property name="test.jvm.args" value="-Djdk.net.unixdomain.tmpdir=target/disabled-unix-sockets"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="jdk.jfr.repository" value="C:\Users\shiyilang\AppData\Local\Temp\2026_10_04_18_42_04_53616"/>
+    <property name="surefire.real.class.path" value="C:\Users\shiyilang\AppData\Local\Temp\surefire16594810258473209377\surefirebooter-20261004184201692_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="jdk.net.unixdomain.tmpdir" value="target/disabled-unix-sockets"/>
+    <property name="java.runtime.version" value="21.0.8+12-LTS-250"/>
+    <property name="user.name" value="shiyilang"/>
+    <property name="stdout.encoding" value="GBK"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\SHIYIL~1\AppData\Local\Temp\"/>
+    <property name="java.version" value="21.0.8"/>
+    <property name="user.dir" value="D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="GBK"/>
+    <property name="java.library.path" value="D:\Java\jdk-21\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell;C:\Users\shiyilang\.codex\tmp\arg0\codex-arg0qZztpu;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\libheif\libheif\bin;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\jxrlib\jxrlib\bin;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\poppler\Library\bin;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\bin\override;C:\Program Files\Common Files\Oracle\Java\javapath;D:\Program Files\Python310\Scripts\;D:\Program Files\Python310\;C:\Program Files\Python310\Scripts\;C:\Program Files\Python310\;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\dotnet\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;D:\Git\cmd;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\mingw64\bin;D:\Bandizip\;C:\Program Files (x86)\cloudflared\;C:\Program Files\nodejs\;C:\Users\shiyilang\Scripts\;C:\Users\shiyilang\;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell;C:\Users\shiyilang\AppData\Local\Microsoft\WindowsApps;D:\VC4\Microsoft VS Code\bin;D:\Users\shiyilang\Desktop\PyCharm Community Edition 2025.1.1\bin;D:\cursor\resources\app\bin;D:\JetBrains\IntelliJ IDEA Community Edition 2025.2.1\bin;C:\Users\shiyilang\AppData\Roaming\npm;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\bin\fallback;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\git\cmd;C:\Users\shiyilang\AppData\Local\OpenAI\Codex\bin\f1e5e36960c35938;C:\Users\shiyilang\AppData\Local\OpenAI\Codex\bin\8aaf1547b825b104;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="GBK"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="21.0.8+12-LTS-250"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="maven.repo.local" value="D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="allBucketsRunAndComplexDslP95IsBelowFiftyMillisecondsAfterWarmup" classname="com.acme.dorisdsl.benchmark.JmhPerformanceTest" time="16.55">
+    <system-out><![CDATA[# JMH version: 1.37
+# VM version: JDK 21.0.8, Java HotSpot(TM) 64-Bit Server VM, 21.0.8+12-LTS-250
+# VM invoker: D:\Java\jdk-21\bin\java.exe
+# VM options: -Djdk.net.unixdomain.tmpdir=target/disabled-unix-sockets
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 200 ms each
+# Measurement: 5 iterations, 300 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.acme.dorisdsl.benchmark.DslCompilerBenchmark.complexDsl
+
+# Run progress: 0.00% complete, ETA 00:00:10
+# Fork: 1 of 1
+# Warmup Iteration   1: 13.385 ±(99.9%) 44.832 ms/op
+# Warmup Iteration   2: 1.084 ±(99.9%) 0.108 ms/op
+# Warmup Iteration   3: 0.649 ±(99.9%) 0.050 ms/op
+Iteration   1: 0.465 ±(99.9%) 0.022 ms/op
+                 p0.00:   0.295 ms/op
+                 p0.50:   0.413 ms/op
+                 p0.90:   0.659 ms/op
+                 p0.95:   0.752 ms/op
+                 p0.99:   1.060 ms/op
+                 p0.999:  2.544 ms/op
+                 p0.9999: 2.544 ms/op
+                 p1.00:   2.544 ms/op
+
+Iteration   2: 0.381 ±(99.9%) 0.014 ms/op
+                 p0.00:   0.258 ms/op
+                 p0.50:   0.335 ms/op
+                 p0.90:   0.561 ms/op
+                 p0.95:   0.618 ms/op
+                 p0.99:   0.764 ms/op
+                 p0.999:  1.040 ms/op
+                 p0.9999: 1.040 ms/op
+                 p1.00:   1.040 ms/op
+
+Iteration   3: 0.360 ±(99.9%) 0.018 ms/op
+                 p0.00:   0.188 ms/op
+                 p0.50:   0.304 ms/op
+                 p0.90:   0.550 ms/op
+                 p0.95:   0.591 ms/op
+                 p0.99:   0.716 ms/op
+                 p0.999:  2.957 ms/op
+                 p0.9999: 2.957 ms/op
+                 p1.00:   2.957 ms/op
+
+Iteration   4: 0.289 ±(99.9%) 0.011 ms/op
+                 p0.00:   0.156 ms/op
+                 p0.50:   0.239 ms/op
+                 p0.90:   0.464 ms/op
+                 p0.95:   0.501 ms/op
+                 p0.99:   0.590 ms/op
+                 p0.999:  0.764 ms/op
+                 p0.9999: 0.764 ms/op
+                 p1.00:   0.764 ms/op
+
+Iteration   5: 0.244 ±(99.9%) 0.011 ms/op
+                 p0.00:   0.147 ms/op
+                 p0.50:   0.213 ms/op
+                 p0.90:   0.380 ms/op
+                 p0.95:   0.438 ms/op
+                 p0.99:   0.549 ms/op
+                 p0.999:  2.213 ms/op
+                 p0.9999: 2.654 ms/op
+                 p1.00:   2.654 ms/op
+
+
+
+Result "com.acme.dorisdsl.benchmark.DslCompilerBenchmark.complexDsl":
+  N = 4528
+  mean =      0.331 ±(99.9%) 0.007 ms/op
+
+  Histogram, ms/op:
+    [0.000, 0.250) = 1639 
+    [0.250, 0.500) = 2347 
+    [0.500, 0.750) = 492 
+    [0.750, 1.000) = 39 
+    [1.000, 1.250) = 7 
+    [1.250, 1.500) = 1 
+    [1.500, 1.750) = 0 
+    [1.750, 2.000) = 0 
+    [2.000, 2.250) = 0 
+    [2.250, 2.500) = 0 
+    [2.500, 2.750) = 2 
+
+  Percentiles, ms/op:
+      p(0.0000) =      0.147 ms/op
+     p(50.0000) =      0.303 ms/op
+     p(90.0000) =      0.521 ms/op
+     p(95.0000) =      0.586 ms/op
+     p(99.0000) =      0.763 ms/op
+     p(99.9000) =      1.253 ms/op
+     p(99.9900) =      2.957 ms/op
+     p(99.9990) =      2.957 ms/op
+     p(99.9999) =      2.957 ms/op
+    p(100.0000) =      2.957 ms/op
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.8, Java HotSpot(TM) 64-Bit Server VM, 21.0.8+12-LTS-250
+# VM invoker: D:\Java\jdk-21\bin\java.exe
+# VM options: -Djdk.net.unixdomain.tmpdir=target/disabled-unix-sockets
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 200 ms each
+# Measurement: 5 iterations, 300 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.acme.dorisdsl.benchmark.DslCompilerBenchmark.errorDsl
+
+# Run progress: 20.00% complete, ETA 00:00:12
+# Fork: 1 of 1
+# Warmup Iteration   1: 0.049 ±(99.9%) 0.066 ms/op
+# Warmup Iteration   2: 0.016 ±(99.9%) 0.004 ms/op
+# Warmup Iteration   3: 0.014 ±(99.9%) 0.001 ms/op
+Iteration   1: 0.010 ±(99.9%) 0.001 ms/op
+                 p0.00:   0.006 ms/op
+                 p0.50:   0.008 ms/op
+                 p0.90:   0.014 ms/op
+                 p0.95:   0.017 ms/op
+                 p0.99:   0.050 ms/op
+                 p0.999:  0.160 ms/op
+                 p0.9999: 0.251 ms/op
+                 p1.00:   0.251 ms/op
+
+Iteration   2: 0.008 ±(99.9%) 0.001 ms/op
+                 p0.00:   0.006 ms/op
+                 p0.50:   0.006 ms/op
+                 p0.90:   0.011 ms/op
+                 p0.95:   0.014 ms/op
+                 p0.99:   0.037 ms/op
+                 p0.999:  0.091 ms/op
+                 p0.9999: 0.147 ms/op
+                 p1.00:   0.148 ms/op
+
+Iteration   3: 0.007 ±(99.9%) 0.001 ms/op
+                 p0.00:   0.005 ms/op
+                 p0.50:   0.006 ms/op
+                 p0.90:   0.007 ms/op
+                 p0.95:   0.010 ms/op
+                 p0.99:   0.036 ms/op
+                 p0.999:  0.116 ms/op
+                 p0.9999: 1.599 ms/op
+                 p1.00:   1.599 ms/op
+
+Iteration   4: 0.007 ±(99.9%) 0.001 ms/op
+                 p0.00:   0.005 ms/op
+                 p0.50:   0.006 ms/op
+                 p0.90:   0.007 ms/op
+                 p0.95:   0.008 ms/op
+                 p0.99:   0.021 ms/op
+                 p0.999:  0.092 ms/op
+                 p0.9999: 0.447 ms/op
+                 p1.00:   0.447 ms/op
+
+Iteration   5: 0.007 ±(99.9%) 0.001 ms/op
+                 p0.00:   0.005 ms/op
+                 p0.50:   0.006 ms/op
+                 p0.90:   0.007 ms/op
+                 p0.95:   0.007 ms/op
+                 p0.99:   0.029 ms/op
+                 p0.999:  0.104 ms/op
+                 p0.9999: 1.649 ms/op
+                 p1.00:   1.649 ms/op
+
+
+
+Result "com.acme.dorisdsl.benchmark.DslCompilerBenchmark.errorDsl":
+  N = 35417
+  mean =      0.008 ±(99.9%) 0.001 ms/op
+
+  Histogram, ms/op:
+    [0.000, 0.125) = 35398 
+    [0.125, 0.250) = 15 
+    [0.250, 0.375) = 1 
+    [0.375, 0.500) = 1 
+    [0.500, 0.625) = 0 
+    [0.625, 0.750) = 0 
+    [0.750, 0.875) = 0 
+    [0.875, 1.000) = 0 
+    [1.000, 1.125) = 0 
+    [1.125, 1.250) = 0 
+    [1.250, 1.375) = 0 
+    [1.375, 1.500) = 0 
+    [1.500, 1.625) = 1 
+    [1.625, 1.750) = 1 
+    [1.750, 1.875) = 0 
+
+  Percentiles, ms/op:
+      p(0.0000) =      0.005 ms/op
+     p(50.0000) =      0.006 ms/op
+     p(90.0000) =      0.010 ms/op
+     p(95.0000) =      0.014 ms/op
+     p(99.0000) =      0.037 ms/op
+     p(99.9000) =      0.103 ms/op
+     p(99.9900) =      0.341 ms/op
+     p(99.9990) =      1.649 ms/op
+     p(99.9999) =      1.649 ms/op
+    p(100.0000) =      1.649 ms/op
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.8, Java HotSpot(TM) 64-Bit Server VM, 21.0.8+12-LTS-250
+# VM invoker: D:\Java\jdk-21\bin\java.exe
+# VM options: -Djdk.net.unixdomain.tmpdir=target/disabled-unix-sockets
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 200 ms each
+# Measurement: 5 iterations, 300 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.acme.dorisdsl.benchmark.DslCompilerBenchmark.maliciousBoundaryDsl
+
+# Run progress: 40.00% complete, ETA 00:00:09
+# Fork: 1 of 1
+# Warmup Iteration   1: 0.003 ±(99.9%) 0.003 ms/op
+# Warmup Iteration   2: 0.001 ±(99.9%) 0.001 ms/op
+# Warmup Iteration   3: 0.001 ±(99.9%) 0.001 ms/op
+Iteration   1: 0.001 ±(99.9%) 0.001 ms/op
+                 p0.00:   0.001 ms/op
+                 p0.50:   0.001 ms/op
+                 p0.90:   0.001 ms/op
+                 p0.95:   0.002 ms/op
+                 p0.99:   0.003 ms/op
+                 p0.999:  0.029 ms/op
+                 p0.9999: 0.098 ms/op
+                 p1.00:   0.098 ms/op
+
+Iteration   2: 0.001 ±(99.9%) 0.001 ms/op
+                 p0.00:   0.001 ms/op
+                 p0.50:   0.001 ms/op
+                 p0.90:   0.001 ms/op
+                 p0.95:   0.001 ms/op
+                 p0.99:   0.003 ms/op
+                 p0.999:  0.055 ms/op
+                 p0.9999: 1.309 ms/op
+                 p1.00:   1.309 ms/op
+
+Iteration   3: 0.001 ±(99.9%) 0.001 ms/op
+                 p0.00:   0.001 ms/op
+                 p0.50:   0.001 ms/op
+                 p0.90:   0.001 ms/op
+                 p0.95:   0.001 ms/op
+                 p0.99:   0.002 ms/op
+                 p0.999:  0.026 ms/op
+                 p0.9999: 0.274 ms/op
+                 p1.00:   0.274 ms/op
+
+Iteration   4: 0.001 ±(99.9%) 0.001 ms/op
+                 p0.00:   0.001 ms/op
+                 p0.50:   0.001 ms/op
+                 p0.90:   0.001 ms/op
+                 p0.95:   0.001 ms/op
+                 p0.99:   0.002 ms/op
+                 p0.999:  0.017 ms/op
+                 p0.9999: 0.081 ms/op
+                 p1.00:   0.083 ms/op
+
+Iteration   5: 0.001 ±(99.9%) 0.001 ms/op
+                 p0.00:   0.001 ms/op
+                 p0.50:   0.001 ms/op
+                 p0.90:   0.001 ms/op
+                 p0.95:   0.001 ms/op
+                 p0.99:   0.002 ms/op
+                 p0.999:  0.040 ms/op
+                 p0.9999: 0.106 ms/op
+                 p1.00:   0.106 ms/op
+
+
+
+Result "com.acme.dorisdsl.benchmark.DslCompilerBenchmark.maliciousBoundaryDsl":
+  N = 48837
+  mean =      0.001 ±(99.9%) 0.001 ms/op
+
+  Histogram, ms/op:
+    [0.000, 0.125) = 48832 
+    [0.125, 0.250) = 3 
+    [0.250, 0.375) = 1 
+    [0.375, 0.500) = 0 
+    [0.500, 0.625) = 0 
+    [0.625, 0.750) = 0 
+    [0.750, 0.875) = 0 
+    [0.875, 1.000) = 0 
+    [1.000, 1.125) = 0 
+    [1.125, 1.250) = 0 
+    [1.250, 1.375) = 1 
+    [1.375, 1.500) = 0 
+    [1.500, 1.625) = 0 
+    [1.625, 1.750) = 0 
+    [1.750, 1.875) = 0 
+
+  Percentiles, ms/op:
+      p(0.0000) =      0.001 ms/op
+     p(50.0000) =      0.001 ms/op
+     p(90.0000) =      0.001 ms/op
+     p(95.0000) =      0.001 ms/op
+     p(99.0000) =      0.002 ms/op
+     p(99.9000) =      0.030 ms/op
+     p(99.9900) =      0.175 ms/op
+     p(99.9990) =      1.309 ms/op
+     p(99.9999) =      1.309 ms/op
+    p(100.0000) =      1.309 ms/op
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.8, Java HotSpot(TM) 64-Bit Server VM, 21.0.8+12-LTS-250
+# VM invoker: D:\Java\jdk-21\bin\java.exe
+# VM options: -Djdk.net.unixdomain.tmpdir=target/disabled-unix-sockets
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 200 ms each
+# Measurement: 5 iterations, 300 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.acme.dorisdsl.benchmark.DslCompilerBenchmark.mediumDsl
+
+# Run progress: 60.00% complete, ETA 00:00:06
+# Fork: 1 of 1
+# Warmup Iteration   1: 5.566 ±(99.9%) 14.898 ms/op
+# Warmup Iteration   2: 0.644 ±(99.9%) 0.051 ms/op
+# Warmup Iteration   3: 0.407 ±(99.9%) 0.025 ms/op
+Iteration   1: 0.276 ±(99.9%) 0.011 ms/op
+                 p0.00:   0.178 ms/op
+                 p0.50:   0.240 ms/op
+                 p0.90:   0.405 ms/op
+                 p0.95:   0.486 ms/op
+                 p0.99:   0.701 ms/op
+                 p0.999:  1.049 ms/op
+                 p0.9999: 1.053 ms/op
+                 p1.00:   1.053 ms/op
+
+Iteration   2: 0.217 ±(99.9%) 0.010 ms/op
+                 p0.00:   0.102 ms/op
+                 p0.50:   0.198 ms/op
+                 p0.90:   0.301 ms/op
+                 p0.95:   0.374 ms/op
+                 p0.99:   0.514 ms/op
+                 p0.999:  2.227 ms/op
+                 p0.9999: 3.047 ms/op
+                 p1.00:   3.047 ms/op
+
+Iteration   3: 0.157 ±(99.9%) 0.006 ms/op
+                 p0.00:   0.076 ms/op
+                 p0.50:   0.132 ms/op
+                 p0.90:   0.272 ms/op
+                 p0.95:   0.325 ms/op
+                 p0.99:   0.420 ms/op
+                 p0.999:  0.500 ms/op
+                 p0.9999: 0.503 ms/op
+                 p1.00:   0.503 ms/op
+
+Iteration   4: 0.154 ±(99.9%) 0.007 ms/op
+                 p0.00:   0.070 ms/op
+                 p0.50:   0.114 ms/op
+                 p0.90:   0.303 ms/op
+                 p0.95:   0.346 ms/op
+                 p0.99:   0.428 ms/op
+                 p0.999:  0.630 ms/op
+                 p0.9999: 0.632 ms/op
+                 p1.00:   0.632 ms/op
+
+Iteration   5: 0.121 ±(99.9%) 0.006 ms/op
+                 p0.00:   0.056 ms/op
+                 p0.50:   0.090 ms/op
+                 p0.90:   0.230 ms/op
+                 p0.95:   0.289 ms/op
+                 p0.99:   0.368 ms/op
+                 p0.999:  0.660 ms/op
+                 p0.9999: 3.015 ms/op
+                 p1.00:   3.015 ms/op
+
+
+
+Result "com.acme.dorisdsl.benchmark.DslCompilerBenchmark.mediumDsl":
+  N = 8794
+  mean =      0.170 ±(99.9%) 0.004 ms/op
+
+  Histogram, ms/op:
+    [0.000, 0.250) = 7353 
+    [0.250, 0.500) = 1370 
+    [0.500, 0.750) = 58 
+    [0.750, 1.000) = 8 
+    [1.000, 1.250) = 3 
+    [1.250, 1.500) = 0 
+    [1.500, 1.750) = 0 
+    [1.750, 2.000) = 0 
+    [2.000, 2.250) = 0 
+    [2.250, 2.500) = 0 
+    [2.500, 2.750) = 0 
+    [2.750, 3.000) = 0 
+    [3.000, 3.250) = 2 
+    [3.250, 3.500) = 0 
+    [3.500, 3.750) = 0 
+
+  Percentiles, ms/op:
+      p(0.0000) =      0.056 ms/op
+     p(50.0000) =      0.143 ms/op
+     p(90.0000) =      0.294 ms/op
+     p(95.0000) =      0.352 ms/op
+     p(99.0000) =      0.486 ms/op
+     p(99.9000) =      0.852 ms/op
+     p(99.9900) =      3.047 ms/op
+     p(99.9990) =      3.047 ms/op
+     p(99.9999) =      3.047 ms/op
+    p(100.0000) =      3.047 ms/op
+
+
+# JMH version: 1.37
+# VM version: JDK 21.0.8, Java HotSpot(TM) 64-Bit Server VM, 21.0.8+12-LTS-250
+# VM invoker: D:\Java\jdk-21\bin\java.exe
+# VM options: -Djdk.net.unixdomain.tmpdir=target/disabled-unix-sockets
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 3 iterations, 200 ms each
+# Measurement: 5 iterations, 300 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: com.acme.dorisdsl.benchmark.DslCompilerBenchmark.simpleDsl
+
+# Run progress: 80.00% complete, ETA 00:00:03
+# Fork: 1 of 1
+# Warmup Iteration   1: 2.323 ±(99.9%) 5.479 ms/op
+# Warmup Iteration   2: 0.256 ±(99.9%) 0.021 ms/op
+# Warmup Iteration   3: 0.100 ±(99.9%) 0.006 ms/op
+Iteration   1: 0.072 ±(99.9%) 0.003 ms/op
+                 p0.00:   0.043 ms/op
+                 p0.50:   0.058 ms/op
+                 p0.90:   0.100 ms/op
+                 p0.95:   0.158 ms/op
+                 p0.99:   0.290 ms/op
+                 p0.999:  0.507 ms/op
+                 p0.9999: 1.253 ms/op
+                 p1.00:   1.253 ms/op
+
+Iteration   2: 0.054 ±(99.9%) 0.003 ms/op
+                 p0.00:   0.024 ms/op
+                 p0.50:   0.039 ms/op
+                 p0.90:   0.098 ms/op
+                 p0.95:   0.157 ms/op
+                 p0.99:   0.248 ms/op
+                 p0.999:  0.402 ms/op
+                 p0.9999: 2.593 ms/op
+                 p1.00:   2.593 ms/op
+
+Iteration   3: 0.036 ±(99.9%) 0.002 ms/op
+                 p0.00:   0.022 ms/op
+                 p0.50:   0.028 ms/op
+                 p0.90:   0.044 ms/op
+                 p0.95:   0.078 ms/op
+                 p0.99:   0.181 ms/op
+                 p0.999:  0.280 ms/op
+                 p0.9999: 2.290 ms/op
+                 p1.00:   2.290 ms/op
+
+Iteration   4: 0.037 ±(99.9%) 0.002 ms/op
+                 p0.00:   0.021 ms/op
+                 p0.50:   0.026 ms/op
+                 p0.90:   0.061 ms/op
+                 p0.95:   0.109 ms/op
+                 p0.99:   0.191 ms/op
+                 p0.999:  0.297 ms/op
+                 p0.9999: 0.381 ms/op
+                 p1.00:   0.381 ms/op
+
+Iteration   5: 0.037 ±(99.9%) 0.002 ms/op
+                 p0.00:   0.020 ms/op
+                 p0.50:   0.024 ms/op
+                 p0.90:   0.080 ms/op
+                 p0.95:   0.105 ms/op
+                 p0.99:   0.187 ms/op
+                 p0.999:  0.317 ms/op
+                 p0.9999: 2.388 ms/op
+                 p1.00:   2.388 ms/op
+
+
+
+Result "com.acme.dorisdsl.benchmark.DslCompilerBenchmark.simpleDsl":
+  N = 23087
+  mean =      0.047 ±(99.9%) 0.001 ms/op
+
+  Histogram, ms/op:
+    [0.000, 0.250) = 22923 
+    [0.250, 0.500) = 154 
+    [0.500, 0.750) = 4 
+    [0.750, 1.000) = 1 
+    [1.000, 1.250) = 1 
+    [1.250, 1.500) = 1 
+    [1.500, 1.750) = 0 
+    [1.750, 2.000) = 0 
+    [2.000, 2.250) = 0 
+    [2.250, 2.500) = 2 
+    [2.500, 2.750) = 1 
+
+  Percentiles, ms/op:
+      p(0.0000) =      0.020 ms/op
+     p(50.0000) =      0.031 ms/op
+     p(90.0000) =      0.082 ms/op
+     p(95.0000) =      0.126 ms/op
+     p(99.0000) =      0.230 ms/op
+     p(99.9000) =      0.376 ms/op
+     p(99.9900) =      2.358 ms/op
+     p(99.9990) =      2.593 ms/op
+     p(99.9999) =      2.593 ms/op
+    p(100.0000) =      2.593 ms/op
+
+
+# Run complete. Total time: 00:00:15
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+NOTE: Current JVM experimentally supports Compiler Blackholes, and they are in use. Please exercise
+extra caution when trusting the results, look into the generated code to check the benchmark still
+works, and factor in a small probability of new VM bugs. Additionally, while comparisons between
+different JVMs are already problematic, the performance difference caused by different Blackhole
+modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
+
+Benchmark                                            Mode    Cnt  Score    Error  Units
+DslCompilerBenchmark.complexDsl                    sample   4528  0.331 ±  0.007  ms/op
+DslCompilerBenchmark.complexDsl:p0.00              sample         0.147           ms/op
+DslCompilerBenchmark.complexDsl:p0.50              sample         0.303           ms/op
+DslCompilerBenchmark.complexDsl:p0.90              sample         0.521           ms/op
+DslCompilerBenchmark.complexDsl:p0.95              sample         0.586           ms/op
+DslCompilerBenchmark.complexDsl:p0.99              sample         0.763           ms/op
+DslCompilerBenchmark.complexDsl:p0.999             sample         1.253           ms/op
+DslCompilerBenchmark.complexDsl:p0.9999            sample         2.957           ms/op
+DslCompilerBenchmark.complexDsl:p1.00              sample         2.957           ms/op
+DslCompilerBenchmark.errorDsl                      sample  35417  0.008 ±  0.001  ms/op
+DslCompilerBenchmark.errorDsl:p0.00                sample         0.005           ms/op
+DslCompilerBenchmark.errorDsl:p0.50                sample         0.006           ms/op
+DslCompilerBenchmark.errorDsl:p0.90                sample         0.010           ms/op
+DslCompilerBenchmark.errorDsl:p0.95                sample         0.014           ms/op
+DslCompilerBenchmark.errorDsl:p0.99                sample         0.037           ms/op
+DslCompilerBenchmark.errorDsl:p0.999               sample         0.103           ms/op
+DslCompilerBenchmark.errorDsl:p0.9999              sample         0.341           ms/op
+DslCompilerBenchmark.errorDsl:p1.00                sample         1.649           ms/op
+DslCompilerBenchmark.maliciousBoundaryDsl          sample  48837  0.001 ±  0.001  ms/op
+DslCompilerBenchmark.maliciousBoundaryDsl:p0.00    sample         0.001           ms/op
+DslCompilerBenchmark.maliciousBoundaryDsl:p0.50    sample         0.001           ms/op
+DslCompilerBenchmark.maliciousBoundaryDsl:p0.90    sample         0.001           ms/op
+DslCompilerBenchmark.maliciousBoundaryDsl:p0.95    sample         0.001           ms/op
+DslCompilerBenchmark.maliciousBoundaryDsl:p0.99    sample         0.002           ms/op
+DslCompilerBenchmark.maliciousBoundaryDsl:p0.999   sample         0.030           ms/op
+DslCompilerBenchmark.maliciousBoundaryDsl:p0.9999  sample         0.175           ms/op
+DslCompilerBenchmark.maliciousBoundaryDsl:p1.00    sample         1.309           ms/op
+DslCompilerBenchmark.mediumDsl                     sample   8794  0.170 ±  0.004  ms/op
+DslCompilerBenchmark.mediumDsl:p0.00               sample         0.056           ms/op
+DslCompilerBenchmark.mediumDsl:p0.50               sample         0.143           ms/op
+DslCompilerBenchmark.mediumDsl:p0.90               sample         0.294           ms/op
+DslCompilerBenchmark.mediumDsl:p0.95               sample         0.352           ms/op
+DslCompilerBenchmark.mediumDsl:p0.99               sample         0.486           ms/op
+DslCompilerBenchmark.mediumDsl:p0.999              sample         0.852           ms/op
+DslCompilerBenchmark.mediumDsl:p0.9999             sample         3.047           ms/op
+DslCompilerBenchmark.mediumDsl:p1.00               sample         3.047           ms/op
+DslCompilerBenchmark.simpleDsl                     sample  23087  0.047 ±  0.001  ms/op
+DslCompilerBenchmark.simpleDsl:p0.00               sample         0.020           ms/op
+DslCompilerBenchmark.simpleDsl:p0.50               sample         0.031           ms/op
+DslCompilerBenchmark.simpleDsl:p0.90               sample         0.082           ms/op
+DslCompilerBenchmark.simpleDsl:p0.95               sample         0.126           ms/op
+DslCompilerBenchmark.simpleDsl:p0.99               sample         0.230           ms/op
+DslCompilerBenchmark.simpleDsl:p0.999              sample         0.376           ms/op
+DslCompilerBenchmark.simpleDsl:p0.9999             sample         2.358           ms/op
+DslCompilerBenchmark.simpleDsl:p1.00               sample         2.593           ms/op
+]]></system-out>
+  </testcase>
+</testsuite>

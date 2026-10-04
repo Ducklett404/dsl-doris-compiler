@@ -1,0 +1,250 @@
+[ {
+  "case" : "historical_ma60",
+  "dsl" : "indicator('', '', '60日均线', '2026-04-13', '', '', '') > 1",
+  "plan" : [ {
+    "kind" : "FeatureScan",
+    "detail" : "newzl.stock_daily_features_v1 through 2026-04-13"
+  }, {
+    "kind" : "Window",
+    "detail" : "1 contract(s)"
+  }, {
+    "kind" : "EvaluationDateFilter",
+    "detail" : "2026-04-13"
+  }, {
+    "kind" : "Sort",
+    "detail" : "mktcode,tgtcode"
+  }, {
+    "kind" : "Project",
+    "detail" : "mktcode,tgtcode"
+  } ],
+  "referenceSql" : "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 59 PRECEDING AND CURRENT ROW)=60 THEN AVG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 59 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` > ?)\nORDER BY mktcode,tgtcode;",
+  "sql" : "WITH history AS (\n  SELECT pf.mktcode AS mktcode,pf.tgtcode AS tgtcode,pf.bizdate AS bizdate,\n    pf.ma60 AS `v1`\n  FROM newzl.stock_daily_features_v1 pf\n  WHERE pf.bizdate = ?\n),\nfeatures AS (\n  SELECT history.*,\n    `v1` AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` > ?)\nORDER BY mktcode,tgtcode;",
+  "bindings" : [ "2026-04-13", "2026-04-13", 1 ],
+  "placeholderCount" : 3,
+  "bindingCount" : 3
+}, {
+  "case" : "frozen_ma60",
+  "dsl" : "indicator('', '', '60日均线', '2026-04-14', '', '', '') > 1",
+  "plan" : [ {
+    "kind" : "FeatureScan",
+    "detail" : "newzl.stock_daily_features_v1 through 2026-04-14"
+  }, {
+    "kind" : "Window",
+    "detail" : "1 contract(s)"
+  }, {
+    "kind" : "EvaluationDateFilter",
+    "detail" : "2026-04-14"
+  }, {
+    "kind" : "Sort",
+    "detail" : "mktcode,tgtcode"
+  }, {
+    "kind" : "Project",
+    "detail" : "mktcode,tgtcode"
+  } ],
+  "referenceSql" : "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 59 PRECEDING AND CURRENT ROW)=60 THEN AVG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 59 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` > ?)\nORDER BY mktcode,tgtcode;",
+  "sql" : "WITH history AS (\n  SELECT pf.mktcode AS mktcode,pf.tgtcode AS tgtcode,pf.bizdate AS bizdate,\n    pf.ma60 AS `v1`\n  FROM newzl.stock_daily_features_v1 pf\n  WHERE pf.bizdate = ?\n),\nfeatures AS (\n  SELECT history.*,\n    `v1` AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` > ?)\nORDER BY mktcode,tgtcode;",
+  "bindings" : [ "2026-04-14", "2026-04-14", 1 ],
+  "placeholderCount" : 3,
+  "bindingCount" : 3
+}, {
+  "case" : "simple_between_expression",
+  "dsl" : "(indicator('', '', '收盘价', '2026-04-14', '', '', '') + 1) between '[2,4]'",
+  "plan" : [ {
+    "kind" : "Scan",
+    "detail" : "newzl.v_hsj_stock_hq_basic"
+  }, {
+    "kind" : "DateAndMarketFilter",
+    "detail" : "2026-04-14"
+  }, {
+    "kind" : "Sort",
+    "detail" : "mktcode, tgtcode"
+  }, {
+    "kind" : "Project",
+    "detail" : "mktcode,tgtcode"
+  } ],
+  "sql" : "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.closePrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` + ?) >= ? AND (`m1` + ?) <= ?)\nORDER BY mktcode, tgtcode;",
+  "bindings" : [ "2026-04-14", 1, 2, 4 ],
+  "placeholderCount" : 5,
+  "bindingCount" : 4
+}, {
+  "case" : "advanced_between_expression",
+  "dsl" : "(indicator('', '', '5日均线', '2026-04-14', '', '', '') + 1) between '[2,4]'",
+  "plan" : [ {
+    "kind" : "HistoryScan",
+    "detail" : "newzl.v_hsj_stock_hq_basic through 2026-04-14"
+  }, {
+    "kind" : "Window",
+    "detail" : "1 contract(s)"
+  }, {
+    "kind" : "EvaluationDateFilter",
+    "detail" : "2026-04-14"
+  }, {
+    "kind" : "Sort",
+    "detail" : "mktcode,tgtcode"
+  }, {
+    "kind" : "Project",
+    "detail" : "mktcode,tgtcode"
+  } ],
+  "sql" : "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)=5 THEN AVG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` + ?)>=? AND (`f1` + ?)<=?)\nORDER BY mktcode,tgtcode;",
+  "bindings" : [ "2026-04-14", "2026-04-14", 1, 2, 4 ],
+  "placeholderCount" : 6,
+  "bindingCount" : 5
+}, {
+  "case" : "missing_industry",
+  "dsl" : "belong_industry('', '', '收盘价', '2026-04-14', '') > 1",
+  "plan" : [ {
+    "kind" : "HistoryScan",
+    "detail" : "newzl.v_hsj_stock_hq_basic through 2026-04-14"
+  }, {
+    "kind" : "CodeJoin",
+    "detail" : "newzl.hsj_stock_code_info on (mktcode,tgtcode)"
+  }, {
+    "kind" : "Window",
+    "detail" : "1 contract(s)"
+  }, {
+    "kind" : "EvaluationDateFilter",
+    "detail" : "2026-04-14"
+  }, {
+    "kind" : "Sort",
+    "detail" : "mktcode,tgtcode"
+  }, {
+    "kind" : "Project",
+    "detail" : "mktcode,tgtcode"
+  } ],
+  "sql" : "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,c.name AS name,c.hyBlkRefName AS hyBlkRefName,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    AVG(`v1`) OVER (PARTITION BY hyBlkRefName,bizdate) AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` > ?)\nORDER BY mktcode,tgtcode;",
+  "bindings" : [ "2026-04-14", "2026-04-14", 1 ],
+  "placeholderCount" : 3,
+  "bindingCount" : 3
+}, {
+  "case" : "count_arithmetic",
+  "dsl" : "indicator('', '', '收盘价', '2026-04-14', '', '', 'CONS>=3日') + 1 > 2",
+  "plan" : [ {
+    "kind" : "HistoryScan",
+    "detail" : "newzl.v_hsj_stock_hq_basic through 2026-04-14"
+  }, {
+    "kind" : "Window",
+    "detail" : "0 contract(s)"
+  }, {
+    "kind" : "EvaluationDateFilter",
+    "detail" : "2026-04-14"
+  }, {
+    "kind" : "Sort",
+    "detail" : "mktcode,tgtcode"
+  }, {
+    "kind" : "Project",
+    "detail" : "mktcode,tgtcode"
+  } ],
+  "sql" : "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    `v1` AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` + ?) > ?)\nORDER BY mktcode,tgtcode;",
+  "bindings" : [ "2026-04-14", "2026-04-14", 1, 2 ],
+  "placeholderCount" : 4,
+  "bindingCount" : 4
+}, {
+  "case" : "count_boolean",
+  "dsl" : "cross_above('', '', '收盘价', '开盘价', '2026-04-14', '', 'CONS>=3日')",
+  "plan" : [ {
+    "kind" : "HistoryScan",
+    "detail" : "newzl.v_hsj_stock_hq_basic through 2026-04-14"
+  }, {
+    "kind" : "Window",
+    "detail" : "1 contract(s)"
+  }, {
+    "kind" : "EvaluationDateFilter",
+    "detail" : "2026-04-14"
+  }, {
+    "kind" : "Sort",
+    "detail" : "mktcode,tgtcode"
+  }, {
+    "kind" : "Project",
+    "detail" : "mktcode,tgtcode"
+  } ],
+  "sql" : "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    b.openPrice AS `v2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN `v1` IS NOT NULL AND `v2` IS NOT NULL AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL AND LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL THEN (`v1`>`v2` AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)<=LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE `f1`\nORDER BY mktcode,tgtcode;",
+  "bindings" : [ "2026-04-14", "2026-04-14" ],
+  "placeholderCount" : 2,
+  "bindingCount" : 2
+}, {
+  "case" : "count_direct",
+  "dsl" : "indicator('', '', '收盘价', '2026-04-14', '', '', 'CONS>=3日') > 1",
+  "plan" : [ {
+    "kind" : "HistoryScan",
+    "detail" : "newzl.v_hsj_stock_hq_basic through 2026-04-14"
+  }, {
+    "kind" : "Window",
+    "detail" : "1 contract(s)"
+  }, {
+    "kind" : "OccurrenceWindow",
+    "detail" : "1 CONS/EXIST expression(s)"
+  }, {
+    "kind" : "EvaluationDateFilter",
+    "detail" : "2026-04-14"
+  }, {
+    "kind" : "Sort",
+    "detail" : "mktcode,tgtcode"
+  }, {
+    "kind" : "Project",
+    "detail" : "mktcode,tgtcode"
+  } ],
+  "sql" : "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    `v1` AS `f1`\n  FROM history\n),\npredicates AS (\n  SELECT features.*,\n    (`f1` > ?) AS `pc1`\n  FROM features\n),\ncounted AS (\n  SELECT predicates.*,\n    CASE WHEN COUNT(*) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3 THEN (SUM(CASE WHEN `pc1` THEN 1 ELSE 0 END) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3) ELSE NULL END AS `c1`\n  FROM predicates\n),\ncurrent_rows AS (\n  SELECT * FROM counted WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE `c1`\nORDER BY mktcode,tgtcode;",
+  "bindings" : [ "2026-04-14", 1, "2026-04-14" ],
+  "placeholderCount" : 3,
+  "bindingCount" : 3
+}, {
+  "case" : "null_literal",
+  "dsl" : "indicator('', '', '收盘价', '2026-04-14', '', '', '') = null",
+  "error" : "NullPointerException",
+  "message" : "null"
+}, {
+  "case" : "type_mismatch",
+  "dsl" : "indicator('', '', '收盘价', '2026-04-14', '', '', '') > 'abc'",
+  "plan" : [ {
+    "kind" : "Scan",
+    "detail" : "newzl.v_hsj_stock_hq_basic"
+  }, {
+    "kind" : "DateAndMarketFilter",
+    "detail" : "2026-04-14"
+  }, {
+    "kind" : "Sort",
+    "detail" : "mktcode, tgtcode"
+  }, {
+    "kind" : "Project",
+    "detail" : "mktcode,tgtcode"
+  } ],
+  "sql" : "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.closePrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+  "bindings" : [ "2026-04-14", "abc" ],
+  "placeholderCount" : 2,
+  "bindingCount" : 2
+}, {
+  "case" : "minimum_limit",
+  "dsl" : "indicator('', '', '收盘价', '2026-04-14', '', '', '') > 1 limit 5,10",
+  "plan" : [ {
+    "kind" : "Scan",
+    "detail" : "newzl.v_hsj_stock_hq_basic"
+  }, {
+    "kind" : "DateAndMarketFilter",
+    "detail" : "2026-04-14"
+  }, {
+    "kind" : "Sort",
+    "detail" : "mktcode, tgtcode"
+  }, {
+    "kind" : "CardinalityConstraint",
+    "detail" : "5,10"
+  }, {
+    "kind" : "Project",
+    "detail" : "mktcode,tgtcode"
+  } ],
+  "sql" : "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.closePrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode\nLIMIT 10;",
+  "bindings" : [ "2026-04-14", 1 ],
+  "placeholderCount" : 2,
+  "bindingCount" : 2
+}, {
+  "case" : "screen_is_null_field",
+  "dsl" : "SCREEN ON 2026-08-07 WHERE CLOSE IS NULL LIMIT 5",
+  "sql" : "WITH base AS (\n  SELECT\n    q.symbol AS symbol,\n    q.trade_date AS trade_date\n  FROM market.dwd_quote_daily q\n  WHERE q.trade_date = ?\n)\nSELECT `symbol`, `trade_date`\nFROM base\nWHERE trade_date = ?\n  AND (`close` IS NULL)\nLIMIT 5;\n",
+  "bindings" : [ "2026-08-07", "2026-08-07" ],
+  "placeholderCount" : 2,
+  "bindingCount" : 2
+}, {
+  "case" : "screen_is_null_window",
+  "dsl" : "SCREEN ON 2026-08-07 WHERE MA(CLOSE, 5) IS NOT NULL LIMIT 5",
+  "error" : "IllegalStateException",
+  "message" : "PREFIX_DAILY selected without prefix metrics"
+} ]

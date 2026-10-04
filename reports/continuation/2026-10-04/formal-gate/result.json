@@ -1,0 +1,39 @@
+{
+  "purpose": "PROJECT_ACCEPTANCE",
+  "goldenVersion": "stock-slot-executable-v1.0.1",
+  "dslVersion": "stock-slot-v1",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "executedAtUtc": "2026-10-04T08:01:47.413311+00:00",
+  "artifactHashes": {
+    "goldenSha256": "12e149f8c4623496d0a0d3e30979fc7b344024fe9c1b4b3b15fa0195dde103e7",
+    "snapshotManifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+    "compilerJarSha256": "57aeff15dea27908eaf379e0e25c06b1b5301737dfa9da16fd7d50a1c7744cc0"
+  },
+  "physicalSnapshotMatchesManifest": true,
+  "snapshotChecks": {
+    "codeRows": 5686,
+    "basicRows": 13650347,
+    "extRows": 6170822,
+    "basicDateRange": [
+      "2006-01-04",
+      "2026-04-14"
+    ],
+    "extDateRange": [
+      "2018-08-20",
+      "2026-04-14"
+    ]
+  },
+  "status": "BLOCKED",
+  "snapshotVerified": false,
+  "blockedReason": "Exact VALIDATED snapshot/contract/manifest registration is required before acceptance queries",
+  "cases": [],
+  "overall": {
+    "total": 0,
+    "correct": 0,
+    "accuracy": null
+  },
+  "splits": {},
+  "failureCategories": {
+    "SNAPSHOT_NOT_VALIDATED": 1
+  }
+}

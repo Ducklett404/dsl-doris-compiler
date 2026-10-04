@@ -1,0 +1,20 @@
+{
+    "TxnId": 7,
+    "Label": "diagnostic_hsj_stock_code_info_1791094414",
+    "Comment": "",
+    "TwoPhaseCommit": "false",
+    "Status": "Success",
+    "Message": "OK",
+    "NumberTotalRows": 5686,
+    "NumberLoadedRows": 5686,
+    "NumberFilteredRows": 0,
+    "NumberUnselectedRows": 0,
+    "LoadBytes": 333234,
+    "LoadTimeMs": 43,
+    "BeginTxnTimeMs": 0,
+    "StreamLoadPutTimeMs": 5,
+    "ReadDataTimeMs": 0,
+    "WriteDataTimeMs": 18,
+    "ReceiveDataTimeMs": 10,
+    "CommitAndPublishTimeMs": 16
+}

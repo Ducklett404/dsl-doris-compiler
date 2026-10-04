@@ -124,7 +124,8 @@ public final class StockSlotRegistryLoader {
             require(indicator.pattern().contains("?<N>"), "REGISTRY_PATTERN", "Pattern " + indicator.name() + " must declare named group N");
             Set<String> patternKeys = indicator.lowering().parameters().keySet();
             require((patternKeys.equals(Set.of("N", "baseIndicator"))
-                            || patternKeys.equals(Set.of("N", "baseIndicator", "featureWindow", "featureTable", "featureField")))
+                            || patternKeys.equals(Set.of("N", "baseIndicator", "featureWindow", "featureTable", "featureField"))
+                            || patternKeys.equals(Set.of("N", "baseIndicator", "featureWindow", "featureTable", "featureField", "featureDate", "featureSnapshotId")))
                             && indicator.lowering().parameters().get("N").equals("capture")
                             && indicatorNames.contains(indicator.lowering().parameters().get("baseIndicator")),
                     "REGISTRY_PATTERN", "Pattern lowering requires N=capture and a registered baseIndicator");
@@ -135,6 +136,12 @@ public final class StockSlotRegistryLoader {
                         "REGISTRY_REFERENCE", "Unknown performance feature table/field for " + indicator.name());
                 require(indicator.lowering().parameters().get("featureWindow").matches("[1-9]\\d*"),
                         "REGISTRY_RANGE", "Invalid featureWindow for " + indicator.name());
+                if (patternKeys.contains("featureDate")) {
+                    try { java.time.LocalDate.parse(indicator.lowering().parameters().get("featureDate")); }
+                    catch (RuntimeException e) { throw invalid("REGISTRY_RANGE", "Invalid featureDate"); }
+                    require(indicator.lowering().parameters().get("featureSnapshotId").matches("[A-Za-z0-9_.-]{1,128}"),
+                            "REGISTRY_RANGE", "Invalid featureSnapshotId");
+                }
             }
         }
 

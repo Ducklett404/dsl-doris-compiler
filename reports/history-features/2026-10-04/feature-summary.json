@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "purpose": "DIAGNOSTIC_ONLY",
+  "acceptanceEligible": false,
+  "formalAcceptanceStatus": "BLOCKED",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "jarSha256": "abf8ece97c5ab3f86141b7aba66557a32e37b2c9e259838d61212e6e607a4dfa",
+  "registryFingerprint": "a460a741b13b2cea6066c7a973c246463d68c6eb083c07a50650ed8403f3ab17",
+  "junit": {
+    "junit-main": {
+      "tests": 267,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "junit-executor": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "boundaries": {
+    "portable": {
+      "cases": 14,
+      "executions": 84
+    },
+    "doris": {
+      "cases": 14,
+      "executions": 84
+    }
+  },
+  "localAndDorisCases": 34,
+  "nativeSmokeCases": 15,
+  "positiveCliHttpChecks": 17,
+  "executionGateChecks": 9,
+  "sourceHashesVerified": 3,
+  "completeDates": {
+    "2026-04-13": 5614,
+    "2026-04-14": 5614
+  },
+  "historyP95RatioMin": 65.55184864044654,
+  "historyP95RatioMax": 232.829488028439,
+  "historyDiagnostic10xReached": true,
+  "unmatchedExtensionRows": 249480,
+  "compilerUncachedP95Millis": 0.2468,
+  "timedQueries": 360,
+  "nextStep": "Build multi-date MA20/MA120/MA250 features using strict observed-row windows and verify fallback, incremental maintenance and results.",
+  "completedAtUtc": "2026-10-04T10:55:38.592630+00:00"
+}

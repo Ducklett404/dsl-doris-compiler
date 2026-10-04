@@ -21,7 +21,7 @@ final class StockSlotRegistryTest {
 
     @Test void defaultRegistryIsExecutableAndCarriesCompleteMetadata() {
         StockSlotRegistry registry = new StockSlotRegistryLoader().loadDefault();
-        assertEquals("stock-slot-registry-v1.0.0", registry.version());
+        assertEquals("stock-slot-registry-v1.0.1", registry.version());
         assertEquals("newzl.v_hsj_stock_hq_basic", registry.table("basic").qualifiedName());
         assertEquals("b.closePrice", registry.expression(registry.indicator("收盘价")));
         assertEquals("b.risePct", registry.expression(registry.indicator("涨幅")));

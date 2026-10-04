@@ -1,19 +1,19 @@
 {
-  "freezeId": "stock-slot-phase1-scope-v1.0.0",
+  "freezeId": "stock-slot-phase1-scope-v1.0.1",
   "status": "PASS",
   "freezeStatus": "APPROVED",
   "approval": "DIRECT_PROJECT_APPROVAL",
-  "validatedAt": "2026-09-29T12:44:06.1550617+08:00",
+  "validatedAt": "2026-10-04T19:31:06.7964790+08:00",
   "checks": [
     {
       "name": "freeze-status",
       "status": "PASS",
-      "detail": "stock-slot-phase1-scope-v1.0.0 / APPROVED"
+      "detail": "stock-slot-phase1-scope-v1.0.1 / APPROVED"
     },
     {
       "name": "registry-lock",
       "status": "PASS",
-      "detail": "stock-slot-registry-v1.0.0 sha256=7431104d7fefd5561f682838384fd567c841fb09d8e29944f11e9be6080bd4cc"
+      "detail": "stock-slot-registry-v1.0.1 sha256=09fbd4b474d6a6820215ae3428178ef14e7afc0d4f78878ef5b40b84984202b2"
     },
     {
       "name": "snapshot-lock",

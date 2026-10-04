@@ -1,0 +1,1 @@
+INSERT INTO dsl_rolling_diag_c26c5c6a0208.tail_0 SELECT mktcode,tgtcode,bizdate,closePrice FROM (SELECT b.mktcode,b.tgtcode,b.bizdate,b.closePrice,ROW_NUMBER() OVER(PARTITION BY b.mktcode,b.tgtcode ORDER BY b.bizdate DESC) AS rn FROM newzl.v_hsj_stock_hq_basic b WHERE b.bizdate<='2026-04-10') t WHERE rn<=249;

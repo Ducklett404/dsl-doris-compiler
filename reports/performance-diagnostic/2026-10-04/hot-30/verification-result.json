@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "cases": 12,
+  "timedQueries": 720,
+  "pathComparisons": 360,
+  "warmupQueries": 24,
+  "explainPlans": 24,
+  "evidenceSelftest": {
+    "status": "PASS",
+    "checks": [
+      {
+        "name": "valid-evidence-accepted",
+        "status": "PASS"
+      },
+      {
+        "name": "wrong-percentile-rejected",
+        "status": "PASS"
+      },
+      {
+        "name": "missing-sample-rejected",
+        "status": "PASS"
+      },
+      {
+        "name": "result-mismatch-rejected",
+        "status": "PASS"
+      },
+      {
+        "name": "cleanup-missing-rejected",
+        "status": "PASS"
+      }
+    ]
+  },
+  "sourceIntegrity": "PASS",
+  "measurementArtifactsMatchCurrent": "PASS",
+  "compilerJarUnchangedSincePreviousJavaSelftests": true,
+  "previousJavaSelftestEvidence": "../../../continuation/2026-10-04/continuation-summary.json",
+  "officialRegistryUnchanged": true,
+  "temporaryReaderRemoved": true,
+  "officialAcceptance": "BLOCKED",
+  "toolSources": [
+    {
+      "file": "diagnose_performance.py",
+      "sha256": "d50148fd6d64183b85688952d666ec96394deaa47dc4bba6b8be7fe991175544"
+    },
+    {
+      "file": "DorisPerformanceDiagnostic.java",
+      "sha256": "34c04ddecbf1956ff3e62573d0efafa7a98fae3fbbfbb28d43329dd3ada2f072"
+    },
+    {
+      "file": "finalize-performance-evidence.py",
+      "sha256": "bffdfa7f23f9cf7b8b2b38c1b25f8453095f4ced8da2ce069008c4b1de26d79d"
+    },
+    {
+      "file": "performance-evidence-selftest.py",
+      "sha256": "ba70486f5322fa93dc6920d38f051d4e97d0b68e65b7c360b0a51cdcefee9812"
+    },
+    {
+      "file": "summarize_performance.py",
+      "sha256": "495b9ecf4710fb217b25b1868e010cc5d9fb979e45a4971926169fdc0838aaf4"
+    }
+  ]
+}

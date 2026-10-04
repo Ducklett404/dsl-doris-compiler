@@ -1,0 +1,78 @@
+PLAN FRAGMENT 0
+  OUTPUT EXPRS:
+    mktcode[#70]
+    tgtcode[#71]
+  PARTITION: UNPARTITIONED
+
+  HAS_COLO_PLAN_NODE: false
+
+  VRESULT SINK
+     MYSQL_PROTOCOL
+
+  5:VMERGING-EXCHANGE
+     offset: 0
+     distribute expr lists: mktcode[#70], tgtcode[#71]
+
+PLAN FRAGMENT 1
+
+  PARTITION: HASH_PARTITIONED: mktcode[#58], tgtcode[#59]
+
+  HAS_COLO_PLAN_NODE: false
+
+  STREAM DATA SINK
+    EXCHANGE ID: 05
+    UNPARTITIONED
+IS_MERGE: true
+
+  4:VSORT(685)
+  |  order by: mktcode[#70] ASC, tgtcode[#71] ASC
+  |  algorithm: full sort
+  |  local merge sort
+  |  merge by exchange
+  |  offset: 0
+  |  distribute expr lists: 
+  |  
+  3:VANALYTIC(673)
+  |  functions: [count(closePrice[#65])], [avg(closePrice[#65])]
+  |  partition by: mktcode[#62], tgtcode[#63]
+  |  order by: bizdate[#64] ASC NULLS FIRST
+  |  window: ROWS BETWEEN 59 PRECEDING AND CURRENT ROW
+  |  predicates: (avg(closePrice) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 59 PRECEDING AND CURRENT ROW)[#67] > closePrice[#65]), (count(closePrice) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 59 PRECEDING AND CURRENT ROW)[#66] = 60), (bizdate[#64] = '2026-04-14')
+  |  final projections: mktcode[#62], tgtcode[#63]
+  |  final project output tuple id: 4
+  |  distribute expr lists: mktcode[#62], tgtcode[#63]
+  |  
+  2:VSORT(669)
+  |  order by: mktcode[#62] ASC, tgtcode[#63] ASC, bizdate[#64] ASC
+  |  algorithm: full sort
+  |  offset: 0
+  |  distribute expr lists: mktcode[#58], tgtcode[#59]
+  |  
+  1:VEXCHANGE
+     offset: 0
+     distribute expr lists: 
+
+PLAN FRAGMENT 2
+
+  PARTITION: RANDOM
+
+  HAS_COLO_PLAN_NODE: false
+
+  STREAM DATA SINK
+    EXCHANGE ID: 01
+    HASH_PARTITIONED: mktcode[#58], tgtcode[#59]
+
+  0:VOlapScanNode(653)
+     TABLE: newzl.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON
+     PREDICATES: ((bizdate[#2] <= '2026-04-14') AND (__DORIS_DELETE_SIGN__[#56] = 0))
+     partitions=21/21 (p20150101000000,p20140101000000,p20130101000000,p20120101000000,p20110101000000,p20100101000000,p20090101000000,p20080101000000,p20070101000000,p20060101000000,p20230101000000,p20220101000000,p20210101000000,p20200101000000,p20190101000000,p20180101000000,p20160101000000,p20250101000000,p20240101000000,p20170101000000,p20260101000000)
+     tablets=336/336, tabletList=1791094083785,1791094083787,1791094083789 ...
+     cardinality=13650347, avgRowSize=152.91768, numNodes=1
+     pushAggOp=NONE
+     final projections: mktcode[#0], tgtcode[#1], bizdate[#2], (CAST(closePx[#8] AS double) / 10000)
+     final project output tuple id: 1
+
+
+
+========== STATISTICS ==========
+planned with unknown column statistics

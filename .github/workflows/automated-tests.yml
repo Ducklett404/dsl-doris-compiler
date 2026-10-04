@@ -18,6 +18,21 @@ jobs:
           cache: maven
       - name: Run grammar, semantics, security, snapshots, performance and plugin tests
         run: mvn -B test package
+      - name: Test executor module and portable result regressions
+        run: |
+          mvn -B -f executor-doris/pom.xml test
+          python scripts/test_prepare_competition_corpus.py
+          python scripts/doris/self-test.py
+          python scripts/test_review_regressions.py
+          python scripts/accuracy/test_contract_revision.py
+          python scripts/accuracy/check_contract_boundaries.py
+          python scripts/accuracy/check_historical_extrema.py
+          python scripts/accuracy/check_rolling_averages.py
+      - name: Verify frozen contracts with LF and CRLF checkouts
+        shell: pwsh
+        run: |
+          ./scripts/ci/verify-phase1-scope.ps1
+          ./scripts/test_scope_freeze.ps1
       - name: Generate formal compiler performance evidence
         run: >-
           java -jar target/dsl-doris-compiler.jar benchmark-stock-slot-compiler
@@ -28,4 +43,6 @@ jobs:
           name: offline-acceptance-evidence
           path: |
             target/surefire-reports/
+            executor-doris/target/surefire-reports/
+            reports/scope/
             reports/compiler-performance/

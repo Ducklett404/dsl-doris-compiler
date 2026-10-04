@@ -133,6 +133,8 @@ public final class DorisSqlGenerator {
                 case Ast.Unary e -> collect(e.operand());
                 case Ast.Between e -> { collect(e.value()); collect(e.lower()); collect(e.upper()); }
                 case Ast.InList e -> { collect(e.value()); e.options().forEach(this::collect); }
+                case Ast.IsNull e -> collect(e.value());
+                case Ast.NamedArgument e -> collect(e.value());
                 default -> { }
             }
         }
@@ -383,6 +385,8 @@ public final class DorisSqlGenerator {
             else if (expr instanceof Ast.Unary e) collectPrefixMetrics(e.operand(), metrics);
             else if (expr instanceof Ast.Between e) { collectPrefixMetrics(e.value(), metrics); collectPrefixMetrics(e.lower(), metrics); collectPrefixMetrics(e.upper(), metrics); }
             else if (expr instanceof Ast.InList e) { collectPrefixMetrics(e.value(), metrics); e.options().forEach(option -> collectPrefixMetrics(option, metrics)); }
+            else if (expr instanceof Ast.IsNull e) collectPrefixMetrics(e.value(), metrics);
+            else if (expr instanceof Ast.NamedArgument e) collectPrefixMetrics(e.value(), metrics);
         }
 
         private record PrefixMetric(String alias, String sumColumn, String countColumn, int window) {}
@@ -422,6 +426,8 @@ public final class DorisSqlGenerator {
             else if (expr instanceof Ast.Unary e) collectFeatureColumns(e.operand(), features);
             else if (expr instanceof Ast.Between e) { collectFeatureColumns(e.value(), features); collectFeatureColumns(e.lower(), features); collectFeatureColumns(e.upper(), features); }
             else if (expr instanceof Ast.InList e) { collectFeatureColumns(e.value(), features); e.options().forEach(option -> collectFeatureColumns(option, features)); }
+            else if (expr instanceof Ast.IsNull e) collectFeatureColumns(e.value(), features);
+            else if (expr instanceof Ast.NamedArgument e) collectFeatureColumns(e.value(), features);
         }
 
         private String featureSignature(Ast.Expr expr) {
@@ -468,13 +474,16 @@ public final class DorisSqlGenerator {
                     yield "(" + q(left) + " < " + q(right) + " AND " + q(previousAliases.get(left)) + " >= " + q(previousAliases.get(right)) + ")";
                 }
                 case TEMPLATE -> {
-                    String rendered = definition.sqlTemplate();
-                    for (int i = 0; i < call.arguments().size(); i++) rendered = rendered.replace("{" + i + "}", render(call.arguments().get(i)));
-                    if (rendered.contains("{") || rendered.contains("}"))
+                    var matcher = Pattern.compile("\\{(\\d+)}").matcher(definition.sqlTemplate());
+                    StringBuilder rendered = new StringBuilder();
+                    while (matcher.find()) matcher.appendReplacement(rendered,
+                            java.util.regex.Matcher.quoteReplacement(render(call.arguments().get(Integer.parseInt(matcher.group(1))))));
+                    matcher.appendTail(rendered);
+                    if (rendered.indexOf("{") >= 0 || rendered.indexOf("}") >= 0)
                         throw new CompileException("TEMPLATE_UNRESOLVED",
                                 "SQL template for " + call.name() + " contains an unresolved placeholder",
                                 call.span().line(), call.span().column());
-                    yield rendered;
+                    yield rendered.toString();
                 }
             };
         }

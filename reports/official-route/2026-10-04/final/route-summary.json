@@ -1,0 +1,58 @@
+{
+  "status": "DIAGNOSTIC_PASS_FORMAL_BLOCKED",
+  "acceptanceEligible": false,
+  "jarSha256": "e8eb307686c7937beda7ff878dcbca68d53826499aa42e5241cc959f5caacbe1",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "sourceRows": 19826855,
+  "junit": {
+    "junit-main": {
+      "tests": 275,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "junit-executor": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "boundaryChecks": {
+    "portable-historical": {
+      "cases": 14,
+      "executions": 84
+    },
+    "portable-rolling": {
+      "cases": 16,
+      "executions": 80
+    },
+    "doris-historical": {
+      "cases": 14,
+      "executions": 84
+    },
+    "doris-rolling": {
+      "cases": 16,
+      "executions": 80
+    }
+  },
+  "independentNumericValues": 168460,
+  "independentResultSets": 20,
+  "localAndDorisCases": 34,
+  "nativeSmokeCases": 15,
+  "positiveExecutionChecks": 17,
+  "gateChecks": 9,
+  "performanceCases": 28,
+  "timedQueries": 1680,
+  "concurrentRequests": 60,
+  "compilerUncachedP95Millis": 0.2185,
+  "formalChecksNotRun": [
+    "doris-golden-result-differential",
+    "doris-12-function-smoke",
+    "doris-19-year-matrix"
+  ],
+  "unmatchedExtensionRows": 249480,
+  "closeOutsideHighLowWarningRows": 3487,
+  "completedAtUtc": "2026-10-04T12:23:47.405594+00:00"
+}

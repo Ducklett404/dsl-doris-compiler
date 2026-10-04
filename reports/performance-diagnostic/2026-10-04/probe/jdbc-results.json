@@ -1,0 +1,375 @@
+{
+  "purpose" : "OFFICIAL_DATA_HOT_PERFORMANCE_DIAGNOSTIC",
+  "acceptanceEligible" : false,
+  "cacheMode" : "HOT_SQL_RESULT_CACHE_DISABLED",
+  "timingScope" : "JDBC prepare, execute and complete fetch; excludes compilation, EXPLAIN and process startup",
+  "snapshotId" : "stock-20060104-20260414-v1",
+  "matrixVersion" : "doris-matrix-v1",
+  "iterationsPerPath" : 1,
+  "results" : [ {
+    "id" : "single-day-simple-filter",
+    "category" : "SINGLE_DAY",
+    "dsl" : "indicator('沪', '', '收盘价', '2026-04-14', '', '', '') > 10 limit 0,100",
+    "samples" : [ {
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 30.0699,
+      "baselineMillis" : 36.929
+    } ],
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "20c30a34cd291dc90ec433f6476f1d7ed36ddde30c0e36eaa09e5d6cdfc6618b",
+    "baseline" : {
+      "minMillis" : 36.929,
+      "maxMillis" : 36.929,
+      "p95Millis" : 36.929,
+      "p50Millis" : 36.929
+    },
+    "optimized" : {
+      "minMillis" : 30.0699,
+      "maxMillis" : 30.0699,
+      "p95Millis" : 30.0699,
+      "p50Millis" : 30.0699
+    },
+    "sameSql" : false,
+    "p95Ratio" : 1.2281051815935538,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "multi-indicator-cross-table",
+    "category" : "CROSS_TABLE",
+    "dsl" : "indicator('沪', '', '收盘价', '2026-04-14', '', '', '') > 10 and indicator('沪', '', '主力净流入', '2026-04-14', '', '', '') > 0 limit 0,100",
+    "samples" : [ {
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 54.7312,
+      "baselineMillis" : 55.1193
+    } ],
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "a6dd095cb95040ddd0bea171c235c815a23b413968fe760a4b8de0a5cb7f5486",
+    "baseline" : {
+      "minMillis" : 55.1193,
+      "maxMillis" : 55.1193,
+      "p95Millis" : 55.1193,
+      "p50Millis" : 55.1193
+    },
+    "optimized" : {
+      "minMillis" : 54.7312,
+      "maxMillis" : 54.7312,
+      "p95Millis" : 54.7312,
+      "p50Millis" : 54.7312
+    },
+    "sameSql" : false,
+    "p95Ratio" : 1.007091019381998,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma20",
+    "category" : "WINDOW",
+    "dsl" : "indicator('沪', '', '20日均线', '2026-04-14', '', '', '') > 10 limit 0,100",
+    "samples" : [ {
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 948.3452,
+      "baselineMillis" : 837.4227
+    } ],
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "b59fbc92e959c26068a7bbd600baf86469cfe10494f0df5aa9150c1fd5dc9105",
+    "baseline" : {
+      "minMillis" : 837.4227,
+      "maxMillis" : 837.4227,
+      "p95Millis" : 837.4227,
+      "p50Millis" : 837.4227
+    },
+    "optimized" : {
+      "minMillis" : 948.3452,
+      "maxMillis" : 948.3452,
+      "p95Millis" : 948.3452,
+      "p50Millis" : 948.3452
+    },
+    "sameSql" : true,
+    "p95Ratio" : 0.8830357342452938,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  }, {
+    "id" : "ma60",
+    "category" : "WINDOW",
+    "dsl" : "indicator('沪', '', '60日均线', '2026-04-14', '', '', '') > 10 limit 0,100",
+    "samples" : [ {
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 13.6029,
+      "baselineMillis" : 1061.0715
+    } ],
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 49,
+    "resultSha256" : "ae6dca771473ae0b856b6c242973d4f0fbb7491e880e7170156df9e93ef531e9",
+    "baseline" : {
+      "minMillis" : 1061.0715,
+      "maxMillis" : 1061.0715,
+      "p95Millis" : 1061.0715,
+      "p50Millis" : 1061.0715
+    },
+    "optimized" : {
+      "minMillis" : 13.6029,
+      "maxMillis" : 13.6029,
+      "p95Millis" : 13.6029,
+      "p50Millis" : 13.6029
+    },
+    "sameSql" : false,
+    "p95Ratio" : 78.00333017224268,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma120",
+    "category" : "WINDOW",
+    "dsl" : "indicator('沪', '', '120日均线', '2026-04-14', '', '', '') > 10 limit 0,100",
+    "samples" : [ {
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 1509.4561,
+      "baselineMillis" : 1408.4846
+    } ],
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 44,
+    "resultSha256" : "2bc844a9b89b5baa58b999733b284c40fc8e8918d956ca40f318fdcd98ddd7d9",
+    "baseline" : {
+      "minMillis" : 1408.4846,
+      "maxMillis" : 1408.4846,
+      "p95Millis" : 1408.4846,
+      "p50Millis" : 1408.4846
+    },
+    "optimized" : {
+      "minMillis" : 1509.4561,
+      "maxMillis" : 1509.4561,
+      "p95Millis" : 1509.4561,
+      "p50Millis" : 1509.4561
+    },
+    "sameSql" : true,
+    "p95Ratio" : 0.9331073623141474,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  }, {
+    "id" : "ma250",
+    "category" : "WINDOW",
+    "dsl" : "indicator('沪', '', '250日均线', '2026-04-14', '', '', '') > 10 limit 0,100",
+    "samples" : [ {
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 2035.3264,
+      "baselineMillis" : 1979.9616
+    } ],
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 41,
+    "resultSha256" : "4775d3f6355e0335db44c41a9ade3616ae699cdb16ec52588a7dfb38398fbc17",
+    "baseline" : {
+      "minMillis" : 1979.9616,
+      "maxMillis" : 1979.9616,
+      "p95Millis" : 1979.9616,
+      "p50Millis" : 1979.9616
+    },
+    "optimized" : {
+      "minMillis" : 2035.3264,
+      "maxMillis" : 2035.3264,
+      "p95Millis" : 2035.3264,
+      "p50Millis" : 2035.3264
+    },
+    "sameSql" : true,
+    "p95Ratio" : 0.9727980730756502,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  }, {
+    "id" : "cross-above",
+    "category" : "CROSS",
+    "dsl" : "cross_above('沪', '', '收盘价', '开盘价', '2026-04-14', '', '') = True limit 0,100",
+    "samples" : [ {
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 800.1432,
+      "baselineMillis" : 790.7929
+    } ],
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "4db1dd17db0d6d1cad74fd2511f744f3cbb0a00fa8263ab59a6d836603e9bb63",
+    "baseline" : {
+      "minMillis" : 790.7929,
+      "maxMillis" : 790.7929,
+      "p95Millis" : 790.7929,
+      "p50Millis" : 790.7929
+    },
+    "optimized" : {
+      "minMillis" : 800.1432,
+      "maxMillis" : 800.1432,
+      "p95Millis" : 800.1432,
+      "p50Millis" : 800.1432
+    },
+    "sameSql" : true,
+    "p95Ratio" : 0.9883142167552009,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  }, {
+    "id" : "record-high",
+    "category" : "WINDOW",
+    "dsl" : "record_high('沪', '', '最高价', '250日', '2026-04-14', '', '', '') = True limit 0,100",
+    "samples" : [ {
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 1841.8297,
+      "baselineMillis" : 1812.4431
+    } ],
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 0,
+    "resultSha256" : "5984eac0c5c6d947241e29dd5671b81a1546cedf77e08d38438ac47029969afa",
+    "baseline" : {
+      "minMillis" : 1812.4431,
+      "maxMillis" : 1812.4431,
+      "p95Millis" : 1812.4431,
+      "p50Millis" : 1812.4431
+    },
+    "optimized" : {
+      "minMillis" : 1841.8297,
+      "maxMillis" : 1841.8297,
+      "p95Millis" : 1841.8297,
+      "p50Millis" : 1841.8297
+    },
+    "sameSql" : true,
+    "p95Ratio" : 0.984044887537648,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  }, {
+    "id" : "record-low",
+    "category" : "WINDOW",
+    "dsl" : "record_low('沪', '', '最低价', '250日', '2026-04-14', '', '', '') = True limit 0,100",
+    "samples" : [ {
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 2456.265,
+      "baselineMillis" : 2440.9466
+    } ],
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 1,
+    "resultSha256" : "ae289019c0531b1950c4998f7c81d3add59f9b7871e0d1cd5db8c5fb5ed28cc9",
+    "baseline" : {
+      "minMillis" : 2440.9466,
+      "maxMillis" : 2440.9466,
+      "p95Millis" : 2440.9466,
+      "p50Millis" : 2440.9466
+    },
+    "optimized" : {
+      "minMillis" : 2456.265,
+      "maxMillis" : 2456.265,
+      "p95Millis" : 2456.265,
+      "p50Millis" : 2456.265
+    },
+    "sameSql" : true,
+    "p95Ratio" : 0.9937635393575206,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  }, {
+    "id" : "consecutive-three",
+    "category" : "OCCURRENCE",
+    "dsl" : "indicator('沪', '', '收盘价', '2026-04-14', '', '', 'CONS>=3日') > 10 limit 0,100",
+    "samples" : [ {
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 624.0813,
+      "baselineMillis" : 566.1125
+    } ],
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "6fe13cf65d6140551dc68cf2b7b0548a352e5b7c6978847f3f5ba5e525a70978",
+    "baseline" : {
+      "minMillis" : 566.1125,
+      "maxMillis" : 566.1125,
+      "p95Millis" : 566.1125,
+      "p50Millis" : 566.1125
+    },
+    "optimized" : {
+      "minMillis" : 624.0813,
+      "maxMillis" : 624.0813,
+      "p95Millis" : 624.0813,
+      "p50Millis" : 624.0813
+    },
+    "sameSql" : true,
+    "p95Ratio" : 0.9071133841055643,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  }, {
+    "id" : "daily-rank",
+    "category" : "RANK",
+    "dsl" : "rank('沪', '', '收盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 100 limit 0,100",
+    "samples" : [ {
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 30.9137,
+      "baselineMillis" : 28.6408
+    } ],
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "ef1b95b02cf412324023ded23aef4214ceea2b66eabd0b3625d2eafaa3f3859d",
+    "baseline" : {
+      "minMillis" : 28.6408,
+      "maxMillis" : 28.6408,
+      "p95Millis" : 28.6408,
+      "p50Millis" : 28.6408
+    },
+    "optimized" : {
+      "minMillis" : 30.9137,
+      "maxMillis" : 30.9137,
+      "p95Millis" : 30.9137,
+      "p50Millis" : 30.9137
+    },
+    "sameSql" : true,
+    "p95Ratio" : 0.9264759637312907,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  }, {
+    "id" : "nineteen-year-history",
+    "category" : "LONG_RANGE",
+    "dsl" : "record_high('沪', '', '最高价', '历史', '2026-04-14', '', '', '') = True limit 0,100",
+    "samples" : [ {
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 802.8834,
+      "baselineMillis" : 805.4231
+    } ],
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 17,
+    "resultSha256" : "16e0a294fa72161e33fd6ff24430daec982fa214248641ac3f3e899b5c1c8a4f",
+    "baseline" : {
+      "minMillis" : 805.4231,
+      "maxMillis" : 805.4231,
+      "p95Millis" : 805.4231,
+      "p50Millis" : 805.4231
+    },
+    "optimized" : {
+      "minMillis" : 802.8834,
+      "maxMillis" : 802.8834,
+      "p95Millis" : 802.8834,
+      "p50Millis" : 802.8834
+    },
+    "sameSql" : true,
+    "p95Ratio" : 1.0031632239500778,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  } ],
+  "registeredSnapshotsBefore" : 0,
+  "registeredSnapshotsAfter" : 0,
+  "completedAtUtc" : "2026-10-04T08:37:40.762937600Z",
+  "passed" : 12,
+  "total" : 12
+}

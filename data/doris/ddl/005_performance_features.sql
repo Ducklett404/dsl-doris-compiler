@@ -1,6 +1,6 @@
 USE newzl;
 
-CREATE TABLE IF NOT EXISTS stock_daily_features_v1 (
+CREATE TABLE IF NOT EXISTS stock_daily_features_v2 (
   mktcode INT NOT NULL,
   tgtcode VARCHAR(16) NOT NULL,
   bizdate DATE NOT NULL,
@@ -11,12 +11,13 @@ DISTRIBUTED BY HASH(mktcode, tgtcode) BUCKETS 16
 PROPERTIES("replication_num"="1", "compression"="LZ4");
 
 -- The frozen snapshot is immutable.  Only the acceptance date is materialized;
--- non-trading/suspended NULL observations are removed before the 60-row frame.
-INSERT INTO stock_daily_features_v1
+-- Existing rows with NULL prices remain in the frame; absent suspension rows are not filled.
+-- v2 has strict NULL semantics and must not reuse a previously materialized v1 table.
+INSERT INTO stock_daily_features_v2
 WITH observed AS (
   SELECT mktcode,tgtcode,bizdate,closePrice
   FROM v_hsj_stock_hq_basic
-  WHERE closePrice IS NOT NULL AND bizdate <= DATE('2026-04-14')
+  WHERE bizdate <= DATE('2026-04-14')
 ), windowed AS (
   SELECT mktcode,tgtcode,bizdate,
          CASE WHEN COUNT(closePrice) OVER (
@@ -32,4 +33,4 @@ SELECT mktcode,tgtcode,bizdate,ma60
 FROM windowed
 WHERE bizdate = DATE('2026-04-14');
 
-ANALYZE TABLE stock_daily_features_v1 WITH SYNC;
+ANALYZE TABLE stock_daily_features_v2 WITH SYNC;

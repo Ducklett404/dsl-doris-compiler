@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "valid-evidence-accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong-percentile-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "missing-sample-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "result-mismatch-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "cleanup-missing-rejected",
+      "status": "PASS"
+    }
+  ]
+}

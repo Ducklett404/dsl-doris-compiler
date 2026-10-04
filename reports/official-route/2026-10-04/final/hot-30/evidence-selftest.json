@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "valid-evidence-accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong-percentile-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "missing-sample-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "result-mismatch-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "cleanup-missing-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong-feature-manifest-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "missing-feature-date-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong-feature-partition-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "failed-driver-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong-rolling-manifest-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "missing-rolling-date-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong-rolling-partition-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "missing-concurrent-sample-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "concurrent-result-mismatch-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong-concurrent-percentile-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong-concurrent-case-rejected",
+      "status": "PASS"
+    }
+  ]
+}

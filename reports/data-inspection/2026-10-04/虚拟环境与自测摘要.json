@@ -1,0 +1,44 @@
+{
+  "overallStatus": "FORMAL_ACCEPTANCE_BLOCKED",
+  "dataAuditStatus": "FAIL",
+  "sourceRows": 19826855,
+  "sourceHashesMatchFrozenManifest": true,
+  "extensionWithoutBasic": 249480,
+  "closeOutsidePriceRange": 3487,
+  "pythonEnvironment": ".tools/data-audit-venv",
+  "wslDistribution": "dsl-doris-official-01a104f9",
+  "dorisContainer": "dsl-doris-official",
+  "dorisVersion": "doris version doris-4.1.3-rc02-7126cf65d96",
+  "localResultEqual": {
+    "passed": 34,
+    "total": 34
+  },
+  "originalGoldenAndExtraStructure": {
+    "passed": 32,
+    "total": 34,
+    "failedIds": [
+      "REG-002",
+      "BLIND-004"
+    ]
+  },
+  "dorisDiagnosticResults": {
+    "passed": 34,
+    "total": 34
+  },
+  "dorisFunctionExecution": {
+    "passed": 15,
+    "total": 15
+  },
+  "dorisExplain": {
+    "PY-MA60": "PASS",
+    "PY-RSI14": "PASS",
+    "PY-NET_SUM5": "PASS"
+  },
+  "registeredValidatedSnapshots": 0,
+  "nextRequiredEvidence": [
+    "official clarification or correction of source relationship and OHLC records",
+    "resolution/version review of the two original golden SQL structure assertions"
+  ],
+  "restartPersistence": "PASS",
+  "environmentState": "RUNNING"
+}

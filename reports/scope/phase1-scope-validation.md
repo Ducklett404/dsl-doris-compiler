@@ -1,13 +1,13 @@
 # 首期数据指标范围自动校验
 
-- Freeze: `stock-slot-phase1-scope-v1.0.0`
+- Freeze: `stock-slot-phase1-scope-v1.0.1`
 - Result: **PASS**
 - Approval: **DIRECT_PROJECT_APPROVAL**（无需签字）
 
 | Check | Status | Detail |
 |---|---|---|
-| freeze-status | PASS | stock-slot-phase1-scope-v1.0.0 / APPROVED |
-| registry-lock | PASS | stock-slot-registry-v1.0.0 sha256=7431104d7fefd5561f682838384fd567c841fb09d8e29944f11e9be6080bd4cc |
+| freeze-status | PASS | stock-slot-phase1-scope-v1.0.1 / APPROVED |
+| registry-lock | PASS | stock-slot-registry-v1.0.1 sha256=09fbd4b474d6a6820215ae3428178ef14e7afc0d4f78878ef5b40b84984202b2 |
 | snapshot-lock | PASS | stock-20060104-20260414-v1, 3 source files verified |
 | ddl-lock | PASS | 4 DDL/semantic contracts verified |
 | indicator-scope | PASS | 19 exact indicators have unique definitions |

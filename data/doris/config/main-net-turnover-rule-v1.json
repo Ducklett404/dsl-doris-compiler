@@ -1,0 +1,15 @@
+{
+  "ruleVersion": "main-net-turnover-project-v1",
+  "indicator": "主力净流入",
+  "physicalField": "newzl.hsj_stock_hq_ext.ZJLXMainNetTur",
+  "joinKeys": ["mktcode","tgtcode","bizdate"],
+  "evaluationUniverse": "observed basic quotation rows",
+  "missingValues": {"csvEmpty":"NULL","sqlNull":"PRESERVE","noExtensionRow":"NULL","sentinelValues":[-999999]},
+  "validValues": "All other signed numeric values, including zero and negative values, are retained.",
+  "window": {"unit":"observed basic rows","strictCount":true,"imputation":false},
+  "scale": {"multiply":1,"divide":1,"registeredUnit":"CNY","officialUnitConfirmation":"PENDING"},
+  "authority": "EXISTING_PROJECT_REGISTRY_AND_DATA_CONTRACT",
+  "officialSentinelConfirmation": "PENDING",
+  "sources": ["src/main/resources/stock-slot-registry-v1.json","data/doris/config/data-contract-v1.json"],
+  "fixture": "accuracy/fixtures/main-net-turnover-v1.json"
+}

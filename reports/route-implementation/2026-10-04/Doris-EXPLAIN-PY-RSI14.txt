@@ -1,0 +1,79 @@
+PLAN FRAGMENT 0
+  OUTPUT EXPRS:
+    mktcode[#90]
+    tgtcode[#91]
+  PARTITION: UNPARTITIONED
+  HAS_COLO_PLAN_NODE: false
+  VRESULT SINK
+     MYSQL_PROTOCOL
+  7:VMERGING-EXCHANGE
+     offset: 0
+     distribute expr lists: mktcode[#90], tgtcode[#91]
+PLAN FRAGMENT 1
+  PARTITION: HASH_PARTITIONED: mktcode[#58], tgtcode[#59]
+  HAS_COLO_PLAN_NODE: false
+  STREAM DATA SINK
+    EXCHANGE ID: 07
+    UNPARTITIONED
+IS_MERGE: true
+  6:VSORT(913)
+  |  order by: mktcode[#90] ASC, tgtcode[#91] ASC
+  |  algorithm: full sort
+  |  local merge sort
+  |  merge by exchange
+  |  offset: 0
+  |  distribute expr lists: 
+  |  
+  5:VANALYTIC(901)
+  |  functions: [count(price_delta[#82])], [avg(greatest(price_delta, 0.0)[#83])], [avg(greatest((0.0 - price_delta), 0.0)[#84])]
+  |  partition by: mktcode[#79], tgtcode[#80]
+  |  order by: bizdate[#81] ASC NULLS FIRST
+  |  window: ROWS BETWEEN 13 PRECEDING AND CURRENT ROW
+  |  predicates: (count(price_delta) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 13 PRECEDING AND CURRENT ROW)[#85] = 14), ((100 / ((avg(greatest(price_delta, 0.0)) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 13 PRECEDING AND CURRENT ROW)[#86] / nullif(avg(greatest((0.0 - price_delta), 0.0)) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 13 PRECEDING AND CURRENT ROW)[#87], 0)) + 1)) < 50), (bizdate[#81] = '2026-04-14')
+  |  final projections: mktcode[#79], tgtcode[#80]
+  |  final project output tuple id: 8
+  |  distribute expr lists: mktcode[#79], tgtcode[#80]
+  |  
+  4:VSORT(897)
+  |  order by: mktcode[#79] ASC, tgtcode[#80] ASC, bizdate[#81] ASC
+  |  algorithm: full sort
+  |  offset: 0
+  |  distribute expr lists: mktcode[#73], tgtcode[#74]
+  |  
+  3:VANALYTIC(889)
+  |  functions: [lag(closePrice[#65], 1, NULL)]
+  |  partition by: mktcode[#62], tgtcode[#63]
+  |  order by: bizdate[#64] ASC NULLS FIRST
+  |  window: ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING
+  |  final projections: mktcode[#67], tgtcode[#68], bizdate[#69], (closePrice - lag(closePrice, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first))[#72], greatest((closePrice - lag(closePrice, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first))[#72], 0), greatest(((0 - closePrice[#70]) + lag(closePrice, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#71]), 0)
+  |  final project output tuple id: 5
+  |  intermediate projections: mktcode[#62], tgtcode[#63], bizdate[#64], closePrice[#65], lag(closePrice, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#66], (closePrice[#65] - lag(closePrice, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#66])
+  |  intermediate tuple id: 4
+  |  distribute expr lists: mktcode[#62], tgtcode[#63]
+  |  
+  2:VSORT(885)
+  |  order by: mktcode[#62] ASC, tgtcode[#63] ASC, bizdate[#64] ASC
+  |  algorithm: full sort
+  |  offset: 0
+  |  distribute expr lists: mktcode[#58], tgtcode[#59]
+  |  
+  1:VEXCHANGE
+     offset: 0
+     distribute expr lists: 
+PLAN FRAGMENT 2
+  PARTITION: RANDOM
+  HAS_COLO_PLAN_NODE: false
+  STREAM DATA SINK
+    EXCHANGE ID: 01
+    HASH_PARTITIONED: mktcode[#58], tgtcode[#59]
+  0:VOlapScanNode(869)
+     TABLE: newzl.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON
+     PREDICATES: ((bizdate[#2] <= '2026-04-14') AND (__DORIS_DELETE_SIGN__[#56] = 0))
+     partitions=21/21 (p20150101000000,p20140101000000,p20130101000000,p20120101000000,p20110101000000,p20100101000000,p20090101000000,p20080101000000,p20070101000000,p20060101000000,p20230101000000,p20220101000000,p20210101000000,p20200101000000,p20190101000000,p20180101000000,p20160101000000,p20250101000000,p20240101000000,p20170101000000,p20260101000000)
+     tablets=336/336, tabletList=1791094083785,1791094083787,1791094083789 ...
+     cardinality=13650347, avgRowSize=152.91768, numNodes=1
+     pushAggOp=NONE
+     final projections: mktcode[#0], tgtcode[#1], bizdate[#2], (CAST(closePx[#8] AS double) / 10000)
+     final project output tuple id: 1
+========== STATISTICS ==========
+planned with unknown column statistics

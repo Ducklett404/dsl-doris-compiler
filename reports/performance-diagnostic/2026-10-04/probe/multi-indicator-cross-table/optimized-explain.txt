@@ -1,0 +1,105 @@
+PLAN FRAGMENT 0
+  OUTPUT EXPRS:
+    mktcode[#138]
+    tgtcode[#139]
+  PARTITION: UNPARTITIONED
+
+  HAS_COLO_PLAN_NODE: false
+
+  VRESULT SINK
+     MYSQL_PROTOCOL
+
+  6:VMERGING-EXCHANGE
+     offset: 0
+     limit: 100
+     distribute expr lists: 
+
+PLAN FRAGMENT 1
+
+  PARTITION: HASH_PARTITIONED: tgtcode[#129]
+
+  HAS_COLO_PLAN_NODE: false
+
+  STREAM DATA SINK
+    EXCHANGE ID: 06
+    UNPARTITIONED
+IS_MERGE: true
+
+  5:VTOP-N(770)
+  |  order by: tgtcode[#139] ASC
+  |  TOPN filter targets: [2:70]
+  |  algorithm: heap sort
+  |  local merge sort
+  |  merge by exchange
+  |  offset: 0
+  |  limit: 100
+  |  distribute expr lists: tgtcode[#137]
+  |  
+  4:VHASH JOIN(762)
+  |  join op: INNER JOIN(PARTITIONED)[]
+  |  equal join conjunct: (tgtcode[#129] = tgtcode[#67])
+  |  cardinality=1
+  |  vec output tuple id: 5
+  |  output tuple id: 5
+  |  vIntermediate tuple ids: 4 
+  |  hash output slot ids: 128 129 
+  |  runtime filters: RF000[min_max] <- tgtcode[#67](34/32/1048576), RF001[in_or_bloom] <- tgtcode[#67](34/32/1048576)
+  |  final projections: mktcode[#131], tgtcode[#132]
+  |  final project output tuple id: 5
+  |  distribute expr lists: tgtcode[#129]
+  |  distribute expr lists: tgtcode[#67]
+  |  
+  |----1:VEXCHANGE
+  |       offset: 0
+  |       distribute expr lists: mktcode[#66], tgtcode[#67]
+  |    
+  3:VEXCHANGE
+     offset: 0
+     distribute expr lists: mktcode[#128], tgtcode[#129]
+
+PLAN FRAGMENT 2
+
+  PARTITION: HASH_PARTITIONED: mktcode[#69], tgtcode[#70]
+
+  HAS_COLO_PLAN_NODE: false
+
+  STREAM DATA SINK
+    EXCHANGE ID: 03
+    HASH_PARTITIONED: tgtcode[#129]
+
+  2:VOlapScanNode(733)
+     TABLE: newzl.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON
+     TOPN OPT:5
+     PREDICATES: ((((CAST(closePx[#77] AS double) / 10000) > 10) AND (bizdate[#71] = '2026-04-14')) AND ((mktcode[#69] = 1) AND (__DORIS_DELETE_SIGN__[#125] = 0)))
+     partitions=1/21 (p20260101000000)
+     tablets=16/16, tabletList=1791094084447,1791094084449,1791094084451 ...
+     cardinality=361758, avgRowSize=319.5836, numNodes=1
+     pushAggOp=NONE
+     runtime filters: RF000[min_max] -> tgtcode[#70], RF001[in_or_bloom] -> tgtcode[#70]
+     final projections: bizdate[#71], mktcode[#69], tgtcode[#70]
+     final project output tuple id: 3
+
+PLAN FRAGMENT 3
+
+  PARTITION: HASH_PARTITIONED: mktcode[#0], tgtcode[#1]
+
+  HAS_COLO_PLAN_NODE: false
+
+  STREAM DATA SINK
+    EXCHANGE ID: 01
+    HASH_PARTITIONED: tgtcode[#67]
+
+  0:VOlapScanNode(746)
+     TABLE: newzl.hsj_stock_hq_ext(hsj_stock_hq_ext), PREAGGREGATION: ON
+     PREDICATES: (((mktcode[#0] = 1) AND (bizdate[#2] = '2026-04-14')) AND ((ZJLXMainNetTur[#14] > 0) AND (__DORIS_DELETE_SIGN__[#64] = 0)))
+     partitions=1/9 (p20260101000000)
+     tablets=16/16, tabletList=1791094084547,1791094084549,1791094084551 ...
+     cardinality=363220, avgRowSize=600.9406, numNodes=1
+     pushAggOp=NONE
+     final projections: mktcode[#0], tgtcode[#1], bizdate[#2]
+     final project output tuple id: 1
+
+
+
+========== STATISTICS ==========
+planned with unknown column statistics

@@ -1,0 +1,18 @@
+{
+  "scripts\\doris\\run_official_data_route.py": "af1fc58619168bc2f5b87bdd085582d734147f8883468a1317f0ddfbac279da3",
+  "scripts\\doris\\summarize_official_route.py": "055572f6b262c6323a4932ed58f4a4fbbfcd8f9216400c6492ecdd0861d67829",
+  "scripts\\doris\\build_rolling_features.py": "ddd1aeec19123a794c54f8f9e0e1cacd80e959c29d6b2077de63aca9af2f410d",
+  "scripts\\doris\\check_real_rolling_features.py": "81065e08ef27f08d1a6d83bdc0e3ad8614e2ceeae4adab0770f58ec32d0d6562",
+  "scripts\\doris\\build_history_features.py": "786e045bd1e26b56334b7a5ff7670a2e1c2cce8059b7db6c518e6e1f268348eb",
+  "scripts\\doris\\check_route_restart.py": "f1be2b7c87c37048deb139b88e195a6b1662c38aa5ea9917f6bf9c49369d6851",
+  "scripts\\doris\\DorisPerformanceDiagnostic.java": "5b15a1a98fe582c693cc0cee362a715576514bd07ade30335358e2761b50ac32",
+  "scripts\\doris\\diagnose_performance.py": "789762ed499b22ae64408536e8df52844f48a3724b5caa892e04a830839d50d3",
+  "scripts\\doris\\summarize_performance.py": "ac609f229bce9f0ff0b8f3adda7f842a0f2d2204c55e3aee3aea0ab644a37ad6",
+  "scripts\\doris\\test_performance_evidence.py": "b7bf765baed8e7c67eb1df6e5f9ea1f8da6654c6a3cca3149ee7b89a0657ab50",
+  "scripts\\accuracy\\check_rolling_averages.py": "191023628885e123f3e0f13cb6a46935c780b0767690fc5fc7de92a0c417ec4e",
+  "scripts\\accuracy\\check_historical_extrema.py": "32c4ac41f90738c5866a51a61d46ab66e2d119b742831d0eb5a4f51640371497",
+  "src\\main\\java\\com\\acme\\dorisdsl\\stockslot\\RollingAverageFeatureCatalog.java": "2d3ee9d9828bc26b987c54766a49b08723f9aa852c90d7ae3aa18e44f790b775",
+  "src\\main\\java\\com\\acme\\dorisdsl\\stockslot\\StockSlotAdvancedSqlCompiler.java": "6a85186e6476827849a7fd504e911c41a122ad1849f26a906af598d8ad552cae",
+  "src\\main\\java\\com\\acme\\dorisdsl\\stockslot\\StockSlotSqlCompiler.java": "2425aa5d6d09427529ca3877a75bb2bea80de8562f313f7138a23244e0130ddf",
+  "src\\test\\java\\com\\acme\\dorisdsl\\RollingFeatureTest.java": "d5dd026fedba223d3a9befaa15040547638b83ab15f429b2d880917ddf5d9420"
+}

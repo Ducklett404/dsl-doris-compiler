@@ -1,0 +1,1998 @@
+{
+  "engine": "DuckDB 1.4.3",
+  "purpose": "DIAGNOSTIC_ONLY_NOT_DORIS_ACCEPTANCE",
+  "sourceAuditStatus": "FAIL",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "jarSha256": "abf8ece97c5ab3f86141b7aba66557a32e37b2c9e259838d61212e6e607a4dfa",
+  "goldenPath": "D:\\A_MyProjects\\揭榜挂帅\\dsl-doris-compiler\\accuracy\\golden\\stock-slot-executable-v1.0.1.json",
+  "goldenVersion": "stock-slot-executable-v1.0.1",
+  "goldenSha256": "12e149f8c4623496d0a0d3e30979fc7b344024fe9c1b4b3b15fa0195dde103e7",
+  "manifestPath": "D:\\A_MyProjects\\揭榜挂帅\\dsl-doris-compiler\\data\\doris\\snapshots\\stock-20060104-20260414-v1\\manifest.json",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "evaluationDate": "2026-04-14",
+  "results": [
+    {
+      "id": "DEV-001",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', '') > 10",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 3836,
+      "referenceRows": 3836,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000001"
+        ],
+        [
+          0,
+          "000007"
+        ],
+        [
+          0,
+          "000014"
+        ],
+        [
+          0,
+          "000020"
+        ],
+        [
+          0,
+          "000021"
+        ],
+        [
+          0,
+          "000025"
+        ],
+        [
+          0,
+          "000026"
+        ],
+        [
+          0,
+          "000028"
+        ],
+        [
+          0,
+          "000029"
+        ],
+        [
+          0,
+          "000032"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.closePrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        10
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.89
+    },
+    {
+      "id": "DEV-002",
+      "dsl": "indicator('', '', '成交量', '2026年4月14日', '', '', '') between '[1000,100000)'",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 23,
+      "referenceRows": 23,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "200017"
+        ],
+        [
+          0,
+          "200019"
+        ],
+        [
+          0,
+          "200020"
+        ],
+        [
+          0,
+          "200025"
+        ],
+        [
+          0,
+          "200026"
+        ],
+        [
+          0,
+          "200028"
+        ],
+        [
+          0,
+          "200029"
+        ],
+        [
+          0,
+          "200030"
+        ],
+        [
+          0,
+          "200045"
+        ],
+        [
+          0,
+          "200058"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.volume AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` >= ? AND `m1` < ?)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        1000,
+        100000
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.875
+    },
+    {
+      "id": "DEV-003",
+      "dsl": "indicator('沪|深', '', '成交额', '2026-04-14', '', '', '') > 1000000",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 5205,
+      "referenceRows": 5205,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000001"
+        ],
+        [
+          0,
+          "000002"
+        ],
+        [
+          0,
+          "000004"
+        ],
+        [
+          0,
+          "000006"
+        ],
+        [
+          0,
+          "000007"
+        ],
+        [
+          0,
+          "000008"
+        ],
+        [
+          0,
+          "000009"
+        ],
+        [
+          0,
+          "000010"
+        ],
+        [
+          0,
+          "000011"
+        ],
+        [
+          0,
+          "000012"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.turnoverAmount AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n    AND (b.mktcode = 1 OR b.mktcode = 0)\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        1000000
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 1.0
+    },
+    {
+      "id": "DEV-004",
+      "dsl": "indicator('', '', '量比', '2026-04-14', '', '', '') > 1 and indicator('', '', '换手率', '2026-04-14', '', '', '') > 0.01",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 2413,
+      "referenceRows": 2413,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000002"
+        ],
+        [
+          0,
+          "000006"
+        ],
+        [
+          0,
+          "000009"
+        ],
+        [
+          0,
+          "000010"
+        ],
+        [
+          0,
+          "000011"
+        ],
+        [
+          0,
+          "000016"
+        ],
+        [
+          0,
+          "000021"
+        ],
+        [
+          0,
+          "000026"
+        ],
+        [
+          0,
+          "000029"
+        ],
+        [
+          0,
+          "000031"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.quantityRatio AS `m1`,\n    b.turnoverRatio AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` > ?) AND (`m2` > ?))\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        1,
+        0.01
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.875
+    },
+    {
+      "id": "DEV-005",
+      "dsl": "indicator('沪', '', '总市值', '2026-04-14', '', '', '') > 1000000000",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 2323,
+      "referenceRows": 2323,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          1,
+          "600000"
+        ],
+        [
+          1,
+          "600004"
+        ],
+        [
+          1,
+          "600006"
+        ],
+        [
+          1,
+          "600007"
+        ],
+        [
+          1,
+          "600008"
+        ],
+        [
+          1,
+          "600009"
+        ],
+        [
+          1,
+          "600010"
+        ],
+        [
+          1,
+          "600011"
+        ],
+        [
+          1,
+          "600012"
+        ],
+        [
+          1,
+          "600015"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.marketValue AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n    AND b.mktcode = 1\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        1000000000
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.906
+    },
+    {
+      "id": "DEV-006",
+      "dsl": "indicator('', '', '涨跌幅', '2026-04-14', '', '', '') > 5% or indicator('', '', '涨跌幅', '2026-04-14', '', '', '') < -5%",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 348,
+      "referenceRows": 348,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000004"
+        ],
+        [
+          0,
+          "000584"
+        ],
+        [
+          0,
+          "000586"
+        ],
+        [
+          0,
+          "000608"
+        ],
+        [
+          0,
+          "000620"
+        ],
+        [
+          0,
+          "000622"
+        ],
+        [
+          0,
+          "000656"
+        ],
+        [
+          0,
+          "000682"
+        ],
+        [
+          0,
+          "000793"
+        ],
+        [
+          0,
+          "000833"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.risePct AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` > ?) OR (`m1` < (-?)))\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        5,
+        5
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.875
+    },
+    {
+      "id": "DEV-007",
+      "dsl": "indicator('', '', '成交额', '2026-04-14', '', '', '') / indicator('', '', '成交量', '2026-04-14', '', '', '') > 10",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 3828,
+      "referenceRows": 3828,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000001"
+        ],
+        [
+          0,
+          "000007"
+        ],
+        [
+          0,
+          "000014"
+        ],
+        [
+          0,
+          "000020"
+        ],
+        [
+          0,
+          "000021"
+        ],
+        [
+          0,
+          "000025"
+        ],
+        [
+          0,
+          "000026"
+        ],
+        [
+          0,
+          "000028"
+        ],
+        [
+          0,
+          "000029"
+        ],
+        [
+          0,
+          "000032"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.turnoverAmount AS `m1`,\n    b.volume AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` / `m2`) > ?)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        10
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.891
+    },
+    {
+      "id": "DEV-008",
+      "dsl": "indicator('', '', '最高价', '2026-04-14', '', '', '') > 20 limit 0,5",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 5,
+      "referenceRows": 5,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000021"
+        ],
+        [
+          0,
+          "000028"
+        ],
+        [
+          0,
+          "000029"
+        ],
+        [
+          0,
+          "000034"
+        ],
+        [
+          0,
+          "000049"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.highPrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode\nLIMIT 5;",
+      "bindings": [
+        "2026-04-14",
+        20
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.875
+    },
+    {
+      "id": "REG-001",
+      "dsl": "indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') ~= indicator('', '', '收盘价', '2026-04-14', '', '', '')",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 5573,
+      "referenceRows": 5573,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000001"
+        ],
+        [
+          0,
+          "000002"
+        ],
+        [
+          0,
+          "000004"
+        ],
+        [
+          0,
+          "000006"
+        ],
+        [
+          0,
+          "000007"
+        ],
+        [
+          0,
+          "000008"
+        ],
+        [
+          0,
+          "000009"
+        ],
+        [
+          0,
+          "000010"
+        ],
+        [
+          0,
+          "000011"
+        ],
+        [
+          0,
+          "000012"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.closeQfq AS `m1`,\n    b.closePrice AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (ABS(`m1` - `m2`) <= ?)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        1e-06
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.828
+    },
+    {
+      "id": "REG-002",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', '') > 0",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 2247,
+      "referenceRows": 2247,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000001"
+        ],
+        [
+          0,
+          "000002"
+        ],
+        [
+          0,
+          "000004"
+        ],
+        [
+          0,
+          "000006"
+        ],
+        [
+          0,
+          "000008"
+        ],
+        [
+          0,
+          "000014"
+        ],
+        [
+          0,
+          "000016"
+        ],
+        [
+          0,
+          "000020"
+        ],
+        [
+          0,
+          "000021"
+        ],
+        [
+          0,
+          "000030"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    NULLIF(e.ZJLXMainNetTur,-999999) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        0
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.828
+    },
+    {
+      "id": "REG-003",
+      "dsl": "indicator('^京', '', '最低价', '2026-04-14', '', '', '') < 10",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 1726,
+      "referenceRows": 1726,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000002"
+        ],
+        [
+          0,
+          "000004"
+        ],
+        [
+          0,
+          "000006"
+        ],
+        [
+          0,
+          "000008"
+        ],
+        [
+          0,
+          "000009"
+        ],
+        [
+          0,
+          "000010"
+        ],
+        [
+          0,
+          "000011"
+        ],
+        [
+          0,
+          "000012"
+        ],
+        [
+          0,
+          "000016"
+        ],
+        [
+          0,
+          "000017"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.lowPrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n    AND NOT (b.mktcode = 103)\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` < ?)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        10
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.828
+    },
+    {
+      "id": "REG-004",
+      "dsl": "indicator('京', '', '开盘价', '2026-04-14', '', '', '') between '[5,15]'",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 106,
+      "referenceRows": 106,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          103,
+          "920010"
+        ],
+        [
+          103,
+          "920014"
+        ],
+        [
+          103,
+          "920021"
+        ],
+        [
+          103,
+          "920030"
+        ],
+        [
+          103,
+          "920033"
+        ],
+        [
+          103,
+          "920039"
+        ],
+        [
+          103,
+          "920057"
+        ],
+        [
+          103,
+          "920062"
+        ],
+        [
+          103,
+          "920090"
+        ],
+        [
+          103,
+          "920108"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.openPrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n    AND b.mktcode = 103\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` >= ? AND `m1` <= ?)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        5,
+        15
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.782
+    },
+    {
+      "id": "REG-005",
+      "dsl": "indicator('', '', '流通市值', '2026-04-14', '', '', '') > 500000000 and indicator('', '', '真实换手率', '2026-04-14', '', '', '') > 0",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 5473,
+      "referenceRows": 5473,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000001"
+        ],
+        [
+          0,
+          "000002"
+        ],
+        [
+          0,
+          "000006"
+        ],
+        [
+          0,
+          "000007"
+        ],
+        [
+          0,
+          "000008"
+        ],
+        [
+          0,
+          "000009"
+        ],
+        [
+          0,
+          "000010"
+        ],
+        [
+          0,
+          "000011"
+        ],
+        [
+          0,
+          "000012"
+        ],
+        [
+          0,
+          "000014"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.listedMarketValue AS `m1`,\n    b.trueTurnoverRatio AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` > ?) AND (`m2` > ?))\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        500000000,
+        0
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.797
+    },
+    {
+      "id": "REG-006",
+      "dsl": "indicator('', '', '均价', '2026-04-14', '', '', '') > indicator('', '', '收盘价', '2026-04-14', '', '', '')",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 1227,
+      "referenceRows": 1227,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000007"
+        ],
+        [
+          0,
+          "000016"
+        ],
+        [
+          0,
+          "000026"
+        ],
+        [
+          0,
+          "000032"
+        ],
+        [
+          0,
+          "000034"
+        ],
+        [
+          0,
+          "000050"
+        ],
+        [
+          0,
+          "000062"
+        ],
+        [
+          0,
+          "000063"
+        ],
+        [
+          0,
+          "000070"
+        ],
+        [
+          0,
+          "000100"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.avgPx AS `m1`,\n    b.closePrice AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > `m2`)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14"
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.796
+    },
+    {
+      "id": "REG-007",
+      "dsl": "indicator('', '', '成交量', '2026-04-14', '', '', '') > 0 then rank('', '', '成交额', 'desc', '2026-04-14', '', '', '') <= 10",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 10,
+      "referenceRows": 10,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "300308"
+        ],
+        [
+          0,
+          "300502"
+        ],
+        [
+          0,
+          "300750"
+        ],
+        [
+          0,
+          "300476"
+        ],
+        [
+          0,
+          "000988"
+        ],
+        [
+          0,
+          "300394"
+        ],
+        [
+          1,
+          "601138"
+        ],
+        [
+          0,
+          "300274"
+        ],
+        [
+          1,
+          "688525"
+        ],
+        [
+          0,
+          "002475"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.volume AS `m1`,\n    b.turnoverAmount AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n),\nprefiltered AS (\n  SELECT * FROM base WHERE (`m1` > ?)\n),\nrank_input AS (\n  SELECT * FROM prefiltered WHERE `m2` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    DENSE_RANK() OVER (ORDER BY `m2` DESC) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode, tgtcode\nFROM ranked\nWHERE (`r1` <= ?)\nORDER BY `r1`, mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        0,
+        10
+      ],
+      "ordered": true,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.844
+    },
+    {
+      "id": "REG-008",
+      "dsl": "rank('沪', '', '收盘价', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,5",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 5,
+      "referenceRows": 5,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          1,
+          "900902"
+        ],
+        [
+          1,
+          "900937"
+        ],
+        [
+          1,
+          "900921"
+        ],
+        [
+          1,
+          "900903"
+        ],
+        [
+          1,
+          "900946"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.closePrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n    AND b.mktcode = 1\n),\nrank_input AS (\n  SELECT * FROM base WHERE `m1` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    DENSE_RANK() OVER (ORDER BY `m1` ASC) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode, tgtcode\nFROM ranked\nWHERE (`r1` <= ?)\nORDER BY `r1`, mktcode, tgtcode\nLIMIT 5;",
+      "bindings": [
+        "2026-04-14",
+        5
+      ],
+      "ordered": true,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.86
+    },
+    {
+      "id": "BLIND-001",
+      "dsl": "indicator('', '', '开盘价', '2026-04-14', '', '', '') > indicator('', '', '收盘价', '2026-04-14', '', '', '')",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 2685,
+      "referenceRows": 2685,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000007"
+        ],
+        [
+          0,
+          "000008"
+        ],
+        [
+          0,
+          "000010"
+        ],
+        [
+          0,
+          "000012"
+        ],
+        [
+          0,
+          "000017"
+        ],
+        [
+          0,
+          "000019"
+        ],
+        [
+          0,
+          "000026"
+        ],
+        [
+          0,
+          "000029"
+        ],
+        [
+          0,
+          "000034"
+        ],
+        [
+          0,
+          "000037"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.openPrice AS `m1`,\n    b.closePrice AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > `m2`)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14"
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.906
+    },
+    {
+      "id": "BLIND-002",
+      "dsl": "indicator('', '', '最高价', '2026-04-14', '', '', '') - indicator('', '', '最低价', '2026-04-14', '', '', '') > 1",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 1410,
+      "referenceRows": 1410,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000026"
+        ],
+        [
+          0,
+          "000070"
+        ],
+        [
+          0,
+          "000333"
+        ],
+        [
+          0,
+          "000338"
+        ],
+        [
+          0,
+          "000408"
+        ],
+        [
+          0,
+          "000426"
+        ],
+        [
+          0,
+          "000526"
+        ],
+        [
+          0,
+          "000534"
+        ],
+        [
+          0,
+          "000547"
+        ],
+        [
+          0,
+          "000568"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.highPrice AS `m1`,\n    b.lowPrice AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` - `m2`) > ?)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        1
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.797
+    },
+    {
+      "id": "BLIND-003",
+      "dsl": "indicator('深', '', '换手率', '2026-04-14', '', '', '') between '(0.01,0.05]'",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 7,
+      "referenceRows": 7,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "200012"
+        ],
+        [
+          0,
+          "200017"
+        ],
+        [
+          0,
+          "200055"
+        ],
+        [
+          0,
+          "200058"
+        ],
+        [
+          0,
+          "200512"
+        ],
+        [
+          0,
+          "200550"
+        ],
+        [
+          0,
+          "200553"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.turnoverRatio AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n    AND b.mktcode = 0\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ? AND `m1` <= ?)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        0.01,
+        0.05
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.875
+    },
+    {
+      "id": "BLIND-004",
+      "dsl": "indicator('沪|深|京', '', '主力净流入', '2026-04-14', '', '', '') < 0",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 2963,
+      "referenceRows": 2963,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000007"
+        ],
+        [
+          0,
+          "000009"
+        ],
+        [
+          0,
+          "000010"
+        ],
+        [
+          0,
+          "000011"
+        ],
+        [
+          0,
+          "000012"
+        ],
+        [
+          0,
+          "000017"
+        ],
+        [
+          0,
+          "000019"
+        ],
+        [
+          0,
+          "000025"
+        ],
+        [
+          0,
+          "000026"
+        ],
+        [
+          0,
+          "000027"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    NULLIF(e.ZJLXMainNetTur,-999999) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE b.bizdate = ?\n    AND (b.mktcode = 1 OR b.mktcode = 0 OR b.mktcode = 103)\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` < ?)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        0
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.828
+    },
+    {
+      "id": "BLIND-005",
+      "dsl": "indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') = indicator('', '', '收盘价', '2026-04-14', '', '', '') and indicator('', '', '后复权收盘价', '2026-04-14', '', '', '') = indicator('', '', '收盘价', '2026-04-14', '', '', '')",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 5573,
+      "referenceRows": 5573,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000001"
+        ],
+        [
+          0,
+          "000002"
+        ],
+        [
+          0,
+          "000004"
+        ],
+        [
+          0,
+          "000006"
+        ],
+        [
+          0,
+          "000007"
+        ],
+        [
+          0,
+          "000008"
+        ],
+        [
+          0,
+          "000009"
+        ],
+        [
+          0,
+          "000010"
+        ],
+        [
+          0,
+          "000011"
+        ],
+        [
+          0,
+          "000012"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.closeQfq AS `m1`,\n    b.closePrice AS `m2`,\n    b.closeHfq AS `m3`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` = `m2`) AND (`m3` = `m2`))\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14"
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.844
+    },
+    {
+      "id": "BLIND-006",
+      "dsl": "(indicator('', '', '收盘价', '2026-04-14', '', '', '') < 5 or indicator('', '', '收盘价', '2026-04-14', '', '', '') > 100) and indicator('', '', '成交量', '2026-04-14', '', '', '') > 0",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 825,
+      "referenceRows": 825,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000002"
+        ],
+        [
+          0,
+          "000004"
+        ],
+        [
+          0,
+          "000008"
+        ],
+        [
+          0,
+          "000010"
+        ],
+        [
+          0,
+          "000012"
+        ],
+        [
+          0,
+          "000016"
+        ],
+        [
+          0,
+          "000031"
+        ],
+        [
+          0,
+          "000055"
+        ],
+        [
+          0,
+          "000056"
+        ],
+        [
+          0,
+          "000068"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.closePrice AS `m1`,\n    b.volume AS `m2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (((`m1` < ?) OR (`m1` > ?)) AND (`m2` > ?))\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        5,
+        100,
+        0
+      ],
+      "ordered": false,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.921
+    },
+    {
+      "id": "BLIND-007",
+      "dsl": "indicator('', '', '流通市值', '2026-04-14', '', '', '') > 0 then rank('', '', '流通市值', 'desc', '2026-04-14', '', '', '') <= 8",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 8,
+      "referenceRows": 8,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          1,
+          "601288"
+        ],
+        [
+          1,
+          "601398"
+        ],
+        [
+          1,
+          "601857"
+        ],
+        [
+          0,
+          "300750"
+        ],
+        [
+          1,
+          "600519"
+        ],
+        [
+          1,
+          "601988"
+        ],
+        [
+          1,
+          "601138"
+        ],
+        [
+          0,
+          "300308"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.listedMarketValue AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n),\nprefiltered AS (\n  SELECT * FROM base WHERE (`m1` > ?)\n),\nrank_input AS (\n  SELECT * FROM prefiltered WHERE `m1` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    DENSE_RANK() OVER (ORDER BY `m1` DESC) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode, tgtcode\nFROM ranked\nWHERE (`r1` <= ?)\nORDER BY `r1`, mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        0,
+        8
+      ],
+      "ordered": true,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.875
+    },
+    {
+      "id": "BLIND-008",
+      "dsl": "rank('京', '', '最高价', 'desc', '2026-04-14', '', '', '') <= 6",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 6,
+      "referenceRows": 6,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          103,
+          "920045"
+        ],
+        [
+          103,
+          "920982"
+        ],
+        [
+          103,
+          "920493"
+        ],
+        [
+          103,
+          "920116"
+        ],
+        [
+          103,
+          "920119"
+        ],
+        [
+          103,
+          "920029"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.highPrice AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n    AND b.mktcode = 103\n),\nrank_input AS (\n  SELECT * FROM base WHERE `m1` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    DENSE_RANK() OVER (ORDER BY `m1` DESC) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode, tgtcode\nFROM ranked\nWHERE (`r1` <= ?)\nORDER BY `r1`, mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        6
+      ],
+      "ordered": true,
+      "missingRequiredSql": [],
+      "elapsedSeconds": 0.954
+    },
+    {
+      "id": "PY-MA60",
+      "dsl": "indicator('', '', '60日均线', '2026-04-14', '', '', '') > 1",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 300,
+      "referenceRows": 300,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "001400"
+        ],
+        [
+          0,
+          "002001"
+        ],
+        [
+          0,
+          "002003"
+        ],
+        [
+          0,
+          "002004"
+        ],
+        [
+          0,
+          "002005"
+        ],
+        [
+          0,
+          "002006"
+        ],
+        [
+          0,
+          "002007"
+        ],
+        [
+          0,
+          "002008"
+        ],
+        [
+          0,
+          "002009"
+        ],
+        [
+          0,
+          "002010"
+        ]
+      ],
+      "sql": "WITH history AS (\n  SELECT pf.mktcode AS mktcode,pf.tgtcode AS tgtcode,pf.bizdate AS bizdate,\n    pf.ma60 AS `v1`\n  FROM newzl.stock_daily_features_v2 pf\n  WHERE pf.bizdate = ?\n),\nfeatures AS (\n  SELECT history.*,\n    `v1` AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` > ?)\nORDER BY mktcode,tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        "2026-04-14",
+        1
+      ],
+      "ordered": false,
+      "elapsedSeconds": 0.984
+    },
+    {
+      "id": "PY-MA5",
+      "dsl": "indicator('', '', '5日均线', '2026-04-14', '', '', '') > 1",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 5524,
+      "referenceRows": 5524,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000001"
+        ],
+        [
+          0,
+          "000002"
+        ],
+        [
+          0,
+          "000004"
+        ],
+        [
+          0,
+          "000006"
+        ],
+        [
+          0,
+          "000007"
+        ],
+        [
+          0,
+          "000008"
+        ],
+        [
+          0,
+          "000009"
+        ],
+        [
+          0,
+          "000010"
+        ],
+        [
+          0,
+          "000011"
+        ],
+        [
+          0,
+          "000012"
+        ]
+      ],
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)=5 THEN AVG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` > ?)\nORDER BY mktcode,tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        "2026-04-14",
+        1
+      ],
+      "ordered": false,
+      "elapsedSeconds": 3.453
+    },
+    {
+      "id": "PY-RSI14",
+      "dsl": "indicator('', '', 'RSI(14)', '2026-04-14', '', '', '') > 50",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 3851,
+      "referenceRows": 3851,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000001"
+        ],
+        [
+          0,
+          "000006"
+        ],
+        [
+          0,
+          "000008"
+        ],
+        [
+          0,
+          "000009"
+        ],
+        [
+          0,
+          "000012"
+        ],
+        [
+          0,
+          "000016"
+        ],
+        [
+          0,
+          "000017"
+        ],
+        [
+          0,
+          "000019"
+        ],
+        [
+          0,
+          "000021"
+        ],
+        [
+          0,
+          "000025"
+        ]
+      ],
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\ndeltas AS (\n  SELECT history.*, `v1` - LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) AS `price_delta`\n  FROM history\n),\nfeatures AS (\n  SELECT deltas.*,\n    CASE WHEN COUNT(price_delta) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 13 PRECEDING AND CURRENT ROW) = 14 THEN 100 - 100 / (1 + (AVG(GREATEST(price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 13 PRECEDING AND CURRENT ROW)) / NULLIF(AVG(GREATEST(-price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 13 PRECEDING AND CURRENT ROW),0)) ELSE NULL END AS `f1`\n  FROM deltas\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` > ?)\nORDER BY mktcode,tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        "2026-04-14",
+        50
+      ],
+      "ordered": false,
+      "elapsedSeconds": 5.641
+    },
+    {
+      "id": "PY-BETWEEN_MA5",
+      "dsl": "(indicator('', '', '5日均线', '2026-04-14', '', '', '')+1) between '[2,4]'",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 162,
+      "referenceRows": 162,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000008"
+        ],
+        [
+          0,
+          "000031"
+        ],
+        [
+          0,
+          "000056"
+        ],
+        [
+          0,
+          "000069"
+        ],
+        [
+          0,
+          "000402"
+        ],
+        [
+          0,
+          "000488"
+        ],
+        [
+          0,
+          "000517"
+        ],
+        [
+          0,
+          "000518"
+        ],
+        [
+          0,
+          "000560"
+        ],
+        [
+          0,
+          "000564"
+        ]
+      ],
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)=5 THEN AVG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` + ?)>=? AND (`f1` + ?)<=?)\nORDER BY mktcode,tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        "2026-04-14",
+        1,
+        2,
+        1,
+        4
+      ],
+      "ordered": false,
+      "elapsedSeconds": 3.406
+    },
+    {
+      "id": "PY-CONS3_CLOSE",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', 'CONS>=3日') > 1",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 5529,
+      "referenceRows": 5529,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000001"
+        ],
+        [
+          0,
+          "000002"
+        ],
+        [
+          0,
+          "000004"
+        ],
+        [
+          0,
+          "000006"
+        ],
+        [
+          0,
+          "000007"
+        ],
+        [
+          0,
+          "000008"
+        ],
+        [
+          0,
+          "000009"
+        ],
+        [
+          0,
+          "000010"
+        ],
+        [
+          0,
+          "000011"
+        ],
+        [
+          0,
+          "000012"
+        ]
+      ],
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    `v1` AS `f1`\n  FROM history\n),\npredicates AS (\n  SELECT features.*,\n    (`f1` > ?) AS `pc1`\n  FROM features\n),\ncounted AS (\n  SELECT predicates.*,\n    CASE WHEN COUNT(*) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3 THEN (SUM(CASE WHEN `pc1` THEN 1 ELSE 0 END) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3) ELSE NULL END AS `c1`\n  FROM predicates\n),\ncurrent_rows AS (\n  SELECT * FROM counted WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE `c1`\nORDER BY mktcode,tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        1,
+        "2026-04-14"
+      ],
+      "ordered": false,
+      "elapsedSeconds": 2.906
+    },
+    {
+      "id": "PY-EXIST3_VOLUME",
+      "dsl": "indicator('', '', '成交量', '2026-04-14', '', '', 'EXIST>=3日') > 0",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 5577,
+      "referenceRows": 5577,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000001"
+        ],
+        [
+          0,
+          "000002"
+        ],
+        [
+          0,
+          "000004"
+        ],
+        [
+          0,
+          "000006"
+        ],
+        [
+          0,
+          "000007"
+        ],
+        [
+          0,
+          "000008"
+        ],
+        [
+          0,
+          "000009"
+        ],
+        [
+          0,
+          "000010"
+        ],
+        [
+          0,
+          "000011"
+        ],
+        [
+          0,
+          "000012"
+        ]
+      ],
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.volume AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    `v1` AS `f1`\n  FROM history\n),\npredicates AS (\n  SELECT features.*,\n    (`f1` > ?) AS `pc1`\n  FROM features\n),\ncounted AS (\n  SELECT predicates.*,\n    CASE WHEN COUNT(*) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)=20 THEN (SUM(CASE WHEN `pc1` THEN 1 ELSE 0 END) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)>=3) ELSE NULL END AS `c1`\n  FROM predicates\n),\ncurrent_rows AS (\n  SELECT * FROM counted WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE `c1`\nORDER BY mktcode,tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        0,
+        "2026-04-14"
+      ],
+      "ordered": false,
+      "elapsedSeconds": 3.172
+    },
+    {
+      "id": "PY-BOOLEAN_CONS3",
+      "dsl": "record_high('', '', '收盘价', '3日', '2026-04-14', '', '', 'CONS>=3日')",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 582,
+      "referenceRows": 582,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000009"
+        ],
+        [
+          0,
+          "000012"
+        ],
+        [
+          0,
+          "000020"
+        ],
+        [
+          0,
+          "000021"
+        ],
+        [
+          0,
+          "000036"
+        ],
+        [
+          0,
+          "000049"
+        ],
+        [
+          0,
+          "000066"
+        ],
+        [
+          0,
+          "000402"
+        ],
+        [
+          0,
+          "000430"
+        ],
+        [
+          0,
+          "000514"
+        ]
+      ],
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) = 3 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\npredicates AS (\n  SELECT features.*,\n    `f1` AS `pc1`\n  FROM features\n),\ncounted AS (\n  SELECT predicates.*,\n    CASE WHEN COUNT(*) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3 THEN (SUM(CASE WHEN `pc1` THEN 1 ELSE 0 END) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3) ELSE NULL END AS `c1`\n  FROM predicates\n),\ncurrent_rows AS (\n  SELECT * FROM counted WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE `c1`\nORDER BY mktcode,tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        "2026-04-14"
+      ],
+      "ordered": false,
+      "elapsedSeconds": 4.516
+    },
+    {
+      "id": "PY-CROSS_ABOVE",
+      "dsl": "cross_above('', '', '收盘价', '开盘价', '2026-04-14', '', '') = True",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 1053,
+      "referenceRows": 1053,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000011"
+        ],
+        [
+          0,
+          "000014"
+        ],
+        [
+          0,
+          "000028"
+        ],
+        [
+          0,
+          "000045"
+        ],
+        [
+          0,
+          "000065"
+        ],
+        [
+          0,
+          "000078"
+        ],
+        [
+          0,
+          "000156"
+        ],
+        [
+          0,
+          "000301"
+        ],
+        [
+          0,
+          "000333"
+        ],
+        [
+          0,
+          "000400"
+        ]
+      ],
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    b.openPrice AS `v2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN `v1` IS NOT NULL AND `v2` IS NOT NULL AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL AND LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL THEN (`v1`>`v2` AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)<=LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        "2026-04-14",
+        true
+      ],
+      "ordered": false,
+      "elapsedSeconds": 2.64
+    },
+    {
+      "id": "PY-NET_SUM5",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14近5日', '', 'SUM', '') > 0",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 2317,
+      "referenceRows": 2317,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          0,
+          "000001"
+        ],
+        [
+          0,
+          "000002"
+        ],
+        [
+          0,
+          "000006"
+        ],
+        [
+          0,
+          "000009"
+        ],
+        [
+          0,
+          "000010"
+        ],
+        [
+          0,
+          "000011"
+        ],
+        [
+          0,
+          "000012"
+        ],
+        [
+          0,
+          "000016"
+        ],
+        [
+          0,
+          "000019"
+        ],
+        [
+          0,
+          "000021"
+        ]
+      ],
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    NULLIF(e.ZJLXMainNetTur,-999999) AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)=5 THEN SUM(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` > ?)\nORDER BY mktcode,tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        "2026-04-14",
+        0
+      ],
+      "ordered": false,
+      "elapsedSeconds": 3.797
+    },
+    {
+      "id": "PY-RANK_CLOSE",
+      "dsl": "rank('', '', '收盘价', 'desc:dense_rank', '2026-04-14', '', '', '') <= 3",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "generatedRows": 3,
+      "referenceRows": 3,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "sample": [
+        [
+          1,
+          "600519"
+        ],
+        [
+          1,
+          "688498"
+        ],
+        [
+          1,
+          "688256"
+        ]
+      ],
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n),\nrank_input AS (\n  SELECT * FROM current_rows WHERE `v1` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    DENSE_RANK() OVER (ORDER BY `v1` DESC) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode,tgtcode\nFROM ranked\nWHERE (`r1` <= ?)\nORDER BY `r1`,mktcode,tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        "2026-04-14",
+        3
+      ],
+      "ordered": true,
+      "elapsedSeconds": 0.86
+    }
+  ],
+  "total": 34,
+  "passed": 34,
+  "resultEqualCount": 34,
+  "structureEqualCount": 34
+}

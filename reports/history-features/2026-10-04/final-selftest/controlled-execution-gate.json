@@ -1,0 +1,54 @@
+{
+  "purpose": "DIAGNOSTIC_NEGATIVE_GATE_TEST",
+  "host": "192.168.59.45",
+  "checks": [
+    {
+      "name": "readonly-select",
+      "status": "PASS"
+    },
+    {
+      "name": "readonly-write-denied",
+      "status": "PASS",
+      "exitCode": 1,
+      "message": "\u0000ERROR 1105 (HY000) at line 1: errCode = 2, detailMessage = LOAD command denied to user 'dsl_gate_9aa6b10fbead'@'127.0.0.1' for table 'newzl.data_snapshot_registry'"
+    },
+    {
+      "name": "cli-unvalidated-snapshot-rejected",
+      "status": "PASS",
+      "exitCode": 3,
+      "message": "doris_execution_failed: Required VALIDATED Doris snapshot is not registered: stock-20060104-20260414-v1"
+    },
+    {
+      "name": "readonly-http-service-starts",
+      "status": "PASS",
+      "startupReported": true
+    },
+    {
+      "name": "http-health",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "http-authentication",
+      "status": "PASS",
+      "httpStatus": 401
+    },
+    {
+      "name": "http-unvalidated-snapshot-rejected",
+      "status": "PASS",
+      "httpStatus": 503,
+      "category": "data_unavailable"
+    },
+    {
+      "name": "http-process-released",
+      "status": "PASS"
+    },
+    {
+      "name": "registry-remains-empty",
+      "status": "PASS"
+    }
+  ],
+  "passed": 9,
+  "total": 9,
+  "status": "PASS"
+}

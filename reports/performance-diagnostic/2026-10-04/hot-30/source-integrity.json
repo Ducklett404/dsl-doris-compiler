@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "checkedAtUtc": "2026-10-04T08:51:35.353834+00:00",
+  "files": [
+    {
+      "table": "hsj_stock_code_info",
+      "sha256": "133293b32e8bea7ff351f3e05cc4eba431ce2fe116f2c366b005fcb0801e01cc",
+      "bytes": 321850,
+      "matchesManifest": true
+    },
+    {
+      "table": "hsj_stock_hq_basic",
+      "sha256": "9c5fd65c9475c07c7f800cffd5a055925e7eb26c1c78476624805b4231b1d749",
+      "bytes": 2207896192,
+      "matchesManifest": true
+    },
+    {
+      "table": "hsj_stock_hq_ext",
+      "sha256": "18ab00873e9cb5684f1f4dba13c9843acbcd1764f52cecd30336eea0128b4a18",
+      "bytes": 1191539066,
+      "matchesManifest": true
+    }
+  ]
+}

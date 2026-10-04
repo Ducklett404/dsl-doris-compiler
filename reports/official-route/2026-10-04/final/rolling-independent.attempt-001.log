@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "D:\A_MyProjects\Ω“∞Òπ“Àß\dsl-doris-compiler\scripts\doris\check_real_rolling_features.py", line 78, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "D:\A_MyProjects\Ω“∞Òπ“Àß\dsl-doris-compiler\scripts\doris\check_real_rolling_features.py", line 28, in main
+    lock=con.execute('SELECT snapshot_id,manifest_sha256 FROM newzl.audit_source_lock').fetchone()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_duckdb.CatalogException: Catalog Error: Table with name audit_source_lock does not exist!
+Did you mean "official.audit_source_lock"?
+
+LINE 1: SELECT snapshot_id,manifest_sha256 FROM newzl.audit_source_lock
+                                                ^

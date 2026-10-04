@@ -1,0 +1,74 @@
+PLAN FRAGMENT 0
+  OUTPUT EXPRS:
+    mktcode[#74]
+    tgtcode[#75]
+  PARTITION: UNPARTITIONED
+
+  HAS_COLO_PLAN_NODE: false
+
+  VRESULT SINK
+     MYSQL_PROTOCOL
+
+  5:VTOP-N(1039)
+  |  order by: r1[#73] ASC
+  |  algorithm: heap sort
+  |  offset: 0
+  |  limit: 100
+  |  final projections: mktcode[#71], tgtcode[#72]
+  |  final project output tuple id: 7
+  |  distribute expr lists: 
+  |  
+  4:VANALYTIC(1027)
+  |  functions: [row_number()]
+  |  order by: v1[#66] DESC NULLS LAST, tgtcode[#65] ASC NULLS FIRST
+  |  window: ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+  |  predicates: (r1[#67] <= 100)
+  |  final projections: mktcode[#64], tgtcode[#65], r1[#67]
+  |  final project output tuple id: 5
+  |  distribute expr lists: 
+  |  
+  3:VMERGING-EXCHANGE
+     offset: 0
+     distribute expr lists: mktcode[#64], tgtcode[#65]
+
+PLAN FRAGMENT 1
+
+  PARTITION: HASH_PARTITIONED: mktcode[#0], tgtcode[#1]
+
+  HAS_COLO_PLAN_NODE: false
+
+  STREAM DATA SINK
+    EXCHANGE ID: 03
+    UNPARTITIONED
+IS_MERGE: true
+
+  2:VSORT(1015)
+  |  order by: v1[#66] DESC, tgtcode[#65] ASC
+  |  algorithm: full sort
+  |  local merge sort
+  |  merge by exchange
+  |  offset: 0
+  |  distribute expr lists: 
+  |  
+  1:VPartitionTopN(1011)
+  |  functions: row_number
+  |  order by: v1[#63] DESC, mktcode[#61] ASC, tgtcode[#62] ASC
+  |  has global limit: false
+  |  partition limit: 100
+  |  partition topn phase: TWO_PHASE_LOCAL_PTOPN
+  |  distribute expr lists: mktcode[#58], tgtcode[#59]
+  |  
+  0:VOlapScanNode(999)
+     TABLE: newzl.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON
+     PREDICATES: (((CAST(closePx[#8] AS double) / 10000) IS NOT NULL AND (bizdate[#2] = '2026-04-14')) AND ((mktcode[#0] = 1) AND (__DORIS_DELETE_SIGN__[#56] = 0)))
+     partitions=1/21 (p20260101000000)
+     tablets=16/16, tabletList=1791094084447,1791094084449,1791094084451 ...
+     cardinality=361758, avgRowSize=319.5836, numNodes=1
+     pushAggOp=NONE
+     final projections: mktcode[#0], tgtcode[#1], (CAST(closePx[#8] AS double) / 10000)
+     final project output tuple id: 1
+
+
+
+========== STATISTICS ==========
+planned with unknown column statistics

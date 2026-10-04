@@ -1,0 +1,30 @@
+{
+  "fixtureVersion": "main-net-turnover-boundaries-v1",
+  "authority": "PROJECT_CONTRACT_ONLY_OFFICIAL_CONFIRMATION_PENDING",
+  "date": "2026-04-14",
+  "market": 1,
+  "histories": {
+    "POS": [500],
+    "NEG": [-500],
+    "ZERO": [0],
+    "NULL": [null],
+    "SENTINEL": [-999999],
+    "NEAR_SENTINEL": [-999998],
+    "LOWER_SENTINEL": [-1000000],
+    "MISSING": ["NO_EXTENSION_ROW"],
+    "WIN_GOOD": [-2, 5, 3],
+    "WIN_NULL": [2, null, 3],
+    "WIN_SENT": [2, -999999, 3],
+    "WIN_MISS": [2, "NO_EXTENSION_ROW", 3],
+    "WIN_ZERO": [0, 0, 0],
+    "WIN_NEG": [-2, -5, -3],
+    "WIN_SHORT": [2, 3]
+  },
+  "cases": [
+    {"id":"BOUND-POSITIVE","dsl":"indicator('', '', '主力净流入', '2026-04-14', '', '', '') > 0","expectedCodes":["POS","WIN_GOOD","WIN_NULL","WIN_SENT","WIN_MISS","WIN_SHORT"]},
+    {"id":"BOUND-NEGATIVE","dsl":"indicator('', '', '主力净流入', '2026-04-14', '', '', '') < 0","expectedCodes":["NEG","NEAR_SENTINEL","LOWER_SENTINEL","WIN_NEG"]},
+    {"id":"BOUND-ZERO","dsl":"indicator('', '', '主力净流入', '2026-04-14', '', '', '') = 0","expectedCodes":["ZERO","WIN_ZERO"]},
+    {"id":"BOUND-SUM3","dsl":"indicator('', '', '主力净流入', '2026-04-14近3日', '', 'SUM', '') > 0","expectedCodes":["WIN_GOOD"]},
+    {"id":"BOUND-SUM3-NEG","dsl":"indicator('', '', '主力净流入', '2026-04-14近3日', '', 'SUM', '') < 0","expectedCodes":["WIN_NEG"]}
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "scripts\\doris\\summarize_history_features.py": "d23fc7ee1bed86ba3b80eb4f3c73517ef06e854476722dcb1e5fda97c4cde0e8",
+  "scripts\\doris\\build_history_features.py": "786e045bd1e26b56334b7a5ff7670a2e1c2cce8059b7db6c518e6e1f268348eb",
+  "scripts\\doris\\HistoryFeatureRegistry.java": "06fd741fc99835ce865793a7780235bd07618f5fca0a5d899cd36f7b30644169",
+  "scripts\\doris\\DorisPerformanceDiagnostic.java": "774db028fa33b57bdb06a03e8dc010321d8c4495ef99cabb62b4571f5484238f",
+  "scripts\\doris\\diagnose_performance.py": "b04e84645d74421f789cfa6536bef53b6ecc156a3b43c7fa481fc3a38f947a9d",
+  "scripts\\doris\\summarize_performance.py": "2a62db10a3bc1ca26422550b550d28b63d1f55a118370d0e148146a8cc35ebcd",
+  "scripts\\doris\\test_performance_evidence.py": "bde9e9bdee3b6c656a92d49057ab7543da4657cf6d854e50650b61c889667948",
+  "scripts\\accuracy\\check_historical_extrema.py": "32c4ac41f90738c5866a51a61d46ab66e2d119b742831d0eb5a4f51640371497",
+  "scripts\\accuracy\\run_correctness.py": "c217fb210c6d7c02d647ab86fcc09ec14faa43ae3df83790ec42c8eb407cc852",
+  "src\\main\\java\\com\\acme\\dorisdsl\\stockslot\\HistoricalExtremaFeatureCatalog.java": "aba6863fc0d9e835975bb4848da2326d01f47489b11bce5cbfdd308f0b4c5d6e",
+  "src\\main\\java\\com\\acme\\dorisdsl\\stockslot\\StockSlotAdvancedSqlCompiler.java": "075ed8cd5526aca412265ec15ff9722cf9cd606a0cb06477a75229abae5245ab",
+  "src\\main\\java\\com\\acme\\dorisdsl\\stockslot\\StockSlotSqlCompiler.java": "29c66f9caa88677168cd5b2bd77bb9d8fa3b8c438a146912abed8920ebe2c337",
+  "src\\main\\java\\com\\acme\\dorisdsl\\stockslot\\StockSlotRegistry.java": "61cb7b8c5362a01a82b86fd0df6e37a0e8532d96142f8e138d47c85858c532b7",
+  "src\\main\\java\\com\\acme\\dorisdsl\\cli\\Main.java": "cee9da46498095ccfc0600080b33542848968fcfba23bd11c97895532448f57e",
+  "src\\test\\java\\com\\acme\\dorisdsl\\HistoryFeatureTest.java": "abe9f3f7ce3e733aa0c5d823b276fa9ae5e3ca576eefaa47aff1629206b0a710",
+  "benchmarks\\history-matrix-v1.json": "37fe537ffa74cc1ad1c9a12f2cb9713481166dc5932c43512a34cb8c6ae3cde6",
+  "accuracy\\fixtures\\historical-extrema-v1.json": "b61d462c4d4faeeb4b9d172de5096796a413e927bc77d650534f7fc5f143f2e6"
+}

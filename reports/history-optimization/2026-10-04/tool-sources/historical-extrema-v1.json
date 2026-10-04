@@ -1,0 +1,38 @@
+{
+  "fixtureVersion": "historical-extrema-v1",
+  "authority": "PROJECT_HAND_LABELLED_NOT_OFFICIAL_ACCEPTANCE",
+  "date": "2026-04-14",
+  "histories": {
+    "1:000001": [3,4,5],
+    "1:000002": [5,4,3],
+    "1:000003": [null,null,null],
+    "1:000004": [5,3,null],
+    "1:000005": [null,null,2],
+    "1:000006": [-1,0,0],
+    "1:000007": [2,1,1],
+    "1:000008": [2,3,2],
+    "1:000009": [2,3],
+    "1:000010": [2,3,4],
+    "0:000001": [6,5,4],
+    "0:000011": [4,4,4]
+  },
+  "missingCurrent": ["1:000009"],
+  "industries": {"1:000007": null},
+  "futureRows": [[1,"000010","2026-04-15",99999]],
+  "cases": [
+    {"id":"high-true","expression":"HIGH = True","expected":[[0,"000011"],[1,"000001"],[1,"000005"],[1,"000006"],[1,"000010"]]},
+    {"id":"high-false","expression":"HIGH = False","expected":[[0,"000001"],[1,"000002"],[1,"000007"],[1,"000008"]]},
+    {"id":"low-true","expression":"LOW = True","expected":[[0,"000001"],[0,"000011"],[1,"000002"],[1,"000005"],[1,"000007"],[1,"000008"]]},
+    {"id":"low-false","expression":"LOW = False","expected":[[1,"000001"],[1,"000006"],[1,"000010"]]},
+    {"id":"both-extrema","expression":"HIGH = True and LOW = True","expected":[[0,"000011"],[1,"000005"]]},
+    {"id":"either-extremum","expression":"HIGH = True or LOW = True","expected":[[0,"000001"],[0,"000011"],[1,"000001"],[1,"000002"],[1,"000005"],[1,"000006"],[1,"000007"],[1,"000008"],[1,"000010"]]},
+    {"id":"not-high","expression":"HIGH != True","expected":[[0,"000001"],[1,"000002"],[1,"000007"],[1,"000008"]]},
+    {"id":"market-isolation","expression":"LOW = True","market":"沪","expected":[[1,"000002"],[1,"000005"],[1,"000007"],[1,"000008"]]},
+    {"id":"earlier-date","expression":"HIGH = True","date":"2026-04-13","expected":[[0,"000011"],[1,"000001"],[1,"000006"],[1,"000008"],[1,"000009"],[1,"000010"]]},
+    {"id":"count-fallback","expression":"HIGH = True","count":"CONS>=3日","expectAggregate":false,"expected":[[0,"000011"],[1,"000001"],[1,"000006"],[1,"000010"]]},
+    {"id":"mixed-indicator-fallback","expression":"HIGH = True and indicator('', '', '收盘价', '2026-04-14', '', '', '') > 3","expectAggregate":false,"expected":[[0,"000011"],[1,"000001"],[1,"000010"]]},
+    {"id":"current-row-presence","expression":"HIGH = True or 1 = 1","expected":[[0,"000001"],[0,"000011"],[1,"000001"],[1,"000002"],[1,"000003"],[1,"000004"],[1,"000005"],[1,"000006"],[1,"000007"],[1,"000008"],[1,"000010"]]},
+    {"id":"industry-parameter-order","expression":"HIGH = True","market":"沪","scope":"行业A","expected":[[1,"000001"],[1,"000005"]]},
+    {"id":"industry-union-and-null","expression":"LOW = True","scope":"行业A|行业B","expected":[[0,"000001"],[0,"000011"],[1,"000002"],[1,"000005"],[1,"000008"]]}
+  ]
+}

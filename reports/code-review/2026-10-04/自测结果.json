@@ -1,0 +1,94 @@
+{
+  "verifiedAt": "2026-10-04T12:55:20.914402+08:00",
+  "baseCommit": "09be275f7f9b39044a9d650eb25dd0bd912fcd48",
+  "java": {
+    "compiler": {
+      "tests": 243,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 242,
+      "skippedCases": [
+        {
+          "class": "com.acme.dorisdsl.DorisExplainIntegrationTest",
+          "method": "dorisExplainsLayeredRsiSql",
+          "reason": null
+        }
+      ]
+    },
+    "executor": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 3,
+      "skippedCases": []
+    }
+  },
+  "python": {
+    "corpus": {
+      "passed": 5
+    },
+    "generatedSql": {
+      "passed": 5
+    }
+  },
+  "externalDoris": "NOT_RUN",
+  "docker": "NOT_RUN",
+  "acceptance": {
+    "suiteVersion": "automated-acceptance-v1",
+    "startedAt": "2026-10-04T12:52:04.2025297+08:00",
+    "completedAt": "2026-10-04T12:53:11.9545331+08:00",
+    "checks": {
+      "phase1-scope-freeze": {
+        "status": "PASS",
+        "elapsedSeconds": 0.191
+      },
+      "scope-line-ending-regressions": {
+        "status": "PASS",
+        "elapsedSeconds": 0.255
+      },
+      "maven-all-tests": {
+        "status": "PASS",
+        "elapsedSeconds": 53.65
+      },
+      "executor-module-tests": {
+        "status": "PASS",
+        "elapsedSeconds": 11.293
+      },
+      "corpus-python-tests": {
+        "status": "PASS",
+        "elapsedSeconds": 0.535
+      },
+      "doris-data-contract-tests": {
+        "status": "PASS",
+        "elapsedSeconds": 0.098
+      },
+      "review-sql-result-regressions": {
+        "status": "PASS",
+        "elapsedSeconds": 0.158
+      },
+      "formal-compiler-p95": {
+        "status": "PASS",
+        "elapsedSeconds": 1.536
+      },
+      "doris-golden-result-differential": {
+        "status": "NOT_RUN",
+        "reason": "Use -WithDoris and set DORIS_PASSWORD"
+      },
+      "doris-12-function-smoke": {
+        "status": "NOT_RUN",
+        "reason": "Use -WithDoris and set DORIS_PASSWORD"
+      },
+      "doris-19-year-matrix": {
+        "status": "NOT_RUN",
+        "reason": "Use -RunNineteenYearBenchmark (long-running: 720 container restarts)"
+      }
+    }
+  },
+  "packagedArtifact": {
+    "path": "target/dsl-doris-compiler.jar",
+    "sha256": "410a5bb6fdd6e02fef3dbbe73cb51ce7f709887a720671f341a13e19206e3681",
+    "bytes": 8373444
+  }
+}

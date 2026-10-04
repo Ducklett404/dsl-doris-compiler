@@ -31,7 +31,7 @@ final class DorisBenchmarkMatrixTest {
         }
         var ma60 = definition.cases().stream().filter(x -> x.id().equals("ma60")).findFirst().orElseThrow();
         assertTrue(compiler.compile(ma60.dsl(), StockSlotSqlCompiler.AccessPathMode.OPTIMIZED).sql()
-                .contains("stock_daily_features_v1"));
+                .contains("stock_daily_features_v2"));
         assertTrue(compiler.compile(ma60.dsl(), StockSlotSqlCompiler.AccessPathMode.FULL_SCAN_REFERENCE).sql()
                 .contains("v_hsj_stock_hq_basic"));
         var single = definition.cases().stream().filter(x -> x.id().equals("single-day-simple-filter")).findFirst().orElseThrow();

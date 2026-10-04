@@ -1,0 +1,20 @@
+{
+    "TxnId": 11,
+    "Label": "diagnostic_hsj_stock_hq_ext_1791094541",
+    "Comment": "",
+    "TwoPhaseCommit": "false",
+    "Status": "Success",
+    "Message": "OK",
+    "NumberTotalRows": 6170822,
+    "NumberLoadedRows": 6170822,
+    "NumberFilteredRows": 0,
+    "NumberUnselectedRows": 0,
+    "LoadBytes": 1646778564,
+    "LoadTimeMs": 53203,
+    "BeginTxnTimeMs": 0,
+    "StreamLoadPutTimeMs": 13,
+    "ReadDataTimeMs": 49941,
+    "WriteDataTimeMs": 53170,
+    "ReceiveDataTimeMs": 1123,
+    "CommitAndPublishTimeMs": 17
+}

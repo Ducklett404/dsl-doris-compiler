@@ -1,0 +1,2 @@
+Running complete self-test with real JDBC and isolated synthetic data
+{"status": "PASS", "passed": 17, "total": 17}

@@ -1,0 +1,190 @@
+{
+  "fixture": "main-net-turnover-boundaries-v1",
+  "fixtureSha256": "13b62d1f690b76b502b791b4237de44ca2b1c7307464e9f69f7ac564fb3208f5",
+  "authority": "PROJECT_CONTRACT_ONLY_OFFICIAL_CONFIRMATION_PENDING",
+  "engine": "Apache Doris",
+  "results": [
+    {
+      "id": "BOUND-POSITIVE",
+      "status": "PASS",
+      "actual": [
+        [
+          1,
+          "POS"
+        ],
+        [
+          1,
+          "WIN_GOOD"
+        ],
+        [
+          1,
+          "WIN_MISS"
+        ],
+        [
+          1,
+          "WIN_NULL"
+        ],
+        [
+          1,
+          "WIN_SENT"
+        ],
+        [
+          1,
+          "WIN_SHORT"
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          "POS"
+        ],
+        [
+          1,
+          "WIN_GOOD"
+        ],
+        [
+          1,
+          "WIN_MISS"
+        ],
+        [
+          1,
+          "WIN_NULL"
+        ],
+        [
+          1,
+          "WIN_SENT"
+        ],
+        [
+          1,
+          "WIN_SHORT"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    NULLIF(e.ZJLXMainNetTur,-999999) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        0
+      ]
+    },
+    {
+      "id": "BOUND-NEGATIVE",
+      "status": "PASS",
+      "actual": [
+        [
+          1,
+          "LOWER_SENTINEL"
+        ],
+        [
+          1,
+          "NEAR_SENTINEL"
+        ],
+        [
+          1,
+          "NEG"
+        ],
+        [
+          1,
+          "WIN_NEG"
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          "LOWER_SENTINEL"
+        ],
+        [
+          1,
+          "NEAR_SENTINEL"
+        ],
+        [
+          1,
+          "NEG"
+        ],
+        [
+          1,
+          "WIN_NEG"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    NULLIF(e.ZJLXMainNetTur,-999999) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` < ?)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        0
+      ]
+    },
+    {
+      "id": "BOUND-ZERO",
+      "status": "PASS",
+      "actual": [
+        [
+          1,
+          "WIN_ZERO"
+        ],
+        [
+          1,
+          "ZERO"
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          "WIN_ZERO"
+        ],
+        [
+          1,
+          "ZERO"
+        ]
+      ],
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    NULLIF(e.ZJLXMainNetTur,-999999) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` = ?)\nORDER BY mktcode, tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        0
+      ]
+    },
+    {
+      "id": "BOUND-SUM3",
+      "status": "PASS",
+      "actual": [
+        [
+          1,
+          "WIN_GOOD"
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          "WIN_GOOD"
+        ]
+      ],
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    NULLIF(e.ZJLXMainNetTur,-999999) AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3 THEN SUM(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` > ?)\nORDER BY mktcode,tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        "2026-04-14",
+        0
+      ]
+    },
+    {
+      "id": "BOUND-SUM3-NEG",
+      "status": "PASS",
+      "actual": [
+        [
+          1,
+          "WIN_NEG"
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          "WIN_NEG"
+        ]
+      ],
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    NULLIF(e.ZJLXMainNetTur,-999999) AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3 THEN SUM(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` < ?)\nORDER BY mktcode,tgtcode;",
+      "bindings": [
+        "2026-04-14",
+        "2026-04-14",
+        0
+      ]
+    }
+  ],
+  "fixtureDatabase": "dsl_contract_regression_28cfc9b6aa3a",
+  "total": 5,
+  "passed": 5
+}

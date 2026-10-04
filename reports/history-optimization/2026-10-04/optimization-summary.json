@@ -1,0 +1,120 @@
+{
+  "status": "PROJECT_HISTORY_OPTIMIZATION_PASSED_OFFICIAL_ACCEPTANCE_BLOCKED",
+  "completedAtUtc": "2026-10-04T09:48:07.388196+00:00",
+  "compilerJarSha256": "2eb21dc3e830b9548b08b994af18c39c95fa6213ed884f7404bd2b46567299f9",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "goldenSha256": "12e149f8c4623496d0a0d3e30979fc7b344024fe9c1b4b3b15fa0195dde103e7",
+  "javaTests": {
+    "main": {
+      "tests": 257,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "executor": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "syntheticIntegration": {
+    "passed": 17,
+    "total": 17
+  },
+  "historicalBoundaries": {
+    "portable": {
+      "passed": 14,
+      "total": 14
+    },
+    "doris": {
+      "passed": 14,
+      "total": 14
+    }
+  },
+  "realDataDifferential": {
+    "local": {
+      "passed": 34,
+      "total": 34
+    },
+    "doris": {
+      "passed": 34,
+      "total": 34
+    }
+  },
+  "functionSmoke": {
+    "passed": 15,
+    "total": 15
+  },
+  "negativeGate": {
+    "passed": 9,
+    "total": 9
+  },
+  "performance": {
+    "cases": 6,
+    "passed": 6,
+    "iterationsPerPath": 30,
+    "timedQueries": 360,
+    "historyP95RatioMin": 4.108337504521864,
+    "historyP95RatioMax": 7.993465937702651,
+    "history10xTargetMet": false,
+    "plans": [
+      {
+        "id": "nineteen-year-history",
+        "baseTableScans": 1,
+        "analyticalWindow": false
+      },
+      {
+        "id": "history-high-all-markets",
+        "baseTableScans": 1,
+        "analyticalWindow": false
+      },
+      {
+        "id": "history-low-all-markets",
+        "baseTableScans": 1,
+        "analyticalWindow": false
+      },
+      {
+        "id": "history-high-earlier-date",
+        "baseTableScans": 1,
+        "analyticalWindow": false
+      },
+      {
+        "id": "history-pair",
+        "baseTableScans": 1,
+        "analyticalWindow": false
+      }
+    ]
+  },
+  "compilerP95Millis": 0.2191,
+  "evidenceSelftest": {
+    "status": "PASS",
+    "checks": [
+      {
+        "name": "valid-evidence-accepted",
+        "status": "PASS"
+      },
+      {
+        "name": "wrong-percentile-rejected",
+        "status": "PASS"
+      },
+      {
+        "name": "missing-sample-rejected",
+        "status": "PASS"
+      },
+      {
+        "name": "result-mismatch-rejected",
+        "status": "PASS"
+      },
+      {
+        "name": "cleanup-missing-rejected",
+        "status": "PASS"
+      }
+    ]
+  },
+  "sourceIntegrity": "PASS",
+  "officialRegistryRows": 0,
+  "formalAcceptance": "BLOCKED",
+  "extensionWithoutBasic": 249480,
+  "nextStep": "Evaluate snapshot/date-bound historical-extrema features; keep raw fallback and validate multiple dates before MA20/120/250 expansion."
+}

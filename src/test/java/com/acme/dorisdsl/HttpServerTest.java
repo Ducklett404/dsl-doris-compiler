@@ -145,7 +145,7 @@ class HttpServerTest {
                 case "timeout" -> throw new DorisExecutionException(DorisExecutionException.Category.TIMEOUT, "too slow");
                 default -> throw new DorisExecutionException(DorisExecutionException.Category.DORIS_ERROR, "backend unavailable");
             }
-        }, "127.0.0.1", 0)) {
+        }, "127.0.0.1", 0, exchange -> new AuthenticatedIdentity("trusted-user"), (userId, permission) -> true)) {
             server.start();
             var client = HttpClient.newHttpClient();
             assertExecuteError(client, server.port(), "syntax", 400, "syntax_error");

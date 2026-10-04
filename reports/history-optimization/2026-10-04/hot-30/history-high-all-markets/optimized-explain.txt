@@ -1,0 +1,80 @@
+PLAN FRAGMENT 0
+  OUTPUT EXPRS:
+    mktcode[#74]
+    tgtcode[#75]
+  PARTITION: UNPARTITIONED
+
+  HAS_COLO_PLAN_NODE: false
+
+  VRESULT SINK
+     MYSQL_PROTOCOL
+
+  5:VMERGING-EXCHANGE
+     offset: 0
+     distribute expr lists: tgtcode[#75]
+
+PLAN FRAGMENT 1
+
+  PARTITION: HASH_PARTITIONED: tgtcode[#63]
+
+  HAS_COLO_PLAN_NODE: true
+
+  STREAM DATA SINK
+    EXCHANGE ID: 05
+    UNPARTITIONED
+IS_MERGE: true
+
+  4:VSORT(825)
+  |  order by: mktcode[#74] ASC, tgtcode[#75] ASC
+  |  algorithm: full sort
+  |  local merge sort
+  |  merge by exchange
+  |  offset: 0
+  |  distribute expr lists: 
+  |  
+  3:VAGGREGATE (merge finalize)(813)
+  |  output: max(partial_max(is_current)[#66])[#69], max(partial_max(if((is_current = 1), v1, NULL))[#64])[#70], max(partial_max(v1)[#65])[#71]
+  |  group by: mktcode[#62], tgtcode[#63]
+  |  having: (CAST((v1_current[#70] = f1_extremum[#71]) AS tinyint) = 1), (has_current[#69] = 1)
+  |  sortByGroupKey:false
+  |  cardinality=7,423
+  |  final projections: mktcode[#67], tgtcode[#68]
+  |  final project output tuple id: 4
+  |  distribute expr lists: tgtcode[#63]
+  |  
+  2:VEXCHANGE
+     offset: 0
+     distribute expr lists: 
+
+PLAN FRAGMENT 2
+
+  PARTITION: RANDOM
+
+  HAS_COLO_PLAN_NODE: false
+
+  STREAM DATA SINK
+    EXCHANGE ID: 02
+    HASH_PARTITIONED: tgtcode[#63]
+
+  1:VAGGREGATE (update serialize)(805)
+  |  STREAMING
+  |  output: partial_max(if((is_current[#61] = 1), v1[#60], NULL))[#64], partial_max(v1[#60])[#65], partial_max(is_current[#61])[#66]
+  |  group by: mktcode[#58], tgtcode[#59]
+  |  sortByGroupKey:false
+  |  cardinality=7,423
+  |  distribute expr lists: 
+  |  
+  0:VOlapScanNode(793)
+     TABLE: newzl.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON
+     PREDICATES: ((bizdate[#2] <= '2026-04-14') AND (__DORIS_DELETE_SIGN__[#56] = 0))
+     partitions=21/21 (p20150101000000,p20140101000000,p20130101000000,p20120101000000,p20110101000000,p20100101000000,p20090101000000,p20080101000000,p20070101000000,p20060101000000,p20230101000000,p20220101000000,p20210101000000,p20200101000000,p20190101000000,p20180101000000,p20160101000000,p20250101000000,p20240101000000,p20170101000000,p20260101000000)
+     tablets=336/336, tabletList=1791094083785,1791094083787,1791094083789 ...
+     cardinality=13650347, avgRowSize=152.91768, numNodes=1
+     pushAggOp=NONE
+     final projections: mktcode[#0], tgtcode[#1], (CAST(highPx[#6] AS double) / 10000), if((bizdate[#2] = '2026-04-14'), 1, 0)
+     final project output tuple id: 1
+
+
+
+========== STATISTICS ==========
+planned with unknown column statistics

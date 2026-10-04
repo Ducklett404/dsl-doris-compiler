@@ -1,0 +1,6097 @@
+{
+  "purpose" : "OFFICIAL_DATA_HOT_PERFORMANCE_DIAGNOSTIC",
+  "acceptanceEligible" : false,
+  "cacheMode" : "HOT_SQL_RESULT_CACHE_DISABLED",
+  "timingScope" : "JDBC prepare, execute and complete fetch; excludes compilation, EXPLAIN and process startup",
+  "snapshotId" : "stock-20060104-20260414-v1",
+  "matrixVersion" : "official-route-multi-date-v1",
+  "iterationsPerPath" : 30,
+  "results" : [ {
+    "id" : "single-day-simple-filter",
+    "category" : "SINGLE_DAY",
+    "dsl" : "indicator('沪', '', '收盘价', '2026-04-14', '', '', '') > 10 limit 0,100",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 19.046,
+      "baselineMillis" : 20.0922,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 19.0713,
+      "baselineMillis" : 19.253,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 20.0453,
+      "baselineMillis" : 21.1446,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 19.0105,
+      "baselineMillis" : 19.6433,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 18.3676,
+      "baselineMillis" : 19.1064,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 18.5266,
+      "baselineMillis" : 20.4353,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 18.1666,
+      "baselineMillis" : 20.4899,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 17.2896,
+      "baselineMillis" : 18.8355,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 19.4688,
+      "baselineMillis" : 19.9065,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 18.8,
+      "baselineMillis" : 22.2918,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 28.0616,
+      "baselineMillis" : 19.0539,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 23.2276,
+      "baselineMillis" : 29.9086,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 19.284,
+      "baselineMillis" : 24.2514,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 18.9336,
+      "baselineMillis" : 19.4734,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 24.1149,
+      "baselineMillis" : 22.4029,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 17.8891,
+      "baselineMillis" : 20.4407,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 18.7464,
+      "baselineMillis" : 20.2771,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 17.491,
+      "baselineMillis" : 17.7229,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 16.7245,
+      "baselineMillis" : 17.3759,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 18.9457,
+      "baselineMillis" : 19.385,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 16.8119,
+      "baselineMillis" : 20.121,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 17.6752,
+      "baselineMillis" : 19.1794,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 18.749,
+      "baselineMillis" : 20.0164,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 17.9299,
+      "baselineMillis" : 19.6013,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 19.771,
+      "baselineMillis" : 26.2563,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 18.0885,
+      "baselineMillis" : 18.7146,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 18.0882,
+      "baselineMillis" : 19.1678,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 17.8913,
+      "baselineMillis" : 18.7844,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 17.2393,
+      "baselineMillis" : 19.2384,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 17.2037,
+      "baselineMillis" : 18.7239,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "20c30a34cd291dc90ec433f6476f1d7ed36ddde30c0e36eaa09e5d6cdfc6618b",
+    "baseline" : {
+      "maxMillis" : 29.9086,
+      "p95Millis" : 26.2563,
+      "p50Millis" : 19.6013,
+      "minMillis" : 17.3759
+    },
+    "optimized" : {
+      "maxMillis" : 28.0616,
+      "p95Millis" : 24.1149,
+      "p50Millis" : 18.5266,
+      "minMillis" : 16.7245
+    },
+    "sameSql" : false,
+    "p95Ratio" : 1.0887998706194095,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "multi-indicator-cross-table",
+    "category" : "CROSS_TABLE",
+    "dsl" : "indicator('沪', '', '收盘价', '2026-04-14', '', '', '') > 10 and indicator('沪', '', '主力净流入', '2026-04-14', '', '', '') > 0 limit 0,100",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 33.8656,
+      "baselineMillis" : 33.8546,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 33.4608,
+      "baselineMillis" : 35.7179,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 37.0167,
+      "baselineMillis" : 37.4616,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 37.5607,
+      "baselineMillis" : 32.9353,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 33.501,
+      "baselineMillis" : 33.1578,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 35.6692,
+      "baselineMillis" : 31.8696,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 34.0043,
+      "baselineMillis" : 33.8309,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 32.8127,
+      "baselineMillis" : 30.845,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 34.4871,
+      "baselineMillis" : 32.95,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 33.1369,
+      "baselineMillis" : 30.9456,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 36.0605,
+      "baselineMillis" : 30.3636,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 33.6237,
+      "baselineMillis" : 30.6973,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 32.9764,
+      "baselineMillis" : 29.814,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 32.5304,
+      "baselineMillis" : 31.3775,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 35.673,
+      "baselineMillis" : 32.8339,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 33.2385,
+      "baselineMillis" : 30.612,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 33.579,
+      "baselineMillis" : 31.7972,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 45.4302,
+      "baselineMillis" : 37.3044,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 32.5346,
+      "baselineMillis" : 32.8239,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 33.5971,
+      "baselineMillis" : 41.5641,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 34.099,
+      "baselineMillis" : 44.8398,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 32.027,
+      "baselineMillis" : 30.0256,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 34.4881,
+      "baselineMillis" : 33.3737,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 32.0301,
+      "baselineMillis" : 31.6425,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 33.1463,
+      "baselineMillis" : 37.302,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 35.9381,
+      "baselineMillis" : 34.61,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 30.7915,
+      "baselineMillis" : 31.7395,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 36.1816,
+      "baselineMillis" : 34.9408,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 31.9269,
+      "baselineMillis" : 33.3485,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 34.382,
+      "baselineMillis" : 31.3317,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "a6dd095cb95040ddd0bea171c235c815a23b413968fe760a4b8de0a5cb7f5486",
+    "baseline" : {
+      "maxMillis" : 44.8398,
+      "p95Millis" : 41.5641,
+      "p50Millis" : 32.8339,
+      "minMillis" : 29.814
+    },
+    "optimized" : {
+      "maxMillis" : 45.4302,
+      "p95Millis" : 37.5607,
+      "p50Millis" : 33.5971,
+      "minMillis" : 30.7915
+    },
+    "sameSql" : false,
+    "p95Ratio" : 1.106584808057358,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma20",
+    "category" : "WINDOW",
+    "dsl" : "indicator('沪', '', '20日均线', '2026-04-14', '', '', '') > 10 limit 0,100",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.1707,
+      "baselineMillis" : 867.0407,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1609,
+      "baselineMillis" : 985.6213,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5763,
+      "baselineMillis" : 893.8892,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0973,
+      "baselineMillis" : 843.9765,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.8219,
+      "baselineMillis" : 890.5489,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.0019,
+      "baselineMillis" : 887.6876,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.8956,
+      "baselineMillis" : 1075.5326,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6727,
+      "baselineMillis" : 986.8775,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.6037,
+      "baselineMillis" : 916.6851,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.6037,
+      "baselineMillis" : 996.8526,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.9546,
+      "baselineMillis" : 990.323,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1603,
+      "baselineMillis" : 963.9284,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.5861,
+      "baselineMillis" : 990.0385,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1589,
+      "baselineMillis" : 852.732,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4177,
+      "baselineMillis" : 974.8107,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6503,
+      "baselineMillis" : 886.2457,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.3977,
+      "baselineMillis" : 851.6121,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.452,
+      "baselineMillis" : 951.3561,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.3397,
+      "baselineMillis" : 855.1751,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.0832,
+      "baselineMillis" : 940.521,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4775,
+      "baselineMillis" : 879.1489,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7327,
+      "baselineMillis" : 792.5072,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.2347,
+      "baselineMillis" : 783.635,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.6997,
+      "baselineMillis" : 850.868,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1147,
+      "baselineMillis" : 888.0345,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4797,
+      "baselineMillis" : 892.9419,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4037,
+      "baselineMillis" : 957.7734,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.703,
+      "baselineMillis" : 781.5715,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.2625,
+      "baselineMillis" : 889.1291,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.456,
+      "baselineMillis" : 873.7726,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "b59fbc92e959c26068a7bbd600baf86469cfe10494f0df5aa9150c1fd5dc9105",
+    "baseline" : {
+      "maxMillis" : 1075.5326,
+      "p95Millis" : 996.8526,
+      "p50Millis" : 889.1291,
+      "minMillis" : 781.5715
+    },
+    "optimized" : {
+      "maxMillis" : 10.6037,
+      "p95Millis" : 10.5861,
+      "p50Millis" : 9.3397,
+      "minMillis" : 7.7327
+    },
+    "sameSql" : false,
+    "p95Ratio" : 94.16618017966957,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma60",
+    "category" : "WINDOW",
+    "dsl" : "indicator('沪', '', '60日均线', '2026-04-14', '', '', '') > 10 limit 0,100",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.603,
+      "baselineMillis" : 1009.7517,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.716,
+      "baselineMillis" : 986.8035,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.5149,
+      "baselineMillis" : 1140.312,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2034,
+      "baselineMillis" : 1005.3942,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9883,
+      "baselineMillis" : 1144.0108,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7122,
+      "baselineMillis" : 1052.1332,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 13.7232,
+      "baselineMillis" : 1067.5989,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4299,
+      "baselineMillis" : 1014.6288,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.8822,
+      "baselineMillis" : 1096.1904,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.0279,
+      "baselineMillis" : 1039.9937,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.0723,
+      "baselineMillis" : 1124.0108,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8515,
+      "baselineMillis" : 1121.0751,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.684,
+      "baselineMillis" : 1014.8959,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7724,
+      "baselineMillis" : 1113.5517,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.7954,
+      "baselineMillis" : 1031.6611,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.0655,
+      "baselineMillis" : 1179.1707,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4733,
+      "baselineMillis" : 1011.1743,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6841,
+      "baselineMillis" : 1085.0233,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2612,
+      "baselineMillis" : 1044.1094,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8542,
+      "baselineMillis" : 1063.0967,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2711,
+      "baselineMillis" : 1021.9183,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.39,
+      "baselineMillis" : 1065.8097,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1338,
+      "baselineMillis" : 998.049,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6123,
+      "baselineMillis" : 1076.0377,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.4541,
+      "baselineMillis" : 1038.4602,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2909,
+      "baselineMillis" : 1107.5187,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.9497,
+      "baselineMillis" : 1026.2987,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.278,
+      "baselineMillis" : 1122.694,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6894,
+      "baselineMillis" : 1002.9157,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7048,
+      "baselineMillis" : 1034.3732,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 49,
+    "resultSha256" : "ae6dca771473ae0b856b6c242973d4f0fbb7491e880e7170156df9e93ef531e9",
+    "baseline" : {
+      "maxMillis" : 1179.1707,
+      "p95Millis" : 1144.0108,
+      "p50Millis" : 1044.1094,
+      "minMillis" : 986.8035
+    },
+    "optimized" : {
+      "maxMillis" : 13.7232,
+      "p95Millis" : 10.5149,
+      "p50Millis" : 9.2612,
+      "minMillis" : 8.6123
+    },
+    "sameSql" : false,
+    "p95Ratio" : 108.79901853560186,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma120",
+    "category" : "WINDOW",
+    "dsl" : "indicator('沪', '', '120日均线', '2026-04-14', '', '', '') > 10 limit 0,100",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7203,
+      "baselineMillis" : 1320.5449,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5259,
+      "baselineMillis" : 1290.4528,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2486,
+      "baselineMillis" : 1285.6293,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2506,
+      "baselineMillis" : 1370.0958,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.0205,
+      "baselineMillis" : 1345.0019,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.4399,
+      "baselineMillis" : 1332.1583,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3818,
+      "baselineMillis" : 1437.2596,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9462,
+      "baselineMillis" : 1341.5663,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8677,
+      "baselineMillis" : 1310.8129,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4632,
+      "baselineMillis" : 1330.8993,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6239,
+      "baselineMillis" : 1271.7334,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4597,
+      "baselineMillis" : 1223.7314,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9746,
+      "baselineMillis" : 1270.7172,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4691,
+      "baselineMillis" : 1280.0197,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9058,
+      "baselineMillis" : 1349.6034,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9638,
+      "baselineMillis" : 1287.3122,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.4536,
+      "baselineMillis" : 1248.7485,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.5661,
+      "baselineMillis" : 1287.1183,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4684,
+      "baselineMillis" : 1378.0284,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.5082,
+      "baselineMillis" : 1300.8391,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8865,
+      "baselineMillis" : 1349.6902,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0475,
+      "baselineMillis" : 1357.7559,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8943,
+      "baselineMillis" : 1317.917,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8312,
+      "baselineMillis" : 1286.2082,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7888,
+      "baselineMillis" : 1387.5858,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5898,
+      "baselineMillis" : 1354.9922,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.0738,
+      "baselineMillis" : 1329.288,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5699,
+      "baselineMillis" : 1340.0748,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4564,
+      "baselineMillis" : 1270.6837,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.957,
+      "baselineMillis" : 1318.8586,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 44,
+    "resultSha256" : "2bc844a9b89b5baa58b999733b284c40fc8e8918d956ca40f318fdcd98ddd7d9",
+    "baseline" : {
+      "maxMillis" : 1437.2596,
+      "p95Millis" : 1387.5858,
+      "p50Millis" : 1318.8586,
+      "minMillis" : 1223.7314
+    },
+    "optimized" : {
+      "maxMillis" : 10.4536,
+      "p95Millis" : 10.4399,
+      "p50Millis" : 8.8677,
+      "minMillis" : 7.957
+    },
+    "sameSql" : false,
+    "p95Ratio" : 132.9117903428194,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma250",
+    "category" : "WINDOW",
+    "dsl" : "indicator('沪', '', '250日均线', '2026-04-14', '', '', '') > 10 limit 0,100",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2099,
+      "baselineMillis" : 1903.0441,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2115,
+      "baselineMillis" : 1923.2912,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7445,
+      "baselineMillis" : 1859.9002,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4377,
+      "baselineMillis" : 1871.2979,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.4264,
+      "baselineMillis" : 1837.08,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1514,
+      "baselineMillis" : 1862.4496,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.554,
+      "baselineMillis" : 2002.586,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9329,
+      "baselineMillis" : 1922.6089,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1561,
+      "baselineMillis" : 1851.0222,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8892,
+      "baselineMillis" : 1910.9717,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.0943,
+      "baselineMillis" : 1886.9841,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5684,
+      "baselineMillis" : 1911.1514,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1935,
+      "baselineMillis" : 1942.3681,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3901,
+      "baselineMillis" : 1873.0054,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2117,
+      "baselineMillis" : 1900.5624,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8398,
+      "baselineMillis" : 1945.9596,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.043,
+      "baselineMillis" : 1992.076,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.2753,
+      "baselineMillis" : 2048.9612,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.6838,
+      "baselineMillis" : 2292.2626,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.3994,
+      "baselineMillis" : 2105.4547,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4018,
+      "baselineMillis" : 1904.5997,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9679,
+      "baselineMillis" : 1876.1506,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.42,
+      "baselineMillis" : 1871.6001,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8345,
+      "baselineMillis" : 1855.2582,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9066,
+      "baselineMillis" : 1851.5566,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1986,
+      "baselineMillis" : 1910.0737,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.5693,
+      "baselineMillis" : 1995.7593,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.1313,
+      "baselineMillis" : 2041.2736,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.356,
+      "baselineMillis" : 1944.7546,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.0076,
+      "baselineMillis" : 1832.7316,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 41,
+    "resultSha256" : "4775d3f6355e0335db44c41a9ade3616ae699cdb16ec52588a7dfb38398fbc17",
+    "baseline" : {
+      "maxMillis" : 2292.2626,
+      "p95Millis" : 2105.4547,
+      "p50Millis" : 1904.5997,
+      "minMillis" : 1832.7316
+    },
+    "optimized" : {
+      "maxMillis" : 11.6838,
+      "p95Millis" : 11.043,
+      "p50Millis" : 8.9679,
+      "minMillis" : 7.8398
+    },
+    "sameSql" : false,
+    "p95Ratio" : 190.65966675722177,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "cross-above",
+    "category" : "CROSS",
+    "dsl" : "cross_above('沪', '', '收盘价', '开盘价', '2026-04-14', '', '') = True limit 0,100",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 665.5708,
+      "baselineMillis" : 812.299,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 811.2891,
+      "baselineMillis" : 726.3807,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 672.6751,
+      "baselineMillis" : 668.7613,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 790.778,
+      "baselineMillis" : 694.1197,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 807.2411,
+      "baselineMillis" : 789.7283,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 649.9941,
+      "baselineMillis" : 808.0022,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 659.5851,
+      "baselineMillis" : 720.3855,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 816.7445,
+      "baselineMillis" : 790.4195,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 712.5452,
+      "baselineMillis" : 788.8079,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 818.2945,
+      "baselineMillis" : 716.2461,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 748.7018,
+      "baselineMillis" : 772.3827,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 674.7609,
+      "baselineMillis" : 851.3989,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 741.5284,
+      "baselineMillis" : 819.2188,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 850.9443,
+      "baselineMillis" : 887.5387,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 747.8832,
+      "baselineMillis" : 779.0693,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 706.3608,
+      "baselineMillis" : 825.6255,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 723.9847,
+      "baselineMillis" : 790.8365,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 747.5233,
+      "baselineMillis" : 801.0776,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 798.8054,
+      "baselineMillis" : 659.2301,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 830.1798,
+      "baselineMillis" : 691.4028,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 805.9741,
+      "baselineMillis" : 834.4884,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 723.2944,
+      "baselineMillis" : 979.7825,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 775.6754,
+      "baselineMillis" : 938.9278,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 689.1827,
+      "baselineMillis" : 828.6824,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 685.9121,
+      "baselineMillis" : 763.2337,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 764.7421,
+      "baselineMillis" : 862.8713,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 835.3794,
+      "baselineMillis" : 655.0999,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 692.7888,
+      "baselineMillis" : 754.6605,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 1002.5997,
+      "baselineMillis" : 920.9408,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 703.0199,
+      "baselineMillis" : 848.6617,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "4db1dd17db0d6d1cad74fd2511f744f3cbb0a00fa8263ab59a6d836603e9bb63",
+    "baseline" : {
+      "maxMillis" : 979.7825,
+      "p95Millis" : 938.9278,
+      "p50Millis" : 790.4195,
+      "minMillis" : 655.0999
+    },
+    "optimized" : {
+      "maxMillis" : 1002.5997,
+      "p95Millis" : 850.9443,
+      "p50Millis" : 747.5233,
+      "minMillis" : 649.9941
+    },
+    "sameSql" : true,
+    "p95Ratio" : 1.103395134088095,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  }, {
+    "id" : "record-high",
+    "category" : "WINDOW",
+    "dsl" : "record_high('沪', '', '最高价', '250日', '2026-04-14', '', '', '') = True limit 0,100",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.0805,
+      "baselineMillis" : 1822.6337,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.3364,
+      "baselineMillis" : 1846.2568,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9339,
+      "baselineMillis" : 1853.6423,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5923,
+      "baselineMillis" : 1890.7454,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8785,
+      "baselineMillis" : 1862.9397,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6828,
+      "baselineMillis" : 1819.7564,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7063,
+      "baselineMillis" : 1759.1249,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.3754,
+      "baselineMillis" : 1819.1272,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.944,
+      "baselineMillis" : 1802.0808,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0216,
+      "baselineMillis" : 1785.3351,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.211,
+      "baselineMillis" : 1770.9995,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.4927,
+      "baselineMillis" : 1735.3349,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4476,
+      "baselineMillis" : 1810.7444,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3799,
+      "baselineMillis" : 1742.3541,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3613,
+      "baselineMillis" : 1774.2522,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.897,
+      "baselineMillis" : 1796.7181,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.7847,
+      "baselineMillis" : 1917.1192,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1244,
+      "baselineMillis" : 2009.3664,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6142,
+      "baselineMillis" : 1814.3012,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0886,
+      "baselineMillis" : 1801.3719,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0128,
+      "baselineMillis" : 1781.3873,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.5634,
+      "baselineMillis" : 1827.6432,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9575,
+      "baselineMillis" : 1766.0765,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3569,
+      "baselineMillis" : 1807.6103,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.884,
+      "baselineMillis" : 1751.7735,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.2994,
+      "baselineMillis" : 1803.991,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2438,
+      "baselineMillis" : 1739.2022,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.6016,
+      "baselineMillis" : 1871.1708,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1327,
+      "baselineMillis" : 1940.198,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.238,
+      "baselineMillis" : 1871.5921,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 0,
+    "resultSha256" : "5984eac0c5c6d947241e29dd5671b81a1546cedf77e08d38438ac47029969afa",
+    "baseline" : {
+      "maxMillis" : 2009.3664,
+      "p95Millis" : 1940.198,
+      "p50Millis" : 1807.6103,
+      "minMillis" : 1735.3349
+    },
+    "optimized" : {
+      "maxMillis" : 10.3364,
+      "p95Millis" : 10.0805,
+      "p50Millis" : 8.3569,
+      "minMillis" : 7.2994
+    },
+    "sameSql" : false,
+    "p95Ratio" : 192.4704131739497,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "record-low",
+    "category" : "WINDOW",
+    "dsl" : "record_low('沪', '', '最低价', '250日', '2026-04-14', '', '', '') = True limit 0,100",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9971,
+      "baselineMillis" : 2377.7224,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9592,
+      "baselineMillis" : 2428.617,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8789,
+      "baselineMillis" : 2350.3882,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7261,
+      "baselineMillis" : 2441.3357,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7742,
+      "baselineMillis" : 2383.7961,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.433,
+      "baselineMillis" : 2431.0268,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.725,
+      "baselineMillis" : 2593.0771,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7288,
+      "baselineMillis" : 2398.2226,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9916,
+      "baselineMillis" : 2395.1796,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8585,
+      "baselineMillis" : 2489.8527,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.0856,
+      "baselineMillis" : 2401.0733,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1146,
+      "baselineMillis" : 2386.0755,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3418,
+      "baselineMillis" : 2401.8281,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1408,
+      "baselineMillis" : 2382.9772,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4342,
+      "baselineMillis" : 2404.0259,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4445,
+      "baselineMillis" : 2393.6942,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7548,
+      "baselineMillis" : 2396.4764,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7587,
+      "baselineMillis" : 2388.3809,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8421,
+      "baselineMillis" : 2448.393,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7218,
+      "baselineMillis" : 2387.5498,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5362,
+      "baselineMillis" : 2486.6643,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7381,
+      "baselineMillis" : 2389.9796,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7104,
+      "baselineMillis" : 2455.8043,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3414,
+      "baselineMillis" : 2535.4213,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0072,
+      "baselineMillis" : 2472.2304,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.484,
+      "baselineMillis" : 2421.7454,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7486,
+      "baselineMillis" : 2399.6001,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7661,
+      "baselineMillis" : 2570.4849,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.4883,
+      "baselineMillis" : 2505.4507,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2821,
+      "baselineMillis" : 2606.3117,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 1,
+    "resultSha256" : "ae289019c0531b1950c4998f7c81d3add59f9b7871e0d1cd5db8c5fb5ed28cc9",
+    "baseline" : {
+      "maxMillis" : 2606.3117,
+      "p95Millis" : 2593.0771,
+      "p50Millis" : 2401.8281,
+      "minMillis" : 2350.3882
+    },
+    "optimized" : {
+      "maxMillis" : 10.4883,
+      "p95Millis" : 9.4342,
+      "p50Millis" : 8.1146,
+      "minMillis" : 7.433
+    },
+    "sameSql" : false,
+    "p95Ratio" : 274.85924614699707,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "consecutive-three",
+    "category" : "OCCURRENCE",
+    "dsl" : "indicator('沪', '', '收盘价', '2026-04-14', '', '', 'CONS>=3日') > 10 limit 0,100",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 517.6925,
+      "baselineMillis" : 525.9844,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 420.1935,
+      "baselineMillis" : 497.341,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 447.9841,
+      "baselineMillis" : 525.849,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 412.4301,
+      "baselineMillis" : 404.0759,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 517.0978,
+      "baselineMillis" : 407.4724,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 531.7062,
+      "baselineMillis" : 392.0973,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 525.5663,
+      "baselineMillis" : 459.665,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 395.7302,
+      "baselineMillis" : 493.4829,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 501.6727,
+      "baselineMillis" : 563.5854,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 459.1568,
+      "baselineMillis" : 472.9924,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 382.6144,
+      "baselineMillis" : 414.333,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 488.7628,
+      "baselineMillis" : 574.4012,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 533.1744,
+      "baselineMillis" : 464.606,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 579.0468,
+      "baselineMillis" : 438.0301,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 405.2846,
+      "baselineMillis" : 406.9623,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 507.3321,
+      "baselineMillis" : 560.366,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 551.3739,
+      "baselineMillis" : 505.7079,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 404.8005,
+      "baselineMillis" : 513.2733,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 475.1296,
+      "baselineMillis" : 540.9873,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 463.002,
+      "baselineMillis" : 520.6403,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 448.0957,
+      "baselineMillis" : 595.6609,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 443.1105,
+      "baselineMillis" : 413.1185,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 551.2955,
+      "baselineMillis" : 549.9832,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 448.7098,
+      "baselineMillis" : 464.3604,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 412.655,
+      "baselineMillis" : 558.4044,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 392.4366,
+      "baselineMillis" : 389.7924,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 569.5208,
+      "baselineMillis" : 496.7866,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 414.2057,
+      "baselineMillis" : 396.1217,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 545.1757,
+      "baselineMillis" : 492.2147,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 449.0712,
+      "baselineMillis" : 476.0412,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "6fe13cf65d6140551dc68cf2b7b0548a352e5b7c6978847f3f5ba5e525a70978",
+    "baseline" : {
+      "maxMillis" : 595.6609,
+      "p95Millis" : 574.4012,
+      "p50Millis" : 492.2147,
+      "minMillis" : 389.7924
+    },
+    "optimized" : {
+      "maxMillis" : 579.0468,
+      "p95Millis" : 569.5208,
+      "p50Millis" : 459.1568,
+      "minMillis" : 382.6144
+    },
+    "sameSql" : true,
+    "p95Ratio" : 1.0085693094966857,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  }, {
+    "id" : "daily-rank",
+    "category" : "RANK",
+    "dsl" : "rank('沪', '', '收盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 100 limit 0,100",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 28.5424,
+      "baselineMillis" : 27.9828,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 27.5054,
+      "baselineMillis" : 29.5894,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 26.6501,
+      "baselineMillis" : 31.0703,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 25.6769,
+      "baselineMillis" : 26.4729,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 25.3219,
+      "baselineMillis" : 24.4921,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 25.5962,
+      "baselineMillis" : 23.6431,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 24.4745,
+      "baselineMillis" : 23.4975,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 25.8756,
+      "baselineMillis" : 25.2431,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 24.5138,
+      "baselineMillis" : 23.6534,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 27.4024,
+      "baselineMillis" : 24.8318,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 24.12,
+      "baselineMillis" : 24.6381,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 24.5027,
+      "baselineMillis" : 30.0648,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 24.0546,
+      "baselineMillis" : 25.1827,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 22.6068,
+      "baselineMillis" : 25.3951,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 23.7802,
+      "baselineMillis" : 22.7243,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 22.9728,
+      "baselineMillis" : 21.4142,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 24.357,
+      "baselineMillis" : 22.7576,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 23.3493,
+      "baselineMillis" : 23.0989,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 22.6875,
+      "baselineMillis" : 23.5064,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 23.0844,
+      "baselineMillis" : 23.6382,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 24.2718,
+      "baselineMillis" : 24.5598,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 23.1665,
+      "baselineMillis" : 26.5281,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 24.9196,
+      "baselineMillis" : 28.7524,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 24.4791,
+      "baselineMillis" : 28.5897,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 24.8702,
+      "baselineMillis" : 27.3581,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 23.1882,
+      "baselineMillis" : 23.5535,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 22.9134,
+      "baselineMillis" : 23.2593,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 24.1971,
+      "baselineMillis" : 23.6974,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 23.9502,
+      "baselineMillis" : 22.4731,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 25.5664,
+      "baselineMillis" : 25.4819,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "ef1b95b02cf412324023ded23aef4214ceea2b66eabd0b3625d2eafaa3f3859d",
+    "baseline" : {
+      "maxMillis" : 31.0703,
+      "p95Millis" : 30.0648,
+      "p50Millis" : 24.5598,
+      "minMillis" : 21.4142
+    },
+    "optimized" : {
+      "maxMillis" : 28.5424,
+      "p95Millis" : 27.5054,
+      "p50Millis" : 24.357,
+      "minMillis" : 22.6068
+    },
+    "sameSql" : true,
+    "p95Ratio" : 1.0930508191118835,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  }, {
+    "id" : "nineteen-year-history",
+    "category" : "LONG_RANGE",
+    "dsl" : "record_high('沪', '', '最高价', '历史', '2026-04-14', '', '', '') = True limit 0,100",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.7159,
+      "baselineMillis" : 768.1433,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.3684,
+      "baselineMillis" : 775.2826,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.1031,
+      "baselineMillis" : 888.5577,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.0104,
+      "baselineMillis" : 799.7338,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.5761,
+      "baselineMillis" : 943.828,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5597,
+      "baselineMillis" : 860.6562,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4884,
+      "baselineMillis" : 733.9776,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6019,
+      "baselineMillis" : 882.718,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7441,
+      "baselineMillis" : 822.5488,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2065,
+      "baselineMillis" : 927.6235,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.5662,
+      "baselineMillis" : 834.6019,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.2603,
+      "baselineMillis" : 994.6594,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.4905,
+      "baselineMillis" : 934.7751,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.0645,
+      "baselineMillis" : 905.9364,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.3878,
+      "baselineMillis" : 950.689,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.5463,
+      "baselineMillis" : 860.8953,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.8628,
+      "baselineMillis" : 902.858,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.3889,
+      "baselineMillis" : 858.2233,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.2819,
+      "baselineMillis" : 935.0021,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.468,
+      "baselineMillis" : 870.8311,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.6182,
+      "baselineMillis" : 950.8633,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.7338,
+      "baselineMillis" : 970.4431,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.6511,
+      "baselineMillis" : 852.9036,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2199,
+      "baselineMillis" : 760.0927,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.9744,
+      "baselineMillis" : 882.3607,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.0056,
+      "baselineMillis" : 828.8556,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3861,
+      "baselineMillis" : 978.5737,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.1698,
+      "baselineMillis" : 801.2796,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.835,
+      "baselineMillis" : 855.4862,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.5359,
+      "baselineMillis" : 826.2784,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : true,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 17,
+    "resultSha256" : "16e0a294fa72161e33fd6ff24430daec982fa214248641ac3f3e899b5c1c8a4f",
+    "baseline" : {
+      "maxMillis" : 994.6594,
+      "p95Millis" : 978.5737,
+      "p50Millis" : 860.8953,
+      "minMillis" : 733.9776
+    },
+    "optimized" : {
+      "maxMillis" : 11.3878,
+      "p95Millis" : 11.2819,
+      "p50Millis" : 10.0645,
+      "minMillis" : 8.2065
+    },
+    "sameSql" : false,
+    "p95Ratio" : 86.7383774009697,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma20-2026-04-10-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '20日均线', '2026-04-10', '', '', '') > 10",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.8163,
+      "baselineMillis" : 1840.649,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.7656,
+      "baselineMillis" : 1938.1262,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 13.2146,
+      "baselineMillis" : 1920.9434,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.237,
+      "baselineMillis" : 1934.9389,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.9571,
+      "baselineMillis" : 1824.0831,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.7295,
+      "baselineMillis" : 1912.0225,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.0171,
+      "baselineMillis" : 1825.5484,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.0492,
+      "baselineMillis" : 1796.4906,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 12.3501,
+      "baselineMillis" : 1904.3651,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.3864,
+      "baselineMillis" : 1806.6102,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.1262,
+      "baselineMillis" : 1788.9954,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.215,
+      "baselineMillis" : 1917.2991,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 12.2507,
+      "baselineMillis" : 1784.3724,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.3824,
+      "baselineMillis" : 1777.28,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.3292,
+      "baselineMillis" : 1863.6034,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.5944,
+      "baselineMillis" : 1803.9932,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.8347,
+      "baselineMillis" : 1931.4838,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.6032,
+      "baselineMillis" : 1897.5617,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 12.5991,
+      "baselineMillis" : 2019.6391,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 13.3047,
+      "baselineMillis" : 1911.3636,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 12.1041,
+      "baselineMillis" : 1962.8975,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.5946,
+      "baselineMillis" : 1824.5571,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.7566,
+      "baselineMillis" : 1733.7675,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.051,
+      "baselineMillis" : 1960.2158,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.4723,
+      "baselineMillis" : 1730.6646,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 12.1641,
+      "baselineMillis" : 1789.476,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.1301,
+      "baselineMillis" : 1743.7147,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.1402,
+      "baselineMillis" : 1831.0681,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.4445,
+      "baselineMillis" : 1891.6306,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.9399,
+      "baselineMillis" : 1778.1633,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 3542,
+    "resultSha256" : "bad1a403700d7eaf5ac6b1ffb759d7213ea8a03d3aab74f4d9aefe25b906721d",
+    "baseline" : {
+      "maxMillis" : 2019.6391,
+      "p95Millis" : 1962.8975,
+      "p50Millis" : 1831.0681,
+      "minMillis" : 1730.6646
+    },
+    "optimized" : {
+      "maxMillis" : 13.3047,
+      "p95Millis" : 13.2146,
+      "p50Millis" : 11.1262,
+      "minMillis" : 9.5944
+    },
+    "sameSql" : false,
+    "p95Ratio" : 148.5400617498827,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma60-2026-04-10-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '60日均线', '2026-04-10', '', '', '') > 10",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9148,
+      "baselineMillis" : 2198.0042,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3498,
+      "baselineMillis" : 2160.7365,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.2719,
+      "baselineMillis" : 2223.5684,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.8606,
+      "baselineMillis" : 2395.7949,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 12.9396,
+      "baselineMillis" : 2418.077,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.3697,
+      "baselineMillis" : 2280.6684,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.7847,
+      "baselineMillis" : 2282.3307,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9453,
+      "baselineMillis" : 2459.6354,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.5643,
+      "baselineMillis" : 2367.6497,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4371,
+      "baselineMillis" : 2252.1076,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5287,
+      "baselineMillis" : 2177.3786,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6497,
+      "baselineMillis" : 2181.1726,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3237,
+      "baselineMillis" : 2213.6916,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8158,
+      "baselineMillis" : 2194.3459,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2692,
+      "baselineMillis" : 2217.2609,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8576,
+      "baselineMillis" : 2167.1234,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7282,
+      "baselineMillis" : 2178.3146,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7517,
+      "baselineMillis" : 2180.1322,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.6541,
+      "baselineMillis" : 2175.6165,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.7717,
+      "baselineMillis" : 2208.198,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.756,
+      "baselineMillis" : 2205.4632,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.6051,
+      "baselineMillis" : 2151.5572,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7758,
+      "baselineMillis" : 2207.3088,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3944,
+      "baselineMillis" : 2223.1028,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.0196,
+      "baselineMillis" : 2120.8594,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1623,
+      "baselineMillis" : 2166.0801,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.6715,
+      "baselineMillis" : 2280.7238,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4333,
+      "baselineMillis" : 2115.1889,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4562,
+      "baselineMillis" : 2307.3193,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.5432,
+      "baselineMillis" : 2370.03,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 161,
+    "resultSha256" : "71e79018148784cf56dc62566e63026bcfe5e2652fbab6fa4614b12d721d34f3",
+    "baseline" : {
+      "maxMillis" : 2459.6354,
+      "p95Millis" : 2418.077,
+      "p50Millis" : 2207.3088,
+      "minMillis" : 2115.1889
+    },
+    "optimized" : {
+      "maxMillis" : 12.9396,
+      "p95Millis" : 10.5432,
+      "p50Millis" : 8.8576,
+      "minMillis" : 7.6051
+    },
+    "sameSql" : false,
+    "p95Ratio" : 229.34943850064496,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma120-2026-04-10-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '120日均线', '2026-04-10', '', '', '') > 10",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.5832,
+      "baselineMillis" : 2753.6712,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5613,
+      "baselineMillis" : 2697.1035,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.0501,
+      "baselineMillis" : 2806.8263,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5197,
+      "baselineMillis" : 2738.631,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2236,
+      "baselineMillis" : 2778.942,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1429,
+      "baselineMillis" : 2734.7492,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6797,
+      "baselineMillis" : 2769.2659,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.195,
+      "baselineMillis" : 2787.5831,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.1177,
+      "baselineMillis" : 3001.232,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8328,
+      "baselineMillis" : 2825.6655,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1763,
+      "baselineMillis" : 2687.728,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.978,
+      "baselineMillis" : 2812.7748,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3206,
+      "baselineMillis" : 2834.2512,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7873,
+      "baselineMillis" : 2902.4973,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4093,
+      "baselineMillis" : 2959.6926,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.39,
+      "baselineMillis" : 2762.3852,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1396,
+      "baselineMillis" : 2670.0237,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.608,
+      "baselineMillis" : 2890.3403,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5683,
+      "baselineMillis" : 2770.3412,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2867,
+      "baselineMillis" : 2810.2384,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.9535,
+      "baselineMillis" : 3038.4079,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.1911,
+      "baselineMillis" : 3003.7158,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.8861,
+      "baselineMillis" : 2829.0845,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4819,
+      "baselineMillis" : 2823.5267,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1719,
+      "baselineMillis" : 2795.225,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6384,
+      "baselineMillis" : 2830.1222,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.0086,
+      "baselineMillis" : 2774.6124,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.816,
+      "baselineMillis" : 2687.7293,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5611,
+      "baselineMillis" : 2807.2068,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7456,
+      "baselineMillis" : 2815.1064,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 156,
+    "resultSha256" : "d40ef53de190aace87d2bd2019de2cdb333db535d366d81e40cf17b10433470d",
+    "baseline" : {
+      "maxMillis" : 3038.4079,
+      "p95Millis" : 3003.7158,
+      "p50Millis" : 2806.8263,
+      "minMillis" : 2670.0237
+    },
+    "optimized" : {
+      "maxMillis" : 11.9535,
+      "p95Millis" : 10.8861,
+      "p50Millis" : 8.5683,
+      "minMillis" : 7.608
+    },
+    "sameSql" : false,
+    "p95Ratio" : 275.92212086973296,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma250-2026-04-10-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '250日均线', '2026-04-10', '', '', '') > 10",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8275,
+      "baselineMillis" : 4074.6702,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7805,
+      "baselineMillis" : 4075.1074,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.3724,
+      "baselineMillis" : 4182.6205,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8634,
+      "baselineMillis" : 4199.0441,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.7518,
+      "baselineMillis" : 4084.9165,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8415,
+      "baselineMillis" : 4095.9838,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5561,
+      "baselineMillis" : 4207.5044,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.959,
+      "baselineMillis" : 4040.4156,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8585,
+      "baselineMillis" : 4052.2887,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4846,
+      "baselineMillis" : 4076.2382,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.6402,
+      "baselineMillis" : 4043.1145,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.936,
+      "baselineMillis" : 4148.0696,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.1476,
+      "baselineMillis" : 4143.3351,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9259,
+      "baselineMillis" : 4202.0344,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8898,
+      "baselineMillis" : 4283.1052,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7714,
+      "baselineMillis" : 4082.2295,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1852,
+      "baselineMillis" : 4177.1837,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7447,
+      "baselineMillis" : 4210.4769,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.3105,
+      "baselineMillis" : 4111.2392,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.3915,
+      "baselineMillis" : 4189.639,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9249,
+      "baselineMillis" : 4052.6258,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.6358,
+      "baselineMillis" : 4097.5038,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3944,
+      "baselineMillis" : 4177.3797,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0974,
+      "baselineMillis" : 4082.2317,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.7857,
+      "baselineMillis" : 4230.8015,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.3278,
+      "baselineMillis" : 4251.0253,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4408,
+      "baselineMillis" : 4035.0964,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.6654,
+      "baselineMillis" : 4171.5831,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7725,
+      "baselineMillis" : 4165.4966,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5224,
+      "baselineMillis" : 3992.8077,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 146,
+    "resultSha256" : "e833abf248e31653610699fab3717f331e7fdcaf8b10bbd5318d571adcd5f796",
+    "baseline" : {
+      "maxMillis" : 4283.1052,
+      "p95Millis" : 4251.0253,
+      "p50Millis" : 4111.2392,
+      "minMillis" : 3992.8077
+    },
+    "optimized" : {
+      "maxMillis" : 11.7857,
+      "p95Millis" : 10.3915,
+      "p50Millis" : 8.7725,
+      "minMillis" : 7.6358
+    },
+    "sameSql" : false,
+    "p95Ratio" : 409.08678246643893,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma20-2026-04-13-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '20日均线', '2026-04-13', '', '', '') > 10",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.7344,
+      "baselineMillis" : 2010.3044,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.1583,
+      "baselineMillis" : 1828.3366,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.4849,
+      "baselineMillis" : 1749.1569,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.0807,
+      "baselineMillis" : 1767.2248,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.0564,
+      "baselineMillis" : 1794.6414,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.7635,
+      "baselineMillis" : 1772.5198,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.7613,
+      "baselineMillis" : 1686.1722,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.3948,
+      "baselineMillis" : 1752.4943,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.4739,
+      "baselineMillis" : 1754.6593,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.6339,
+      "baselineMillis" : 1752.8325,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.2723,
+      "baselineMillis" : 1689.7136,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 16.2013,
+      "baselineMillis" : 1723.5617,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 12.8329,
+      "baselineMillis" : 1863.7451,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 12.4219,
+      "baselineMillis" : 1860.1258,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.3818,
+      "baselineMillis" : 1833.33,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.4328,
+      "baselineMillis" : 1778.6541,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.8579,
+      "baselineMillis" : 1784.4917,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.5027,
+      "baselineMillis" : 1726.5466,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.4431,
+      "baselineMillis" : 1765.183,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.7088,
+      "baselineMillis" : 1715.3151,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.11,
+      "baselineMillis" : 1905.5539,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 13.147,
+      "baselineMillis" : 1761.5484,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.8238,
+      "baselineMillis" : 1771.9949,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.7656,
+      "baselineMillis" : 1875.384,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.4251,
+      "baselineMillis" : 1730.0898,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.3722,
+      "baselineMillis" : 1746.6578,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.6743,
+      "baselineMillis" : 1774.2308,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.2899,
+      "baselineMillis" : 1995.9578,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.021,
+      "baselineMillis" : 1654.8994,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.9776,
+      "baselineMillis" : 1750.5185,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 3538,
+    "resultSha256" : "92724a5411864dccb0c7d4f4488f75d905ecbefdafa271c8cd83f24c67496fe5",
+    "baseline" : {
+      "maxMillis" : 2010.3044,
+      "p95Millis" : 1995.9578,
+      "p50Millis" : 1765.183,
+      "minMillis" : 1654.8994
+    },
+    "optimized" : {
+      "maxMillis" : 16.2013,
+      "p95Millis" : 13.147,
+      "p50Millis" : 10.4251,
+      "minMillis" : 9.5027
+    },
+    "sameSql" : false,
+    "p95Ratio" : 151.81849851677188,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma60-2026-04-13-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '60日均线', '2026-04-13', '', '', '') > 10",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.6931,
+      "baselineMillis" : 2383.2281,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8289,
+      "baselineMillis" : 2354.8059,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.729,
+      "baselineMillis" : 2172.8812,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2516,
+      "baselineMillis" : 2196.4506,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3327,
+      "baselineMillis" : 2215.9574,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2285,
+      "baselineMillis" : 2195.2904,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8836,
+      "baselineMillis" : 2143.5164,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5575,
+      "baselineMillis" : 2169.5264,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.3751,
+      "baselineMillis" : 2164.7522,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.3776,
+      "baselineMillis" : 2160.3283,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.0988,
+      "baselineMillis" : 2146.9447,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0036,
+      "baselineMillis" : 2214.4243,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6625,
+      "baselineMillis" : 2128.2072,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.796,
+      "baselineMillis" : 2139.4522,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.4057,
+      "baselineMillis" : 2149.8572,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4353,
+      "baselineMillis" : 2171.1124,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.491,
+      "baselineMillis" : 2282.1382,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7806,
+      "baselineMillis" : 2262.0817,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3254,
+      "baselineMillis" : 2184.63,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1919,
+      "baselineMillis" : 2234.9836,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4919,
+      "baselineMillis" : 2139.2441,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1403,
+      "baselineMillis" : 2281.8569,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5959,
+      "baselineMillis" : 2174.1774,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.703,
+      "baselineMillis" : 2235.773,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8114,
+      "baselineMillis" : 2149.7423,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7162,
+      "baselineMillis" : 2265.1254,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 12.1556,
+      "baselineMillis" : 2236.6045,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4325,
+      "baselineMillis" : 2449.6916,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9373,
+      "baselineMillis" : 2159.321,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.677,
+      "baselineMillis" : 2155.4065,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 161,
+    "resultSha256" : "71e79018148784cf56dc62566e63026bcfe5e2652fbab6fa4614b12d721d34f3",
+    "baseline" : {
+      "maxMillis" : 2449.6916,
+      "p95Millis" : 2383.2281,
+      "p50Millis" : 2174.1774,
+      "minMillis" : 2128.2072
+    },
+    "optimized" : {
+      "maxMillis" : 12.1556,
+      "p95Millis" : 10.6931,
+      "p50Millis" : 8.7806,
+      "minMillis" : 8.0036
+    },
+    "sameSql" : false,
+    "p95Ratio" : 222.87532146898468,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma120-2026-04-13-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '120日均线', '2026-04-13', '', '', '') > 10",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.6753,
+      "baselineMillis" : 2762.4959,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9361,
+      "baselineMillis" : 2722.6931,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.4528,
+      "baselineMillis" : 2747.1467,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.1513,
+      "baselineMillis" : 2791.8126,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5791,
+      "baselineMillis" : 2841.1056,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.463,
+      "baselineMillis" : 2727.6288,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.43,
+      "baselineMillis" : 2815.0355,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4214,
+      "baselineMillis" : 2957.844,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.3572,
+      "baselineMillis" : 3029.2753,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8002,
+      "baselineMillis" : 2911.2321,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.6834,
+      "baselineMillis" : 2768.7746,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5062,
+      "baselineMillis" : 2764.7217,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2181,
+      "baselineMillis" : 2709.3824,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4421,
+      "baselineMillis" : 2742.9226,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.847,
+      "baselineMillis" : 2737.3079,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4142,
+      "baselineMillis" : 2851.9669,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6099,
+      "baselineMillis" : 2872.9337,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.828,
+      "baselineMillis" : 2835.2566,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6564,
+      "baselineMillis" : 2797.6143,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8191,
+      "baselineMillis" : 2765.2143,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4148,
+      "baselineMillis" : 2695.9711,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1823,
+      "baselineMillis" : 2914.1987,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.1995,
+      "baselineMillis" : 2935.6824,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2005,
+      "baselineMillis" : 2978.956,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.0189,
+      "baselineMillis" : 2942.8581,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3099,
+      "baselineMillis" : 2908.7304,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.3692,
+      "baselineMillis" : 2805.8551,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3658,
+      "baselineMillis" : 2857.086,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7663,
+      "baselineMillis" : 2729.9185,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.194,
+      "baselineMillis" : 2832.8825,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 156,
+    "resultSha256" : "d40ef53de190aace87d2bd2019de2cdb333db535d366d81e40cf17b10433470d",
+    "baseline" : {
+      "maxMillis" : 3029.2753,
+      "p95Millis" : 2978.956,
+      "p50Millis" : 2805.8551,
+      "minMillis" : 2695.9711
+    },
+    "optimized" : {
+      "maxMillis" : 11.6753,
+      "p95Millis" : 11.4528,
+      "p50Millis" : 8.5791,
+      "minMillis" : 7.8002
+    },
+    "sameSql" : false,
+    "p95Ratio" : 260.10722268790164,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma250-2026-04-13-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '250日均线', '2026-04-13', '', '', '') > 10",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.852,
+      "baselineMillis" : 4116.6054,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0043,
+      "baselineMillis" : 4345.9444,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.5177,
+      "baselineMillis" : 4060.8088,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9132,
+      "baselineMillis" : 4098.5134,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.6865,
+      "baselineMillis" : 4194.9021,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8313,
+      "baselineMillis" : 4129.1548,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1002,
+      "baselineMillis" : 4071.9965,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7637,
+      "baselineMillis" : 4015.9763,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5854,
+      "baselineMillis" : 4216.177,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0125,
+      "baselineMillis" : 4096.5569,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.3765,
+      "baselineMillis" : 4070.2213,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6023,
+      "baselineMillis" : 4283.5281,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.487,
+      "baselineMillis" : 4137.6438,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4698,
+      "baselineMillis" : 4053.4511,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4185,
+      "baselineMillis" : 4049.1994,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.477,
+      "baselineMillis" : 4065.2229,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1646,
+      "baselineMillis" : 4007.0005,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6024,
+      "baselineMillis" : 3970.2076,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9376,
+      "baselineMillis" : 4056.1279,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7863,
+      "baselineMillis" : 4058.8136,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.519,
+      "baselineMillis" : 4068.7262,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6405,
+      "baselineMillis" : 4076.8358,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.237,
+      "baselineMillis" : 4046.5999,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.6415,
+      "baselineMillis" : 4207.2603,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1237,
+      "baselineMillis" : 4073.6408,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.761,
+      "baselineMillis" : 4126.1765,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 13.8273,
+      "baselineMillis" : 4054.0918,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3392,
+      "baselineMillis" : 4042.9441,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7765,
+      "baselineMillis" : 3994.985,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9072,
+      "baselineMillis" : 3985.6937,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 145,
+    "resultSha256" : "f3c729c380c8e3087b24b0dedb69e0e2c96dcee8ade02bef661435bdb32bd12c",
+    "baseline" : {
+      "maxMillis" : 4345.9444,
+      "p95Millis" : 4283.5281,
+      "p50Millis" : 4068.7262,
+      "minMillis" : 3970.2076
+    },
+    "optimized" : {
+      "maxMillis" : 13.8273,
+      "p95Millis" : 9.6865,
+      "p50Millis" : 8.5854,
+      "minMillis" : 7.6415
+    },
+    "sameSql" : false,
+    "p95Ratio" : 442.21629071388014,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma20-2026-04-14-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '20日均线', '2026-04-14', '', '', '') > 10",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.2212,
+      "baselineMillis" : 1679.3363,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4572,
+      "baselineMillis" : 1708.0258,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.9126,
+      "baselineMillis" : 1683.1199,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.1403,
+      "baselineMillis" : 1696.9187,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.4419,
+      "baselineMillis" : 1693.5747,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.8888,
+      "baselineMillis" : 1725.1602,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.3068,
+      "baselineMillis" : 1673.2893,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.3351,
+      "baselineMillis" : 1760.3832,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.4056,
+      "baselineMillis" : 1727.2526,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.2796,
+      "baselineMillis" : 1804.9589,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.0372,
+      "baselineMillis" : 1811.7947,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.3841,
+      "baselineMillis" : 1742.1425,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.3558,
+      "baselineMillis" : 1689.996,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.5954,
+      "baselineMillis" : 1693.9807,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.3431,
+      "baselineMillis" : 1881.9111,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.084,
+      "baselineMillis" : 1687.2894,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 13.0902,
+      "baselineMillis" : 1724.6988,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 14.6197,
+      "baselineMillis" : 1797.7083,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.6432,
+      "baselineMillis" : 1741.5076,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.4225,
+      "baselineMillis" : 1682.6609,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 12.9516,
+      "baselineMillis" : 1717.6646,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 12.2923,
+      "baselineMillis" : 1735.8333,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 12.8644,
+      "baselineMillis" : 1755.4429,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.9006,
+      "baselineMillis" : 1737.9137,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.1974,
+      "baselineMillis" : 1712.4392,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.6078,
+      "baselineMillis" : 1733.1047,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.0727,
+      "baselineMillis" : 1693.2389,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2022,
+      "baselineMillis" : 1828.6558,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.275,
+      "baselineMillis" : 1825.8685,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.5343,
+      "baselineMillis" : 1736.7321,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 3528,
+    "resultSha256" : "1363c56a37dcfae438d876400b5f888c7e591cfff9b97f79b2a6defa25e894f4",
+    "baseline" : {
+      "maxMillis" : 1881.9111,
+      "p95Millis" : 1828.6558,
+      "p50Millis" : 1725.1602,
+      "minMillis" : 1673.2893
+    },
+    "optimized" : {
+      "maxMillis" : 14.6197,
+      "p95Millis" : 13.0902,
+      "p50Millis" : 10.4056,
+      "minMillis" : 9.2022
+    },
+    "sameSql" : false,
+    "p95Ratio" : 139.69655161876824,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma60-2026-04-14-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '60日均线', '2026-04-14', '', '', '') > 10",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2094,
+      "baselineMillis" : 2155.1833,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7098,
+      "baselineMillis" : 2100.9492,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5042,
+      "baselineMillis" : 2153.3033,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5366,
+      "baselineMillis" : 2093.7284,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.0103,
+      "baselineMillis" : 2175.5897,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9926,
+      "baselineMillis" : 2108.1177,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7097,
+      "baselineMillis" : 2153.5923,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0851,
+      "baselineMillis" : 2155.8599,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1745,
+      "baselineMillis" : 2147.8481,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2649,
+      "baselineMillis" : 2169.0097,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7962,
+      "baselineMillis" : 2129.4684,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1673,
+      "baselineMillis" : 2234.7079,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2511,
+      "baselineMillis" : 2248.3035,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2457,
+      "baselineMillis" : 2143.1342,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6268,
+      "baselineMillis" : 2130.447,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0414,
+      "baselineMillis" : 2253.2864,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1279,
+      "baselineMillis" : 2175.1753,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9063,
+      "baselineMillis" : 2204.2006,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7323,
+      "baselineMillis" : 2145.1789,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1606,
+      "baselineMillis" : 2209.1297,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.511,
+      "baselineMillis" : 2255.0466,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5581,
+      "baselineMillis" : 2113.0592,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.5357,
+      "baselineMillis" : 2229.8759,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1006,
+      "baselineMillis" : 2242.507,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 13.2897,
+      "baselineMillis" : 2129.8478,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8156,
+      "baselineMillis" : 2126.4998,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4379,
+      "baselineMillis" : 2120.5386,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.518,
+      "baselineMillis" : 2137.2164,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8474,
+      "baselineMillis" : 2222.671,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5719,
+      "baselineMillis" : 2236.309,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 160,
+    "resultSha256" : "1fb3dcad62e978c6779b7a321bd0cc175965e9931d7357e3aca5cc225e5b4082",
+    "baseline" : {
+      "maxMillis" : 2255.0466,
+      "p95Millis" : 2253.2864,
+      "p50Millis" : 2153.5923,
+      "minMillis" : 2093.7284
+    },
+    "optimized" : {
+      "maxMillis" : 13.2897,
+      "p95Millis" : 9.5357,
+      "p50Millis" : 8.5042,
+      "minMillis" : 7.518
+    },
+    "sameSql" : false,
+    "p95Ratio" : 236.30005138584477,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma120-2026-04-14-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '120日均线', '2026-04-14', '', '', '') > 10",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2741,
+      "baselineMillis" : 2710.199,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9736,
+      "baselineMillis" : 2849.1722,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6534,
+      "baselineMillis" : 2854.074,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.083,
+      "baselineMillis" : 2777.5594,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5914,
+      "baselineMillis" : 2740.4676,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7754,
+      "baselineMillis" : 2719.6024,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4868,
+      "baselineMillis" : 2795.3173,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.223,
+      "baselineMillis" : 2981.5347,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.0611,
+      "baselineMillis" : 2864.0363,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8676,
+      "baselineMillis" : 2768.9958,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3261,
+      "baselineMillis" : 2779.0582,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9731,
+      "baselineMillis" : 2768.4996,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4398,
+      "baselineMillis" : 2773.6321,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1839,
+      "baselineMillis" : 2792.9625,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.5146,
+      "baselineMillis" : 2765.779,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9836,
+      "baselineMillis" : 2827.1709,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2598,
+      "baselineMillis" : 2867.4159,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8899,
+      "baselineMillis" : 2925.8234,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6444,
+      "baselineMillis" : 2777.1989,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9872,
+      "baselineMillis" : 2760.5914,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2975,
+      "baselineMillis" : 2819.8762,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5028,
+      "baselineMillis" : 2760.9469,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0727,
+      "baselineMillis" : 2789.3736,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.388,
+      "baselineMillis" : 2820.0015,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6565,
+      "baselineMillis" : 2870.9034,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8603,
+      "baselineMillis" : 2772.2953,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7089,
+      "baselineMillis" : 2695.5533,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3663,
+      "baselineMillis" : 2735.7093,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4987,
+      "baselineMillis" : 2719.85,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2579,
+      "baselineMillis" : 2762.1549,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 155,
+    "resultSha256" : "25dad2a79fab14176fc7df747c24312603498a39e63ba49339fc1759d527e59d",
+    "baseline" : {
+      "maxMillis" : 2981.5347,
+      "p95Millis" : 2925.8234,
+      "p50Millis" : 2777.1989,
+      "minMillis" : 2695.5533
+    },
+    "optimized" : {
+      "maxMillis" : 9.2975,
+      "p95Millis" : 9.2741,
+      "p50Millis" : 8.3663,
+      "minMillis" : 7.5146
+    },
+    "sameSql" : false,
+    "p95Ratio" : 315.4832706138601,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma250-2026-04-14-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '250日均线', '2026-04-14', '', '', '') > 10",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.098,
+      "baselineMillis" : 4086.7227,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2187,
+      "baselineMillis" : 4026.5627,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2093,
+      "baselineMillis" : 4163.1968,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3291,
+      "baselineMillis" : 4007.0091,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3267,
+      "baselineMillis" : 3951.794,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.2666,
+      "baselineMillis" : 3934.4416,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6561,
+      "baselineMillis" : 4019.4746,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0874,
+      "baselineMillis" : 4056.2191,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.3288,
+      "baselineMillis" : 4157.1171,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8899,
+      "baselineMillis" : 4179.7572,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4617,
+      "baselineMillis" : 4006.3609,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9539,
+      "baselineMillis" : 4126.3071,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4395,
+      "baselineMillis" : 4007.7505,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.6006,
+      "baselineMillis" : 4052.371,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3817,
+      "baselineMillis" : 3983.0228,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1379,
+      "baselineMillis" : 4242.9719,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.5007,
+      "baselineMillis" : 4207.2213,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1693,
+      "baselineMillis" : 4076.803,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2392,
+      "baselineMillis" : 4110.4849,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0651,
+      "baselineMillis" : 4028.6476,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.327,
+      "baselineMillis" : 4042.171,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.083,
+      "baselineMillis" : 4034.7097,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3592,
+      "baselineMillis" : 4078.8511,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9815,
+      "baselineMillis" : 3957.5275,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9047,
+      "baselineMillis" : 4051.1819,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9379,
+      "baselineMillis" : 3984.1552,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.1027,
+      "baselineMillis" : 4045.9472,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1443,
+      "baselineMillis" : 4017.073,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2341,
+      "baselineMillis" : 4046.1977,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.085,
+      "baselineMillis" : 4085.5188,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 145,
+    "resultSha256" : "f3c729c380c8e3087b24b0dedb69e0e2c96dcee8ade02bef661435bdb32bd12c",
+    "baseline" : {
+      "maxMillis" : 4242.9719,
+      "p95Millis" : 4207.2213,
+      "p50Millis" : 4045.9472,
+      "minMillis" : 3934.4416
+    },
+    "optimized" : {
+      "maxMillis" : 10.5007,
+      "p95Millis" : 10.1027,
+      "p50Millis" : 8.327,
+      "minMillis" : 7.2666
+    },
+    "sameSql" : false,
+    "p95Ratio" : 416.445237411781,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "record-high-2026-04-14-all",
+    "category" : "STRICT_RANGE",
+    "dsl" : "record_high('', '', '最高价', '250日', '2026-04-14', '', '', '') = True",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0444,
+      "baselineMillis" : 3899.2988,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7608,
+      "baselineMillis" : 3922.0995,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.8864,
+      "baselineMillis" : 3919.664,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6615,
+      "baselineMillis" : 3891.7264,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5663,
+      "baselineMillis" : 3824.1763,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1158,
+      "baselineMillis" : 3829.7458,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7816,
+      "baselineMillis" : 3841.4776,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2105,
+      "baselineMillis" : 3838.7626,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.333,
+      "baselineMillis" : 3924.2611,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8483,
+      "baselineMillis" : 3863.9428,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6434,
+      "baselineMillis" : 4014.8037,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9945,
+      "baselineMillis" : 3941.1824,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.9532,
+      "baselineMillis" : 3833.4312,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3717,
+      "baselineMillis" : 3841.715,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3278,
+      "baselineMillis" : 3845.9828,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1902,
+      "baselineMillis" : 3844.7738,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4029,
+      "baselineMillis" : 3824.5702,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.5617,
+      "baselineMillis" : 3872.9433,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 10.0536,
+      "baselineMillis" : 4003.7015,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0676,
+      "baselineMillis" : 4163.9286,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6331,
+      "baselineMillis" : 3891.0793,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0724,
+      "baselineMillis" : 3970.5758,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1156,
+      "baselineMillis" : 3862.1634,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.5269,
+      "baselineMillis" : 3826.4371,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2382,
+      "baselineMillis" : 3868.6889,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8219,
+      "baselineMillis" : 3844.4387,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.5688,
+      "baselineMillis" : 3884.0449,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8183,
+      "baselineMillis" : 3822.7782,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2836,
+      "baselineMillis" : 3734.9197,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6575,
+      "baselineMillis" : 3795.3148,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 4,
+    "resultSha256" : "e61471c52316ec143b61e5dd1c24c9160883460bbc52951b1d825878f2ace554",
+    "baseline" : {
+      "maxMillis" : 4163.9286,
+      "p95Millis" : 4014.8037,
+      "p50Millis" : 3862.1634,
+      "minMillis" : 3734.9197
+    },
+    "optimized" : {
+      "maxMillis" : 10.0536,
+      "p95Millis" : 9.8864,
+      "p50Millis" : 8.3278,
+      "minMillis" : 7.5269
+    },
+    "sameSql" : false,
+    "p95Ratio" : 406.09359321896744,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "record-low-2026-04-14-all",
+    "category" : "STRICT_RANGE",
+    "dsl" : "record_low('', '', '最低价', '250日', '2026-04-14', '', '', '') = True",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2081,
+      "baselineMillis" : 5286.1836,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8036,
+      "baselineMillis" : 5146.0733,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.7082,
+      "baselineMillis" : 5208.552,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1888,
+      "baselineMillis" : 5353.4711,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.3574,
+      "baselineMillis" : 5307.8336,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6172,
+      "baselineMillis" : 5423.8647,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.6913,
+      "baselineMillis" : 5248.8361,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7647,
+      "baselineMillis" : 5230.3137,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1229,
+      "baselineMillis" : 5313.2316,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.4381,
+      "baselineMillis" : 5236.6768,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1923,
+      "baselineMillis" : 5339.7153,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.8245,
+      "baselineMillis" : 5415.0181,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.45,
+      "baselineMillis" : 5210.8677,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0335,
+      "baselineMillis" : 5201.2893,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8872,
+      "baselineMillis" : 5292.1415,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.3915,
+      "baselineMillis" : 5241.6695,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.0758,
+      "baselineMillis" : 5482.4758,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.3832,
+      "baselineMillis" : 5345.4949,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5462,
+      "baselineMillis" : 5312.927,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.07,
+      "baselineMillis" : 5340.294,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7086,
+      "baselineMillis" : 5341.4585,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8816,
+      "baselineMillis" : 5340.2315,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4653,
+      "baselineMillis" : 5304.1815,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9294,
+      "baselineMillis" : 5363.3251,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5057,
+      "baselineMillis" : 5289.775,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.2195,
+      "baselineMillis" : 5339.2392,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5202,
+      "baselineMillis" : 5208.001,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.8532,
+      "baselineMillis" : 5414.8433,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5197,
+      "baselineMillis" : 5245.9867,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.03,
+      "baselineMillis" : 5411.5097,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 4,
+    "resultSha256" : "96fe3f8342c2e14b102ba0b6374afa094b99fb43c23df0acf53a7c6900f747a5",
+    "baseline" : {
+      "maxMillis" : 5482.4758,
+      "p95Millis" : 5423.8647,
+      "p50Millis" : 5307.8336,
+      "minMillis" : 5146.0733
+    },
+    "optimized" : {
+      "maxMillis" : 9.7082,
+      "p95Millis" : 9.6913,
+      "p50Millis" : 8.2195,
+      "minMillis" : 7.3915
+    },
+    "sameSql" : false,
+    "p95Ratio" : 559.6632753087821,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "mixed-moving-averages",
+    "category" : "MULTI_WINDOW",
+    "dsl" : "indicator('', '', '20日均线', '2026-04-14', '', '', '') > indicator('', '', '250日均线', '2026-04-14', '', '', '')",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9986,
+      "baselineMillis" : 4494.8803,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.6768,
+      "baselineMillis" : 4326.5855,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7666,
+      "baselineMillis" : 4201.8534,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 11.3438,
+      "baselineMillis" : 4339.9104,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7026,
+      "baselineMillis" : 4229.3202,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5681,
+      "baselineMillis" : 4247.1306,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.8137,
+      "baselineMillis" : 4515.7095,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1115,
+      "baselineMillis" : 4241.3842,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6809,
+      "baselineMillis" : 4204.1287,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.764,
+      "baselineMillis" : 4337.9176,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5783,
+      "baselineMillis" : 4317.1196,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.5395,
+      "baselineMillis" : 4247.1688,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6652,
+      "baselineMillis" : 4266.4483,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6061,
+      "baselineMillis" : 4395.3664,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.2773,
+      "baselineMillis" : 4484.0277,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.791,
+      "baselineMillis" : 4453.4623,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.6073,
+      "baselineMillis" : 4291.8621,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.922,
+      "baselineMillis" : 4203.775,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.6518,
+      "baselineMillis" : 4298.1131,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4011,
+      "baselineMillis" : 4238.3124,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.027,
+      "baselineMillis" : 4249.07,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.9252,
+      "baselineMillis" : 4273.7397,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.1663,
+      "baselineMillis" : 4161.2444,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.6922,
+      "baselineMillis" : 4210.0034,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.971,
+      "baselineMillis" : 4162.4534,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.7754,
+      "baselineMillis" : 4215.952,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 9.1298,
+      "baselineMillis" : 4316.9844,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.5813,
+      "baselineMillis" : 4227.648,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 8.4489,
+      "baselineMillis" : 4201.8989,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 7.5251,
+      "baselineMillis" : 4394.2241,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 177,
+    "resultSha256" : "db6f7237bf961f32cc680e2e923ed8998a48e76e8d76e0fa29284a4a76fdf385",
+    "baseline" : {
+      "maxMillis" : 4515.7095,
+      "p95Millis" : 4494.8803,
+      "p50Millis" : 4249.07,
+      "minMillis" : 4161.2444
+    },
+    "optimized" : {
+      "maxMillis" : 11.3438,
+      "p95Millis" : 9.922,
+      "p50Millis" : 8.6073,
+      "minMillis" : 7.5251
+    },
+    "sameSql" : false,
+    "p95Ratio" : 453.02159846805074,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "mixed-ma60-close-fallback",
+    "category" : "REFERENCE_FALLBACK",
+    "dsl" : "indicator('', '', '60日均线', '2026-04-14', '', '', '') > indicator('', '', '收盘价', '2026-04-14', '', '', '')",
+    "samples" : [ {
+      "resultEqual" : true,
+      "optimizedMillis" : 2093.9374,
+      "baselineMillis" : 2044.6752,
+      "order" : "baseline-first",
+      "iteration" : 1
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2187.287,
+      "baselineMillis" : 2141.4966,
+      "order" : "optimized-first",
+      "iteration" : 2
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2072.429,
+      "baselineMillis" : 2070.661,
+      "order" : "baseline-first",
+      "iteration" : 3
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2086.2477,
+      "baselineMillis" : 2080.375,
+      "order" : "optimized-first",
+      "iteration" : 4
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2119.8573,
+      "baselineMillis" : 2088.3023,
+      "order" : "baseline-first",
+      "iteration" : 5
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2080.4862,
+      "baselineMillis" : 2216.405,
+      "order" : "optimized-first",
+      "iteration" : 6
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2100.3697,
+      "baselineMillis" : 2150.1009,
+      "order" : "baseline-first",
+      "iteration" : 7
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2231.3376,
+      "baselineMillis" : 2189.9685,
+      "order" : "optimized-first",
+      "iteration" : 8
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2152.3431,
+      "baselineMillis" : 2111.8739,
+      "order" : "baseline-first",
+      "iteration" : 9
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2141.9582,
+      "baselineMillis" : 2138.6009,
+      "order" : "optimized-first",
+      "iteration" : 10
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2089.4394,
+      "baselineMillis" : 2084.3848,
+      "order" : "baseline-first",
+      "iteration" : 11
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2144.9423,
+      "baselineMillis" : 2342.1328,
+      "order" : "optimized-first",
+      "iteration" : 12
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2189.9516,
+      "baselineMillis" : 2301.2096,
+      "order" : "baseline-first",
+      "iteration" : 13
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2125.3175,
+      "baselineMillis" : 2094.4541,
+      "order" : "optimized-first",
+      "iteration" : 14
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2121.9611,
+      "baselineMillis" : 2190.62,
+      "order" : "baseline-first",
+      "iteration" : 15
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2173.2982,
+      "baselineMillis" : 2109.4868,
+      "order" : "optimized-first",
+      "iteration" : 16
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2165.1291,
+      "baselineMillis" : 2294.2985,
+      "order" : "baseline-first",
+      "iteration" : 17
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2087.8158,
+      "baselineMillis" : 2127.3517,
+      "order" : "optimized-first",
+      "iteration" : 18
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2217.1304,
+      "baselineMillis" : 2259.8166,
+      "order" : "baseline-first",
+      "iteration" : 19
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2402.6055,
+      "baselineMillis" : 2274.7903,
+      "order" : "optimized-first",
+      "iteration" : 20
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2100.4111,
+      "baselineMillis" : 2124.7728,
+      "order" : "baseline-first",
+      "iteration" : 21
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2094.2656,
+      "baselineMillis" : 2070.7479,
+      "order" : "optimized-first",
+      "iteration" : 22
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2125.8011,
+      "baselineMillis" : 2158.4756,
+      "order" : "baseline-first",
+      "iteration" : 23
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2204.1451,
+      "baselineMillis" : 2244.1268,
+      "order" : "optimized-first",
+      "iteration" : 24
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2017.7524,
+      "baselineMillis" : 2104.3427,
+      "order" : "baseline-first",
+      "iteration" : 25
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2109.1798,
+      "baselineMillis" : 2110.4825,
+      "order" : "optimized-first",
+      "iteration" : 26
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2090.8118,
+      "baselineMillis" : 2109.8541,
+      "order" : "baseline-first",
+      "iteration" : 27
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2177.5314,
+      "baselineMillis" : 2026.4807,
+      "order" : "optimized-first",
+      "iteration" : 28
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2118.6306,
+      "baselineMillis" : 2084.5088,
+      "order" : "baseline-first",
+      "iteration" : 29
+    }, {
+      "resultEqual" : true,
+      "optimizedMillis" : 2039.2806,
+      "baselineMillis" : 2139.9903,
+      "order" : "optimized-first",
+      "iteration" : 30
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 237,
+    "resultSha256" : "032e1c238422aca96e4a1826b674ada08700aa4a01641fa9fcc36bc6cc83658a",
+    "baseline" : {
+      "maxMillis" : 2342.1328,
+      "p95Millis" : 2301.2096,
+      "p50Millis" : 2124.7728,
+      "minMillis" : 2026.4807
+    },
+    "optimized" : {
+      "maxMillis" : 2402.6055,
+      "p95Millis" : 2231.3376,
+      "p50Millis" : 2119.8573,
+      "minMillis" : 2017.7524
+    },
+    "sameSql" : true,
+    "p95Ratio" : 1.031313952671259,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  } ],
+  "registeredSnapshotsBefore" : 0,
+  "registeredSnapshotsAfter" : 0,
+  "completedAtUtc" : "2026-10-04T12:19:34.381185500Z",
+  "passed" : 28,
+  "total" : 28,
+  "concurrentReadDiagnostic" : {
+    "requests" : 60,
+    "statistics" : {
+      "maxMillis" : 30.8875,
+      "p95Millis" : 30.2439,
+      "p50Millis" : 10.6985,
+      "minMillis" : 9.5214
+    },
+    "purpose" : "DIAGNOSTIC_ONLY",
+    "workers" : 4,
+    "timingScope" : "prepare, execute and complete fetch; connections configured before timing",
+    "status" : "PASS",
+    "samples" : [ {
+      "millis" : 11.2564,
+      "task" : 1,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 11.3201,
+      "task" : 2,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.8585,
+      "task" : 3,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 11.1394,
+      "task" : 4,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 13.1729,
+      "task" : 5,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 12.0557,
+      "task" : 6,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 12.3246,
+      "task" : 7,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 11.9606,
+      "task" : 8,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 11.8481,
+      "task" : 9,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 11.6002,
+      "task" : 10,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.9434,
+      "task" : 11,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.5234,
+      "task" : 12,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 30.8875,
+      "task" : 13,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 30.8706,
+      "task" : 14,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 30.4269,
+      "task" : 15,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 30.2439,
+      "task" : 16,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.7646,
+      "task" : 17,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.7452,
+      "task" : 18,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 11.5192,
+      "task" : 19,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.3671,
+      "task" : 20,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.8815,
+      "task" : 21,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.3806,
+      "task" : 22,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.662,
+      "task" : 23,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.7221,
+      "task" : 24,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 11.3137,
+      "task" : 25,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 11.0655,
+      "task" : 26,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.7844,
+      "task" : 27,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.1603,
+      "task" : 28,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.1538,
+      "task" : 29,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.2915,
+      "task" : 30,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 9.901,
+      "task" : 31,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.0088,
+      "task" : 32,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.7098,
+      "task" : 33,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.6844,
+      "task" : 34,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.5643,
+      "task" : 35,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.3612,
+      "task" : 36,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 9.9204,
+      "task" : 37,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.1438,
+      "task" : 38,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 9.5337,
+      "task" : 39,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 9.5214,
+      "task" : 40,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.9846,
+      "task" : 41,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 11.1304,
+      "task" : 42,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.6207,
+      "task" : 43,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.6519,
+      "task" : 44,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.454,
+      "task" : 45,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.4151,
+      "task" : 46,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.3188,
+      "task" : 47,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.2216,
+      "task" : 48,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 23.2471,
+      "task" : 49,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 23.2184,
+      "task" : 50,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 23.1872,
+      "task" : 51,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 23.1982,
+      "task" : 52,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.3115,
+      "task" : 53,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.3002,
+      "task" : 54,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.4018,
+      "task" : 55,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 10.6985,
+      "task" : 56,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 9.9958,
+      "task" : 57,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    }, {
+      "millis" : 9.9986,
+      "task" : 58,
+      "case" : "ma60",
+      "resultEqual" : true
+    }, {
+      "millis" : 9.937,
+      "task" : 59,
+      "case" : "ma250",
+      "resultEqual" : true
+    }, {
+      "millis" : 9.6436,
+      "task" : 60,
+      "case" : "nineteen-year-history",
+      "resultEqual" : true
+    } ]
+  }
+}

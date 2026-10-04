@@ -1,0 +1,127 @@
+PLAN FRAGMENT 0
+  OUTPUT EXPRS:
+    mktcode[#85]
+    tgtcode[#86]
+  PARTITION: UNPARTITIONED
+
+  HAS_COLO_PLAN_NODE: false
+
+  VRESULT SINK
+     MYSQL_PROTOCOL
+
+  9:VMERGING-EXCHANGE
+     offset: 0
+     distribute expr lists: mktcode[#85], tgtcode[#86]
+
+PLAN FRAGMENT 1
+
+  PARTITION: HASH_PARTITIONED: mktcode[#75], tgtcode[#76]
+
+  HAS_COLO_PLAN_NODE: true
+
+  STREAM DATA SINK
+    EXCHANGE ID: 09
+    UNPARTITIONED
+IS_MERGE: true
+
+  8:VSORT(892)
+  |  order by: mktcode[#85] ASC, tgtcode[#86] ASC
+  |  algorithm: full sort
+  |  local merge sort
+  |  merge by exchange
+  |  offset: 0
+  |  distribute expr lists: 
+  |  
+  7:VHASH JOIN(884)
+  |  join op: INNER JOIN(PARTITIONED)[]
+  |  equal join conjunct: (mktcode[#75] = mktcode[#71])
+  |  equal join conjunct: (tgtcode[#76] = tgtcode[#72])
+  |  other join predicates: (CAST((v1[#77] = f1_extremum[#82]) AS tinyint) = 1)
+  |  cardinality=0
+  |  vec output tuple id: 8
+  |  output tuple id: 8
+  |  vIntermediate tuple ids: 7 
+  |  hash output slot ids: 73 74 75 76 
+  |  final projections: mktcode[#78], tgtcode[#79]
+  |  final project output tuple id: 8
+  |  distribute expr lists: mktcode[#75], tgtcode[#76]
+  |  distribute expr lists: mktcode[#71], tgtcode[#72]
+  |  
+  |----4:VAGGREGATE (merge finalize)(876)
+  |    |  output: min(partial_min(v1)[#67])[#70]
+  |    |  group by: mktcode[#65], tgtcode[#66]
+  |    |  sortByGroupKey:false
+  |    |  cardinality=7,423
+  |    |  final projections: mktcode[#68], tgtcode[#69], f1_extremum[#70]
+  |    |  final project output tuple id: 5
+  |    |  distribute expr lists: mktcode[#65], tgtcode[#66]
+  |    |  
+  |    3:VEXCHANGE
+  |       offset: 0
+  |       distribute expr lists: 
+  |    
+  6:VEXCHANGE
+     offset: 0
+     distribute expr lists: 
+
+PLAN FRAGMENT 2
+
+  PARTITION: RANDOM
+
+  HAS_COLO_PLAN_NODE: false
+
+  STREAM DATA SINK
+    EXCHANGE ID: 03
+    HASH_PARTITIONED: mktcode[#65], tgtcode[#66]
+
+  2:VAGGREGATE (update serialize)(868)
+  |  STREAMING
+  |  output: partial_min(v1[#64])[#67]
+  |  group by: mktcode[#62], tgtcode[#63]
+  |  sortByGroupKey:false
+  |  cardinality=7,423
+  |  distribute expr lists: 
+  |  
+  1:VEXCHANGE
+     offset: 0
+     distribute expr lists: 
+
+PLAN FRAGMENT 3
+  OUTPUT EXPRS:
+    mktcode[#58]
+    tgtcode[#59]
+    bizdate[#60]
+    v1[#61]
+  PARTITION: RANDOM
+
+  HAS_COLO_PLAN_NODE: false
+
+  MultiCastDataSinks
+  STREAM DATA SINK
+    EXCHANGE ID: 01
+    RANDOM
+    PROJECTIONS: mktcode[#58], tgtcode[#59], v1[#61]
+    PROJECTION TUPLE: 2
+  STREAM DATA SINK
+    EXCHANGE ID: 06
+    HASH_PARTITIONED: mktcode[#75], tgtcode[#76]
+    CONJUNCTS: (bizdate[#60] = '2026-04-14')
+    PROJECTIONS: v1[#61], mktcode[#58], tgtcode[#59]
+    PROJECTION TUPLE: 6
+
+  5:VSELECT(855)
+  |  
+  0:VOlapScanNode(834)
+     TABLE: newzl.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON
+     PREDICATES: ((bizdate[#2] <= '2026-04-14') AND (__DORIS_DELETE_SIGN__[#56] = 0))
+     partitions=21/21 (p20150101000000,p20140101000000,p20130101000000,p20120101000000,p20110101000000,p20100101000000,p20090101000000,p20080101000000,p20070101000000,p20060101000000,p20230101000000,p20220101000000,p20210101000000,p20200101000000,p20190101000000,p20180101000000,p20160101000000,p20250101000000,p20240101000000,p20170101000000,p20260101000000)
+     tablets=336/336, tabletList=1791094083785,1791094083787,1791094083789 ...
+     cardinality=13650347, avgRowSize=152.91768, numNodes=1
+     pushAggOp=NONE
+     final projections: mktcode[#0], tgtcode[#1], bizdate[#2], (CAST(lowPx[#7] AS double) / 10000)
+     final project output tuple id: 1
+
+
+
+========== STATISTICS ==========
+planned with unknown column statistics

@@ -1,0 +1,23 @@
+{
+  "purpose": "DIAGNOSTIC_ONLY",
+  "acceptanceEligible": false,
+  "status": "FAIL",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "jarSha256": "e8eb307686c7937beda7ff878dcbca68d53826499aa42e5241cc959f5caacbe1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "registryFingerprint": "a460a741b13b2cea6066c7a973c246463d68c6eb083c07a50650ed8403f3ab17",
+  "database": "dsl_rolling_diag_ecaddc4a02e6",
+  "sourceCounts": {
+    "hsj_stock_code_info": 5686,
+    "hsj_stock_hq_basic": 13650347,
+    "hsj_stock_hq_ext": 6170822
+  },
+  "nullPolicy": "COUNT(non-NULL closePrice)=N over exactly N observed rows; otherwise NULL",
+  "incrementalPolicy": "immutable snapshot; retain all securities last 249 observed rows including NULL; append all new rows; never calendar-truncate",
+  "floatTolerance": "absolute difference <= 1e-10 * max(1, abs(reference))",
+  "dates": [],
+  "error": "w\u0000s\u0000l\u0000:\u0000 \u0000�hKm0R \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006tM�n\f�FO*g\\��P0R \u0000W\u0000S\u0000L\u0000\u00020N\u0000A\u0000T\u0000 \u0000!j\u000f_\u000bN�v \u0000W\u0000S\u0000L\u0000 \u0000\nN/e\u0001c \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006t\u00020\n\u0000\n\u0000ERROR 1105 (HY000) at line 1: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]Cancel Top Memory task: TaskId=5892e79ed4f34759-9f548cf9ad21854f, Memory(Used=2.80 GB, Limit=4.00 GB, Peak=2.82 GB). because process memory used exceed limit. in backend 127.0.0.1, os physical memory 10.00 GB. process memory used 4.02 GB, limit 4.00 GB. sys available memory 3.35 GB, low water mark 512.00 MB. execute again after enough memory, details see be.INFO.",
+  "failedBuildCleanup": "DONE",
+  "officialRegistryUnchanged": true,
+  "completedAtUtc": "2026-10-04T11:22:47.505058+00:00"
+}

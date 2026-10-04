@@ -25,6 +25,16 @@ function Join-Normalized([object[]]$Values) {
   return (@($Values) | ForEach-Object { [string]$_ } | Sort-Object) -join '|'
 }
 
+# Signed text uses UTF-8 LF bytes on every checkout; CRLF is the only normalization.
+function Get-ContractHash([string]$Path) {
+  $bytes = [IO.File]::ReadAllBytes($Path)
+  $utf8 = [Text.UTF8Encoding]::new($false, $true)
+  $normalized = $utf8.GetString($bytes).Replace("`r`n", "`n")
+  $sha = [Security.Cryptography.SHA256]::Create()
+  try { $digest = $sha.ComputeHash($utf8.GetBytes($normalized)) } finally { $sha.Dispose() }
+  return [BitConverter]::ToString($digest).Replace('-', '').ToLowerInvariant()
+}
+
 $scopePath = Resolve-RepoFile $Scope
 $registryPath = Resolve-RepoFile $Registry
 $manifestPath = Resolve-RepoFile $Manifest
@@ -46,12 +56,12 @@ if ($frozen.changeControl.approval.mode -ne 'DIRECT_PROJECT_APPROVAL' -or
 Add-Check 'freeze-status' "$($frozen.freezeId) / $($frozen.status)"
 
 Assert-Equal $registryJson.registryVersion $frozen.registryVersion 'registryVersion'
-Assert-Equal ((Get-FileHash -LiteralPath $registryPath -Algorithm SHA256).Hash.ToLowerInvariant()) $frozen.registrySha256 'registry SHA-256'
+Assert-Equal (Get-ContractHash $registryPath) $frozen.registrySha256 'registry SHA-256'
 Add-Check 'registry-lock' "$($frozen.registryVersion) sha256=$($frozen.registrySha256)"
 
 Assert-Equal $manifestJson.snapshotId $frozen.snapshot.snapshotId 'snapshotId'
 Assert-Equal $manifestJson.contractVersion $frozen.snapshot.contractVersion 'snapshot contractVersion'
-Assert-Equal ((Get-FileHash -LiteralPath $manifestPath -Algorithm SHA256).Hash.ToLowerInvariant()) $frozen.snapshot.manifestSha256 'manifest SHA-256'
+Assert-Equal (Get-ContractHash $manifestPath) $frozen.snapshot.manifestSha256 'manifest SHA-256'
 foreach ($table in $frozen.snapshot.tables) {
   $actual = $manifestJson.files.($table.name)
   if ($null -eq $actual) { throw "Snapshot table missing from manifest: $($table.name)" }
@@ -65,7 +75,7 @@ Add-Check 'snapshot-lock' "$($frozen.snapshot.snapshotId), 3 source files verifi
 $ddlProperties = @($frozen.ddlHashes.PSObject.Properties)
 foreach ($property in $ddlProperties) {
   $ddlPath = Resolve-RepoFile $property.Name
-  $actualHash = (Get-FileHash -LiteralPath $ddlPath -Algorithm SHA256).Hash.ToLowerInvariant()
+  $actualHash = Get-ContractHash $ddlPath
   Assert-Equal $actualHash $property.Value "DDL hash $($property.Name)"
 }
 Add-Check 'ddl-lock' "$($ddlProperties.Count) DDL/semantic contracts verified"

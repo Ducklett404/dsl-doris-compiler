@@ -1,0 +1,225 @@
+Starting single-day-simple-filter
+single-day-simple-filter 5/30
+single-day-simple-filter 10/30
+single-day-simple-filter 15/30
+single-day-simple-filter 20/30
+single-day-simple-filter 25/30
+single-day-simple-filter 30/30
+single-day-simple-filter PASS rows=100 P95=26.256/24.115ms ratio=1.089
+Starting multi-indicator-cross-table
+multi-indicator-cross-table 5/30
+multi-indicator-cross-table 10/30
+multi-indicator-cross-table 15/30
+multi-indicator-cross-table 20/30
+multi-indicator-cross-table 25/30
+multi-indicator-cross-table 30/30
+multi-indicator-cross-table PASS rows=100 P95=41.564/37.561ms ratio=1.107
+Starting ma20
+ma20 5/30
+ma20 10/30
+ma20 15/30
+ma20 20/30
+ma20 25/30
+ma20 30/30
+ma20 PASS rows=100 P95=996.853/10.586ms ratio=94.166
+Starting ma60
+ma60 5/30
+ma60 10/30
+ma60 15/30
+ma60 20/30
+ma60 25/30
+ma60 30/30
+ma60 PASS rows=49 P95=1144.011/10.515ms ratio=108.799
+Starting ma120
+ma120 5/30
+ma120 10/30
+ma120 15/30
+ma120 20/30
+ma120 25/30
+ma120 30/30
+ma120 PASS rows=44 P95=1387.586/10.440ms ratio=132.912
+Starting ma250
+ma250 5/30
+ma250 10/30
+ma250 15/30
+ma250 20/30
+ma250 25/30
+ma250 30/30
+ma250 PASS rows=41 P95=2105.455/11.043ms ratio=190.660
+Starting cross-above
+cross-above 5/30
+cross-above 10/30
+cross-above 15/30
+cross-above 20/30
+cross-above 25/30
+cross-above 30/30
+cross-above PASS rows=100 P95=938.928/850.944ms ratio=1.103
+Starting record-high
+record-high 5/30
+record-high 10/30
+record-high 15/30
+record-high 20/30
+record-high 25/30
+record-high 30/30
+record-high PASS rows=0 P95=1940.198/10.081ms ratio=192.470
+Starting record-low
+record-low 5/30
+record-low 10/30
+record-low 15/30
+record-low 20/30
+record-low 25/30
+record-low 30/30
+record-low PASS rows=1 P95=2593.077/9.434ms ratio=274.859
+Starting consecutive-three
+consecutive-three 5/30
+consecutive-three 10/30
+consecutive-three 15/30
+consecutive-three 20/30
+consecutive-three 25/30
+consecutive-three 30/30
+consecutive-three PASS rows=100 P95=574.401/569.521ms ratio=1.009
+Starting daily-rank
+daily-rank 5/30
+daily-rank 10/30
+daily-rank 15/30
+daily-rank 20/30
+daily-rank 25/30
+daily-rank 30/30
+daily-rank PASS rows=100 P95=30.065/27.505ms ratio=1.093
+Starting nineteen-year-history
+nineteen-year-history 5/30
+nineteen-year-history 10/30
+nineteen-year-history 15/30
+nineteen-year-history 20/30
+nineteen-year-history 25/30
+nineteen-year-history 30/30
+nineteen-year-history PASS rows=17 P95=978.574/11.282ms ratio=86.738
+Starting ma20-2026-04-10-all
+ma20-2026-04-10-all 5/30
+ma20-2026-04-10-all 10/30
+ma20-2026-04-10-all 15/30
+ma20-2026-04-10-all 20/30
+ma20-2026-04-10-all 25/30
+ma20-2026-04-10-all 30/30
+ma20-2026-04-10-all PASS rows=3542 P95=1962.898/13.215ms ratio=148.540
+Starting ma60-2026-04-10-all
+ma60-2026-04-10-all 5/30
+ma60-2026-04-10-all 10/30
+ma60-2026-04-10-all 15/30
+ma60-2026-04-10-all 20/30
+ma60-2026-04-10-all 25/30
+ma60-2026-04-10-all 30/30
+ma60-2026-04-10-all PASS rows=161 P95=2418.077/10.543ms ratio=229.349
+Starting ma120-2026-04-10-all
+ma120-2026-04-10-all 5/30
+ma120-2026-04-10-all 10/30
+ma120-2026-04-10-all 15/30
+ma120-2026-04-10-all 20/30
+ma120-2026-04-10-all 25/30
+ma120-2026-04-10-all 30/30
+ma120-2026-04-10-all PASS rows=156 P95=3003.716/10.886ms ratio=275.922
+Starting ma250-2026-04-10-all
+ma250-2026-04-10-all 5/30
+ma250-2026-04-10-all 10/30
+ma250-2026-04-10-all 15/30
+ma250-2026-04-10-all 20/30
+ma250-2026-04-10-all 25/30
+ma250-2026-04-10-all 30/30
+ma250-2026-04-10-all PASS rows=146 P95=4251.025/10.392ms ratio=409.087
+Starting ma20-2026-04-13-all
+ma20-2026-04-13-all 5/30
+ma20-2026-04-13-all 10/30
+ma20-2026-04-13-all 15/30
+ma20-2026-04-13-all 20/30
+ma20-2026-04-13-all 25/30
+ma20-2026-04-13-all 30/30
+ma20-2026-04-13-all PASS rows=3538 P95=1995.958/13.147ms ratio=151.818
+Starting ma60-2026-04-13-all
+ma60-2026-04-13-all 5/30
+ma60-2026-04-13-all 10/30
+ma60-2026-04-13-all 15/30
+ma60-2026-04-13-all 20/30
+ma60-2026-04-13-all 25/30
+ma60-2026-04-13-all 30/30
+ma60-2026-04-13-all PASS rows=161 P95=2383.228/10.693ms ratio=222.875
+Starting ma120-2026-04-13-all
+ma120-2026-04-13-all 5/30
+ma120-2026-04-13-all 10/30
+ma120-2026-04-13-all 15/30
+ma120-2026-04-13-all 20/30
+ma120-2026-04-13-all 25/30
+ma120-2026-04-13-all 30/30
+ma120-2026-04-13-all PASS rows=156 P95=2978.956/11.453ms ratio=260.107
+Starting ma250-2026-04-13-all
+ma250-2026-04-13-all 5/30
+ma250-2026-04-13-all 10/30
+ma250-2026-04-13-all 15/30
+ma250-2026-04-13-all 20/30
+ma250-2026-04-13-all 25/30
+ma250-2026-04-13-all 30/30
+ma250-2026-04-13-all PASS rows=145 P95=4283.528/9.687ms ratio=442.216
+Starting ma20-2026-04-14-all
+ma20-2026-04-14-all 5/30
+ma20-2026-04-14-all 10/30
+ma20-2026-04-14-all 15/30
+ma20-2026-04-14-all 20/30
+ma20-2026-04-14-all 25/30
+ma20-2026-04-14-all 30/30
+ma20-2026-04-14-all PASS rows=3528 P95=1828.656/13.090ms ratio=139.697
+Starting ma60-2026-04-14-all
+ma60-2026-04-14-all 5/30
+ma60-2026-04-14-all 10/30
+ma60-2026-04-14-all 15/30
+ma60-2026-04-14-all 20/30
+ma60-2026-04-14-all 25/30
+ma60-2026-04-14-all 30/30
+ma60-2026-04-14-all PASS rows=160 P95=2253.286/9.536ms ratio=236.300
+Starting ma120-2026-04-14-all
+ma120-2026-04-14-all 5/30
+ma120-2026-04-14-all 10/30
+ma120-2026-04-14-all 15/30
+ma120-2026-04-14-all 20/30
+ma120-2026-04-14-all 25/30
+ma120-2026-04-14-all 30/30
+ma120-2026-04-14-all PASS rows=155 P95=2925.823/9.274ms ratio=315.483
+Starting ma250-2026-04-14-all
+ma250-2026-04-14-all 5/30
+ma250-2026-04-14-all 10/30
+ma250-2026-04-14-all 15/30
+ma250-2026-04-14-all 20/30
+ma250-2026-04-14-all 25/30
+ma250-2026-04-14-all 30/30
+ma250-2026-04-14-all PASS rows=145 P95=4207.221/10.103ms ratio=416.445
+Starting record-high-2026-04-14-all
+record-high-2026-04-14-all 5/30
+record-high-2026-04-14-all 10/30
+record-high-2026-04-14-all 15/30
+record-high-2026-04-14-all 20/30
+record-high-2026-04-14-all 25/30
+record-high-2026-04-14-all 30/30
+record-high-2026-04-14-all PASS rows=4 P95=4014.804/9.886ms ratio=406.094
+Starting record-low-2026-04-14-all
+record-low-2026-04-14-all 5/30
+record-low-2026-04-14-all 10/30
+record-low-2026-04-14-all 15/30
+record-low-2026-04-14-all 20/30
+record-low-2026-04-14-all 25/30
+record-low-2026-04-14-all 30/30
+record-low-2026-04-14-all PASS rows=4 P95=5423.865/9.691ms ratio=559.663
+Starting mixed-moving-averages
+mixed-moving-averages 5/30
+mixed-moving-averages 10/30
+mixed-moving-averages 15/30
+mixed-moving-averages 20/30
+mixed-moving-averages 25/30
+mixed-moving-averages 30/30
+mixed-moving-averages PASS rows=177 P95=4494.880/9.922ms ratio=453.022
+Starting mixed-ma60-close-fallback
+mixed-ma60-close-fallback 5/30
+mixed-ma60-close-fallback 10/30
+mixed-ma60-close-fallback 15/30
+mixed-ma60-close-fallback 20/30
+mixed-ma60-close-fallback 25/30
+mixed-ma60-close-fallback 30/30
+mixed-ma60-close-fallback PASS rows=237 P95=2301.210/2231.338ms ratio=1.031
+Concurrent diagnostic PASS: 4 readers, 60 requests

@@ -1,0 +1,12 @@
+{
+  "matrixVersion": "history-matrix-v1",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "cases": [
+    {"id":"nineteen-year-history","category":"LONG_RANGE","dsl":"record_high('沪', '', '最高价', '历史', '2026-04-14', '', '', '') = True limit 0,100"},
+    {"id":"history-high-all-markets","category":"LONG_RANGE","dsl":"record_high('', '', '最高价', '历史', '2026-04-14', '', '', '') = True"},
+    {"id":"history-low-all-markets","category":"LONG_RANGE","dsl":"record_low('', '', '最低价', '历史', '2026-04-14', '', '', '') = True"},
+    {"id":"history-high-earlier-date","category":"LONG_RANGE","dsl":"record_high('沪', '', '最高价', '历史', '2026-04-13', '', '', '') = True"},
+    {"id":"history-pair","category":"LONG_RANGE","dsl":"record_high('', '', '最高价', '历史', '2026-04-14', '', '', '') = True or record_low('', '', '最低价', '历史', '2026-04-14', '', '', '') = True"},
+    {"id":"ma60","category":"WINDOW_CONTROL","dsl":"indicator('沪', '', '60日均线', '2026-04-14', '', '', '') > 10 limit 0,100"}
+  ]
+}

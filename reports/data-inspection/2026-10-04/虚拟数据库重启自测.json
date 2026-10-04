@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "countsAfterRestart": [
+    5686,
+    13650347,
+    6170822,
+    0
+  ],
+  "elapsedSeconds": 23.172,
+  "container": "dsl-doris-official"
+}

@@ -46,7 +46,11 @@ public final class StockSlotSemanticAnalyzer {
     private StockSlotAst.Expr infer(StockSlotAst.Expr expression, List<StockSlotDiagnostic> diagnostics,
                                     List<StockSlotAst.CallSemantics> calls) {
         return switch (expression) {
-            case StockSlotAst.Literal literal -> literal;
+            case StockSlotAst.Literal literal -> {
+                if (literal.value() == null)
+                    unsupported(diagnostics, "NULL_LITERAL_UNSUPPORTED", "NULL literals are not supported; missing indicator values are handled by the function contract", literal.span());
+                yield literal;
+            }
             case StockSlotAst.Unary unary -> {
                 StockSlotAst.Expr operand = infer(unary.operand(), diagnostics, calls);
                 if (!numeric(operand.type()))
@@ -153,6 +157,18 @@ public final class StockSlotSemanticAnalyzer {
         if (operator.equals("BETWEEN") && (!(right instanceof StockSlotAst.Literal literal)
                 || literal.type() != StockSlotAst.ValueType.STRING || !RANGE.matcher((String) literal.value()).matches()))
             unsupported(diagnostics, "BETWEEN_RANGE", "between requires a quoted interval such as '[1,5)'", right.span());
+        boolean unknown = left.type() == StockSlotAst.ValueType.UNKNOWN || right.type() == StockSlotAst.ValueType.UNKNOWN;
+        boolean numbers = numeric(left.type()) && numeric(right.type());
+        if (!unknown) {
+            boolean compatible = switch (operator) {
+                case "BETWEEN" -> numeric(left.type());
+                case "~=" -> numbers;
+                case "=", "!=", "<>" -> numbers || left.type() == right.type();
+                default -> numbers || (left.type() == StockSlotAst.ValueType.STRING && right.type() == StockSlotAst.ValueType.STRING);
+            };
+            if (!compatible)
+                unsupported(diagnostics, "COMPARISON_TYPE", operator + " cannot compare " + left.type() + " and " + right.type(), binary.span());
+        }
         return new StockSlotAst.Binary(operator, left, right, StockSlotAst.ValueType.BOOLEAN, binary.span());
     }
 

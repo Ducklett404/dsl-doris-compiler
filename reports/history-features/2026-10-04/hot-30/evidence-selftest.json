@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "valid-evidence-accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong-percentile-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "missing-sample-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "result-mismatch-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "cleanup-missing-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong-feature-manifest-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "missing-feature-date-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong-feature-partition-rejected",
+      "status": "PASS"
+    }
+  ]
+}

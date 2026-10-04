@@ -1,0 +1,42 @@
+{
+  "purpose": "RESTART_PERSISTENCE_DIAGNOSTIC",
+  "acceptanceEligible": false,
+  "status": "PASS",
+  "checks": [
+    {
+      "query": "SELECT * FROM newzl.data_snapshot_registry",
+      "beforeSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "afterSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "status": "PASS"
+    },
+    {
+      "query": "SELECT source_table,row_count FROM (SELECT 'basic' source_table,COUNT(*) row_count FROM newzl.hsj_stock_hq_basic UNION ALL SELECT 'ext',COUNT(*) FROM newzl.hsj_stock_hq_ext UNION ALL SELECT 'code',COUNT(*) FROM newzl.hsj_stock_code_info) counts ORDER BY source_table",
+      "beforeSha256": "11d49cf518691e23cdb7a6e61684244d96c2b273623209bffc932131562344f7",
+      "afterSha256": "11d49cf518691e23cdb7a6e61684244d96c2b273623209bffc932131562344f7",
+      "status": "PASS"
+    },
+    {
+      "query": "SELECT * FROM dsl_rolling_diag_86d2f7a7a797.rolling_averages_v1 ORDER BY bizdate,mktcode,tgtcode",
+      "beforeSha256": "b40d1c3ec701f226f8ba844d154acadbd9ce1c2c2ae13e1ad8532b81507c185a",
+      "afterSha256": "b40d1c3ec701f226f8ba844d154acadbd9ce1c2c2ae13e1ad8532b81507c185a",
+      "status": "PASS"
+    },
+    {
+      "query": "SELECT * FROM dsl_history_diag_c47f1367e4a7.history_extrema_v1 ORDER BY bizdate,mktcode,tgtcode",
+      "beforeSha256": "5e32284f6ec5d81363b5a40b47ee6f75eb61b9e0de58a1040d30b06cb2f569b1",
+      "afterSha256": "5e32284f6ec5d81363b5a40b47ee6f75eb61b9e0de58a1040d30b06cb2f569b1",
+      "status": "PASS"
+    }
+  ],
+  "sourceCountsBefore": {
+    "basic": 13650347,
+    "code": 5686,
+    "ext": 6170822
+  },
+  "sourceCountsAfter": {
+    "basic": 13650347,
+    "code": 5686,
+    "ext": 6170822
+  },
+  "cacheInterpretation": "BE/container restarted; host OS caches are not cleared. This is persistence evidence, not a formal cold-cache benchmark."
+}

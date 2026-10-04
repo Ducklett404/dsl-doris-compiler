@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "D:\A_MyProjects\Ω“∞Òπ“Àß\dsl-doris-compiler\scripts\doris\check_route_restart.py", line 45, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "D:\A_MyProjects\Ω“∞Òπ“Àß\dsl-doris-compiler\scripts\doris\check_route_restart.py", line 41, in main
+    if before!=after:raise ValueError('Data or features changed after restart')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Data or features changed after restart

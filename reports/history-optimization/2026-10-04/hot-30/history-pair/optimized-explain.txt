@@ -1,0 +1,86 @@
+PLAN FRAGMENT 0
+  OUTPUT EXPRS:
+    mktcode[#112]
+    tgtcode[#113]
+  PARTITION: UNPARTITIONED
+
+  HAS_COLO_PLAN_NODE: false
+
+  VRESULT SINK
+     MYSQL_PROTOCOL
+
+  5:VMERGING-EXCHANGE
+     offset: 0
+     distribute expr lists: tgtcode[#113]
+
+PLAN FRAGMENT 1
+
+  PARTITION: HASH_PARTITIONED: tgtcode[#97]
+
+  HAS_COLO_PLAN_NODE: true
+
+  STREAM DATA SINK
+    EXCHANGE ID: 05
+    UNPARTITIONED
+IS_MERGE: true
+
+  4:VSORT(859)
+  |  order by: mktcode[#112] ASC, tgtcode[#113] ASC
+  |  algorithm: full sort
+  |  local merge sort
+  |  merge by exchange
+  |  offset: 0
+  |  distribute expr lists: 
+  |  
+  3:VAGGREGATE (merge finalize)(850)
+  |  output: max(partial_max(is_current)[#99])[#105], max(partial_max(if((is_current = 1), v1, NULL))[#100])[#106], max(partial_max(if((is_current = 1), v2, NULL))[#101])[#107], max(partial_max(v1)[#98])[#108], min(partial_min(v2)[#102])[#109]
+  |  group by: mktcode[#96], tgtcode[#97]
+  |  having: ((CAST((v1_current[#106] = f1_extremum[#108]) AS tinyint) = 1) OR (CAST((v2_current[#107] = f2_extremum[#109]) AS tinyint) = 1)), (has_current[#105] = 1)
+  |  sortByGroupKey:false
+  |  cardinality=7,423
+  |  final projections: mktcode[#103], tgtcode[#104]
+  |  final project output tuple id: 7
+  |  distribute expr lists: tgtcode[#97]
+  |  
+  2:VEXCHANGE
+     offset: 0
+     distribute expr lists: 
+
+PLAN FRAGMENT 2
+
+  PARTITION: RANDOM
+
+  HAS_COLO_PLAN_NODE: false
+
+  STREAM DATA SINK
+    EXCHANGE ID: 02
+    HASH_PARTITIONED: tgtcode[#97]
+
+  1:VAGGREGATE (update serialize)(844)
+  |  STREAMING
+  |  output: partial_max(v1[#91])[#98], partial_max(is_current[#93])[#99], partial_max(if((is_current = 1), v1, NULL)[#95])[#100], partial_max(if((is_current = 1), v2, NULL)[#94])[#101], partial_min(v2[#92])[#102]
+  |  group by: mktcode[#89], tgtcode[#90]
+  |  sortByGroupKey:false
+  |  cardinality=7,423
+  |  distribute expr lists: 
+  |  
+  0:VOlapScanNode(796)
+     TABLE: newzl.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON
+     PREDICATES: ((bizdate[#2] <= '2026-04-14') AND (__DORIS_DELETE_SIGN__[#56] = 0))
+     partitions=21/21 (p20150101000000,p20140101000000,p20130101000000,p20120101000000,p20110101000000,p20100101000000,p20090101000000,p20080101000000,p20070101000000,p20060101000000,p20230101000000,p20220101000000,p20210101000000,p20200101000000,p20190101000000,p20180101000000,p20160101000000,p20250101000000,p20240101000000,p20170101000000,p20260101000000)
+     tablets=336/336, tabletList=1791094083785,1791094083787,1791094083789 ...
+     cardinality=13650347, avgRowSize=152.91768, numNodes=1
+     pushAggOp=NONE
+     final projections: mktcode[#77], tgtcode[#78], (cast(highPx as DOUBLE) / 10000.0)[#87], (cast(lowPx as DOUBLE) / 10000.0)[#86], if((bizdate = '2026-04-14'), 1, 0)[#85], if((if((bizdate = '2026-04-14'), 1, 0) = 1)[#88], (cast(lowPx as DOUBLE) / 10000.0)[#86], NULL), if((if((bizdate = '2026-04-14'), 1, 0) = 1)[#88], (cast(highPx as DOUBLE) / 10000.0)[#87], NULL)
+     final project output tuple id: 4
+     intermediate projections: mktcode[#66], tgtcode[#67], highPx[#68], lowPx[#69], bizdate[#70], (bizdate = '2026-04-14')[#71], cast(lowPx as DOUBLE)[#72], cast(highPx as DOUBLE)[#73], if((bizdate = '2026-04-14'), 1, 0)[#74], (cast(lowPx as DOUBLE) / 10000.0)[#75], (cast(highPx as DOUBLE) / 10000.0)[#76], (if((bizdate = '2026-04-14'), 1, 0)[#74] = 1)
+     intermediate tuple id: 3
+     intermediate projections: mktcode[#58], tgtcode[#59], highPx[#60], lowPx[#61], bizdate[#62], (bizdate = '2026-04-14')[#63], cast(lowPx as DOUBLE)[#64], cast(highPx as DOUBLE)[#65], if((bizdate = '2026-04-14')[#63], 1, 0), (cast(lowPx as DOUBLE)[#64] / 10000), (cast(highPx as DOUBLE)[#65] / 10000)
+     intermediate tuple id: 2
+     intermediate projections: mktcode[#0], tgtcode[#1], highPx[#6], lowPx[#7], bizdate[#2], (bizdate[#2] = '2026-04-14'), CAST(lowPx[#7] AS double), CAST(highPx[#6] AS double)
+     intermediate tuple id: 1
+
+
+
+========== STATISTICS ==========
+planned with unknown column statistics

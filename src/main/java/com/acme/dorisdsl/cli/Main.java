@@ -9,6 +9,7 @@ import com.acme.dorisdsl.competition.VerifiedIndicatorCatalog;
 import com.acme.dorisdsl.registry.RegistryLoader;
 import com.acme.dorisdsl.rewrite.RuleCatalogLoader;
 import com.acme.dorisdsl.server.CompileHttpServer;
+import com.acme.dorisdsl.server.BearerTokenAccess;
 import com.acme.dorisdsl.stockslot.StockSlotCorpusAuditor;
 import com.acme.dorisdsl.stockslot.CompilerPerformanceBenchmark;
 import com.acme.dorisdsl.stockslot.CompilerPerformanceDefinition;
@@ -187,12 +188,24 @@ public final class Main implements Runnable {
         @CommandLine.Option(names = {"-f", "--format"}, defaultValue = "json", description = "json|sql") String format;
         @CommandLine.Option(names = {"-o", "--output"}, description = "Output file; defaults to stdout") Path output;
         @CommandLine.Option(names = "--registry", description = "stock-slot-v1 registry JSON; defaults to bundled registry") Path registry;
+        @CommandLine.Option(names = "--snapshot-id", defaultValue = "stock-20060104-20260414-v1",
+                description = "Snapshot context used to select compatible feature tables") String snapshotId;
+        @CommandLine.Option(names = "--access-path", defaultValue = "OPTIMIZED",
+                description = "OPTIMIZED|FULL_SCAN_REFERENCE (SQL compilation only)") StockSlotSqlCompiler.AccessPathMode accessPath;
+        @CommandLine.Option(names = "--historical-features", description = "Explicit complete historical feature catalog (SQL compilation only)") Path historicalFeatures;
+        @CommandLine.Option(names = "--manifest-sha256", description = "Exact source manifest hash required for historical feature selection") String manifestSha256;
+        @CommandLine.Option(names = "--rolling-features", description = "Explicit complete strict moving-average catalog (SQL compilation only)") Path rollingFeatures;
 
         @Override public Integer call() {
             try {
                 var loader = new StockSlotRegistryLoader();
                 var stockRegistry = registry == null ? loader.loadDefault() : loader.load(registry);
-                var artifact = new StockSlotSqlCompiler(stockRegistry).compile(Files.readString(input, StandardCharsets.UTF_8));
+                var compiler = new StockSlotSqlCompiler(stockRegistry, 256, historicalFeatures == null ? null
+                        : com.acme.dorisdsl.stockslot.HistoricalExtremaFeatureCatalog.load(historicalFeatures),rollingFeatures == null ? null
+                        : com.acme.dorisdsl.stockslot.RollingAverageFeatureCatalog.load(rollingFeatures));
+                String source = Files.readString(input, StandardCharsets.UTF_8);
+                var artifact = accessPath == StockSlotSqlCompiler.AccessPathMode.FULL_SCAN_REFERENCE
+                        ? compiler.compile(source, accessPath) : compiler.compileForSnapshot(source, snapshotId, manifestSha256);
                 String rendered = switch (format.toLowerCase()) {
                     case "json" -> JsonSupport.MAPPER.writeValueAsString(artifact);
                     case "sql" -> artifact.sql();
@@ -288,15 +301,17 @@ public final class Main implements Runnable {
 
     @CommandLine.Command(name = "serve-doris", description = "Start compile and controlled Doris execution HTTP APIs")
     static final class ServeDorisCommand extends DorisOptions implements Callable<Integer> {
+        @CommandLine.Option(names = "--auth-token-env", defaultValue = "DSL_HTTP_TOKEN") String authTokenEnv;
         @CommandLine.Option(names = "--bind-host", defaultValue = "127.0.0.1") String bindHost;
         @CommandLine.Option(names = "--http-port", defaultValue = "8080") int httpPort;
         @CommandLine.Option(names = "--timeout-seconds", defaultValue = "10") int timeoutSeconds;
 
         @Override public Integer call() throws Exception {
+            var access = BearerTokenAccess.fromEnvironment(authTokenEnv, true);
             try (var executor = new DorisQueryExecutor(jdbcUrl(), user, password(), stockRegistry(), controlledPolicy(timeoutSeconds));
                  var server = new CompileHttpServer(compiler(null, List.of()),
                          (dsl, snapshot, rows) -> executor.execute(dsl, snapshot, timeoutSeconds, rows),
-                         bindHost, httpPort)) {
+                         bindHost, httpPort, access, access)) {
                 executor.ping();
                 server.start();
                 System.out.printf("Listening on http://%s:%d (/compile, /execute)%n", bindHost, server.port());
@@ -408,11 +423,13 @@ public final class Main implements Runnable {
 
     @CommandLine.Command(name = "serve", description = "Start the JSON compile API")
     static final class ServeCommand extends RegistryOptions implements Callable<Integer> {
+        @CommandLine.Option(names = "--auth-token-env", defaultValue = "DSL_HTTP_TOKEN") String authTokenEnv;
         @CommandLine.Option(names = "--host", defaultValue = "127.0.0.1") String host;
         @CommandLine.Option(names = "--port", defaultValue = "8080") int port;
 
         @Override public Integer call() throws Exception {
-            try (var server = new CompileHttpServer(compiler(registry, plugins, rules, ruleVersion), host, port)) {
+            var access = BearerTokenAccess.fromEnvironment(authTokenEnv, false);
+            try (var server = new CompileHttpServer(compiler(registry, plugins, rules, ruleVersion), host, port, access, access)) {
                 server.start();
                 System.out.printf("Listening on http://%s:%d%n", host, server.port());
                 Thread.currentThread().join();

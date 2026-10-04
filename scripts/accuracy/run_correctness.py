@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import subprocess
 import tempfile
 from collections import Counter, defaultdict
@@ -17,7 +18,7 @@ from typing import Any
 
 
 def run(command: list[str], *, stdin: str | None = None) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(command, input=stdin, text=True, encoding="utf-8", capture_output=True, check=False)
+    return subprocess.run(command, input=stdin, text=True, encoding="utf-8", errors="replace", capture_output=True, check=False)
 
 
 def functions(expression: dict[str, Any]) -> list[str]:
@@ -39,14 +40,10 @@ def sql_literal(value: Any) -> str:
         return "NULL"
     if isinstance(value, bool):
         return "TRUE" if value else "FALSE"
-    if isinstance(value, (int, float)):
+    if isinstance(value, (int, float, Decimal)):
         return str(value)
     text = str(value)
-    try:
-        Decimal(text)
-        return text
-    except Exception:
-        return "'" + text.replace("'", "''") + "'"
+    return "'" + text.replace("'", "''") + "'"
 
 
 def bind_sql(sql: str, bindings: list[Any]) -> str:
@@ -106,11 +103,49 @@ class Doris:
         return [tuple(line.split("\t")) for line in completed.stdout.splitlines() if line]
 
 
-def compile_case(java: str, jar: Path, dsl: str, temp: Path) -> dict[str, Any]:
+class WslDoris:
+    """Use the private client configuration of the owned diagnostic instance."""
+    def __init__(self, distribution: str, container: str):
+        self.prefix = ["wsl.exe", "-d", distribution, "--exec", "docker"]
+        inspected = run(self.prefix + ["inspect", "-f",
+            '{{.State.Running}} {{index .Config.Labels "com.acme.dorisdsl.purpose"}}', container])
+        if inspected.returncode or inspected.stdout.strip() != "true official-data-diagnostic":
+            raise RuntimeError("Expected the running, owned official-data diagnostic container")
+        self.command = self.prefix + ["exec", "-i", container, "mysql",
+            "--defaults-extra-file=/run/dsl-client.cnf", "--batch", "--skip-column-names", "--raw"]
+
+    def query(self, sql: str) -> list[tuple[str, ...]]:
+        completed = subprocess.run(self.command, input=sql.rstrip(";\n") + ";\n",
+            text=True, encoding="utf-8", errors="replace", capture_output=True, timeout=300)
+        if completed.returncode:
+            raise RuntimeError((completed.stderr or completed.stdout).strip())
+        return [tuple(line.split("\t")) for line in completed.stdout.splitlines() if line]
+
+
+def registered_snapshot(doris: Any, manifest: dict[str, Any], manifest_hash: str) -> bool:
+    rows = doris.query("SELECT snapshot_id,contract_version,manifest_sha256 FROM newzl.data_snapshot_registry "
+        "WHERE snapshot_id=" + sql_literal(manifest["snapshotId"]) + " AND status='VALIDATED'")
+    return rows == [(manifest["snapshotId"], manifest["contractVersion"], manifest_hash)]
+
+
+def compile_case(java: str, jar: Path, dsl: str, temp: Path, snapshot_id: str | None = None,
+                 access_path: str | None = None, historical_features: Path | None = None,
+                 manifest_sha256: str | None = None, rolling_features: Path | None = None) -> dict[str, Any]:
     temp.write_text(dsl, encoding="utf-8")
-    completed = run([java, "-Dfile.encoding=UTF-8", "-Dsun.stdout.encoding=UTF-8",
+    command = [java, "-Dfile.encoding=UTF-8", "-Dsun.stdout.encoding=UTF-8",
                      "-Dsun.stderr.encoding=UTF-8", "-jar", str(jar),
-                     "compile-stock-slot-sql", str(temp), "--format", "json"])
+                     "compile-stock-slot-sql", str(temp), "--format", "json"]
+    if snapshot_id is not None:
+        command.extend(["--snapshot-id", snapshot_id])
+    if historical_features is not None:
+        command.extend(["--historical-features", str(historical_features)])
+    if rolling_features is not None:
+        command.extend(["--rolling-features", str(rolling_features)])
+    if manifest_sha256 is not None:
+        command.extend(["--manifest-sha256", manifest_sha256])
+    if access_path is not None:
+        command.extend(["--access-path", access_path])
+    completed = run(command)
     if completed.returncode:
         raise RuntimeError((completed.stderr or completed.stdout).strip())
     return json.loads(completed.stdout)
@@ -120,7 +155,8 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
     golden = json.loads(args.golden.read_text(encoding="utf-8"))
     manifest_path = args.repo / "data" / "doris" / "snapshots" / golden["snapshotId"] / "manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    doris = Doris(str(args.docker), args.container, args.user, args.mysql_port, os.environ["DORIS_PASSWORD"])
+    doris = (WslDoris(args.wsl_distribution, args.container) if args.wsl_distribution else
+             Doris(str(args.docker), args.container, args.user, args.mysql_port, os.environ["DORIS_PASSWORD"]))
 
     snapshot_checks = {
         "codeRows": int(doris.query("SELECT COUNT(*) FROM newzl.hsj_stock_code_info")[0][0]),
@@ -139,6 +175,21 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
     if not snapshot_ok:
         raise RuntimeError("Doris snapshot does not match the frozen manifest")
 
+    provenance = {
+        "purpose": "PROJECT_ACCEPTANCE", "goldenVersion": golden["goldenVersion"],
+        "dslVersion": golden["dslVersion"], "snapshotId": golden["snapshotId"],
+        "executedAtUtc": datetime.now(timezone.utc).isoformat(),
+        "artifactHashes": {"goldenSha256": _sha256(args.golden),
+            "snapshotManifestSha256": _sha256(manifest_path), "compilerJarSha256": _sha256(args.jar)},
+        "physicalSnapshotMatchesManifest": snapshot_ok, "snapshotChecks": snapshot_checks,
+    }
+    validated = registered_snapshot(doris, manifest, provenance["artifactHashes"]["snapshotManifestSha256"])
+    if not validated:
+        return {**provenance, "status": "BLOCKED", "snapshotVerified": False,
+            "blockedReason": "Exact VALIDATED snapshot/contract/manifest registration is required before acceptance queries",
+            "cases": [], "overall": {"total": 0, "correct": 0, "accuracy": None},
+            "splits": {}, "failureCategories": {"SNAPSHOT_NOT_VALIDATED": 1}}
+
     results: list[dict[str, Any]] = []
     with tempfile.TemporaryDirectory(prefix="stock-slot-accuracy-") as directory:
         temp = Path(directory) / "case.dsl"
@@ -149,7 +200,7 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
                                       "dsl": case["dsl"],
                                       "strata": case["strata"], "layers": {}, "failures": []}
             try:
-                artifact = compile_case(args.java, args.jar, case["dsl"], temp)
+                artifact = compile_case(args.java, args.jar, case["dsl"], temp, golden["snapshotId"])
                 expression = artifact["semanticModel"]["document"]["expression"]
                 ast_failures = []
                 if expression.get("operator") != case["expect"]["rootOperator"]:
@@ -214,6 +265,8 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
     total_correct = sum(item["correct"] for item in results)
     failures = Counter(failure["category"] for item in results for failure in item["failures"])
     return {
+        **provenance,
+        "status": "PASS" if not failures else "FAIL",
         "goldenVersion": golden["goldenVersion"],
         "dslVersion": golden["dslVersion"],
         "snapshotId": golden["snapshotId"],
@@ -223,7 +276,7 @@ def evaluate(args: argparse.Namespace) -> dict[str, Any]:
             "snapshotManifestSha256": _sha256(manifest_path),
             "compilerJarSha256": _sha256(args.jar),
         },
-        "snapshotVerified": snapshot_ok,
+        "snapshotVerified": validated,
         "snapshotChecks": snapshot_checks,
         "denominatorPolicy": golden["denominatorPolicy"],
         "excludedCapabilities": golden["excludedCapabilities"],
@@ -251,6 +304,13 @@ def _groups(rows: list[dict[str, Any]], key: str) -> dict[str, list[dict[str, An
 
 
 def write_markdown(report: dict[str, Any], path: Path) -> None:
+    if report["status"] == "BLOCKED":
+        path.write_text("# 项目正确性验收：BLOCKED\n\n"
+            f"快照：`{report['snapshotId']}`；黄金集：`{report['goldenVersion']}`。\n\n"
+            "物理行数、日期范围与 manifest 一致，但没有与快照、契约、manifest 哈希完全匹配的 VALIDATED 登记。"
+            "验收查询未执行，正确率没有计算。诊断查询成功不能替代快照验证。\n\n"
+            f"原因：{report['blockedReason']}\n", encoding="utf-8")
+        return
     lines = [
         "# stock-slot-v1 正确性报告", "",
         f"黄金集：`{report['goldenVersion']}`  ",
@@ -277,7 +337,7 @@ def write_markdown(report: dict[str, Any], path: Path) -> None:
     lines.extend(["", "## 分母与排除范围", "", report["denominatorPolicy"], ""])
     lines.extend(f"- {item}" for item in report["excludedCapabilities"])
     lines.extend(["", "## 快照检查", "", f"固定快照核验：`{report['snapshotVerified']}`。",
-                  "行数与日期范围均在执行黄金集前同 manifest 强制比对。", "",
+                  "执行前核对行数、日期范围以及 VALIDATED 登记中的快照、契约和 manifest 哈希。", "",
                   "## 样例明细", "", "| ID | 集合 | 三层结果 | 返回行数 |", "|---|---|---|---:|"])
     for case in report["cases"]:
         layer = "/".join("PASS" if case["layers"].get(name) else "FAIL" for name in ("astSemantic", "sqlStructure", "result"))
@@ -288,11 +348,12 @@ def write_markdown(report: dict[str, Any], path: Path) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo", type=Path, default=Path(__file__).resolve().parents[2])
-    parser.add_argument("--golden", type=Path, default=Path("accuracy/golden/stock-slot-executable-v1.json"))
+    parser.add_argument("--golden", type=Path, default=Path("accuracy/golden/stock-slot-executable-v1.0.1.json"))
     parser.add_argument("--jar", type=Path, default=Path("target/dsl-doris-compiler.jar"))
-    parser.add_argument("--output-dir", type=Path, default=Path("reports/accuracy/stock-slot-executable-v1"))
+    parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--docker", type=Path, default=Path(r"C:\Program Files\Docker\Docker\resources\bin\docker.exe"))
     parser.add_argument("--container", default="doris")
+    parser.add_argument("--wsl-distribution", help="Use the owned WSL diagnostic instance and private root client configuration")
     parser.add_argument("--user", default="dsl_loader")
     parser.add_argument("--mysql-port", type=int, default=9030)
     parser.add_argument("--java", default="java")
@@ -300,8 +361,14 @@ def main() -> int:
     args.repo = args.repo.resolve()
     args.golden = (args.repo / args.golden).resolve() if not args.golden.is_absolute() else args.golden
     args.jar = (args.repo / args.jar).resolve() if not args.jar.is_absolute() else args.jar
-    args.output_dir = (args.repo / args.output_dir).resolve() if not args.output_dir.is_absolute() else args.output_dir
-    if not os.environ.get("DORIS_PASSWORD"):
+    if args.output_dir is None:
+        version = json.loads(args.golden.read_text(encoding="utf-8"))["goldenVersion"]
+        if not re.fullmatch(r"[A-Za-z0-9_.-]+", version):
+            raise ValueError("Invalid golden version for output directory")
+        args.output_dir = args.repo / "reports/accuracy" / version
+    else:
+        args.output_dir = (args.repo / args.output_dir).resolve() if not args.output_dir.is_absolute() else args.output_dir
+    if not args.wsl_distribution and not os.environ.get("DORIS_PASSWORD"):
         raise SystemExit("DORIS_PASSWORD is required")
     report = evaluate(args)
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -309,6 +376,8 @@ def main() -> int:
     write_markdown(report, args.output_dir / "REPORT.md")
     print(json.dumps({"overall": report["overall"], "splits": report["splits"],
                       "failures": report["failureCategories"]}, ensure_ascii=False))
+    if report["status"] == "BLOCKED":
+        return 3
     blind = report["splits"].get("blind", {"accuracy": 0})["accuracy"]
     return 0 if blind >= 0.95 and not report["failureCategories"] else 2
 

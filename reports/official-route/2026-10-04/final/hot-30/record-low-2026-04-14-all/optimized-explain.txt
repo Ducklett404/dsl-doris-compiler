@@ -1,0 +1,48 @@
+PLAN FRAGMENT 0
+  OUTPUT EXPRS:
+    mktcode[#20]
+    tgtcode[#21]
+  PARTITION: UNPARTITIONED
+
+  HAS_COLO_PLAN_NODE: false
+
+  VRESULT SINK
+     MYSQL_PROTOCOL
+
+  2:VMERGING-EXCHANGE
+     offset: 0
+     distribute expr lists: mktcode[#20], tgtcode[#21]
+
+PLAN FRAGMENT 1
+
+  PARTITION: HASH_PARTITIONED: mktcode[#4], tgtcode[#5]
+
+  HAS_COLO_PLAN_NODE: false
+
+  STREAM DATA SINK
+    EXCHANGE ID: 02
+    UNPARTITIONED
+IS_MERGE: true
+
+  1:VSORT(353)
+  |  order by: mktcode[#20] ASC, tgtcode[#21] ASC
+  |  algorithm: full sort
+  |  local merge sort
+  |  merge by exchange
+  |  offset: 0
+  |  distribute expr lists: 
+  |  
+  0:VOlapScanNode(341)
+     TABLE: dsl_rolling_diag_86d2f7a7a797.rolling_averages_v1(rolling_averages_v1), PREAGGREGATION: ON
+     PREDICATES: ((((CAST((low_current[#13] = low_min250[#14]) AS tinyint) = 1) AND (bizdate[#3] = '2026-04-14')) AND ((snapshot_id[#0] = 'stock-20060104-20260414-v1') AND (manifest_sha256[#1] = '306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95'))) AND ((registry_fingerprint[#2] = 'a460a741b13b2cea6066c7a973c246463d68c6eb083c07a50650ed8403f3ab17') AND (__DORIS_DELETE_SIGN__[#16] = 0)))
+     partitions=1/3 (p20260414)
+     tablets=4/4, tabletList=1791094906793,1791094906795,1791094906797 ...
+     cardinality=5614, avgRowSize=160.09352, numNodes=1
+     pushAggOp=NONE
+     final projections: mktcode[#4], tgtcode[#5]
+     final project output tuple id: 1
+
+
+
+========== STATISTICS ==========
+planned with unknown column statistics

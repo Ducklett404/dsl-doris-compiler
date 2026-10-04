@@ -1,0 +1,118 @@
+{
+  "purpose": "OFFICIAL_DATA_PROJECT_ROUTE",
+  "acceptanceEligible": false,
+  "status": "DIAGNOSTIC_PASS_FORMAL_BLOCKED",
+  "phases": [
+    {
+      "phase": "full-selftest",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "full-selftest.log"
+    },
+    {
+      "phase": "rolling-build",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "rolling-build.log"
+    },
+    {
+      "phase": "history-build",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "history-build.log"
+    },
+    {
+      "phase": "rolling-independent",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "rolling-independent.log"
+    },
+    {
+      "phase": "rolling-native-boundaries",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "rolling-native-boundaries.log"
+    },
+    {
+      "phase": "history-native-boundaries",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "history-native-boundaries.log"
+    },
+    {
+      "phase": "local-real-results",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "local-real-results.log"
+    },
+    {
+      "phase": "native-real-results",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "native-real-results.log"
+    },
+    {
+      "phase": "official-execution-gate",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "official-execution-gate.log"
+    },
+    {
+      "phase": "formal-correctness-gate",
+      "exitCode": 3,
+      "status": "EXPECTED_BLOCKED",
+      "log": "formal-correctness-gate.log"
+    },
+    {
+      "phase": "hot-performance",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "hot-performance.log"
+    },
+    {
+      "phase": "performance-evidence",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "performance-evidence.log"
+    },
+    {
+      "phase": "evidence-selftest",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "evidence-selftest.log"
+    },
+    {
+      "phase": "restart-persistence",
+      "exitCode": 0,
+      "status": "PASS",
+      "log": "restart-persistence.log"
+    }
+  ],
+  "priorAttemptReports": [
+    "route-attempt-001.json",
+    "route-attempt-002.json"
+  ],
+  "snapshotId": "stock-20060104-20260414-v1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "jarSha256": "e8eb307686c7937beda7ff878dcbca68d53826499aa42e5241cc959f5caacbe1",
+  "formalAcceptanceStatus": "BLOCKED",
+  "diagnosticCases": 28,
+  "timedQueries": 1680,
+  "independentValuesChecked": 168460,
+  "officialRegistryUnchanged": true,
+  "junit": {
+    "junit-main": {
+      "tests": 275,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "junit-executor": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "completedAtUtc": "2026-10-04T12:23:39.072005+00:00"
+}

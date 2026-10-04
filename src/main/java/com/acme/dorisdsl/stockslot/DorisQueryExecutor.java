@@ -25,6 +25,7 @@ public final class DorisQueryExecutor implements AutoCloseable {
     private final DorisExecutionPolicy policy;
     private final ReentrantLock executionSlot = new ReentrantLock(true);
     private final String fullScanBaselineSql;
+    private final String snapshotRegistryTable;
 
     public DorisQueryExecutor(String jdbcUrl, String user, String password, StockSlotRegistry registry) throws SQLException {
         this(jdbcUrl, user, password, registry, DorisExecutionPolicy.localBenchmarkDefaults());
@@ -39,6 +40,7 @@ public final class DorisQueryExecutor implements AutoCloseable {
         this.policy = Objects.requireNonNull(policy, "policy");
         this.compiler = new StockSlotSqlCompiler(registry);
         var basic = registry.table("basic");
+        this.snapshotRegistryTable = snapshotRegistryTable(basic.qualifiedName());
         var feature = registry.table("features");
         String close = registry.column("basic", "closePrice");
         String featureDate = "(SELECT MAX(" + registry.field("features", "tradeDate") + ") FROM "
@@ -47,7 +49,7 @@ public final class DorisQueryExecutor implements AutoCloseable {
                 + registry.column("basic", "marketCode") + " AS mktcode,"
                 + registry.column("basic", "securityCode") + " AS tgtcode,"
                 + registry.column("basic", "tradeDate") + " AS bizdate," + close + " AS close_price FROM "
-                + basic.qualifiedName() + " " + basic.alias() + " WHERE " + close + " IS NOT NULL AND "
+                + basic.qualifiedName() + " " + basic.alias() + " WHERE "
                 + registry.column("basic", "marketCode") + "=1 AND "
                 + registry.column("basic", "tradeDate") + " <= " + featureDate + "), windowed AS (SELECT observed.*, "
                 + "CASE WHEN COUNT(close_price) OVER(PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 59 PRECEDING AND CURRENT ROW)=60 "
@@ -55,9 +57,15 @@ public final class DorisQueryExecutor implements AutoCloseable {
                 + "FROM observed) SELECT mktcode,tgtcode FROM windowed WHERE bizdate=" + featureDate
                 + " AND ma60>1 ORDER BY mktcode,tgtcode LIMIT 100";
         this.connection = DriverManager.getConnection(jdbcUrl, user, password);
-        this.connection.setAutoCommit(true);
-        configureSession();
-        if (policy.requireReadOnlyAccount()) verifyReadOnlyAccount();
+        try {
+            this.connection.setAutoCommit(true);
+            configureSession();
+            if (policy.requireReadOnlyAccount()) verifyReadOnlyAccount();
+        } catch (SQLException | RuntimeException | Error failure) {
+            try { this.connection.close(); }
+            catch (SQLException closeFailure) { failure.addSuppressed(closeFailure); }
+            throw failure;
+        }
     }
 
     private void configureSession() throws SQLException {
@@ -95,7 +103,7 @@ public final class DorisQueryExecutor implements AutoCloseable {
         int maxRows = requestedMaxRows <= 0 ? policy.maxReturnRows() : Math.min(requestedMaxRows, policy.maxReturnRows());
 
         long compileStart = System.nanoTime();
-        StockSlotSqlArtifact artifact = compiler.compile(dsl);
+        StockSlotSqlArtifact artifact = compiler.compileForSnapshot(dsl, snapshotId);
         double compileMillis = millis(System.nanoTime() - compileStart);
         validateGeneratedSelect(artifact.sql());
 
@@ -197,7 +205,7 @@ public final class DorisQueryExecutor implements AutoCloseable {
 
     public DorisExecutionArtifact.SnapshotVersion requireValidatedSnapshot(String snapshotId) throws SQLException {
         if (snapshotId == null || snapshotId.isBlank()) throw new IllegalArgumentException("snapshotId is required");
-        String sql = "SELECT snapshot_id,contract_version,manifest_sha256 FROM newzl.data_snapshot_registry "
+        String sql = "SELECT snapshot_id,contract_version,manifest_sha256 FROM " + snapshotRegistryTable + " "
                 + "WHERE snapshot_id=? AND status='VALIDATED'";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, snapshotId);
@@ -210,6 +218,13 @@ public final class DorisQueryExecutor implements AutoCloseable {
                 return version;
             }
         }
+    }
+
+    /** Names have already passed the registry loader's identifier validation. */
+    static String snapshotRegistryTable(String basicTable) {
+        int separator = basicTable.indexOf('.');
+        return separator < 0 ? "data_snapshot_registry"
+                : basicTable.substring(0, separator) + ".data_snapshot_registry";
     }
 
     /** Fixed, read-only baseline that scans the complete 19-year semantic quote view. */

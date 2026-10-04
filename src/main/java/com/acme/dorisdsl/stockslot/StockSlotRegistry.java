@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class StockSlotRegistry {
+    private final String fingerprint;
     private final String version;
     private final Map<String, StockSlotRegistryConfig.TableDefinition> tables;
     private final Map<String, Integer> markets;
@@ -24,6 +25,12 @@ public final class StockSlotRegistry {
     private final StockSlotRegistryConfig.TestVectors testVectors;
 
     StockSlotRegistry(StockSlotRegistryConfig config) {
+        try {
+            byte[] canonical = com.acme.dorisdsl.util.JsonSupport.MAPPER.copy()
+                    .enable(com.fasterxml.jackson.databind.SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS)
+                    .writeValueAsBytes(config);
+            fingerprint = java.util.HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(canonical));
+        } catch (Exception e) { throw new IllegalArgumentException("Cannot fingerprint stock registry", e); }
         version = config.registryVersion();
         tables = config.tables();
         markets = config.markets();
@@ -45,6 +52,7 @@ public final class StockSlotRegistry {
     }
 
     public String version() { return version; }
+    public String fingerprint() { return fingerprint; }
     public Map<String, Integer> markets() { return markets; }
     public Set<String> recognizedMarkets() { return recognizedMarkets; }
     public StockSlotRegistryConfig.TestVectors testVectors() { return testVectors; }

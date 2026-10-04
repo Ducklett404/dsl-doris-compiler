@@ -1,0 +1,105 @@
+PLAN FRAGMENT 0
+  OUTPUT EXPRS:
+    mktcode[#150]
+    tgtcode[#151]
+  PARTITION: UNPARTITIONED
+  HAS_COLO_PLAN_NODE: false
+  VRESULT SINK
+     MYSQL_PROTOCOL
+  9:VMERGING-EXCHANGE
+     offset: 0
+     distribute expr lists: mktcode[#150], tgtcode[#151]
+PLAN FRAGMENT 1
+  PARTITION: HASH_PARTITIONED: mktcode[#138], tgtcode[#139]
+  HAS_COLO_PLAN_NODE: false
+  STREAM DATA SINK
+    EXCHANGE ID: 09
+    UNPARTITIONED
+IS_MERGE: true
+  8:VSORT(1151)
+  |  order by: mktcode[#150] ASC, tgtcode[#151] ASC
+  |  algorithm: full sort
+  |  local merge sort
+  |  merge by exchange
+  |  offset: 0
+  |  distribute expr lists: 
+  |  
+  7:VANALYTIC(1139)
+  |  functions: [count(v1[#145])], [sum(v1[#145])]
+  |  partition by: mktcode[#142], tgtcode[#143]
+  |  order by: bizdate[#144] ASC NULLS FIRST
+  |  window: ROWS BETWEEN 4 PRECEDING AND CURRENT ROW
+  |  predicates: (count(v1) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)[#146] = 5), (sum(v1) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)[#147] > 0), (bizdate[#144] = '2026-04-14')
+  |  final projections: mktcode[#142], tgtcode[#143]
+  |  final project output tuple id: 8
+  |  distribute expr lists: mktcode[#142], tgtcode[#143]
+  |  
+  6:VSORT(1135)
+  |  order by: mktcode[#142] ASC, tgtcode[#143] ASC, bizdate[#144] ASC
+  |  algorithm: full sort
+  |  offset: 0
+  |  distribute expr lists: mktcode[#138], tgtcode[#139]
+  |  
+  5:VEXCHANGE
+     offset: 0
+     distribute expr lists: bizdate[#140]
+PLAN FRAGMENT 2
+  PARTITION: HASH_PARTITIONED: bizdate[#130]
+  HAS_COLO_PLAN_NODE: false
+  STREAM DATA SINK
+    EXCHANGE ID: 05
+    HASH_PARTITIONED: mktcode[#138], tgtcode[#139]
+  4:VHASH JOIN(1123)
+  |  join op: LEFT OUTER JOIN(PARTITIONED)[]
+  |  equal join conjunct: (mktcode[#128] = mktcode[#66])
+  |  equal join conjunct: (tgtcode[#129] = tgtcode[#67])
+  |  equal join conjunct: (bizdate[#130] = bizdate[#68])
+  |  cardinality=14,715,908,730
+  |  vec output tuple id: 5
+  |  output tuple id: 5
+  |  vIntermediate tuple ids: 4 
+  |  hash output slot ids: 128 129 130 69 
+  |  final projections: mktcode[#131], tgtcode[#132], bizdate[#133], nullif(ZJLXMainNetTur[#137], -999999)
+  |  final project output tuple id: 5
+  |  distribute expr lists: bizdate[#130]
+  |  distribute expr lists: bizdate[#68]
+  |  
+  |----1:VEXCHANGE
+  |       offset: 0
+  |       distribute expr lists: 
+  |    
+  3:VEXCHANGE
+     offset: 0
+     distribute expr lists: 
+PLAN FRAGMENT 3
+  PARTITION: RANDOM
+  HAS_COLO_PLAN_NODE: false
+  STREAM DATA SINK
+    EXCHANGE ID: 03
+    HASH_PARTITIONED: bizdate[#130]
+  2:VOlapScanNode(1094)
+     TABLE: newzl.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON
+     PREDICATES: ((bizdate[#72] <= '2026-04-14') AND (__DORIS_DELETE_SIGN__[#126] = 0))
+     partitions=21/21 (p20150101000000,p20140101000000,p20130101000000,p20120101000000,p20110101000000,p20100101000000,p20090101000000,p20080101000000,p20070101000000,p20060101000000,p20230101000000,p20220101000000,p20210101000000,p20200101000000,p20190101000000,p20180101000000,p20160101000000,p20250101000000,p20240101000000,p20170101000000,p20260101000000)
+     tablets=336/336, tabletList=1791094083785,1791094083787,1791094083789 ...
+     cardinality=13650347, avgRowSize=152.91768, numNodes=1
+     pushAggOp=NONE
+     final projections: mktcode[#70], tgtcode[#71], bizdate[#72]
+     final project output tuple id: 3
+PLAN FRAGMENT 4
+  PARTITION: RANDOM
+  HAS_COLO_PLAN_NODE: false
+  STREAM DATA SINK
+    EXCHANGE ID: 01
+    HASH_PARTITIONED: bizdate[#68]
+  0:VOlapScanNode(1107)
+     TABLE: newzl.hsj_stock_hq_ext(hsj_stock_hq_ext), PREAGGREGATION: ON
+     PREDICATES: ((bizdate[#2] <= '2026-04-14') AND (__DORIS_DELETE_SIGN__[#64] = 0))
+     partitions=9/9 (p20190101000000,p20240101000000,p20260101000000,p20210101000000,p20220101000000,p20250101000000,p20200101000000,p20230101000000,p20180101000000)
+     tablets=144/144, tabletList=1791094084481,1791094084483,1791094084485 ...
+     cardinality=6170822, avgRowSize=255.06107, numNodes=1
+     pushAggOp=NONE
+     final projections: mktcode[#0], tgtcode[#1], bizdate[#2], ZJLXMainNetTur[#14]
+     final project output tuple id: 1
+========== STATISTICS ==========
+planned with unknown column statistics

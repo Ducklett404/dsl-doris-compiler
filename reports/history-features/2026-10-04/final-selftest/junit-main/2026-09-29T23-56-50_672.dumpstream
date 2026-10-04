@@ -1,0 +1,5 @@
+# Created at 2026-09-29T23:56:50.943
+Boot Manifest-JAR contains absolute paths in classpath 'D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

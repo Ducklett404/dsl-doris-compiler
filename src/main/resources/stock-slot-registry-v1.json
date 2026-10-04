@@ -1,5 +1,5 @@
 {
-  "registryVersion": "stock-slot-registry-v1.0.0",
+  "registryVersion": "stock-slot-registry-v1.0.1",
   "tables": {
     "basic": {
       "qualifiedName": "newzl.v_hsj_stock_hq_basic", "alias": "b", "grain": "SECURITY_TRADING_DAY",
@@ -25,7 +25,7 @@
       "joinKeys": ["marketCode", "securityCode"]
     },
     "features": {
-      "qualifiedName": "newzl.stock_daily_features_v1", "alias": "pf", "grain": "SECURITY_TRADING_DAY",
+      "qualifiedName": "newzl.stock_daily_features_v2", "alias": "pf", "grain": "SECURITY_TRADING_DAY",
       "fields": {"marketCode":"mktcode", "securityCode":"tgtcode", "tradeDate":"bizdate", "ma60":"ma60"},
       "joinKeys": ["marketCode", "securityCode", "tradeDate"]
     }
@@ -55,7 +55,7 @@
     {"name":"振幅","aliases":[],"valueType":"PERCENT","unit":"PERCENT_POINT","scale":{"multiply":1,"divide":10000},"allowedAggregations":["","MAX","MIN","AVG"],"source":{"table":"basic","field":"amplitude","requiredFields":[]},"timeGrain":"TRADING_DAY","maxLookback":5000,"adjustment":"NONE","nullPolicy":"PRESERVE","sentinelValues":[],"lowering":{"kind":"FIELD","expressionTemplate":"{alias}.{field}","parameters":{}}}
   ],
   "indicatorPatterns": [
-    {"name":"X日均线","pattern":"^(?<N>\\d+)日均线$","valueType":"NUMBER","unit":"CNY","allowedAggregations":[""],"timeGrain":"TRADING_DAY","maxLookback":5000,"adjustment":"SOURCE_DEFINED","nullPolicy":"STRICT_NO_IMPUTATION","lowering":{"kind":"WINDOW_AVG","expressionTemplate":null,"parameters":{"N":"capture","baseIndicator":"收盘价","featureWindow":"60","featureTable":"features","featureField":"ma60"}}},
+    {"name":"X日均线","pattern":"^(?<N>\\d+)日均线$","valueType":"NUMBER","unit":"CNY","allowedAggregations":[""],"timeGrain":"TRADING_DAY","maxLookback":5000,"adjustment":"SOURCE_DEFINED","nullPolicy":"STRICT_NO_IMPUTATION","lowering":{"kind":"WINDOW_AVG","expressionTemplate":null,"parameters":{"N":"capture","baseIndicator":"收盘价","featureWindow":"60","featureDate":"2026-04-14","featureSnapshotId":"stock-20060104-20260414-v1","featureTable":"features","featureField":"ma60"}}},
     {"name":"RSI(N)","pattern":"^RSI\\((?<N>\\d+)\\)$","valueType":"NUMBER","unit":"INDEX","allowedAggregations":[""],"timeGrain":"TRADING_DAY","maxLookback":5000,"adjustment":"SOURCE_DEFINED","nullPolicy":"STRICT_NO_IMPUTATION","lowering":{"kind":"RSI","expressionTemplate":null,"parameters":{"N":"capture","baseIndicator":"收盘价"}}}
   ],
   "functions": [

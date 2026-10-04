@@ -1,0 +1,16 @@
+strict-ma20: PASS
+strict-ma60: PASS
+strict-ma120: PASS
+strict-ma250: PASS
+mixed-averages: PASS
+range-repeated-bindings: PASS
+market-leading-zero-isolation: PASS
+missing-current-or-literal: PASS
+raw-indicator-fallback: PASS
+count-fallback: PASS
+future-date-isolation: PASS
+null-cannot-pass-low-threshold: PASS
+strict-250-high: PASS
+strict-250-low: PASS
+averages-and-extrema: PASS
+finite-period-fallback: PASS

@@ -1,0 +1,1898 @@
+{
+  "status": "SOURCE_ISSUES_REQUIRE_REVIEW",
+  "classificationBasis": "Calendar comparisons use dates actually observed in the basic table, not an official exchange calendar.",
+  "orphanByYearMarket": [
+    {
+      "auditYear": 2018,
+      "mktcode": 0,
+      "n": 89
+    },
+    {
+      "auditYear": 2019,
+      "mktcode": 0,
+      "n": 8541
+    },
+    {
+      "auditYear": 2020,
+      "mktcode": 0,
+      "n": 14117
+    },
+    {
+      "auditYear": 2021,
+      "mktcode": 0,
+      "n": 178495
+    },
+    {
+      "auditYear": 2022,
+      "mktcode": 0,
+      "n": 13554
+    },
+    {
+      "auditYear": 2022,
+      "mktcode": 1,
+      "n": 7
+    },
+    {
+      "auditYear": 2023,
+      "mktcode": 0,
+      "n": 13396
+    },
+    {
+      "auditYear": 2024,
+      "mktcode": 0,
+      "n": 2143
+    },
+    {
+      "auditYear": 2024,
+      "mktcode": 1,
+      "n": 2291
+    },
+    {
+      "auditYear": 2025,
+      "mktcode": 0,
+      "n": 9048
+    },
+    {
+      "auditYear": 2025,
+      "mktcode": 1,
+      "n": 5242
+    },
+    {
+      "auditYear": 2025,
+      "mktcode": 103,
+      "n": 826
+    },
+    {
+      "auditYear": 2026,
+      "mktcode": 0,
+      "n": 490
+    },
+    {
+      "auditYear": 2026,
+      "mktcode": 1,
+      "n": 1214
+    },
+    {
+      "auditYear": 2026,
+      "mktcode": 103,
+      "n": 27
+    }
+  ],
+  "orphanByWeekday": [
+    {
+      "weekdaySunday0": 0,
+      "n": 2289
+    },
+    {
+      "weekdaySunday0": 1,
+      "n": 44154
+    },
+    {
+      "weekdaySunday0": 2,
+      "n": 52331
+    },
+    {
+      "weekdaySunday0": 3,
+      "n": 41406
+    },
+    {
+      "weekdaySunday0": 4,
+      "n": 62199
+    },
+    {
+      "weekdaySunday0": 5,
+      "n": 47101
+    }
+  ],
+  "orphanTopDates": [
+    {
+      "bizdate": "2025-11-18",
+      "n": 5521
+    },
+    {
+      "bizdate": "2025-11-03",
+      "n": 5514
+    },
+    {
+      "bizdate": "2025-11-11",
+      "n": 2903
+    },
+    {
+      "bizdate": "2021-12-28",
+      "n": 2467
+    },
+    {
+      "bizdate": "2021-12-30",
+      "n": 2467
+    },
+    {
+      "bizdate": "2021-12-24",
+      "n": 2465
+    },
+    {
+      "bizdate": "2021-12-31",
+      "n": 2465
+    },
+    {
+      "bizdate": "2021-12-23",
+      "n": 2464
+    },
+    {
+      "bizdate": "2021-12-21",
+      "n": 2458
+    },
+    {
+      "bizdate": "2021-12-16",
+      "n": 2456
+    },
+    {
+      "bizdate": "2021-12-14",
+      "n": 2455
+    },
+    {
+      "bizdate": "2021-12-09",
+      "n": 2454
+    },
+    {
+      "bizdate": "2021-12-02",
+      "n": 2446
+    },
+    {
+      "bizdate": "2021-11-25",
+      "n": 2442
+    },
+    {
+      "bizdate": "2021-11-18",
+      "n": 2440
+    },
+    {
+      "bizdate": "2021-11-11",
+      "n": 2434
+    },
+    {
+      "bizdate": "2021-11-04",
+      "n": 2433
+    },
+    {
+      "bizdate": "2021-10-18",
+      "n": 2417
+    },
+    {
+      "bizdate": "2021-10-11",
+      "n": 2411
+    },
+    {
+      "bizdate": "2021-09-27",
+      "n": 2398
+    }
+  ],
+  "orphanTopSecurities": [
+    {
+      "mktcode": 0,
+      "tgtcode": "300657",
+      "name": "弘信电子",
+      "n": 1135,
+      "firstDate": "2019-05-28",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300658",
+      "name": "延江股份",
+      "n": 1135,
+      "firstDate": "2019-06-06",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300686",
+      "name": "智动力",
+      "n": 1135,
+      "firstDate": "2019-06-06",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300692",
+      "name": "中赋科技",
+      "n": 1135,
+      "firstDate": "2019-06-06",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300694",
+      "name": "蠡湖股份",
+      "n": 1135,
+      "firstDate": "2019-06-06",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000826",
+      "name": "启迪环境",
+      "n": 1134,
+      "firstDate": "2019-05-23",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000833",
+      "name": "粤桂股份",
+      "n": 1134,
+      "firstDate": "2019-06-06",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000885",
+      "name": "城发环境",
+      "n": 1134,
+      "firstDate": "2019-05-15",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000895",
+      "name": "双汇发展",
+      "n": 1134,
+      "firstDate": "2019-05-23",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300652",
+      "name": "雷迪克",
+      "n": 1134,
+      "firstDate": "2019-06-06",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300655",
+      "name": "晶瑞电材",
+      "n": 1134,
+      "firstDate": "2019-05-28",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300656",
+      "name": "民德电子",
+      "n": 1134,
+      "firstDate": "2019-06-06",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300659",
+      "name": "中孚信息",
+      "n": 1134,
+      "firstDate": "2019-06-06",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300661",
+      "name": "圣邦股份",
+      "n": 1134,
+      "firstDate": "2019-05-23",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300662",
+      "name": "科锐国际",
+      "n": 1134,
+      "firstDate": "2019-06-06",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300689",
+      "name": "澄天伟业",
+      "n": 1134,
+      "firstDate": "2019-06-06",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300690",
+      "name": "双一科技",
+      "n": 1134,
+      "firstDate": "2019-06-06",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300691",
+      "name": "联合光电",
+      "n": 1134,
+      "firstDate": "2019-06-06",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300693",
+      "name": "盛弘股份",
+      "n": 1134,
+      "firstDate": "2019-06-06",
+      "lastDate": "2025-11-18"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300695",
+      "name": "兆丰股份",
+      "n": 1134,
+      "firstDate": "2019-06-06",
+      "lastDate": "2025-11-18"
+    }
+  ],
+  "orphansNotOnAnyObservedMarketDate": [
+    {
+      "n": 179507
+    }
+  ],
+  "orphansRelativeToBasicSpan": [
+    {
+      "classification": "AFTER_LAST_BASIC",
+      "n": 34
+    },
+    {
+      "classification": "BEFORE_FIRST_BASIC",
+      "n": 65984
+    },
+    {
+      "classification": "NO_BASIC_HISTORY",
+      "n": 1307
+    },
+    {
+      "classification": "WITHIN_BASIC_SPAN",
+      "n": 182155
+    }
+  ],
+  "latestDateOrphans": [
+    {
+      "mktcode": 0,
+      "tgtcode": "001312",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "140001",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "140002",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "140007",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "140008",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360001",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360003",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360005",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360008",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360009",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360011",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360012",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360013",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360018",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360019",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360021",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360022",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360023",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360024",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360025",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360026",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360027",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360028",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360029",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360030",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360031",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360032",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360033",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360034",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360035",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360036",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360037",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360038",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360044",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360045",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360046",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360047",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "600083",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "600225",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "600837",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "600898",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "603293",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "603302",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "603361",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "603963",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "688808",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "688820",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    },
+    {
+      "mktcode": 103,
+      "tgtcode": "920680",
+      "bizdate": "2026-04-14",
+      "ZJLXMainNetTur": null
+    }
+  ],
+  "closeOutsideRange": [
+    {
+      "mktcode": 0,
+      "tgtcode": "000002",
+      "bizdate": "2025-11-19",
+      "openPx": 61200,
+      "highPx": 61300,
+      "lowPx": 60400,
+      "closePx": 62600
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000006",
+      "bizdate": "2025-11-19",
+      "openPx": 114100,
+      "highPx": 114500,
+      "lowPx": 107300,
+      "closePx": 115800
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000007",
+      "bizdate": "2025-11-19",
+      "openPx": 96800,
+      "highPx": 98900,
+      "lowPx": 94900,
+      "closePx": 99000
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000008",
+      "bizdate": "2025-11-19",
+      "openPx": 32800,
+      "highPx": 33100,
+      "lowPx": 31400,
+      "closePx": 33900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000009",
+      "bizdate": "2025-11-19",
+      "openPx": 110100,
+      "highPx": 113500,
+      "lowPx": 109000,
+      "closePx": 114300
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000010",
+      "bizdate": "2025-11-04",
+      "openPx": 40300,
+      "highPx": 40300,
+      "lowPx": 38700,
+      "closePx": 40500
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000010",
+      "bizdate": "2025-11-19",
+      "openPx": 37900,
+      "highPx": 38000,
+      "lowPx": 36300,
+      "closePx": 40600
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000011",
+      "bizdate": "2025-11-04",
+      "openPx": 106200,
+      "highPx": 106600,
+      "lowPx": 103000,
+      "closePx": 107300
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000011",
+      "bizdate": "2025-11-19",
+      "openPx": 101800,
+      "highPx": 101900,
+      "lowPx": 97600,
+      "closePx": 104300
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000012",
+      "bizdate": "2025-11-19",
+      "openPx": 48500,
+      "highPx": 48900,
+      "lowPx": 47700,
+      "closePx": 49400
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000014",
+      "bizdate": "2025-11-04",
+      "openPx": 185800,
+      "highPx": 187000,
+      "lowPx": 174600,
+      "closePx": 188600
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000016",
+      "bizdate": "2025-11-19",
+      "openPx": 53600,
+      "highPx": 53800,
+      "lowPx": 51600,
+      "closePx": 55400
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000020",
+      "bizdate": "2025-11-19",
+      "openPx": 156400,
+      "highPx": 164200,
+      "lowPx": 154800,
+      "closePx": 154500
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000021",
+      "bizdate": "2025-11-19",
+      "openPx": 242400,
+      "highPx": 243600,
+      "lowPx": 237200,
+      "closePx": 245600
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000026",
+      "bizdate": "2025-11-19",
+      "openPx": 158800,
+      "highPx": 159500,
+      "lowPx": 155300,
+      "closePx": 159600
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000027",
+      "bizdate": "2025-11-19",
+      "openPx": 68100,
+      "highPx": 68400,
+      "lowPx": 67500,
+      "closePx": 69000
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000028",
+      "bizdate": "2025-11-19",
+      "openPx": 255600,
+      "highPx": 256500,
+      "lowPx": 253800,
+      "closePx": 257300
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000030",
+      "bizdate": "2025-11-19",
+      "openPx": 55500,
+      "highPx": 55900,
+      "lowPx": 54500,
+      "closePx": 56400
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000031",
+      "bizdate": "2025-11-19",
+      "openPx": 33000,
+      "highPx": 33500,
+      "lowPx": 31700,
+      "closePx": 34100
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000034",
+      "bizdate": "2025-11-19",
+      "openPx": 438300,
+      "highPx": 439400,
+      "lowPx": 420200,
+      "closePx": 448700
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000035",
+      "bizdate": "2025-11-19",
+      "openPx": 59100,
+      "highPx": 60800,
+      "lowPx": 58400,
+      "closePx": 60900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000036",
+      "bizdate": "2025-11-19",
+      "openPx": 50900,
+      "highPx": 51200,
+      "lowPx": 45900,
+      "closePx": 52800
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000037",
+      "bizdate": "2025-11-19",
+      "openPx": 92900,
+      "highPx": 93300,
+      "lowPx": 91200,
+      "closePx": 96100
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000042",
+      "bizdate": "2025-11-19",
+      "openPx": 80200,
+      "highPx": 80600,
+      "lowPx": 77700,
+      "closePx": 82000
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000045",
+      "bizdate": "2025-11-04",
+      "openPx": 134200,
+      "highPx": 134600,
+      "lowPx": 130400,
+      "closePx": 134700
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000045",
+      "bizdate": "2025-11-19",
+      "openPx": 127000,
+      "highPx": 127800,
+      "lowPx": 124700,
+      "closePx": 129100
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000049",
+      "bizdate": "2025-11-19",
+      "openPx": 271800,
+      "highPx": 276900,
+      "lowPx": 268000,
+      "closePx": 286200
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000050",
+      "bizdate": "2025-11-19",
+      "openPx": 92800,
+      "highPx": 93300,
+      "lowPx": 90600,
+      "closePx": 93900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000055",
+      "bizdate": "2025-11-19",
+      "openPx": 44600,
+      "highPx": 44700,
+      "lowPx": 43600,
+      "closePx": 45000
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000056",
+      "bizdate": "2025-11-19",
+      "openPx": 24500,
+      "highPx": 24700,
+      "lowPx": 23700,
+      "closePx": 25400
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000058",
+      "bizdate": "2025-11-04",
+      "openPx": 98900,
+      "highPx": 98900,
+      "lowPx": 96600,
+      "closePx": 99500
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000059",
+      "bizdate": "2025-11-19",
+      "openPx": 53800,
+      "highPx": 54100,
+      "lowPx": 53200,
+      "closePx": 54900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000060",
+      "bizdate": "2025-11-04",
+      "openPx": 53600,
+      "highPx": 54000,
+      "lowPx": 52400,
+      "closePx": 54100
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000060",
+      "bizdate": "2025-11-19",
+      "openPx": 52900,
+      "highPx": 53800,
+      "lowPx": 52300,
+      "closePx": 55800
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000065",
+      "bizdate": "2025-11-19",
+      "openPx": 113700,
+      "highPx": 114500,
+      "lowPx": 113100,
+      "closePx": 116100
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000066",
+      "bizdate": "2025-11-19",
+      "openPx": 161300,
+      "highPx": 161600,
+      "lowPx": 158300,
+      "closePx": 161700
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000068",
+      "bizdate": "2025-11-19",
+      "openPx": 39000,
+      "highPx": 39200,
+      "lowPx": 37500,
+      "closePx": 40100
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000069",
+      "bizdate": "2025-11-19",
+      "openPx": 27200,
+      "highPx": 27500,
+      "lowPx": 26000,
+      "closePx": 28400
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000070",
+      "bizdate": "2025-11-19",
+      "openPx": 94200,
+      "highPx": 94500,
+      "lowPx": 91700,
+      "closePx": 96700
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000078",
+      "bizdate": "2025-11-19",
+      "openPx": 26600,
+      "highPx": 26600,
+      "lowPx": 25800,
+      "closePx": 27100
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000088",
+      "bizdate": "2025-11-19",
+      "openPx": 45800,
+      "highPx": 45900,
+      "lowPx": 45400,
+      "closePx": 46300
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000089",
+      "bizdate": "2025-11-19",
+      "openPx": 71700,
+      "highPx": 72000,
+      "lowPx": 71000,
+      "closePx": 72600
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000090",
+      "bizdate": "2025-11-19",
+      "openPx": 45800,
+      "highPx": 46200,
+      "lowPx": 41900,
+      "closePx": 48800
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000096",
+      "bizdate": "2025-11-19",
+      "openPx": 118600,
+      "highPx": 119000,
+      "lowPx": 117100,
+      "closePx": 120500
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000099",
+      "bizdate": "2025-11-04",
+      "openPx": 221800,
+      "highPx": 221800,
+      "lowPx": 217700,
+      "closePx": 222100
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000099",
+      "bizdate": "2025-11-19",
+      "openPx": 207600,
+      "highPx": 208500,
+      "lowPx": 205100,
+      "closePx": 209300
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000100",
+      "bizdate": "2025-11-19",
+      "openPx": 42400,
+      "highPx": 42500,
+      "lowPx": 41600,
+      "closePx": 43100
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000151",
+      "bizdate": "2025-11-19",
+      "openPx": 128500,
+      "highPx": 128800,
+      "lowPx": 125800,
+      "closePx": 129600
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000153",
+      "bizdate": "2025-11-04",
+      "openPx": 67500,
+      "highPx": 67800,
+      "lowPx": 66800,
+      "closePx": 67900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000158",
+      "bizdate": "2025-11-19",
+      "openPx": 243100,
+      "highPx": 243900,
+      "lowPx": 237300,
+      "closePx": 237100
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000159",
+      "bizdate": "2025-11-19",
+      "openPx": 66900,
+      "highPx": 67800,
+      "lowPx": 64700,
+      "closePx": 68900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000166",
+      "bizdate": "2025-11-19",
+      "openPx": 53000,
+      "highPx": 53400,
+      "lowPx": 52900,
+      "closePx": 53500
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000301",
+      "bizdate": "2025-11-19",
+      "openPx": 100900,
+      "highPx": 102200,
+      "lowPx": 99800,
+      "closePx": 103000
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000333",
+      "bizdate": "2025-11-19",
+      "openPx": 773800,
+      "highPx": 780900,
+      "lowPx": 770200,
+      "closePx": 784200
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000338",
+      "bizdate": "2025-11-04",
+      "openPx": 155200,
+      "highPx": 162100,
+      "lowPx": 155200,
+      "closePx": 154600
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000338",
+      "bizdate": "2025-11-19",
+      "openPx": 174200,
+      "highPx": 174800,
+      "lowPx": 170500,
+      "closePx": 177000
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000400",
+      "bizdate": "2025-11-21",
+      "openPx": 262600,
+      "highPx": 264800,
+      "lowPx": 256600,
+      "closePx": 267800
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000407",
+      "bizdate": "2025-11-19",
+      "openPx": 62200,
+      "highPx": 63900,
+      "lowPx": 60300,
+      "closePx": 67000
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000407",
+      "bizdate": "2025-11-21",
+      "openPx": 55300,
+      "highPx": 56200,
+      "lowPx": 53700,
+      "closePx": 59700
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000408",
+      "bizdate": "2025-11-19",
+      "openPx": 593900,
+      "highPx": 616000,
+      "lowPx": 593900,
+      "closePx": 589900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000408",
+      "bizdate": "2025-11-21",
+      "openPx": 609000,
+      "highPx": 615200,
+      "lowPx": 586300,
+      "closePx": 625000
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000410",
+      "bizdate": "2025-11-19",
+      "openPx": 82000,
+      "highPx": 82900,
+      "lowPx": 79100,
+      "closePx": 83100
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000410",
+      "bizdate": "2025-11-21",
+      "openPx": 76200,
+      "highPx": 76900,
+      "lowPx": 73900,
+      "closePx": 77300
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000415",
+      "bizdate": "2025-11-21",
+      "openPx": 35400,
+      "highPx": 35600,
+      "lowPx": 34200,
+      "closePx": 35700
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000417",
+      "bizdate": "2025-11-21",
+      "openPx": 73800,
+      "highPx": 74400,
+      "lowPx": 70400,
+      "closePx": 78200
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000421",
+      "bizdate": "2025-11-21",
+      "openPx": 72700,
+      "highPx": 73600,
+      "lowPx": 70200,
+      "closePx": 73700
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000426",
+      "bizdate": "2025-11-04",
+      "openPx": 294300,
+      "highPx": 297800,
+      "lowPx": 276100,
+      "closePx": 298300
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000426",
+      "bizdate": "2025-11-19",
+      "openPx": 301600,
+      "highPx": 320700,
+      "lowPx": 301600,
+      "closePx": 297900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000426",
+      "bizdate": "2025-11-21",
+      "openPx": 306300,
+      "highPx": 310200,
+      "lowPx": 296800,
+      "closePx": 315800
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000488",
+      "bizdate": "2025-11-21",
+      "openPx": 21100,
+      "highPx": 21200,
+      "lowPx": 20600,
+      "closePx": 21400
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000501",
+      "bizdate": "2025-11-21",
+      "openPx": 96800,
+      "highPx": 96900,
+      "lowPx": 93200,
+      "closePx": 97400
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000505",
+      "bizdate": "2025-11-21",
+      "openPx": 77000,
+      "highPx": 84600,
+      "lowPx": 77000,
+      "closePx": 76900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000506",
+      "bizdate": "2025-11-19",
+      "openPx": 119500,
+      "highPx": 125000,
+      "lowPx": 119000,
+      "closePx": 118600
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000506",
+      "bizdate": "2025-11-21",
+      "openPx": 118500,
+      "highPx": 119800,
+      "lowPx": 115500,
+      "closePx": 120900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000507",
+      "bizdate": "2025-11-21",
+      "openPx": 55000,
+      "highPx": 55100,
+      "lowPx": 53100,
+      "closePx": 55200
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000510",
+      "bizdate": "2025-11-21",
+      "openPx": 68500,
+      "highPx": 69300,
+      "lowPx": 63600,
+      "closePx": 70700
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000521",
+      "bizdate": "2025-11-21",
+      "openPx": 68600,
+      "highPx": 68700,
+      "lowPx": 66600,
+      "closePx": 68900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000525",
+      "bizdate": "2025-11-04",
+      "openPx": 63100,
+      "highPx": 63300,
+      "lowPx": 62300,
+      "closePx": 63500
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000525",
+      "bizdate": "2025-11-19",
+      "openPx": 62000,
+      "highPx": 62100,
+      "lowPx": 61000,
+      "closePx": 62400
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000525",
+      "bizdate": "2025-11-21",
+      "openPx": 60500,
+      "highPx": 60700,
+      "lowPx": 58800,
+      "closePx": 61000
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000526",
+      "bizdate": "2025-11-21",
+      "openPx": 374900,
+      "highPx": 375000,
+      "lowPx": 362200,
+      "closePx": 376900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000528",
+      "bizdate": "2025-11-21",
+      "openPx": 109900,
+      "highPx": 110300,
+      "lowPx": 107800,
+      "closePx": 110700
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000533",
+      "bizdate": "2025-11-21",
+      "openPx": 83500,
+      "highPx": 84000,
+      "lowPx": 78500,
+      "closePx": 84300
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000536",
+      "bizdate": "2025-11-19",
+      "openPx": 52700,
+      "highPx": 53100,
+      "lowPx": 50800,
+      "closePx": 53700
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000539",
+      "bizdate": "2025-11-21",
+      "openPx": 47500,
+      "highPx": 47700,
+      "lowPx": 45900,
+      "closePx": 47800
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000541",
+      "bizdate": "2025-11-21",
+      "openPx": 62700,
+      "highPx": 62900,
+      "lowPx": 60800,
+      "closePx": 63000
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000543",
+      "bizdate": "2025-11-21",
+      "openPx": 78800,
+      "highPx": 79200,
+      "lowPx": 77600,
+      "closePx": 79500
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000545",
+      "bizdate": "2025-11-21",
+      "openPx": 30100,
+      "highPx": 30200,
+      "lowPx": 27600,
+      "closePx": 30600
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000546",
+      "bizdate": "2025-11-19",
+      "openPx": 75000,
+      "highPx": 76000,
+      "lowPx": 73500,
+      "closePx": 69100
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000546",
+      "bizdate": "2025-11-21",
+      "openPx": 64800,
+      "highPx": 64800,
+      "lowPx": 64800,
+      "closePx": 72000
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000547",
+      "bizdate": "2025-11-19",
+      "openPx": 122500,
+      "highPx": 125300,
+      "lowPx": 119800,
+      "closePx": 113900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000547",
+      "bizdate": "2025-11-21",
+      "openPx": 137200,
+      "highPx": 137700,
+      "lowPx": 124000,
+      "closePx": 137800
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000555",
+      "bizdate": "2025-11-19",
+      "openPx": 194000,
+      "highPx": 194100,
+      "lowPx": 180200,
+      "closePx": 199700
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000555",
+      "bizdate": "2025-11-21",
+      "openPx": 180800,
+      "highPx": 183900,
+      "lowPx": 172400,
+      "closePx": 186400
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000560",
+      "bizdate": "2025-11-19",
+      "openPx": 29400,
+      "highPx": 29400,
+      "lowPx": 28800,
+      "closePx": 29600
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000563",
+      "bizdate": "2025-11-21",
+      "openPx": 35500,
+      "highPx": 35600,
+      "lowPx": 34300,
+      "closePx": 35700
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000565",
+      "bizdate": "2025-11-21",
+      "openPx": 75300,
+      "highPx": 75900,
+      "lowPx": 71300,
+      "closePx": 76100
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000566",
+      "bizdate": "2025-11-19",
+      "openPx": 76100,
+      "highPx": 77600,
+      "lowPx": 72000,
+      "closePx": 80000
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000566",
+      "bizdate": "2025-11-21",
+      "openPx": 84000,
+      "highPx": 87100,
+      "lowPx": 83600,
+      "closePx": 79200
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "000571",
+      "bizdate": "2025-11-21",
+      "openPx": 57100,
+      "highPx": 57500,
+      "lowPx": 54900,
+      "closePx": 57600
+    }
+  ],
+  "missingSecurityHistory": [
+    {
+      "mktcode": 0,
+      "tgtcode": "001312",
+      "name": "福恩股份"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "001501",
+      "name": "主测01"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "001502",
+      "name": "C主测02"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "001881",
+      "name": "主测发行"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "071502",
+      "name": "主测增发"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "140001",
+      "name": "宁行优01"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "140002",
+      "name": "平银优01"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "140007",
+      "name": "宁行优02"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "140008",
+      "name": "铁汉优01"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "301666",
+      "name": "大普微"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "302001",
+      "name": "创测发行"
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "303001",
+      "name": "N创测"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360001",
+      "name": "农行优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360003",
+      "name": "浦发优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360005",
+      "name": "兴业优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360008",
+      "name": "浦发优2"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360009",
+      "name": "农行优2"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360011",
+      "name": "工行优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360012",
+      "name": "兴业优2"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360013",
+      "name": "光大优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360018",
+      "name": "北银优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360019",
+      "name": "南银优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360021",
+      "name": "交行优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360022",
+      "name": "光大优2"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360023",
+      "name": "北银优2"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360024",
+      "name": "南银优2"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360025",
+      "name": "中信优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360026",
+      "name": "苏银优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360027",
+      "name": "杭银优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360028",
+      "name": "招银优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360029",
+      "name": "上银优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360030",
+      "name": "建行优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360031",
+      "name": "贵银优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360032",
+      "name": "兴业优3"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360033",
+      "name": "中行优3"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360034",
+      "name": "光大优3"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360035",
+      "name": "中行优4"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360036",
+      "name": "工行优2"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360037",
+      "name": "民生优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360038",
+      "name": "长银优1"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360044",
+      "name": "五资优3"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360045",
+      "name": "五资优4"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360046",
+      "name": "五资优5"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "360047",
+      "name": "九州优"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "603293",
+      "name": "埃泰克"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "603302",
+      "name": "鑫广绿环"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "603361",
+      "name": "浙江国祥"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "688808",
+      "name": "联讯仪器"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "688820",
+      "name": "盛合晶微"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787712",
+      "name": "北芯申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787727",
+      "name": "恒坤申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787759",
+      "name": "必贝申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787765",
+      "name": "禾元申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787781",
+      "name": "视涯申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787783",
+      "name": "奕材申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787785",
+      "name": "恒运申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787790",
+      "name": "昂瑞申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787795",
+      "name": "摩尔申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787796",
+      "name": "百奥申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787802",
+      "name": "沐曦申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787805",
+      "name": "健信申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787809",
+      "name": "强一申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787811",
+      "name": "有研申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787813",
+      "name": "泰金申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787816",
+      "name": "易思申购"
+    },
+    {
+      "mktcode": 1,
+      "tgtcode": "787818",
+      "name": "电科申购"
+    }
+  ]
+}

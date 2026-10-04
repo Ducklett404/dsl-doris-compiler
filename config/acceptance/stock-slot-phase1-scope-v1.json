@@ -1,14 +1,14 @@
 {
-  "freezeId": "stock-slot-phase1-scope-v1.0.0",
+  "freezeId": "stock-slot-phase1-scope-v1.0.1",
   "status": "APPROVED",
-  "effectiveDate": "2026-09-29",
+  "effectiveDate": "2026-10-04",
   "dslVersion": "stock-slot-v1",
-  "registryVersion": "stock-slot-registry-v1.0.0",
-  "registrySha256": "7431104d7fefd5561f682838384fd567c841fb09d8e29944f11e9be6080bd4cc",
+  "registryVersion": "stock-slot-registry-v1.0.1",
+  "registrySha256": "09fbd4b474d6a6820215ae3428178ef14e7afc0d4f78878ef5b40b84984202b2",
   "snapshot": {
     "snapshotId": "stock-20060104-20260414-v1",
     "contractVersion": "1.0.0",
-    "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+    "manifestSha256": "a4f509b7bcaeae96df40ebf97fa2e18c8d7c131a078562f898f94d00d05c091c",
     "tables": [
       {"name":"hsj_stock_code_info","rows":5686,"dateMin":null,"dateMax":null,"sha256":"133293b32e8bea7ff351f3e05cc4eba431ce2fe116f2c366b005fcb0801e01cc"},
       {"name":"hsj_stock_hq_basic","rows":13650347,"dateMin":"2006-01-04","dateMax":"2026-04-14","sha256":"9c5fd65c9475c07c7f800cffd5a055925e7eb26c1c78476624805b4231b1d749"},
@@ -19,7 +19,7 @@
     "data/doris/ddl/001_rebuild_tables.sql": "2a690ed5d4e3c398d517471d083c4e11eea405b39281a90ba5d55fa901c91372",
     "data/doris/ddl/002_semantic_view.sql": "7c59fa83840c5629e89172d42795ba21f976f736df8f6f80617042cea77c2c64",
     "data/doris/ddl/004_validation_gate.sql": "d0050a34eb908185ab95326601c9cd369efbe2004a678c62cb27de4b4bf9cf7e",
-    "data/doris/ddl/005_performance_features.sql": "0ec64d345ec0b07e18c43903945c2cc71e2ddb77355414c07591f417aab303c1"
+    "data/doris/ddl/005_performance_features.sql": "9d5c78aac69ad12697265676122d176ca481b2ae23db93a8f2fd921af48e5e57"
   },
   "acceptanceDenominator": {
     "policy": "A DSL enters the phase-1 correctness denominator only when every referenced market, indicator, function, date form, aggregation, scope and security type is included by this freeze and the fixed snapshot contains the required source tables.",
@@ -74,7 +74,7 @@
     {"name":"振幅","aliases":[],"type":"PERCENT","unit":"PERCENT_POINT","expression":"(b.amplitude * 1 / 10000)","rawDefinition":"amplitude / 10000","source":"basic.amplitude","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG"],"adjustment":"NONE","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true}
   ],
   "includedIndicatorPatterns": [
-    {"name":"X日均线","syntax":"<N>日均线","nMin":1,"nMax":5000,"baseIndicator":"收盘价","definition":"AVG over N observed trading rows; a complete non-null window is required","optimization":"only 60日均线 at 2026-04-14 may use stock_daily_features_v1.ma60; other cases use the identical history definition"},
+    {"name":"X日均线","syntax":"<N>日均线","nMin":1,"nMax":5000,"baseIndicator":"收盘价","definition":"AVG over N observed trading rows; a complete non-null window is required","optimization":"only 60日均线 at 2026-04-14 in snapshot stock-20060104-20260414-v1 may use stock_daily_features_v2.ma60; other cases use the identical history definition"},
     {"name":"RSI(N)","syntax":"RSI(<N>)","nMin":1,"nMax":5000,"baseIndicator":"收盘价","definition":"100-100/(1+AVG(max(delta,0))/AVG(max(-delta,0))); requires N complete deltas","optimization":"history path only in phase 1"}
   ],
   "includedFunctions": [
@@ -114,9 +114,10 @@
     "externalSignoffRequired": false,
     "approval": {
       "mode": "DIRECT_PROJECT_APPROVAL",
-      "approvedAt": "2026-09-29",
+      "approvedAt": "2026-10-04",
       "approvedBy": "project requester",
-      "note": "Approved directly; no signature workflow is required."
+      "note": "Project requester authorized the code-review fixes and self-tests on 2026-10-04; source snapshot and included/excluded capability scope are unchanged."
     }
-  }
+  },
+  "hashEncoding": "UTF8_LF_SHA256_V1"
 }

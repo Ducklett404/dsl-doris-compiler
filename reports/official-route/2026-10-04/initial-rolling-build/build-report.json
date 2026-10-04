@@ -1,0 +1,61 @@
+{
+  "purpose": "DIAGNOSTIC_ONLY",
+  "acceptanceEligible": false,
+  "status": "PASS",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "jarSha256": "2c2a5664fdaf270d7801c70c60c10a8c932d14114e95925e697f8e3d6aa8f118",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "registryFingerprint": "a460a741b13b2cea6066c7a973c246463d68c6eb083c07a50650ed8403f3ab17",
+  "database": "dsl_rolling_diag_c26c5c6a0208",
+  "sourceCounts": {
+    "hsj_stock_code_info": 5686,
+    "hsj_stock_hq_ext": 6170822,
+    "hsj_stock_hq_basic": 13650347
+  },
+  "nullPolicy": "COUNT(non-NULL closePrice)=N over exactly N observed rows; otherwise NULL",
+  "incrementalPolicy": "immutable snapshot; retain all securities last 249 observed rows including NULL; append all new rows; never calendar-truncate",
+  "floatTolerance": "absolute difference <= 1e-10 * max(1, abs(reference))",
+  "dates": [
+    {
+      "date": "2026-04-10",
+      "mode": "FULL",
+      "rows": 5618,
+      "expectedRows": 5618,
+      "fullWindowDifferences": 0,
+      "previousFeaturesUnchanged": true,
+      "previousFeaturesDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "tailRows": 1380938,
+      "maxTailRowsPerSecurity": 249,
+      "buildSecondsIncludingWslTransport": 7.347088099995744
+    },
+    {
+      "date": "2026-04-13",
+      "mode": "INCREMENTAL",
+      "rows": 5614,
+      "expectedRows": 5614,
+      "fullWindowDifferences": 0,
+      "previousFeaturesUnchanged": true,
+      "previousFeaturesDigest": "02e55c21011ae7862cbb97648b596642b06858bf43f8741b8c19b33af2de3924",
+      "tailRows": 1381071,
+      "maxTailRowsPerSecurity": 249,
+      "buildSecondsIncludingWslTransport": 1.0269784000120126
+    },
+    {
+      "date": "2026-04-14",
+      "mode": "INCREMENTAL",
+      "rows": 5614,
+      "expectedRows": 5614,
+      "fullWindowDifferences": 0,
+      "previousFeaturesUnchanged": true,
+      "previousFeaturesDigest": "cc10c400c93c087b6fb59546ac5e76ccdf5fa28b6ba2a5c791baef288355f028",
+      "tailRows": 1381203,
+      "maxTailRowsPerSecurity": 249,
+      "buildSecondsIncludingWslTransport": 1.145593999986886
+    }
+  ],
+  "lastDate": "2026-04-14",
+  "tailTable": "dsl_rolling_diag_c26c5c6a0208.tail_2",
+  "catalogSha256": "e3259a9e745e51fa485c4586511041178bd8a9ab6921ac1452e9e5139220a26b",
+  "officialRegistryUnchanged": true,
+  "completedAtUtc": "2026-10-04T11:12:03.542602+00:00"
+}

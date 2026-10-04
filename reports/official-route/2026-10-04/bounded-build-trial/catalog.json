@@ -1,0 +1,35 @@
+{
+  "formatVersion": "rolling-average-v1",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "registryFingerprint": "a460a741b13b2cea6066c7a973c246463d68c6eb083c07a50650ed8403f3ab17",
+  "qualifiedTable": "dsl_rolling_diag_9ea343e784da.rolling_averages_v1",
+  "sourceExpression": "b.closePrice",
+  "completeDates": {
+    "2026-04-10": 5618,
+    "2026-04-13": 5614,
+    "2026-04-14": 5614
+  },
+  "windowFields": {
+    "20": "ma20",
+    "60": "ma60",
+    "120": "ma120",
+    "250": "ma250"
+  },
+  "rangeFields": {
+    "high": {
+      "sourceExpression": "b.highPrice",
+      "period": 250,
+      "currentField": "high_current",
+      "minField": "high_min250",
+      "maxField": "high_max250"
+    },
+    "low": {
+      "sourceExpression": "b.lowPrice",
+      "period": 250,
+      "currentField": "low_current",
+      "minField": "low_min250",
+      "maxField": "low_max250"
+    }
+  }
+}

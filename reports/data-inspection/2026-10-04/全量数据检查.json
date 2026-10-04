@@ -1,0 +1,1089 @@
+{
+  "startedAt": "2026-10-04T05:38:36.658761+00:00",
+  "engine": "DuckDB 1.4.3",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "database": "D:\\A_MyProjects\\揭榜挂帅\\dsl-doris-compiler\\target\\data-audit\\official.duckdb",
+  "status": "FAIL",
+  "tables": {
+    "hsj_stock_code_info": {
+      "path": "D:\\A_MyProjects\\揭榜挂帅\\股票代码表\\hsj_stock_code_info.csv",
+      "bytes": 321850,
+      "sha256": "133293b32e8bea7ff351f3e05cc4eba431ce2fe116f2c366b005fcb0801e01cc",
+      "rows": 5686,
+      "columns": 17,
+      "nullCounts": {
+        "mktcode": 0,
+        "tgtcode": 0,
+        "name": 0,
+        "tztcode": 0,
+        "marketNo": 6,
+        "majorType": 0,
+        "hyBlkRefName": 5686,
+        "stFlag": 0,
+        "ahFlag": 0,
+        "hkConnFlag": 0,
+        "shConnFlag": 0,
+        "szConnFlag": 0,
+        "hsFlag": 0,
+        "hsjFlag": 0,
+        "kcbFlag": 0,
+        "gemFlag": 0,
+        "bShareFlag": 0
+      },
+      "sentinelCounts": {
+        "mktcode": 0,
+        "tgtcode": 0,
+        "name": 0,
+        "tztcode": 0,
+        "marketNo": 0,
+        "majorType": 0,
+        "hyBlkRefName": 0,
+        "stFlag": 0,
+        "ahFlag": 0,
+        "hkConnFlag": 0,
+        "shConnFlag": 0,
+        "szConnFlag": 0,
+        "hsFlag": 0,
+        "hsjFlag": 0,
+        "kcbFlag": 0,
+        "gemFlag": 0,
+        "bShareFlag": 0
+      },
+      "invalidTypeCounts": {},
+      "nullKeys": 0,
+      "duplicateKeyGroups": 0,
+      "duplicateExtraRows": 0,
+      "duplicateExamples": [],
+      "marketDistribution": [
+        {
+          "mktcode": 0,
+          "rows": 2952,
+          "securities": 2952
+        },
+        {
+          "mktcode": 1,
+          "rows": 2427,
+          "securities": 2427
+        },
+        {
+          "mktcode": 103,
+          "rows": 307,
+          "securities": 307
+        }
+      ],
+      "elapsedSeconds": 0.281
+    },
+    "hsj_stock_hq_basic": {
+      "path": "D:\\A_MyProjects\\揭榜挂帅\\行情基本数据宽表\\hsj_stock_hq_basic.csv",
+      "bytes": 2207896192,
+      "sha256": "9c5fd65c9475c07c7f800cffd5a055925e7eb26c1c78476624805b4231b1d749",
+      "rows": 13650347,
+      "columns": 56,
+      "nullCounts": {
+        "mktcode": 0,
+        "tgtcode": 0,
+        "bizdate": 0,
+        "lastPx": 10735953,
+        "preClosePx": 28507,
+        "openPx": 12101,
+        "highPx": 12101,
+        "lowPx": 12101,
+        "closePx": 12101,
+        "volume": 12101,
+        "turnover": 12101,
+        "quantRatio": 171473,
+        "turnRatio": 11703546,
+        "trueTurnRatio": 12577326,
+        "outerVol": 13650347,
+        "innerVol": 13650347,
+        "commissionBuy": 12606550,
+        "commissionSale": 12606550,
+        "numOfOrders": 12606550,
+        "qfqMulti": 0,
+        "qfqAdd": 0,
+        "hfqMulti": 0,
+        "hfqAdd": 0,
+        "amplitude": 11595330,
+        "totalShare": 3711389,
+        "listedShare": 4967805,
+        "freeShare": 11810148,
+        "bVPS": 5937942,
+        "pBR": 5880000,
+        "dynPE": 11472764,
+        "staticPE": 8550888,
+        "pETTM": 8553178,
+        "limitFlag": 11346406,
+        "limitType": 6772,
+        "limitShape": 6772,
+        "firstLimitUpTime": 13618873,
+        "lastLimitUpTime": 13618873,
+        "firstLimitDownTime": 13639688,
+        "lastLimitDownTime": 13639688,
+        "upTradeAmt": 11971947,
+        "maxUpSealVol": 11971947,
+        "downTradeAmt": 11971947,
+        "maxDownSealVol": 11971947,
+        "upCount": 11971947,
+        "downCount": 11971947,
+        "upSealPx": 11971947,
+        "upSealVol": 11971947,
+        "downSealPx": 11971947,
+        "downSealVol": 11971947,
+        "lastFUpTime": 13631190,
+        "lastFDownTime": 13641823,
+        "upSerialLb": 11869276,
+        "pressure": 12352908,
+        "support": 12351674,
+        "upperShadow": 12468507,
+        "lowerShadow": 12465368
+      },
+      "sentinelCounts": {
+        "mktcode": 0,
+        "tgtcode": 0,
+        "bizdate": 0,
+        "lastPx": 0,
+        "preClosePx": 0,
+        "openPx": 0,
+        "highPx": 0,
+        "lowPx": 0,
+        "closePx": 0,
+        "volume": 0,
+        "turnover": 0,
+        "quantRatio": 0,
+        "turnRatio": 0,
+        "trueTurnRatio": 0,
+        "outerVol": 0,
+        "innerVol": 0,
+        "commissionBuy": 0,
+        "commissionSale": 0,
+        "numOfOrders": 0,
+        "qfqMulti": 0,
+        "qfqAdd": 0,
+        "hfqMulti": 0,
+        "hfqAdd": 0,
+        "amplitude": 0,
+        "totalShare": 0,
+        "listedShare": 0,
+        "freeShare": 0,
+        "bVPS": 0,
+        "pBR": 0,
+        "dynPE": 0,
+        "staticPE": 0,
+        "pETTM": 0,
+        "limitFlag": 0,
+        "limitType": 0,
+        "limitShape": 0,
+        "firstLimitUpTime": 0,
+        "lastLimitUpTime": 0,
+        "firstLimitDownTime": 0,
+        "lastLimitDownTime": 0,
+        "upTradeAmt": 0,
+        "maxUpSealVol": 0,
+        "downTradeAmt": 0,
+        "maxDownSealVol": 0,
+        "upCount": 0,
+        "downCount": 0,
+        "upSealPx": 0,
+        "upSealVol": 0,
+        "downSealPx": 0,
+        "downSealVol": 0,
+        "lastFUpTime": 0,
+        "lastFDownTime": 0,
+        "upSerialLb": 0,
+        "pressure": 0,
+        "support": 0,
+        "upperShadow": 0,
+        "lowerShadow": 0
+      },
+      "invalidTypeCounts": {},
+      "nullKeys": 0,
+      "duplicateKeyGroups": 0,
+      "duplicateExtraRows": 0,
+      "duplicateExamples": [],
+      "marketDistribution": [
+        {
+          "mktcode": 0,
+          "rows": 7446835,
+          "securities": 2940
+        },
+        {
+          "mktcode": 1,
+          "rows": 5948540,
+          "securities": 2373
+        },
+        {
+          "mktcode": 103,
+          "rows": 254972,
+          "securities": 307
+        }
+      ],
+      "dateMin": "2006-01-04",
+      "dateMax": "2026-04-14",
+      "observedDates": 4631,
+      "latestDateCoverage": [
+        {
+          "bizdate": "2026-04-14",
+          "mktcode": 0,
+          "rows": 2940,
+          "securities": 2940
+        },
+        {
+          "bizdate": "2026-04-14",
+          "mktcode": 1,
+          "rows": 2368,
+          "securities": 2368
+        },
+        {
+          "bizdate": "2026-04-14",
+          "mktcode": 103,
+          "rows": 306,
+          "securities": 306
+        }
+      ],
+      "elapsedSeconds": 33.453
+    },
+    "hsj_stock_hq_ext": {
+      "path": "D:\\A_MyProjects\\揭榜挂帅\\行情衍生数据\\hsj_stock_hq_ext.csv",
+      "bytes": 1191539066,
+      "sha256": "18ab00873e9cb5684f1f4dba13c9843acbcd1764f52cecd30336eea0128b4a18",
+      "rows": 6170822,
+      "columns": 64,
+      "nullCounts": {
+        "mktcode": 0,
+        "tgtcode": 0,
+        "bizdate": 0,
+        "riseSpd3m": 6027482,
+        "riseSpd5m": 6021578,
+        "riseSpd10m": 6077892,
+        "callAucAmt": 4895448,
+        "callAucRisePct": 4547854,
+        "callAucAsk2Vol": 4547854,
+        "callAucBid2Vol": 4547854,
+        "callAucMatchVol": 4547854,
+        "callAucMatchPx": 4547854,
+        "MPResExt": 5973842,
+        "MPCost": 5973841,
+        "ZJLXMainNetTur": 129112,
+        "ZJLXMainIncPer": 4338433,
+        "smBuyTur": 6081086,
+        "smSellTur": 6081086,
+        "bigBuyTur": 6081086,
+        "bigSellTur": 6081086,
+        "midSellTur": 6081086,
+        "supBuyTur": 6081086,
+        "supSellTur": 6081086,
+        "midBuyTur": 6081086,
+        "ZJLXMainBuyTur": 4279200,
+        "ZJLXMainSellTur": 4279194,
+        "ZJLXMainCnt": 4338311,
+        "ZJLXMainTradeVolPer": 4279197,
+        "ZJLXSupNetTur": 4279189,
+        "ZJLXBigNetTur": 4279187,
+        "ZJLXMidNetTur": 4279182,
+        "ZJLXSmNetTur": 4279182,
+        "ZJLXMainActBuyCnt": 4279181,
+        "ZJLXMainActBuyCntPer": 4279180,
+        "ZJLXMainActSellCnt": 4279176,
+        "ZJLXMainActSellCntPer": 4279178,
+        "ZJLXRetailBuyCnt": 4279173,
+        "ZJLXRetailSellCnt": 4279243,
+        "ZJLXMainBuyCnt": 4279254,
+        "ZJLXMainBuyCntPer": 4279252,
+        "ZJLXMainSellCnt": 4279257,
+        "ZJLXMainSellCntPer": 4279241,
+        "ZJLXRetailBuyCntPer": 4279235,
+        "ZJLXRetailSellCntPer": 4279215,
+        "ZJLXMainNetCntTurPer": 5205888,
+        "ZJLXMidAndSmNetTur": 165105,
+        "ZJLXMainNetTurInDays": 7055,
+        "ZJLXMainNetTurOutDays": 7064,
+        "ZJLXMainNetTurInSeries": 66961,
+        "ZJLXMainNetTurOutSeries": 49333,
+        "ZJLXDDX": 4937525,
+        "ZJLXDDY": 4939268,
+        "ZJLXDDZ": 5045697,
+        "formFlag": 102566,
+        "maxRetreat": 5198887,
+        "maAngle": 5005522,
+        "pxMkTopDays": 82892,
+        "pxMkBotDays": 79146,
+        "pxMkIncDays": 64665,
+        "pxMkDescDays": 66291,
+        "mainTurMkTopDays": 102375,
+        "lmtUpNum": 8232,
+        "boardBreaks": 8232,
+        "downBoardBreaks": 8232
+      },
+      "sentinelCounts": {
+        "mktcode": 0,
+        "tgtcode": 0,
+        "bizdate": 0,
+        "riseSpd3m": 0,
+        "riseSpd5m": 0,
+        "riseSpd10m": 0,
+        "callAucAmt": 0,
+        "callAucRisePct": 0,
+        "callAucAsk2Vol": 0,
+        "callAucBid2Vol": 0,
+        "callAucMatchVol": 0,
+        "callAucMatchPx": 0,
+        "MPResExt": 0,
+        "MPCost": 0,
+        "ZJLXMainNetTur": 0,
+        "ZJLXMainIncPer": 0,
+        "smBuyTur": 0,
+        "smSellTur": 0,
+        "bigBuyTur": 0,
+        "bigSellTur": 0,
+        "midSellTur": 0,
+        "supBuyTur": 0,
+        "supSellTur": 0,
+        "midBuyTur": 0,
+        "ZJLXMainBuyTur": 0,
+        "ZJLXMainSellTur": 0,
+        "ZJLXMainCnt": 0,
+        "ZJLXMainTradeVolPer": 0,
+        "ZJLXSupNetTur": 0,
+        "ZJLXBigNetTur": 0,
+        "ZJLXMidNetTur": 0,
+        "ZJLXSmNetTur": 0,
+        "ZJLXMainActBuyCnt": 0,
+        "ZJLXMainActBuyCntPer": 0,
+        "ZJLXMainActSellCnt": 0,
+        "ZJLXMainActSellCntPer": 0,
+        "ZJLXRetailBuyCnt": 0,
+        "ZJLXRetailSellCnt": 0,
+        "ZJLXMainBuyCnt": 0,
+        "ZJLXMainBuyCntPer": 0,
+        "ZJLXMainSellCnt": 0,
+        "ZJLXMainSellCntPer": 0,
+        "ZJLXRetailBuyCntPer": 0,
+        "ZJLXRetailSellCntPer": 0,
+        "ZJLXMainNetCntTurPer": 0,
+        "ZJLXMidAndSmNetTur": 0,
+        "ZJLXMainNetTurInDays": 3895970,
+        "ZJLXMainNetTurOutDays": 2361730,
+        "ZJLXMainNetTurInSeries": 3760605,
+        "ZJLXMainNetTurOutSeries": 2288247,
+        "ZJLXDDX": 0,
+        "ZJLXDDY": 0,
+        "ZJLXDDZ": 0,
+        "formFlag": 0,
+        "maxRetreat": 0,
+        "maAngle": 0,
+        "pxMkTopDays": 2174139,
+        "pxMkBotDays": 0,
+        "pxMkIncDays": 0,
+        "pxMkDescDays": 0,
+        "mainTurMkTopDays": 1145,
+        "lmtUpNum": 0,
+        "boardBreaks": 0,
+        "downBoardBreaks": 0
+      },
+      "invalidTypeCounts": {},
+      "nullKeys": 0,
+      "duplicateKeyGroups": 0,
+      "duplicateExtraRows": 0,
+      "duplicateExamples": [],
+      "marketDistribution": [
+        {
+          "mktcode": 0,
+          "rows": 4177796,
+          "securities": 2952
+        },
+        {
+          "mktcode": 1,
+          "rows": 1905205,
+          "securities": 2427
+        },
+        {
+          "mktcode": 103,
+          "rows": 87821,
+          "securities": 307
+        }
+      ],
+      "dateMin": "2018-08-20",
+      "dateMax": "2026-04-14",
+      "observedDates": 1847,
+      "latestDateCoverage": [
+        {
+          "bizdate": "2026-04-14",
+          "mktcode": 0,
+          "rows": 2945,
+          "securities": 2945
+        },
+        {
+          "bizdate": "2026-04-14",
+          "mktcode": 1,
+          "rows": 2410,
+          "securities": 2410
+        },
+        {
+          "bizdate": "2026-04-14",
+          "mktcode": 103,
+          "rows": 307,
+          "securities": 307
+        }
+      ],
+      "elapsedSeconds": 20.282
+    }
+  },
+  "checks": [
+    {
+      "name": "hsj_stock_code_info:sha256",
+      "status": "PASS",
+      "detail": "133293b32e8bea7ff351f3e05cc4eba431ce2fe116f2c366b005fcb0801e01cc"
+    },
+    {
+      "name": "hsj_stock_code_info:row_count",
+      "status": "PASS",
+      "detail": 5686
+    },
+    {
+      "name": "hsj_stock_code_info:types",
+      "status": "PASS",
+      "detail": {}
+    },
+    {
+      "name": "hsj_stock_code_info:profile_counts",
+      "status": "PASS",
+      "detail": "Full scan vs frozen profile"
+    },
+    {
+      "name": "hsj_stock_code_info:primary_keys",
+      "status": "PASS",
+      "detail": {
+        "nullKeys": 0,
+        "duplicateKeyGroups": 0,
+        "duplicateExtraRows": 0
+      }
+    },
+    {
+      "name": "hsj_stock_hq_basic:sha256",
+      "status": "PASS",
+      "detail": "9c5fd65c9475c07c7f800cffd5a055925e7eb26c1c78476624805b4231b1d749"
+    },
+    {
+      "name": "hsj_stock_hq_basic:row_count",
+      "status": "PASS",
+      "detail": 13650347
+    },
+    {
+      "name": "hsj_stock_hq_basic:types",
+      "status": "PASS",
+      "detail": {}
+    },
+    {
+      "name": "hsj_stock_hq_basic:profile_counts",
+      "status": "PASS",
+      "detail": "Full scan vs frozen profile"
+    },
+    {
+      "name": "hsj_stock_hq_basic:primary_keys",
+      "status": "PASS",
+      "detail": {
+        "nullKeys": 0,
+        "duplicateKeyGroups": 0,
+        "duplicateExtraRows": 0
+      }
+    },
+    {
+      "name": "hsj_stock_hq_basic:dates",
+      "status": "PASS",
+      "detail": [
+        "2006-01-04",
+        "2026-04-14"
+      ]
+    },
+    {
+      "name": "hsj_stock_hq_ext:sha256",
+      "status": "PASS",
+      "detail": "18ab00873e9cb5684f1f4dba13c9843acbcd1764f52cecd30336eea0128b4a18"
+    },
+    {
+      "name": "hsj_stock_hq_ext:row_count",
+      "status": "PASS",
+      "detail": 6170822
+    },
+    {
+      "name": "hsj_stock_hq_ext:types",
+      "status": "PASS",
+      "detail": {}
+    },
+    {
+      "name": "hsj_stock_hq_ext:profile_counts",
+      "status": "PASS",
+      "detail": "Full scan vs frozen profile"
+    },
+    {
+      "name": "hsj_stock_hq_ext:primary_keys",
+      "status": "PASS",
+      "detail": {
+        "nullKeys": 0,
+        "duplicateKeyGroups": 0,
+        "duplicateExtraRows": 0
+      }
+    },
+    {
+      "name": "hsj_stock_hq_ext:dates",
+      "status": "PASS",
+      "detail": [
+        "2018-08-20",
+        "2026-04-14"
+      ]
+    },
+    {
+      "name": "extensionWithoutBasic",
+      "status": "FAIL",
+      "detail": 249480
+    },
+    {
+      "name": "basicWithoutSecurityInfo",
+      "status": "PASS",
+      "detail": 0
+    },
+    {
+      "name": "extensionWithoutSecurityInfo",
+      "status": "PASS",
+      "detail": 0
+    },
+    {
+      "name": "basic_numeric_gate",
+      "status": "PASS",
+      "detail": {
+        "negativeClose": 0,
+        "negativeVolume": 0,
+        "negativeTurnover": 0,
+        "highBelowLow": 0,
+        "closeOutsideRange": 3487
+      }
+    },
+    {
+      "name": "close_price_range",
+      "status": "WARN",
+      "detail": 3487
+    },
+    {
+      "name": "price_amount_scale_cross_check",
+      "status": "PASS",
+      "detail": {
+        "sampleRows": 13637825,
+        "meanAbsoluteRelativeError": 0.008894888369244028
+      }
+    }
+  ],
+  "limitations": [
+    "Observed market dates are not an authoritative trading calendar; missing observations do not establish suspension.",
+    "Local audit and SQL evaluation do not validate the Doris dialect or execution environment."
+  ],
+  "relationships": {
+    "extensionWithoutBasic": {
+      "rows": 249480,
+      "examples": [
+        {
+          "mktcode": 1,
+          "tgtcode": "601515",
+          "bizdate": "2024-05-05"
+        },
+        {
+          "mktcode": 0,
+          "tgtcode": "002029",
+          "bizdate": "2021-02-18"
+        },
+        {
+          "mktcode": 0,
+          "tgtcode": "002029",
+          "bizdate": "2021-08-18"
+        },
+        {
+          "mktcode": 0,
+          "tgtcode": "002029",
+          "bizdate": "2021-12-09"
+        },
+        {
+          "mktcode": 0,
+          "tgtcode": "002036",
+          "bizdate": "2021-03-09"
+        },
+        {
+          "mktcode": 0,
+          "tgtcode": "002036",
+          "bizdate": "2021-03-16"
+        },
+        {
+          "mktcode": 0,
+          "tgtcode": "002036",
+          "bizdate": "2021-04-13"
+        },
+        {
+          "mktcode": 0,
+          "tgtcode": "002036",
+          "bizdate": "2021-12-16"
+        },
+        {
+          "mktcode": 0,
+          "tgtcode": "002048",
+          "bizdate": "2021-02-04"
+        },
+        {
+          "mktcode": 0,
+          "tgtcode": "002048",
+          "bizdate": "2021-03-18"
+        }
+      ]
+    },
+    "basicWithoutExtension": {
+      "rows": 7729005,
+      "examples": [
+        {
+          "mktcode": 1,
+          "tgtcode": "601318",
+          "bizdate": "2014-11-10"
+        },
+        {
+          "mktcode": 1,
+          "tgtcode": "601318",
+          "bizdate": "2014-11-11"
+        },
+        {
+          "mktcode": 1,
+          "tgtcode": "601318",
+          "bizdate": "2014-11-12"
+        },
+        {
+          "mktcode": 1,
+          "tgtcode": "601318",
+          "bizdate": "2014-11-13"
+        },
+        {
+          "mktcode": 1,
+          "tgtcode": "601318",
+          "bizdate": "2014-11-14"
+        },
+        {
+          "mktcode": 1,
+          "tgtcode": "601318",
+          "bizdate": "2014-11-18"
+        },
+        {
+          "mktcode": 1,
+          "tgtcode": "601318",
+          "bizdate": "2014-11-20"
+        },
+        {
+          "mktcode": 1,
+          "tgtcode": "601318",
+          "bizdate": "2014-11-21"
+        },
+        {
+          "mktcode": 1,
+          "tgtcode": "601318",
+          "bizdate": "2014-11-24"
+        },
+        {
+          "mktcode": 1,
+          "tgtcode": "601318",
+          "bizdate": "2014-11-27"
+        }
+      ]
+    },
+    "basicWithoutSecurityInfo": {
+      "rows": 0,
+      "examples": []
+    },
+    "extensionWithoutSecurityInfo": {
+      "rows": 0,
+      "examples": []
+    }
+  },
+  "numericChecks": {
+    "negativeClose": 0,
+    "negativeVolume": 0,
+    "negativeTurnover": 0,
+    "highBelowLow": 0,
+    "closeOutsideRange": 3487
+  },
+  "numericExamples": [
+    {
+      "mktcode": 0,
+      "tgtcode": "200581",
+      "bizdate": "2012-06-09",
+      "openPx": 187400,
+      "highPx": 189500,
+      "lowPx": 186900,
+      "closePx": 186800
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "200761",
+      "bizdate": "2012-06-09",
+      "openPx": 27400,
+      "highPx": 27400,
+      "lowPx": 27000,
+      "closePx": 26900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300821",
+      "bizdate": "2025-11-21",
+      "openPx": 144900,
+      "highPx": 145000,
+      "lowPx": 128400,
+      "closePx": 145900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300868",
+      "bizdate": "2025-11-21",
+      "openPx": 279000,
+      "highPx": 279000,
+      "lowPx": 268200,
+      "closePx": 281300
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300907",
+      "bizdate": "2025-11-19",
+      "openPx": 317600,
+      "highPx": 317700,
+      "lowPx": 302600,
+      "closePx": 317900
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "301065",
+      "bizdate": "2025-11-19",
+      "openPx": 238100,
+      "highPx": 238200,
+      "lowPx": 231000,
+      "closePx": 238700
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "301090",
+      "bizdate": "2025-11-19",
+      "openPx": 80800,
+      "highPx": 81300,
+      "lowPx": 79300,
+      "closePx": 82100
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "301181",
+      "bizdate": "2025-11-19",
+      "openPx": 343500,
+      "highPx": 343500,
+      "lowPx": 332600,
+      "closePx": 349700
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "301270",
+      "bizdate": "2025-11-19",
+      "openPx": 380500,
+      "highPx": 385100,
+      "lowPx": 371300,
+      "closePx": 368600
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "301285",
+      "bizdate": "2025-11-19",
+      "openPx": 521900,
+      "highPx": 524100,
+      "lowPx": 502800,
+      "closePx": 531000
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "301356",
+      "bizdate": "2025-11-19",
+      "openPx": 226800,
+      "highPx": 230100,
+      "lowPx": 217800,
+      "closePx": 232500
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "301361",
+      "bizdate": "2025-11-19",
+      "openPx": 357300,
+      "highPx": 359600,
+      "lowPx": 346500,
+      "closePx": 362300
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300147",
+      "bizdate": "2025-11-21",
+      "openPx": 97000,
+      "highPx": 97000,
+      "lowPx": 90200,
+      "closePx": 97100
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300170",
+      "bizdate": "2025-11-04",
+      "openPx": 180700,
+      "highPx": 183300,
+      "lowPx": 179100,
+      "closePx": 183600
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300185",
+      "bizdate": "2025-11-21",
+      "openPx": 29400,
+      "highPx": 29500,
+      "lowPx": 28400,
+      "closePx": 29600
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300243",
+      "bizdate": "2025-11-21",
+      "openPx": 113600,
+      "highPx": 114900,
+      "lowPx": 106400,
+      "closePx": 115000
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300274",
+      "bizdate": "2025-11-21",
+      "openPx": 1700200,
+      "highPx": 1742500,
+      "lowPx": 1675100,
+      "closePx": 1773600
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300281",
+      "bizdate": "2025-11-04",
+      "openPx": 76800,
+      "highPx": 77100,
+      "lowPx": 75900,
+      "closePx": 77200
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300352",
+      "bizdate": "2025-11-04",
+      "openPx": 62000,
+      "highPx": 62400,
+      "lowPx": 61100,
+      "closePx": 62700
+    },
+    {
+      "mktcode": 0,
+      "tgtcode": "300390",
+      "bizdate": "2025-11-21",
+      "openPx": 528800,
+      "highPx": 548400,
+      "lowPx": 488500,
+      "closePx": 609400
+    }
+  ],
+  "scaleCrossCheck": {
+    "sampleRows": 13637825,
+    "meanAbsoluteRelativeError": 0.008894888369244028
+  },
+  "adjustmentFactorTuples": [
+    {
+      "qfqMulti": 1.0,
+      "qfqAdd": 0.0,
+      "hfqMulti": 1.0,
+      "hfqAdd": 0.0,
+      "rows": 13650347
+    }
+  ],
+  "observationGaps": {
+    "securities": 5620,
+    "securitiesWithGaps": 5203,
+    "missingObservations": 728611,
+    "examples": [
+      {
+        "mktcode": 1,
+        "tgtcode": "600401",
+        "firstDate": "2006-01-04",
+        "lastDate": "2026-04-14",
+        "observedRows": 1845,
+        "expectedMarketDates": 4623,
+        "missingObservations": 2778
+      },
+      {
+        "mktcode": 1,
+        "tgtcode": "600680",
+        "firstDate": "2006-01-04",
+        "lastDate": "2026-04-14",
+        "observedRows": 2600,
+        "expectedMarketDates": 4623,
+        "missingObservations": 2023
+      },
+      {
+        "mktcode": 1,
+        "tgtcode": "900930",
+        "firstDate": "2006-01-04",
+        "lastDate": "2026-04-14",
+        "observedRows": 2643,
+        "expectedMarketDates": 4623,
+        "missingObservations": 1980
+      },
+      {
+        "mktcode": 0,
+        "tgtcode": "000622",
+        "firstDate": "2006-01-04",
+        "lastDate": "2026-04-14",
+        "observedRows": 2704,
+        "expectedMarketDates": 4558,
+        "missingObservations": 1854
+      },
+      {
+        "mktcode": 0,
+        "tgtcode": "000403",
+        "firstDate": "2006-01-04",
+        "lastDate": "2026-04-14",
+        "observedRows": 2939,
+        "expectedMarketDates": 4558,
+        "missingObservations": 1619
+      },
+      {
+        "mktcode": 0,
+        "tgtcode": "000757",
+        "firstDate": "2006-01-04",
+        "lastDate": "2026-04-14",
+        "observedRows": 2939,
+        "expectedMarketDates": 4558,
+        "missingObservations": 1619
+      },
+      {
+        "mktcode": 0,
+        "tgtcode": "000156",
+        "firstDate": "2006-01-04",
+        "lastDate": "2026-04-14",
+        "observedRows": 2943,
+        "expectedMarketDates": 4558,
+        "missingObservations": 1615
+      },
+      {
+        "mktcode": 0,
+        "tgtcode": "000688",
+        "firstDate": "2006-01-09",
+        "lastDate": "2026-04-14",
+        "observedRows": 2949,
+        "expectedMarketDates": 4556,
+        "missingObservations": 1607
+      },
+      {
+        "mktcode": 1,
+        "tgtcode": "600556",
+        "firstDate": "2006-01-04",
+        "lastDate": "2026-04-14",
+        "observedRows": 3029,
+        "expectedMarketDates": 4623,
+        "missingObservations": 1594
+      },
+      {
+        "mktcode": 0,
+        "tgtcode": "000672",
+        "firstDate": "2006-01-04",
+        "lastDate": "2026-04-14",
+        "observedRows": 3055,
+        "expectedMarketDates": 4558,
+        "missingObservations": 1503
+      },
+      {
+        "mktcode": 0,
+        "tgtcode": "000863",
+        "firstDate": "2006-01-04",
+        "lastDate": "2026-04-14",
+        "observedRows": 3229,
+        "expectedMarketDates": 4558,
+        "missingObservations": 1329
+      },
+      {
+        "mktcode": 0,
+        "tgtcode": "000557",
+        "firstDate": "2006-01-04",
+        "lastDate": "2026-04-14",
+        "observedRows": 3320,
+        "expectedMarketDates": 4558,
+        "missingObservations": 1238
+      },
+      {
+        "mktcode": 103,
+        "tgtcode": "920768",
+        "firstDate": "2015-06-17",
+        "lastDate": "2026-04-14",
+        "observedRows": 1363,
+        "expectedMarketDates": 2594,
+        "missingObservations": 1231
+      },
+      {
+        "mktcode": 0,
+        "tgtcode": "000498",
+        "firstDate": "2006-01-12",
+        "lastDate": "2026-04-14",
+        "observedRows": 3326,
+        "expectedMarketDates": 4553,
+        "missingObservations": 1227
+      },
+      {
+        "mktcode": 0,
+        "tgtcode": "000620",
+        "firstDate": "2006-01-04",
+        "lastDate": "2026-04-14",
+        "observedRows": 3337,
+        "expectedMarketDates": 4558,
+        "missingObservations": 1221
+      },
+      {
+        "mktcode": 0,
+        "tgtcode": "000681",
+        "firstDate": "2006-01-04",
+        "lastDate": "2026-04-14",
+        "observedRows": 3348,
+        "expectedMarketDates": 4558,
+        "missingObservations": 1210
+      },
+      {
+        "mktcode": 1,
+        "tgtcode": "600817",
+        "firstDate": "2006-01-04",
+        "lastDate": "2026-04-14",
+        "observedRows": 3424,
+        "expectedMarketDates": 4623,
+        "missingObservations": 1199
+      },
+      {
+        "mktcode": 103,
+        "tgtcode": "920171",
+        "firstDate": "2015-10-13",
+        "lastDate": "2026-04-14",
+        "observedRows": 1365,
+        "expectedMarketDates": 2530,
+        "missingObservations": 1165
+      },
+      {
+        "mktcode": 103,
+        "tgtcode": "920509",
+        "firstDate": "2015-12-15",
+        "lastDate": "2026-04-14",
+        "observedRows": 1329,
+        "expectedMarketDates": 2489,
+        "missingObservations": 1160
+      },
+      {
+        "mktcode": 0,
+        "tgtcode": "000719",
+        "firstDate": "2006-01-04",
+        "lastDate": "2026-04-14",
+        "observedRows": 3408,
+        "expectedMarketDates": 4558,
+        "missingObservations": 1150
+      }
+    ]
+  },
+  "completedAt": "2026-10-04T05:39:32.323676+00:00"
+}

@@ -1,0 +1,310 @@
+{
+  "compilation": {
+    "dslVersion": "stock-slot-v1",
+    "semanticModel": {
+      "document": {
+        "expression": {
+          "kind": "Binary",
+          "operator": ">",
+          "left": {
+            "kind": "FunctionCall",
+            "name": "indicator",
+            "arguments": [
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 11,
+                  "endLine": 1,
+                  "endColumn": 13
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 15,
+                  "endLine": 1,
+                  "endColumn": 17
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "收盘价",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 19,
+                  "endLine": 1,
+                  "endColumn": 24
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "2026-04-14",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 26,
+                  "endLine": 1,
+                  "endColumn": 38
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 40,
+                  "endLine": 1,
+                  "endColumn": 42
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 44,
+                  "endLine": 1,
+                  "endColumn": 46
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 48,
+                  "endLine": 1,
+                  "endColumn": 50
+                }
+              }
+            ],
+            "type": "NUMBER",
+            "span": {
+              "line": 1,
+              "column": 1,
+              "endLine": 1,
+              "endColumn": 51
+            }
+          },
+          "right": {
+            "kind": "Literal",
+            "value": 1,
+            "type": "NUMBER",
+            "span": {
+              "line": 1,
+              "column": 54,
+              "endLine": 1,
+              "endColumn": 55
+            }
+          },
+          "type": "BOOLEAN",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 55
+          }
+        },
+        "selectionLimit": null,
+        "span": {
+          "line": 1,
+          "column": 1,
+          "endLine": 1,
+          "endColumn": 60
+        }
+      },
+      "calls": [
+        {
+          "function": "indicator",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 51
+          },
+          "slots": [
+            {
+              "name": "market",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "filter_scope",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "indicator_name",
+              "rawValue": "收盘价",
+              "structuredValue": {
+                "value": "收盘价",
+                "template": "收盘价",
+                "parameters": {}
+              }
+            },
+            {
+              "name": "date",
+              "rawValue": "2026-04-14",
+              "structuredValue": {
+                "raw": "2026-04-14",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "select_type",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "agg_func",
+              "rawValue": "",
+              "structuredValue": ""
+            },
+            {
+              "name": "count_exp",
+              "rawValue": "",
+              "structuredValue": null
+            }
+          ]
+        }
+      ]
+    },
+    "logicalPlan": [
+      {
+        "kind": "Scan",
+        "detail": "dsl_executor_fixture_edf945ef375f.v_hsj_stock_hq_basic"
+      },
+      {
+        "kind": "DateAndMarketFilter",
+        "detail": "2026-04-14"
+      },
+      {
+        "kind": "Sort",
+        "detail": "mktcode, tgtcode"
+      },
+      {
+        "kind": "Project",
+        "detail": "mktcode,tgtcode"
+      }
+    ],
+    "windowContracts": [],
+    "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.closePrice AS `m1`\n  FROM dsl_executor_fixture_edf945ef375f.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+    "bindings": [
+      "2026-04-14",
+      1
+    ],
+    "ordered": false
+  },
+  "columns": [
+    "mktcode",
+    "tgtcode"
+  ],
+  "rows": [
+    [
+      "1",
+      "000001"
+    ],
+    [
+      "1",
+      "000002"
+    ]
+  ],
+  "truncated": true,
+  "timings": {
+    "compileMillis": 46.8894,
+    "queueMillis": 0.0215,
+    "explainMillis": 9.0708,
+    "dorisExecutionMillis": 12.541,
+    "returnMillis": 0.0557,
+    "totalMillis": 86.0762
+  },
+  "limits": {
+    "queryTimeoutSeconds": 10,
+    "maxEstimatedScanRows": 1000000,
+    "estimatedScanRows": 18,
+    "maxReturnRows": 2,
+    "maxExecutionMemoryBytes": 536870912
+  },
+  "sqlFingerprint": "sha256:8d5fcc89f34b923f04d2dfd353c5f1329d1ab5a67940232f0b7641fd8081ddc6",
+  "dataVersion": {
+    "snapshotId": "synthetic-execution-edf945ef375f",
+    "contractVersion": "fixture-v1",
+    "manifestSha256": "c8e0af2086568cc247de0146d96a549869d243e095c236d920fa7504cb22f74d"
+  },
+  "compilerVersion": "0.1.0",
+  "explain": [
+    "PLAN FRAGMENT 0",
+    "  OUTPUT EXPRS:",
+    "    mktcode[#12]",
+    "    tgtcode[#13]",
+    "  PARTITION: UNPARTITIONED",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  VRESULT SINK",
+    "     MYSQL_PROTOCOL",
+    "",
+    "  2:VMERGING-EXCHANGE",
+    "     offset: 0",
+    "     distribute expr lists: tgtcode[#13]",
+    "",
+    "PLAN FRAGMENT 1",
+    "",
+    "  PARTITION: HASH_PARTITIONED: tgtcode[#1]",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  STREAM DATA SINK",
+    "    EXCHANGE ID: 02",
+    "    UNPARTITIONED",
+    "IS_MERGE: true",
+    "",
+    "  1:VSORT(271)",
+    "  |  order by: mktcode[#12] ASC, tgtcode[#13] ASC",
+    "  |  algorithm: full sort",
+    "  |  local merge sort",
+    "  |  merge by exchange",
+    "  |  offset: 0",
+    "  |  distribute expr lists: ",
+    "  |  ",
+    "  0:VOlapScanNode(259)",
+    "     TABLE: dsl_executor_fixture_edf945ef375f.v_hsj_stock_hq_basic(v_hsj_stock_hq_basic), PREAGGREGATION: ON",
+    "     PREDICATES: (((closePrice[#3] > 1) AND (bizdate[#2] = '2026-04-14')) AND (__DORIS_DELETE_SIGN__[#8] = 0))",
+    "     partitions=1/1 (v_hsj_stock_hq_basic)",
+    "     tablets=1/1, tabletList=1791094906679",
+    "     cardinality=18, avgRowSize=760.55554, numNodes=1",
+    "     pushAggOp=NONE",
+    "     final projections: mktcode[#0], tgtcode[#1]",
+    "     final project output tuple id: 1",
+    "",
+    "",
+    "",
+    "========== STATISTICS ==========",
+    "planned with unknown column statistics"
+  ],
+  "queryProfile": {
+    "available": false,
+    "queryId": "b3e061498c114f77-bb59eabf8dd31cf5",
+    "taskState": null,
+    "total": null,
+    "user": null,
+    "note": "Profile is asynchronous or not retained"
+  }
+}

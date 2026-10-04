@@ -1,19 +1,55 @@
 {
   "suiteVersion": "automated-acceptance-v1",
-  "startedAt": "2026-09-29T12:39:22.5064361+08:00",
-  "completedAt": "2026-09-29T12:39:37.4038790+08:00",
+  "startedAt": "2026-10-04T19:31:06.5852965+08:00",
+  "completedAt": "2026-10-04T19:34:04.5302662+08:00",
   "checks": {
     "phase1-scope-freeze": {
       "status": "PASS",
-      "elapsedSeconds": 0.154
+      "elapsedSeconds": 0.221
+    },
+    "scope-line-ending-regressions": {
+      "status": "PASS",
+      "elapsedSeconds": 0.279
     },
     "maven-all-tests": {
       "status": "PASS",
-      "elapsedSeconds": 13.629
+      "elapsedSeconds": 37.786
+    },
+    "executor-module-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 3.756
+    },
+    "corpus-python-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.832
+    },
+    "doris-data-contract-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.099
+    },
+    "review-sql-result-regressions": {
+      "status": "PASS",
+      "elapsedSeconds": 0.177
+    },
+    "versioned-golden-contract-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.181
+    },
+    "sentinel-window-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 3.94
+    },
+    "historical-extrema-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 65.754
+    },
+    "rolling-average-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 63.158
     },
     "formal-compiler-p95": {
       "status": "PASS",
-      "elapsedSeconds": 1.098
+      "elapsedSeconds": 1.726
     },
     "doris-golden-result-differential": {
       "status": "NOT_RUN",

@@ -33,11 +33,21 @@ final class StockSlotAdvancedSqlCompiler {
     private final StockSlotAst.SemanticModel model;
     private final StockSlotRegistry registry;
     private final boolean allowFeatureAccess;
+    private final HistoricalExtremaFeatureCatalog historicalFeatures;
+    private final RollingAverageFeatureCatalog rollingFeatures;
+    private final Map<String,Integer> rollingAverages = new LinkedHashMap<>();
+    private final Map<String,String> rollingAverageSources = new LinkedHashMap<>();
+    private final Map<String,FiniteExtremum> finiteExtrema = new LinkedHashMap<>();
+    private final String snapshotId;
+    private final String manifestSha256;
+    private String materializedMarketColumn;
     private final LinkedHashMap<String, RawMetric> rawMetrics = new LinkedHashMap<>();
     private final IdentityHashMap<StockSlotAst.FunctionCall, CallSpec> calls = new IdentityHashMap<>();
     private final List<CallSpec> featureCalls = new ArrayList<>();
+    private final Map<String, HistoricalExtremum> historicalExtrema = new LinkedHashMap<>();
     private final LinkedHashMap<StockSlotAst.FunctionCall, RankSpec> ranks = new LinkedHashMap<>();
-    private final IdentityHashMap<StockSlotAst.Binary, CountSpec> counts = new IdentityHashMap<>();
+    private final Map<StockSlotAst.Expr, CountSpec> counts = new LinkedHashMap<>();
+    private final Set<StockSlotAst.FunctionCall> countedCalls = java.util.Collections.newSetFromMap(new IdentityHashMap<>());
     private final List<StockSlotWindowContract> contracts = new ArrayList<>();
     private final List<StockSlotSqlArtifact.PlanNode> plan = new ArrayList<>();
     private final List<Object> bindings = new ArrayList<>();
@@ -51,10 +61,16 @@ final class StockSlotAdvancedSqlCompiler {
     private boolean needsFeature;
     private boolean needsHistory;
 
-    StockSlotAdvancedSqlCompiler(StockSlotAst.SemanticModel model, StockSlotRegistry registry, boolean allowFeatureAccess) {
+    StockSlotAdvancedSqlCompiler(StockSlotAst.SemanticModel model, StockSlotRegistry registry, boolean allowFeatureAccess,
+                                 HistoricalExtremaFeatureCatalog historicalFeatures, RollingAverageFeatureCatalog rollingFeatures,
+                                 String snapshotId, String manifestSha256) {
         this.model = model;
         this.registry = registry;
         this.allowFeatureAccess = allowFeatureAccess;
+        this.historicalFeatures = historicalFeatures;
+        this.rollingFeatures = rollingFeatures;
+        this.snapshotId = snapshotId;
+        this.manifestSha256 = manifestSha256;
     }
 
     static boolean requiresAdvanced(StockSlotAst.SemanticModel model, StockSlotRegistry registry) {
@@ -100,6 +116,18 @@ final class StockSlotAdvancedSqlCompiler {
                 .anyMatch(raw -> !raw.metric.expression().startsWith(registry.table("features").alias() + "."))))
             fail("EXECUTION_FEATURE_MIXED", "Accelerated feature lookup cannot be mixed with raw-table indicators");
         if (targetDate == null) fail("EXECUTION_DATE_REQUIRED", "Window execution requires an explicit evaluation date");
+        // Counts and mixed windows need extrema at every historical row.
+        boolean aggregateHistory = allowFeatureAccess && counts.isEmpty() && ranks.isEmpty()
+                && !needsDelta && !needsFeature && !uniqueCalls().isEmpty()
+                && uniqueCalls().stream().allMatch(spec -> historicalExtrema.containsKey(spec.alias));
+        boolean materializedHistory = aggregateHistory && historicalFeatures != null
+                && historicalFeatures.matches(registry, snapshotId, manifestSha256, targetDate)
+                && rawMetrics.values().stream().allMatch(raw -> historicalFeatures.columns(raw.metric.expression()) != null);
+        if (materializedHistory) aggregateHistory = false;
+        boolean materializedRolling = allowFeatureAccess && rollingFeatures != null
+                && rollingFeatures.matches(registry,snapshotId,manifestSha256,targetDate)
+                && counts.isEmpty() && ranks.isEmpty() && !needsDelta && !needsFeature && !uniqueCalls().isEmpty()
+                && uniqueCalls().stream().allMatch(this::hasRollingFeature);
 
         StockSlotAst.Expr pre = null;
         StockSlotAst.Expr post = model.document().expression();
@@ -108,18 +136,41 @@ final class StockSlotAdvancedSqlCompiler {
             post = binary.right();
         }
 
+        StringBuilder sql;
+        if (materializedHistory) {
+            sql = historicalFeatureSql();
+        } else if (materializedRolling) {
+            sql = new StringBuilder("WITH features AS (\n  SELECT h.mktcode,h.tgtcode,h.bizdate");
+            for (CallSpec spec : uniqueCalls()) {
+                sql.append(",\n    ");
+                if (rollingAverages.containsKey(spec.alias))
+                    sql.append("h.`").append(rollingFeatures.windowFields().get(rollingAverages.get(spec.alias))).append('`');
+                else {
+                    var extremum=finiteExtrema.get(spec.alias);var range=rollingRange(extremum);
+                    sql.append("h.`").append(range.currentField()).append("` = h.`")
+                            .append(extremum.function.equals("MIN")?range.minField():range.maxField()).append('`');
+                }
+                sql.append(" AS `").append(spec.alias).append('`');
+            }
+            appendFeatureLookup(sql,rollingFeatures.qualifiedTable(),"RollingFeatureScan");
+        } else {
         var basic = registry.table("basic");
         var extension = registry.table("extension");
         var code = registry.table("code");
         String scanKey = needsFeature ? "features" : "basic";
         var scan = registry.table(scanKey);
-        StringBuilder sql = new StringBuilder("WITH history AS (\n  SELECT ")
+        sql = new StringBuilder("WITH history AS (\n  SELECT ")
                 .append(registry.column(scanKey, "marketCode")).append(" AS mktcode,")
                 .append(registry.column(scanKey, "securityCode")).append(" AS tgtcode,")
                 .append(registry.column(scanKey, "tradeDate")).append(" AS bizdate");
         if (needsCode) sql.append(',').append(registry.column("code", "name")).append(" AS name,")
                 .append(registry.column("code", "industry")).append(" AS hyBlkRefName");
         rawMetrics.values().forEach(raw -> sql.append(",\n    ").append(raw.metric.expression()).append(" AS `").append(raw.alias).append('`'));
+        if (aggregateHistory) {
+            sql.append(",\n    CASE WHEN ").append(registry.column(scanKey, "tradeDate"))
+                    .append(" = ? THEN 1 ELSE 0 END AS is_current");
+            bindings.add(targetDate);
+        }
         sql.append("\n  FROM ").append(scan.qualifiedName()).append(' ').append(scan.alias()).append("\n");
         if (needsCode) sql.append("  LEFT JOIN ").append(code.qualifiedName()).append(' ').append(code.alias())
                 .append(" ON ").append(registry.column("code", "marketCode")).append('=').append(registry.column(scanKey, "marketCode"))
@@ -152,13 +203,37 @@ final class StockSlotAdvancedSqlCompiler {
             plan.add(new StockSlotSqlArtifact.PlanNode("Lag", "close delta over observed trading rows"));
         }
 
-        sql.append(",\nfeatures AS (\n  SELECT ").append(source).append(".*");
-        for (CallSpec spec : uniqueCalls())
-            if (!spec.rank) sql.append(",\n    ").append(spec.expression).append(" AS `").append(spec.alias).append('`');
-        bindings.addAll(featureBindings);
-        sql.append("\n  FROM ").append(source).append("\n)");
-        if (uniqueCalls().stream().anyMatch(c -> !c.rank)) plan.add(new StockSlotSqlArtifact.PlanNode("Window", contracts.size() + " contract(s)"));
-        source = "features";
+        if (aggregateHistory) {
+            sql.append(",\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current");
+            // Validated source keys guarantee at most one row per security/date. The
+            // conditional aggregate retains its NULL value and never substitutes an older row.
+            for (RawMetric raw : rawMetrics.values())
+                sql.append(",\n    MAX(CASE WHEN is_current=1 THEN `").append(raw.alias)
+                        .append("` END) AS `").append(raw.alias).append("_current`");
+            for (CallSpec spec : uniqueCalls()) {
+                var extremum = historicalExtrema.get(spec.alias);
+                sql.append(",\n    ").append(extremum.function).append("(`").append(extremum.rawAlias)
+                        .append("`) AS `").append(spec.alias).append("_extremum`");
+            }
+            sql.append("\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*");
+            for (CallSpec spec : uniqueCalls()) {
+                var extremum = historicalExtrema.get(spec.alias);
+                // All-NULL history and a NULL current value both produce SQL NULL.
+                sql.append(",\n    a.`").append(extremum.rawAlias).append("_current` = a.`")
+                        .append(spec.alias).append("_extremum` AS `").append(spec.alias).append('`');
+            }
+            sql.append("\n  FROM historical_extrema a\n)");
+            plan.add(new StockSlotSqlArtifact.PlanNode("HistoricalAggregate", "MIN/MAX through evaluation date grouped by (mktcode,tgtcode)"));
+        } else {
+            sql.append(",\nfeatures AS (\n  SELECT ").append(source).append(".*");
+            for (CallSpec spec : uniqueCalls())
+                if (!spec.rank) sql.append(",\n    ").append(spec.expression).append(" AS `").append(spec.alias).append('`');
+            bindings.addAll(featureBindings);
+            sql.append("\n  FROM ").append(source).append("\n)");
+            if (uniqueCalls().stream().anyMatch(c -> !c.rank)) plan.add(new StockSlotSqlArtifact.PlanNode("Window", contracts.size() + " contract(s)"));
+        }
+        }
+        String source = "features";
 
         if (!counts.isEmpty()) {
             sql.append(",\npredicates AS (\n  SELECT features.*");
@@ -171,8 +246,10 @@ final class StockSlotAdvancedSqlCompiler {
             plan.add(new StockSlotSqlArtifact.PlanNode("OccurrenceWindow", counts.size() + " CONS/EXIST expression(s)"));
         }
 
-        sql.append(",\ncurrent_rows AS (\n  SELECT * FROM ").append(source).append(" WHERE bizdate = ?\n)");
-        bindings.add(targetDate);
+        sql.append(",\ncurrent_rows AS (\n  SELECT * FROM ").append(source);
+        if (aggregateHistory) sql.append(" WHERE has_current=1");
+        else { sql.append(" WHERE bizdate = ?"); bindings.add(targetDate); }
+        sql.append("\n)");
         source = "current_rows";
         plan.add(new StockSlotSqlArtifact.PlanNode("EvaluationDateFilter", targetDate.toString()));
 
@@ -213,6 +290,56 @@ final class StockSlotAdvancedSqlCompiler {
         return new StockSlotSqlArtifact(StockSlotCompiler.DSL_VERSION, model, plan, contracts, sql.toString(), bindings, ordered);
     }
 
+    private StringBuilder historicalFeatureSql() {
+        var sql = new StringBuilder("WITH features AS (\n  SELECT h.mktcode,h.tgtcode,h.bizdate");
+        for (CallSpec spec : uniqueCalls()) {
+            var extremum = historicalExtrema.get(spec.alias);
+            RawMetric raw = rawMetrics.values().stream().filter(r -> r.alias.equals(extremum.rawAlias)).findFirst().orElseThrow();
+            var columns = historicalFeatures.columns(raw.metric.expression());
+            sql.append(",\n    h.`").append(columns.currentField()).append("` = h.`")
+                    .append(extremum.function.equals("MIN") ? columns.minField() : columns.maxField())
+                    .append("` AS `").append(spec.alias).append('`');
+        }
+        appendFeatureLookup(sql,historicalFeatures.qualifiedTable(),"HistoricalFeatureScan");
+        return sql;
+    }
+
+    private boolean hasRollingFeature(CallSpec spec) {
+        if(rollingAverages.containsKey(spec.alias))
+            return rollingFeatures.windowFields().containsKey(rollingAverages.get(spec.alias))
+                    && rollingFeatures.sourceExpression().equals(rollingAverageSources.get(spec.alias));
+        return finiteExtrema.containsKey(spec.alias) && rollingRange(finiteExtrema.get(spec.alias))!=null;
+    }
+    private RollingAverageFeatureCatalog.RangeColumns rollingRange(FiniteExtremum extremum) {
+        var raw=rawMetrics.values().stream().filter(r->r.alias.equals(extremum.rawAlias)).findFirst().orElseThrow();
+        return rollingFeatures.range(raw.metric.expression(),extremum.period);
+    }
+
+    private void appendFeatureLookup(StringBuilder sql,String qualifiedTable,String kind) {
+        sql.append("\n  FROM ").append(qualifiedTable).append(" h\n");
+        if (needsCode) {
+            var code = registry.table("code");
+            sql.append("  LEFT JOIN ").append(code.qualifiedName()).append(' ').append(code.alias())
+                    .append(" ON ").append(registry.column("code", "marketCode")).append("=h.mktcode AND ")
+                    .append(registry.column("code", "securityCode")).append("=h.tgtcode\n");
+            plan.add(new StockSlotSqlArtifact.PlanNode("CodeJoin", code.qualifiedName()));
+        }
+        sql.append("  WHERE h.snapshot_id=? AND h.manifest_sha256=? AND h.registry_fingerprint=? AND h.bizdate=?");
+        bindings.add(snapshotId); bindings.add(manifestSha256); bindings.add(registry.fingerprint()); bindings.add(targetDate);
+        materializedMarketColumn = "h.mktcode";
+        String marketSql = marketPredicate(market);
+        if (!marketSql.isEmpty()) sql.append("\n    AND ").append(marketSql);
+        if (!scope.isEmpty() && !scope.equals("行业")) {
+            var terms = split(scope, '|');
+            sql.append("\n    AND ").append(registry.column("code", "industry")).append(" IN (")
+                    .append(String.join(",", terms.stream().map(x -> "?").toList())).append(')');
+            bindings.addAll(terms);
+        }
+        sql.append("\n)");
+        plan.add(new StockSlotSqlArtifact.PlanNode(kind, qualifiedTable
+                + " snapshot=" + snapshotId + " date=" + targetDate));
+    }
+
     private void collect(StockSlotAst.Expr expression) {
         switch (expression) {
             case StockSlotAst.FunctionCall call -> collectCall(call);
@@ -249,7 +376,8 @@ final class StockSlotAdvancedSqlCompiler {
         String expression;
         if (resolved.lowering().kind() == StockSlotRegistryConfig.LoweringKind.WINDOW_AVG) {
             int n = window(Integer.parseInt(resolved.parameters().get("N")));
-            if (allowFeatureAccess && Integer.toString(n).equals(resolved.parameters().get("featureWindow"))
+            if (allowFeatureAccess && rollingFeatures == null && Integer.toString(n).equals(resolved.parameters().get("featureWindow"))
+                    && date.date.toString().equals(resolved.parameters().get("featureDate"))
                     && date.lookback == 0 && count.isEmpty()) {
                 needsFeature = true;
                 String table = resolved.parameters().get("featureTable");
@@ -270,7 +398,7 @@ final class StockSlotAdvancedSqlCompiler {
             String frame = frame(n);
             expression = "CASE WHEN COUNT(price_delta) OVER " + over(frame) + " = " + n
                     + " THEN 100 - 100 / (1 + (AVG(GREATEST(price_delta,0)) OVER " + over(frame)
-                    + ") / NULLIF(AVG(GREATEST(-price_delta,0)) OVER " + over(frame) + ",0))) ELSE NULL END";
+                    + ") / NULLIF(AVG(GREATEST(-price_delta,0)) OVER " + over(frame) + ",0)) ELSE NULL END";
             contract("indicator:RSI", n, true);
         } else {
             RawMetric raw = rawMetric(metric(name));
@@ -285,6 +413,11 @@ final class StockSlotAdvancedSqlCompiler {
             } else expression = "`" + raw.alias + "`";
         }
         addFeature(call, expression);
+        if (resolved.lowering().kind() == StockSlotRegistryConfig.LoweringKind.WINDOW_AVG
+                && date.lookback == 0 && count.isEmpty() && agg.isEmpty()) {
+            rollingAverages.put(calls.get(call).alias,Integer.parseInt(resolved.parameters().get("N")));
+            rollingAverageSources.put(calls.get(call).alias,metric(resolved.parameters().get("baseIndicator")).expression());
+        }
         validateCount(count);
     }
 
@@ -349,6 +482,11 @@ final class StockSlotAdvancedSqlCompiler {
             expression = "CASE WHEN " + complete + " THEN `" + raw.alias + "` = " + fn + "(`" + raw.alias + "`) OVER " + over + " ELSE NULL END";
         }
         addFeature(call, expression);
+        if (period.unbounded && (mode.equals("MIN") || mode.equals("MAX"))
+                && arg(call, 7, "count_exp").isEmpty())
+            historicalExtrema.put(calls.get(call).alias, new HistoricalExtremum(raw.alias, mode));
+        if(!period.unbounded && (mode.equals("MIN") || mode.equals("MAX")) && arg(call,7,"count_exp").isEmpty())
+            finiteExtrema.put(calls.get(call).alias,new FiniteExtremum(raw.alias,mode,period.length));
         contract(function, period.unbounded ? 0 : period.length, !period.unbounded);
     }
 
@@ -384,7 +522,8 @@ final class StockSlotAdvancedSqlCompiler {
         mergeDate(date(arg(call, 3, "date")).date);
         String agg = aggregation(arg(call, 4, "agg_func"));
         if (agg.isEmpty()) agg = definition.lowering().parameters().get("defaultAggregation");
-        String expression = agg + "(`" + raw.alias + "`) OVER (PARTITION BY hyBlkRefName,bizdate)";
+        String expression = "CASE WHEN hyBlkRefName IS NULL THEN NULL ELSE " + agg
+                + "(`" + raw.alias + "`) OVER (PARTITION BY hyBlkRefName,bizdate) END";
         addFeature(call, expression);
         contracts.add(new StockSlotWindowContract(definition.name() + ":" + agg, List.of("hyBlkRefName", "bizdate"), List.of(),
                 "CROSS_SECTION", 1, "NOT_APPLICABLE", "NULL_IF_INDUSTRY_MISSING", "IGNORE_NULL_INPUTS", false));
@@ -396,22 +535,43 @@ final class StockSlotAdvancedSqlCompiler {
                 if (!binary.operator().matches("AND|OR|THEN|[+\\-*/]")) {
                     StockSlotAst.FunctionCall counted = countedCall(binary);
                     if (counted != null) {
-                        Matcher matcher = COUNT.matcher(countArgument(counted));
-                        if (!matcher.matches()) fail("EXECUTION_COUNT_UNSUPPORTED", "Supported count forms are CONS>=N日, CONS=N日, EXIST>=N日 and EXIST=N日");
-                        int n = window(Integer.parseInt(matcher.group(3)));
-                        int horizon = matcher.group(1).equals("CONS")
-                                ? (matcher.group(2).equals("=") ? n + 1 : n) : Math.max(20, n);
-                        String id = "c" + (counts.size() + 1);
-                        counts.put(binary, new CountSpec(binary, matcher.group(1), matcher.group(2), n, horizon, "p" + id, id));
-                        needsHistory = true;
-                        contract(matcher.group(1), horizon, true);
+                        addCount(binary, counted);
                     }
                 }
                 collectCounts(binary.left()); collectCounts(binary.right());
             }
             case StockSlotAst.Unary unary -> collectCounts(unary.operand());
+            case StockSlotAst.FunctionCall call -> {
+                if (!countArgument(call).isEmpty() && !countedCalls.contains(call)) {
+                    if (call.type() != StockSlotAst.ValueType.BOOLEAN)
+                        fail("EXECUTION_COUNT_SHAPE", "A counted numeric call must be a direct comparison operand");
+                    addCount(call, call);
+                }
+            }
             default -> { }
         }
+    }
+
+    private void addCount(StockSlotAst.Expr predicate, StockSlotAst.FunctionCall call) {
+        if (registry.function(call.name()).lowering().kind() == StockSlotRegistryConfig.LoweringKind.RANK)
+            fail("EXECUTION_COUNT_RANK", "Historical counts of cross-sectional ranks are not supported");
+        if (predicate instanceof StockSlotAst.Binary binary
+                && binary.left() instanceof StockSlotAst.FunctionCall left
+                && binary.right() instanceof StockSlotAst.FunctionCall right
+                && !countArgument(left).isEmpty() && !countArgument(right).isEmpty())
+            fail("EXECUTION_COUNT_SHAPE", "A comparison must have only one counted call");
+        Matcher matcher = COUNT.matcher(countArgument(call));
+        if (!matcher.matches()) fail("EXECUTION_COUNT_UNSUPPORTED", "Unsupported count expression");
+        int n;
+        try { n = window(Integer.parseInt(matcher.group(3))); }
+        catch (NumberFormatException e) { throw new CompileException("EXECUTION_WINDOW_RANGE", "Count window is too large", 1, 1); }
+        int horizon = matcher.group(1).equals("CONS")
+                ? (matcher.group(2).equals("=") ? n + 1 : n) : Math.max(20, n);
+        String id = "c" + (counts.size() + 1);
+        counts.put(predicate, new CountSpec(predicate, matcher.group(1), matcher.group(2), n, horizon, "p" + id, id));
+        countedCalls.add(call);
+        needsHistory = true;
+        contract(matcher.group(1), horizon, true);
     }
 
     private StockSlotAst.FunctionCall countedCall(StockSlotAst.Binary comparison) {
@@ -442,7 +602,7 @@ final class StockSlotAdvancedSqlCompiler {
     }
 
     private String render(StockSlotAst.Expr expression) {
-        if (expression instanceof StockSlotAst.Binary binary && counts.containsKey(binary)) return "`" + counts.get(binary).resultAlias + "`";
+        if (counts.containsKey(expression)) return "`" + counts.get(expression).resultAlias + "`";
         return renderPlain(expression);
     }
 
@@ -472,8 +632,10 @@ final class StockSlotAdvancedSqlCompiler {
         Matcher matcher = RANGE.matcher(raw);
         if (!matcher.matches()) fail("EXECUTION_BETWEEN", "Invalid interval: " + raw);
         String target = render(value);
-        bindings.add(number(matcher.group(2))); bindings.add(number(matcher.group(3)));
-        return "(" + target + (matcher.group(1).equals("[") ? ">=" : ">") + "? AND " + target
+        bindings.add(number(matcher.group(2)));
+        String upperValue = render(value);
+        bindings.add(number(matcher.group(3)));
+        return "(" + target + (matcher.group(1).equals("[") ? ">=" : ">") + "? AND " + upperValue
                 + (matcher.group(4).equals("]") ? "<=" : "<") + "?)";
     }
 
@@ -603,7 +765,8 @@ final class StockSlotAdvancedSqlCompiler {
             fail("EXECUTION_MARKET_COMPLEX", "Advanced windows currently support market union and exclusion only");
         Integer code = registry.markets().get(value);
         if (code == null) fail("EXECUTION_MARKET_UNSUPPORTED", "No accepted market mapping: " + value);
-        return registry.column(needsFeature ? "features" : "basic", "marketCode") + "=" + code;
+        return (materializedMarketColumn == null ? registry.column(needsFeature ? "features" : "basic", "marketCode")
+                : materializedMarketColumn) + "=" + code;
     }
     private List<String> split(String value, char separator) {
         List<String> result = new ArrayList<>();
@@ -616,10 +779,12 @@ final class StockSlotAdvancedSqlCompiler {
     private record Metric(String expression, boolean extension) {}
     private record RawMetric(String alias, Metric metric) {}
     private record CallSpec(String alias, String expression, boolean rank) {}
+    private record HistoricalExtremum(String rawAlias, String function) {}
+    private record FiniteExtremum(String rawAlias,String function,int period) {}
     private record RankSpec(String alias, String metricAlias, String method, String direction, boolean industryPartition) {}
     private record RankDirection(String direction, String method) {}
     private record DateSpec(LocalDate date, int lookback) {}
     private record PeriodSpec(int length, boolean unbounded) {}
-    private record CountSpec(StockSlotAst.Binary comparison, String mode, String operator, int threshold, int horizon,
+    private record CountSpec(StockSlotAst.Expr comparison, String mode, String operator, int threshold, int horizon,
                              String predicateAlias, String resultAlias) {}
 }

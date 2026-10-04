@@ -1,0 +1,70 @@
+{
+  "status": "EXECUTION_CONTROLS_PASSED_OFFICIAL_ACCEPTANCE_BLOCKED",
+  "completedAtUtc": "2026-10-04T08:15:10.922031+00:00",
+  "artifactHashes": {
+    "goldenSha256": "12e149f8c4623496d0a0d3e30979fc7b344024fe9c1b4b3b15fa0195dde103e7",
+    "snapshotManifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+    "compilerJarSha256": "57aeff15dea27908eaf379e0e25c06b1b5301737dfa9da16fd7d50a1c7744cc0"
+  },
+  "javaTests": {
+    "main": {
+      "tests": 254,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "executor": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "syntheticIntegration": {
+    "passed": 17,
+    "total": 17,
+    "purpose": "SYNTHETIC_REAL_DORIS_INTEGRATION_NOT_OFFICIAL_ACCEPTANCE"
+  },
+  "officialNegativeGate": {
+    "passed": 9,
+    "total": 9
+  },
+  "localDifferential": {
+    "passed": 34,
+    "total": 34
+  },
+  "dorisDifferential": {
+    "passed": 34,
+    "total": 34
+  },
+  "functionSmoke": {
+    "passed": 15,
+    "total": 15
+  },
+  "explain": {
+    "PY-MA60": "PASS",
+    "PY-RSI14": "PASS",
+    "PY-NET_SUM5": "PASS"
+  },
+  "dorisBoundaries": {
+    "passed": 5,
+    "total": 5
+  },
+  "compilerP95Millis": 0.201801,
+  "sourceIntegrity": "PASS",
+  "sourceAuditStatus": "FAIL",
+  "extensionWithoutBasic": 249480,
+  "previousPriceRangeWarnings": 3487,
+  "officialFieldConfirmation": "PENDING",
+  "fixtureCleanupVerified": true,
+  "testHttpServicesReleased": true,
+  "officialRegistryRows": 0,
+  "formalAcceptance": "BLOCKED",
+  "report": "继续推进与自测报告.md",
+  "remaining": [
+    "official-data-rules-or-patch",
+    "official-validated-snapshot-and-positive-execution",
+    "external-blind-tests",
+    "database-performance-acceptance"
+  ]
+}

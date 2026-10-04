@@ -136,7 +136,7 @@ public final class DorisBenchmarkMatrixRunner {
             try {
                 var connection = open(mode);
                 try (var statement = connection.createStatement();
-                     var result = statement.executeQuery("SELECT 1 FROM newzl.stock_daily_features_v1 LIMIT 1")) {
+                     var result = statement.executeQuery("SELECT 1 FROM newzl.stock_daily_features_v2 LIMIT 1")) {
                     if (!result.next()) throw new SQLException("Doris BE readiness probe returned no row");
                 }
                 return connection;

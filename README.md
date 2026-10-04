@@ -6,13 +6,19 @@
 比赛适配的演进记录见[第一周基线](docs/competition/WEEK1_BASELINE.md)、
 [第二周解析报告](docs/competition/WEEK2_PARSER.md)和
 [第三周已核验指标安全子集](docs/competition/WEEK3_SEMANTICS.md)。完整实现仍要求指标目录、
-单位和倍率经过人工复核；仓库不声称已经连接赛事 Doris 数据。
+单位和倍率经过人工复核。2026-10-04 已在独立 WSL2/Doris 中导入收到的三张官方数据表；当前跨表关联门禁未通过，尚不能宣称正式验收完成。
 
 `ANTLR4 Parse Tree → 不可变 Typed AST → 语义检查 → 等价规则 → 逻辑计划 → AccessPathPlanner → 分层 Doris SQL`
 
 当前版本已接入真实 Doris JDBC 执行：执行前强制校验已冻结且状态为
 `VALIDATED` 的数据快照，只执行编译器生成的参数化 `SELECT`，并对 10 秒查询上限、
-编译 P95 和 19 年等价计算加速倍数执行自动验收。
+编译 P95 和 19 年等价计算加速倍数提供自动验收入口。最新执行层修复、隔离集成测试和官方数据回归见 [继续推进与自测报告](reports/continuation/2026-10-04/继续推进与自测报告.md)，前一轮记录见 [路线实施与自测报告](reports/route-implementation/2026-10-04/路线实施与自测报告.md)。历史交付材料中的结果不能替代本轮数据验收。
+
+官方数据上的 12 类查询已另做热缓存性能诊断，测量与证据见 [性能诊断与下一步](reports/performance-diagnostic/2026-10-04/hot-30/性能诊断与下一步.md)。该诊断不登记快照，也不替代正式冷/热缓存和并发验收。
+
+历史聚合及特征路径的前两轮记录见 [历史极值优化与自测报告](reports/history-optimization/2026-10-04/历史极值优化与自测报告.md)、[历史极值特征与自测报告](reports/history-features/2026-10-04/历史极值特征与自测报告.md)。这些目录保留各自工件与测量，不能混用不同 JAR 的结果。
+
+最新路线已实现 MA20/60/120/250 和 250 观察行高低点的多日期特征及同一快照内增量构建，修复 MA60 与原始指标混合时的完整窗口回退。已验证 278 项 Java 测试、328 次 SQLite/Doris 边界执行、168,460 个原始数据独立数值/NULL 检查及 34 项真实数据结果。28 组共 1,680 次计时、60 次并发查询、损坏证据拒绝和重启持久性复验通过；19 年代表查询的热缓存 P95 比值为 86.74x。完整路线可用 `.tools/data-audit-venv/Scripts/python.exe scripts/doris/run_official_data_route.py --report-dir reports/official-route/new-run` 复跑，并自动输出 [官方数据路线执行与自测报告](reports/official-route/2026-10-04/final/官方数据路线执行与自测报告.md)。正式验收仍为 BLOCKED；下一步须取得官方关联/字段定义或补丁，创建符合契约的新快照，再完成正式验收。
 
 ## 最终交付入口
 
@@ -147,17 +153,23 @@ java -jar target/dsl-doris-compiler.jar execute-stock-slot-sql `
 启动带 Doris 执行能力的 HTTP 服务：
 
 ```powershell
+$env:DSL_HTTP_TOKEN = [Convert]::ToHexString([Security.Cryptography.RandomNumberGenerator]::GetBytes(32))
 java -jar target/dsl-doris-compiler.jar serve-doris `
   --user dsl_runtime_reader --bind-host 127.0.0.1 --http-port 8080
 ```
 
 ```bash
 curl -X POST http://127.0.0.1:8080/execute \
+  -H "Authorization: Bearer $DSL_HTTP_TOKEN" \
   -H 'Content-Type: application/json' \
   --data-binary '{"dsl":"indicator('\''沪'\'', '\'''\'', '\''60日均线'\'', '\''2026-04-14'\'', '\'''\'', '\'''\'', '\'''\'') > 1 limit 0,100","snapshotId":"stock-20060104-20260414-v1","maxRows":100,"format":"markdown"}'
 ```
 
-`/execute` 的错误契约为：语法错误 `400`、语义错误 `422`、安全配额 `429`、Doris
+`/compile` 和 `/execute` 均使用服务端环境变量 `DSL_HTTP_TOKEN` 配置的 Bearer 令牌；
+可以通过 `--auth-token-env` 更换变量名。令牌须为至少 32 字符的随机值，不配置则服务拒绝启动。
+`serve` 只授予编译权限，`serve-doris` 授予编译和执行权限；请求 JSON 不接受用户身份或权限。
+`/execute` 的错误契约为：未登录 `401`、无权限 `403`、语法错误 `400`、语义错误 `422`、
+请求体超过 1 MiB `413`、安全配额 `429`、Doris
 错误 `502`、数据不可用 `503`、超时 `504`。服务端配置的返回行上限优先于请求中的
 `maxRows`。
 
@@ -206,13 +218,16 @@ java -jar target/dsl-doris-compiler.jar compile examples/basic.dsl \
 启动 API：
 
 ```bash
+export DSL_HTTP_TOKEN="$(openssl rand -hex 32)"
 java -jar target/dsl-doris-compiler.jar serve --host 127.0.0.1 --port 8080
 curl http://127.0.0.1:8080/health
 curl -X POST http://127.0.0.1:8080/compile \
+  -H "Authorization: Bearer $DSL_HTTP_TOKEN" \
   -H 'Content-Type: application/json' \
   --data-binary '{"dsl":"SCREEN ON 2026-08-07 WHERE CLOSE > 10 LIMIT 5"}'
 
 curl -X POST http://127.0.0.1:8080/compile \
+  -H "Authorization: Bearer $DSL_HTTP_TOKEN" \
   -H 'Content-Type: application/json' \
   --data-binary '{"dslVersion":"stock-slot-v1","dsl":"indicator('\''沪'\'', '\'''\'', '\''10日均线'\'', '\''今天'\'', '\'''\'', '\'''\'', '\'''\'') > 5 limit 0,10"}'
 ```

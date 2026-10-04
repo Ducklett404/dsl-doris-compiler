@@ -26,16 +26,18 @@ final class StockSlotFunctionSqlTest {
 
     @Test void exactSnapshotMa60UsesFrozenFeatureWhileOtherWindowsFallBackSafely() {
         var accelerated = compile("indicator('沪', '', '60日均线', '2026-04-14', '', '', '') > 1 limit 0,100");
-        assertSql(accelerated.sql(), "FROM newzl.stock_daily_features_v1 pf", "pf.ma60 AS `v1`");
+        assertSql(accelerated.sql(), "FROM newzl.stock_daily_features_v2 pf", "pf.ma60 AS `v1`");
         assertFalse(accelerated.sql().contains("v_hsj_stock_hq_basic"));
         assertTrue(accelerated.logicalPlan().stream().anyMatch(node -> node.kind().equals("FeatureScan")));
 
         var fallback = compile("indicator('沪', '', '5日均线', '2026-04-14', '', '', '') > 1");
         assertSql(fallback.sql(), "v_hsj_stock_hq_basic", "AVG(`v1`) OVER");
-        assertFalse(fallback.sql().contains("stock_daily_features_v1"));
+        assertFalse(fallback.sql().contains("stock_daily_features_v2"));
 
-        assertCode("EXECUTION_FEATURE_MIXED", "indicator('沪', '', '60日均线', '2026-04-14', '', '', '') > "
+        var mixed=compile("indicator('沪', '', '60日均线', '2026-04-14', '', '', '') > "
                 + "indicator('沪', '', '收盘价', '2026-04-14', '', '', '')");
+        assertSql(mixed.sql(),"v_hsj_stock_hq_basic","AVG(`v1`) OVER","COUNT(`v1`) OVER");
+        assertFalse(mixed.sql().contains("stock_daily_features_v2"));
     }
 
     @Test void rankSupportsAllThreeMethodsIndustryPartitionAndThenPrefilter() {
@@ -61,10 +63,37 @@ final class StockSlotFunctionSqlTest {
         assertContract(high, "record_high", 20);
 
         var low = compile("record_low('', '', '最低价', '历史', '2026-04-14', '', '', '') = True");
-        assertSql(low.sql(), "UNBOUNDED PRECEDING", "MIN(`v1`) OVER");
+        assertSql(low.sql(), "historical_extrema AS", "MIN(`v1`)", "GROUP BY mktcode,tgtcode");
+        var reference = compiler.compile("record_low('', '', '最低价', '历史', '2026-04-14', '', '', '') = True",
+                StockSlotSqlCompiler.AccessPathMode.FULL_SCAN_REFERENCE);
+        assertSql(reference.sql(), "UNBOUNDED PRECEDING", "MIN(`v1`) OVER");
+        assertEquals(reference.bindings(), low.bindings());
 
         var position = compile("position('', '', '收盘价', '60日', '2026-04-14', '', '', '') = '高'");
         assertSql(position.sql(), "THEN '低'", "THEN '高'", "ELSE '中'");
+    }
+
+    @Test void historicalAggregateKeepsPointInTimeAndCompositeKeys() {
+        var artifact = compile("record_high('', '', '收盘价', '历史', '2026-04-14', '', '', '') = True and "
+                + "record_low('', '', '最低价', '历史', '2026-04-14', '', '', '') = False");
+        assertSql(artifact.sql(), "b.bizdate <= ?", "b.bizdate = ?", "GROUP BY mktcode,tgtcode",
+                "MAX(is_current) AS has_current", "MAX(CASE WHEN is_current=1 THEN `v1` END)",
+                "WHERE has_current=1", "MAX(`v1`)", "MIN(`v2`)");
+        assertFalse(artifact.sql().contains(" JOIN "));
+        assertFalse(artifact.sql().contains(" OVER "));
+        assertTrue(artifact.logicalPlan().stream().anyMatch(node -> node.kind().equals("HistoricalAggregate")));
+        assertEquals(List.of(java.time.LocalDate.of(2026,4,14), java.time.LocalDate.of(2026,4,14), true, false), artifact.bindings());
+    }
+
+    @Test void historicalCountsMixedWindowsAndPositionRetainRowWiseEvaluation() {
+        for (String dsl : List.of(
+                "record_high('', '', '收盘价', '历史', '2026-04-14', '', '', 'CONS>=3日') = True",
+                "record_low('', '', '收盘价', '历史', '2026-04-14', '', '', '') = True and indicator('', '', '5日均线', '2026-04-14', '', '', '') > 1",
+                "position('', '', '收盘价', '历史', '2026-04-14', '', '', '') = '高'")) {
+            var artifact = compile(dsl);
+            assertFalse(artifact.sql().contains("historical_extrema AS"), dsl);
+            assertSql(artifact.sql(), "UNBOUNDED PRECEDING");
+        }
     }
 
     @Test void crossFunctionsUsePreviousObservedTradingRow() {

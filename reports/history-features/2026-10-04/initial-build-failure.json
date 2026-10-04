@@ -1,0 +1,12 @@
+{
+  "status": "FAIL",
+  "failedStep": "ANALYZE statistics before catalog publication",
+  "failedSql": "ANALYZE dsl_history_diag_c55f1cd45627.history_extrema_v1 WITH SYNC",
+  "serverError": "no viable alternative at input 'ANALYZE dsl_history_diag_c55f1cd45627'",
+  "correction": "ANALYZE TABLE <qualified_table> WITH SYNC",
+  "publishedCatalog": false,
+  "failedDatabaseCleanup": "DONE",
+  "officialRegistryUnchanged": true,
+  "evidence": "build/build-report.json",
+  "note": "The initial builder reported BUILDING in its finally block despite a nonzero exit. It now records FAIL and the exception before cleanup."
+}

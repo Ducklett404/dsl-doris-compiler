@@ -1,0 +1,36 @@
+{
+  "authority": "Hand-labelled synthetic histories, project observed-row and strict NULL contract; not official expected answers",
+  "date": "2026-04-14",
+  "histories": {
+    "1:000001": {"rows":260,"constant":2},
+    "1:000002": {"rows":260,"start":1,"step":1},
+    "1:000003": {"rows":260,"constant":null},
+    "1:000004": {"rows":260,"constant":2,"nullFromEnd":3},
+    "1:000005": {"rows":19,"constant":9},
+    "1:000006": {"rows":20,"constant":3},
+    "1:000007": {"rows":120,"constant":4},
+    "1:000008": {"rows":260,"constant":5,"intervalDays":3},
+    "1:000009": {"rows":260,"constant":8,"missingCurrent":true},
+    "1:000010": {"rows":260,"start":261,"step":-1},
+    "0:000001": {"rows":260,"constant":0}
+  },
+  "futureRows": [[1,"000002","2026-04-15",999999]],
+  "cases": [
+    {"id":"strict-ma20","expression":"MA20>1","expected":["1:000001","1:000002","1:000006","1:000007","1:000008","1:000010"]},
+    {"id":"strict-ma60","expression":"MA60>1","expected":["1:000001","1:000002","1:000007","1:000008","1:000010"]},
+    {"id":"strict-ma120","expression":"MA120>1","expected":["1:000001","1:000002","1:000007","1:000008","1:000010"]},
+    {"id":"strict-ma250","expression":"MA250>1","expected":["1:000001","1:000002","1:000008","1:000010"]},
+    {"id":"mixed-averages","expression":"MA20>MA250","expected":["1:000002"]},
+    {"id":"range-repeated-bindings","expression":"(MA20+1) between '[3,5]'","expected":["1:000001","1:000006","1:000007"]},
+    {"id":"market-leading-zero-isolation","expression":"MA20>=0","market":"深","expected":["0:000001"]},
+    {"id":"missing-current-or-literal","expression":"MA250>1 or 1=1","expected":["0:000001","1:000001","1:000002","1:000003","1:000004","1:000005","1:000006","1:000007","1:000008","1:000010"]},
+    {"id":"raw-indicator-fallback","expression":"MA60>CLOSE","feature":false,"expected":["1:000010"]},
+    {"id":"count-fallback","expression":"MA20>1","count":"CONS>=2日","feature":false,"expected":["1:000001","1:000002","1:000007","1:000008","1:000010"]},
+    {"id":"future-date-isolation","expression":"MA20>250","expected":["1:000002"]},
+    {"id":"null-cannot-pass-low-threshold","expression":"MA250>=0","expected":["0:000001","1:000001","1:000002","1:000008","1:000010"]},
+    {"id":"strict-250-high","expression":"HIGH=True","expected":["0:000001","1:000001","1:000002","1:000008"]},
+    {"id":"strict-250-low","expression":"LOW=True","expected":["0:000001","1:000001","1:000008","1:000010"]},
+    {"id":"averages-and-extrema","expression":"MA20>1 and HIGH=True","expected":["1:000001","1:000002","1:000008"]},
+    {"id":"finite-period-fallback","expression":"HIGH120=True","feature":false,"expected":["0:000001","1:000001","1:000002","1:000007","1:000008"]}
+  ]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "file": "check_historical_extrema.py",
+    "sha256": "374460f108577d2678436977a1000fbcd85889f909869a5e45dafbb2433034a6"
+  },
+  {
+    "file": "diagnose_performance.py",
+    "sha256": "d50148fd6d64183b85688952d666ec96394deaa47dc4bba6b8be7fe991175544"
+  },
+  {
+    "file": "DorisPerformanceDiagnostic.java",
+    "sha256": "34c04ddecbf1956ff3e62573d0efafa7a98fae3fbbfbb28d43329dd3ada2f072"
+  },
+  {
+    "file": "finalize-history-optimization.py",
+    "sha256": "3216691587e1b271325bc331ea4208c212bab86dd46ab422f6d000fffb8192aa"
+  },
+  {
+    "file": "historical-extrema-v1.json",
+    "sha256": "b61d462c4d4faeeb4b9d172de5096796a413e927bc77d650534f7fc5f143f2e6"
+  },
+  {
+    "file": "history-matrix-v1.json",
+    "sha256": "37fe537ffa74cc1ad1c9a12f2cb9713481166dc5932c43512a34cb8c6ae3cde6"
+  },
+  {
+    "file": "Main.java",
+    "sha256": "31e86317b4f9c4a4be7cb519874b46a3397a64fa4e449e1ba8755e6068766945"
+  },
+  {
+    "file": "performance-evidence-selftest.py",
+    "sha256": "ba70486f5322fa93dc6920d38f051d4e97d0b68e65b7c360b0a51cdcefee9812"
+  },
+  {
+    "file": "StockSlotAdvancedSqlCompiler.java",
+    "sha256": "d9b097f09a0073adfd408b94938467bbbca0aacc449f4e03decf43f676dd0de8"
+  },
+  {
+    "file": "summarize_performance.py",
+    "sha256": "b3a6fc6c6dec40c8e2ce197888c399f57406fc035996a5bd3ca2e4cbc86abd1f"
+  }
+]

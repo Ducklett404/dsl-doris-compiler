@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.049" tests="84" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="GBK"/>
+    <property name="java.class.path" value="D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\target\test-classes;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\target\classes;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\antlr\antlr4-runtime\4.13.2\antlr4-runtime-4.13.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\core\jackson-databind\2.19.2\jackson-databind-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\core\jackson-annotations\2.19.2\jackson-annotations-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\core\jackson-core\2.19.2\jackson-core-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.19.2\jackson-datatype-jsr310-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\info\picocli\picocli\4.7.7\picocli-4.7.7.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\mysql\mysql-connector-j\9.4.0\mysql-connector-j-9.4.0.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\google\protobuf\protobuf-java\4.31.1\protobuf-java-4.31.1.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter\5.13.4\junit-jupiter-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter-api\5.13.4\junit-jupiter-api-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\platform\junit-platform-commons\1.13.4\junit-platform-commons-1.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter-params\5.13.4\junit-jupiter-params-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter-engine\5.13.4\junit-jupiter-engine-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\platform\junit-platform-engine\1.13.4\junit-platform-engine-1.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\openjdk\jmh\jmh-core\1.37\jmh-core-1.37.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\net\sf\jopt-simple\jopt-simple\5.0.4\jopt-simple-5.0.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\openjdk\jmh\jmh-generator-annprocess\1.37\jmh-generator-annprocess-1.37.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="user.timezone" value="Asia/Shanghai"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.boot.library.path" value="D:\Java\jdk-21\bin"/>
+    <property name="sun.java.command" value="C:\Users\shiyilang\AppData\Local\Temp\surefire16594810258473209377\surefirebooter-20261004184201692_3.jar C:\Users\shiyilang\AppData\Local\Temp\surefire16594810258473209377 2026-10-04T18-42-01_502-jvmRun1 surefire-20261004184201692_1tmp surefire_0-20261004184201692_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\target\test-classes;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\target\classes;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\antlr\antlr4-runtime\4.13.2\antlr4-runtime-4.13.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\core\jackson-databind\2.19.2\jackson-databind-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\core\jackson-annotations\2.19.2\jackson-annotations-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\core\jackson-core\2.19.2\jackson-core-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.19.2\jackson-datatype-jsr310-2.19.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\info\picocli\picocli\4.7.7\picocli-4.7.7.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\mysql\mysql-connector-j\9.4.0\mysql-connector-j-9.4.0.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\com\google\protobuf\protobuf-java\4.31.1\protobuf-java-4.31.1.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter\5.13.4\junit-jupiter-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter-api\5.13.4\junit-jupiter-api-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\platform\junit-platform-commons\1.13.4\junit-platform-commons-1.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter-params\5.13.4\junit-jupiter-params-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\jupiter\junit-jupiter-engine\5.13.4\junit-jupiter-engine-5.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\junit\platform\junit-platform-engine\1.13.4\junit-platform-engine-1.13.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\openjdk\jmh\jmh-core\1.37\jmh-core-1.37.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\net\sf\jopt-simple\jopt-simple\5.0.4\jopt-simple-5.0.4.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache\org\openjdk\jmh\jmh-generator-annprocess\1.37\jmh-generator-annprocess-1.37.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\shiyilang"/>
+    <property name="user.language" value="zh"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-07-15"/>
+    <property name="java.home" value="D:\Java\jdk-21"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler"/>
+    <property name="test.jvm.args" value="-Djdk.net.unixdomain.tmpdir=target/disabled-unix-sockets"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="jdk.jfr.repository" value="C:\Users\shiyilang\AppData\Local\Temp\2026_10_04_18_42_04_53616"/>
+    <property name="surefire.real.class.path" value="C:\Users\shiyilang\AppData\Local\Temp\surefire16594810258473209377\surefirebooter-20261004184201692_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="jdk.net.unixdomain.tmpdir" value="target/disabled-unix-sockets"/>
+    <property name="java.runtime.version" value="21.0.8+12-LTS-250"/>
+    <property name="user.name" value="shiyilang"/>
+    <property name="stdout.encoding" value="GBK"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\SHIYIL~1\AppData\Local\Temp\"/>
+    <property name="java.version" value="21.0.8"/>
+    <property name="user.dir" value="D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="GBK"/>
+    <property name="java.library.path" value="D:\Java\jdk-21\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell;C:\Users\shiyilang\.codex\tmp\arg0\codex-arg0qZztpu;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\libheif\libheif\bin;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\jxrlib\jxrlib\bin;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\poppler\Library\bin;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\bin\override;C:\Program Files\Common Files\Oracle\Java\javapath;D:\Program Files\Python310\Scripts\;D:\Program Files\Python310\;C:\Program Files\Python310\Scripts\;C:\Program Files\Python310\;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\dotnet\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;D:\Git\cmd;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\mingw64\bin;D:\Bandizip\;C:\Program Files (x86)\cloudflared\;C:\Program Files\nodejs\;C:\Users\shiyilang\Scripts\;C:\Users\shiyilang\;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell;C:\Users\shiyilang\AppData\Local\Microsoft\WindowsApps;D:\VC4\Microsoft VS Code\bin;D:\Users\shiyilang\Desktop\PyCharm Community Edition 2025.1.1\bin;D:\cursor\resources\app\bin;D:\JetBrains\IntelliJ IDEA Community Edition 2025.2.1\bin;C:\Users\shiyilang\AppData\Roaming\npm;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\bin\fallback;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin;C:\Users\shiyilang\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\git\cmd;C:\Users\shiyilang\AppData\Local\OpenAI\Codex\bin\f1e5e36960c35938;C:\Users\shiyilang\AppData\Local\OpenAI\Codex\bin\8aaf1547b825b104;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="GBK"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="21.0.8+12-LTS-250"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="maven.repo.local" value="D:\A_MyProjects\揭榜挂帅\dsl-doris-compiler\.mvn-cache"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="fullScenarioMatrix()[1]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.004"/>
+  <testcase name="fullScenarioMatrix()[2]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[3]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.001"/>
+  <testcase name="fullScenarioMatrix()[4]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.002"/>
+  <testcase name="fullScenarioMatrix()[5]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[6]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.001"/>
+  <testcase name="fullScenarioMatrix()[7]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.001"/>
+  <testcase name="fullScenarioMatrix()[8]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[9]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[10]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.001"/>
+  <testcase name="fullScenarioMatrix()[11]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[12]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[13]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[14]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[15]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.001"/>
+  <testcase name="fullScenarioMatrix()[16]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[17]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[18]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[19]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[20]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[21]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[22]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[23]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[24]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[25]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[26]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[27]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[28]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[29]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[30]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.001"/>
+  <testcase name="fullScenarioMatrix()[31]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[32]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[33]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[34]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[35]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[36]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[37]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.002"/>
+  <testcase name="fullScenarioMatrix()[38]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[39]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[40]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[41]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[42]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.001"/>
+  <testcase name="fullScenarioMatrix()[43]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[44]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[45]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[46]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[47]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[48]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[49]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[50]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.001"/>
+  <testcase name="fullScenarioMatrix()[51]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[52]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[53]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[54]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[55]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[56]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.001"/>
+  <testcase name="fullScenarioMatrix()[57]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[58]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[59]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[60]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[61]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[62]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[63]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[64]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[65]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[66]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[67]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[68]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.001"/>
+  <testcase name="fullScenarioMatrix()[69]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[70]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[71]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[72]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.001"/>
+  <testcase name="fullScenarioMatrix()[73]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[74]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[75]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[76]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[77]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[78]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.001"/>
+  <testcase name="fullScenarioMatrix()[79]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[80]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[81]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[82]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[83]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+  <testcase name="fullScenarioMatrix()[84]" classname="com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest" time="0.0"/>
+</testsuite>

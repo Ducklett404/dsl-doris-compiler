@@ -1,0 +1,63 @@
+{
+  "suiteVersion": "automated-acceptance-v1",
+  "startedAt": "2026-10-04T18:41:57.3137889+08:00",
+  "completedAt": "2026-10-04T18:43:56.8016874+08:00",
+  "checks": {
+    "phase1-scope-freeze": {
+      "status": "PASS",
+      "elapsedSeconds": 0.28
+    },
+    "scope-line-ending-regressions": {
+      "status": "PASS",
+      "elapsedSeconds": 0.331
+    },
+    "maven-all-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 39.64
+    },
+    "executor-module-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 3.794
+    },
+    "corpus-python-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.759
+    },
+    "doris-data-contract-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.131
+    },
+    "review-sql-result-regressions": {
+      "status": "PASS",
+      "elapsedSeconds": 0.206
+    },
+    "versioned-golden-contract-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.211
+    },
+    "sentinel-window-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 4.382
+    },
+    "historical-extrema-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 67.781
+    },
+    "formal-compiler-p95": {
+      "status": "PASS",
+      "elapsedSeconds": 1.93
+    },
+    "doris-golden-result-differential": {
+      "status": "NOT_RUN",
+      "reason": "Use -WithDoris and set DORIS_PASSWORD"
+    },
+    "doris-12-function-smoke": {
+      "status": "NOT_RUN",
+      "reason": "Use -WithDoris and set DORIS_PASSWORD"
+    },
+    "doris-19-year-matrix": {
+      "status": "NOT_RUN",
+      "reason": "Use -RunNineteenYearBenchmark (long-running: 720 container restarts)"
+    }
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "compilerVersion" : "0.1.0",
+  "registryVersion" : "stock-slot-registry-v1.0.1",
+  "corpusVersion" : "stock-slot-complex-v1",
+  "corpusSize" : 10,
+  "warmupIterations" : 1000,
+  "p95ThresholdMillis" : 50.0,
+  "uncachedPipeline" : {
+    "name" : "UNCACHED_PHASES_AFTER_JVM_WARMUP",
+    "iterations" : 5000,
+    "stages" : {
+      "parse" : {
+        "p50" : 0.0392,
+        "p95" : 0.084,
+        "p99" : 0.1339,
+        "max" : 1.5036
+      },
+      "semantic" : {
+        "p50" : 0.0096,
+        "p95" : 0.0273,
+        "p99" : 0.048,
+        "max" : 3.8218
+      },
+      "rewrite" : {
+        "p50" : 0.0,
+        "p95" : 1.0E-4,
+        "p99" : 1.01E-4,
+        "max" : 3.0E-4
+      },
+      "planning" : {
+        "p50" : 0.001399,
+        "p95" : 0.0037,
+        "p99" : 0.006501,
+        "max" : 0.056999
+      },
+      "sqlGeneration" : {
+        "p50" : 0.030199,
+        "p95" : 0.0938,
+        "p99" : 0.146899,
+        "max" : 1.730699
+      },
+      "total" : {
+        "p50" : 0.0846,
+        "p95" : 0.201801,
+        "p99" : 0.3228,
+        "max" : 3.9882
+      }
+    },
+    "allocatedBytes" : {
+      "p50" : 72024.0,
+      "p95" : 97880.0,
+      "p99" : 98232.0,
+      "max" : 100752.0
+    }
+  },
+  "boundedCache" : {
+    "name" : "BOUNDED_CACHE_HOT_PATH",
+    "iterations" : 5000,
+    "stages" : {
+      "parse" : {
+        "p50" : 0.0,
+        "p95" : 0.0,
+        "p99" : 0.0,
+        "max" : 0.0
+      },
+      "semantic" : {
+        "p50" : 0.0,
+        "p95" : 0.0,
+        "p99" : 0.0,
+        "max" : 0.0
+      },
+      "rewrite" : {
+        "p50" : 0.0,
+        "p95" : 0.0,
+        "p99" : 0.0,
+        "max" : 0.0
+      },
+      "planning" : {
+        "p50" : 0.0,
+        "p95" : 0.0,
+        "p99" : 0.0,
+        "max" : 0.0
+      },
+      "sqlGeneration" : {
+        "p50" : 0.0,
+        "p95" : 0.0,
+        "p99" : 0.0,
+        "max" : 0.0
+      },
+      "total" : {
+        "p50" : 5.0E-4,
+        "p95" : 8.0E-4,
+        "p99" : 0.0019,
+        "max" : 0.1753
+      }
+    },
+    "allocatedBytes" : {
+      "p50" : 112.0,
+      "p95" : 112.0,
+      "p99" : 112.0,
+      "max" : 112.0
+    }
+  },
+  "passed" : true,
+  "cacheStats" : {
+    "astSize" : 10,
+    "semanticSize" : 10,
+    "sqlTemplateSize" : 10,
+    "capacity" : 256,
+    "astHits" : 0,
+    "astMisses" : 10,
+    "semanticHits" : 0,
+    "semanticMisses" : 10,
+    "sqlTemplateHits" : 6000,
+    "sqlTemplateMisses" : 10,
+    "indicatorDefinitions" : {
+      "size" : 9,
+      "capacity" : 512,
+      "hits" : 29492,
+      "misses" : 9
+    }
+  }
+}

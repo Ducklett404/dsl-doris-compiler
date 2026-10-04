@@ -23,6 +23,8 @@ public final class StockSlotSqlCompiler {
     private static final Pattern CHINESE_DATE = Pattern.compile("^(\\d{4})年(\\d{1,2})月(\\d{1,2})日$");
     private static final Pattern RANGE = Pattern.compile("^([\\[(])\\s*(-?\\d+(?:\\.\\d+)?%?)\\s*,\\s*(-?\\d+(?:\\.\\d+)?%?)\\s*([\\])])$");
     private final StockSlotRegistry registry;
+    private final HistoricalExtremaFeatureCatalog historicalFeatures;
+    private final RollingAverageFeatureCatalog rollingFeatures;
     private final StockSlotCompiler frontEnd;
     private final BoundedCache<String, StockSlotAst.Document> astCache;
     private final BoundedCache<String, StockSlotAst.SemanticModel> semanticCache;
@@ -31,7 +33,16 @@ public final class StockSlotSqlCompiler {
     public StockSlotSqlCompiler() { this(new StockSlotRegistryLoader().loadDefault()); }
     public StockSlotSqlCompiler(StockSlotRegistry registry) { this(registry, DEFAULT_CACHE_CAPACITY); }
     public StockSlotSqlCompiler(StockSlotRegistry registry, int cacheCapacity) {
+        this(registry, cacheCapacity, null);
+    }
+    public StockSlotSqlCompiler(StockSlotRegistry registry, int cacheCapacity, HistoricalExtremaFeatureCatalog historicalFeatures) {
+        this(registry,cacheCapacity,historicalFeatures,null);
+    }
+    public StockSlotSqlCompiler(StockSlotRegistry registry, int cacheCapacity, HistoricalExtremaFeatureCatalog historicalFeatures,
+                                RollingAverageFeatureCatalog rollingFeatures) {
         this.registry = registry;
+        this.historicalFeatures = historicalFeatures;
+        this.rollingFeatures = rollingFeatures;
         this.frontEnd = new StockSlotCompiler(registry);
         this.astCache = new BoundedCache<>(cacheCapacity);
         this.semanticCache = new BoundedCache<>(cacheCapacity);
@@ -40,6 +51,24 @@ public final class StockSlotSqlCompiler {
 
     public StockSlotSqlArtifact compile(String dsl) {
         return compile(dsl, AccessPathMode.OPTIMIZED);
+    }
+
+    /** Feature materializations belong to a specific validated source snapshot. */
+    public StockSlotSqlArtifact compileForSnapshot(String dsl, String snapshotId) {
+        return compileForSnapshot(dsl, snapshotId, null);
+    }
+
+    /** Historical features require the exact source manifest as well as snapshot identity. */
+    public StockSlotSqlArtifact compileForSnapshot(String dsl, String snapshotId, String manifestSha256) {
+        var artifact = compileProfiled(dsl, AccessPathMode.OPTIMIZED, true, snapshotId, manifestSha256).artifact();
+        if (artifact.logicalPlan().stream().noneMatch(node -> node.kind().equals("FeatureScan"))) return artifact;
+        for (var call : artifact.semanticModel().calls()) for (var slot : call.slots()) {
+            if (!slot.name().equals("indicator_name")) continue;
+            var indicator = registry.indicator(slot.rawValue());
+            if (indicator.pattern() != null && !java.util.Objects.equals(snapshotId, indicator.parameters().get("featureSnapshotId")))
+                return compile(dsl, AccessPathMode.FULL_SCAN_REFERENCE);
+        }
+        return artifact;
     }
 
     public StockSlotSqlArtifact compile(String dsl, AccessPathMode accessPathMode) {
@@ -69,9 +98,14 @@ public final class StockSlotSqlCompiler {
     }
 
     private StockSlotCompileProfile compileProfiled(String dsl, AccessPathMode accessPathMode, boolean useCaches) {
+        return compileProfiled(dsl, accessPathMode, useCaches, null, null);
+    }
+
+    private StockSlotCompileProfile compileProfiled(String dsl, AccessPathMode accessPathMode, boolean useCaches,
+                                                    String snapshotId, String manifestSha256) {
         long totalStart = System.nanoTime();
         frontEnd.validate(dsl);
-        CompileKey key = new CompileKey(dsl, accessPathMode);
+        CompileKey key = new CompileKey(dsl, accessPathMode, snapshotId, manifestSha256);
         if (useCaches) {
             StockSlotSqlArtifact cached = sqlTemplateCache.get(key);
             if (cached != null) return profile(cached, 0, 0, 0, 0, 0, totalStart, true, true, true);
@@ -108,10 +142,17 @@ public final class StockSlotSqlCompiler {
         long planningNanos = System.nanoTime() - planningStart;
 
         long sqlStart = System.nanoTime();
-        StockSlotSqlArtifact artifact = advanced
-                ? new StockSlotAdvancedSqlCompiler(rewritten, registry,
-                    accessPathMode == AccessPathMode.OPTIMIZED).generate()
-                : new Generation(rewritten, accessPathMode).generate();
+        StockSlotSqlArtifact artifact;
+        if (advanced) {
+            try {
+                artifact = new StockSlotAdvancedSqlCompiler(rewritten, registry,
+                        accessPathMode == AccessPathMode.OPTIMIZED, historicalFeatures, rollingFeatures, snapshotId, manifestSha256).generate();
+            } catch (CompileException error) {
+                if (!error.code().equals("EXECUTION_FEATURE_MIXED")) throw error;
+                artifact = new StockSlotAdvancedSqlCompiler(rewritten, registry, false,
+                        historicalFeatures, rollingFeatures, snapshotId, manifestSha256).generate();
+            }
+        } else artifact = new Generation(rewritten, accessPathMode).generate();
         long sqlNanos = System.nanoTime() - sqlStart;
         if (useCaches) sqlTemplateCache.put(key, artifact);
         return profile(artifact, parseNanos, semanticNanos, rewriteNanos, planningNanos, sqlNanos,
@@ -134,7 +175,7 @@ public final class StockSlotSqlCompiler {
                              long astHits, long astMisses, long semanticHits, long semanticMisses,
                              long sqlTemplateHits, long sqlTemplateMisses,
                              StockSlotRegistry.IndicatorCacheStats indicatorDefinitions) {}
-    private record CompileKey(String dsl, AccessPathMode accessPathMode) {}
+    private record CompileKey(String dsl, AccessPathMode accessPathMode, String snapshotId, String manifestSha256) {}
 
     private record Metric(String expression, boolean extension) {}
 
@@ -317,10 +358,11 @@ public final class StockSlotSqlCompiler {
             }
             String rendered = render(value);
             bindings.add(number(matcher.group(2)));
+            String upperValue = render(value);
             bindings.add(number(matcher.group(3)));
             String lower = matcher.group(1).equals("[") ? ">=" : ">";
             String upper = matcher.group(4).equals("]") ? "<=" : "<";
-            return "(" + rendered + " " + lower + " ? AND " + rendered + " " + upper + " ?)";
+            return "(" + rendered + " " + lower + " ? AND " + upperValue + " " + upper + " ?)";
         }
 
         private BigDecimal number(String text) {

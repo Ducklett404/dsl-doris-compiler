@@ -1,0 +1,14 @@
+high-true: PASS
+high-false: PASS
+low-true: PASS
+low-false: PASS
+both-extrema: PASS
+either-extremum: PASS
+not-high: PASS
+market-isolation: PASS
+earlier-date: PASS
+count-fallback: PASS
+mixed-indicator-fallback: PASS
+current-row-presence: PASS
+industry-parameter-order: PASS
+industry-union-and-null: PASS

@@ -1,6 +1,10 @@
 [CmdletBinding()]
 param(
   [string]$MavenExecutable = 'mvn.cmd',
+  [string]$MavenRepository = '',
+  [switch]$Offline,
+  [string]$TestJvmArgs = '',
+  [string]$PythonExecutable = 'python',
   [switch]$WithDoris,
   [switch]$RunNineteenYearBenchmark,
   [string]$DorisUser = 'dsl_loader',
@@ -33,7 +37,24 @@ function Invoke-Checked([string]$Name, [scriptblock]$Action) {
 try {
   Push-Location $repo
   Invoke-Checked 'phase1-scope-freeze' { & '.\scripts\ci\verify-phase1-scope.ps1' }
-  Invoke-Checked 'maven-all-tests' { & $MavenExecutable '-B' 'test' 'package' }
+  Invoke-Checked 'scope-line-ending-regressions' { & '.\scripts\test_scope_freeze.ps1' }
+  $mavenArgs = @('-B', '--no-transfer-progress')
+  if ($MavenRepository) {
+    $cachePath = [IO.Path]::GetFullPath((Join-Path $repo $MavenRepository))
+    if ([IO.Path]::IsPathRooted($MavenRepository)) { $cachePath = $MavenRepository }
+    $mavenArgs += "-Dmaven.repo.local=$cachePath"
+  }
+  if ($Offline) { $mavenArgs += '-o' }
+  if ($TestJvmArgs) { $mavenArgs += "-Dtest.jvm.args=$TestJvmArgs" }
+  Invoke-Checked 'maven-all-tests' { & $MavenExecutable @mavenArgs 'test' 'package' }
+  Invoke-Checked 'executor-module-tests' { & $MavenExecutable @mavenArgs '-f' 'executor-doris/pom.xml' 'test' }
+  Invoke-Checked 'corpus-python-tests' { & $PythonExecutable 'scripts/test_prepare_competition_corpus.py' }
+  Invoke-Checked 'doris-data-contract-tests' { & $PythonExecutable 'scripts/doris/self-test.py' }
+  Invoke-Checked 'review-sql-result-regressions' { & $PythonExecutable 'scripts/test_review_regressions.py' }
+  Invoke-Checked 'versioned-golden-contract-tests' { & $PythonExecutable 'scripts/accuracy/test_contract_revision.py' }
+  Invoke-Checked 'sentinel-window-boundaries' { & $PythonExecutable 'scripts/accuracy/check_contract_boundaries.py' }
+  Invoke-Checked 'historical-extrema-boundaries' { & $PythonExecutable 'scripts/accuracy/check_historical_extrema.py' }
+  Invoke-Checked 'rolling-average-boundaries' { & $PythonExecutable 'scripts/accuracy/check_rolling_averages.py' }
   Invoke-Checked 'formal-compiler-p95' {
     & java '-jar' 'target/dsl-doris-compiler.jar' 'benchmark-stock-slot-compiler' `
       '--corpus' 'benchmarks/compiler/stock-slot-complex-v1.json' '--warmup' '1000' `
@@ -45,11 +66,11 @@ try {
   if ($WithDoris -or $RunNineteenYearBenchmark) {
     if ([string]::IsNullOrWhiteSpace($env:DORIS_PASSWORD)) { throw 'DORIS_PASSWORD is required for Doris tests' }
     Invoke-Checked 'doris-golden-result-differential' {
-      & python 'scripts/accuracy/run_correctness.py' '--container' $DorisContainer `
+      & $PythonExecutable 'scripts/accuracy/run_correctness.py' '--container' $DorisContainer `
         '--docker' $DockerExecutable '--user' $DorisUser '--mysql-port' "$MySqlPort"
     }
     Invoke-Checked 'doris-12-function-smoke' {
-      & python 'scripts/accuracy/run_function_smoke.py' '--container' $DorisContainer `
+      & $PythonExecutable 'scripts/accuracy/run_function_smoke.py' '--container' $DorisContainer `
         '--docker' $DockerExecutable '--user' $DorisUser '--mysql-port' "$MySqlPort"
     }
   } else {

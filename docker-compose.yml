@@ -3,6 +3,8 @@ services:
     build: .
     ports:
       - "8080:8080"
+    environment:
+      DSL_HTTP_TOKEN: ${DSL_HTTP_TOKEN:?Set DSL_HTTP_TOKEN to a random token of at least 32 characters}
     read_only: true
     tmpfs:
       - /tmp
