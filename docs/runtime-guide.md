@@ -1,8 +1,13 @@
 # CLI、HTTP、Docker 与数据装载运行手册
 
+## 现有数据按查询依赖运行（2026-10-05）
+
+数据无法继续补充时，`execute-stock-slot-sql` 与 `serve-doris` 可显式使用可信本地 `--project-validation` JSON。按基础、衍生和证券代码来源分别验证，并返回筛选前的指标/窗口缺失统计。权限与资源限制继续有效，不写入 `VALIDATED`，正式验收入口保持完整快照门禁。配置、结果字段及限制见 [按查询依赖验证指南](project-scoped-validation.md)。
+
 ## 环境
 
-- JDK 21；Maven 3.9+；Python 3；Windows PowerShell 5.1+。
+- JDK 21；Maven 3.9+；Python 3.12；Windows PowerShell 5.1+。
+- Python 统一自测依赖固定在 `scripts/doris/requirements-selftest.txt`（openpyxl 3.1.5、DuckDB 1.4.3）。对指定的测试解释器安装这些依赖，并使用 `scripts/test-all.ps1 -PythonExecutable 该解释器路径`；隔离 Doris 集成脚本沿用调用它的解释器。
 - Doris 本机验收使用 `apache/doris:all-in-one-4.1.3`，端口 `9030/8030/8040`。
 - 密码只通过 `DORIS_PASSWORD` 环境变量传入，不进入命令历史或仓库。
 
@@ -100,8 +105,24 @@ curl.exe http://127.0.0.1:8080/health
 
 ## 2026-10-04 修复升级
 
-注册表升级为 `1.0.1`，活动范围冻结为 `stock-slot-phase1-scope-v1.0.1`；历史冻结保存在
+注册表升级为 `1.0.2`，数值修复后的活动范围冻结为 `stock-slot-phase1-scope-v1.0.2`；历史冻结保存在
 `config/acceptance/history/`。冻结校验只统一 CRLF 为 LF，其他内容变化仍会失败。
+
+涨跌幅使用显式 DOUBLE 减法和除法，避免 Doris 推导为五位小数的 DECIMAL。
+position 使用从原始字段计算的精确伴随列、按指标量纲声明的小数位和交叉乘法，包含两个三等分边界。
+升级已有数据库时由装载账号应用 `data/doris/ddl/002_semantic_view.sql`，再使用新 JAR；
+该脚本只重建语义视图，不重建基础表或注册快照。先保留旧 `SHOW CREATE VIEW`
+定义供回滚，并核对关联、字段范围与实际查询结果。当前官方快照仍未获 VALIDATED 登记。
+注册表指纹会随新元数据变化，旧的显式历史 / 滚动特征目录不再匹配；
+必须按新注册表重新构建并独立校验目录，不能直接改目录指纹来复用旧登记。
+
+本地隔离实例可用 `scripts/doris/apply_numeric_view_revision.py --output-dir <新目录>`
+保存完整视图定义并升级；备份必须包含多行 `AS SELECT` 内容，不能只保留首行。
+`scripts/doris/check_view_revision_rollback.py --output-dir <新目录>` 在临时空库插入测试行，
+验证旧版冻结 SQL、完整备份及恢复后的全部列类型和结果，完成后清理临时库。
+4 GB BE 内存的诊断实例应顺序运行全量 position、滚动构建和完整历史校验，
+避免并行任务导致 `MEM_LIMIT_EXCEEDED`。本轮最终证据见
+`reports/precision-fix/2026-10-04/数值问题修复与自测报告.md`。
 
 MA60 特征表升级为 `newzl.stock_daily_features_v2`，其窗口保留已有的 NULL 行；旧 v1 表不再
 作为优化路径。部署时，先在已验证的 `stock-20060104-20260414-v1` 快照上运行
@@ -265,3 +286,5 @@ java -jar target/dsl-doris-compiler.jar compile-stock-slot-sql query.dsl `
 入口核对原始 CSV 哈希，完成实际 JDBC 的全源码自测、两个特征构建、Decimal 独立数值参考、原生边界及真实数据结果、正式门禁、28 组各路径 30 次计时、并发、证据损坏拒绝及容器重启检查，最后生成中文 Markdown 和机器汇总。报告目录必须新建；`--resume` 核对最终 JAR、已发布目录和完成阶段，不用于忽略失败。
 
 本机最终证据见 [官方数据路线执行与自测报告](../reports/official-route/2026-10-04/final/官方数据路线执行与自测报告.md)。`DIAGNOSTIC_PASS_FORMAL_BLOCKED` 表示当前项目规则下的计算诊断通过，正式源验收未通过；249,480 条未关联衍生记录以及官方字段口径仍须按解决路线图处理。原始数据、正式 CLI/HTTP 快照门禁和失败证据保留。
+
+项目来源验证入口现提供稳定输入标识、观察窗口和最多 20 个缺失样本的原因与实际相关日期。次数输入、次数结果和当前指标分别披露；解释超限或失败标为不完整，主查询仍沿用原有门禁与资源预算。字段说明和复跑入口见 [项目验证指南](project-scoped-validation.md)，本轮证据见 [窗口缺失解释与自测报告](../reports/project-explanations/2026-10-05/窗口缺失解释与自测报告.md)。下一步逐字段扩大其余已映射指标的实际数据核对。

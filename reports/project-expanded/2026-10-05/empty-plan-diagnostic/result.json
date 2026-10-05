@@ -1,0 +1,43 @@
+{
+  "purpose": "PROJECT_SINGLE_CASE_DIAGNOSTIC",
+  "officialAcceptanceEligible": false,
+  "seed": 20261005,
+  "snapshotId": "stock-20060104-20260414-v1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "jarSha256": "55f497ac2ab0e6637c55d64c5d80a1cc2749f0ad04fe10eddfd476a95b9cdcbb",
+  "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+  "oracleSha256": "c89658fe2c24c6ee9d7f67da237b1c86eb15282b86d9f8af523616c8aa2ecb9a",
+  "runnerSha256": "a4b3026bd60c1581f6c387b0fe15d3541477032c870fb7a86b1082a857b5f069",
+  "policySha256": "18e6fa64c8d2b46a214ed27ef3cbf3bc24e00b3adc593e261cd70916b93efa29",
+  "checks": [
+    {
+      "name": "formal-registry-empty",
+      "status": "PASS"
+    },
+    {
+      "name": "raw-reference-lock",
+      "status": "PASS"
+    },
+    {
+      "name": "funds-2006-01-04-cli",
+      "status": "FAIL",
+      "exitCode": 3,
+      "error": "doris_execution_failed: Doris EXPLAIN did not expose a scan-row estimate; refusing uncontrolled execution\n"
+    }
+  ],
+  "executions": [],
+  "restart": [],
+  "sourceCounts": {
+    "basic": 13650347,
+    "code": 5686,
+    "ext": 6170822
+  },
+  "fatalError": "funds-2006-01-04-cli",
+  "cleanup": "DONE",
+  "completedAtUtc": "2026-10-04T22:56:42.236659+00:00",
+  "passed": 2,
+  "total": 3,
+  "matrixCases": 1,
+  "restartRequested": false,
+  "status": "FAIL"
+}

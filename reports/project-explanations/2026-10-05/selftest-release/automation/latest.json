@@ -1,0 +1,86 @@
+{
+  "suiteVersion": "automated-acceptance-v1",
+  "startedAt": "2026-10-05T15:50:55.2793749+08:00",
+  "completedAt": "2026-10-05T15:54:17.3095862+08:00",
+  "checks": {
+    "phase1-scope-freeze": {
+      "status": "PASS",
+      "elapsedSeconds": 0.213
+    },
+    "scope-line-ending-regressions": {
+      "status": "PASS",
+      "elapsedSeconds": 0.318
+    },
+    "maven-all-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 49.872
+    },
+    "executor-module-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 3.763
+    },
+    "corpus-python-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.683
+    },
+    "doris-data-contract-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.105
+    },
+    "review-sql-result-regressions": {
+      "status": "PASS",
+      "elapsedSeconds": 0.214
+    },
+    "versioned-golden-contract-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.202
+    },
+    "project-matrix-reference-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.154
+    },
+    "project-window-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 6.083,
+      "outputPath": "D:\\A_MyProjects\\揭榜挂帅\\dsl-doris-compiler\\target\\project-window-boundaries-437e1e97dc664bb79219b2c644a81362.json"
+    },
+    "project-rsi-tail-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 2.995,
+      "outputPath": "D:\\A_MyProjects\\揭榜挂帅\\dsl-doris-compiler\\target\\project-rsi-boundaries-4083e501112b4bf3ba26e3a49b7d7209.json"
+    },
+    "project-availability-explanations": {
+      "status": "PASS",
+      "elapsedSeconds": 6.362,
+      "outputPath": "D:\\A_MyProjects\\揭榜挂帅\\dsl-doris-compiler\\target\\project-availability-3585f77e10de4edaa3880d1a71d18516.json"
+    },
+    "sentinel-window-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 3.805
+    },
+    "historical-extrema-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 63.298
+    },
+    "rolling-average-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 61.813
+    },
+    "formal-compiler-p95": {
+      "status": "PASS",
+      "elapsedSeconds": 2.109
+    },
+    "doris-golden-result-differential": {
+      "status": "NOT_RUN",
+      "reason": "Use -WithDoris and set DORIS_PASSWORD"
+    },
+    "doris-12-function-smoke": {
+      "status": "NOT_RUN",
+      "reason": "Use -WithDoris and set DORIS_PASSWORD"
+    },
+    "doris-19-year-matrix": {
+      "status": "NOT_RUN",
+      "reason": "Use -RunNineteenYearBenchmark (long-running: 720 container restarts)"
+    }
+  }
+}

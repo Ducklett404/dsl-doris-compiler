@@ -1,0 +1,104 @@
+{
+  "purpose": "PROJECT_MIXED_WINDOW_VALIDATION",
+  "officialAcceptanceEligible": false,
+  "startedAtUtc": "2026-10-05T01:27:02.686756+00:00",
+  "jarSha256": "295da34e56cbead3ab28fcce809e5e6210fe714a1ce9cdfdae6d447ddfc8adaa",
+  "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+  "oracleSha256": "b681446fb5bf8cc1bbc868174dec1c902b1556c65074e87a6a170b2bcb2b6cc1",
+  "runnerSha256": "f858ef8a1a1fc401503af5f9c9b40eef4a52a0d0a02d9eb1a3ba2ee07876a1cf",
+  "policySha256": "18e6fa64c8d2b46a214ed27ef3cbf3bc24e00b3adc593e261cd70916b93efa29",
+  "rounds": 1,
+  "executions": [
+    {
+      "case": "funds-mixed",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2719.0000000118744,
+      "timings": {
+        "compileMillis": 61.513,
+        "queueMillis": 0.043399,
+        "explainMillis": 52.6618,
+        "dorisExecutionMillis": 1074.5434,
+        "returnMillis": 1.562701,
+        "totalMillis": 2602.5144
+      },
+      "validationMillis": 1457.3327,
+      "artifact": "funds-mixed-1.json"
+    }
+  ],
+  "checks": [
+    {
+      "name": "strict-registry-empty",
+      "status": "PASS"
+    },
+    {
+      "name": "raw-reference-lock",
+      "status": "PASS"
+    },
+    {
+      "name": "http-started",
+      "status": "PASS"
+    },
+    {
+      "name": "sources-unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "artifacts-unchanged",
+      "status": "PASS"
+    }
+  ],
+  "sourceStateBefore": [
+    [
+      [
+        "basic",
+        "13650347"
+      ],
+      [
+        "code",
+        "5686"
+      ],
+      [
+        "ext",
+        "6170822"
+      ]
+    ],
+    []
+  ],
+  "sourceStateAfter": [
+    [
+      [
+        "basic",
+        "13650347"
+      ],
+      [
+        "code",
+        "5686"
+      ],
+      [
+        "ext",
+        "6170822"
+      ]
+    ],
+    []
+  ],
+  "cleanup": "DONE",
+  "cleanupErrors": [],
+  "completedAtUtc": "2026-10-05T01:27:15.266371+00:00",
+  "status": "PASS",
+  "passed": 1,
+  "total": 1
+}

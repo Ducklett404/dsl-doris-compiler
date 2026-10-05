@@ -1,0 +1,25 @@
+{
+  "purpose": "OWNED_DIAGNOSTIC_VIEW_UPGRADE_NO_SOURCE_REWRITE",
+  "ddlSha256": "e66260f27bbd3783e490db42e55b904b0fab14ce663189ca693ace8093cea405",
+  "status": "PASS",
+  "sourceCountsAfter": {
+    "code": "5686",
+    "basic": "13650347",
+    "ext": "6170822"
+  },
+  "registeredSnapshotCount": 0,
+  "viewRisePctType": [
+    [
+      "risePct",
+      "double",
+      "Yes",
+      "false",
+      "NULL",
+      ""
+    ]
+  ],
+  "upgradedViews": {
+    "v_hsj_stock_hq_basic": "CREATE VIEW `v_hsj_stock_hq_basic`",
+    "v_hsj_stock_hq_ext": "CREATE VIEW `v_hsj_stock_hq_ext`"
+  }
+}

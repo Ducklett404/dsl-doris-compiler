@@ -1,0 +1,26 @@
+{
+  "purpose" : "EXTRACTED_CORPUS_SQL_COMPILATION_COVERAGE_NOT_RESULT_ACCURACY",
+  "executedAtUtc" : "2026-10-04T13:51:59.030256600Z",
+  "input" : "reports\\stock-slot-v1\\classification-registry-v1.jsonl",
+  "inputSha256" : "cec1e146408954d9fb5410415916734ba276dfe405fcedbceb6644da7ff5c32b",
+  "jarSha256" : "e8eb307686c7937beda7ff878dcbca68d53826499aa42e5241cc959f5caacbe1",
+  "total" : 5799,
+  "previousParsed" : 5770,
+  "sqlCompiled" : 1,
+  "rejected" : 5798,
+  "internalErrors" : 0,
+  "reasons" : {
+    "BETWEEN_RANGE" : 2,
+    "COMPARISON_TYPE" : 9,
+    "COUNT_EXPRESSION" : 13,
+    "DSL_SYNTAX" : 9,
+    "EXECUTION_DATE_UNSUPPORTED" : 3399,
+    "EXECUTION_INDICATOR_UNSUPPORTED" : 2206,
+    "EXECUTION_INDICATOR_WINDOW" : 65,
+    "EXECUTION_MULTI_DATE_UNSUPPORTED" : 1,
+    "EXECUTION_PERIOD_UNSUPPORTED" : 88,
+    "EXECUTION_SELECT_TYPE_UNSUPPORTED" : 1,
+    "STOCK_SLOT_SYNTAX" : 1,
+    "THEN_REQUIRES_RANK" : 4
+  }
+}

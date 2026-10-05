@@ -1,0 +1,439 @@
+{
+  "compilation": {
+    "dslVersion": "stock-slot-v1",
+    "semanticModel": {
+      "document": {
+        "expression": {
+          "kind": "Binary",
+          "operator": "=",
+          "left": {
+            "kind": "FunctionCall",
+            "name": "position",
+            "arguments": [
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 10,
+                  "endLine": 1,
+                  "endColumn": 12
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 14,
+                  "endLine": 1,
+                  "endColumn": 16
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "收盘价",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 18,
+                  "endLine": 1,
+                  "endColumn": 23
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "3日",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 25,
+                  "endLine": 1,
+                  "endColumn": 29
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "2026-04-14",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 31,
+                  "endLine": 1,
+                  "endColumn": 43
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 45,
+                  "endLine": 1,
+                  "endColumn": 47
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 49,
+                  "endLine": 1,
+                  "endColumn": 51
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 53,
+                  "endLine": 1,
+                  "endColumn": 55
+                }
+              }
+            ],
+            "type": "STRING",
+            "span": {
+              "line": 1,
+              "column": 1,
+              "endLine": 1,
+              "endColumn": 56
+            }
+          },
+          "right": {
+            "kind": "Literal",
+            "value": "高",
+            "type": "STRING",
+            "span": {
+              "line": 1,
+              "column": 59,
+              "endLine": 1,
+              "endColumn": 62
+            }
+          },
+          "type": "BOOLEAN",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 62
+          }
+        },
+        "selectionLimit": null,
+        "span": {
+          "line": 1,
+          "column": 1,
+          "endLine": 1,
+          "endColumn": 67
+        }
+      },
+      "calls": [
+        {
+          "function": "position",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 56
+          },
+          "slots": [
+            {
+              "name": "market",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "filter_scope",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "indicator_name",
+              "rawValue": "收盘价",
+              "structuredValue": {
+                "value": "收盘价",
+                "template": "收盘价",
+                "parameters": {}
+              }
+            },
+            {
+              "name": "period",
+              "rawValue": "3日",
+              "structuredValue": {
+                "raw": "3日",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "date",
+              "rawValue": "2026-04-14",
+              "structuredValue": {
+                "raw": "2026-04-14",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "select_type",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "agg_func",
+              "rawValue": "",
+              "structuredValue": ""
+            },
+            {
+              "name": "count_exp",
+              "rawValue": "",
+              "structuredValue": null
+            }
+          ]
+        }
+      ]
+    },
+    "logicalPlan": [
+      {
+        "kind": "HistoryScan",
+        "detail": "dsl_project_fixture_a126970fb3fb.v_hsj_stock_hq_basic through 2026-04-14"
+      },
+      {
+        "kind": "Window",
+        "detail": "1 contract(s)"
+      },
+      {
+        "kind": "EvaluationDateFilter",
+        "detail": "2026-04-14"
+      },
+      {
+        "kind": "Sort",
+        "detail": "mktcode,tgtcode"
+      },
+      {
+        "kind": "Project",
+        "detail": "mktcode,tgtcode"
+      }
+    ],
+    "windowContracts": [
+      {
+        "function": "position",
+        "partitionKeys": [
+          "mktcode",
+          "tgtcode"
+        ],
+        "orderKeys": [
+          "bizdate"
+        ],
+        "unit": "TRADING_DAY",
+        "lookback": 3,
+        "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+        "insufficientHistoryPolicy": "NULL",
+        "nullPolicy": "STRICT_NO_IMPUTATION",
+        "requireFullWindow": true
+      }
+    ],
+    "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePricePosition AS `v1`\n  FROM dsl_project_fixture_a126970fb3fb.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN NOT (COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) = 3) OR MAX(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=MIN(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) THEN NULL WHEN CAST(3 AS DECIMAL(1,0))*(CAST(`v1` AS DECIMAL(36,4))-MIN(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)) <= (MAX(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)-MIN(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)) THEN '低' WHEN CAST(3 AS DECIMAL(1,0))*(CAST(`v1` AS DECIMAL(36,4))-MIN(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)) >= CAST(2 AS DECIMAL(1,0))*(MAX(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)-MIN(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)) THEN '高' ELSE '中' END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+    "bindings": [
+      "2026-04-14",
+      "2026-04-14",
+      "高"
+    ],
+    "ordered": false,
+    "coveragePlan": {
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePricePosition AS `v1`\n  FROM dsl_project_fixture_a126970fb3fb.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN NOT (COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) = 3) OR MAX(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=MIN(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) THEN NULL WHEN CAST(3 AS DECIMAL(1,0))*(CAST(`v1` AS DECIMAL(36,4))-MIN(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)) <= (MAX(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)-MIN(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)) THEN '低' WHEN CAST(3 AS DECIMAL(1,0))*(CAST(`v1` AS DECIMAL(36,4))-MIN(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)) >= CAST(2 AS DECIMAL(1,0))*(MAX(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)-MIN(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)) THEN '高' ELSE '中' END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT COUNT(*),COALESCE(SUM(0),0),COALESCE(SUM(CASE WHEN cov.`f1` IS NULL THEN 1 ELSE 0 END),0) FROM current_rows cov;",
+      "samplesSql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePricePosition AS `v1`\n  FROM dsl_project_fixture_a126970fb3fb.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN NOT (COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) = 3) OR MAX(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=MIN(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) THEN NULL WHEN CAST(3 AS DECIMAL(1,0))*(CAST(`v1` AS DECIMAL(36,4))-MIN(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)) <= (MAX(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)-MIN(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)) THEN '低' WHEN CAST(3 AS DECIMAL(1,0))*(CAST(`v1` AS DECIMAL(36,4))-MIN(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)) >= CAST(2 AS DECIMAL(1,0))*(MAX(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)-MIN(CAST(`v1` AS DECIMAL(36,4))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)) THEN '高' ELSE '中' END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT cov.mktcode,cov.tgtcode,0,CASE WHEN cov.`f1` IS NULL THEN 1 ELSE 0 END FROM current_rows cov WHERE cov.`f1` IS NULL ORDER BY cov.mktcode,cov.tgtcode LIMIT 20;",
+      "bindings": [
+        "2026-04-14",
+        "2026-04-14"
+      ],
+      "evaluationDate": "2026-04-14",
+      "inputs": [
+        {
+          "function": "position",
+          "indicator": "收盘价",
+          "alias": "f1"
+        }
+      ],
+      "extensionRequired": false
+    }
+  },
+  "columns": [
+    "mktcode",
+    "tgtcode"
+  ],
+  "rows": [
+    [
+      "1",
+      "000001"
+    ]
+  ],
+  "truncated": false,
+  "timings": {
+    "compileMillis": 63.9333,
+    "queueMillis": 0.0247,
+    "explainMillis": 33.3412,
+    "dorisExecutionMillis": 43.9464,
+    "returnMillis": 0.0523,
+    "totalMillis": 334.471
+  },
+  "limits": {
+    "queryTimeoutSeconds": 10,
+    "maxEstimatedScanRows": 10000,
+    "estimatedScanRows": 16,
+    "maxReturnRows": 1000,
+    "maxExecutionMemoryBytes": 134217728
+  },
+  "sqlFingerprint": "sha256:401de7e85a50813d901926b7e9410066918b34f30d69819590ec9c8f917aef9e",
+  "dataVersion": {
+    "snapshotId": "synthetic-project-v1",
+    "contractVersion": "fixture-v1",
+    "manifestSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "compilerVersion": "0.1.0",
+  "explain": [
+    "PLAN FRAGMENT 0",
+    "  OUTPUT EXPRS:",
+    "    mktcode[#91]",
+    "    tgtcode[#92]",
+    "  PARTITION: UNPARTITIONED",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  VRESULT SINK",
+    "     MYSQL_PROTOCOL",
+    "",
+    "  4:VMERGING-EXCHANGE",
+    "     offset: 0",
+    "     distribute expr lists: mktcode[#91], tgtcode[#92]",
+    "",
+    "PLAN FRAGMENT 1",
+    "",
+    "  PARTITION: HASH_PARTITIONED: mktcode[#0], tgtcode[#1]",
+    "",
+    "  HAS_COLO_PLAN_NODE: true",
+    "",
+    "  STREAM DATA SINK",
+    "    EXCHANGE ID: 04",
+    "    UNPARTITIONED",
+    "IS_MERGE: true",
+    "",
+    "  3:VSORT(696)",
+    "  |  order by: mktcode[#91] ASC, tgtcode[#92] ASC",
+    "  |  algorithm: full sort",
+    "  |  local merge sort",
+    "  |  merge by exchange",
+    "  |  offset: 0",
+    "  |  distribute expr lists: ",
+    "  |  ",
+    "  2:VANALYTIC(684)",
+    "  |  functions: [count(closePricePosition[#84])], [max(cast(closePricePosition as DECIMALV3(36, 4))[#85])], [min(cast(closePricePosition as DECIMALV3(36, 4))[#85])]",
+    "  |  partition by: mktcode[#81], tgtcode[#82]",
+    "  |  order by: bizdate[#83] ASC NULLS FIRST",
+    "  |  window: ROWS BETWEEN 2 PRECEDING AND CURRENT ROW",
+    "  |  predicates: (count(closePricePosition) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)[#86] = 3), (((max(cast(closePricePosition as DECIMALV3(36, 4))) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)[#87] != min(cast(closePricePosition as DECIMALV3(36, 4))) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)[#88]) OR max(cast(closePricePosition as DECIMALV3(36, 4))) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)[#87] IS NULL) OR min(cast(closePricePosition as DECIMALV3(36, 4))) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)[#88] IS NULL), (NOT (((3 * (CAST(cast(closePricePosition as DECIMALV3(36, 4))[#85] AS decimalv3(37,4)) - CAST(min(cast(closePricePosition as DECIMALV3(36, 4))) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)[#88] AS decimalv3(37,4)))) <= CAST((CAST(max(cast(closePricePosition as DECIMALV3(36, 4))) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)[#87] AS decimalv3(37,4)) - CAST(min(cast(closePricePosition as DECIMALV3(36, 4))) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)[#88] AS decimalv3(37,4))) AS decimalv3(38,4))) <=> TRUE)), ((3 * (CAST(cast(closePricePosition as DECIMALV3(36, 4))[#85] AS decimalv3(37,4)) - CAST(min(cast(closePricePosition as DECIMALV3(36, 4))) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)[#88] AS decimalv3(37,4)))) >= (2 * (CAST(max(cast(closePricePosition as DECIMALV3(36, 4))) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 2 PRECEDING AND CURRENT R",
+    "  |  final projections: mktcode[#81], tgtcode[#82]",
+    "  |  final project output tuple id: 7",
+    "  |  distribute expr lists: mktcode[#81], tgtcode[#82]",
+    "  |  ",
+    "  1:VSORT(680)",
+    "  |  order by: mktcode[#81] ASC, tgtcode[#82] ASC, bizdate[#83] ASC",
+    "  |  algorithm: full sort",
+    "  |  offset: 0",
+    "  |  distribute expr lists: mktcode[#76], tgtcode[#77]",
+    "  |  ",
+    "  0:VOlapScanNode(668)",
+    "     TABLE: dsl_project_fixture_a126970fb3fb.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON",
+    "     PREDICATES: ((bizdate[#2] <= '2026-04-14') AND (__DORIS_DELETE_SIGN__[#56] = 0))",
+    "     partitions=1/1 (p20260101000000)",
+    "     tablets=16/16, tabletList=1791116605066,1791116605068,1791116605070 ...",
+    "     cardinality=16, avgRowSize=0.0, numNodes=1",
+    "     pushAggOp=NONE",
+    "     final projections: mktcode[#69], tgtcode[#70], bizdate[#71], (cast(cast(closePx as DECIMALV3(24, 4)) as DECIMALV3(28, 8)) / 10000)[#75], CAST((cast(cast(closePx as DECIMALV3(24, 4)) as DECIMALV3(28, 8)) / 10000)[#75] AS decimalv3(36,4))",
+    "     final project output tuple id: 4",
+    "     intermediate projections: mktcode[#63], tgtcode[#64], bizdate[#65], closePx[#66], cast(closePx as DECIMALV3(24, 4))[#67], cast(cast(closePx as DECIMALV3(24, 4)) as DECIMALV3(28, 8))[#68], (cast(cast(closePx as DECIMALV3(24, 4)) as DECIMALV3(28, 8))[#68] / 10000)",
+    "     intermediate tuple id: 3",
+    "     intermediate projections: mktcode[#58], tgtcode[#59], bizdate[#60], closePx[#61], cast(closePx as DECIMALV3(24, 4))[#62], CAST(cast(closePx as DECIMALV3(24, 4))[#62] AS decimalv3(28,8))",
+    "     intermediate tuple id: 2",
+    "     intermediate projections: mktcode[#0], tgtcode[#1], bizdate[#2], closePx[#8], CAST(closePx[#8] AS decimalv3(24,4))",
+    "     intermediate tuple id: 1",
+    "",
+    "",
+    "",
+    "========== STATISTICS ==========",
+    "planned with unknown column statistics"
+  ],
+  "queryProfile": {
+    "available": false,
+    "queryId": "2e00ebc02ace49ea-b136f87940aac19a",
+    "taskState": null,
+    "total": null,
+    "user": null,
+    "note": "Profile is asynchronous or not retained"
+  },
+  "dataQuality": {
+    "validationLevel": "PROJECT_SCOPED",
+    "officialAcceptanceEligible": false,
+    "certificateSha256": "443d91e7161060ecb6ef9a90746e632703b545c8ff5009d12dbdb112461b17ca",
+    "coverageStatus": "PARTIAL_INPUTS",
+    "evaluationDate": "2026-04-14",
+    "requiredSources": [
+      "basic"
+    ],
+    "observedSecurities": 5,
+    "currentMissingExtensionRows": 0,
+    "inputs": [
+      {
+        "function": "position",
+        "indicator": "收盘价",
+        "unavailableSecurities": 4
+      }
+    ],
+    "unavailableSamples": [
+      [
+        "1",
+        "000002",
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "000003",
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "000004",
+        "0",
+        "1"
+      ],
+      [
+        "1",
+        "000005",
+        "0",
+        "1"
+      ]
+    ],
+    "snapshotExtensionWithoutBasic": 1,
+    "snapshotCloseOutsideRange": 0,
+    "limitations": [
+      "手工标注合成数据；不代表官方数据或官方验收。",
+      "可用性在用户条件、THEN 排名及 LIMIT 之前统计；输入为 NULL 不等于条件为假。历史不足、NULL/哨兵、零分母及平坦区间均可导致输入不可用。各项缺失数量可能重叠，不可相加作为未命中总数。缺失样本最多 20 行，依次为市场、证券、当日衍生缺行标记及各输入缺失标记；窗口内具体缺失日期需进一步检查。"
+    ],
+    "validationMillis": 220.7186
+  }
+}

@@ -17,15 +17,19 @@ public final class DorisQueryExecutor implements AutoCloseable {
     public static final int MAX_TIMEOUT_SECONDS = 10;
     private static final Pattern EXPLAIN_ROWS = Pattern.compile(
             "(?i)(?:cardinality|rowcount|rows|estimated rows)\\s*[:=]\\s*([0-9][0-9,]*)");
+    private static final Pattern EXPLAIN_NODE = Pattern.compile(
+            "^\\s*[|+\\- ]*\\d+:([A-Za-z][A-Za-z0-9_]*)\\b");
     private static final List<String> WRITE_PRIVILEGES = List.of(
             "ADMIN_PRIV", "NODE_PRIV", "GRANT_PRIV", "LOAD_PRIV", "ALTER_PRIV", "CREATE_PRIV", "DROP_PRIV");
 
     private final StockSlotSqlCompiler compiler;
+    private final StockSlotRegistry registry;
     private final Connection connection;
     private final DorisExecutionPolicy policy;
     private final ReentrantLock executionSlot = new ReentrantLock(true);
     private final String fullScanBaselineSql;
     private final String snapshotRegistryTable;
+    private final ProjectDataValidation projectValidation;
 
     public DorisQueryExecutor(String jdbcUrl, String user, String password, StockSlotRegistry registry) throws SQLException {
         this(jdbcUrl, user, password, registry, DorisExecutionPolicy.localBenchmarkDefaults());
@@ -33,12 +37,20 @@ public final class DorisQueryExecutor implements AutoCloseable {
 
     public DorisQueryExecutor(String jdbcUrl, String user, String password, StockSlotRegistry registry,
                               DorisExecutionPolicy policy) throws SQLException {
+        this(jdbcUrl, user, password, registry, policy, null);
+    }
+
+    public DorisQueryExecutor(String jdbcUrl, String user, String password, StockSlotRegistry registry,
+                              DorisExecutionPolicy policy, ProjectDataValidation projectValidation) throws SQLException {
         Objects.requireNonNull(jdbcUrl, "jdbcUrl");
         Objects.requireNonNull(user, "user");
         Objects.requireNonNull(password, "password");
         Objects.requireNonNull(registry, "registry");
         this.policy = Objects.requireNonNull(policy, "policy");
+        this.projectValidation = projectValidation;
+        if (projectValidation != null) projectValidation.validateRegistry(registry);
         this.compiler = new StockSlotSqlCompiler(registry);
+        this.registry = registry;
         var basic = registry.table("basic");
         this.snapshotRegistryTable = snapshotRegistryTable(basic.qualifiedName());
         var feature = registry.table("features");
@@ -103,7 +115,8 @@ public final class DorisQueryExecutor implements AutoCloseable {
         int maxRows = requestedMaxRows <= 0 ? policy.maxReturnRows() : Math.min(requestedMaxRows, policy.maxReturnRows());
 
         long compileStart = System.nanoTime();
-        StockSlotSqlArtifact artifact = compiler.compileForSnapshot(dsl, snapshotId);
+        StockSlotSqlArtifact artifact = projectValidation == null ? compiler.compileForSnapshot(dsl, snapshotId)
+                : compiler.compile(dsl, StockSlotSqlCompiler.AccessPathMode.PROJECT_REFERENCE);
         double compileMillis = millis(System.nanoTime() - compileStart);
         validateGeneratedSelect(artifact.sql());
 
@@ -120,7 +133,10 @@ public final class DorisQueryExecutor implements AutoCloseable {
                 "Execution queue wait exceeded " + policy.maxQueueWaitMillis() + " ms");
 
         try {
-            var snapshot = requireValidatedSnapshot(snapshotId);
+            long validationStart = System.nanoTime();
+            var required = projectValidation == null ? Set.<String>of() : projectValidation.requiredSources(artifact);
+            var snapshot = projectValidation == null ? requireValidatedSnapshot(snapshotId)
+                    : projectValidation.verify(connection, snapshotId, required, timeoutSeconds);
             long explainStart = System.nanoTime();
             var explained = explain(artifact);
             double explainMillis = millis(System.nanoTime() - explainStart);
@@ -130,6 +146,8 @@ public final class DorisQueryExecutor implements AutoCloseable {
             if (explained.estimatedRows() > policy.maxEstimatedScanRows())
                 throw new DorisExecutionException(DorisExecutionException.Category.SECURITY_LIMIT,
                         "Estimated scan rows " + explained.estimatedRows() + " exceed limit " + policy.maxEstimatedScanRows());
+
+            var quality = projectValidation == null ? null : assessCoverage(artifact, required, timeoutSeconds, validationStart);
 
             List<String> columns = new ArrayList<>();
             List<List<String>> rows = new ArrayList<>();
@@ -163,7 +181,7 @@ public final class DorisQueryExecutor implements AutoCloseable {
                             executionMillis, returnMillis, totalMillis),
                     new DorisExecutionArtifact.Limits(timeoutSeconds, policy.maxEstimatedScanRows(),
                             explained.estimatedRows(), maxRows, policy.maxExecutionMemoryBytes()),
-                    fingerprint(artifact.sql()), snapshot, DslCompiler.VERSION, explained.lines(), profile);
+                    fingerprint(artifact.sql()), snapshot, DslCompiler.VERSION, explained.lines(), profile, quality);
         } catch (SQLTimeoutException e) {
             throw new DorisExecutionException(DorisExecutionException.Category.TIMEOUT, "Doris query timed out", e);
         } catch (SQLException e) {
@@ -173,6 +191,88 @@ public final class DorisQueryExecutor implements AutoCloseable {
                             + " (SQLState " + e.getSQLState() + ")", e);
         } finally {
             executionSlot.unlock();
+        }
+    }
+
+    private DorisExecutionArtifact.DataQuality assessCoverage(StockSlotSqlArtifact artifact, Set<String> required,
+                                                               int timeout, long start) throws SQLException {
+        var plan = artifact.coveragePlan();
+        var coverageArtifact = new StockSlotSqlArtifact(artifact.dslVersion(), artifact.semanticModel(), List.of(), List.of(),
+                plan.combinedSql(), plan.bindings(), false);
+        validateGeneratedSelect(plan.combinedSql());
+        var estimate = explain(coverageArtifact);
+        if (estimate.estimatedRows() < 0 || estimate.estimatedRows() > policy.maxEstimatedScanRows())
+            throw new DorisExecutionException(DorisExecutionException.Category.SECURITY_LIMIT, "Availability scan exceeds controlled limits");
+        long observed, missing;
+        var inputs = new ArrayList<DorisExecutionArtifact.InputAvailability>();
+        var samples = new ArrayList<List<String>>();
+        try (var statement = connection.prepareStatement(plan.combinedSql())) {
+            statement.setQueryTimeout(timeout); statement.setMaxRows(21); bind(statement, plan.bindings());
+            try (var rows = statement.executeQuery()) {
+                if (!rows.next()) throw new SQLException("Availability query returned no row");
+                observed = rows.getLong(1); missing = rows.getLong(2);
+                for (int i = 0; i < plan.inputs().size(); i++) {
+                    var input = plan.inputs().get(i);
+                    inputs.add(new DorisExecutionArtifact.InputAvailability(input.function(), input.indicator(), rows.getLong(i + 3),
+                            input.inputId(), input.window(), input.role(), input.requiredObservations()));
+                }
+                int first = plan.inputs().size() + 3;
+                int returned = 0;
+                do {
+                    if (++returned > 20) throw new SQLException("Availability query exceeded its bounded result");
+                    boolean unavailable = false;
+                    for (int i = first + 2; i <= rows.getMetaData().getColumnCount(); i++)
+                        unavailable |= rows.getInt(i) == 1;
+                    if (unavailable) {
+                        var row = new ArrayList<String>();
+                        for (int i = first; i <= rows.getMetaData().getColumnCount(); i++) row.add(rows.getString(i));
+                        samples.add(row);
+                    }
+                } while (rows.next());
+            }
+        }
+        var limitations = new ArrayList<>(projectValidation.certificate().limitations());
+        if (plan.inputs().stream().anyMatch(i -> i.function().endsWith("（窗口输入）")))
+            limitations.add("CONS/EXIST 沿用冻结次数规则：NULL 条件不计为命中；完整观察行不足时次数结果为 NULL。另列的窗口输入检查会披露窗口内无法判定的条件，不改变次数计算结果。");
+        var details = sampleDetails(artifact, samples, timeout);
+        limitations.add("可用性在用户条件、THEN 排名及 LIMIT 之前统计；输入为 NULL 不等于条件为假。各项缺失数量可能重叠，不可相加。样本最多 20 只；每个原因最多展示 20 个实际相关日期。每只证券最多检查 10001 条观察记录，每个输入最多 250000 步解释计算。历史不足只报告观察数，不推测缺少哪些交易日；平坦区间及零分母的相关日期不是缺失日期。跨证券查询、超限或检查失败会明确标记解释不完整，SQL 缺失标记保持有效。");
+        return new DorisExecutionArtifact.DataQuality("PROJECT_SCOPED", false, projectValidation.certificateSha256(),
+                observed == 0 ? "NO_OBSERVATIONS" : missing > 0 || inputs.stream().anyMatch(i -> i.unavailableSecurities() > 0)
+                        ? "PARTIAL_INPUTS" : "COMPLETE_QUERY_INPUTS", plan.evaluationDate().toString(), List.copyOf(required),
+                observed, missing, inputs, samples, projectValidation.certificate().extensionWithoutBasic(),
+                projectValidation.certificate().closeOutsideRange(), limitations, millis(System.nanoTime() - start), details);
+    }
+
+    private List<StockSlotAvailabilityDiagnostics.SampleDetail> sampleDetails(StockSlotSqlArtifact artifact,
+                                                                            List<List<String>> samples, int timeout) {
+        if (samples.isEmpty()) return List.of();
+        var coverage = artifact.coveragePlan();
+        try {
+            var fetch = StockSlotAvailabilityDiagnostics.fetchPlan(coverage, registry, samples);
+            validateGeneratedSelect(fetch.sql());
+            var estimate = explain(new StockSlotSqlArtifact(artifact.dslVersion(), artifact.semanticModel(), List.of(), List.of(),
+                    fetch.sql(), fetch.bindings(), false));
+            if (estimate.estimatedRows() < 0 || estimate.estimatedRows() > policy.maxEstimatedScanRows())
+                return StockSlotAvailabilityDiagnostics.unavailable(coverage, samples, "DETAIL_SCAN_LIMIT");
+            var evidence = new ArrayList<List<String>>();
+            try (var statement = connection.prepareStatement(fetch.sql())) {
+                statement.setQueryTimeout(timeout); statement.setMaxRows(fetch.maxRows() + 1); bind(statement, fetch.bindings());
+                try (var rows = statement.executeQuery()) {
+                    while (rows.next()) {
+                        if (evidence.size() >= fetch.maxRows())
+                            return StockSlotAvailabilityDiagnostics.unavailable(coverage, samples, "DETAIL_ROW_LIMIT");
+                        var row = new ArrayList<String>();
+                        for (int i = 1; i <= rows.getMetaData().getColumnCount(); i++)
+                            row.add(Objects.requireNonNullElse(rows.getString(i), "NULL"));
+                        evidence.add(row);
+                    }
+                }
+            }
+            return StockSlotAvailabilityDiagnostics.explain(coverage, registry, samples, fetch, evidence);
+        } catch (SQLException e) {
+            return StockSlotAvailabilityDiagnostics.unavailable(coverage, samples, "DETAIL_QUERY_UNAVAILABLE");
+        } catch (RuntimeException e) {
+            return StockSlotAvailabilityDiagnostics.unavailable(coverage, samples, StockSlotAvailabilityDiagnostics.failureCode(e));
         }
     }
 
@@ -324,11 +424,23 @@ public final class DorisQueryExecutor implements AutoCloseable {
 
     static long parseEstimatedRows(List<String> lines) {
         long estimate = -1;
+        boolean hasEmptySet = false;
+        boolean onlyEmptySetNodes = true;
         for (String line : lines) {
             var matcher = EXPLAIN_ROWS.matcher(line);
             while (matcher.find()) estimate = Math.max(estimate,
                     Long.parseLong(matcher.group(1).replace(",", "")));
+            var node = EXPLAIN_NODE.matcher(line);
+            if (node.find()) {
+                boolean empty = node.group(1).equalsIgnoreCase("VEMPTYSET")
+                        || node.group(1).equalsIgnoreCase("EMPTYSET");
+                hasEmptySet |= empty;
+                onlyEmptySetNodes &= empty;
+            }
         }
+        // Doris folds impossible predicates to a pure EMPTYSET plan without cardinality.
+        // A join, scan or unfamiliar operator beside EMPTYSET still requires an estimate.
+        if (estimate < 0 && hasEmptySet && onlyEmptySetNodes) return 0;
         return estimate;
     }
 

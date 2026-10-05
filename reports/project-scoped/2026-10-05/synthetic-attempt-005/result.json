@@ -1,0 +1,148 @@
+{
+  "purpose": "SYNTHETIC_PROJECT_SCOPED_EXECUTION",
+  "officialAcceptanceEligible": false,
+  "jarSha256": "9f65c1ed3da975bba8a936ccf7fe875b4455dbde85c86363f78141e052ff3504",
+  "checks": [
+    {
+      "name": "independent-source-capabilities",
+      "status": "PASS",
+      "details": {
+        "basic": {
+          "expectedRows": 16,
+          "rows": 16,
+          "missingColumns": [],
+          "duplicateKeyGroups": 0,
+          "nullKeys": 0
+        },
+        "extension": {
+          "expectedRows": 16,
+          "rows": 16,
+          "missingColumns": [],
+          "duplicateKeyGroups": 0,
+          "nullKeys": 0
+        },
+        "code": {
+          "expectedRows": 7,
+          "rows": 7,
+          "missingColumns": [],
+          "duplicateKeyGroups": 0,
+          "nullKeys": 0
+        }
+      }
+    },
+    {
+      "name": "basic-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "basic-results-and-null-coverage",
+      "status": "PASS"
+    },
+    {
+      "name": "extension-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "missing-sentinel-and-null-coverage",
+      "status": "PASS"
+    },
+    {
+      "name": "mixed-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "mixed-retains-three-valued-inputs",
+      "status": "PASS"
+    },
+    {
+      "name": "window-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "window-insufficiency-and-historical-null",
+      "status": "PASS"
+    },
+    {
+      "name": "position-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "position-flat-and-window-gaps",
+      "status": "PASS"
+    },
+    {
+      "name": "consecutive-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "consecutive-complete-horizon",
+      "status": "PASS"
+    },
+    {
+      "name": "named-security-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "code-source-dependency",
+      "status": "PASS"
+    },
+    {
+      "name": "ranking-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "availability-before-then-rank-and-limit",
+      "status": "PASS"
+    },
+    {
+      "name": "no-observations",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "empty-date-is-labelled",
+      "status": "PASS"
+    },
+    {
+      "name": "strict-still-rejects",
+      "status": "PASS",
+      "exitCode": 3,
+      "error": "doris_execution_failed: Required VALIDATED Doris snapshot is not registered: synthetic-project-v1\n"
+    },
+    {
+      "name": "industry-rejected",
+      "status": "PASS",
+      "exitCode": 3,
+      "error": "doris_execution_failed: Industry capability is not validated by the supplied official data\n"
+    },
+    {
+      "name": "scan-limit-rejected",
+      "status": "FAIL",
+      "exitCode": 2,
+      "error": "option '--max-scan-rows' (<maxScanRows>) should be specified only once\nUsage: dsl-doris-compiler execute-stock-slot-sql [--allow-empty-password]\n       [--database=<database>] [-f=<format>] [--host=<host>]\n       [--max-exec-memory-bytes=<maxExecMemoryBytes>]\n       [--max-queue-wait-ms=<maxQueueWaitMillis>]\n       [--max-return-rows=<maxReturnRows>] [--max-rows=<maxRows>]\n       [--max-scan-rows=<maxScanRows>] [-o=<output>]\n       [--password-env=<passwordEnv>] [--port=<port>]\n       [--project-validation=<projectValidation>] [--registry=<registry>]\n       [--snapshot-id=<snapshotId>] [--time"
+    }
+  ],
+  "fatalError": "scan-limit-rejected",
+  "cleanup": "DONE",
+  "passed": 21,
+  "total": 22,
+  "completedAtUtc": "2026-10-04T17:21:42.425393+00:00",
+  "status": "FAIL"
+}

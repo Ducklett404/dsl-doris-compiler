@@ -1,0 +1,56 @@
+{
+  "status": "PROJECT_SCOPED_PASS_FORMAL_BLOCKED",
+  "officialAcceptanceEligible": false,
+  "completedAtUtc": "2026-10-04T18:10:52.024481+00:00",
+  "jarSha256": "55f497ac2ab0e6637c55d64c5d80a1cc2749f0ad04fe10eddfd476a95b9cdcbb",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "registryFingerprint": "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+  "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+  "policySha256": "18e6fa64c8d2b46a214ed27ef3cbf3bc24e00b3adc593e261cd70916b93efa29",
+  "rawRows": 19826855,
+  "sourceCsvHashesVerified": 3,
+  "unmatchedExtensionRows": 249480,
+  "priceRangeWarnings": 3487,
+  "officialRegistryRows": 0,
+  "junit": {
+    "main": {
+      "tests": 284,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "executor": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "projectIntegrationChecks": 38,
+  "officialControlledChecks": 32,
+  "officialCliQueries": 12,
+  "officialHttpResultComparison": 1,
+  "strictIntegrationChecks": 18,
+  "numericBoundaryChecks": 42,
+  "strictNegativeGateChecks": 9,
+  "compilerUncachedP95Millis": 0.229,
+  "automationNotRun": [
+    "doris-golden-result-differential",
+    "doris-12-function-smoke",
+    "doris-19-year-matrix"
+  ],
+  "evidenceHashes": {
+    "sources": "8f6279e64b2ceabea35bfa9fbe21d323077f90e2e9a52539c47910ac71a9eb62",
+    "certificate": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+    "integration": "0c78a5748b1184e93ca01d80c553df7b7a78a68621a18f47b9dbd448d1168b04",
+    "numeric": "86c366abcbb3f9d1b174f4cbd3d14d44b65c36a78951148cf4b9307cc306100a",
+    "junit": "c1d8f8f220581df609c26770cbd840ef7e0c3e71d21d33f17b8a1f15c62a2895",
+    "automation": "b1e74124d87923212598062d1d62d8fbc87ea552bbd65fe2cb9e1681dc4fbea1",
+    "compiler": "9ca2c1bacd4e1054407df8434cce78310258f35c74528e94ea0d5a1e40ed007b",
+    "scope": "9098ab95cd797b16b9950d480043c1b867fd041b2a6add642f801b67722b4ad8",
+    "synthetic": "bd490453ff441df4c9914ba4eaa7f9dc9e8ef9499435a5836c9a5a786fc91ceb",
+    "official": "464824de50e43cbf574059369c7ad51f149800d16a58acb0935b156b1b5970f1",
+    "strict": "c40f1cc4e72f682dd10da4773974a4563a0a83eb6ea537e68ec643757844aa02",
+    "formal": "af063ddf3d1a2cbec7aeaf957cb361b3eaec18068d7560c94975123d8753be08"
+  }
+}

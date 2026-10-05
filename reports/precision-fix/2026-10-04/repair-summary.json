@@ -1,0 +1,66 @@
+{
+  "status": "PASS",
+  "purpose": "NUMERICAL_DEFECT_REPAIR_DIAGNOSTIC",
+  "acceptanceEligible": false,
+  "formalAcceptanceStatus": "BLOCKED",
+  "completedAtUtc": "2026-10-04T16:28:09.513253+00:00",
+  "jarSha256": "89db17c449c3142abc63e0812ba19836ced420099d4f1e7aeb3df66e6da14363",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "registryVersion": "stock-slot-registry-v1.0.2",
+  "scopeFreezeId": "stock-slot-phase1-scope-v1.0.2",
+  "registryFingerprint": "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+  "junit": {
+    "main": {
+      "tests": 276,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "executor": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "nativeNumericalBoundaryCases": 42,
+  "officialFieldValuesChecked": 403104,
+  "officialFieldValueMismatches": 0,
+  "officialQueriesPassed": 233,
+  "officialPositionCases": 171,
+  "originalThresholdCases": 5,
+  "localCases": 34,
+  "dorisCases": 34,
+  "nativeFunctionSmokeCases": 15,
+  "integrationCases": 18,
+  "negativeGateCases": 9,
+  "featureCatalogQueryCases": 42,
+  "independentRollingValues": 168460,
+  "sourceCsvHashesVerified": 3,
+  "unmatchedExtensionRows": 249480,
+  "closeOutsideRangeWarnings": 3487,
+  "officialRegistryRows": 0,
+  "compilerUncachedP95Millis": 0.209,
+  "automationNotRun": [
+    "doris-golden-result-differential",
+    "doris-12-function-smoke",
+    "doris-19-year-matrix"
+  ],
+  "evidenceHashes": {
+    "integration": "2f734ea138737e499d16bea56911fe850aefee8cc3924d741895dc355d06892a",
+    "numericalBoundaries": "50e2c46594310ce5907c1de4dd05bb51ee839b80837e4061d156cfdd1b372bcb",
+    "fieldsAndFunctions": "6192e216e1647a506465d6be65272fda5ea409a605074b1b15a0656b64d78e66",
+    "positions": "d2702446918787fc3675940c9c0cfba7ebc5cc31c8550dd70e6a3d69d43fcf96",
+    "originalThresholds": "53220f29dcce5d97b0d835e3a9c267d7461a7a825b427b92d7a67281f735613e",
+    "localResults": "20429fdec69210bde1ed8342c44100a42dcd68162501469a849c87c2619b153c",
+    "dorisResults": "5a47d2ebf0c4c17251595604a1f4aea2e5c2d4d87f67b443f255a5604684a6cf",
+    "historyBuild": "6d5a4a5d3bc0d2685558f092bfe652e082ae019a03ec775b772d1fdd5e2793e9",
+    "rollingBuild": "2d3d63157fd0df87c1c13073e1b5e0b594c2280520349c0ec92ffcfcd3fe8dd8",
+    "independentRolling": "f944084b0c4cebfc4cbd6e2a0258ff7d863034337f71b5f2d9c429d8d98d4e44",
+    "featureQueries": "c77fd75ab8f866b0edbdd85802c9cb8579abb4aa68e4bfa165e05ca9dfeea6c5",
+    "negativeGates": "311eb9fe104ebac364bf65b8132d6b4dbeb4b5cc81e3bafe470558bcb6d03cc0",
+    "formalGate": "43a9e3eb26ae0c62a7a903fb4f613119477112e759f0932b35b78946d1fcbb8a",
+    "rollback": "8e397b59699f39689415ae54fc780b44e24b38eea67ec8db4112683ae07208d3"
+  },
+  "nextStep": "Confirm the official composite-key relationship and obtain a data patch or field dictionary; create and validate a new snapshot before formal acceptance."
+}

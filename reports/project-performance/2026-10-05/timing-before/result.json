@@ -1,0 +1,539 @@
+{
+  "purpose": "PROJECT_MIXED_WINDOW_VALIDATION",
+  "officialAcceptanceEligible": false,
+  "startedAtUtc": "2026-10-05T01:32:37.529638+00:00",
+  "jarSha256": "eefdb0ece3f3dbf2352929a4410247bf0453a9d1f64fcd7f9e55ba82c7e164d1",
+  "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+  "oracleSha256": "b681446fb5bf8cc1bbc868174dec1c902b1556c65074e87a6a170b2bcb2b6cc1",
+  "runnerSha256": "e3bb8b2f7cec44e156bb95b57ba7dc8edb3a38154bf25ed8a47513626f4c383a",
+  "policySha256": "18e6fa64c8d2b46a214ed27ef3cbf3bc24e00b3adc593e261cd70916b93efa29",
+  "rounds": 8,
+  "executions": [
+    {
+      "case": "position3",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 3077.999999979511,
+      "timings": {
+        "compileMillis": 57.7869,
+        "queueMillis": 0.024201,
+        "explainMillis": 36.5798,
+        "dorisExecutionMillis": 847.732099,
+        "returnMillis": 3.4663,
+        "totalMillis": 2933.718001
+      },
+      "validationMillis": 2015.604599,
+      "artifact": "position3-1.json"
+    },
+    {
+      "case": "rsi5",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2844.0000000118744,
+      "timings": {
+        "compileMillis": 4.799299,
+        "queueMillis": 0.005299,
+        "explainMillis": 36.6321,
+        "dorisExecutionMillis": 868.0312,
+        "returnMillis": 2.2858,
+        "totalMillis": 2823.9591
+      },
+      "validationMillis": 1941.351001,
+      "artifact": "rsi5-1.json"
+    },
+    {
+      "case": "position3",
+      "round": 2,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2828.0000000086147,
+      "timings": {
+        "compileMillis": 0.6258,
+        "queueMillis": 0.0059,
+        "explainMillis": 37.6979,
+        "dorisExecutionMillis": 834.2478,
+        "returnMillis": 1.291301,
+        "totalMillis": 2814.0864
+      },
+      "validationMillis": 1970.358099,
+      "artifact": "position3-2.json"
+    },
+    {
+      "case": "rsi5",
+      "round": 2,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2671.9999999913853,
+      "timings": {
+        "compileMillis": 0.028499,
+        "queueMillis": 0.0043,
+        "explainMillis": 37.492899,
+        "dorisExecutionMillis": 821.7206,
+        "returnMillis": 1.7537,
+        "totalMillis": 2650.534
+      },
+      "validationMillis": 1821.183099,
+      "artifact": "rsi5-2.json"
+    },
+    {
+      "case": "position3",
+      "round": 3,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2515.00000001397,
+      "timings": {
+        "compileMillis": 0.033899,
+        "queueMillis": 0.0044,
+        "explainMillis": 28.7159,
+        "dorisExecutionMillis": 723.200701,
+        "returnMillis": 1.2995,
+        "totalMillis": 2506.156001
+      },
+      "validationMillis": 1776.2106,
+      "artifact": "position3-3.json"
+    },
+    {
+      "case": "rsi5",
+      "round": 3,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2671.9999999913853,
+      "timings": {
+        "compileMillis": 0.032099,
+        "queueMillis": 0.0047,
+        "explainMillis": 33.5503,
+        "dorisExecutionMillis": 822.988,
+        "returnMillis": 1.8611,
+        "totalMillis": 2657.2703
+      },
+      "validationMillis": 1826.3811,
+      "artifact": "rsi5-3.json"
+    },
+    {
+      "case": "position3",
+      "round": 4,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2546.9999999913853,
+      "timings": {
+        "compileMillis": 0.050501,
+        "queueMillis": 0.004701,
+        "explainMillis": 30.6773,
+        "dorisExecutionMillis": 869.7599,
+        "returnMillis": 0.7575,
+        "totalMillis": 2537.8177
+      },
+      "validationMillis": 1660.5844,
+      "artifact": "position3-4.json"
+    },
+    {
+      "case": "rsi5",
+      "round": 4,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 3328.0000000086147,
+      "timings": {
+        "compileMillis": 0.040799,
+        "queueMillis": 0.0045,
+        "explainMillis": 38.0548,
+        "dorisExecutionMillis": 1064.378899,
+        "returnMillis": 0.8027,
+        "totalMillis": 3303.9053
+      },
+      "validationMillis": 2233.4277,
+      "artifact": "rsi5-4.json"
+    },
+    {
+      "case": "position3",
+      "round": 5,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2703.0000000086147,
+      "timings": {
+        "compileMillis": 0.0454,
+        "queueMillis": 0.014,
+        "explainMillis": 28.9109,
+        "dorisExecutionMillis": 922.1826,
+        "returnMillis": 0.6248,
+        "totalMillis": 2679.9054
+      },
+      "validationMillis": 1751.590499,
+      "artifact": "position3-5.json"
+    },
+    {
+      "case": "rsi5",
+      "round": 5,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2546.9999999913853,
+      "timings": {
+        "compileMillis": 0.029199,
+        "queueMillis": 0.0162,
+        "explainMillis": 28.3723,
+        "dorisExecutionMillis": 808.316401,
+        "returnMillis": 0.7056,
+        "totalMillis": 2521.4655
+      },
+      "validationMillis": 1707.554,
+      "artifact": "rsi5-5.json"
+    },
+    {
+      "case": "position3",
+      "round": 6,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2516.0000000032596,
+      "timings": {
+        "compileMillis": 0.0352,
+        "queueMillis": 0.005599,
+        "explainMillis": 31.6414,
+        "dorisExecutionMillis": 769.2284,
+        "returnMillis": 0.6772,
+        "totalMillis": 2509.611199
+      },
+      "validationMillis": 1734.3322,
+      "artifact": "position3-6.json"
+    },
+    {
+      "case": "rsi5",
+      "round": 6,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2796.9999999913853,
+      "timings": {
+        "compileMillis": 0.0356,
+        "queueMillis": 0.0037,
+        "explainMillis": 27.931901,
+        "dorisExecutionMillis": 838.6175,
+        "returnMillis": 0.8559,
+        "totalMillis": 2772.901301
+      },
+      "validationMillis": 1928.332601,
+      "artifact": "rsi5-6.json"
+    },
+    {
+      "case": "position3",
+      "round": 7,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 3046.0000000020955,
+      "timings": {
+        "compileMillis": 0.0494,
+        "queueMillis": 0.0127,
+        "explainMillis": 32.066699,
+        "dorisExecutionMillis": 988.1271,
+        "returnMillis": 0.563,
+        "totalMillis": 3020.2578
+      },
+      "validationMillis": 2025.4603,
+      "artifact": "position3-7.json"
+    },
+    {
+      "case": "rsi5",
+      "round": 7,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2937.999999994645,
+      "timings": {
+        "compileMillis": 0.0321,
+        "queueMillis": 0.004301,
+        "explainMillis": 32.922399,
+        "dorisExecutionMillis": 935.9026,
+        "returnMillis": 0.5789,
+        "totalMillis": 2931.2179
+      },
+      "validationMillis": 1988.9899,
+      "artifact": "rsi5-7.json"
+    },
+    {
+      "case": "position3",
+      "round": 8,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2781.0000000172295,
+      "timings": {
+        "compileMillis": 0.0374,
+        "queueMillis": 0.0038,
+        "explainMillis": 30.9803,
+        "dorisExecutionMillis": 836.7837,
+        "returnMillis": 0.582399,
+        "totalMillis": 2761.590299
+      },
+      "validationMillis": 1919.0284,
+      "artifact": "position3-8.json"
+    },
+    {
+      "case": "rsi5",
+      "round": 8,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2655.9999999881256,
+      "timings": {
+        "compileMillis": 0.035699,
+        "queueMillis": 0.004599,
+        "explainMillis": 34.5371,
+        "dorisExecutionMillis": 741.597,
+        "returnMillis": 0.685299,
+        "totalMillis": 2632.291099
+      },
+      "validationMillis": 1884.458501,
+      "artifact": "rsi5-8.json"
+    }
+  ],
+  "checks": [
+    {
+      "name": "strict-registry-empty",
+      "status": "PASS"
+    },
+    {
+      "name": "raw-reference-lock",
+      "status": "PASS"
+    },
+    {
+      "name": "http-started",
+      "status": "PASS"
+    },
+    {
+      "name": "sources-unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "artifacts-unchanged",
+      "status": "PASS"
+    }
+  ],
+  "sourceStateBefore": [
+    [
+      [
+        "basic",
+        "13650347"
+      ],
+      [
+        "code",
+        "5686"
+      ],
+      [
+        "ext",
+        "6170822"
+      ]
+    ],
+    []
+  ],
+  "sourceStateAfter": [
+    [
+      [
+        "basic",
+        "13650347"
+      ],
+      [
+        "code",
+        "5686"
+      ],
+      [
+        "ext",
+        "6170822"
+      ]
+    ],
+    []
+  ],
+  "cleanup": "DONE",
+  "cleanupErrors": [],
+  "completedAtUtc": "2026-10-05T01:33:33.755867+00:00",
+  "status": "PASS",
+  "passed": 16,
+  "total": 16
+}

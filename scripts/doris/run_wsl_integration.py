@@ -19,13 +19,22 @@ sys.path.insert(0,str(ROOT/'scripts/accuracy'))
 from run_correctness import WslDoris,sql_literal
 
 
+def verify_test_environment():
+    # Fail before creating a fixture or running Java when the chosen environment is incomplete.
+    if sys.version_info < (3,11):raise RuntimeError('Python 3.11+ required; use the configured Python 3.12 test environment')
+    dependencies=subprocess.run([sys.executable,'-c','import duckdb,openpyxl'],capture_output=True,text=True,encoding='utf-8',errors='replace')
+    if dependencies.returncode:raise RuntimeError('Chosen Python environment needs scripts/doris/requirements-selftest.txt dependencies: '+dependencies.stderr.strip())
+
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--distribution',default='dsl-doris-official-01a104f9')
     parser.add_argument('--report-dir',type=Path,default=ROOT/'reports/continuation/2026-10-04')
     parser.add_argument('--maven',default=str(ROOT/'.tools/apache-maven-3.9.16/bin/mvn.cmd'))
     parser.add_argument('--maven-repository',default='.mvn-cache')
-    args=parser.parse_args();args.report_dir.mkdir(parents=True,exist_ok=True)
+    args=parser.parse_args()
+    verify_test_environment()
+    args.report_dir.mkdir(parents=True,exist_ok=True)
     client=WslDoris(args.distribution,'dsl-doris-official')
     original_registry=client.query('SELECT * FROM newzl.data_snapshot_registry')
     if original_registry:raise RuntimeError('Expected the existing diagnostic instance with no official validated snapshot')
@@ -140,10 +149,20 @@ def main():
         with (args.report_dir/'unified-integration.log').open('wb') as output:
             tested=subprocess.run(['pwsh','-NoProfile','-File',str(ROOT/'scripts/test-all.ps1'),
                 '-MavenExecutable',args.maven,'-MavenRepository',args.maven_repository,'-Offline',
+                '-PythonExecutable',sys.executable,
                 '-TestJvmArgs','-Djdk.net.unixdomain.tmpdir=target/disabled-unix-sockets'],
                 cwd=ROOT,env=environment,stdout=output,stderr=subprocess.STDOUT,timeout=600)
         record('unified-real-jdbc-tests',tested.returncode==0,exitCode=tested.returncode)
         report['compilerJarSha256']=hashlib.sha256((ROOT/'target/dsl-doris-compiler.jar').read_bytes()).hexdigest()
+        precision_output=args.report_dir/'numeric-precision-boundaries.json'
+        with (args.report_dir/'numeric-precision-boundaries.log').open('wb') as output:
+            precision=subprocess.run([sys.executable,str(ROOT/'scripts/doris/check_precision_regressions.py'),
+                '--distribution',args.distribution,'--java',java,'--output',str(precision_output)],
+                cwd=ROOT,stdout=output,stderr=subprocess.STDOUT,timeout=300)
+        precision_report=json.loads(precision_output.read_text(encoding='utf-8')) if precision_output.exists() else {}
+        record('numeric-precision-boundaries',precision.returncode==0 and precision_report.get('status')=='PASS'
+            and precision_report.get('fixtureCleanup')=='DONE',exitCode=precision.returncode,
+            precisionPassed=precision_report.get('passed'),precisionTotal=precision_report.get('total'))
         with tempfile.TemporaryDirectory(prefix='doris-positive-integration-') as directory:
             temporary=Path(directory);source=temporary/'query.dsl'
             dsl="indicator('', '', '收盘价', '2026-04-14', '', '', '') > 1"

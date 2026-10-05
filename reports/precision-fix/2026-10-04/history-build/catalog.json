@@ -1,0 +1,31 @@
+{
+  "formatVersion": "history-extrema-v1",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "registryFingerprint": "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+  "qualifiedTable": "dsl_history_diag_24ba0af6e88a.history_extrema_v1",
+  "completeDates": {
+    "2026-04-13": 5614,
+    "2026-04-14": 5614
+  },
+  "metrics": {
+    "low": {
+      "minField": "low_min",
+      "maxField": "low_max",
+      "sourceExpression": "b.lowPrice",
+      "currentField": "low_current"
+    },
+    "high": {
+      "minField": "high_min",
+      "maxField": "high_max",
+      "sourceExpression": "b.highPrice",
+      "currentField": "high_current"
+    },
+    "close": {
+      "minField": "close_min",
+      "maxField": "close_max",
+      "sourceExpression": "b.closePrice",
+      "currentField": "close_current"
+    }
+  }
+}

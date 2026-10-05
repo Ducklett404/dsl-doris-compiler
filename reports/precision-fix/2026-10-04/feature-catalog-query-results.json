@@ -1,0 +1,684 @@
+{
+  "purpose": "NEW_REGISTRY_FEATURE_COMPATIBILITY_DIAGNOSTIC",
+  "acceptanceEligible": false,
+  "jarSha256": "89db17c449c3142abc63e0812ba19836ced420099d4f1e7aeb3df66e6da14363",
+  "historyCatalogSha256": "cc6fc033f70c9e8dc12d112e0d421a53ad12085c4ce3d2c92c733e2d00d105f1",
+  "rollingCatalogSha256": "953c7b04e040f36adbe491c1013993aaa8940faef490caa5c699582191470f1e",
+  "checks": [
+    {
+      "name": "ma20-2026-04-10-all",
+      "dsl": "indicator('', '', '20日均线', '2026-04-10', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 3542,
+      "referenceRows": 3542,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma20-2026-04-10-沪",
+      "dsl": "indicator('沪', '', '20日均线', '2026-04-10', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 1582,
+      "referenceRows": 1582,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma60-2026-04-10-all",
+      "dsl": "indicator('', '', '60日均线', '2026-04-10', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 161,
+      "referenceRows": 161,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma60-2026-04-10-沪",
+      "dsl": "indicator('沪', '', '60日均线', '2026-04-10', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 49,
+      "referenceRows": 49,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma120-2026-04-10-all",
+      "dsl": "indicator('', '', '120日均线', '2026-04-10', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 156,
+      "referenceRows": 156,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma120-2026-04-10-沪",
+      "dsl": "indicator('沪', '', '120日均线', '2026-04-10', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 44,
+      "referenceRows": 44,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma250-2026-04-10-all",
+      "dsl": "indicator('', '', '250日均线', '2026-04-10', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 146,
+      "referenceRows": 146,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma250-2026-04-10-沪",
+      "dsl": "indicator('沪', '', '250日均线', '2026-04-10', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 41,
+      "referenceRows": 41,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "record-high-2026-04-10-all",
+      "dsl": "record_high('', '', '最高价', '250日', '2026-04-10', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 7,
+      "referenceRows": 7,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "record-low-2026-04-10-all",
+      "dsl": "record_low('', '', '最低价', '250日', '2026-04-10', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 2,
+      "referenceRows": 2,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma20-2026-04-13-all",
+      "dsl": "indicator('', '', '20日均线', '2026-04-13', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 3538,
+      "referenceRows": 3538,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma20-2026-04-13-沪",
+      "dsl": "indicator('沪', '', '20日均线', '2026-04-13', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 1583,
+      "referenceRows": 1583,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma60-2026-04-13-all",
+      "dsl": "indicator('', '', '60日均线', '2026-04-13', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 161,
+      "referenceRows": 161,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma60-2026-04-13-沪",
+      "dsl": "indicator('沪', '', '60日均线', '2026-04-13', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 49,
+      "referenceRows": 49,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma120-2026-04-13-all",
+      "dsl": "indicator('', '', '120日均线', '2026-04-13', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 156,
+      "referenceRows": 156,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma120-2026-04-13-沪",
+      "dsl": "indicator('沪', '', '120日均线', '2026-04-13', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 44,
+      "referenceRows": 44,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma250-2026-04-13-all",
+      "dsl": "indicator('', '', '250日均线', '2026-04-13', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 145,
+      "referenceRows": 145,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma250-2026-04-13-沪",
+      "dsl": "indicator('沪', '', '250日均线', '2026-04-13', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 41,
+      "referenceRows": 41,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "record-high-2026-04-13-all",
+      "dsl": "record_high('', '', '最高价', '250日', '2026-04-13', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 7,
+      "referenceRows": 7,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "record-low-2026-04-13-all",
+      "dsl": "record_low('', '', '最低价', '250日', '2026-04-13', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 3,
+      "referenceRows": 3,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma20-2026-04-14-all",
+      "dsl": "indicator('', '', '20日均线', '2026-04-14', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 3528,
+      "referenceRows": 3528,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma20-2026-04-14-沪",
+      "dsl": "indicator('沪', '', '20日均线', '2026-04-14', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 1578,
+      "referenceRows": 1578,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma60-2026-04-14-all",
+      "dsl": "indicator('', '', '60日均线', '2026-04-14', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 160,
+      "referenceRows": 160,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma60-2026-04-14-沪",
+      "dsl": "indicator('沪', '', '60日均线', '2026-04-14', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 49,
+      "referenceRows": 49,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma120-2026-04-14-all",
+      "dsl": "indicator('', '', '120日均线', '2026-04-14', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 155,
+      "referenceRows": 155,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma120-2026-04-14-沪",
+      "dsl": "indicator('沪', '', '120日均线', '2026-04-14', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 44,
+      "referenceRows": 44,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma250-2026-04-14-all",
+      "dsl": "indicator('', '', '250日均线', '2026-04-14', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 145,
+      "referenceRows": 145,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "ma250-2026-04-14-沪",
+      "dsl": "indicator('沪', '', '250日均线', '2026-04-14', '', '', '') > 10",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 41,
+      "referenceRows": 41,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "record-high-2026-04-14-all",
+      "dsl": "record_high('', '', '最高价', '250日', '2026-04-14', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 4,
+      "referenceRows": 4,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "record-low-2026-04-14-all",
+      "dsl": "record_low('', '', '最低价', '250日', '2026-04-14', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "RollingFeatureScan",
+      "planNodes": [
+        "RollingFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 4,
+      "referenceRows": 4,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "history-low-收盘价-2026-04-13",
+      "dsl": "record_low('', '', '收盘价', '历史', '2026-04-13', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "HistoricalFeatureScan",
+      "planNodes": [
+        "HistoricalFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 11,
+      "referenceRows": 11,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "history-high-收盘价-2026-04-13",
+      "dsl": "record_high('', '', '收盘价', '历史', '2026-04-13', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "HistoricalFeatureScan",
+      "planNodes": [
+        "HistoricalFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 44,
+      "referenceRows": 44,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "history-low-最高价-2026-04-13",
+      "dsl": "record_low('', '', '最高价', '历史', '2026-04-13', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "HistoricalFeatureScan",
+      "planNodes": [
+        "HistoricalFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 29,
+      "referenceRows": 29,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "history-high-最高价-2026-04-13",
+      "dsl": "record_high('', '', '最高价', '历史', '2026-04-13', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "HistoricalFeatureScan",
+      "planNodes": [
+        "HistoricalFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 40,
+      "referenceRows": 40,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "history-low-最低价-2026-04-13",
+      "dsl": "record_low('', '', '最低价', '历史', '2026-04-13', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "HistoricalFeatureScan",
+      "planNodes": [
+        "HistoricalFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 15,
+      "referenceRows": 15,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "history-high-最低价-2026-04-13",
+      "dsl": "record_high('', '', '最低价', '历史', '2026-04-13', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "HistoricalFeatureScan",
+      "planNodes": [
+        "HistoricalFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 44,
+      "referenceRows": 44,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "history-low-收盘价-2026-04-14",
+      "dsl": "record_low('', '', '收盘价', '历史', '2026-04-14', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "HistoricalFeatureScan",
+      "planNodes": [
+        "HistoricalFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 5,
+      "referenceRows": 5,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "history-high-收盘价-2026-04-14",
+      "dsl": "record_high('', '', '收盘价', '历史', '2026-04-14', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "HistoricalFeatureScan",
+      "planNodes": [
+        "HistoricalFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 51,
+      "referenceRows": 51,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "history-low-最高价-2026-04-14",
+      "dsl": "record_low('', '', '最高价', '历史', '2026-04-14', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "HistoricalFeatureScan",
+      "planNodes": [
+        "HistoricalFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 10,
+      "referenceRows": 10,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "history-high-最高价-2026-04-14",
+      "dsl": "record_high('', '', '最高价', '历史', '2026-04-14', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "HistoricalFeatureScan",
+      "planNodes": [
+        "HistoricalFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 48,
+      "referenceRows": 48,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "history-low-最低价-2026-04-14",
+      "dsl": "record_low('', '', '最低价', '历史', '2026-04-14', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "HistoricalFeatureScan",
+      "planNodes": [
+        "HistoricalFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 4,
+      "referenceRows": 4,
+      "onlyActual": [],
+      "onlyExpected": []
+    },
+    {
+      "name": "history-high-最低价-2026-04-14",
+      "dsl": "record_high('', '', '最低价', '历史', '2026-04-14', '', '', '') = True",
+      "status": "PASS",
+      "requiredPlanNode": "HistoricalFeatureScan",
+      "planNodes": [
+        "HistoricalFeatureScan",
+        "EvaluationDateFilter",
+        "Sort",
+        "Project"
+      ],
+      "rows": 63,
+      "referenceRows": 63,
+      "onlyActual": [],
+      "onlyExpected": []
+    }
+  ],
+  "passed": 42,
+  "total": 42,
+  "status": "PASS"
+}

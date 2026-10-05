@@ -1,0 +1,67 @@
+{
+  "suiteVersion": "automated-acceptance-v1",
+  "startedAt": "2026-10-05T01:30:40.9470453+08:00",
+  "completedAt": "2026-10-05T01:33:48.5369601+08:00",
+  "checks": {
+    "phase1-scope-freeze": {
+      "status": "PASS",
+      "elapsedSeconds": 0.276
+    },
+    "scope-line-ending-regressions": {
+      "status": "PASS",
+      "elapsedSeconds": 0.317
+    },
+    "maven-all-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 42.256
+    },
+    "executor-module-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 3.92
+    },
+    "corpus-python-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.858
+    },
+    "doris-data-contract-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.11
+    },
+    "review-sql-result-regressions": {
+      "status": "PASS",
+      "elapsedSeconds": 0.194
+    },
+    "versioned-golden-contract-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.198
+    },
+    "sentinel-window-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 4.27
+    },
+    "historical-extrema-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 67.56
+    },
+    "rolling-average-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 65.702
+    },
+    "formal-compiler-p95": {
+      "status": "PASS",
+      "elapsedSeconds": 1.901
+    },
+    "doris-golden-result-differential": {
+      "status": "NOT_RUN",
+      "reason": "Use -WithDoris and set DORIS_PASSWORD"
+    },
+    "doris-12-function-smoke": {
+      "status": "NOT_RUN",
+      "reason": "Use -WithDoris and set DORIS_PASSWORD"
+    },
+    "doris-19-year-matrix": {
+      "status": "NOT_RUN",
+      "reason": "Use -RunNineteenYearBenchmark (long-running: 720 container restarts)"
+    }
+  }
+}

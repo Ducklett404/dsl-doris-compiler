@@ -1,0 +1,42 @@
+{
+  "formatVersion": "project-data-validation-v1",
+  "status": "PROJECT_READY_WITH_LIMITATIONS",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "contractVersion": "1.0.0",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "registryFingerprint": "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+  "definitionAuthority": "PROJECT_INTERNAL",
+  "sources": {
+    "basic": {
+      "qualifiedName": "newzl.v_hsj_stock_hq_basic",
+      "kind": "VIEW",
+      "status": "PROJECT_READY",
+      "rows": 13650347,
+      "definitionSha256": "8e0b7f977ba13d777d176ecb6307a9fc08785e79c51b817e374a8183ef7032c0"
+    },
+    "extension": {
+      "qualifiedName": "newzl.v_hsj_stock_hq_ext",
+      "kind": "VIEW",
+      "status": "PROJECT_READY",
+      "rows": 6170822,
+      "definitionSha256": "a5729de78da91a9cf1a087efd30b20d47b5d8fe195328c354f2f84fe146189cd"
+    },
+    "code": {
+      "qualifiedName": "newzl.hsj_stock_code_info",
+      "kind": "TABLE",
+      "status": "PROJECT_READY",
+      "rows": 5686,
+      "definitionSha256": "948f577a0fe0a9ec5b5a58887415de5e665ec0dd7fe55f22b437335a0dc74601"
+    }
+  },
+  "extensionWithoutBasic": 249480,
+  "closeOutsideRange": 3487,
+  "limitations": [
+    "本次使用项目已冻结的字段单位、公式与缺值约定，官方口径未获额外确认。",
+    "证券范围以基础行情为准。无法关联基础行情的衍生记录完整保留，不用于补造基础行情。",
+    "缺失字段、-999999 资金哨兵、零分母、历史不足及平坦 position 区间按原契约返回 NULL。",
+    "行业字段在现有数据中不可用；项目入口拒绝行业查询。财务等缺少来源的功能仍拒绝。",
+    "这是项目内部按依赖验证的运行证据，不登记 VALIDATED 快照，不代表官方验收。",
+    "原始数据按不可变快照管理。运行账户只读；外部装载修改数据后必须重新验证，行数和表/视图定义在每次查询时复核。"
+  ]
+}

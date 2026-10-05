@@ -1,0 +1,13 @@
+{
+  "purpose": "PROJECT_19_FIELD_VALIDATION",
+  "officialAcceptanceEligible": false,
+  "definitionAuthority": "PROJECT_INTERNAL_OFFICIAL_DICTIONARY_UNAVAILABLE",
+  "jarSha256": "a8945a6b2d78064e9f3d0da9bd18ba5a4cd3f756da480e84ae5d2ece1d3c89a6",
+  "oracleSha256": "d2edb95758c9a692026c2d0dc360ac7e133da658fae9974cd99d1c6fd149a6c7",
+  "valueOracleSha256": "101f2b54de98cf2265aa7414eca767c6ab1b6c63b424b9216f12a24628678329",
+  "checks": [],
+  "fatalError": "Catalog Error: Scalar Function with name date_format does not exist!\nDid you mean \"date_part\"?\n\nLINE 5:   WHERE DATE_FORMAT(b.bizdate,'%Y-%m-%d') = ?\n                ^",
+  "status": "FAIL",
+  "passed": 0,
+  "total": 0
+}

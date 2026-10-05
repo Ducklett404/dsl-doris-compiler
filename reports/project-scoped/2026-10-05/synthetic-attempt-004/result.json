@@ -1,0 +1,100 @@
+{
+  "purpose": "SYNTHETIC_PROJECT_SCOPED_EXECUTION",
+  "officialAcceptanceEligible": false,
+  "jarSha256": "d54a9ea68842cd23838453f3c8d0439644bfb1109b19baaaa79b9885addee06b",
+  "checks": [
+    {
+      "name": "independent-source-capabilities",
+      "status": "PASS",
+      "details": {
+        "basic": {
+          "expectedRows": 16,
+          "rows": 16,
+          "missingColumns": [],
+          "duplicateKeyGroups": 0,
+          "nullKeys": 0
+        },
+        "extension": {
+          "expectedRows": 16,
+          "rows": 16,
+          "missingColumns": [],
+          "duplicateKeyGroups": 0,
+          "nullKeys": 0
+        },
+        "code": {
+          "expectedRows": 7,
+          "rows": 7,
+          "missingColumns": [],
+          "duplicateKeyGroups": 0,
+          "nullKeys": 0
+        }
+      }
+    },
+    {
+      "name": "basic-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "basic-results-and-null-coverage",
+      "status": "PASS"
+    },
+    {
+      "name": "extension-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "missing-sentinel-and-null-coverage",
+      "status": "PASS"
+    },
+    {
+      "name": "mixed-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "mixed-retains-three-valued-inputs",
+      "status": "PASS"
+    },
+    {
+      "name": "window-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "window-insufficiency-and-historical-null",
+      "status": "PASS"
+    },
+    {
+      "name": "position-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "position-flat-and-window-gaps",
+      "status": "PASS"
+    },
+    {
+      "name": "consecutive-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "consecutive-complete-horizon",
+      "status": "FAIL"
+    }
+  ],
+  "fatalError": "consecutive-complete-horizon",
+  "cleanup": "DONE",
+  "passed": 12,
+  "total": 13,
+  "completedAtUtc": "2026-10-04T17:18:13.919662+00:00",
+  "status": "FAIL"
+}

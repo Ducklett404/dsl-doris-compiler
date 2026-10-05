@@ -1,0 +1,13 @@
+{
+  "checks": [
+    {
+      "path": ".github/workflows/automated-tests.yml",
+      "parsed": true
+    },
+    {
+      "path": ".github/workflows/doris-acceptance.yml",
+      "parsed": true
+    }
+  ],
+  "remoteCiExecuted": false
+}

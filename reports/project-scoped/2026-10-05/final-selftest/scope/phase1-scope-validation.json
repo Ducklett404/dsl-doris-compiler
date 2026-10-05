@@ -1,0 +1,54 @@
+{
+  "freezeId": "stock-slot-phase1-scope-v1.0.2",
+  "status": "PASS",
+  "freezeStatus": "APPROVED",
+  "approval": "DIRECT_PROJECT_APPROVAL",
+  "validatedAt": "2026-10-05T01:30:41.2122823+08:00",
+  "checks": [
+    {
+      "name": "freeze-status",
+      "status": "PASS",
+      "detail": "stock-slot-phase1-scope-v1.0.2 / APPROVED"
+    },
+    {
+      "name": "registry-lock",
+      "status": "PASS",
+      "detail": "stock-slot-registry-v1.0.2 sha256=401c7f5073d2a4ee4f29231b679e44fc56e90df75226cb05851c28bc9b6f3071"
+    },
+    {
+      "name": "snapshot-lock",
+      "status": "PASS",
+      "detail": "stock-20060104-20260414-v1, 3 source files verified"
+    },
+    {
+      "name": "ddl-lock",
+      "status": "PASS",
+      "detail": "4 DDL/semantic contracts verified"
+    },
+    {
+      "name": "indicator-scope",
+      "status": "PASS",
+      "detail": "19 exact indicators have unique definitions"
+    },
+    {
+      "name": "pattern-scope",
+      "status": "PASS",
+      "detail": "2 parameterized indicators verified"
+    },
+    {
+      "name": "function-scope",
+      "status": "PASS",
+      "detail": "11 included, 2 explicitly excluded"
+    },
+    {
+      "name": "market-scope",
+      "status": "PASS",
+      "detail": "沪/深/京 only; all other recognized markets excluded"
+    },
+    {
+      "name": "negative-scope",
+      "status": "PASS",
+      "detail": "8 unsupported categories have written reasons"
+    }
+  ]
+}

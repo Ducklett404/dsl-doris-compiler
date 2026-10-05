@@ -1,0 +1,5181 @@
+{
+  "compilation": {
+    "dslVersion": "stock-slot-v1",
+    "semanticModel": {
+      "document": {
+        "expression": {
+          "kind": "Binary",
+          "operator": "AND",
+          "left": {
+            "kind": "Binary",
+            "operator": ">",
+            "left": {
+              "kind": "FunctionCall",
+              "name": "indicator",
+              "arguments": [
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 12,
+                    "endLine": 1,
+                    "endColumn": 14
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 16,
+                    "endLine": 1,
+                    "endColumn": 18
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "RSI(5)",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 20,
+                    "endLine": 1,
+                    "endColumn": 28
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "2026-04-14",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 30,
+                    "endLine": 1,
+                    "endColumn": 42
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 44,
+                    "endLine": 1,
+                    "endColumn": 46
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 48,
+                    "endLine": 1,
+                    "endColumn": 50
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 52,
+                    "endLine": 1,
+                    "endColumn": 54
+                  }
+                }
+              ],
+              "type": "NUMBER",
+              "span": {
+                "line": 1,
+                "column": 2,
+                "endLine": 1,
+                "endColumn": 55
+              }
+            },
+            "right": {
+              "kind": "Literal",
+              "value": 50,
+              "type": "NUMBER",
+              "span": {
+                "line": 1,
+                "column": 58,
+                "endLine": 1,
+                "endColumn": 60
+              }
+            },
+            "type": "BOOLEAN",
+            "span": {
+              "line": 1,
+              "column": 2,
+              "endLine": 1,
+              "endColumn": 60
+            }
+          },
+          "right": {
+            "kind": "Binary",
+            "operator": "=",
+            "left": {
+              "kind": "FunctionCall",
+              "name": "cross_above",
+              "arguments": [
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 79,
+                    "endLine": 1,
+                    "endColumn": 81
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 83,
+                    "endLine": 1,
+                    "endColumn": 85
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "收盘价",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 87,
+                    "endLine": 1,
+                    "endColumn": 92
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "开盘价",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 94,
+                    "endLine": 1,
+                    "endColumn": 99
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "2026-04-14",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 101,
+                    "endLine": 1,
+                    "endColumn": 113
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 115,
+                    "endLine": 1,
+                    "endColumn": 117
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 119,
+                    "endLine": 1,
+                    "endColumn": 121
+                  }
+                }
+              ],
+              "type": "BOOLEAN",
+              "span": {
+                "line": 1,
+                "column": 67,
+                "endLine": 1,
+                "endColumn": 122
+              }
+            },
+            "right": {
+              "kind": "Literal",
+              "value": true,
+              "type": "BOOLEAN",
+              "span": {
+                "line": 1,
+                "column": 125,
+                "endLine": 1,
+                "endColumn": 129
+              }
+            },
+            "type": "BOOLEAN",
+            "span": {
+              "line": 1,
+              "column": 67,
+              "endLine": 1,
+              "endColumn": 129
+            }
+          },
+          "type": "BOOLEAN",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 130
+          }
+        },
+        "selectionLimit": null,
+        "span": {
+          "line": 1,
+          "column": 1,
+          "endLine": 1,
+          "endColumn": 135
+        }
+      },
+      "calls": [
+        {
+          "function": "indicator",
+          "span": {
+            "line": 1,
+            "column": 2,
+            "endLine": 1,
+            "endColumn": 55
+          },
+          "slots": [
+            {
+              "name": "market",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "filter_scope",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "indicator_name",
+              "rawValue": "RSI(5)",
+              "structuredValue": {
+                "value": "RSI(5)",
+                "template": "RSI(N)",
+                "parameters": {
+                  "N": "5"
+                }
+              }
+            },
+            {
+              "name": "date",
+              "rawValue": "2026-04-14",
+              "structuredValue": {
+                "raw": "2026-04-14",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "select_type",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "agg_func",
+              "rawValue": "",
+              "structuredValue": ""
+            },
+            {
+              "name": "count_exp",
+              "rawValue": "",
+              "structuredValue": null
+            }
+          ]
+        },
+        {
+          "function": "cross_above",
+          "span": {
+            "line": 1,
+            "column": 67,
+            "endLine": 1,
+            "endColumn": 122
+          },
+          "slots": [
+            {
+              "name": "market",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "filter_scope",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "indicator_name_1",
+              "rawValue": "收盘价",
+              "structuredValue": {
+                "value": "收盘价",
+                "template": "收盘价",
+                "parameters": {}
+              }
+            },
+            {
+              "name": "indicator_name_2",
+              "rawValue": "开盘价",
+              "structuredValue": {
+                "value": "开盘价",
+                "template": "开盘价",
+                "parameters": {}
+              }
+            },
+            {
+              "name": "date",
+              "rawValue": "2026-04-14",
+              "structuredValue": {
+                "raw": "2026-04-14",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "select_type",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "count_exp",
+              "rawValue": "",
+              "structuredValue": null
+            }
+          ]
+        }
+      ]
+    },
+    "logicalPlan": [
+      {
+        "kind": "HistoryScan",
+        "detail": "newzl.v_hsj_stock_hq_basic through 2026-04-14"
+      },
+      {
+        "kind": "ObservedTail",
+        "detail": "Keep the latest 6 actual observed rows per security, including NULLs and predecessors required by nested occurrence windows"
+      },
+      {
+        "kind": "Lag",
+        "detail": "close delta over observed trading rows"
+      },
+      {
+        "kind": "Window",
+        "detail": "2 contract(s)"
+      },
+      {
+        "kind": "EvaluationDateFilter",
+        "detail": "2026-04-14"
+      },
+      {
+        "kind": "Sort",
+        "detail": "mktcode,tgtcode"
+      },
+      {
+        "kind": "Project",
+        "detail": "mktcode,tgtcode"
+      }
+    ],
+    "windowContracts": [
+      {
+        "function": "indicator:RSI",
+        "partitionKeys": [
+          "mktcode",
+          "tgtcode"
+        ],
+        "orderKeys": [
+          "bizdate"
+        ],
+        "unit": "TRADING_DAY",
+        "lookback": 5,
+        "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+        "insufficientHistoryPolicy": "NULL",
+        "nullPolicy": "STRICT_NO_IMPUTATION",
+        "requireFullWindow": true
+      },
+      {
+        "function": "cross_above",
+        "partitionKeys": [
+          "mktcode",
+          "tgtcode"
+        ],
+        "orderKeys": [
+          "bizdate"
+        ],
+        "unit": "TRADING_DAY",
+        "lookback": 2,
+        "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+        "insufficientHistoryPolicy": "NULL",
+        "nullPolicy": "STRICT_NO_IMPUTATION",
+        "requireFullWindow": true
+      }
+    ],
+    "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    b.openPrice AS `v2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistory_ranked AS (\n  SELECT history.*, ROW_NUMBER() OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate DESC) AS observation_rank\n  FROM history\n),\nobserved_tail AS (\n  SELECT * FROM history_ranked WHERE observation_rank<=6\n),\ndeltas AS (\n  SELECT observed_tail.*, `v1` - LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) AS `price_delta`\n  FROM observed_tail\n),\nfeatures AS (\n  SELECT deltas.*,\n    CASE WHEN COUNT(price_delta) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) = 5 THEN 100 - 100 / (1 + (AVG(GREATEST(price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)) / NULLIF(AVG(GREATEST(-price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW),0)) ELSE NULL END AS `f1`,\n    CASE WHEN `v1` IS NOT NULL AND `v2` IS NOT NULL AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL AND LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL THEN (`v1`>`v2` AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)<=LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)) ELSE NULL END AS `f2`\n  FROM deltas\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` > ?) AND (`f2` = ?))\nORDER BY mktcode,tgtcode;",
+    "bindings": [
+      "2026-04-14",
+      "2026-04-14",
+      50,
+      true
+    ],
+    "ordered": false,
+    "coveragePlan": {
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    b.openPrice AS `v2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistory_ranked AS (\n  SELECT history.*, ROW_NUMBER() OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate DESC) AS observation_rank\n  FROM history\n),\nobserved_tail AS (\n  SELECT * FROM history_ranked WHERE observation_rank<=6\n),\ndeltas AS (\n  SELECT observed_tail.*, `v1` - LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) AS `price_delta`\n  FROM observed_tail\n),\nfeatures AS (\n  SELECT deltas.*,\n    CASE WHEN COUNT(price_delta) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) = 5 THEN 100 - 100 / (1 + (AVG(GREATEST(price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)) / NULLIF(AVG(GREATEST(-price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW),0)) ELSE NULL END AS `f1`,\n    CASE WHEN `v1` IS NOT NULL AND `v2` IS NOT NULL AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL AND LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL THEN (`v1`>`v2` AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)<=LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)) ELSE NULL END AS `f2`\n  FROM deltas\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT COUNT(*),COALESCE(SUM(0),0),COALESCE(SUM(CASE WHEN cov.`f1` IS NULL THEN 1 ELSE 0 END),0),COALESCE(SUM(CASE WHEN cov.`f2` IS NULL THEN 1 ELSE 0 END),0) FROM current_rows cov;",
+      "samplesSql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    b.openPrice AS `v2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistory_ranked AS (\n  SELECT history.*, ROW_NUMBER() OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate DESC) AS observation_rank\n  FROM history\n),\nobserved_tail AS (\n  SELECT * FROM history_ranked WHERE observation_rank<=6\n),\ndeltas AS (\n  SELECT observed_tail.*, `v1` - LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) AS `price_delta`\n  FROM observed_tail\n),\nfeatures AS (\n  SELECT deltas.*,\n    CASE WHEN COUNT(price_delta) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) = 5 THEN 100 - 100 / (1 + (AVG(GREATEST(price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)) / NULLIF(AVG(GREATEST(-price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW),0)) ELSE NULL END AS `f1`,\n    CASE WHEN `v1` IS NOT NULL AND `v2` IS NOT NULL AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL AND LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL THEN (`v1`>`v2` AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)<=LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)) ELSE NULL END AS `f2`\n  FROM deltas\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT cov.mktcode,cov.tgtcode,0,CASE WHEN cov.`f1` IS NULL THEN 1 ELSE 0 END,CASE WHEN cov.`f2` IS NULL THEN 1 ELSE 0 END FROM current_rows cov WHERE cov.`f1` IS NULL OR cov.`f2` IS NULL ORDER BY cov.mktcode,cov.tgtcode LIMIT 20;",
+      "bindings": [
+        "2026-04-14",
+        "2026-04-14"
+      ],
+      "evaluationDate": "2026-04-14",
+      "inputs": [
+        {
+          "function": "indicator",
+          "indicator": "RSI(5)",
+          "alias": "f1",
+          "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+          "window": "6 条观察记录",
+          "role": "VALUE",
+          "requiredObservations": 6,
+          "horizon": 0
+        },
+        {
+          "function": "cross_above",
+          "indicator": "收盘价 / 开盘价",
+          "alias": "f2",
+          "inputId": "dd14c83ae5cdffe50011939709fc37a859cc35cce871875624b28fc802a06b71",
+          "window": "2 条观察记录",
+          "role": "VALUE",
+          "requiredObservations": 2,
+          "horizon": 0
+        }
+      ],
+      "extensionRequired": false,
+      "combinedSql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    b.openPrice AS `v2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistory_ranked AS (\n  SELECT history.*, ROW_NUMBER() OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate DESC) AS observation_rank\n  FROM history\n),\nobserved_tail AS (\n  SELECT * FROM history_ranked WHERE observation_rank<=6\n),\ndeltas AS (\n  SELECT observed_tail.*, `v1` - LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) AS `price_delta`\n  FROM observed_tail\n),\nfeatures AS (\n  SELECT deltas.*,\n    CASE WHEN COUNT(price_delta) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) = 5 THEN 100 - 100 / (1 + (AVG(GREATEST(price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)) / NULLIF(AVG(GREATEST(-price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW),0)) ELSE NULL END AS `f1`,\n    CASE WHEN `v1` IS NOT NULL AND `v2` IS NOT NULL AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL AND LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL THEN (`v1`>`v2` AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)<=LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)) ELSE NULL END AS `f2`\n  FROM deltas\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n),\ncoverage_flags AS (\n  SELECT cov.mktcode,cov.tgtcode,0 AS ext_missing,CASE WHEN cov.`f1` IS NULL THEN 1 ELSE 0 END AS u0,CASE WHEN cov.`f2` IS NULL THEN 1 ELSE 0 END AS u1 FROM current_rows cov\n),\ncoverage_totals AS (\n  SELECT coverage_flags.*,COUNT(*) OVER () AS observed,SUM(ext_missing) OVER () AS missing,SUM(u0) OVER () AS n0,SUM(u1) OVER () AS n1,ROW_NUMBER() OVER (ORDER BY CASE WHEN ext_missing=1 OR u0=1 OR u1=1 THEN 0 ELSE 1 END,mktcode,tgtcode) AS sample_rank\n  FROM coverage_flags\n)\nSELECT COALESCE(d.observed,0),COALESCE(d.missing,0),COALESCE(d.n0,0),COALESCE(d.n1,0),d.mktcode,d.tgtcode,d.ext_missing,d.u0,d.u1\nFROM (SELECT 1 AS seed) s LEFT JOIN (SELECT * FROM coverage_totals WHERE sample_rank<=20) d ON TRUE\nORDER BY d.sample_rank;"
+    }
+  },
+  "columns": [
+    "mktcode",
+    "tgtcode"
+  ],
+  "rows": [
+    [
+      "0",
+      "000011"
+    ],
+    [
+      "0",
+      "000014"
+    ],
+    [
+      "0",
+      "000156"
+    ],
+    [
+      "0",
+      "000333"
+    ],
+    [
+      "0",
+      "000403"
+    ],
+    [
+      "0",
+      "000408"
+    ],
+    [
+      "0",
+      "000422"
+    ],
+    [
+      "0",
+      "000426"
+    ],
+    [
+      "0",
+      "000525"
+    ],
+    [
+      "0",
+      "000530"
+    ],
+    [
+      "0",
+      "000582"
+    ],
+    [
+      "0",
+      "000608"
+    ],
+    [
+      "0",
+      "000615"
+    ],
+    [
+      "0",
+      "000661"
+    ],
+    [
+      "0",
+      "000672"
+    ],
+    [
+      "0",
+      "000679"
+    ],
+    [
+      "0",
+      "000682"
+    ],
+    [
+      "0",
+      "000697"
+    ],
+    [
+      "0",
+      "000700"
+    ],
+    [
+      "0",
+      "000703"
+    ],
+    [
+      "0",
+      "000755"
+    ],
+    [
+      "0",
+      "000762"
+    ],
+    [
+      "0",
+      "000779"
+    ],
+    [
+      "0",
+      "000797"
+    ],
+    [
+      "0",
+      "000807"
+    ],
+    [
+      "0",
+      "000810"
+    ],
+    [
+      "0",
+      "000828"
+    ],
+    [
+      "0",
+      "000833"
+    ],
+    [
+      "0",
+      "000863"
+    ],
+    [
+      "0",
+      "000889"
+    ],
+    [
+      "0",
+      "000917"
+    ],
+    [
+      "0",
+      "000921"
+    ],
+    [
+      "0",
+      "000928"
+    ],
+    [
+      "0",
+      "000929"
+    ],
+    [
+      "0",
+      "000962"
+    ],
+    [
+      "0",
+      "000990"
+    ],
+    [
+      "0",
+      "000997"
+    ],
+    [
+      "0",
+      "000998"
+    ],
+    [
+      "0",
+      "001210"
+    ],
+    [
+      "0",
+      "001216"
+    ],
+    [
+      "0",
+      "001221"
+    ],
+    [
+      "0",
+      "001225"
+    ],
+    [
+      "0",
+      "001227"
+    ],
+    [
+      "0",
+      "001229"
+    ],
+    [
+      "0",
+      "001230"
+    ],
+    [
+      "0",
+      "001256"
+    ],
+    [
+      "0",
+      "001280"
+    ],
+    [
+      "0",
+      "001282"
+    ],
+    [
+      "0",
+      "001301"
+    ],
+    [
+      "0",
+      "001306"
+    ],
+    [
+      "0",
+      "001308"
+    ],
+    [
+      "0",
+      "001319"
+    ],
+    [
+      "0",
+      "001324"
+    ],
+    [
+      "0",
+      "001400"
+    ],
+    [
+      "0",
+      "002003"
+    ],
+    [
+      "0",
+      "002007"
+    ],
+    [
+      "0",
+      "002014"
+    ],
+    [
+      "0",
+      "002028"
+    ],
+    [
+      "0",
+      "002037"
+    ],
+    [
+      "0",
+      "002046"
+    ],
+    [
+      "0",
+      "002051"
+    ],
+    [
+      "0",
+      "002052"
+    ],
+    [
+      "0",
+      "002062"
+    ],
+    [
+      "0",
+      "002066"
+    ],
+    [
+      "0",
+      "002076"
+    ],
+    [
+      "0",
+      "002097"
+    ],
+    [
+      "0",
+      "002101"
+    ],
+    [
+      "0",
+      "002107"
+    ],
+    [
+      "0",
+      "002116"
+    ],
+    [
+      "0",
+      "002121"
+    ],
+    [
+      "0",
+      "002144"
+    ],
+    [
+      "0",
+      "002145"
+    ],
+    [
+      "0",
+      "002149"
+    ],
+    [
+      "0",
+      "002158"
+    ],
+    [
+      "0",
+      "002183"
+    ],
+    [
+      "0",
+      "002223"
+    ],
+    [
+      "0",
+      "002243"
+    ],
+    [
+      "0",
+      "002244"
+    ],
+    [
+      "0",
+      "002259"
+    ],
+    [
+      "0",
+      "002262"
+    ],
+    [
+      "0",
+      "002264"
+    ],
+    [
+      "0",
+      "002299"
+    ],
+    [
+      "0",
+      "002300"
+    ],
+    [
+      "0",
+      "002324"
+    ],
+    [
+      "0",
+      "002327"
+    ],
+    [
+      "0",
+      "002337"
+    ],
+    [
+      "0",
+      "002338"
+    ],
+    [
+      "0",
+      "002358"
+    ],
+    [
+      "0",
+      "002360"
+    ],
+    [
+      "0",
+      "002362"
+    ],
+    [
+      "0",
+      "002371"
+    ],
+    [
+      "0",
+      "002372"
+    ],
+    [
+      "0",
+      "002373"
+    ],
+    [
+      "0",
+      "002379"
+    ],
+    [
+      "0",
+      "002427"
+    ],
+    [
+      "0",
+      "002428"
+    ],
+    [
+      "0",
+      "002439"
+    ],
+    [
+      "0",
+      "002444"
+    ],
+    [
+      "0",
+      "002452"
+    ],
+    [
+      "0",
+      "002532"
+    ],
+    [
+      "0",
+      "002533"
+    ],
+    [
+      "0",
+      "002541"
+    ],
+    [
+      "0",
+      "002549"
+    ],
+    [
+      "0",
+      "002550"
+    ],
+    [
+      "0",
+      "002565"
+    ],
+    [
+      "0",
+      "002568"
+    ],
+    [
+      "0",
+      "002570"
+    ],
+    [
+      "0",
+      "002571"
+    ],
+    [
+      "0",
+      "002577"
+    ],
+    [
+      "0",
+      "002601"
+    ],
+    [
+      "0",
+      "002609"
+    ],
+    [
+      "0",
+      "002615"
+    ],
+    [
+      "0",
+      "002620"
+    ],
+    [
+      "0",
+      "002626"
+    ],
+    [
+      "0",
+      "002628"
+    ],
+    [
+      "0",
+      "002653"
+    ],
+    [
+      "0",
+      "002686"
+    ],
+    [
+      "0",
+      "002692"
+    ],
+    [
+      "0",
+      "002695"
+    ],
+    [
+      "0",
+      "002702"
+    ],
+    [
+      "0",
+      "002705"
+    ],
+    [
+      "0",
+      "002706"
+    ],
+    [
+      "0",
+      "002713"
+    ],
+    [
+      "0",
+      "002725"
+    ],
+    [
+      "0",
+      "002772"
+    ],
+    [
+      "0",
+      "002778"
+    ],
+    [
+      "0",
+      "002793"
+    ],
+    [
+      "0",
+      "002807"
+    ],
+    [
+      "0",
+      "002808"
+    ],
+    [
+      "0",
+      "002839"
+    ],
+    [
+      "0",
+      "002846"
+    ],
+    [
+      "0",
+      "002853"
+    ],
+    [
+      "0",
+      "002856"
+    ],
+    [
+      "0",
+      "002863"
+    ],
+    [
+      "0",
+      "002870"
+    ],
+    [
+      "0",
+      "002871"
+    ],
+    [
+      "0",
+      "002882"
+    ],
+    [
+      "0",
+      "002884"
+    ],
+    [
+      "0",
+      "002888"
+    ],
+    [
+      "0",
+      "002901"
+    ],
+    [
+      "0",
+      "002918"
+    ],
+    [
+      "0",
+      "002922"
+    ],
+    [
+      "0",
+      "002927"
+    ],
+    [
+      "0",
+      "002941"
+    ],
+    [
+      "0",
+      "002942"
+    ],
+    [
+      "0",
+      "002946"
+    ],
+    [
+      "0",
+      "002958"
+    ],
+    [
+      "0",
+      "002967"
+    ],
+    [
+      "0",
+      "002971"
+    ],
+    [
+      "0",
+      "002973"
+    ],
+    [
+      "0",
+      "002978"
+    ],
+    [
+      "0",
+      "003002"
+    ],
+    [
+      "0",
+      "003011"
+    ],
+    [
+      "0",
+      "003015"
+    ],
+    [
+      "0",
+      "003025"
+    ],
+    [
+      "0",
+      "003028"
+    ],
+    [
+      "0",
+      "003030"
+    ],
+    [
+      "0",
+      "003041"
+    ],
+    [
+      "0",
+      "003043"
+    ],
+    [
+      "0",
+      "200012"
+    ],
+    [
+      "0",
+      "200029"
+    ],
+    [
+      "0",
+      "200045"
+    ],
+    [
+      "0",
+      "200429"
+    ],
+    [
+      "0",
+      "200512"
+    ],
+    [
+      "0",
+      "200530"
+    ],
+    [
+      "0",
+      "200581"
+    ],
+    [
+      "0",
+      "200726"
+    ],
+    [
+      "0",
+      "200869"
+    ],
+    [
+      "0",
+      "300001"
+    ],
+    [
+      "0",
+      "300016"
+    ],
+    [
+      "0",
+      "300018"
+    ],
+    [
+      "0",
+      "300037"
+    ],
+    [
+      "0",
+      "300054"
+    ],
+    [
+      "0",
+      "300083"
+    ],
+    [
+      "0",
+      "300087"
+    ],
+    [
+      "0",
+      "300105"
+    ],
+    [
+      "0",
+      "300121"
+    ],
+    [
+      "0",
+      "300122"
+    ],
+    [
+      "0",
+      "300138"
+    ],
+    [
+      "0",
+      "300143"
+    ],
+    [
+      "0",
+      "300148"
+    ],
+    [
+      "0",
+      "300153"
+    ],
+    [
+      "0",
+      "300165"
+    ],
+    [
+      "0",
+      "300171"
+    ],
+    [
+      "0",
+      "300181"
+    ],
+    [
+      "0",
+      "300182"
+    ],
+    [
+      "0",
+      "300199"
+    ],
+    [
+      "0",
+      "300226"
+    ],
+    [
+      "0",
+      "300228"
+    ],
+    [
+      "0",
+      "300230"
+    ],
+    [
+      "0",
+      "300241"
+    ],
+    [
+      "0",
+      "300244"
+    ],
+    [
+      "0",
+      "300257"
+    ],
+    [
+      "0",
+      "300259"
+    ],
+    [
+      "0",
+      "300272"
+    ],
+    [
+      "0",
+      "300281"
+    ],
+    [
+      "0",
+      "300291"
+    ],
+    [
+      "0",
+      "300294"
+    ],
+    [
+      "0",
+      "300314"
+    ],
+    [
+      "0",
+      "300321"
+    ],
+    [
+      "0",
+      "300341"
+    ],
+    [
+      "0",
+      "300347"
+    ],
+    [
+      "0",
+      "300350"
+    ],
+    [
+      "0",
+      "300353"
+    ],
+    [
+      "0",
+      "300355"
+    ],
+    [
+      "0",
+      "300363"
+    ],
+    [
+      "0",
+      "300373"
+    ],
+    [
+      "0",
+      "300376"
+    ],
+    [
+      "0",
+      "300384"
+    ],
+    [
+      "0",
+      "300386"
+    ],
+    [
+      "0",
+      "300404"
+    ],
+    [
+      "0",
+      "300407"
+    ],
+    [
+      "0",
+      "300411"
+    ],
+    [
+      "0",
+      "300414"
+    ],
+    [
+      "0",
+      "300415"
+    ],
+    [
+      "0",
+      "300432"
+    ],
+    [
+      "0",
+      "300433"
+    ],
+    [
+      "0",
+      "300435"
+    ],
+    [
+      "0",
+      "300439"
+    ],
+    [
+      "0",
+      "300440"
+    ],
+    [
+      "0",
+      "300451"
+    ],
+    [
+      "0",
+      "300458"
+    ],
+    [
+      "0",
+      "300467"
+    ],
+    [
+      "0",
+      "300469"
+    ],
+    [
+      "0",
+      "300473"
+    ],
+    [
+      "0",
+      "300481"
+    ],
+    [
+      "0",
+      "300484"
+    ],
+    [
+      "0",
+      "300487"
+    ],
+    [
+      "0",
+      "300516"
+    ],
+    [
+      "0",
+      "300518"
+    ],
+    [
+      "0",
+      "300522"
+    ],
+    [
+      "0",
+      "300529"
+    ],
+    [
+      "0",
+      "300530"
+    ],
+    [
+      "0",
+      "300539"
+    ],
+    [
+      "0",
+      "300553"
+    ],
+    [
+      "0",
+      "300555"
+    ],
+    [
+      "0",
+      "300557"
+    ],
+    [
+      "0",
+      "300558"
+    ],
+    [
+      "0",
+      "300562"
+    ],
+    [
+      "0",
+      "300566"
+    ],
+    [
+      "0",
+      "300567"
+    ],
+    [
+      "0",
+      "300597"
+    ],
+    [
+      "0",
+      "300601"
+    ],
+    [
+      "0",
+      "300604"
+    ],
+    [
+      "0",
+      "300614"
+    ],
+    [
+      "0",
+      "300615"
+    ],
+    [
+      "0",
+      "300627"
+    ],
+    [
+      "0",
+      "300631"
+    ],
+    [
+      "0",
+      "300644"
+    ],
+    [
+      "0",
+      "300653"
+    ],
+    [
+      "0",
+      "300654"
+    ],
+    [
+      "0",
+      "300661"
+    ],
+    [
+      "0",
+      "300669"
+    ],
+    [
+      "0",
+      "300676"
+    ],
+    [
+      "0",
+      "300680"
+    ],
+    [
+      "0",
+      "300685"
+    ],
+    [
+      "0",
+      "300689"
+    ],
+    [
+      "0",
+      "300693"
+    ],
+    [
+      "0",
+      "300696"
+    ],
+    [
+      "0",
+      "300698"
+    ],
+    [
+      "0",
+      "300706"
+    ],
+    [
+      "0",
+      "300711"
+    ],
+    [
+      "0",
+      "300713"
+    ],
+    [
+      "0",
+      "300749"
+    ],
+    [
+      "0",
+      "300751"
+    ],
+    [
+      "0",
+      "300758"
+    ],
+    [
+      "0",
+      "300759"
+    ],
+    [
+      "0",
+      "300785"
+    ],
+    [
+      "0",
+      "300788"
+    ],
+    [
+      "0",
+      "300789"
+    ],
+    [
+      "0",
+      "300791"
+    ],
+    [
+      "0",
+      "300792"
+    ],
+    [
+      "0",
+      "300797"
+    ],
+    [
+      "0",
+      "300801"
+    ],
+    [
+      "0",
+      "300810"
+    ],
+    [
+      "0",
+      "300815"
+    ],
+    [
+      "0",
+      "300820"
+    ],
+    [
+      "0",
+      "300825"
+    ],
+    [
+      "0",
+      "300837"
+    ],
+    [
+      "0",
+      "300840"
+    ],
+    [
+      "0",
+      "300857"
+    ],
+    [
+      "0",
+      "300867"
+    ],
+    [
+      "0",
+      "300870"
+    ],
+    [
+      "0",
+      "300871"
+    ],
+    [
+      "0",
+      "300876"
+    ],
+    [
+      "0",
+      "300888"
+    ],
+    [
+      "0",
+      "300893"
+    ],
+    [
+      "0",
+      "300896"
+    ],
+    [
+      "0",
+      "300903"
+    ],
+    [
+      "0",
+      "300904"
+    ],
+    [
+      "0",
+      "300907"
+    ],
+    [
+      "0",
+      "300908"
+    ],
+    [
+      "0",
+      "300909"
+    ],
+    [
+      "0",
+      "300918"
+    ],
+    [
+      "0",
+      "300933"
+    ],
+    [
+      "0",
+      "300936"
+    ],
+    [
+      "0",
+      "300940"
+    ],
+    [
+      "0",
+      "300948"
+    ],
+    [
+      "0",
+      "300952"
+    ],
+    [
+      "0",
+      "300965"
+    ],
+    [
+      "0",
+      "300969"
+    ],
+    [
+      "0",
+      "300970"
+    ],
+    [
+      "0",
+      "300977"
+    ],
+    [
+      "0",
+      "300987"
+    ],
+    [
+      "0",
+      "300991"
+    ],
+    [
+      "0",
+      "300997"
+    ],
+    [
+      "0",
+      "300998"
+    ],
+    [
+      "0",
+      "300999"
+    ],
+    [
+      "0",
+      "301002"
+    ],
+    [
+      "0",
+      "301015"
+    ],
+    [
+      "0",
+      "301021"
+    ],
+    [
+      "0",
+      "301042"
+    ],
+    [
+      "0",
+      "301047"
+    ],
+    [
+      "0",
+      "301056"
+    ],
+    [
+      "0",
+      "301057"
+    ],
+    [
+      "0",
+      "301066"
+    ],
+    [
+      "0",
+      "301067"
+    ],
+    [
+      "0",
+      "301069"
+    ],
+    [
+      "0",
+      "301073"
+    ],
+    [
+      "0",
+      "301075"
+    ],
+    [
+      "0",
+      "301077"
+    ],
+    [
+      "0",
+      "301080"
+    ],
+    [
+      "0",
+      "301082"
+    ],
+    [
+      "0",
+      "301096"
+    ],
+    [
+      "0",
+      "301099"
+    ],
+    [
+      "0",
+      "301127"
+    ],
+    [
+      "0",
+      "301128"
+    ],
+    [
+      "0",
+      "301133"
+    ],
+    [
+      "0",
+      "301136"
+    ],
+    [
+      "0",
+      "301155"
+    ],
+    [
+      "0",
+      "301158"
+    ],
+    [
+      "0",
+      "301161"
+    ],
+    [
+      "0",
+      "301169"
+    ],
+    [
+      "0",
+      "301197"
+    ],
+    [
+      "0",
+      "301203"
+    ],
+    [
+      "0",
+      "301208"
+    ],
+    [
+      "0",
+      "301209"
+    ],
+    [
+      "0",
+      "301223"
+    ],
+    [
+      "0",
+      "301248"
+    ],
+    [
+      "0",
+      "301252"
+    ],
+    [
+      "0",
+      "301261"
+    ],
+    [
+      "0",
+      "301275"
+    ],
+    [
+      "0",
+      "301286"
+    ],
+    [
+      "0",
+      "301289"
+    ],
+    [
+      "0",
+      "301291"
+    ],
+    [
+      "0",
+      "301297"
+    ],
+    [
+      "0",
+      "301299"
+    ],
+    [
+      "0",
+      "301313"
+    ],
+    [
+      "0",
+      "301323"
+    ],
+    [
+      "0",
+      "301325"
+    ],
+    [
+      "0",
+      "301329"
+    ],
+    [
+      "0",
+      "301333"
+    ],
+    [
+      "0",
+      "301356"
+    ],
+    [
+      "0",
+      "301362"
+    ],
+    [
+      "0",
+      "301365"
+    ],
+    [
+      "0",
+      "301367"
+    ],
+    [
+      "0",
+      "301372"
+    ],
+    [
+      "0",
+      "301377"
+    ],
+    [
+      "0",
+      "301387"
+    ],
+    [
+      "0",
+      "301396"
+    ],
+    [
+      "0",
+      "301398"
+    ],
+    [
+      "0",
+      "301421"
+    ],
+    [
+      "0",
+      "301459"
+    ],
+    [
+      "0",
+      "301499"
+    ],
+    [
+      "0",
+      "301500"
+    ],
+    [
+      "0",
+      "301501"
+    ],
+    [
+      "0",
+      "301510"
+    ],
+    [
+      "0",
+      "301515"
+    ],
+    [
+      "0",
+      "301529"
+    ],
+    [
+      "0",
+      "301533"
+    ],
+    [
+      "0",
+      "301548"
+    ],
+    [
+      "0",
+      "301556"
+    ],
+    [
+      "0",
+      "301557"
+    ],
+    [
+      "0",
+      "301567"
+    ],
+    [
+      "0",
+      "301571"
+    ],
+    [
+      "0",
+      "301590"
+    ],
+    [
+      "0",
+      "301592"
+    ],
+    [
+      "0",
+      "301598"
+    ],
+    [
+      "0",
+      "301601"
+    ],
+    [
+      "0",
+      "301606"
+    ],
+    [
+      "0",
+      "301611"
+    ],
+    [
+      "0",
+      "301617"
+    ],
+    [
+      "0",
+      "301662"
+    ],
+    [
+      "1",
+      "600000"
+    ],
+    [
+      "1",
+      "600016"
+    ],
+    [
+      "1",
+      "600031"
+    ],
+    [
+      "1",
+      "600035"
+    ],
+    [
+      "1",
+      "600036"
+    ],
+    [
+      "1",
+      "600037"
+    ],
+    [
+      "1",
+      "600053"
+    ],
+    [
+      "1",
+      "600064"
+    ],
+    [
+      "1",
+      "600081"
+    ],
+    [
+      "1",
+      "600094"
+    ],
+    [
+      "1",
+      "600096"
+    ],
+    [
+      "1",
+      "600103"
+    ],
+    [
+      "1",
+      "600151"
+    ],
+    [
+      "1",
+      "600153"
+    ],
+    [
+      "1",
+      "600160"
+    ],
+    [
+      "1",
+      "600185"
+    ],
+    [
+      "1",
+      "600197"
+    ],
+    [
+      "1",
+      "600217"
+    ],
+    [
+      "1",
+      "600219"
+    ],
+    [
+      "1",
+      "600233"
+    ],
+    [
+      "1",
+      "600255"
+    ],
+    [
+      "1",
+      "600262"
+    ],
+    [
+      "1",
+      "600269"
+    ],
+    [
+      "1",
+      "600276"
+    ],
+    [
+      "1",
+      "600308"
+    ],
+    [
+      "1",
+      "600329"
+    ],
+    [
+      "1",
+      "600331"
+    ],
+    [
+      "1",
+      "600332"
+    ],
+    [
+      "1",
+      "600343"
+    ],
+    [
+      "1",
+      "600346"
+    ],
+    [
+      "1",
+      "600356"
+    ],
+    [
+      "1",
+      "600368"
+    ],
+    [
+      "1",
+      "600377"
+    ],
+    [
+      "1",
+      "600405"
+    ],
+    [
+      "1",
+      "600416"
+    ],
+    [
+      "1",
+      "600419"
+    ],
+    [
+      "1",
+      "600461"
+    ],
+    [
+      "1",
+      "600469"
+    ],
+    [
+      "1",
+      "600498"
+    ],
+    [
+      "1",
+      "600509"
+    ],
+    [
+      "1",
+      "600510"
+    ],
+    [
+      "1",
+      "600517"
+    ],
+    [
+      "1",
+      "600519"
+    ],
+    [
+      "1",
+      "600521"
+    ],
+    [
+      "1",
+      "600538"
+    ],
+    [
+      "1",
+      "600539"
+    ],
+    [
+      "1",
+      "600543"
+    ],
+    [
+      "1",
+      "600552"
+    ],
+    [
+      "1",
+      "600578"
+    ],
+    [
+      "1",
+      "600582"
+    ],
+    [
+      "1",
+      "600583"
+    ],
+    [
+      "1",
+      "600590"
+    ],
+    [
+      "1",
+      "600605"
+    ],
+    [
+      "1",
+      "600639"
+    ],
+    [
+      "1",
+      "600640"
+    ],
+    [
+      "1",
+      "600642"
+    ],
+    [
+      "1",
+      "600645"
+    ],
+    [
+      "1",
+      "600662"
+    ],
+    [
+      "1",
+      "600663"
+    ],
+    [
+      "1",
+      "600664"
+    ],
+    [
+      "1",
+      "600676"
+    ],
+    [
+      "1",
+      "600693"
+    ],
+    [
+      "1",
+      "600694"
+    ],
+    [
+      "1",
+      "600704"
+    ],
+    [
+      "1",
+      "600707"
+    ],
+    [
+      "1",
+      "600713"
+    ],
+    [
+      "1",
+      "600761"
+    ],
+    [
+      "1",
+      "600776"
+    ],
+    [
+      "1",
+      "600777"
+    ],
+    [
+      "1",
+      "600779"
+    ],
+    [
+      "1",
+      "600783"
+    ],
+    [
+      "1",
+      "600793"
+    ],
+    [
+      "1",
+      "600795"
+    ],
+    [
+      "1",
+      "600814"
+    ],
+    [
+      "1",
+      "600820"
+    ],
+    [
+      "1",
+      "600826"
+    ],
+    [
+      "1",
+      "600831"
+    ],
+    [
+      "1",
+      "600876"
+    ],
+    [
+      "1",
+      "600880"
+    ],
+    [
+      "1",
+      "600885"
+    ],
+    [
+      "1",
+      "600895"
+    ],
+    [
+      "1",
+      "600897"
+    ],
+    [
+      "1",
+      "600901"
+    ],
+    [
+      "1",
+      "600908"
+    ],
+    [
+      "1",
+      "600933"
+    ],
+    [
+      "1",
+      "600936"
+    ],
+    [
+      "1",
+      "600959"
+    ],
+    [
+      "1",
+      "600966"
+    ],
+    [
+      "1",
+      "600992"
+    ],
+    [
+      "1",
+      "601002"
+    ],
+    [
+      "1",
+      "601026"
+    ],
+    [
+      "1",
+      "601033"
+    ],
+    [
+      "1",
+      "601038"
+    ],
+    [
+      "1",
+      "601068"
+    ],
+    [
+      "1",
+      "601100"
+    ],
+    [
+      "1",
+      "601106"
+    ],
+    [
+      "1",
+      "601128"
+    ],
+    [
+      "1",
+      "601138"
+    ],
+    [
+      "1",
+      "601156"
+    ],
+    [
+      "1",
+      "601158"
+    ],
+    [
+      "1",
+      "601163"
+    ],
+    [
+      "1",
+      "601166"
+    ],
+    [
+      "1",
+      "601169"
+    ],
+    [
+      "1",
+      "601179"
+    ],
+    [
+      "1",
+      "601186"
+    ],
+    [
+      "1",
+      "601229"
+    ],
+    [
+      "1",
+      "601318"
+    ],
+    [
+      "1",
+      "601512"
+    ],
+    [
+      "1",
+      "601601"
+    ],
+    [
+      "1",
+      "601615"
+    ],
+    [
+      "1",
+      "601616"
+    ],
+    [
+      "1",
+      "601668"
+    ],
+    [
+      "1",
+      "601717"
+    ],
+    [
+      "1",
+      "601798"
+    ],
+    [
+      "1",
+      "601799"
+    ],
+    [
+      "1",
+      "601818"
+    ],
+    [
+      "1",
+      "601825"
+    ],
+    [
+      "1",
+      "601828"
+    ],
+    [
+      "1",
+      "601838"
+    ],
+    [
+      "1",
+      "601858"
+    ],
+    [
+      "1",
+      "601882"
+    ],
+    [
+      "1",
+      "601916"
+    ],
+    [
+      "1",
+      "601968"
+    ],
+    [
+      "1",
+      "601997"
+    ],
+    [
+      "1",
+      "603013"
+    ],
+    [
+      "1",
+      "603014"
+    ],
+    [
+      "1",
+      "603031"
+    ],
+    [
+      "1",
+      "603037"
+    ],
+    [
+      "1",
+      "603040"
+    ],
+    [
+      "1",
+      "603049"
+    ],
+    [
+      "1",
+      "603058"
+    ],
+    [
+      "1",
+      "603059"
+    ],
+    [
+      "1",
+      "603070"
+    ],
+    [
+      "1",
+      "603085"
+    ],
+    [
+      "1",
+      "603087"
+    ],
+    [
+      "1",
+      "603088"
+    ],
+    [
+      "1",
+      "603093"
+    ],
+    [
+      "1",
+      "603097"
+    ],
+    [
+      "1",
+      "603101"
+    ],
+    [
+      "1",
+      "603106"
+    ],
+    [
+      "1",
+      "603109"
+    ],
+    [
+      "1",
+      "603111"
+    ],
+    [
+      "1",
+      "603127"
+    ],
+    [
+      "1",
+      "603129"
+    ],
+    [
+      "1",
+      "603130"
+    ],
+    [
+      "1",
+      "603139"
+    ],
+    [
+      "1",
+      "603159"
+    ],
+    [
+      "1",
+      "603166"
+    ],
+    [
+      "1",
+      "603171"
+    ],
+    [
+      "1",
+      "603173"
+    ],
+    [
+      "1",
+      "603187"
+    ],
+    [
+      "1",
+      "603190"
+    ],
+    [
+      "1",
+      "603194"
+    ],
+    [
+      "1",
+      "603195"
+    ],
+    [
+      "1",
+      "603219"
+    ],
+    [
+      "1",
+      "603225"
+    ],
+    [
+      "1",
+      "603275"
+    ],
+    [
+      "1",
+      "603276"
+    ],
+    [
+      "1",
+      "603277"
+    ],
+    [
+      "1",
+      "603285"
+    ],
+    [
+      "1",
+      "603286"
+    ],
+    [
+      "1",
+      "603297"
+    ],
+    [
+      "1",
+      "603298"
+    ],
+    [
+      "1",
+      "603303"
+    ],
+    [
+      "1",
+      "603323"
+    ],
+    [
+      "1",
+      "603331"
+    ],
+    [
+      "1",
+      "603336"
+    ],
+    [
+      "1",
+      "603337"
+    ],
+    [
+      "1",
+      "603344"
+    ],
+    [
+      "1",
+      "603360"
+    ],
+    [
+      "1",
+      "603365"
+    ],
+    [
+      "1",
+      "603369"
+    ],
+    [
+      "1",
+      "603377"
+    ],
+    [
+      "1",
+      "603379"
+    ],
+    [
+      "1",
+      "603392"
+    ],
+    [
+      "1",
+      "603456"
+    ],
+    [
+      "1",
+      "603458"
+    ],
+    [
+      "1",
+      "603499"
+    ],
+    [
+      "1",
+      "603516"
+    ],
+    [
+      "1",
+      "603520"
+    ],
+    [
+      "1",
+      "603530"
+    ],
+    [
+      "1",
+      "603538"
+    ],
+    [
+      "1",
+      "603565"
+    ],
+    [
+      "1",
+      "603566"
+    ],
+    [
+      "1",
+      "603567"
+    ],
+    [
+      "1",
+      "603608"
+    ],
+    [
+      "1",
+      "603626"
+    ],
+    [
+      "1",
+      "603629"
+    ],
+    [
+      "1",
+      "603630"
+    ],
+    [
+      "1",
+      "603633"
+    ],
+    [
+      "1",
+      "603638"
+    ],
+    [
+      "1",
+      "603648"
+    ],
+    [
+      "1",
+      "603661"
+    ],
+    [
+      "1",
+      "603662"
+    ],
+    [
+      "1",
+      "603663"
+    ],
+    [
+      "1",
+      "603685"
+    ],
+    [
+      "1",
+      "603686"
+    ],
+    [
+      "1",
+      "603699"
+    ],
+    [
+      "1",
+      "603706"
+    ],
+    [
+      "1",
+      "603711"
+    ],
+    [
+      "1",
+      "603713"
+    ],
+    [
+      "1",
+      "603722"
+    ],
+    [
+      "1",
+      "603725"
+    ],
+    [
+      "1",
+      "603758"
+    ],
+    [
+      "1",
+      "603766"
+    ],
+    [
+      "1",
+      "603777"
+    ],
+    [
+      "1",
+      "603806"
+    ],
+    [
+      "1",
+      "603823"
+    ],
+    [
+      "1",
+      "603855"
+    ],
+    [
+      "1",
+      "603861"
+    ],
+    [
+      "1",
+      "603871"
+    ],
+    [
+      "1",
+      "603882"
+    ],
+    [
+      "1",
+      "603886"
+    ],
+    [
+      "1",
+      "603898"
+    ],
+    [
+      "1",
+      "603901"
+    ],
+    [
+      "1",
+      "603903"
+    ],
+    [
+      "1",
+      "603915"
+    ],
+    [
+      "1",
+      "603920"
+    ],
+    [
+      "1",
+      "603928"
+    ],
+    [
+      "1",
+      "603969"
+    ],
+    [
+      "1",
+      "603977"
+    ],
+    [
+      "1",
+      "603979"
+    ],
+    [
+      "1",
+      "603983"
+    ],
+    [
+      "1",
+      "603991"
+    ],
+    [
+      "1",
+      "605003"
+    ],
+    [
+      "1",
+      "605005"
+    ],
+    [
+      "1",
+      "605056"
+    ],
+    [
+      "1",
+      "605066"
+    ],
+    [
+      "1",
+      "605068"
+    ],
+    [
+      "1",
+      "605069"
+    ],
+    [
+      "1",
+      "605080"
+    ],
+    [
+      "1",
+      "605088"
+    ],
+    [
+      "1",
+      "605090"
+    ],
+    [
+      "1",
+      "605099"
+    ],
+    [
+      "1",
+      "605100"
+    ],
+    [
+      "1",
+      "605118"
+    ],
+    [
+      "1",
+      "605151"
+    ],
+    [
+      "1",
+      "605178"
+    ],
+    [
+      "1",
+      "605188"
+    ],
+    [
+      "1",
+      "605287"
+    ],
+    [
+      "1",
+      "605368"
+    ],
+    [
+      "1",
+      "605369"
+    ],
+    [
+      "1",
+      "605377"
+    ],
+    [
+      "1",
+      "605388"
+    ],
+    [
+      "1",
+      "605500"
+    ],
+    [
+      "1",
+      "605507"
+    ],
+    [
+      "1",
+      "605577"
+    ],
+    [
+      "1",
+      "605588"
+    ],
+    [
+      "1",
+      "688006"
+    ],
+    [
+      "1",
+      "688007"
+    ],
+    [
+      "1",
+      "688012"
+    ],
+    [
+      "1",
+      "688019"
+    ],
+    [
+      "1",
+      "688028"
+    ],
+    [
+      "1",
+      "688035"
+    ],
+    [
+      "1",
+      "688036"
+    ],
+    [
+      "1",
+      "688046"
+    ],
+    [
+      "1",
+      "688051"
+    ],
+    [
+      "1",
+      "688052"
+    ],
+    [
+      "1",
+      "688059"
+    ],
+    [
+      "1",
+      "688065"
+    ],
+    [
+      "1",
+      "688066"
+    ],
+    [
+      "1",
+      "688070"
+    ],
+    [
+      "1",
+      "688089"
+    ],
+    [
+      "1",
+      "688096"
+    ],
+    [
+      "1",
+      "688100"
+    ],
+    [
+      "1",
+      "688114"
+    ],
+    [
+      "1",
+      "688115"
+    ],
+    [
+      "1",
+      "688120"
+    ],
+    [
+      "1",
+      "688122"
+    ],
+    [
+      "1",
+      "688128"
+    ],
+    [
+      "1",
+      "688132"
+    ],
+    [
+      "1",
+      "688141"
+    ],
+    [
+      "1",
+      "688147"
+    ],
+    [
+      "1",
+      "688155"
+    ],
+    [
+      "1",
+      "688157"
+    ],
+    [
+      "1",
+      "688159"
+    ],
+    [
+      "1",
+      "688160"
+    ],
+    [
+      "1",
+      "688161"
+    ],
+    [
+      "1",
+      "688171"
+    ],
+    [
+      "1",
+      "688187"
+    ],
+    [
+      "1",
+      "688188"
+    ],
+    [
+      "1",
+      "688190"
+    ],
+    [
+      "1",
+      "688200"
+    ],
+    [
+      "1",
+      "688201"
+    ],
+    [
+      "1",
+      "688202"
+    ],
+    [
+      "1",
+      "688215"
+    ],
+    [
+      "1",
+      "688222"
+    ],
+    [
+      "1",
+      "688227"
+    ],
+    [
+      "1",
+      "688233"
+    ],
+    [
+      "1",
+      "688244"
+    ],
+    [
+      "1",
+      "688246"
+    ],
+    [
+      "1",
+      "688248"
+    ],
+    [
+      "1",
+      "688265"
+    ],
+    [
+      "1",
+      "688267"
+    ],
+    [
+      "1",
+      "688269"
+    ],
+    [
+      "1",
+      "688271"
+    ],
+    [
+      "1",
+      "688272"
+    ],
+    [
+      "1",
+      "688276"
+    ],
+    [
+      "1",
+      "688280"
+    ],
+    [
+      "1",
+      "688281"
+    ],
+    [
+      "1",
+      "688283"
+    ],
+    [
+      "1",
+      "688285"
+    ],
+    [
+      "1",
+      "688289"
+    ],
+    [
+      "1",
+      "688298"
+    ],
+    [
+      "1",
+      "688301"
+    ],
+    [
+      "1",
+      "688315"
+    ],
+    [
+      "1",
+      "688319"
+    ],
+    [
+      "1",
+      "688323"
+    ],
+    [
+      "1",
+      "688325"
+    ],
+    [
+      "1",
+      "688326"
+    ],
+    [
+      "1",
+      "688332"
+    ],
+    [
+      "1",
+      "688347"
+    ],
+    [
+      "1",
+      "688352"
+    ],
+    [
+      "1",
+      "688356"
+    ],
+    [
+      "1",
+      "688357"
+    ],
+    [
+      "1",
+      "688361"
+    ],
+    [
+      "1",
+      "688363"
+    ],
+    [
+      "1",
+      "688366"
+    ],
+    [
+      "1",
+      "688371"
+    ],
+    [
+      "1",
+      "688372"
+    ],
+    [
+      "1",
+      "688377"
+    ],
+    [
+      "1",
+      "688385"
+    ],
+    [
+      "1",
+      "688386"
+    ],
+    [
+      "1",
+      "688389"
+    ],
+    [
+      "1",
+      "688399"
+    ],
+    [
+      "1",
+      "688409"
+    ],
+    [
+      "1",
+      "688432"
+    ],
+    [
+      "1",
+      "688455"
+    ],
+    [
+      "1",
+      "688456"
+    ],
+    [
+      "1",
+      "688458"
+    ],
+    [
+      "1",
+      "688459"
+    ],
+    [
+      "1",
+      "688469"
+    ],
+    [
+      "1",
+      "688480"
+    ],
+    [
+      "1",
+      "688488"
+    ],
+    [
+      "1",
+      "688500"
+    ],
+    [
+      "1",
+      "688502"
+    ],
+    [
+      "1",
+      "688509"
+    ],
+    [
+      "1",
+      "688510"
+    ],
+    [
+      "1",
+      "688521"
+    ],
+    [
+      "1",
+      "688526"
+    ],
+    [
+      "1",
+      "688529"
+    ],
+    [
+      "1",
+      "688535"
+    ],
+    [
+      "1",
+      "688536"
+    ],
+    [
+      "1",
+      "688548"
+    ],
+    [
+      "1",
+      "688557"
+    ],
+    [
+      "1",
+      "688558"
+    ],
+    [
+      "1",
+      "688566"
+    ],
+    [
+      "1",
+      "688571"
+    ],
+    [
+      "1",
+      "688578"
+    ],
+    [
+      "1",
+      "688584"
+    ],
+    [
+      "1",
+      "688592"
+    ],
+    [
+      "1",
+      "688602"
+    ],
+    [
+      "1",
+      "688603"
+    ],
+    [
+      "1",
+      "688605"
+    ],
+    [
+      "1",
+      "688611"
+    ],
+    [
+      "1",
+      "688612"
+    ],
+    [
+      "1",
+      "688613"
+    ],
+    [
+      "1",
+      "688615"
+    ],
+    [
+      "1",
+      "688617"
+    ],
+    [
+      "1",
+      "688631"
+    ],
+    [
+      "1",
+      "688633"
+    ],
+    [
+      "1",
+      "688648"
+    ],
+    [
+      "1",
+      "688651"
+    ],
+    [
+      "1",
+      "688652"
+    ],
+    [
+      "1",
+      "688661"
+    ],
+    [
+      "1",
+      "688668"
+    ],
+    [
+      "1",
+      "688683"
+    ],
+    [
+      "1",
+      "688685"
+    ],
+    [
+      "1",
+      "688710"
+    ],
+    [
+      "1",
+      "688712"
+    ],
+    [
+      "1",
+      "688721"
+    ],
+    [
+      "1",
+      "688722"
+    ],
+    [
+      "1",
+      "688758"
+    ],
+    [
+      "1",
+      "688776"
+    ],
+    [
+      "1",
+      "688777"
+    ],
+    [
+      "1",
+      "688778"
+    ],
+    [
+      "1",
+      "900906"
+    ],
+    [
+      "1",
+      "900912"
+    ],
+    [
+      "1",
+      "900922"
+    ],
+    [
+      "1",
+      "900924"
+    ],
+    [
+      "1",
+      "900927"
+    ],
+    [
+      "1",
+      "900939"
+    ],
+    [
+      "1",
+      "900942"
+    ],
+    [
+      "103",
+      "920007"
+    ],
+    [
+      "103",
+      "920009"
+    ],
+    [
+      "103",
+      "920015"
+    ],
+    [
+      "103",
+      "920017"
+    ],
+    [
+      "103",
+      "920026"
+    ],
+    [
+      "103",
+      "920033"
+    ],
+    [
+      "103",
+      "920035"
+    ],
+    [
+      "103",
+      "920056"
+    ],
+    [
+      "103",
+      "920057"
+    ],
+    [
+      "103",
+      "920061"
+    ],
+    [
+      "103",
+      "920062"
+    ],
+    [
+      "103",
+      "920068"
+    ],
+    [
+      "103",
+      "920075"
+    ],
+    [
+      "103",
+      "920108"
+    ],
+    [
+      "103",
+      "920112"
+    ],
+    [
+      "103",
+      "920116"
+    ],
+    [
+      "103",
+      "920149"
+    ],
+    [
+      "103",
+      "920174"
+    ],
+    [
+      "103",
+      "920183"
+    ],
+    [
+      "103",
+      "920188"
+    ],
+    [
+      "103",
+      "920204"
+    ],
+    [
+      "103",
+      "920208"
+    ],
+    [
+      "103",
+      "920212"
+    ],
+    [
+      "103",
+      "920221"
+    ],
+    [
+      "103",
+      "920239"
+    ],
+    [
+      "103",
+      "920247"
+    ],
+    [
+      "103",
+      "920266"
+    ],
+    [
+      "103",
+      "920270"
+    ],
+    [
+      "103",
+      "920271"
+    ],
+    [
+      "103",
+      "920284"
+    ],
+    [
+      "103",
+      "920299"
+    ],
+    [
+      "103",
+      "920300"
+    ],
+    [
+      "103",
+      "920344"
+    ],
+    [
+      "103",
+      "920346"
+    ],
+    [
+      "103",
+      "920363"
+    ],
+    [
+      "103",
+      "920374"
+    ],
+    [
+      "103",
+      "920395"
+    ],
+    [
+      "103",
+      "920396"
+    ],
+    [
+      "103",
+      "920415"
+    ],
+    [
+      "103",
+      "920427"
+    ],
+    [
+      "103",
+      "920445"
+    ],
+    [
+      "103",
+      "920475"
+    ],
+    [
+      "103",
+      "920491"
+    ],
+    [
+      "103",
+      "920496"
+    ],
+    [
+      "103",
+      "920508"
+    ],
+    [
+      "103",
+      "920510"
+    ],
+    [
+      "103",
+      "920526"
+    ],
+    [
+      "103",
+      "920533"
+    ],
+    [
+      "103",
+      "920541"
+    ],
+    [
+      "103",
+      "920564"
+    ],
+    [
+      "103",
+      "920576"
+    ],
+    [
+      "103",
+      "920599"
+    ],
+    [
+      "103",
+      "920640"
+    ],
+    [
+      "103",
+      "920642"
+    ],
+    [
+      "103",
+      "920663"
+    ],
+    [
+      "103",
+      "920665"
+    ],
+    [
+      "103",
+      "920679"
+    ],
+    [
+      "103",
+      "920690"
+    ],
+    [
+      "103",
+      "920693"
+    ],
+    [
+      "103",
+      "920699"
+    ],
+    [
+      "103",
+      "920706"
+    ],
+    [
+      "103",
+      "920720"
+    ],
+    [
+      "103",
+      "920802"
+    ],
+    [
+      "103",
+      "920832"
+    ],
+    [
+      "103",
+      "920833"
+    ],
+    [
+      "103",
+      "920839"
+    ],
+    [
+      "103",
+      "920873"
+    ],
+    [
+      "103",
+      "920876"
+    ],
+    [
+      "103",
+      "920879"
+    ],
+    [
+      "103",
+      "920885"
+    ],
+    [
+      "103",
+      "920895"
+    ],
+    [
+      "103",
+      "920924"
+    ],
+    [
+      "103",
+      "920926"
+    ],
+    [
+      "103",
+      "920932"
+    ],
+    [
+      "103",
+      "920943"
+    ],
+    [
+      "103",
+      "920946"
+    ],
+    [
+      "103",
+      "920961"
+    ],
+    [
+      "103",
+      "920971"
+    ],
+    [
+      "103",
+      "920976"
+    ]
+  ],
+  "truncated": false,
+  "timings": {
+    "compileMillis": 0.0255,
+    "queueMillis": 0.0038,
+    "explainMillis": 31.1339,
+    "dorisExecutionMillis": 1062.2072,
+    "returnMillis": 0.1263,
+    "totalMillis": 2234.8353
+  },
+  "limits": {
+    "queryTimeoutSeconds": 10,
+    "maxEstimatedScanRows": 100000000,
+    "estimatedScanRows": 13650347,
+    "maxReturnRows": 10000,
+    "maxExecutionMemoryBytes": 2147483648
+  },
+  "sqlFingerprint": "sha256:8a8ae3dca7263c23056026458f280f84dbd5275708e162d46589ef0ebee4a277",
+  "dataVersion": {
+    "snapshotId": "stock-20060104-20260414-v1",
+    "contractVersion": "1.0.0",
+    "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95"
+  },
+  "compilerVersion": "0.1.0",
+  "explain": [
+    "PLAN FRAGMENT 0",
+    "  OUTPUT EXPRS:",
+    "    mktcode[#115]",
+    "    tgtcode[#116]",
+    "  PARTITION: UNPARTITIONED",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  VRESULT SINK",
+    "     MYSQL_PROTOCOL",
+    "",
+    "  11:VMERGING-EXCHANGE",
+    "     offset: 0",
+    "     distribute expr lists: mktcode[#115], tgtcode[#116]",
+    "",
+    "PLAN FRAGMENT 1",
+    "",
+    "  PARTITION: HASH_PARTITIONED: mktcode[#63], tgtcode[#64]",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  STREAM DATA SINK",
+    "    EXCHANGE ID: 11",
+    "    UNPARTITIONED",
+    "IS_MERGE: true",
+    "",
+    "  10:VSORT(1336)",
+    "  |  order by: mktcode[#115] ASC, tgtcode[#116] ASC",
+    "  |  algorithm: full sort",
+    "  |  local merge sort",
+    "  |  merge by exchange",
+    "  |  offset: 0",
+    "  |  distribute expr lists: ",
+    "  |  ",
+    "  9:VANALYTIC(1324)",
+    "  |  functions: [count(price_delta[#105])], [avg(greatest(price_delta, 0.0)[#106])], [avg(greatest((0.0 - price_delta), 0.0)[#107])]",
+    "  |  partition by: mktcode[#100], tgtcode[#101]",
+    "  |  order by: bizdate[#102] ASC NULLS FIRST",
+    "  |  window: ROWS BETWEEN 4 PRECEDING AND CURRENT ROW",
+    "  |  predicates: (count(price_delta) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)[#110] = 5), ((100 / ((avg(greatest(price_delta, 0.0)) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)[#111] / nullif(avg(greatest((0.0 - price_delta), 0.0)) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)[#112], 0)) + 1)) < 50), (CAST(((v1[#103] > v2[#104]) AND (lag(v1, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#108] <= lag(v2, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#109])) AS tinyint) = 1), (bizdate[#102] = '2026-04-14'), v1[#103] IS NOT NULL, v2[#104] IS NOT NULL, lag(v1, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#108] IS NOT NULL, lag(v2, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#109] IS NOT NULL",
+    "  |  final projections: mktcode[#100], tgtcode[#101]",
+    "  |  final project output tuple id: 13",
+    "  |  distribute expr lists: mktcode[#100], tgtcode[#101]",
+    "  |  ",
+    "  8:VANALYTIC(1320)",
+    "  |  functions: [lag(v1[#103], 1, NULL)], [lag(v2[#104], 1, NULL)]",
+    "  |  partition by: mktcode[#100], tgtcode[#101]",
+    "  |  order by: bizdate[#102] ASC NULLS FIRST",
+    "  |  window: ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING",
+    "  |  distribute expr lists: mktcode[#100], tgtcode[#101]",
+    "  |  ",
+    "  7:VSORT(1316)",
+    "  |  order by: mktcode[#100] ASC, tgtcode[#101] ASC, bizdate[#102] ASC",
+    "  |  algorithm: full sort",
+    "  |  offset: 0",
+    "  |  distribute expr lists: mktcode[#92], tgtcode[#93]",
+    "  |  ",
+    "  6:VANALYTIC(1308)",
+    "  |  functions: [lag(v1[#82], 1, NULL)]",
+    "  |  partition by: mktcode[#79], tgtcode[#80]",
+    "  |  order by: bizdate[#81] ASC NULLS FIRST",
+    "  |  window: ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING",
+    "  |  final projections: mktcode[#85], tgtcode[#86], bizdate[#87], v1[#88], v2[#89], (v1 - lag(v1, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first))[#91], greatest((v1 - lag(v1, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first))[#91], 0), greatest(((0 - v1[#88]) + lag(v1, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#90]), 0)",
+    "  |  final project output tuple id: 9",
+    "  |  intermediate projections: mktcode[#79], tgtcode[#80], bizdate[#81], v1[#82], v2[#83], lag(v1, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#84], (v1[#82] - lag(v1, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#84])",
+    "  |  intermediate tuple id: 8",
+    "  |  distribute expr lists: mktcode[#79], tgtcode[#80]",
+    "  |  ",
+    "  5:VSORT(1304)",
+    "  |  order by: mktcode[#79] ASC, tgtcode[#80] ASC, bizdate[#81] ASC",
+    "  |  algorithm: full sort",
+    "  |  offset: 0",
+    "  |  distribute expr lists: mktcode[#74], tgtcode[#75]",
+    "  |  ",
+    "  4:VANALYTIC(1292)",
+    "  |  functions: [row_number()]",
+    "  |  partition by: mktcode[#68], tgtcode[#69]",
+    "  |  order by: bizdate[#70] DESC NULLS LAST",
+    "  |  window: ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW",
+    "  |  predicates: (observation_rank[#73] <= 6)",
+    "  |  final projections: mktcode[#68], tgtcode[#69], bizdate[#70], closePrice[#71], openPrice[#72]",
+    "  |  final project output tuple id: 5",
+    "  |  distribute expr lists: mktcode[#68], tgtcode[#69]",
+    "  |  ",
+    "  3:VSORT(1288)",
+    "  |  order by: mktcode[#68] ASC, tgtcode[#69] ASC, bizdate[#70] DESC",
+    "  |  algorithm: full sort",
+    "  |  offset: 0",
+    "  |  distribute expr lists: mktcode[#63], tgtcode[#64]",
+    "  |  ",
+    "  2:VEXCHANGE",
+    "     offset: 0",
+    "     distribute expr lists: ",
+    "",
+    "PLAN FRAGMENT 2",
+    "",
+    "  PARTITION: RANDOM",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  STREAM DATA SINK",
+    "    EXCHANGE ID: 02",
+    "    HASH_PARTITIONED: mktcode[#63], tgtcode[#64]",
+    "",
+    "  1:VPartitionTopN(1280)",
+    "  |  functions: row_number",
+    "  |  partition by: mktcode[#58], tgtcode[#59]",
+    "  |  order by: bizdate[#65] DESC",
+    "  |  has global limit: false",
+    "  |  partition limit: 6",
+    "  |  partition topn phase: TWO_PHASE_LOCAL_PTOPN",
+    "  |  distribute expr lists: ",
+    "  |  ",
+    "  0:VOlapScanNode(1268)",
+    "     TABLE: newzl.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON",
+    "     PREDICATES: ((bizdate[#2] <= '2026-04-14') AND (__DORIS_DELETE_SIGN__[#56] = 0))",
+    "     partitions=21/21 (p20150101000000,p20140101000000,p20130101000000,p20120101000000,p20110101000000,p20100101000000,p20090101000000,p20080101000000,p20070101000000,p20060101000000,p20230101000000,p20220101000000,p20210101000000,p20200101000000,p20190101000000,p20180101000000,p20160101000000,p20250101000000,p20240101000000,p20170101000000,p20260101000000)",
+    "     tablets=336/336, tabletList=1791094083785,1791094083787,1791094083789 ...",
+    "     cardinality=13650347, avgRowSize=152.91768, numNodes=1",
+    "     pushAggOp=NONE",
+    "     final projections: mktcode[#0], tgtcode[#1], bizdate[#2], (CAST(closePx[#8] AS double) / 10000), (CAST(openPx[#5] AS double) / 10000)",
+    "     final project output tuple id: 1",
+    "",
+    "",
+    "",
+    "========== STATISTICS ==========",
+    "planned with unknown column statistics"
+  ],
+  "queryProfile": {
+    "available": false,
+    "queryId": "5f9dc13c08fa4e4e-86244ac43596c259",
+    "taskState": null,
+    "total": null,
+    "user": null,
+    "note": "Profile is asynchronous or not retained"
+  },
+  "dataQuality": {
+    "validationLevel": "PROJECT_SCOPED",
+    "officialAcceptanceEligible": false,
+    "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+    "coverageStatus": "PARTIAL_INPUTS",
+    "evaluationDate": "2026-04-14",
+    "requiredSources": [
+      "basic"
+    ],
+    "observedSecurities": 5614,
+    "currentMissingExtensionRows": 0,
+    "inputs": [
+      {
+        "function": "indicator",
+        "indicator": "RSI(5)",
+        "unavailableSecurities": 293,
+        "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+        "window": "6 条观察记录",
+        "role": "VALUE",
+        "requiredObservations": 6
+      },
+      {
+        "function": "cross_above",
+        "indicator": "收盘价 / 开盘价",
+        "unavailableSecurities": 44,
+        "inputId": "dd14c83ae5cdffe50011939709fc37a859cc35cce871875624b28fc802a06b71",
+        "window": "2 条观察记录",
+        "role": "VALUE",
+        "requiredObservations": 2
+      }
+    ],
+    "unavailableSamples": [
+      [
+        "0",
+        "000040",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000049",
+        "0",
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "000518",
+        "0",
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "000551",
+        "0",
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "000552",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000584",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000622",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000627",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000638",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000695",
+        "0",
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "000736",
+        "0",
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "000792",
+        "0",
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "000823",
+        "0",
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "000851",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000935",
+        "0",
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "000957",
+        "0",
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "000959",
+        "0",
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "000967",
+        "0",
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "001270",
+        "0",
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "001298",
+        "0",
+        "1",
+        "0"
+      ]
+    ],
+    "snapshotExtensionWithoutBasic": 249480,
+    "snapshotCloseOutsideRange": 3487,
+    "limitations": [
+      "本次使用项目已冻结的字段单位、公式与缺值约定，官方口径未获额外确认。",
+      "证券范围以基础行情为准。无法关联基础行情的衍生记录完整保留，不用于补造基础行情。",
+      "缺失字段、-999999 资金哨兵、零分母、历史不足及平坦 position 区间按原契约返回 NULL。",
+      "行业字段在现有数据中不可用；项目入口拒绝行业查询。财务等缺少来源的功能仍拒绝。",
+      "这是项目内部按依赖验证的运行证据，不登记 VALIDATED 快照，不代表官方验收。",
+      "原始数据按不可变快照管理。运行账户只读；外部装载修改数据后必须重新验证，行数和表/视图定义在每次查询时复核。",
+      "可用性在用户条件、THEN 排名及 LIMIT 之前统计；输入为 NULL 不等于条件为假。各项缺失数量可能重叠，不可相加。样本最多 20 只；每个原因最多展示 20 个实际相关日期。每只证券最多检查 10001 条观察记录，每个输入最多 250000 步解释计算。历史不足只报告观察数，不推测缺少哪些交易日；平坦区间及零分母的相关日期不是缺失日期。跨证券查询、超限或检查失败会明确标记解释不完整，SQL 缺失标记保持有效。"
+    ],
+    "validationMillis": 1167.2024,
+    "sampleDetails": [
+      {
+        "marketCode": "0",
+        "securityCode": "000040",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "收盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "dd14c83ae5cdffe50011939709fc37a859cc35cce871875624b28fc802a06b71",
+            "function": "cross_above",
+            "indicator": "收盘价 / 开盘价",
+            "window": "2 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "收盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 2,
+                "datesTruncated": false
+              },
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "开盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 2,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000049",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "ZERO_LOSS_DENOMINATOR",
+                "indicator": "RSI(5)",
+                "requiredObservations": 6,
+                "minimumObserved": 6,
+                "maximumObserved": 6,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000518",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "ZERO_LOSS_DENOMINATOR",
+                "indicator": "RSI(5)",
+                "requiredObservations": 6,
+                "minimumObserved": 6,
+                "maximumObserved": 6,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000551",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "ZERO_LOSS_DENOMINATOR",
+                "indicator": "RSI(5)",
+                "requiredObservations": 6,
+                "minimumObserved": 6,
+                "maximumObserved": 6,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000552",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "收盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "dd14c83ae5cdffe50011939709fc37a859cc35cce871875624b28fc802a06b71",
+            "function": "cross_above",
+            "indicator": "收盘价 / 开盘价",
+            "window": "2 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "收盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 2,
+                "datesTruncated": false
+              },
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "开盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 2,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000584",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "收盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "dd14c83ae5cdffe50011939709fc37a859cc35cce871875624b28fc802a06b71",
+            "function": "cross_above",
+            "indicator": "收盘价 / 开盘价",
+            "window": "2 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "收盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 2,
+                "datesTruncated": false
+              },
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "开盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 2,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000622",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "收盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "dd14c83ae5cdffe50011939709fc37a859cc35cce871875624b28fc802a06b71",
+            "function": "cross_above",
+            "indicator": "收盘价 / 开盘价",
+            "window": "2 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "收盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 2,
+                "datesTruncated": false
+              },
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "开盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 2,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000627",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "收盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "dd14c83ae5cdffe50011939709fc37a859cc35cce871875624b28fc802a06b71",
+            "function": "cross_above",
+            "indicator": "收盘价 / 开盘价",
+            "window": "2 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "收盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 2,
+                "datesTruncated": false
+              },
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "开盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 2,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000638",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "收盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "dd14c83ae5cdffe50011939709fc37a859cc35cce871875624b28fc802a06b71",
+            "function": "cross_above",
+            "indicator": "收盘价 / 开盘价",
+            "window": "2 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "收盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              },
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "开盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000695",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "ZERO_LOSS_DENOMINATOR",
+                "indicator": "RSI(5)",
+                "requiredObservations": 6,
+                "minimumObserved": 6,
+                "maximumObserved": 6,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000736",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "ZERO_LOSS_DENOMINATOR",
+                "indicator": "RSI(5)",
+                "requiredObservations": 6,
+                "minimumObserved": 6,
+                "maximumObserved": 6,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000792",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "ZERO_LOSS_DENOMINATOR",
+                "indicator": "RSI(5)",
+                "requiredObservations": 6,
+                "minimumObserved": 6,
+                "maximumObserved": 6,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000823",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "ZERO_LOSS_DENOMINATOR",
+                "indicator": "RSI(5)",
+                "requiredObservations": 6,
+                "minimumObserved": 6,
+                "maximumObserved": 6,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000851",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "收盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "dd14c83ae5cdffe50011939709fc37a859cc35cce871875624b28fc802a06b71",
+            "function": "cross_above",
+            "indicator": "收盘价 / 开盘价",
+            "window": "2 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "收盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 2,
+                "datesTruncated": false
+              },
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "开盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 2,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000935",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "ZERO_LOSS_DENOMINATOR",
+                "indicator": "RSI(5)",
+                "requiredObservations": 6,
+                "minimumObserved": 6,
+                "maximumObserved": 6,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000957",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "ZERO_LOSS_DENOMINATOR",
+                "indicator": "RSI(5)",
+                "requiredObservations": 6,
+                "minimumObserved": 6,
+                "maximumObserved": 6,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000959",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "收盘价",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10"
+                ],
+                "totalRelatedDates": 4,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000967",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "ZERO_LOSS_DENOMINATOR",
+                "indicator": "RSI(5)",
+                "requiredObservations": 6,
+                "minimumObserved": 6,
+                "maximumObserved": 6,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "001270",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "ZERO_LOSS_DENOMINATOR",
+                "indicator": "RSI(5)",
+                "requiredObservations": 6,
+                "minimumObserved": 6,
+                "maximumObserved": 6,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "001298",
+        "evaluationDate": "2026-04-14",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1d901b927086f0082b57497941f009697bbf2ba7ee3b0fa7fdaadd8fd03d5fb2",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "ZERO_LOSS_DENOMINATOR",
+                "indicator": "RSI(5)",
+                "requiredObservations": 6,
+                "minimumObserved": 6,
+                "maximumObserved": 6,
+                "relatedDates": [
+                  "2026-04-07",
+                  "2026-04-08",
+                  "2026-04-09",
+                  "2026-04-10",
+                  "2026-04-13",
+                  "2026-04-14"
+                ],
+                "totalRelatedDates": 6,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

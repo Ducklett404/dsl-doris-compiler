@@ -1,0 +1,674 @@
+[
+  {
+    "name": "position3",
+    "calls": [
+      {
+        "kind": "position",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '收盘价', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "rsi5",
+    "calls": [
+      {
+        "kind": "rsi",
+        "n": 5
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      50
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50"
+  },
+  {
+    "name": "rsi-ma",
+    "calls": [
+      {
+        "kind": "rsi",
+        "n": 5
+      },
+      {
+        "kind": "ma",
+        "n": 20
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        50
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        1
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50) and (indicator('', '', '20日均线', '2026-04-14', '', '', '') > 1)"
+  },
+  {
+    "name": "rsi-position",
+    "calls": [
+      {
+        "kind": "rsi",
+        "n": 5
+      },
+      {
+        "kind": "position",
+        "n": 20
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        50
+      ],
+      [
+        "cmp",
+        1,
+        "=",
+        "高"
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50) and (position('', '', '收盘价', '20日', '2026-04-14', '', '', '') = '高')"
+  },
+  {
+    "name": "rsi-record_high",
+    "calls": [
+      {
+        "kind": "rsi",
+        "n": 5
+      },
+      {
+        "kind": "record_high",
+        "n": 5
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        50
+      ],
+      [
+        "cmp",
+        1,
+        "=",
+        true
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50) and (record_high('', '', '收盘价', '5日', '2026-04-14', '', '', '') = True)"
+  },
+  {
+    "name": "rsi-cross_above",
+    "calls": [
+      {
+        "kind": "rsi",
+        "n": 5
+      },
+      {
+        "kind": "cross_above",
+        "n": 2
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        50
+      ],
+      [
+        "cmp",
+        1,
+        "=",
+        true
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50) and (cross_above('', '', '收盘价', '开盘价', '2026-04-14', '', '') = True)"
+  },
+  {
+    "name": "rsi-CONS>=",
+    "calls": [
+      {
+        "kind": "count",
+        "base": {
+          "kind": "rsi",
+          "n": 5
+        },
+        "n": 3,
+        "mode": "CONS",
+        "countOp": ">=",
+        "op": ">",
+        "threshold": 50
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', 'RSI(5)', '2026-04-14', '', '', 'CONS>=3日') > 50"
+  },
+  {
+    "name": "rsi-CONS=",
+    "calls": [
+      {
+        "kind": "count",
+        "base": {
+          "kind": "rsi",
+          "n": 5
+        },
+        "n": 3,
+        "mode": "CONS",
+        "countOp": "=",
+        "op": ">",
+        "threshold": 50
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', 'RSI(5)', '2026-04-14', '', '', 'CONS=3日') > 50"
+  },
+  {
+    "name": "rsi-EXIST>=",
+    "calls": [
+      {
+        "kind": "count",
+        "base": {
+          "kind": "rsi",
+          "n": 5
+        },
+        "n": 3,
+        "mode": "EXIST",
+        "countOp": ">=",
+        "op": ">",
+        "threshold": 50
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', 'RSI(5)', '2026-04-14', '', '', 'EXIST>=3日') > 50"
+  },
+  {
+    "name": "rsi-EXIST=",
+    "calls": [
+      {
+        "kind": "count",
+        "base": {
+          "kind": "rsi",
+          "n": 5
+        },
+        "n": 3,
+        "mode": "EXIST",
+        "countOp": "=",
+        "op": ">",
+        "threshold": 50
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', 'RSI(5)', '2026-04-14', '', '', 'EXIST=3日') > 50"
+  },
+  {
+    "name": "ma-CONS>=",
+    "calls": [
+      {
+        "kind": "count",
+        "base": {
+          "kind": "ma",
+          "n": 20
+        },
+        "n": 3,
+        "mode": "CONS",
+        "countOp": ">=",
+        "op": ">",
+        "threshold": 1
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '20日均线', '2026-04-14', '', '', 'CONS>=3日') > 1"
+  },
+  {
+    "name": "ma-CONS=",
+    "calls": [
+      {
+        "kind": "count",
+        "base": {
+          "kind": "ma",
+          "n": 20
+        },
+        "n": 3,
+        "mode": "CONS",
+        "countOp": "=",
+        "op": ">",
+        "threshold": 1
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '20日均线', '2026-04-14', '', '', 'CONS=3日') > 1"
+  },
+  {
+    "name": "ma-EXIST>=",
+    "calls": [
+      {
+        "kind": "count",
+        "base": {
+          "kind": "ma",
+          "n": 20
+        },
+        "n": 3,
+        "mode": "EXIST",
+        "countOp": ">=",
+        "op": ">",
+        "threshold": 1
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '20日均线', '2026-04-14', '', '', 'EXIST>=3日') > 1"
+  },
+  {
+    "name": "ma-EXIST=",
+    "calls": [
+      {
+        "kind": "count",
+        "base": {
+          "kind": "ma",
+          "n": 20
+        },
+        "n": 3,
+        "mode": "EXIST",
+        "countOp": "=",
+        "op": ">",
+        "threshold": 1
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '20日均线', '2026-04-14', '', '', 'EXIST=3日') > 1"
+  },
+  {
+    "name": "position-CONS>=",
+    "calls": [
+      {
+        "kind": "count",
+        "base": {
+          "kind": "position",
+          "n": 5
+        },
+        "n": 3,
+        "mode": "CONS",
+        "countOp": ">=",
+        "op": "=",
+        "threshold": "高"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '收盘价', '5日', '2026-04-14', '', '', 'CONS>=3日') = '高'"
+  },
+  {
+    "name": "position-CONS=",
+    "calls": [
+      {
+        "kind": "count",
+        "base": {
+          "kind": "position",
+          "n": 5
+        },
+        "n": 3,
+        "mode": "CONS",
+        "countOp": "=",
+        "op": "=",
+        "threshold": "高"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '收盘价', '5日', '2026-04-14', '', '', 'CONS=3日') = '高'"
+  },
+  {
+    "name": "position-EXIST>=",
+    "calls": [
+      {
+        "kind": "count",
+        "base": {
+          "kind": "position",
+          "n": 5
+        },
+        "n": 3,
+        "mode": "EXIST",
+        "countOp": ">=",
+        "op": "=",
+        "threshold": "高"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '收盘价', '5日', '2026-04-14', '', '', 'EXIST>=3日') = '高'"
+  },
+  {
+    "name": "position-EXIST=",
+    "calls": [
+      {
+        "kind": "count",
+        "base": {
+          "kind": "position",
+          "n": 5
+        },
+        "n": 3,
+        "mode": "EXIST",
+        "countOp": "=",
+        "op": "=",
+        "threshold": "高"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '收盘价', '5日', '2026-04-14', '', '', 'EXIST=3日') = '高'"
+  },
+  {
+    "name": "date-2006-01-04",
+    "calls": [
+      {
+        "kind": "rsi",
+        "n": 5
+      },
+      {
+        "kind": "ma",
+        "n": 20
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        ">",
+        50
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        1
+      ]
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "(indicator('', '', 'RSI(5)', '2006-01-04', '', '', '') > 50) or (indicator('', '', '20日均线', '2006-01-04', '', '', '') > 1)"
+  },
+  {
+    "name": "date-2018-08-20",
+    "calls": [
+      {
+        "kind": "rsi",
+        "n": 5
+      },
+      {
+        "kind": "ma",
+        "n": 20
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        ">",
+        50
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        1
+      ]
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "(indicator('', '', 'RSI(5)', '2018-08-20', '', '', '') > 50) or (indicator('', '', '20日均线', '2018-08-20', '', '', '') > 1)"
+  },
+  {
+    "name": "date-2026-04-12",
+    "calls": [
+      {
+        "kind": "rsi",
+        "n": 5
+      },
+      {
+        "kind": "ma",
+        "n": 20
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        ">",
+        50
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        1
+      ]
+    ],
+    "date": "2026-04-12",
+    "market": "",
+    "dsl": "(indicator('', '', 'RSI(5)', '2026-04-12', '', '', '') > 50) or (indicator('', '', '20日均线', '2026-04-12', '', '', '') > 1)"
+  },
+  {
+    "name": "funds-mixed",
+    "calls": [
+      {
+        "kind": "rsi",
+        "n": 5
+      },
+      {
+        "kind": "field",
+        "metric": "net"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        50
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50) and (indicator('', '', '主力净流入', '2026-04-14', '', '', '') > 0)"
+  },
+  {
+    "name": "two-count-windows",
+    "calls": [
+      {
+        "kind": "count",
+        "base": {
+          "kind": "rsi",
+          "n": 5
+        },
+        "n": 3,
+        "mode": "CONS",
+        "countOp": "=",
+        "op": ">",
+        "threshold": 50
+      },
+      {
+        "kind": "count",
+        "base": {
+          "kind": "ma",
+          "n": 20
+        },
+        "n": 3,
+        "mode": "EXIST",
+        "countOp": ">=",
+        "op": ">",
+        "threshold": 1
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      [
+        "cmp",
+        1,
+        "=",
+        true
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', 'RSI(5)', '2026-04-14', '', '', 'CONS=3日') > 50) or (indicator('', '', '20日均线', '2026-04-14', '', '', 'EXIST>=3日') > 1)"
+  },
+  {
+    "name": "rsi-then-rank",
+    "calls": [
+      {
+        "kind": "rsi",
+        "n": 5
+      },
+      {
+        "kind": "rank",
+        "direction": "desc:row_number"
+      }
+    ],
+    "expr": [
+      "cmp",
+      1,
+      "<=",
+      10
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50 then rank('', '', '收盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 10 limit 0,5",
+    "pre": [
+      "cmp",
+      0,
+      ">",
+      50
+    ],
+    "limit": 5
+  }
+]

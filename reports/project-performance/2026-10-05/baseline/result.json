@@ -1,0 +1,454 @@
+{
+  "purpose": "PROJECT_MIXED_WINDOW_BASELINE",
+  "officialAcceptanceEligible": false,
+  "startedAtUtc": "2026-10-05T01:19:45.756513+00:00",
+  "jarSha256": "eefdb0ece3f3dbf2352929a4410247bf0453a9d1f64fcd7f9e55ba82c7e164d1",
+  "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+  "oracleSha256": "b681446fb5bf8cc1bbc868174dec1c902b1556c65074e87a6a170b2bcb2b6cc1",
+  "runnerSha256": "01c0ac77ad9c13c512053ded1ded9b1472b3717ed1a90d6e36bbf074e8d10d7b",
+  "policySha256": "18e6fa64c8d2b46a214ed27ef3cbf3bc24e00b3adc593e261cd70916b93efa29",
+  "rounds": 1,
+  "executions": [
+    {
+      "case": "position3",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 3641.0000000032596,
+      "timings": {
+        "compileMillis": 57.0595,
+        "queueMillis": 0.0261,
+        "explainMillis": 63.2711,
+        "dorisExecutionMillis": 976.3672,
+        "returnMillis": 3.6622,
+        "totalMillis": 3483.0721
+      },
+      "validationMillis": 2435.6025,
+      "artifact": "position3-1.json"
+    },
+    {
+      "case": "rsi5",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 3062.999999994645,
+      "timings": {
+        "compileMillis": 6.7823,
+        "queueMillis": 0.0054,
+        "explainMillis": 66.5419,
+        "dorisExecutionMillis": 867.2398,
+        "returnMillis": 2.1406,
+        "totalMillis": 3041.9539
+      },
+      "validationMillis": 2157.7786,
+      "artifact": "rsi5-1.json"
+    },
+    {
+      "case": "rsi-ma",
+      "round": 1,
+      "httpStatus": 502,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 1639.999999999418,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "rsi-ma-1.json"
+    },
+    {
+      "case": "rsi-position",
+      "round": 1,
+      "httpStatus": 502,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 1202.9999999940628,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "rsi-position-1.json"
+    },
+    {
+      "case": "rsi-record_high",
+      "round": 1,
+      "httpStatus": 502,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 1282.0000000065193,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "rsi-record_high-1.json"
+    },
+    {
+      "case": "rsi-cross_above",
+      "round": 1,
+      "httpStatus": 502,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 1421.0000000020955,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "rsi-cross_above-1.json"
+    },
+    {
+      "case": "rsi-CONS>=",
+      "round": 1,
+      "httpStatus": 502,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 1235.000000000582,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "rsi-CONS_=-1.json"
+    },
+    {
+      "case": "rsi-CONS=",
+      "round": 1,
+      "httpStatus": 502,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 4061.999999990803,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "rsi-CONS=-1.json"
+    },
+    {
+      "case": "rsi-EXIST>=",
+      "round": 1,
+      "httpStatus": 502,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 1297.0000000059372,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "rsi-EXIST_=-1.json"
+    },
+    {
+      "case": "rsi-EXIST=",
+      "round": 1,
+      "httpStatus": 502,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 1343.9999999973224,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "rsi-EXIST=-1.json"
+    },
+    {
+      "case": "ma-CONS>=",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 7437.000000005355,
+      "timings": {
+        "compileMillis": 0.9639,
+        "queueMillis": 0.0043,
+        "explainMillis": 49.4644,
+        "dorisExecutionMillis": 1890.6705,
+        "returnMillis": 2.0762,
+        "totalMillis": 7397.0247
+      },
+      "validationMillis": 5497.4534,
+      "artifact": "ma-CONS_=-1.json"
+    },
+    {
+      "case": "ma-CONS=",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 8125.0,
+      "timings": {
+        "compileMillis": 0.8304,
+        "queueMillis": 0.0078,
+        "explainMillis": 43.4528,
+        "dorisExecutionMillis": 2248.7957,
+        "returnMillis": 0.0232,
+        "totalMillis": 8123.8948
+      },
+      "validationMillis": 5867.8533,
+      "artifact": "ma-CONS=-1.json"
+    },
+    {
+      "case": "ma-EXIST>=",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 7110.000000000582,
+      "timings": {
+        "compileMillis": 1.1294,
+        "queueMillis": 0.0427,
+        "explainMillis": 29.8004,
+        "dorisExecutionMillis": 2025.514,
+        "returnMillis": 2.4676,
+        "totalMillis": 7086.2838
+      },
+      "validationMillis": 5049.4844,
+      "artifact": "ma-EXIST_=-1.json"
+    },
+    {
+      "case": "ma-EXIST=",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 7500.0,
+      "timings": {
+        "compileMillis": 1.2016,
+        "queueMillis": 0.0049,
+        "explainMillis": 44.1583,
+        "dorisExecutionMillis": 2116.3113,
+        "returnMillis": 0.0105,
+        "totalMillis": 7491.0215
+      },
+      "validationMillis": 5366.5501,
+      "artifact": "ma-EXIST=-1.json"
+    },
+    {
+      "case": "position-CONS>=",
+      "round": 1,
+      "httpStatus": 502,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 1750.0,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "position-CONS_=-1.json"
+    },
+    {
+      "case": "position-CONS=",
+      "round": 1,
+      "httpStatus": 502,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 1827.9999999940628,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "position-CONS=-1.json"
+    },
+    {
+      "case": "position-EXIST>=",
+      "round": 1,
+      "httpStatus": 502,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 1843.9999999973224,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "position-EXIST_=-1.json"
+    },
+    {
+      "case": "position-EXIST=",
+      "round": 1,
+      "httpStatus": 502,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 1750.0,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "position-EXIST=-1.json"
+    },
+    {
+      "case": "date-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 375.0,
+      "timings": {
+        "compileMillis": 1.236,
+        "queueMillis": 0.0058,
+        "explainMillis": 36.7687,
+        "dorisExecutionMillis": 55.7841,
+        "returnMillis": 0.0062,
+        "totalMillis": 376.1188
+      },
+      "validationMillis": 312.9803,
+      "artifact": "date-2006-01-04-1.json"
+    },
+    {
+      "case": "date-2018-08-20",
+      "round": 1,
+      "httpStatus": 504,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 10219.000000011874,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "date-2018-08-20-1.json"
+    },
+    {
+      "case": "date-2026-04-12",
+      "round": 1,
+      "httpStatus": 502,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 1250.0,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "date-2026-04-12-1.json"
+    },
+    {
+      "case": "funds-mixed",
+      "round": 1,
+      "httpStatus": 429,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 187.9999999946449,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "funds-mixed-1.json"
+    },
+    {
+      "case": "two-count-windows",
+      "round": 1,
+      "httpStatus": 502,
+      "status": "FAIL",
+      "checks": {},
+      "wallMillis": 1125.0,
+      "timings": null,
+      "validationMillis": null,
+      "artifact": "two-count-windows-1.json"
+    }
+  ],
+  "checks": [
+    {
+      "name": "strict-registry-empty",
+      "status": "PASS"
+    },
+    {
+      "name": "raw-reference-lock",
+      "status": "PASS"
+    },
+    {
+      "name": "http-started",
+      "status": "PASS"
+    },
+    {
+      "name": "sources-unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "artifacts-unchanged",
+      "status": "PASS"
+    }
+  ],
+  "sourceStateBefore": [
+    [
+      [
+        "basic",
+        "13650347"
+      ],
+      [
+        "code",
+        "5686"
+      ],
+      [
+        "ext",
+        "6170822"
+      ]
+    ],
+    []
+  ],
+  "sourceStateAfter": [
+    [
+      [
+        "basic",
+        "13650347"
+      ],
+      [
+        "code",
+        "5686"
+      ],
+      [
+        "ext",
+        "6170822"
+      ]
+    ],
+    []
+  ],
+  "cleanup": "DONE",
+  "cleanupErrors": [],
+  "completedAtUtc": "2026-10-05T01:21:17.673304+00:00",
+  "status": "FAIL",
+  "passed": 7,
+  "total": 23
+}

@@ -1,0 +1,573 @@
+{
+  "compilation": {
+    "dslVersion": "stock-slot-v1",
+    "semanticModel": {
+      "document": {
+        "expression": {
+          "kind": "Binary",
+          "operator": ">",
+          "left": {
+            "kind": "FunctionCall",
+            "name": "indicator",
+            "arguments": [
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 11,
+                  "endLine": 1,
+                  "endColumn": 13
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 15,
+                  "endLine": 1,
+                  "endColumn": 17
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "收盘价",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 19,
+                  "endLine": 1,
+                  "endColumn": 24
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "2026-04-14",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 26,
+                  "endLine": 1,
+                  "endColumn": 38
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 40,
+                  "endLine": 1,
+                  "endColumn": 42
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 44,
+                  "endLine": 1,
+                  "endColumn": 46
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 48,
+                  "endLine": 1,
+                  "endColumn": 50
+                }
+              }
+            ],
+            "type": "NUMBER",
+            "span": {
+              "line": 1,
+              "column": 1,
+              "endLine": 1,
+              "endColumn": 51
+            }
+          },
+          "right": {
+            "kind": "FunctionCall",
+            "name": "querydata",
+            "arguments": [
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 64,
+                  "endLine": 1,
+                  "endColumn": 66
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "合成证券000002",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 68,
+                  "endLine": 1,
+                  "endColumn": 80
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "收盘价",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 82,
+                  "endLine": 1,
+                  "endColumn": 87
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "2026-04-14",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 89,
+                  "endLine": 1,
+                  "endColumn": 101
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 103,
+                  "endLine": 1,
+                  "endColumn": 105
+                }
+              }
+            ],
+            "type": "NUMBER",
+            "span": {
+              "line": 1,
+              "column": 54,
+              "endLine": 1,
+              "endColumn": 106
+            }
+          },
+          "type": "BOOLEAN",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 106
+          }
+        },
+        "selectionLimit": null,
+        "span": {
+          "line": 1,
+          "column": 1,
+          "endLine": 1,
+          "endColumn": 111
+        }
+      },
+      "calls": [
+        {
+          "function": "indicator",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 51
+          },
+          "slots": [
+            {
+              "name": "market",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "filter_scope",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "indicator_name",
+              "rawValue": "收盘价",
+              "structuredValue": {
+                "value": "收盘价",
+                "template": "收盘价",
+                "parameters": {}
+              }
+            },
+            {
+              "name": "date",
+              "rawValue": "2026-04-14",
+              "structuredValue": {
+                "raw": "2026-04-14",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "select_type",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "agg_func",
+              "rawValue": "",
+              "structuredValue": ""
+            },
+            {
+              "name": "count_exp",
+              "rawValue": "",
+              "structuredValue": null
+            }
+          ]
+        },
+        {
+          "function": "querydata",
+          "span": {
+            "line": 1,
+            "column": 54,
+            "endLine": 1,
+            "endColumn": 106
+          },
+          "slots": [
+            {
+              "name": "market",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "keywords",
+              "rawValue": "合成证券000002",
+              "structuredValue": "合成证券000002"
+            },
+            {
+              "name": "indicator_name",
+              "rawValue": "收盘价",
+              "structuredValue": {
+                "value": "收盘价",
+                "template": "收盘价",
+                "parameters": {}
+              }
+            },
+            {
+              "name": "date",
+              "rawValue": "2026-04-14",
+              "structuredValue": {
+                "raw": "2026-04-14",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "agg_func",
+              "rawValue": "",
+              "structuredValue": ""
+            }
+          ]
+        }
+      ]
+    },
+    "logicalPlan": [
+      {
+        "kind": "HistoryScan",
+        "detail": "dsl_project_fixture_26f0a0c687a0.v_hsj_stock_hq_basic through 2026-04-14"
+      },
+      {
+        "kind": "CodeJoin",
+        "detail": "dsl_project_fixture_26f0a0c687a0.hsj_stock_code_info on (mktcode,tgtcode)"
+      },
+      {
+        "kind": "Window",
+        "detail": "1 contract(s)"
+      },
+      {
+        "kind": "EvaluationDateFilter",
+        "detail": "2026-04-14"
+      },
+      {
+        "kind": "Sort",
+        "detail": "mktcode,tgtcode"
+      },
+      {
+        "kind": "Project",
+        "detail": "mktcode,tgtcode"
+      }
+    ],
+    "windowContracts": [
+      {
+        "function": "queryData:MAX",
+        "partitionKeys": [
+          "bizdate"
+        ],
+        "orderKeys": [],
+        "unit": "CROSS_SECTION",
+        "lookback": 1,
+        "suspensionPolicy": "NOT_APPLICABLE",
+        "insufficientHistoryPolicy": "NULL_IF_TARGET_MISSING",
+        "nullPolicy": "IGNORE_NULL_INPUTS",
+        "requireFullWindow": false
+      }
+    ],
+    "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,c.name AS name,c.hyBlkRefName AS hyBlkRefName,\n    b.closePrice AS `v1`\n  FROM dsl_project_fixture_26f0a0c687a0.v_hsj_stock_hq_basic b\n  LEFT JOIN dsl_project_fixture_26f0a0c687a0.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    `v1` AS `f1`,\n    MAX(CASE WHEN tgtcode=? OR name=? THEN `v1` END) OVER (PARTITION BY bizdate) AS `f2`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` > `f2`)\nORDER BY mktcode,tgtcode;",
+    "bindings": [
+      "2026-04-14",
+      "合成证券000002",
+      "合成证券000002",
+      "2026-04-14"
+    ],
+    "ordered": false,
+    "coveragePlan": {
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,c.name AS name,c.hyBlkRefName AS hyBlkRefName,\n    b.closePrice AS `v1`\n  FROM dsl_project_fixture_26f0a0c687a0.v_hsj_stock_hq_basic b\n  LEFT JOIN dsl_project_fixture_26f0a0c687a0.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    `v1` AS `f1`,\n    MAX(CASE WHEN tgtcode=? OR name=? THEN `v1` END) OVER (PARTITION BY bizdate) AS `f2`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT COUNT(*),COALESCE(SUM(0),0),COALESCE(SUM(CASE WHEN cov.`f1` IS NULL THEN 1 ELSE 0 END),0),COALESCE(SUM(CASE WHEN cov.`f2` IS NULL THEN 1 ELSE 0 END),0) FROM current_rows cov;",
+      "samplesSql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,c.name AS name,c.hyBlkRefName AS hyBlkRefName,\n    b.closePrice AS `v1`\n  FROM dsl_project_fixture_26f0a0c687a0.v_hsj_stock_hq_basic b\n  LEFT JOIN dsl_project_fixture_26f0a0c687a0.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    `v1` AS `f1`,\n    MAX(CASE WHEN tgtcode=? OR name=? THEN `v1` END) OVER (PARTITION BY bizdate) AS `f2`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT cov.mktcode,cov.tgtcode,0,CASE WHEN cov.`f1` IS NULL THEN 1 ELSE 0 END,CASE WHEN cov.`f2` IS NULL THEN 1 ELSE 0 END FROM current_rows cov WHERE cov.`f1` IS NULL OR cov.`f2` IS NULL ORDER BY cov.mktcode,cov.tgtcode LIMIT 20;",
+      "bindings": [
+        "2026-04-14",
+        "合成证券000002",
+        "合成证券000002",
+        "2026-04-14"
+      ],
+      "evaluationDate": "2026-04-14",
+      "inputs": [
+        {
+          "function": "indicator",
+          "indicator": "收盘价",
+          "alias": "f1"
+        },
+        {
+          "function": "querydata",
+          "indicator": "收盘价",
+          "alias": "f2"
+        }
+      ],
+      "extensionRequired": false
+    }
+  },
+  "columns": [
+    "mktcode",
+    "tgtcode"
+  ],
+  "rows": [
+    [
+      "1",
+      "000001"
+    ],
+    [
+      "1",
+      "000003"
+    ],
+    [
+      "1",
+      "000004"
+    ]
+  ],
+  "truncated": false,
+  "timings": {
+    "compileMillis": 60.3241,
+    "queueMillis": 0.0241,
+    "explainMillis": 32.4626,
+    "dorisExecutionMillis": 36.2727,
+    "returnMillis": 0.0446,
+    "totalMillis": 330.3208
+  },
+  "limits": {
+    "queryTimeoutSeconds": 10,
+    "maxEstimatedScanRows": 10000,
+    "estimatedScanRows": 16,
+    "maxReturnRows": 1000,
+    "maxExecutionMemoryBytes": 134217728
+  },
+  "sqlFingerprint": "sha256:ac12bab050c03e8a9bd09aea6c73cf32139b7f80faa58a7abde5147efb9f2157",
+  "dataVersion": {
+    "snapshotId": "synthetic-project-v1",
+    "contractVersion": "fixture-v1",
+    "manifestSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "compilerVersion": "0.1.0",
+  "explain": [
+    "PLAN FRAGMENT 0",
+    "  OUTPUT EXPRS:",
+    "    mktcode[#104]",
+    "    tgtcode[#105]",
+    "  PARTITION: UNPARTITIONED",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  VRESULT SINK",
+    "     MYSQL_PROTOCOL",
+    "",
+    "  8:VMERGING-EXCHANGE",
+    "     offset: 0",
+    "     distribute expr lists: ",
+    "",
+    "PLAN FRAGMENT 1",
+    "",
+    "  PARTITION: HASH_PARTITIONED: bizdate[#93]",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  STREAM DATA SINK",
+    "    EXCHANGE ID: 08",
+    "    UNPARTITIONED",
+    "IS_MERGE: true",
+    "",
+    "  7:VSORT(1005)",
+    "  |  order by: mktcode[#104] ASC, tgtcode[#105] ASC",
+    "  |  algorithm: full sort",
+    "  |  local merge sort",
+    "  |  merge by exchange",
+    "  |  offset: 0",
+    "  |  distribute expr lists: ",
+    "  |  ",
+    "  6:VANALYTIC(993)",
+    "  |  functions: [max(if(OR[(tgtcode = '合成证券000002'),(name = '合成证券000002')], closePrice, NULL)[#100])]",
+    "  |  partition by: bizdate[#98]",
+    "  |  window: RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW",
+    "  |  predicates: (closePrice[#99] > f2[#101])",
+    "  |  final projections: mktcode[#96], tgtcode[#97]",
+    "  |  final project output tuple id: 8",
+    "  |  distribute expr lists: bizdate[#98]",
+    "  |  ",
+    "  5:VSORT(989)",
+    "  |  order by: bizdate[#98] ASC",
+    "  |  algorithm: full sort",
+    "  |  offset: 0",
+    "  |  distribute expr lists: bizdate[#93]",
+    "  |  ",
+    "  4:VEXCHANGE",
+    "     offset: 0",
+    "     distribute expr lists: mktcode[#91], tgtcode[#92]",
+    "",
+    "PLAN FRAGMENT 2",
+    "",
+    "  PARTITION: HASH_PARTITIONED: mktcode[#22], tgtcode[#23]",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  STREAM DATA SINK",
+    "    EXCHANGE ID: 04",
+    "    HASH_PARTITIONED: bizdate[#93]",
+    "",
+    "  3:VHASH JOIN(977)",
+    "  |  join op: LEFT OUTER JOIN(BROADCAST)[]",
+    "  |  equal join conjunct: (mktcode[#80] = mktcode[#19])",
+    "  |  equal join conjunct: (tgtcode[#81] = tgtcode[#20])",
+    "  |  cardinality=4",
+    "  |  vec output tuple id: 5",
+    "  |  output tuple id: 5",
+    "  |  vIntermediate tuple ids: 4 ",
+    "  |  hash output slot ids: 80 81 82 83 21 ",
+    "  |  final projections: mktcode[#84], tgtcode[#85], bizdate[#86], closePrice[#87], if(((tgtcode[#85] = '合成证券000002') OR (name[#90] = '合成证券000002')), closePrice[#87], NULL)",
+    "  |  final project output tuple id: 5",
+    "  |  distribute expr lists: mktcode[#80], tgtcode[#81]",
+    "  |  distribute expr lists: ",
+    "  |  ",
+    "  |----1:VEXCHANGE",
+    "  |       offset: 0",
+    "  |       distribute expr lists: mktcode[#19], tgtcode[#20]",
+    "  |    ",
+    "  2:VOlapScanNode(952)",
+    "     TABLE: dsl_project_fixture_26f0a0c687a0.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON",
+    "     PREDICATES: ((bizdate[#24] = '2026-04-14') AND (__DORIS_DELETE_SIGN__[#78] = 0))",
+    "     partitions=1/1 (p20260101000000)",
+    "     tablets=16/16, tabletList=1791116605609,1791116605611,1791116605613 ...",
+    "     cardinality=16, avgRowSize=0.0, numNodes=1",
+    "     pushAggOp=NONE",
+    "     final projections: mktcode[#22], tgtcode[#23], bizdate[#24], (CAST(closePx[#30] AS double) / 10000)",
+    "     final project output tuple id: 3",
+    "",
+    "PLAN FRAGMENT 3",
+    "",
+    "  PARTITION: HASH_PARTITIONED: mktcode[#0], tgtcode[#1]",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  STREAM DATA SINK",
+    "    EXCHANGE ID: 01",
+    "    UNPARTITIONED",
+    "",
+    "  0:VOlapScanNode(961)",
+    "     TABLE: dsl_project_fixture_26f0a0c687a0.hsj_stock_code_info(hsj_stock_code_info), PREAGGREGATION: ON",
+    "     PREDICATES: (__DORIS_DELETE_SIGN__[#17] = 0)",
+    "     partitions=1/1 (hsj_stock_code_info)",
+    "     tablets=16/16, tabletList=1791116605564,1791116605566,1791116605568 ...",
+    "     cardinality=1, avgRowSize=0.0, numNodes=1",
+    "     pushAggOp=NONE",
+    "     final projections: mktcode[#0], tgtcode[#1], name[#2]",
+    "     final project output tuple id: 1",
+    "",
+    "",
+    "",
+    "========== STATISTICS ==========",
+    "planned with unknown column statistics"
+  ],
+  "queryProfile": {
+    "available": false,
+    "queryId": "f16cfee9c30945b7-b014e1d623ec0245",
+    "taskState": null,
+    "total": null,
+    "user": null,
+    "note": "Profile is asynchronous or not retained"
+  },
+  "dataQuality": {
+    "validationLevel": "PROJECT_SCOPED",
+    "officialAcceptanceEligible": false,
+    "certificateSha256": "3a31220bdc251d5fc0157205e6531e9b36f24f44c4bad52a825bd6dc3817eeb8",
+    "coverageStatus": "PARTIAL_INPUTS",
+    "evaluationDate": "2026-04-14",
+    "requiredSources": [
+      "basic",
+      "code"
+    ],
+    "observedSecurities": 5,
+    "currentMissingExtensionRows": 0,
+    "inputs": [
+      {
+        "function": "indicator",
+        "indicator": "收盘价",
+        "unavailableSecurities": 1
+      },
+      {
+        "function": "querydata",
+        "indicator": "收盘价",
+        "unavailableSecurities": 0
+      }
+    ],
+    "unavailableSamples": [
+      [
+        "1",
+        "000005",
+        "0",
+        "1",
+        "0"
+      ]
+    ],
+    "snapshotExtensionWithoutBasic": 1,
+    "snapshotCloseOutsideRange": 0,
+    "limitations": [
+      "手工标注合成数据；不代表官方数据或官方验收。",
+      "可用性在用户条件、THEN 排名及 LIMIT 之前统计；输入为 NULL 不等于条件为假。历史不足、NULL/哨兵、零分母及平坦区间均可导致输入不可用。各项缺失数量可能重叠，不可相加作为未命中总数。缺失样本最多 20 行，依次为市场、证券、当日衍生缺行标记及各输入缺失标记；窗口内具体缺失日期需进一步检查。"
+    ],
+    "validationMillis": 228.6887
+  }
+}

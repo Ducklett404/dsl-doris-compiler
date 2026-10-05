@@ -1,10 +1,10 @@
 {
-  "freezeId": "stock-slot-phase1-scope-v1.0.1",
+  "freezeId": "stock-slot-phase1-scope-v1.0.2",
   "status": "APPROVED",
   "effectiveDate": "2026-10-04",
   "dslVersion": "stock-slot-v1",
-  "registryVersion": "stock-slot-registry-v1.0.1",
-  "registrySha256": "09fbd4b474d6a6820215ae3428178ef14e7afc0d4f78878ef5b40b84984202b2",
+  "registryVersion": "stock-slot-registry-v1.0.2",
+  "registrySha256": "401c7f5073d2a4ee4f29231b679e44fc56e90df75226cb05851c28bc9b6f3071",
   "snapshot": {
     "snapshotId": "stock-20060104-20260414-v1",
     "contractVersion": "1.0.0",
@@ -17,7 +17,7 @@
   },
   "ddlHashes": {
     "data/doris/ddl/001_rebuild_tables.sql": "2a690ed5d4e3c398d517471d083c4e11eea405b39281a90ba5d55fa901c91372",
-    "data/doris/ddl/002_semantic_view.sql": "7c59fa83840c5629e89172d42795ba21f976f736df8f6f80617042cea77c2c64",
+    "data/doris/ddl/002_semantic_view.sql": "27df95d601bc64a67c0d2b943312d4b44714fe98322642575f7561abcf35043d",
     "data/doris/ddl/004_validation_gate.sql": "d0050a34eb908185ab95326601c9cd369efbe2004a678c62cb27de4b4bf9cf7e",
     "data/doris/ddl/005_performance_features.sql": "9d5c78aac69ad12697265676122d176ca481b2ae23db93a8f2fd921af48e5e57"
   },
@@ -83,7 +83,7 @@
     {"name":"queryData","restrictions":"one exact code or current-snapshot name"},
     {"name":"record_high","restrictions":"N observed trading rows or 历史; complete non-null window"},
     {"name":"record_low","restrictions":"N observed trading rows or 历史; complete non-null window"},
-    {"name":"position","restrictions":"N observed trading rows or 历史; fixed 低/中/高 thirds"},
+    {"name":"position","restrictions":"N observed trading rows or 历史; fixed inclusive 低/中/高 thirds; exact companion fields when declared; DECIMAL(36,S) with per-indicator scale S (0..18), cross multiplication with DECIMAL(1,0) constants; out-of-domain arithmetic is an execution error"},
     {"name":"cross_above","restrictions":"current and previous observed trading row must be non-null"},
     {"name":"cross_down","restrictions":"current and previous observed trading row must be non-null"},
     {"name":"close_together","restrictions":"relative difference <=1%; zero denominator returns NULL"},
@@ -109,6 +109,8 @@
     {"category":"unregistered-indicator","examples":["any corpus indicator not listed above"],"reason":"no unique tested source mapping; must return UNKNOWN_INDICATOR"}
   ],
   "changeControl": {
+    "previousFreezeId": "stock-slot-phase1-scope-v1.0.1",
+    "revisionReason": "Fix risePct DECIMAL division truncation using explicit DOUBLE arithmetic; fix inclusive position third boundaries using canonical decimal cross multiplication. Required capabilities, source snapshot and result tolerances are unchanged.",
     "rule": "Any change to an included/excluded item, expression, scale, source, date range, snapshot, DDL hash or result contract requires a new freezeId and renewed approval. In-place edits are forbidden.",
     "requiredEvidence": ["source-table contract", "positive and negative vectors", "golden SQL", "Doris result differential", "snapshot validation"],
     "externalSignoffRequired": false,
@@ -116,7 +118,7 @@
       "mode": "DIRECT_PROJECT_APPROVAL",
       "approvedAt": "2026-10-04",
       "approvedBy": "project requester",
-      "note": "Project requester authorized the code-review fixes and self-tests on 2026-10-04; source snapshot and included/excluded capability scope are unchanged."
+      "note": "Project requester explicitly requested fixes for the two numerical defects and their self-tests on 2026-10-04. Previous freeze v1.0.1 is preserved in history; this project approval is not official data acceptance."
     }
   },
   "hashEncoding": "UTF8_LF_SHA256_V1"

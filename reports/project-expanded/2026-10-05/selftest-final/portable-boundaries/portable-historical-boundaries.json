@@ -1,0 +1,4716 @@
+{
+  "authority": "PROJECT_HAND_LABELLED_NOT_OFFICIAL_ACCEPTANCE",
+  "fixtureSha256": "b61d462c4d4faeeb4b9d172de5096796a413e927bc77d650534f7fc5f143f2e6",
+  "jarSha256": "eefdb0ece3f3dbf2352929a4410247bf0453a9d1f64fcd7f9e55ba82c7e164d1",
+  "engine": "SQLite",
+  "results": [
+    {
+      "id": "high-true",
+      "dsl": "record_high('', '', '收盘价', '历史', '2026-04-14', '', '', '') = True",
+      "paths": {
+        "FULL_SCAN_REFERENCE": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "OPTIMIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "MATERIALIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": true,
+          "sql": "WITH features AS (\n  SELECT h.mktcode,h.tgtcode,h.bizdate,\n    h.`close_current` = h.`close_max` AS `f1`\n  FROM newzl.history_extrema_v1 h\n  WHERE h.snapshot_id=? AND h.manifest_sha256=? AND h.registry_fingerprint=? AND h.bizdate=?\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "hand-labelled-history-v1",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "WRONG_SNAPSHOT": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "WRONG_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "NO_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "high-false",
+      "dsl": "record_high('', '', '收盘价', '历史', '2026-04-14', '', '', '') = False",
+      "paths": {
+        "FULL_SCAN_REFERENCE": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            false
+          ]
+        },
+        "OPTIMIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            false
+          ]
+        },
+        "MATERIALIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": true,
+          "sql": "WITH features AS (\n  SELECT h.mktcode,h.tgtcode,h.bizdate,\n    h.`close_current` = h.`close_max` AS `f1`\n  FROM newzl.history_extrema_v1 h\n  WHERE h.snapshot_id=? AND h.manifest_sha256=? AND h.registry_fingerprint=? AND h.bizdate=?\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "hand-labelled-history-v1",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+            "2026-04-14",
+            "2026-04-14",
+            false
+          ]
+        },
+        "WRONG_SNAPSHOT": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            false
+          ]
+        },
+        "WRONG_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            false
+          ]
+        },
+        "NO_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            false
+          ]
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "low-true",
+      "dsl": "record_low('', '', '收盘价', '历史', '2026-04-14', '', '', '') = True",
+      "paths": {
+        "FULL_SCAN_REFERENCE": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MIN(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "OPTIMIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "MATERIALIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": true,
+          "sql": "WITH features AS (\n  SELECT h.mktcode,h.tgtcode,h.bizdate,\n    h.`close_current` = h.`close_min` AS `f1`\n  FROM newzl.history_extrema_v1 h\n  WHERE h.snapshot_id=? AND h.manifest_sha256=? AND h.registry_fingerprint=? AND h.bizdate=?\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "hand-labelled-history-v1",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "WRONG_SNAPSHOT": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "WRONG_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "NO_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "low-false",
+      "dsl": "record_low('', '', '收盘价', '历史', '2026-04-14', '', '', '') = False",
+      "paths": {
+        "FULL_SCAN_REFERENCE": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MIN(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            false
+          ]
+        },
+        "OPTIMIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            false
+          ]
+        },
+        "MATERIALIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": true,
+          "sql": "WITH features AS (\n  SELECT h.mktcode,h.tgtcode,h.bizdate,\n    h.`close_current` = h.`close_min` AS `f1`\n  FROM newzl.history_extrema_v1 h\n  WHERE h.snapshot_id=? AND h.manifest_sha256=? AND h.registry_fingerprint=? AND h.bizdate=?\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "hand-labelled-history-v1",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+            "2026-04-14",
+            "2026-04-14",
+            false
+          ]
+        },
+        "WRONG_SNAPSHOT": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            false
+          ]
+        },
+        "WRONG_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            false
+          ]
+        },
+        "NO_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            false
+          ]
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "both-extrema",
+      "dsl": "record_high('', '', '收盘价', '历史', '2026-04-14', '', '', '') = True and record_low('', '', '收盘价', '历史', '2026-04-14', '', '', '') = True",
+      "paths": {
+        "FULL_SCAN_REFERENCE": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MIN(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f2`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) AND (`f2` = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            true
+          ]
+        },
+        "OPTIMIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`,\n    MIN(`v1`) AS `f2_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`,\n    a.`v1_current` = a.`f2_extremum` AS `f2`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) AND (`f2` = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            true
+          ]
+        },
+        "MATERIALIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": true,
+          "sql": "WITH features AS (\n  SELECT h.mktcode,h.tgtcode,h.bizdate,\n    h.`close_current` = h.`close_max` AS `f1`,\n    h.`close_current` = h.`close_min` AS `f2`\n  FROM newzl.history_extrema_v1 h\n  WHERE h.snapshot_id=? AND h.manifest_sha256=? AND h.registry_fingerprint=? AND h.bizdate=?\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) AND (`f2` = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "hand-labelled-history-v1",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            true
+          ]
+        },
+        "WRONG_SNAPSHOT": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`,\n    MIN(`v1`) AS `f2_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`,\n    a.`v1_current` = a.`f2_extremum` AS `f2`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) AND (`f2` = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            true
+          ]
+        },
+        "WRONG_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`,\n    MIN(`v1`) AS `f2_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`,\n    a.`v1_current` = a.`f2_extremum` AS `f2`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) AND (`f2` = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            true
+          ]
+        },
+        "NO_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`,\n    MIN(`v1`) AS `f2_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`,\n    a.`v1_current` = a.`f2_extremum` AS `f2`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) AND (`f2` = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            true
+          ]
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "either-extremum",
+      "dsl": "record_high('', '', '收盘价', '历史', '2026-04-14', '', '', '') = True or record_low('', '', '收盘价', '历史', '2026-04-14', '', '', '') = True",
+      "paths": {
+        "FULL_SCAN_REFERENCE": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MIN(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f2`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) OR (`f2` = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            true
+          ]
+        },
+        "OPTIMIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`,\n    MIN(`v1`) AS `f2_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`,\n    a.`v1_current` = a.`f2_extremum` AS `f2`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) OR (`f2` = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            true
+          ]
+        },
+        "MATERIALIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": true,
+          "sql": "WITH features AS (\n  SELECT h.mktcode,h.tgtcode,h.bizdate,\n    h.`close_current` = h.`close_max` AS `f1`,\n    h.`close_current` = h.`close_min` AS `f2`\n  FROM newzl.history_extrema_v1 h\n  WHERE h.snapshot_id=? AND h.manifest_sha256=? AND h.registry_fingerprint=? AND h.bizdate=?\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) OR (`f2` = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "hand-labelled-history-v1",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            true
+          ]
+        },
+        "WRONG_SNAPSHOT": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`,\n    MIN(`v1`) AS `f2_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`,\n    a.`v1_current` = a.`f2_extremum` AS `f2`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) OR (`f2` = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            true
+          ]
+        },
+        "WRONG_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`,\n    MIN(`v1`) AS `f2_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`,\n    a.`v1_current` = a.`f2_extremum` AS `f2`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) OR (`f2` = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            true
+          ]
+        },
+        "NO_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`,\n    MIN(`v1`) AS `f2_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`,\n    a.`v1_current` = a.`f2_extremum` AS `f2`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) OR (`f2` = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            true
+          ]
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "not-high",
+      "dsl": "record_high('', '', '收盘价', '历史', '2026-04-14', '', '', '') != True",
+      "paths": {
+        "FULL_SCAN_REFERENCE": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` != ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "OPTIMIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` != ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "MATERIALIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": true,
+          "sql": "WITH features AS (\n  SELECT h.mktcode,h.tgtcode,h.bizdate,\n    h.`close_current` = h.`close_max` AS `f1`\n  FROM newzl.history_extrema_v1 h\n  WHERE h.snapshot_id=? AND h.manifest_sha256=? AND h.registry_fingerprint=? AND h.bizdate=?\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` != ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "hand-labelled-history-v1",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "WRONG_SNAPSHOT": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` != ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "WRONG_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` != ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "NO_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` != ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "market-isolation",
+      "dsl": "record_low('沪', '', '收盘价', '历史', '2026-04-14', '', '', '') = True",
+      "paths": {
+        "FULL_SCAN_REFERENCE": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n    AND b.mktcode=1\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MIN(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "OPTIMIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n    AND b.mktcode=1\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "MATERIALIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": true,
+          "sql": "WITH features AS (\n  SELECT h.mktcode,h.tgtcode,h.bizdate,\n    h.`close_current` = h.`close_min` AS `f1`\n  FROM newzl.history_extrema_v1 h\n  WHERE h.snapshot_id=? AND h.manifest_sha256=? AND h.registry_fingerprint=? AND h.bizdate=?\n    AND h.mktcode=1\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "hand-labelled-history-v1",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "WRONG_SNAPSHOT": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n    AND b.mktcode=1\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "WRONG_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n    AND b.mktcode=1\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        },
+        "NO_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n    AND b.mktcode=1\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true
+          ]
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "earlier-date",
+      "dsl": "record_high('', '', '收盘价', '历史', '2026-04-13', '', '', '') = True",
+      "paths": {
+        "FULL_SCAN_REFERENCE": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000009"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000009"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-13",
+            "2026-04-13",
+            true
+          ]
+        },
+        "OPTIMIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000009"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000009"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-13",
+            "2026-04-13",
+            true
+          ]
+        },
+        "MATERIALIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000009"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000009"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": true,
+          "sql": "WITH features AS (\n  SELECT h.mktcode,h.tgtcode,h.bizdate,\n    h.`close_current` = h.`close_max` AS `f1`\n  FROM newzl.history_extrema_v1 h\n  WHERE h.snapshot_id=? AND h.manifest_sha256=? AND h.registry_fingerprint=? AND h.bizdate=?\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "hand-labelled-history-v1",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+            "2026-04-13",
+            "2026-04-13",
+            true
+          ]
+        },
+        "WRONG_SNAPSHOT": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000009"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000009"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-13",
+            "2026-04-13",
+            true
+          ]
+        },
+        "WRONG_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000009"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000009"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-13",
+            "2026-04-13",
+            true
+          ]
+        },
+        "NO_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000009"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000009"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-13",
+            "2026-04-13",
+            true
+          ]
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "count-fallback",
+      "dsl": "record_high('', '', '收盘价', '历史', '2026-04-14', '', '', 'CONS>=3日') = True",
+      "paths": {
+        "FULL_SCAN_REFERENCE": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\npredicates AS (\n  SELECT features.*,\n    (`f1` = ?) AS `pc1`\n  FROM features\n),\ncounted AS (\n  SELECT predicates.*,\n    CASE WHEN COUNT(*) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3 THEN (SUM(CASE WHEN `pc1` THEN 1 ELSE 0 END) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3) ELSE NULL END AS `c1`\n  FROM predicates\n),\ncurrent_rows AS (\n  SELECT * FROM counted WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE `c1`\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            true,
+            "2026-04-14"
+          ]
+        },
+        "OPTIMIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\npredicates AS (\n  SELECT features.*,\n    (`f1` = ?) AS `pc1`\n  FROM features\n),\ncounted AS (\n  SELECT predicates.*,\n    CASE WHEN COUNT(*) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3 THEN (SUM(CASE WHEN `pc1` THEN 1 ELSE 0 END) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3) ELSE NULL END AS `c1`\n  FROM predicates\n),\ncurrent_rows AS (\n  SELECT * FROM counted WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE `c1`\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            true,
+            "2026-04-14"
+          ]
+        },
+        "MATERIALIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\npredicates AS (\n  SELECT features.*,\n    (`f1` = ?) AS `pc1`\n  FROM features\n),\ncounted AS (\n  SELECT predicates.*,\n    CASE WHEN COUNT(*) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3 THEN (SUM(CASE WHEN `pc1` THEN 1 ELSE 0 END) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3) ELSE NULL END AS `c1`\n  FROM predicates\n),\ncurrent_rows AS (\n  SELECT * FROM counted WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE `c1`\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            true,
+            "2026-04-14"
+          ]
+        },
+        "WRONG_SNAPSHOT": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\npredicates AS (\n  SELECT features.*,\n    (`f1` = ?) AS `pc1`\n  FROM features\n),\ncounted AS (\n  SELECT predicates.*,\n    CASE WHEN COUNT(*) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3 THEN (SUM(CASE WHEN `pc1` THEN 1 ELSE 0 END) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3) ELSE NULL END AS `c1`\n  FROM predicates\n),\ncurrent_rows AS (\n  SELECT * FROM counted WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE `c1`\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            true,
+            "2026-04-14"
+          ]
+        },
+        "WRONG_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\npredicates AS (\n  SELECT features.*,\n    (`f1` = ?) AS `pc1`\n  FROM features\n),\ncounted AS (\n  SELECT predicates.*,\n    CASE WHEN COUNT(*) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3 THEN (SUM(CASE WHEN `pc1` THEN 1 ELSE 0 END) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3) ELSE NULL END AS `c1`\n  FROM predicates\n),\ncurrent_rows AS (\n  SELECT * FROM counted WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE `c1`\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            true,
+            "2026-04-14"
+          ]
+        },
+        "NO_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\npredicates AS (\n  SELECT features.*,\n    (`f1` = ?) AS `pc1`\n  FROM features\n),\ncounted AS (\n  SELECT predicates.*,\n    CASE WHEN COUNT(*) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3 THEN (SUM(CASE WHEN `pc1` THEN 1 ELSE 0 END) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)=3) ELSE NULL END AS `c1`\n  FROM predicates\n),\ncurrent_rows AS (\n  SELECT * FROM counted WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE `c1`\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            true,
+            "2026-04-14"
+          ]
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "mixed-indicator-fallback",
+      "dsl": "record_high('', '', '收盘价', '历史', '2026-04-14', '', '', '') = True and indicator('', '', '收盘价', '2026-04-14', '', '', '') > 3",
+      "paths": {
+        "FULL_SCAN_REFERENCE": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`,\n    `v1` AS `f2`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) AND (`f2` > ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            3
+          ]
+        },
+        "OPTIMIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`,\n    `v1` AS `f2`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) AND (`f2` > ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            3
+          ]
+        },
+        "MATERIALIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`,\n    `v1` AS `f2`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) AND (`f2` > ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            3
+          ]
+        },
+        "WRONG_SNAPSHOT": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`,\n    `v1` AS `f2`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) AND (`f2` > ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            3
+          ]
+        },
+        "WRONG_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`,\n    `v1` AS `f2`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) AND (`f2` > ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            3
+          ]
+        },
+        "NO_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`,\n    `v1` AS `f2`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) AND (`f2` > ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            3
+          ]
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "current-row-presence",
+      "dsl": "record_high('', '', '收盘价', '历史', '2026-04-14', '', '', '') = True or 1 = 1",
+      "paths": {
+        "FULL_SCAN_REFERENCE": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000003"
+            ],
+            [
+              1,
+              "000004"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000003"
+            ],
+            [
+              1,
+              "000004"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) OR (? = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            1,
+            1
+          ]
+        },
+        "OPTIMIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000003"
+            ],
+            [
+              1,
+              "000004"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000003"
+            ],
+            [
+              1,
+              "000004"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) OR (? = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            1,
+            1
+          ]
+        },
+        "MATERIALIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000003"
+            ],
+            [
+              1,
+              "000004"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000003"
+            ],
+            [
+              1,
+              "000004"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": true,
+          "sql": "WITH features AS (\n  SELECT h.mktcode,h.tgtcode,h.bizdate,\n    h.`close_current` = h.`close_max` AS `f1`\n  FROM newzl.history_extrema_v1 h\n  WHERE h.snapshot_id=? AND h.manifest_sha256=? AND h.registry_fingerprint=? AND h.bizdate=?\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) OR (? = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "hand-labelled-history-v1",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            1,
+            1
+          ]
+        },
+        "WRONG_SNAPSHOT": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000003"
+            ],
+            [
+              1,
+              "000004"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000003"
+            ],
+            [
+              1,
+              "000004"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) OR (? = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            1,
+            1
+          ]
+        },
+        "WRONG_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000003"
+            ],
+            [
+              1,
+              "000004"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000003"
+            ],
+            [
+              1,
+              "000004"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) OR (? = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            1,
+            1
+          ]
+        },
+        "NO_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000003"
+            ],
+            [
+              1,
+              "000004"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000003"
+            ],
+            [
+              1,
+              "000004"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000006"
+            ],
+            [
+              1,
+              "000007"
+            ],
+            [
+              1,
+              "000008"
+            ],
+            [
+              1,
+              "000010"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` = ?) OR (? = ?))\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            true,
+            1,
+            1
+          ]
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "industry-parameter-order",
+      "dsl": "record_high('沪', '行业A', '收盘价', '历史', '2026-04-14', '', '', '') = True",
+      "paths": {
+        "FULL_SCAN_REFERENCE": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,c.name AS name,c.hyBlkRefName AS hyBlkRefName,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ?\n    AND b.mktcode=1\n    AND c.hyBlkRefName IN (?)\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MAX(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "行业A",
+            "2026-04-14",
+            true
+          ]
+        },
+        "OPTIMIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,c.name AS name,c.hyBlkRefName AS hyBlkRefName,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ?\n    AND b.mktcode=1\n    AND c.hyBlkRefName IN (?)\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            "行业A",
+            true
+          ]
+        },
+        "MATERIALIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": true,
+          "sql": "WITH features AS (\n  SELECT h.mktcode,h.tgtcode,h.bizdate,\n    h.`close_current` = h.`close_max` AS `f1`\n  FROM newzl.history_extrema_v1 h\n  LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=h.mktcode AND c.tgtcode=h.tgtcode\n  WHERE h.snapshot_id=? AND h.manifest_sha256=? AND h.registry_fingerprint=? AND h.bizdate=?\n    AND h.mktcode=1\n    AND c.hyBlkRefName IN (?)\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "hand-labelled-history-v1",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+            "2026-04-14",
+            "行业A",
+            "2026-04-14",
+            true
+          ]
+        },
+        "WRONG_SNAPSHOT": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,c.name AS name,c.hyBlkRefName AS hyBlkRefName,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ?\n    AND b.mktcode=1\n    AND c.hyBlkRefName IN (?)\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            "行业A",
+            true
+          ]
+        },
+        "WRONG_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,c.name AS name,c.hyBlkRefName AS hyBlkRefName,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ?\n    AND b.mktcode=1\n    AND c.hyBlkRefName IN (?)\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            "行业A",
+            true
+          ]
+        },
+        "NO_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              "000001"
+            ],
+            [
+              1,
+              "000005"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,c.name AS name,c.hyBlkRefName AS hyBlkRefName,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ?\n    AND b.mktcode=1\n    AND c.hyBlkRefName IN (?)\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MAX(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            "行业A",
+            true
+          ]
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "industry-union-and-null",
+      "dsl": "record_low('', '行业A|行业B', '收盘价', '历史', '2026-04-14', '', '', '') = True",
+      "paths": {
+        "FULL_SCAN_REFERENCE": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,c.name AS name,c.hyBlkRefName AS hyBlkRefName,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ?\n    AND c.hyBlkRefName IN (?,?)\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) > 0 THEN `v1` = MIN(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "行业A",
+            "行业B",
+            "2026-04-14",
+            true
+          ]
+        },
+        "OPTIMIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,c.name AS name,c.hyBlkRefName AS hyBlkRefName,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ?\n    AND c.hyBlkRefName IN (?,?)\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            "行业A",
+            "行业B",
+            true
+          ]
+        },
+        "MATERIALIZED": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": false,
+          "materialized": true,
+          "sql": "WITH features AS (\n  SELECT h.mktcode,h.tgtcode,h.bizdate,\n    h.`close_current` = h.`close_min` AS `f1`\n  FROM newzl.history_extrema_v1 h\n  LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=h.mktcode AND c.tgtcode=h.tgtcode\n  WHERE h.snapshot_id=? AND h.manifest_sha256=? AND h.registry_fingerprint=? AND h.bizdate=?\n    AND c.hyBlkRefName IN (?,?)\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "hand-labelled-history-v1",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+            "2026-04-14",
+            "行业A",
+            "行业B",
+            "2026-04-14",
+            true
+          ]
+        },
+        "WRONG_SNAPSHOT": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,c.name AS name,c.hyBlkRefName AS hyBlkRefName,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ?\n    AND c.hyBlkRefName IN (?,?)\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            "行业A",
+            "行业B",
+            true
+          ]
+        },
+        "WRONG_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,c.name AS name,c.hyBlkRefName AS hyBlkRefName,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ?\n    AND c.hyBlkRefName IN (?,?)\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            "行业A",
+            "行业B",
+            true
+          ]
+        },
+        "NO_MANIFEST": {
+          "status": "PASS",
+          "actual": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "expected": [
+            [
+              0,
+              "000001"
+            ],
+            [
+              0,
+              "000011"
+            ],
+            [
+              1,
+              "000002"
+            ],
+            [
+              1,
+              "000005"
+            ],
+            [
+              1,
+              "000008"
+            ]
+          ],
+          "aggregate": true,
+          "materialized": false,
+          "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,c.name AS name,c.hyBlkRefName AS hyBlkRefName,\n    b.closePrice AS `v1`,\n    CASE WHEN b.bizdate = ? THEN 1 ELSE 0 END AS is_current\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ?\n    AND c.hyBlkRefName IN (?,?)\n),\nhistorical_extrema AS (\n  SELECT mktcode,tgtcode,MAX(is_current) AS has_current,\n    MAX(CASE WHEN is_current=1 THEN `v1` END) AS `v1_current`,\n    MIN(`v1`) AS `f1_extremum`\n  FROM history\n  GROUP BY mktcode,tgtcode\n),\nfeatures AS (\n  SELECT a.*,\n    a.`v1_current` = a.`f1_extremum` AS `f1`\n  FROM historical_extrema a\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE has_current=1\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+          "bindings": [
+            "2026-04-14",
+            "2026-04-14",
+            "行业A",
+            "行业B",
+            true
+          ]
+        }
+      },
+      "status": "PASS"
+    }
+  ],
+  "total": 14,
+  "passed": 14
+}

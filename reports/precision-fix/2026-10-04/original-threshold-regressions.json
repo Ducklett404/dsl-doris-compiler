@@ -1,0 +1,63 @@
+{
+  "purpose": "ORIGINAL_FAILURE_THRESHOLDS_AFTER_FIX",
+  "jarSha256": "89db17c449c3142abc63e0812ba19836ced420099d4f1e7aeb3df66e6da14363",
+  "previousProbeSha256": "2021a29c19ab6bba99c4e13833f3b79ecc6b066983080d07a6d0509ffee51731",
+  "checks": [
+    {
+      "date": "2006-01-04",
+      "dsl": "indicator('', '', '涨跌幅', '2006-01-04', '', '', '') > 1.686743493975903614457831326",
+      "previousMissedKey": [
+        1,
+        "900932"
+      ],
+      "status": "PASS",
+      "rows": 8,
+      "formerlyMissedKeyIncluded": true
+    },
+    {
+      "date": "2018-08-20",
+      "dsl": "indicator('', '', '涨跌幅', '2018-08-20', '', '', '') > 2.305082372881355932203389830",
+      "previousMissedKey": [
+        1,
+        "601688"
+      ],
+      "status": "PASS",
+      "rows": 3,
+      "formerlyMissedKeyIncluded": true
+    },
+    {
+      "date": "2026-04-10",
+      "dsl": "indicator('', '', '涨跌幅', '2026-04-10', '', '', '') > 0.516792932816537467700258398",
+      "previousMissedKey": [
+        0,
+        "000002"
+      ],
+      "status": "PASS",
+      "rows": 3334,
+      "formerlyMissedKeyIncluded": true
+    },
+    {
+      "date": "2026-04-13",
+      "dsl": "indicator('', '', '涨跌幅', '2026-04-13', '', '', '') > -0.1803413255184851217312894500",
+      "previousMissedKey": [
+        0,
+        "000001"
+      ],
+      "status": "PASS",
+      "rows": 2790,
+      "formerlyMissedKeyIncluded": false
+    },
+    {
+      "date": "2026-04-14",
+      "dsl": "indicator('', '', '涨跌幅', '2026-04-14', '', '', '') > 0.8130040650406504065040650405",
+      "previousMissedKey": [
+        0,
+        "000001"
+      ],
+      "status": "PASS",
+      "rows": 2395,
+      "formerlyMissedKeyIncluded": true
+    }
+  ],
+  "status": "FAIL"
+}

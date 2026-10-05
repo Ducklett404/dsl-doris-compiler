@@ -1,0 +1,14 @@
+{
+  "purpose": "SEMANTIC_VIEW_ROLLBACK_BACKUP",
+  "capturedAtUtc": "2026-10-04T15:26:24.905967+00:00",
+  "originalViews": {
+    "v_hsj_stock_hq_basic": "CREATE VIEW `v_hsj_stock_hq_basic`",
+    "v_hsj_stock_hq_ext": "CREATE VIEW `v_hsj_stock_hq_ext`"
+  },
+  "sourceCounts": {
+    "code": "5686",
+    "basic": "13650347",
+    "ext": "6170822"
+  },
+  "registryRows": []
+}

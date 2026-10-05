@@ -1,0 +1,23 @@
+{
+  "purpose": "TEST_ENVIRONMENT_PREFLIGHT",
+  "checks": [
+    {
+      "name": "old-python-rejected",
+      "status": "PASS",
+      "exitCode": 1
+    },
+    {
+      "name": "missing-module-rejected",
+      "status": "PASS",
+      "exitCode": 1
+    },
+    {
+      "name": "complete-environment-accepted",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "status": "PASS",
+  "passed": 3,
+  "total": 3
+}

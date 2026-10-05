@@ -1,0 +1,42 @@
+{
+  "purpose": "OWNED_DIAGNOSTIC_BE_MEMORY_CONFIGURATION",
+  "officialAcceptanceEligible": false,
+  "queryMaxExecutionMemoryBytes": 2147483648,
+  "configurationTemplatePath": "/opt/apache-doris/be/conf/be.conf.orig",
+  "backupPath": "/opt/apache-doris/be/conf/be.conf.orig.before-project-matrix-20261005",
+  "containerMemoryBytes": 10737418240,
+  "feHeapBytes": 2147483648,
+  "before": "40%",
+  "after": "60%",
+  "beforeBeBytes": 4294967296,
+  "afterBeBytes": 6442450944,
+  "configBeforeSha256": "3e37e5fec6dac3509ead481548d42fdf3e85ec4d16bf06b870e072067660f907",
+  "configAfterSha256": "ecc9b9bb4ee998c9ab985cb92953af144e29b7c589147d652f13a5f1fb0c7dcb",
+  "runtimeBeShare": "60%",
+  "sourceStateUnchanged": true,
+  "rollbackCommands": [
+    [
+      "wsl.exe",
+      "-d",
+      "dsl-doris-official-01a104f9",
+      "--exec",
+      "docker",
+      "exec",
+      "dsl-doris-official",
+      "cp",
+      "--",
+      "/opt/apache-doris/be/conf/be.conf.orig.before-project-matrix-20261005",
+      "/opt/apache-doris/be/conf/be.conf.orig"
+    ],
+    [
+      "wsl.exe",
+      "-d",
+      "dsl-doris-official-01a104f9",
+      "--exec",
+      "docker",
+      "restart",
+      "dsl-doris-official"
+    ]
+  ],
+  "status": "PASS"
+}

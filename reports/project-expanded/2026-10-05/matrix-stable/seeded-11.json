@@ -1,0 +1,847 @@
+{
+  "compilation": {
+    "dslVersion": "stock-slot-v1",
+    "semanticModel": {
+      "document": {
+        "expression": {
+          "kind": "Binary",
+          "operator": "OR",
+          "left": {
+            "kind": "Binary",
+            "operator": ">",
+            "left": {
+              "kind": "FunctionCall",
+              "name": "indicator",
+              "arguments": [
+                {
+                  "kind": "Literal",
+                  "value": "京",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 12,
+                    "endLine": 1,
+                    "endColumn": 15
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 17,
+                    "endLine": 1,
+                    "endColumn": 19
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "成交量",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 21,
+                    "endLine": 1,
+                    "endColumn": 26
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "2020-02-03",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 28,
+                    "endLine": 1,
+                    "endColumn": 40
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 42,
+                    "endLine": 1,
+                    "endColumn": 44
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 46,
+                    "endLine": 1,
+                    "endColumn": 48
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 50,
+                    "endLine": 1,
+                    "endColumn": 52
+                  }
+                }
+              ],
+              "type": "NUMBER",
+              "span": {
+                "line": 1,
+                "column": 2,
+                "endLine": 1,
+                "endColumn": 53
+              }
+            },
+            "right": {
+              "kind": "Literal",
+              "value": 10000000,
+              "type": "NUMBER",
+              "span": {
+                "line": 1,
+                "column": 56,
+                "endLine": 1,
+                "endColumn": 64
+              }
+            },
+            "type": "BOOLEAN",
+            "span": {
+              "line": 1,
+              "column": 2,
+              "endLine": 1,
+              "endColumn": 64
+            }
+          },
+          "right": {
+            "kind": "Binary",
+            "operator": "AND",
+            "left": {
+              "kind": "Binary",
+              "operator": "<=",
+              "left": {
+                "kind": "FunctionCall",
+                "name": "indicator",
+                "arguments": [
+                  {
+                    "kind": "Literal",
+                    "value": "京",
+                    "type": "STRING",
+                    "span": {
+                      "line": 1,
+                      "column": 81,
+                      "endLine": 1,
+                      "endColumn": 84
+                    }
+                  },
+                  {
+                    "kind": "Literal",
+                    "value": "",
+                    "type": "STRING",
+                    "span": {
+                      "line": 1,
+                      "column": 86,
+                      "endLine": 1,
+                      "endColumn": 88
+                    }
+                  },
+                  {
+                    "kind": "Literal",
+                    "value": "开盘价",
+                    "type": "STRING",
+                    "span": {
+                      "line": 1,
+                      "column": 90,
+                      "endLine": 1,
+                      "endColumn": 95
+                    }
+                  },
+                  {
+                    "kind": "Literal",
+                    "value": "2020-02-03",
+                    "type": "STRING",
+                    "span": {
+                      "line": 1,
+                      "column": 97,
+                      "endLine": 1,
+                      "endColumn": 109
+                    }
+                  },
+                  {
+                    "kind": "Literal",
+                    "value": "",
+                    "type": "STRING",
+                    "span": {
+                      "line": 1,
+                      "column": 111,
+                      "endLine": 1,
+                      "endColumn": 113
+                    }
+                  },
+                  {
+                    "kind": "Literal",
+                    "value": "",
+                    "type": "STRING",
+                    "span": {
+                      "line": 1,
+                      "column": 115,
+                      "endLine": 1,
+                      "endColumn": 117
+                    }
+                  },
+                  {
+                    "kind": "Literal",
+                    "value": "",
+                    "type": "STRING",
+                    "span": {
+                      "line": 1,
+                      "column": 119,
+                      "endLine": 1,
+                      "endColumn": 121
+                    }
+                  }
+                ],
+                "type": "NUMBER",
+                "span": {
+                  "line": 1,
+                  "column": 71,
+                  "endLine": 1,
+                  "endColumn": 122
+                }
+              },
+              "right": {
+                "kind": "Literal",
+                "value": 20,
+                "type": "NUMBER",
+                "span": {
+                  "line": 1,
+                  "column": 126,
+                  "endLine": 1,
+                  "endColumn": 128
+                }
+              },
+              "type": "BOOLEAN",
+              "span": {
+                "line": 1,
+                "column": 71,
+                "endLine": 1,
+                "endColumn": 128
+              }
+            },
+            "right": {
+              "kind": "Binary",
+              "operator": ">",
+              "left": {
+                "kind": "FunctionCall",
+                "name": "indicator",
+                "arguments": [
+                  {
+                    "kind": "Literal",
+                    "value": "京",
+                    "type": "STRING",
+                    "span": {
+                      "line": 1,
+                      "column": 145,
+                      "endLine": 1,
+                      "endColumn": 148
+                    }
+                  },
+                  {
+                    "kind": "Literal",
+                    "value": "",
+                    "type": "STRING",
+                    "span": {
+                      "line": 1,
+                      "column": 150,
+                      "endLine": 1,
+                      "endColumn": 152
+                    }
+                  },
+                  {
+                    "kind": "Literal",
+                    "value": "收盘价",
+                    "type": "STRING",
+                    "span": {
+                      "line": 1,
+                      "column": 154,
+                      "endLine": 1,
+                      "endColumn": 159
+                    }
+                  },
+                  {
+                    "kind": "Literal",
+                    "value": "2020-02-03",
+                    "type": "STRING",
+                    "span": {
+                      "line": 1,
+                      "column": 161,
+                      "endLine": 1,
+                      "endColumn": 173
+                    }
+                  },
+                  {
+                    "kind": "Literal",
+                    "value": "",
+                    "type": "STRING",
+                    "span": {
+                      "line": 1,
+                      "column": 175,
+                      "endLine": 1,
+                      "endColumn": 177
+                    }
+                  },
+                  {
+                    "kind": "Literal",
+                    "value": "",
+                    "type": "STRING",
+                    "span": {
+                      "line": 1,
+                      "column": 179,
+                      "endLine": 1,
+                      "endColumn": 181
+                    }
+                  },
+                  {
+                    "kind": "Literal",
+                    "value": "",
+                    "type": "STRING",
+                    "span": {
+                      "line": 1,
+                      "column": 183,
+                      "endLine": 1,
+                      "endColumn": 185
+                    }
+                  }
+                ],
+                "type": "NUMBER",
+                "span": {
+                  "line": 1,
+                  "column": 135,
+                  "endLine": 1,
+                  "endColumn": 186
+                }
+              },
+              "right": {
+                "kind": "Literal",
+                "value": 1,
+                "type": "NUMBER",
+                "span": {
+                  "line": 1,
+                  "column": 189,
+                  "endLine": 1,
+                  "endColumn": 190
+                }
+              },
+              "type": "BOOLEAN",
+              "span": {
+                "line": 1,
+                "column": 135,
+                "endLine": 1,
+                "endColumn": 190
+              }
+            },
+            "type": "BOOLEAN",
+            "span": {
+              "line": 1,
+              "column": 70,
+              "endLine": 1,
+              "endColumn": 191
+            }
+          },
+          "type": "BOOLEAN",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 192
+          }
+        },
+        "selectionLimit": {
+          "minimum": 0,
+          "maximum": 10000,
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 211
+          }
+        },
+        "span": {
+          "line": 1,
+          "column": 1,
+          "endLine": 1,
+          "endColumn": 211
+        }
+      },
+      "calls": [
+        {
+          "function": "indicator",
+          "span": {
+            "line": 1,
+            "column": 2,
+            "endLine": 1,
+            "endColumn": 53
+          },
+          "slots": [
+            {
+              "name": "market",
+              "rawValue": "京",
+              "structuredValue": {
+                "value": "京"
+              }
+            },
+            {
+              "name": "filter_scope",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "indicator_name",
+              "rawValue": "成交量",
+              "structuredValue": {
+                "value": "成交量",
+                "template": "成交量",
+                "parameters": {}
+              }
+            },
+            {
+              "name": "date",
+              "rawValue": "2020-02-03",
+              "structuredValue": {
+                "raw": "2020-02-03",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "select_type",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "agg_func",
+              "rawValue": "",
+              "structuredValue": ""
+            },
+            {
+              "name": "count_exp",
+              "rawValue": "",
+              "structuredValue": null
+            }
+          ]
+        },
+        {
+          "function": "indicator",
+          "span": {
+            "line": 1,
+            "column": 71,
+            "endLine": 1,
+            "endColumn": 122
+          },
+          "slots": [
+            {
+              "name": "market",
+              "rawValue": "京",
+              "structuredValue": {
+                "value": "京"
+              }
+            },
+            {
+              "name": "filter_scope",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "indicator_name",
+              "rawValue": "开盘价",
+              "structuredValue": {
+                "value": "开盘价",
+                "template": "开盘价",
+                "parameters": {}
+              }
+            },
+            {
+              "name": "date",
+              "rawValue": "2020-02-03",
+              "structuredValue": {
+                "raw": "2020-02-03",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "select_type",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "agg_func",
+              "rawValue": "",
+              "structuredValue": ""
+            },
+            {
+              "name": "count_exp",
+              "rawValue": "",
+              "structuredValue": null
+            }
+          ]
+        },
+        {
+          "function": "indicator",
+          "span": {
+            "line": 1,
+            "column": 135,
+            "endLine": 1,
+            "endColumn": 186
+          },
+          "slots": [
+            {
+              "name": "market",
+              "rawValue": "京",
+              "structuredValue": {
+                "value": "京"
+              }
+            },
+            {
+              "name": "filter_scope",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "indicator_name",
+              "rawValue": "收盘价",
+              "structuredValue": {
+                "value": "收盘价",
+                "template": "收盘价",
+                "parameters": {}
+              }
+            },
+            {
+              "name": "date",
+              "rawValue": "2020-02-03",
+              "structuredValue": {
+                "raw": "2020-02-03",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "select_type",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "agg_func",
+              "rawValue": "",
+              "structuredValue": ""
+            },
+            {
+              "name": "count_exp",
+              "rawValue": "",
+              "structuredValue": null
+            }
+          ]
+        }
+      ]
+    },
+    "logicalPlan": [
+      {
+        "kind": "Scan",
+        "detail": "newzl.v_hsj_stock_hq_basic"
+      },
+      {
+        "kind": "DateAndMarketFilter",
+        "detail": "2020-02-03 京"
+      },
+      {
+        "kind": "Sort",
+        "detail": "mktcode, tgtcode"
+      },
+      {
+        "kind": "CardinalityConstraint",
+        "detail": "0,10000"
+      },
+      {
+        "kind": "Project",
+        "detail": "mktcode,tgtcode"
+      }
+    ],
+    "windowContracts": [],
+    "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.volume AS `m1`,\n    b.openPrice AS `m2`,\n    b.closePrice AS `m3`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE DATE_FORMAT(b.bizdate,'%Y-%m-%d') = ?\n    AND b.mktcode = 103\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE ((`m1` > ?) OR ((`m2` <= ?) AND (`m3` > ?)))\nORDER BY mktcode, tgtcode\nLIMIT 10000;",
+    "bindings": [
+      "2020-02-03",
+      10000000,
+      20,
+      1
+    ],
+    "ordered": false,
+    "coveragePlan": {
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.volume AS `m1`,\n    b.openPrice AS `m2`,\n    b.closePrice AS `m3`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE DATE_FORMAT(b.bizdate,'%Y-%m-%d') = ?\n    AND b.mktcode = 103\n)\nSELECT COUNT(*),COALESCE(SUM(0),0),COALESCE(SUM(CASE WHEN cov.`m1` IS NULL THEN 1 ELSE 0 END),0),COALESCE(SUM(CASE WHEN cov.`m2` IS NULL THEN 1 ELSE 0 END),0),COALESCE(SUM(CASE WHEN cov.`m3` IS NULL THEN 1 ELSE 0 END),0) FROM base cov;",
+      "samplesSql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.volume AS `m1`,\n    b.openPrice AS `m2`,\n    b.closePrice AS `m3`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE DATE_FORMAT(b.bizdate,'%Y-%m-%d') = ?\n    AND b.mktcode = 103\n)\nSELECT cov.mktcode,cov.tgtcode,0,CASE WHEN cov.`m1` IS NULL THEN 1 ELSE 0 END,CASE WHEN cov.`m2` IS NULL THEN 1 ELSE 0 END,CASE WHEN cov.`m3` IS NULL THEN 1 ELSE 0 END FROM base cov WHERE cov.`m1` IS NULL OR cov.`m2` IS NULL OR cov.`m3` IS NULL ORDER BY cov.mktcode,cov.tgtcode LIMIT 20;",
+      "bindings": [
+        "2020-02-03"
+      ],
+      "evaluationDate": "2020-02-03",
+      "inputs": [
+        {
+          "function": "indicator",
+          "indicator": "成交量",
+          "alias": "m1"
+        },
+        {
+          "function": "indicator",
+          "indicator": "开盘价",
+          "alias": "m2"
+        },
+        {
+          "function": "indicator",
+          "indicator": "收盘价",
+          "alias": "m3"
+        }
+      ],
+      "extensionRequired": false
+    }
+  },
+  "columns": [
+    "mktcode",
+    "tgtcode"
+  ],
+  "rows": [
+    [
+      "103",
+      "920039"
+    ],
+    [
+      "103",
+      "920149"
+    ],
+    [
+      "103",
+      "920184"
+    ],
+    [
+      "103",
+      "920225"
+    ],
+    [
+      "103",
+      "920263"
+    ],
+    [
+      "103",
+      "920266"
+    ],
+    [
+      "103",
+      "920344"
+    ],
+    [
+      "103",
+      "920370"
+    ],
+    [
+      "103",
+      "920405"
+    ],
+    [
+      "103",
+      "920415"
+    ],
+    [
+      "103",
+      "920418"
+    ],
+    [
+      "103",
+      "920433"
+    ],
+    [
+      "103",
+      "920445"
+    ],
+    [
+      "103",
+      "920489"
+    ],
+    [
+      "103",
+      "920566"
+    ],
+    [
+      "103",
+      "920670"
+    ],
+    [
+      "103",
+      "920735"
+    ],
+    [
+      "103",
+      "920799"
+    ],
+    [
+      "103",
+      "920819"
+    ],
+    [
+      "103",
+      "920826"
+    ],
+    [
+      "103",
+      "920832"
+    ],
+    [
+      "103",
+      "920961"
+    ],
+    [
+      "103",
+      "920964"
+    ]
+  ],
+  "truncated": false,
+  "timings": {
+    "compileMillis": 60.4685,
+    "queueMillis": 0.02,
+    "explainMillis": 24.2496,
+    "dorisExecutionMillis": 27.9405,
+    "returnMillis": 0.2093,
+    "totalMillis": 248.9262
+  },
+  "limits": {
+    "queryTimeoutSeconds": 10,
+    "maxEstimatedScanRows": 100000000,
+    "estimatedScanRows": 921840,
+    "maxReturnRows": 10000,
+    "maxExecutionMemoryBytes": 2147483648
+  },
+  "sqlFingerprint": "sha256:8b823fcc0831de0759475e2c54a879f220b4cd5926a3385d57164dfd05833420",
+  "dataVersion": {
+    "snapshotId": "stock-20060104-20260414-v1",
+    "contractVersion": "1.0.0",
+    "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95"
+  },
+  "compilerVersion": "0.1.0",
+  "explain": [
+    "PLAN FRAGMENT 0",
+    "  OUTPUT EXPRS:",
+    "    mktcode[#60]",
+    "    tgtcode[#61]",
+    "  PARTITION: UNPARTITIONED",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  VRESULT SINK",
+    "     MYSQL_PROTOCOL",
+    "",
+    "  2:VMERGING-EXCHANGE",
+    "     offset: 0",
+    "     limit: 10000",
+    "     distribute expr lists: ",
+    "",
+    "PLAN FRAGMENT 1",
+    "",
+    "  PARTITION: HASH_PARTITIONED: mktcode[#0], tgtcode[#1]",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  STREAM DATA SINK",
+    "    EXCHANGE ID: 02",
+    "    UNPARTITIONED",
+    "IS_MERGE: true",
+    "",
+    "  1:VTOP-N(397)",
+    "  |  order by: tgtcode[#61] ASC",
+    "  |  TOPN filter targets: [0:1]",
+    "  |  algorithm: heap sort",
+    "  |  local merge sort",
+    "  |  merge by exchange",
+    "  |  offset: 0",
+    "  |  limit: 10000",
+    "  |  distribute expr lists: mktcode[#58], tgtcode[#59]",
+    "  |  ",
+    "  0:VOlapScanNode(385)",
+    "     TABLE: newzl.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON",
+    "     TOPN OPT:1",
+    "     PREDICATES: ((((volume[#9] > 10000000) OR (((CAST(openPx[#5] AS double) / 10000) <= 20) AND ((CAST(closePx[#8] AS double) / 10000) > 1))) AND (date_format(CAST(bizdate[#2] AS datetimev2(0)), '%Y-%m-%d') = '2020-02-03')) AND ((mktcode[#0] = 103) AND (__DORIS_DELETE_SIGN__[#56] = 0)))",
+    "     partitions=1/21 (p20200101000000)",
+    "     tablets=16/16, tabletList=1791094084215,1791094084217,1791094084219 ...",
+    "     cardinality=921840, avgRowSize=129.22223, numNodes=1",
+    "     pushAggOp=NONE",
+    "     final projections: mktcode[#0], tgtcode[#1]",
+    "     final project output tuple id: 1",
+    "",
+    "",
+    "",
+    "========== STATISTICS ==========",
+    "planned with unknown column statistics"
+  ],
+  "queryProfile": {
+    "available": false,
+    "queryId": "83fddaaaa1334662-993c4188866e8d97",
+    "taskState": null,
+    "total": null,
+    "user": null,
+    "note": "Profile is asynchronous or not retained"
+  },
+  "dataQuality": {
+    "validationLevel": "PROJECT_SCOPED",
+    "officialAcceptanceEligible": false,
+    "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+    "coverageStatus": "COMPLETE_QUERY_INPUTS",
+    "evaluationDate": "2020-02-03",
+    "requiredSources": [
+      "basic"
+    ],
+    "observedSecurities": 25,
+    "currentMissingExtensionRows": 0,
+    "inputs": [
+      {
+        "function": "indicator",
+        "indicator": "成交量",
+        "unavailableSecurities": 0
+      },
+      {
+        "function": "indicator",
+        "indicator": "开盘价",
+        "unavailableSecurities": 0
+      },
+      {
+        "function": "indicator",
+        "indicator": "收盘价",
+        "unavailableSecurities": 0
+      }
+    ],
+    "unavailableSamples": [],
+    "snapshotExtensionWithoutBasic": 249480,
+    "snapshotCloseOutsideRange": 3487,
+    "limitations": [
+      "本次使用项目已冻结的字段单位、公式与缺值约定，官方口径未获额外确认。",
+      "证券范围以基础行情为准。无法关联基础行情的衍生记录完整保留，不用于补造基础行情。",
+      "缺失字段、-999999 资金哨兵、零分母、历史不足及平坦 position 区间按原契约返回 NULL。",
+      "行业字段在现有数据中不可用；项目入口拒绝行业查询。财务等缺少来源的功能仍拒绝。",
+      "这是项目内部按依赖验证的运行证据，不登记 VALIDATED 快照，不代表官方验收。",
+      "原始数据按不可变快照管理。运行账户只读；外部装载修改数据后必须重新验证，行数和表/视图定义在每次查询时复核。",
+      "可用性在用户条件、THEN 排名及 LIMIT 之前统计；输入为 NULL 不等于条件为假。历史不足、NULL/哨兵、零分母及平坦区间均可导致输入不可用。各项缺失数量可能重叠，不可相加作为未命中总数。缺失样本最多 20 行，依次为市场、证券、当日衍生缺行标记及各输入缺失标记；窗口内具体缺失日期需进一步检查。"
+    ],
+    "validationMillis": 154.8064
+  }
+}

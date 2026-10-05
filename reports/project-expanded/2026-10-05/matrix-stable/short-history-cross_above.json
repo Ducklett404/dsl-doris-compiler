@@ -1,0 +1,513 @@
+{
+  "compilation": {
+    "dslVersion": "stock-slot-v1",
+    "semanticModel": {
+      "document": {
+        "expression": {
+          "kind": "Binary",
+          "operator": "=",
+          "left": {
+            "kind": "FunctionCall",
+            "name": "cross_above",
+            "arguments": [
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 13,
+                  "endLine": 1,
+                  "endColumn": 15
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 17,
+                  "endLine": 1,
+                  "endColumn": 19
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "收盘价",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 21,
+                  "endLine": 1,
+                  "endColumn": 26
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "开盘价",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 28,
+                  "endLine": 1,
+                  "endColumn": 33
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "2006-01-04",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 35,
+                  "endLine": 1,
+                  "endColumn": 47
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 49,
+                  "endLine": 1,
+                  "endColumn": 51
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 53,
+                  "endLine": 1,
+                  "endColumn": 55
+                }
+              }
+            ],
+            "type": "BOOLEAN",
+            "span": {
+              "line": 1,
+              "column": 1,
+              "endLine": 1,
+              "endColumn": 56
+            }
+          },
+          "right": {
+            "kind": "Literal",
+            "value": true,
+            "type": "BOOLEAN",
+            "span": {
+              "line": 1,
+              "column": 59,
+              "endLine": 1,
+              "endColumn": 63
+            }
+          },
+          "type": "BOOLEAN",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 63
+          }
+        },
+        "selectionLimit": null,
+        "span": {
+          "line": 1,
+          "column": 1,
+          "endLine": 1,
+          "endColumn": 68
+        }
+      },
+      "calls": [
+        {
+          "function": "cross_above",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 56
+          },
+          "slots": [
+            {
+              "name": "market",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "filter_scope",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "indicator_name_1",
+              "rawValue": "收盘价",
+              "structuredValue": {
+                "value": "收盘价",
+                "template": "收盘价",
+                "parameters": {}
+              }
+            },
+            {
+              "name": "indicator_name_2",
+              "rawValue": "开盘价",
+              "structuredValue": {
+                "value": "开盘价",
+                "template": "开盘价",
+                "parameters": {}
+              }
+            },
+            {
+              "name": "date",
+              "rawValue": "2006-01-04",
+              "structuredValue": {
+                "raw": "2006-01-04",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "select_type",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "count_exp",
+              "rawValue": "",
+              "structuredValue": null
+            }
+          ]
+        }
+      ]
+    },
+    "logicalPlan": [
+      {
+        "kind": "HistoryScan",
+        "detail": "newzl.v_hsj_stock_hq_basic through 2006-01-04"
+      },
+      {
+        "kind": "Window",
+        "detail": "1 contract(s)"
+      },
+      {
+        "kind": "EvaluationDateFilter",
+        "detail": "2006-01-04"
+      },
+      {
+        "kind": "Sort",
+        "detail": "mktcode,tgtcode"
+      },
+      {
+        "kind": "Project",
+        "detail": "mktcode,tgtcode"
+      }
+    ],
+    "windowContracts": [
+      {
+        "function": "cross_above",
+        "partitionKeys": [
+          "mktcode",
+          "tgtcode"
+        ],
+        "orderKeys": [
+          "bizdate"
+        ],
+        "unit": "TRADING_DAY",
+        "lookback": 2,
+        "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+        "insufficientHistoryPolicy": "NULL",
+        "nullPolicy": "STRICT_NO_IMPUTATION",
+        "requireFullWindow": true
+      }
+    ],
+    "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    b.openPrice AS `v2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN `v1` IS NOT NULL AND `v2` IS NOT NULL AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL AND LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL THEN (`v1`>`v2` AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)<=LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE (`f1` = ?)\nORDER BY mktcode,tgtcode;",
+    "bindings": [
+      "2006-01-04",
+      "2006-01-04",
+      true
+    ],
+    "ordered": false,
+    "coveragePlan": {
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    b.openPrice AS `v2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN `v1` IS NOT NULL AND `v2` IS NOT NULL AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL AND LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL THEN (`v1`>`v2` AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)<=LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT COUNT(*),COALESCE(SUM(0),0),COALESCE(SUM(CASE WHEN cov.`f1` IS NULL THEN 1 ELSE 0 END),0) FROM current_rows cov;",
+      "samplesSql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`,\n    b.openPrice AS `v2`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN `v1` IS NOT NULL AND `v2` IS NOT NULL AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL AND LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) IS NOT NULL THEN (`v1`>`v2` AND LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)<=LAG(`v2`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate)) ELSE NULL END AS `f1`\n  FROM history\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT cov.mktcode,cov.tgtcode,0,CASE WHEN cov.`f1` IS NULL THEN 1 ELSE 0 END FROM current_rows cov WHERE cov.`f1` IS NULL ORDER BY cov.mktcode,cov.tgtcode LIMIT 20;",
+      "bindings": [
+        "2006-01-04",
+        "2006-01-04"
+      ],
+      "evaluationDate": "2006-01-04",
+      "inputs": [
+        {
+          "function": "cross_above",
+          "indicator": "收盘价 / 开盘价",
+          "alias": "f1"
+        }
+      ],
+      "extensionRequired": false
+    }
+  },
+  "columns": [
+    "mktcode",
+    "tgtcode"
+  ],
+  "rows": [],
+  "truncated": false,
+  "timings": {
+    "compileMillis": 57.5573,
+    "queueMillis": 0.0227,
+    "explainMillis": 35.9024,
+    "dorisExecutionMillis": 43.2152,
+    "returnMillis": 0.028,
+    "totalMillis": 358.2017
+  },
+  "limits": {
+    "queryTimeoutSeconds": 10,
+    "maxEstimatedScanRows": 100000000,
+    "estimatedScanRows": 227321,
+    "maxReturnRows": 10000,
+    "maxExecutionMemoryBytes": 2147483648
+  },
+  "sqlFingerprint": "sha256:d8a37556d831c340d4028cda279c9cb58de024df099820afccbc0c10805aa4be",
+  "dataVersion": {
+    "snapshotId": "stock-20060104-20260414-v1",
+    "contractVersion": "1.0.0",
+    "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95"
+  },
+  "compilerVersion": "0.1.0",
+  "explain": [
+    "PLAN FRAGMENT 0",
+    "  OUTPUT EXPRS:",
+    "    mktcode[#72]",
+    "    tgtcode[#73]",
+    "  PARTITION: UNPARTITIONED",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  VRESULT SINK",
+    "     MYSQL_PROTOCOL",
+    "",
+    "  4:VMERGING-EXCHANGE",
+    "     offset: 0",
+    "     distribute expr lists: mktcode[#72], tgtcode[#73]",
+    "",
+    "PLAN FRAGMENT 1",
+    "",
+    "  PARTITION: HASH_PARTITIONED: mktcode[#0], tgtcode[#1]",
+    "",
+    "  HAS_COLO_PLAN_NODE: true",
+    "",
+    "  STREAM DATA SINK",
+    "    EXCHANGE ID: 04",
+    "    UNPARTITIONED",
+    "IS_MERGE: true",
+    "",
+    "  3:VSORT(666)",
+    "  |  order by: mktcode[#72] ASC, tgtcode[#73] ASC",
+    "  |  algorithm: full sort",
+    "  |  local merge sort",
+    "  |  merge by exchange",
+    "  |  offset: 0",
+    "  |  distribute expr lists: ",
+    "  |  ",
+    "  2:VANALYTIC(654)",
+    "  |  functions: [lag(closePrice[#66], 1, NULL)], [lag(openPrice[#67], 1, NULL)]",
+    "  |  partition by: mktcode[#63], tgtcode[#64]",
+    "  |  order by: bizdate[#65] ASC NULLS FIRST",
+    "  |  window: ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING",
+    "  |  predicates: (CAST(((closePrice[#66] > openPrice[#67]) AND (lag(closePrice, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#68] <= lag(openPrice, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#69])) AS tinyint) = 1), (bizdate[#65] = '2006-01-04'), closePrice[#66] IS NOT NULL, openPrice[#67] IS NOT NULL, lag(closePrice, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#68] IS NOT NULL, lag(openPrice, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#69] IS NOT NULL",
+    "  |  final projections: mktcode[#63], tgtcode[#64]",
+    "  |  final project output tuple id: 4",
+    "  |  distribute expr lists: mktcode[#63], tgtcode[#64]",
+    "  |  ",
+    "  1:VSORT(650)",
+    "  |  order by: mktcode[#63] ASC, tgtcode[#64] ASC, bizdate[#65] ASC",
+    "  |  algorithm: full sort",
+    "  |  offset: 0",
+    "  |  distribute expr lists: mktcode[#58], tgtcode[#59]",
+    "  |  ",
+    "  0:VOlapScanNode(638)",
+    "     TABLE: newzl.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON",
+    "     PREDICATES: ((bizdate[#2] <= '2006-01-04') AND (__DORIS_DELETE_SIGN__[#56] = 0))",
+    "     partitions=1/21 (p20060101000000)",
+    "     tablets=16/16, tabletList=1791094084083,1791094084085,1791094084087 ...",
+    "     cardinality=227321, avgRowSize=116.215485, numNodes=1",
+    "     pushAggOp=NONE",
+    "     final projections: mktcode[#0], tgtcode[#1], bizdate[#2], (CAST(closePx[#8] AS double) / 10000), (CAST(openPx[#5] AS double) / 10000)",
+    "     final project output tuple id: 1",
+    "",
+    "",
+    "",
+    "========== STATISTICS ==========",
+    "planned with unknown column statistics"
+  ],
+  "queryProfile": {
+    "available": false,
+    "queryId": "3e0f9442fdbc425b-ba04954c766f02fb",
+    "taskState": null,
+    "total": null,
+    "user": null,
+    "note": "Profile is asynchronous or not retained"
+  },
+  "dataQuality": {
+    "validationLevel": "PROJECT_SCOPED",
+    "officialAcceptanceEligible": false,
+    "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+    "coverageStatus": "PARTIAL_INPUTS",
+    "evaluationDate": "2006-01-04",
+    "requiredSources": [
+      "basic"
+    ],
+    "observedSecurities": 1079,
+    "currentMissingExtensionRows": 0,
+    "inputs": [
+      {
+        "function": "cross_above",
+        "indicator": "收盘价 / 开盘价",
+        "unavailableSecurities": 1079
+      }
+    ],
+    "unavailableSamples": [
+      [
+        "0",
+        "000001",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000002",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000004",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000007",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000008",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000010",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000012",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000014",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000016",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000020",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000021",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000025",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000026",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000027",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000028",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000030",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000031",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000034",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000035",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000036",
+        "0",
+        "1"
+      ]
+    ],
+    "snapshotExtensionWithoutBasic": 249480,
+    "snapshotCloseOutsideRange": 3487,
+    "limitations": [
+      "本次使用项目已冻结的字段单位、公式与缺值约定，官方口径未获额外确认。",
+      "证券范围以基础行情为准。无法关联基础行情的衍生记录完整保留，不用于补造基础行情。",
+      "缺失字段、-999999 资金哨兵、零分母、历史不足及平坦 position 区间按原契约返回 NULL。",
+      "行业字段在现有数据中不可用；项目入口拒绝行业查询。财务等缺少来源的功能仍拒绝。",
+      "这是项目内部按依赖验证的运行证据，不登记 VALIDATED 快照，不代表官方验收。",
+      "原始数据按不可变快照管理。运行账户只读；外部装载修改数据后必须重新验证，行数和表/视图定义在每次查询时复核。",
+      "可用性在用户条件、THEN 排名及 LIMIT 之前统计；输入为 NULL 不等于条件为假。历史不足、NULL/哨兵、零分母及平坦区间均可导致输入不可用。各项缺失数量可能重叠，不可相加作为未命中总数。缺失样本最多 20 行，依次为市场、证券、当日衍生缺行标记及各输入缺失标记；窗口内具体缺失日期需进一步检查。"
+    ],
+    "validationMillis": 250.6054
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "purpose": "HISTORICAL_EXTREMA_DIAGNOSTIC",
+  "acceptanceEligible": false,
+  "snapshotId": "stock-20060104-20260414-v1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "registryFingerprint": "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+  "sourceTable": "newzl.v_hsj_stock_hq_basic",
+  "database": "dsl_history_diag_24ba0af6e88a",
+  "sourceCounts": {
+    "hsj_stock_code_info": 5686,
+    "hsj_stock_hq_ext": 6170822,
+    "hsj_stock_hq_basic": 13650347
+  },
+  "jarSha256": "89db17c449c3142abc63e0812ba19836ced420099d4f1e7aeb3df66e6da14363",
+  "status": "PASS",
+  "dates": [
+    {
+      "date": "2026-04-13",
+      "rows": 5614,
+      "expectedCurrentRows": 5614,
+      "windowValueDifferences": 0,
+      "buildSecondsIncludingWslTransport": 1.1922750999947311
+    },
+    {
+      "date": "2026-04-14",
+      "rows": 5614,
+      "expectedCurrentRows": 5614,
+      "windowValueDifferences": 0,
+      "buildSecondsIncludingWslTransport": 1.0969685000018217
+    }
+  ],
+  "publishedCatalogSha256": "cc6fc033f70c9e8dc12d112e0d421a53ad12085c4ce3d2c92c733e2d00d105f1",
+  "officialRegistryUnchanged": true,
+  "completedAtUtc": "2026-10-04T15:51:34.576440+00:00"
+}

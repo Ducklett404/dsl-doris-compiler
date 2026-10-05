@@ -1,0 +1,5 @@
+{
+  "message": "Doris query timed out",
+  "error": "TIMEOUT",
+  "category": "timeout"
+}

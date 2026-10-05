@@ -1,0 +1,314 @@
+{
+  "status": "PROJECT_FIELDS_PASS_FORMAL_BLOCKED",
+  "officialAcceptanceEligible": false,
+  "completedAtUtc": "2026-10-05T13:16:51.411915+00:00",
+  "jarSha256": "a8945a6b2d78064e9f3d0da9bd18ba5a4cd3f756da480e84ae5d2ece1d3c89a6",
+  "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "javaTests": 319,
+  "newJavaTests": 6,
+  "manualFieldTests": 8,
+  "fieldInventory": 19,
+  "rawValueDates": [
+    "2006-01-04",
+    "2018-08-20",
+    "2026-04-10",
+    "2026-04-13",
+    "2026-04-14"
+  ],
+  "valuesChecked": 403104,
+  "nullValuesChecked": 37842,
+  "sourceRows": {
+    "basic": 13650347,
+    "extension": 6170822,
+    "code": 5686
+  },
+  "sourceIntegrity": [
+    {
+      "table": "hsj_stock_code_info",
+      "sha256": "133293b32e8bea7ff351f3e05cc4eba431ce2fe116f2c366b005fcb0801e01cc",
+      "status": "PASS"
+    },
+    {
+      "table": "hsj_stock_hq_basic",
+      "sha256": "9c5fd65c9475c07c7f800cffd5a055925e7eb26c1c78476624805b4231b1d749",
+      "status": "PASS"
+    },
+    {
+      "table": "hsj_stock_hq_ext",
+      "sha256": "18ab00873e9cb5684f1f4dba13c9843acbcd1764f52cecd30336eea0128b4a18",
+      "status": "PASS"
+    }
+  ],
+  "checks": {
+    "native-fixture.json": {
+      "passed": 94,
+      "total": 94
+    },
+    "native-matrix/result.json": {
+      "passed": 94,
+      "total": 94
+    },
+    "official-field-verification.json": {
+      "passed": 94,
+      "total": 94
+    },
+    "synthetic-project/result.json": {
+      "passed": 40,
+      "total": 40
+    },
+    "strict-gates/controlled-execution-gate.json": {
+      "passed": 9,
+      "total": 9
+    },
+    "selftest-final/integration-result.json": {
+      "passed": 18,
+      "total": 18
+    },
+    "selftest-final/numeric-precision-boundaries.json": {
+      "passed": 42,
+      "total": 42
+    },
+    "selftest-final/portable-boundaries/project-field-boundaries.json": {
+      "passed": 94,
+      "total": 94
+    },
+    "selftest-final/portable-boundaries/project-availability-explanations.json": {
+      "passed": 28,
+      "total": 28
+    },
+    "selftest-final/portable-boundaries/project-window-boundaries.json": {
+      "passed": 48,
+      "total": 48
+    },
+    "selftest-final/portable-boundaries/project-rsi-tail-boundaries.json": {
+      "passed": 16,
+      "total": 16
+    }
+  },
+  "examples": [
+    {
+      "metric": "均价",
+      "market": "0",
+      "code": "000040",
+      "reasons": [
+        {
+          "code": "SOURCE_OPERAND_NULL",
+          "indicator": "均价 / turnover",
+          "requiredObservations": 1,
+          "minimumObserved": 1,
+          "maximumObserved": 1,
+          "relatedDates": [
+            "2026-04-14"
+          ],
+          "totalRelatedDates": 1,
+          "datesTruncated": false
+        },
+        {
+          "code": "SOURCE_OPERAND_NULL",
+          "indicator": "均价 / volume",
+          "requiredObservations": 1,
+          "minimumObserved": 1,
+          "maximumObserved": 1,
+          "relatedDates": [
+            "2026-04-14"
+          ],
+          "totalRelatedDates": 1,
+          "datesTruncated": false
+        }
+      ]
+    },
+    {
+      "metric": "前复权收盘价",
+      "market": "0",
+      "code": "000040",
+      "reasons": [
+        {
+          "code": "SOURCE_OPERAND_NULL",
+          "indicator": "前复权收盘价 / closePx",
+          "requiredObservations": 1,
+          "minimumObserved": 1,
+          "maximumObserved": 1,
+          "relatedDates": [
+            "2026-04-14"
+          ],
+          "totalRelatedDates": 1,
+          "datesTruncated": false
+        }
+      ]
+    }
+  ],
+  "compilerP95Millis": 0.3389,
+  "environment": {
+    "containerMemoryBytes": 10737418240,
+    "beMemoryShare": "60%"
+  },
+  "queryBudget": {
+    "memoryBytes": 2147483648,
+    "timeoutSeconds": 10,
+    "maxEstimatedScanRows": 100000000,
+    "maxReturnRows": 10000
+  },
+  "formalStatus": "BLOCKED",
+  "formalCases": 0,
+  "formalAccuracy": null,
+  "remoteCiExecuted": false,
+  "restartRepeated": false,
+  "implementationHashes": {
+    "src/main/java/com/acme/dorisdsl/stockslot/StockSlotAvailabilityDiagnostics.java": "db27d60015702a41ed2daa8c05ceedb041ba0b9ed349a32843d292dc94051355",
+    "src/test/java/com/acme/dorisdsl/ProjectAvailabilityDiagnosticsTest.java": "106393085c01fbf01072cbe3cf3cd0b75ca3f61251df29b25c88ad63f289a3b8",
+    "scripts/doris/project_field_reference.py": "d2edb95758c9a692026c2d0dc360ac7e133da658fae9974cd99d1c6fd149a6c7",
+    "scripts/doris/check_project_fields.py": "431088509e4d27df1b86b3b192597a4e8f1d2b7a152cfd394026e7ed603d815d",
+    "scripts/doris/test_project_field_reference.py": "76d4a9b8af8ab7801fcc8f070fa8183acc7b48dead1dd2f1ad0bd073afc33962",
+    "scripts/doris/project_matrix_reference.py": "52ee0f87ff108a29b124ea56d43afcc9f3eec68b466721ab4263737880fa3a5b",
+    "scripts/doris/check_project_availability.py": "b29d078a97ffc9587ca028dbbfcaf18508a4c236e99d59f1e0d2a27a392f4b79",
+    "scripts/doris/check_project_window_performance.py": "d7f7d569be7f2a76634c3497e74bb7747d99f8e6f5c394dfb70d6685f8ff1f4e",
+    "scripts/doris/ProjectAvailabilityProbe.java": "257fa23f84dcd820ee1f8fc2fbe23eb61afb9ddb45474e57952bee2916928926",
+    "scripts/doris/archive_project_selftest.py": "0ea1e89ea214c15ca5fed7d3fb6c8bbb19acf4f671dc624052c006da53da7dbe",
+    "scripts/test-all.ps1": "50c201e2e60f4927cc591e9bd9e83fa31949e3a7f7eff9175710fd8da75d300a",
+    "scripts/doris/summarize_project_fields.py": "7b61a930e6057c45b48a7bf226f68febe0bea58f8c8595b123aa354a2ccdb9aa",
+    ".github/workflows/automated-tests.yml": "01ed05bfffa82b5050c697fded61f225572df949df728bbb7fdf96fc9de80295",
+    ".github/workflows/doris-acceptance.yml": "0d1bbeb23d0a5f97bf9b41640b83b31ce4f1c3d61b140198d14f1f9a6ff71f04"
+  },
+  "evidenceHashes": {
+    "field-matrix.json": "4fc173b78661cb60e958652b980903057b937d786b603b50071f8302080f36a1",
+    "formal-gate/result.json": "0cbd1cb35bd29f960f7250e49ab520a7726ee7acb2e832b4a181994e58167120",
+    "native-fixture.json": "5f573440f7ba8bb6ed5e3a329ab6da7c2837c5e7d2f484e6f6242ec281c2e08a",
+    "native-matrix/count-average-1.json": "9bb92f1451f3791b260a5bca32af3063543b9aa6380ca80297bb6e2979ca2248",
+    "native-matrix/count-cap-1.json": "08e5bad86e8ce792f6504b5296f966100a9bb0e1953475f86c5bfc8758c19b72",
+    "native-matrix/count-hfq-1.json": "5435a781a1a14054b7e236f4385cf3f978c8ffa69530a936afbbedb037a6350c",
+    "native-matrix/count-listedCap-1.json": "e4eb0842c41ac709604b60c60dd5d1c58d356e54bd8f115c34732ddb5e5247e6",
+    "native-matrix/count-qfq-1.json": "9dd2774124f1e1e1fe23c9b3458ccc25aad412ba0992718256935a470bb8503a",
+    "native-matrix/count-rise-1.json": "8c8ddd1bf6933a9f9702cb8e1a26c04c40c971275b55ef2eb04c3b95804e140d",
+    "native-matrix/expected.json": "ea3ce48dbdbf75099a7a5e0985aef9586e25e085fcdce573b23143f753ef9084",
+    "native-matrix/field-amount-2006-01-04-1.json": "de3a1038a0ed477bd06f14bf4c7faf3a299cc49a763de149774b6a1e9ccc4a62",
+    "native-matrix/field-amount-2018-08-20-1.json": "c8d641bd16f52998fccc3da38410186a164de55465a9c538c60aaa2c03d361ff",
+    "native-matrix/field-amount-2026-04-14-1.json": "b41bc73423fa03881071767feee6c8f9d051a16ec4db3b5615e8d88a5dd3feec",
+    "native-matrix/field-amplitude-2006-01-04-1.json": "04e6c5749938a4ae2fd2f6b204cab97d6a60e53a7d0138ba3ba9504590a2d7f6",
+    "native-matrix/field-amplitude-2018-08-20-1.json": "e0547b7cca4369444fcec58a8713c2c919798c7e953152974cfe4406bd9ed0f5",
+    "native-matrix/field-amplitude-2026-04-14-1.json": "4ea6b4774d5de39de6a0676968be9d159e7d20ca41814e8e98fb1ab571487cf7",
+    "native-matrix/field-average-2006-01-04-1.json": "697172006ac6d45dcb08a98a1e2458f4a2155d641055d7807d76f4db23d6852c",
+    "native-matrix/field-average-2018-08-20-1.json": "921bca782bcd2627b9b7d18e01da43d3fbe717894e0dd7ff3301c7651db1712f",
+    "native-matrix/field-average-2026-04-10-1.json": "466f56425e60085148dffddc556b3b67311679e34188be879f1dd4c7c926b30f",
+    "native-matrix/field-average-2026-04-13-1.json": "3abdb20b86e45f047d43b17c2c34e859184271757a0d4772279d446444fee8ec",
+    "native-matrix/field-average-2026-04-14-1.json": "16c74e49d3021caaa4ced3655a8d9a45c61929e3628113ec4972041a60479290",
+    "native-matrix/field-cap-2006-01-04-1.json": "7a08aacd22a40aed2f4114be4a974ed9d4b358d4e5c7396989bb7b3bf843a4b6",
+    "native-matrix/field-cap-2018-08-20-1.json": "15c7d7ff54cf1fc72879248f3b51cd15f974a4e22e71447e0191d53182e4866f",
+    "native-matrix/field-cap-2026-04-10-1.json": "35f2a6b6c4811f555438c8eb5ca2bdb99d05853e3cd1830ab946eaacc25838a7",
+    "native-matrix/field-cap-2026-04-13-1.json": "4b392da5474a3f7cc903f72eea32d1a07c1fcdd272acbb6673537ba58cffb63a",
+    "native-matrix/field-cap-2026-04-14-1.json": "83c06132b243bc8a7ebe4a165caef79ea1a0fb356d7c2a4c4195d8d87f8faec5",
+    "native-matrix/field-close-2006-01-04-1.json": "4284c06d2c3ee522fad7e0bf586797856f82f42f787ad45b8f1ec68d82561abc",
+    "native-matrix/field-close-2018-08-20-1.json": "e465541cef8578cef9acd8d861770c2f8db7080bbafbd7155ced45d5045594da",
+    "native-matrix/field-close-2026-04-14-1.json": "0566979c509a24ef5c8818eebee1b4b96df696f33271411233efbd173d275be4",
+    "native-matrix/field-hfq-2006-01-04-1.json": "23a068532f20b27a16540dcf03da61f118359a82f62a1e237e7c39173c40299b",
+    "native-matrix/field-hfq-2018-08-20-1.json": "ac604143a294b912f749862826c901ddd9c0054b73192286fe17bce99ca9550a",
+    "native-matrix/field-hfq-2026-04-10-1.json": "66e04a883f389a460dd9c525ac0e6d6d16a15ad0af8d62cf8c364fd3bbe5273e",
+    "native-matrix/field-hfq-2026-04-13-1.json": "ac4087c1175689cc83299e5a98fc4f7c2e2c51937aa6861c07d8a96ad055f375",
+    "native-matrix/field-hfq-2026-04-14-1.json": "5cd3a58ecbaacf6f668ba47ae6c557be078cdbd76ea7724381075f973ff70927",
+    "native-matrix/field-high-2006-01-04-1.json": "63a370b1c938c6addc4239bf245926b1d23fa5548f9b6d44328116ba4ed0f745",
+    "native-matrix/field-high-2018-08-20-1.json": "e2aea61529d858a6904329a141092c68c6bf359b1058cdcd907d86e76b6c469e",
+    "native-matrix/field-high-2026-04-14-1.json": "b67e4ee3f50d6b8ee45949b74703c9a26c5a4a7d81a433cefaf6f4aae11f0673",
+    "native-matrix/field-last-2006-01-04-1.json": "ec7682e611f69b84f6c33e0f978e5028ba0e7ac175fbcd5dba6687e7a8470d69",
+    "native-matrix/field-last-2018-08-20-1.json": "9808f41f33bff27133e71cdfe2de3dd11e7c54ef90341a9d4fcbe8b9035f908a",
+    "native-matrix/field-last-2026-04-14-1.json": "b7009e22160bd227bba0989c99e29bf1e2cb34a34d8f1667022d339262646871",
+    "native-matrix/field-listedCap-2006-01-04-1.json": "7fe66266471633e6602d821f46ff435d02261ced14548b1a91c051fb3cb3b87b",
+    "native-matrix/field-listedCap-2018-08-20-1.json": "0724dbc57ba15be5c0a94f1d25fa177df24622d51e8295e31c38110036b79c23",
+    "native-matrix/field-listedCap-2026-04-10-1.json": "60d170f0b257667ccd893a12b05244a5fa4262663a3f56c3d05ab8e415866293",
+    "native-matrix/field-listedCap-2026-04-13-1.json": "3ab1ae3b2f165da1de92374cfee027df3fd6dcb30565c50fab02038e9fdde336",
+    "native-matrix/field-listedCap-2026-04-14-1.json": "b746de2d5a654c0c05deaa9e8da87b2a11f64cd1b1f0f39bb8996f50c554297c",
+    "native-matrix/field-low-2006-01-04-1.json": "8ff8d4ea0000df925bbcab7d32ad9a99f3d0fbf1ae2bb60a89ba04169d15abe3",
+    "native-matrix/field-low-2018-08-20-1.json": "9fdac507f168945eb688d80530b6f3524d6b48e580eb2c402ec5ffd39e26d68e",
+    "native-matrix/field-low-2026-04-14-1.json": "e079b722ab713f6ef1a0ad315e71ed90e0584d68fb7338a1b2a0d124fabdc12a",
+    "native-matrix/field-net-2006-01-04-1.json": "aedb8d6ed17058f1f96e3a89b16b796fb1c43e08f1ebe0e811f948b4f6281a1e",
+    "native-matrix/field-net-2018-08-20-1.json": "42277f6131fe16e725a47e683dd87dc87f60747e9b56a786d671b04b81d6b6b1",
+    "native-matrix/field-net-2026-04-14-1.json": "5bbce87577acc6473ac6bfc1d9e624fbeabb2433fa1925b7e87aa8a6003dbb70",
+    "native-matrix/field-open-2006-01-04-1.json": "c20da44db0710a77e434149e5253a2193085b3cde26b20dfd3732efc96215513",
+    "native-matrix/field-open-2018-08-20-1.json": "991a4ed59a156b5d5709a604b76fbed1fd4906348a51f0556a35a29a0099cb05",
+    "native-matrix/field-open-2026-04-14-1.json": "5f005ee169c55d244273a096852818306e64044122b42cbf0e76deea6ca04d40",
+    "native-matrix/field-previous-2006-01-04-1.json": "3cb9f07e57d1b3334298ea3c9092af28e2a952e5baa9309126f535b32ab7d5f4",
+    "native-matrix/field-previous-2018-08-20-1.json": "22a4b9fb324c1dbebc30db007dc9c9b6a23e58b465918cb5189233b185ee9f72",
+    "native-matrix/field-previous-2026-04-14-1.json": "911fdeb8339aef8442c8885fc5705396358273586f28131591bd1a0cdee2e47f",
+    "native-matrix/field-qfq-2006-01-04-1.json": "66cf2be2392c4759ad453b70635c7a42196265b18990c4fc4951efa4b2a91e62",
+    "native-matrix/field-qfq-2018-08-20-1.json": "1b6b2a458894e548e6afa10508e73ab134fb787a3b605da6f40d46c6996938f0",
+    "native-matrix/field-qfq-2026-04-10-1.json": "4f1ad7519280a00e9226526236cab3108b1dd1611c2a46d775581770a7770f76",
+    "native-matrix/field-qfq-2026-04-13-1.json": "4f22c77a13d6bbedcd829428e52c60ded6464b1906b7a6b0560a638d80c2859e",
+    "native-matrix/field-qfq-2026-04-14-1.json": "394d8e076706d68d92952a3f695dd888d47b149a6e06fb153e6b21c5d84e899d",
+    "native-matrix/field-quantity-2006-01-04-1.json": "c4570e2f4ab753be55f91913c00b223391b0f03dc4dfabb6f63eccd3a7cdd935",
+    "native-matrix/field-quantity-2018-08-20-1.json": "273ee796ab98f4f79e494a1851d52cee8ba8062d21efbc48dd0decaeeed181f6",
+    "native-matrix/field-quantity-2026-04-14-1.json": "5f1875015af64c3f7a1e0d316edeaf11b85a3e48bcb2134a15dd24b317af3201",
+    "native-matrix/field-rise-2006-01-04-1.json": "98d013829dd7bae942afdad09c20d8c44ddc99629a034ee91409a79fcd1668a3",
+    "native-matrix/field-rise-2018-08-20-1.json": "58205cd302dd64fb8734e98384634a353b0ebbc48c152d774b39929d13ac0aec",
+    "native-matrix/field-rise-2026-04-10-1.json": "525b18f62d0f09c20346d235e4fbdc7805388b9c93d0033997af5731a4010fa0",
+    "native-matrix/field-rise-2026-04-13-1.json": "54ac3ea0ed787508ed7b5d0270e4c18c19edee9ffbf884147712a8715fce6e4f",
+    "native-matrix/field-rise-2026-04-14-1.json": "0739034a4cbc8e4649bf29125896770884d7bf6e6bbcf20f32797686f0839b28",
+    "native-matrix/field-trueTurn-2006-01-04-1.json": "3339521c109a9a68d81dabe0ccf8781fb861b5e75c6cfff48e62f8031dce579d",
+    "native-matrix/field-trueTurn-2018-08-20-1.json": "9e00895a9196843a97b2c0b77ebb4fa04c80b16618b40b13cb6580109a38a75a",
+    "native-matrix/field-trueTurn-2026-04-14-1.json": "fd6e336fe15b008cea9bb9e5fc66136836c9f2a5c5bb430b6f65bbe449a02c82",
+    "native-matrix/field-turn-2006-01-04-1.json": "1adc59fccedc773ee6d09b0bec19d22007568bd3a80bfb97b49d9d6a79279979",
+    "native-matrix/field-turn-2018-08-20-1.json": "a50af8612caea1f4f83f930998e9adc7130004cdb9747293ba15e41d372b75e3",
+    "native-matrix/field-turn-2026-04-14-1.json": "574811d9da41fc44bb3c44097a8a540fb3fa650b5806e73d0bc274a62237852b",
+    "native-matrix/field-volume-2006-01-04-1.json": "dc9c1e19b5ee99988b9c1b08a80a21d4a1ee503e99c5e476c6fecc68b967d514",
+    "native-matrix/field-volume-2018-08-20-1.json": "5e71a6261711cd3cf3a66a0ecbb518adf7cdddfa5695f757bf9e7570e04ca457",
+    "native-matrix/field-volume-2026-04-14-1.json": "0bf9b0f651a5890d8c7f72c84c18869916447b331eac78021fe61f24ddc9f90d",
+    "native-matrix/matrix.json": "4fc173b78661cb60e958652b980903057b937d786b603b50071f8302080f36a1",
+    "native-matrix/position-amount-1.json": "1e00aa3e3f0f0e553b6387f2a69db8982610051a867e6f1777b8cd253c48823a",
+    "native-matrix/position-amplitude-1.json": "e648aa70112dfdce34e25cb66f619fd5b53398523a33c94e7156f6c54e3dad64",
+    "native-matrix/position-average-1.json": "b65bded8bce1b5a54610107495b697fa632c98fbe742ff7d0460a6030482ca35",
+    "native-matrix/position-cap-1.json": "8f781cb404f09e6d8e41c971232462161c80bea603b0e5a2768d5d3ad8fb11b0",
+    "native-matrix/position-close-1.json": "0aef2bb1b4bb4f2a00ab266a8efb7851738298a95e7beaf47118e4724976d87e",
+    "native-matrix/position-hfq-1.json": "9fc59dda01bf511fce210d8c9d2981faaa0b6ab00403a569a9e0900c88f6da4f",
+    "native-matrix/position-high-1.json": "e0e423262abf85935c3e794f9717eab69944294ac038a41b8303842b0806ec74",
+    "native-matrix/position-last-1.json": "d21ce66b68925f8280a93a00216978ef02987d43b700451249ec31424c344ffb",
+    "native-matrix/position-listedCap-1.json": "3a14a151170b48542e210dfc4e2c27105ef8bdbf632e7a99e7ff38124c8366ed",
+    "native-matrix/position-low-1.json": "d6bfb2bf73cd1f3508fedd74d9d8f8478035e44d143289f201e189d067eca0a2",
+    "native-matrix/position-net-1.json": "e84961d82a8228deca86f90821f3b6982d2ba842b7bb560c743f9f22a5c8ee1b",
+    "native-matrix/position-open-1.json": "26085a928f385cfa01a119c6f93a70f4054ed05562aaef57f0e802f9f4f28db8",
+    "native-matrix/position-previous-1.json": "29d51cd7e402c8426eeff244f64a4f400710aa38528ad6eb7cbd40cdb762b09b",
+    "native-matrix/position-qfq-1.json": "11af5aeae718c88699b008444b4711ed38b3ce635b793650dee536f66da1514e",
+    "native-matrix/position-quantity-1.json": "c8b02d7f1cedce4ba8e676a6fd08672f0324a735699d1bd77c6bb558e9cf189c",
+    "native-matrix/position-rise-1.json": "a1a0aa0dcdd201fe144722e357e15d3a8276a14c0d9e5b660e5747b2a4e431bb",
+    "native-matrix/position-trueTurn-1.json": "a9ed85133cbc3900ec6e46a593afc36dc55c72ff2b7f06ade0eb36f3a15faade",
+    "native-matrix/position-turn-1.json": "32aa2f07db3403914bd31b6f5defe3476343fb07ee5a4cd88b221c2e39593c53",
+    "native-matrix/position-volume-1.json": "7db869ccd888453e90235f5df6999df8fade4fa4b342031a2c08d5781e5d5f5c",
+    "native-matrix/result.json": "647df97927789609aa3d0d0297adefd4eccd4f176442e5bdc2abf031de7a0ef3",
+    "official-field-verification.json": "5eee4916ca68cea55a7e135a156b2b32f345184115f35e26833a2c57c42c1739",
+    "portable-final.json": "341a8e63f15ed726470c7e3132db3bd7a8610d6246f24429a48890c9a4c501fe",
+    "portable-fixture-complete.json": "b09a30200cb509a953a7926a2b74ef2c6a2744b8b27b2319731cdb081e8d3dd6",
+    "portable-investigation.json": "b794dc5bbeb99b7987641837a03b78873332ccc981294b9d53326c7edebd3400",
+    "selftest-final/automation/latest.json": "626e505c388d69bcf8ef3c16f642eb21a1a951dc501f0e12a7f2542edc87acd5",
+    "selftest-final/compiler-performance/latest.json": "5eeaa37e978aba6427fbc039b8c55a10634c039f140e06e7a6c1399f7cb1ab9f",
+    "selftest-final/fixture-data.json": "c57080736ac2f124e1e94e2883c04ce0dbfecbbffacb3d95af1534951b00be67",
+    "selftest-final/fixture-screen-catalog.json": "c02f80df29772ced74778e4edfc38fd58a37f0aec06c9ac0fc177d30abe03e79",
+    "selftest-final/fixture-screen-registry.json": "4359f9a16220831813dfe11bced4bb584f9701eae96632dc303d757a08ad4da3",
+    "selftest-final/fixture-stock-registry.json": "35f7880723e7cbc3aff537bf854c4124ac6bf126fa08f23a9a7f91c00e2dc782",
+    "selftest-final/integration-result.json": "2c2126aa583b82b29d1957e56485634e7832620e1c3c3a63242b2ede2854f009",
+    "selftest-final/junit-results.json": "8dab379b959133885d5f94ed4e3bb145337f4c134e281b4a52668f3a7fe6643b",
+    "selftest-final/numeric-precision-boundaries.json": "9256548fa717aed21bb42fc55073cc89d62a955ac7cecbfdeea15d44ca65b000",
+    "selftest-final/portable-boundaries/portable-historical-boundaries.json": "fa3e0db7a10fbf5a519205c253c01427102eb5d3a7b921fa0f93ba972693497d",
+    "selftest-final/portable-boundaries/portable-rolling-boundaries.json": "fd7b2f4a0700c569f2d67c039ca937044083d1821bc051e7b07503a2a621fea7",
+    "selftest-final/portable-boundaries/project-availability-explanations.json": "3bd4abdf1d188c3767689cffeb0c14c2e5d7323111bfa880c90703a2f4ee92fc",
+    "selftest-final/portable-boundaries/project-field-boundaries.json": "341a8e63f15ed726470c7e3132db3bd7a8610d6246f24429a48890c9a4c501fe",
+    "selftest-final/portable-boundaries/project-rsi-tail-boundaries.json": "7e68f57c46da0d1431721d819533688fc8f071cf2da72cb603bc9c8cae47b9ac",
+    "selftest-final/portable-boundaries/project-window-boundaries.json": "71341c3b1c9d3b82a88ccfa03627667b3c50510493cd53c021a42f29e0e1be3d",
+    "selftest-final/scope/phase1-scope-validation.json": "72de1fbdc1233aa29c7ec0f6f489cda06de67156d8790810003164544851d7c6",
+    "selftest-final/synthetic-cli-result.json": "9a04ce60bf84c9f137f7a33a5d24f6e7f85ccc5a30dfd59771aa857623776d2f",
+    "source-validation/project-validation.json": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+    "source-validation/source-validation-report.json": "ae4d6e001dd0e5b4b581e4b1e76df4983c68241da41911b8b1948fb13f6ead5d",
+    "strict-gates/controlled-execution-gate.json": "d1a20970e0a6272e1d121a0b6e90407defbcf2c9c6ed05b91397c3ce2f83166d",
+    "synthetic-project/basic-positive.json": "502c45a927e6049f5f8aabb5cae5329dcf18de68b0681fecac09a5f3243decf0",
+    "synthetic-project/basic-with-blocked-code.json": "d09acaaee90b0123bd22b0e8d7f2981e11f4ef74edbe37eb609f87e89b0001af",
+    "synthetic-project/basic-with-blocked-extension.json": "79b18fc0e8cd131cd19ef0022266152ba06140d7c098b628230dd11d8cb6291b",
+    "synthetic-project/consecutive-positive.json": "4d79f5592e9ddc59acf5030d2050559014ae312b8e2414b96c7716a0f732cbc3",
+    "synthetic-project/extension-positive.json": "2356bd54f773dab4196b26b7916d7347e6712ffba45477c0913d63f264fe964c",
+    "synthetic-project/historical-position-current-null.json": "26429aaa72e5ddec3bd0040155be715e50f187f06a11803f84891fdd3ab6745e",
+    "synthetic-project/mixed-positive.json": "84ba2654c2806985fbd3744ec67181de9ddfdc3f1d3655ae67c2a1977a11f8ae",
+    "synthetic-project/named-security-positive.json": "1e73201a8171ddecf39e0d5e382d110cb326a79110caebcfb97added3bbb76e3",
+    "synthetic-project/no-observations.json": "9c17ba11c3e2078a267100eb29c9fc8367e9a6d0fd38087fd45dc91432235ed8",
+    "synthetic-project/position-positive.json": "437a8cb3361d51dcf103ed550f96deb5b0e68f0cac2f53f3bdb1ac7f5ceefa99",
+    "synthetic-project/project-validation.json": "200ad22d0f7bfa20754f69a36db05e280ec3b50dbcc70c08d0ffaf18914a816e",
+    "synthetic-project/ranking-positive.json": "38bd9f4b70cba72d9bc235e55e14f1fc081c238fe209be3bee7675401a848718",
+    "synthetic-project/registry.json": "8ae173b557a74c7d550df7220d50d491f77b6038e884e50118296fcc8763771d",
+    "synthetic-project/result.json": "b329f167c9a8cb22aaf30a1107ed7df5d032b6741120fc0e30894696fccb646e",
+    "synthetic-project/window-positive.json": "94ac70f0ff95517561ad4d900cfe1614b1112ca27bb072321046d7abbaf26e74"
+  }
+}

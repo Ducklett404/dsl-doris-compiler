@@ -1,0 +1,444 @@
+{
+  "compilation": {
+    "dslVersion": "stock-slot-v1",
+    "semanticModel": {
+      "document": {
+        "expression": {
+          "kind": "Binary",
+          "operator": ">",
+          "left": {
+            "kind": "FunctionCall",
+            "name": "indicator",
+            "arguments": [
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 11,
+                  "endLine": 1,
+                  "endColumn": 13
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 15,
+                  "endLine": 1,
+                  "endColumn": 17
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "主力净流入",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 19,
+                  "endLine": 1,
+                  "endColumn": 26
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "2006-01-04",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 28,
+                  "endLine": 1,
+                  "endColumn": 40
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 42,
+                  "endLine": 1,
+                  "endColumn": 44
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 46,
+                  "endLine": 1,
+                  "endColumn": 48
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 50,
+                  "endLine": 1,
+                  "endColumn": 52
+                }
+              }
+            ],
+            "type": "NUMBER",
+            "span": {
+              "line": 1,
+              "column": 1,
+              "endLine": 1,
+              "endColumn": 53
+            }
+          },
+          "right": {
+            "kind": "Literal",
+            "value": 0,
+            "type": "NUMBER",
+            "span": {
+              "line": 1,
+              "column": 56,
+              "endLine": 1,
+              "endColumn": 57
+            }
+          },
+          "type": "BOOLEAN",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 57
+          }
+        },
+        "selectionLimit": null,
+        "span": {
+          "line": 1,
+          "column": 1,
+          "endLine": 1,
+          "endColumn": 62
+        }
+      },
+      "calls": [
+        {
+          "function": "indicator",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 53
+          },
+          "slots": [
+            {
+              "name": "market",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "filter_scope",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "indicator_name",
+              "rawValue": "主力净流入",
+              "structuredValue": {
+                "value": "主力净流入",
+                "template": "主力净流入",
+                "parameters": {}
+              }
+            },
+            {
+              "name": "date",
+              "rawValue": "2006-01-04",
+              "structuredValue": {
+                "raw": "2006-01-04",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "select_type",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "agg_func",
+              "rawValue": "",
+              "structuredValue": ""
+            },
+            {
+              "name": "count_exp",
+              "rawValue": "",
+              "structuredValue": null
+            }
+          ]
+        }
+      ]
+    },
+    "logicalPlan": [
+      {
+        "kind": "Scan",
+        "detail": "newzl.v_hsj_stock_hq_basic"
+      },
+      {
+        "kind": "LeftJoin",
+        "detail": "newzl.v_hsj_stock_hq_ext on (mktcode,tgtcode,bizdate)"
+      },
+      {
+        "kind": "DateAndMarketFilter",
+        "detail": "2006-01-04"
+      },
+      {
+        "kind": "Sort",
+        "detail": "mktcode, tgtcode"
+      },
+      {
+        "kind": "Project",
+        "detail": "mktcode,tgtcode"
+      }
+    ],
+    "windowContracts": [],
+    "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    NULLIF(e.ZJLXMainNetTur,-999999) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE DATE_FORMAT(b.bizdate,'%Y-%m-%d') = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+    "bindings": [
+      "2006-01-04",
+      0
+    ],
+    "ordered": false,
+    "coveragePlan": {
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    NULLIF(e.ZJLXMainNetTur,-999999) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE DATE_FORMAT(b.bizdate,'%Y-%m-%d') = ?\n)\nSELECT COUNT(*),COALESCE(SUM(CASE WHEN cx.tgtcode IS NULL THEN 1 ELSE 0 END),0),COALESCE(SUM(CASE WHEN cov.`m1` IS NULL THEN 1 ELSE 0 END),0) FROM base cov LEFT JOIN newzl.v_hsj_stock_hq_ext cx ON cx.mktcode=cov.mktcode AND cx.tgtcode=cov.tgtcode AND cx.bizdate=?;",
+      "samplesSql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    NULLIF(e.ZJLXMainNetTur,-999999) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE DATE_FORMAT(b.bizdate,'%Y-%m-%d') = ?\n)\nSELECT cov.mktcode,cov.tgtcode,CASE WHEN cx.tgtcode IS NULL THEN 1 ELSE 0 END,CASE WHEN cov.`m1` IS NULL THEN 1 ELSE 0 END FROM base cov LEFT JOIN newzl.v_hsj_stock_hq_ext cx ON cx.mktcode=cov.mktcode AND cx.tgtcode=cov.tgtcode AND cx.bizdate=? WHERE cov.`m1` IS NULL OR (CASE WHEN cx.tgtcode IS NULL THEN 1 ELSE 0 END)=1 ORDER BY cov.mktcode,cov.tgtcode LIMIT 20;",
+      "bindings": [
+        "2006-01-04",
+        "2006-01-04"
+      ],
+      "evaluationDate": "2006-01-04",
+      "inputs": [
+        {
+          "function": "indicator",
+          "indicator": "主力净流入",
+          "alias": "m1"
+        }
+      ],
+      "extensionRequired": true
+    }
+  },
+  "columns": [
+    "mktcode",
+    "tgtcode"
+  ],
+  "rows": [],
+  "truncated": false,
+  "timings": {
+    "compileMillis": 59.6594,
+    "queueMillis": 0.0275,
+    "explainMillis": 26.4828,
+    "dorisExecutionMillis": 21.5115,
+    "returnMillis": 0.022,
+    "totalMillis": 332.7113
+  },
+  "limits": {
+    "queryTimeoutSeconds": 10,
+    "maxEstimatedScanRows": 100000000,
+    "estimatedScanRows": 0,
+    "maxReturnRows": 10000,
+    "maxExecutionMemoryBytes": 2147483648
+  },
+  "sqlFingerprint": "sha256:a8c9a4d222fb3e69d4e52d82278cf86e7f33f1c972e7e93ef6fb34c0010f0076",
+  "dataVersion": {
+    "snapshotId": "stock-20060104-20260414-v1",
+    "contractVersion": "1.0.0",
+    "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95"
+  },
+  "compilerVersion": "0.1.0",
+  "explain": [
+    "PLAN FRAGMENT 0",
+    "  OUTPUT EXPRS:",
+    "    mktcode[#0]",
+    "    tgtcode[#1]",
+    "  PARTITION: UNPARTITIONED",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  VRESULT SINK",
+    "     MYSQL_PROTOCOL",
+    "",
+    "  0:VEMPTYSET(490)",
+    "",
+    "",
+    "",
+    "========== STATISTICS =========="
+  ],
+  "queryProfile": {
+    "available": false,
+    "queryId": "a6fddfa849d54dc1-be180d5a890c35fd",
+    "taskState": null,
+    "total": null,
+    "user": null,
+    "note": "Profile is asynchronous or not retained"
+  },
+  "dataQuality": {
+    "validationLevel": "PROJECT_SCOPED",
+    "officialAcceptanceEligible": false,
+    "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+    "coverageStatus": "PARTIAL_INPUTS",
+    "evaluationDate": "2006-01-04",
+    "requiredSources": [
+      "basic",
+      "extension"
+    ],
+    "observedSecurities": 1079,
+    "currentMissingExtensionRows": 1079,
+    "inputs": [
+      {
+        "function": "indicator",
+        "indicator": "主力净流入",
+        "unavailableSecurities": 1079
+      }
+    ],
+    "unavailableSamples": [
+      [
+        "0",
+        "000001",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000002",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000004",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000007",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000008",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000010",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000012",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000014",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000016",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000020",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000021",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000025",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000026",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000027",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000028",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000030",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000031",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000034",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000035",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000036",
+        "1",
+        "1"
+      ]
+    ],
+    "snapshotExtensionWithoutBasic": 249480,
+    "snapshotCloseOutsideRange": 3487,
+    "limitations": [
+      "本次使用项目已冻结的字段单位、公式与缺值约定，官方口径未获额外确认。",
+      "证券范围以基础行情为准。无法关联基础行情的衍生记录完整保留，不用于补造基础行情。",
+      "缺失字段、-999999 资金哨兵、零分母、历史不足及平坦 position 区间按原契约返回 NULL。",
+      "行业字段在现有数据中不可用；项目入口拒绝行业查询。财务等缺少来源的功能仍拒绝。",
+      "这是项目内部按依赖验证的运行证据，不登记 VALIDATED 快照，不代表官方验收。",
+      "原始数据按不可变快照管理。运行账户只读；外部装载修改数据后必须重新验证，行数和表/视图定义在每次查询时复核。",
+      "可用性在用户条件、THEN 排名及 LIMIT 之前统计；输入为 NULL 不等于条件为假。历史不足、NULL/哨兵、零分母及平坦区间均可导致输入不可用。各项缺失数量可能重叠，不可相加作为未命中总数。缺失样本最多 20 行，依次为市场、证券、当日衍生缺行标记及各输入缺失标记；窗口内具体缺失日期需进一步检查。"
+    ],
+    "validationMillis": 247.5438
+  }
+}

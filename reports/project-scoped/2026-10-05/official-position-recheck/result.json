@@ -1,0 +1,28 @@
+{
+  "purpose": "PROJECT_SCOPED_OFFICIAL_DATA_EXECUTION",
+  "officialAcceptanceEligible": false,
+  "jarSha256": "55f497ac2ab0e6637c55d64c5d80a1cc2749f0ad04fe10eddfd476a95b9cdcbb",
+  "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "checks": [
+    {
+      "name": "independent-source-lock",
+      "status": "PASS"
+    },
+    {
+      "name": "position3-cli",
+      "status": "FAIL",
+      "exitCode": 3,
+      "error": "doris_execution_failed: Doris rejected controlled query; code 1105 (SQLState HY000)\n"
+    }
+  ],
+  "cases": [],
+  "diagnostic": "SOURCE_IDENTITY_OK\nCOVERAGE_AGGREGATE\nQUERY_OK\nCOVERAGE_SAMPLES\nQUERY_OK\nMAIN_QUERY\nQUERY_OK\n",
+  "fatalError": "position3-cli",
+  "cleanup": "DONE",
+  "passed": 1,
+  "total": 2,
+  "completedAtUtc": "2026-10-04T17:46:15.786787+00:00",
+  "status": "FAIL"
+}

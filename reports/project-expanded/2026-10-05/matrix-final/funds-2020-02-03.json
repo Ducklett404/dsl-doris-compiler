@@ -1,0 +1,1918 @@
+{
+  "compilation": {
+    "dslVersion": "stock-slot-v1",
+    "semanticModel": {
+      "document": {
+        "expression": {
+          "kind": "Binary",
+          "operator": ">",
+          "left": {
+            "kind": "FunctionCall",
+            "name": "indicator",
+            "arguments": [
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 11,
+                  "endLine": 1,
+                  "endColumn": 13
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 15,
+                  "endLine": 1,
+                  "endColumn": 17
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "主力净流入",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 19,
+                  "endLine": 1,
+                  "endColumn": 26
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "2020-02-03",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 28,
+                  "endLine": 1,
+                  "endColumn": 40
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 42,
+                  "endLine": 1,
+                  "endColumn": 44
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 46,
+                  "endLine": 1,
+                  "endColumn": 48
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 50,
+                  "endLine": 1,
+                  "endColumn": 52
+                }
+              }
+            ],
+            "type": "NUMBER",
+            "span": {
+              "line": 1,
+              "column": 1,
+              "endLine": 1,
+              "endColumn": 53
+            }
+          },
+          "right": {
+            "kind": "Literal",
+            "value": 0,
+            "type": "NUMBER",
+            "span": {
+              "line": 1,
+              "column": 56,
+              "endLine": 1,
+              "endColumn": 57
+            }
+          },
+          "type": "BOOLEAN",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 57
+          }
+        },
+        "selectionLimit": null,
+        "span": {
+          "line": 1,
+          "column": 1,
+          "endLine": 1,
+          "endColumn": 62
+        }
+      },
+      "calls": [
+        {
+          "function": "indicator",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 53
+          },
+          "slots": [
+            {
+              "name": "market",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "filter_scope",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "indicator_name",
+              "rawValue": "主力净流入",
+              "structuredValue": {
+                "value": "主力净流入",
+                "template": "主力净流入",
+                "parameters": {}
+              }
+            },
+            {
+              "name": "date",
+              "rawValue": "2020-02-03",
+              "structuredValue": {
+                "raw": "2020-02-03",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "select_type",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "agg_func",
+              "rawValue": "",
+              "structuredValue": ""
+            },
+            {
+              "name": "count_exp",
+              "rawValue": "",
+              "structuredValue": null
+            }
+          ]
+        }
+      ]
+    },
+    "logicalPlan": [
+      {
+        "kind": "Scan",
+        "detail": "newzl.v_hsj_stock_hq_basic"
+      },
+      {
+        "kind": "LeftJoin",
+        "detail": "newzl.v_hsj_stock_hq_ext on (mktcode,tgtcode,bizdate)"
+      },
+      {
+        "kind": "DateAndMarketFilter",
+        "detail": "2020-02-03"
+      },
+      {
+        "kind": "Sort",
+        "detail": "mktcode, tgtcode"
+      },
+      {
+        "kind": "Project",
+        "detail": "mktcode,tgtcode"
+      }
+    ],
+    "windowContracts": [],
+    "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    NULLIF(e.ZJLXMainNetTur,-999999) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE DATE_FORMAT(b.bizdate,'%Y-%m-%d') = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+    "bindings": [
+      "2020-02-03",
+      0
+    ],
+    "ordered": false,
+    "coveragePlan": {
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    NULLIF(e.ZJLXMainNetTur,-999999) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE DATE_FORMAT(b.bizdate,'%Y-%m-%d') = ?\n)\nSELECT COUNT(*),COALESCE(SUM(CASE WHEN cx.tgtcode IS NULL THEN 1 ELSE 0 END),0),COALESCE(SUM(CASE WHEN cov.`m1` IS NULL THEN 1 ELSE 0 END),0) FROM base cov LEFT JOIN newzl.v_hsj_stock_hq_ext cx ON cx.mktcode=cov.mktcode AND cx.tgtcode=cov.tgtcode AND cx.bizdate=?;",
+      "samplesSql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    NULLIF(e.ZJLXMainNetTur,-999999) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.v_hsj_stock_hq_ext e ON e.mktcode=b.mktcode AND e.tgtcode=b.tgtcode AND e.bizdate=b.bizdate\n  WHERE DATE_FORMAT(b.bizdate,'%Y-%m-%d') = ?\n)\nSELECT cov.mktcode,cov.tgtcode,CASE WHEN cx.tgtcode IS NULL THEN 1 ELSE 0 END,CASE WHEN cov.`m1` IS NULL THEN 1 ELSE 0 END FROM base cov LEFT JOIN newzl.v_hsj_stock_hq_ext cx ON cx.mktcode=cov.mktcode AND cx.tgtcode=cov.tgtcode AND cx.bizdate=? WHERE cov.`m1` IS NULL OR (CASE WHEN cx.tgtcode IS NULL THEN 1 ELSE 0 END)=1 ORDER BY cov.mktcode,cov.tgtcode LIMIT 20;",
+      "bindings": [
+        "2020-02-03",
+        "2020-02-03"
+      ],
+      "evaluationDate": "2020-02-03",
+      "inputs": [
+        {
+          "function": "indicator",
+          "indicator": "主力净流入",
+          "alias": "m1"
+        }
+      ],
+      "extensionRequired": true
+    }
+  },
+  "columns": [
+    "mktcode",
+    "tgtcode"
+  ],
+  "rows": [
+    [
+      "0",
+      "000001"
+    ],
+    [
+      "0",
+      "000002"
+    ],
+    [
+      "0",
+      "000007"
+    ],
+    [
+      "0",
+      "000009"
+    ],
+    [
+      "0",
+      "000010"
+    ],
+    [
+      "0",
+      "000019"
+    ],
+    [
+      "0",
+      "000026"
+    ],
+    [
+      "0",
+      "000042"
+    ],
+    [
+      "0",
+      "000045"
+    ],
+    [
+      "0",
+      "000063"
+    ],
+    [
+      "0",
+      "000065"
+    ],
+    [
+      "0",
+      "000078"
+    ],
+    [
+      "0",
+      "000089"
+    ],
+    [
+      "0",
+      "000096"
+    ],
+    [
+      "0",
+      "000100"
+    ],
+    [
+      "0",
+      "000156"
+    ],
+    [
+      "0",
+      "000159"
+    ],
+    [
+      "0",
+      "000338"
+    ],
+    [
+      "0",
+      "000401"
+    ],
+    [
+      "0",
+      "000404"
+    ],
+    [
+      "0",
+      "000408"
+    ],
+    [
+      "0",
+      "000505"
+    ],
+    [
+      "0",
+      "000523"
+    ],
+    [
+      "0",
+      "000529"
+    ],
+    [
+      "0",
+      "000537"
+    ],
+    [
+      "0",
+      "000547"
+    ],
+    [
+      "0",
+      "000554"
+    ],
+    [
+      "0",
+      "000560"
+    ],
+    [
+      "0",
+      "000581"
+    ],
+    [
+      "0",
+      "000582"
+    ],
+    [
+      "0",
+      "000596"
+    ],
+    [
+      "0",
+      "000609"
+    ],
+    [
+      "0",
+      "000632"
+    ],
+    [
+      "0",
+      "000651"
+    ],
+    [
+      "0",
+      "000652"
+    ],
+    [
+      "0",
+      "000655"
+    ],
+    [
+      "0",
+      "000672"
+    ],
+    [
+      "0",
+      "000681"
+    ],
+    [
+      "0",
+      "000688"
+    ],
+    [
+      "0",
+      "000691"
+    ],
+    [
+      "0",
+      "000692"
+    ],
+    [
+      "0",
+      "000698"
+    ],
+    [
+      "0",
+      "000708"
+    ],
+    [
+      "0",
+      "000715"
+    ],
+    [
+      "0",
+      "000731"
+    ],
+    [
+      "0",
+      "000736"
+    ],
+    [
+      "0",
+      "000755"
+    ],
+    [
+      "0",
+      "000759"
+    ],
+    [
+      "0",
+      "000762"
+    ],
+    [
+      "0",
+      "000786"
+    ],
+    [
+      "0",
+      "000856"
+    ],
+    [
+      "0",
+      "000858"
+    ],
+    [
+      "0",
+      "000876"
+    ],
+    [
+      "0",
+      "000909"
+    ],
+    [
+      "0",
+      "000910"
+    ],
+    [
+      "0",
+      "000921"
+    ],
+    [
+      "0",
+      "000923"
+    ],
+    [
+      "0",
+      "000938"
+    ],
+    [
+      "0",
+      "000951"
+    ],
+    [
+      "0",
+      "000955"
+    ],
+    [
+      "0",
+      "000966"
+    ],
+    [
+      "0",
+      "000977"
+    ],
+    [
+      "0",
+      "000985"
+    ],
+    [
+      "0",
+      "000989"
+    ],
+    [
+      "0",
+      "000998"
+    ],
+    [
+      "0",
+      "002006"
+    ],
+    [
+      "0",
+      "002016"
+    ],
+    [
+      "0",
+      "002024"
+    ],
+    [
+      "0",
+      "002026"
+    ],
+    [
+      "0",
+      "002027"
+    ],
+    [
+      "0",
+      "002032"
+    ],
+    [
+      "0",
+      "002033"
+    ],
+    [
+      "0",
+      "002035"
+    ],
+    [
+      "0",
+      "002043"
+    ],
+    [
+      "0",
+      "002053"
+    ],
+    [
+      "0",
+      "002055"
+    ],
+    [
+      "0",
+      "002078"
+    ],
+    [
+      "0",
+      "002080"
+    ],
+    [
+      "0",
+      "002096"
+    ],
+    [
+      "0",
+      "002098"
+    ],
+    [
+      "0",
+      "002108"
+    ],
+    [
+      "0",
+      "002111"
+    ],
+    [
+      "0",
+      "002114"
+    ],
+    [
+      "0",
+      "002117"
+    ],
+    [
+      "0",
+      "002121"
+    ],
+    [
+      "0",
+      "002125"
+    ],
+    [
+      "0",
+      "002126"
+    ],
+    [
+      "0",
+      "002135"
+    ],
+    [
+      "0",
+      "002136"
+    ],
+    [
+      "0",
+      "002138"
+    ],
+    [
+      "0",
+      "002142"
+    ],
+    [
+      "0",
+      "002160"
+    ],
+    [
+      "0",
+      "002171"
+    ],
+    [
+      "0",
+      "002180"
+    ],
+    [
+      "0",
+      "002181"
+    ],
+    [
+      "0",
+      "002187"
+    ],
+    [
+      "0",
+      "002188"
+    ],
+    [
+      "0",
+      "002193"
+    ],
+    [
+      "0",
+      "002203"
+    ],
+    [
+      "0",
+      "002209"
+    ],
+    [
+      "0",
+      "002211"
+    ],
+    [
+      "0",
+      "002214"
+    ],
+    [
+      "0",
+      "002228"
+    ],
+    [
+      "0",
+      "002242"
+    ],
+    [
+      "0",
+      "002245"
+    ],
+    [
+      "0",
+      "002248"
+    ],
+    [
+      "0",
+      "002258"
+    ],
+    [
+      "0",
+      "002274"
+    ],
+    [
+      "0",
+      "002285"
+    ],
+    [
+      "0",
+      "002286"
+    ],
+    [
+      "0",
+      "002291"
+    ],
+    [
+      "0",
+      "002293"
+    ],
+    [
+      "0",
+      "002301"
+    ],
+    [
+      "0",
+      "002309"
+    ],
+    [
+      "0",
+      "002311"
+    ],
+    [
+      "0",
+      "002314"
+    ],
+    [
+      "0",
+      "002318"
+    ],
+    [
+      "0",
+      "002324"
+    ],
+    [
+      "0",
+      "002326"
+    ],
+    [
+      "0",
+      "002343"
+    ],
+    [
+      "0",
+      "002349"
+    ],
+    [
+      "0",
+      "002351"
+    ],
+    [
+      "0",
+      "002353"
+    ],
+    [
+      "0",
+      "002368"
+    ],
+    [
+      "0",
+      "002371"
+    ],
+    [
+      "0",
+      "002376"
+    ],
+    [
+      "0",
+      "002377"
+    ],
+    [
+      "0",
+      "002384"
+    ],
+    [
+      "0",
+      "002395"
+    ],
+    [
+      "0",
+      "002397"
+    ],
+    [
+      "0",
+      "002398"
+    ],
+    [
+      "0",
+      "002419"
+    ],
+    [
+      "0",
+      "002429"
+    ],
+    [
+      "0",
+      "002430"
+    ],
+    [
+      "0",
+      "002434"
+    ],
+    [
+      "0",
+      "002438"
+    ],
+    [
+      "0",
+      "002467"
+    ],
+    [
+      "0",
+      "002475"
+    ],
+    [
+      "0",
+      "002483"
+    ],
+    [
+      "0",
+      "002487"
+    ],
+    [
+      "0",
+      "002497"
+    ],
+    [
+      "0",
+      "002506"
+    ],
+    [
+      "0",
+      "002507"
+    ],
+    [
+      "0",
+      "002508"
+    ],
+    [
+      "0",
+      "002516"
+    ],
+    [
+      "0",
+      "002520"
+    ],
+    [
+      "0",
+      "002548"
+    ],
+    [
+      "0",
+      "002551"
+    ],
+    [
+      "0",
+      "002553"
+    ],
+    [
+      "0",
+      "002557"
+    ],
+    [
+      "0",
+      "002563"
+    ],
+    [
+      "0",
+      "002568"
+    ],
+    [
+      "0",
+      "002572"
+    ],
+    [
+      "0",
+      "002584"
+    ],
+    [
+      "0",
+      "002601"
+    ],
+    [
+      "0",
+      "002602"
+    ],
+    [
+      "0",
+      "002609"
+    ],
+    [
+      "0",
+      "002616"
+    ],
+    [
+      "0",
+      "002622"
+    ],
+    [
+      "0",
+      "002624"
+    ],
+    [
+      "0",
+      "002633"
+    ],
+    [
+      "0",
+      "002635"
+    ],
+    [
+      "0",
+      "002643"
+    ],
+    [
+      "0",
+      "002646"
+    ],
+    [
+      "0",
+      "002671"
+    ],
+    [
+      "0",
+      "002686"
+    ],
+    [
+      "0",
+      "002687"
+    ],
+    [
+      "0",
+      "002694"
+    ],
+    [
+      "0",
+      "002695"
+    ],
+    [
+      "0",
+      "002697"
+    ],
+    [
+      "0",
+      "002703"
+    ],
+    [
+      "0",
+      "002706"
+    ],
+    [
+      "0",
+      "002709"
+    ],
+    [
+      "0",
+      "002714"
+    ],
+    [
+      "0",
+      "002724"
+    ],
+    [
+      "0",
+      "002741"
+    ],
+    [
+      "0",
+      "002745"
+    ],
+    [
+      "0",
+      "002748"
+    ],
+    [
+      "0",
+      "002756"
+    ],
+    [
+      "0",
+      "002768"
+    ],
+    [
+      "0",
+      "002771"
+    ],
+    [
+      "0",
+      "002777"
+    ],
+    [
+      "0",
+      "002785"
+    ],
+    [
+      "0",
+      "002790"
+    ],
+    [
+      "0",
+      "002801"
+    ],
+    [
+      "0",
+      "002808"
+    ],
+    [
+      "0",
+      "002810"
+    ],
+    [
+      "0",
+      "002811"
+    ],
+    [
+      "0",
+      "002813"
+    ],
+    [
+      "0",
+      "002827"
+    ],
+    [
+      "0",
+      "002831"
+    ],
+    [
+      "0",
+      "002835"
+    ],
+    [
+      "0",
+      "002838"
+    ],
+    [
+      "0",
+      "002846"
+    ],
+    [
+      "0",
+      "002847"
+    ],
+    [
+      "0",
+      "002858"
+    ],
+    [
+      "0",
+      "002859"
+    ],
+    [
+      "0",
+      "002868"
+    ],
+    [
+      "0",
+      "002870"
+    ],
+    [
+      "0",
+      "002871"
+    ],
+    [
+      "0",
+      "002873"
+    ],
+    [
+      "0",
+      "002876"
+    ],
+    [
+      "0",
+      "002878"
+    ],
+    [
+      "0",
+      "002883"
+    ],
+    [
+      "0",
+      "002884"
+    ],
+    [
+      "0",
+      "002898"
+    ],
+    [
+      "0",
+      "002918"
+    ],
+    [
+      "0",
+      "002919"
+    ],
+    [
+      "0",
+      "002932"
+    ],
+    [
+      "0",
+      "002950"
+    ],
+    [
+      "0",
+      "002959"
+    ],
+    [
+      "0",
+      "002965"
+    ],
+    [
+      "0",
+      "002967"
+    ],
+    [
+      "0",
+      "002968"
+    ],
+    [
+      "0",
+      "002969"
+    ],
+    [
+      "0",
+      "002971"
+    ],
+    [
+      "0",
+      "300011"
+    ],
+    [
+      "0",
+      "300015"
+    ],
+    [
+      "0",
+      "300030"
+    ],
+    [
+      "0",
+      "300036"
+    ],
+    [
+      "0",
+      "300051"
+    ],
+    [
+      "0",
+      "300056"
+    ],
+    [
+      "0",
+      "300066"
+    ],
+    [
+      "0",
+      "300071"
+    ],
+    [
+      "0",
+      "300083"
+    ],
+    [
+      "0",
+      "300086"
+    ],
+    [
+      "0",
+      "300087"
+    ],
+    [
+      "0",
+      "300102"
+    ],
+    [
+      "0",
+      "300105"
+    ],
+    [
+      "0",
+      "300125"
+    ],
+    [
+      "0",
+      "300133"
+    ],
+    [
+      "0",
+      "300138"
+    ],
+    [
+      "0",
+      "300143"
+    ],
+    [
+      "0",
+      "300150"
+    ],
+    [
+      "0",
+      "300151"
+    ],
+    [
+      "0",
+      "300157"
+    ],
+    [
+      "0",
+      "300161"
+    ],
+    [
+      "0",
+      "300163"
+    ],
+    [
+      "0",
+      "300167"
+    ],
+    [
+      "0",
+      "300172"
+    ],
+    [
+      "0",
+      "300177"
+    ],
+    [
+      "0",
+      "300199"
+    ],
+    [
+      "0",
+      "300204"
+    ],
+    [
+      "0",
+      "300205"
+    ],
+    [
+      "0",
+      "300210"
+    ],
+    [
+      "0",
+      "300220"
+    ],
+    [
+      "0",
+      "300225"
+    ],
+    [
+      "0",
+      "300232"
+    ],
+    [
+      "0",
+      "300235"
+    ],
+    [
+      "0",
+      "300245"
+    ],
+    [
+      "0",
+      "300249"
+    ],
+    [
+      "0",
+      "300257"
+    ],
+    [
+      "0",
+      "300270"
+    ],
+    [
+      "0",
+      "300276"
+    ],
+    [
+      "0",
+      "300285"
+    ],
+    [
+      "0",
+      "300286"
+    ],
+    [
+      "0",
+      "300295"
+    ],
+    [
+      "0",
+      "300298"
+    ],
+    [
+      "0",
+      "300299"
+    ],
+    [
+      "0",
+      "300305"
+    ],
+    [
+      "0",
+      "300308"
+    ],
+    [
+      "0",
+      "300316"
+    ],
+    [
+      "0",
+      "300326"
+    ],
+    [
+      "0",
+      "300329"
+    ],
+    [
+      "0",
+      "300337"
+    ],
+    [
+      "0",
+      "300344"
+    ],
+    [
+      "0",
+      "300347"
+    ],
+    [
+      "0",
+      "300349"
+    ],
+    [
+      "0",
+      "300363"
+    ],
+    [
+      "0",
+      "300375"
+    ],
+    [
+      "0",
+      "300391"
+    ],
+    [
+      "0",
+      "300395"
+    ],
+    [
+      "0",
+      "300400"
+    ],
+    [
+      "0",
+      "300403"
+    ],
+    [
+      "0",
+      "300405"
+    ],
+    [
+      "0",
+      "300413"
+    ],
+    [
+      "0",
+      "300416"
+    ],
+    [
+      "0",
+      "300418"
+    ],
+    [
+      "0",
+      "300419"
+    ],
+    [
+      "0",
+      "300423"
+    ],
+    [
+      "0",
+      "300426"
+    ],
+    [
+      "0",
+      "300427"
+    ],
+    [
+      "0",
+      "300434"
+    ],
+    [
+      "0",
+      "300439"
+    ],
+    [
+      "0",
+      "300441"
+    ],
+    [
+      "0",
+      "300442"
+    ],
+    [
+      "0",
+      "300445"
+    ],
+    [
+      "0",
+      "300451"
+    ],
+    [
+      "0",
+      "300459"
+    ],
+    [
+      "0",
+      "300470"
+    ],
+    [
+      "0",
+      "300473"
+    ],
+    [
+      "0",
+      "300476"
+    ],
+    [
+      "0",
+      "300478"
+    ],
+    [
+      "0",
+      "300479"
+    ],
+    [
+      "0",
+      "300486"
+    ],
+    [
+      "0",
+      "300487"
+    ],
+    [
+      "0",
+      "300488"
+    ],
+    [
+      "0",
+      "300492"
+    ],
+    [
+      "0",
+      "300497"
+    ],
+    [
+      "0",
+      "300498"
+    ],
+    [
+      "0",
+      "300502"
+    ],
+    [
+      "0",
+      "300503"
+    ],
+    [
+      "0",
+      "300511"
+    ],
+    [
+      "0",
+      "300527"
+    ],
+    [
+      "0",
+      "300530"
+    ],
+    [
+      "0",
+      "300539"
+    ],
+    [
+      "0",
+      "300547"
+    ],
+    [
+      "0",
+      "300548"
+    ],
+    [
+      "0",
+      "300560"
+    ],
+    [
+      "0",
+      "300566"
+    ],
+    [
+      "0",
+      "300573"
+    ],
+    [
+      "0",
+      "300578"
+    ],
+    [
+      "0",
+      "300584"
+    ],
+    [
+      "0",
+      "300587"
+    ],
+    [
+      "0",
+      "300604"
+    ],
+    [
+      "0",
+      "300616"
+    ],
+    [
+      "0",
+      "300617"
+    ],
+    [
+      "0",
+      "300618"
+    ],
+    [
+      "0",
+      "300624"
+    ],
+    [
+      "0",
+      "300627"
+    ],
+    [
+      "0",
+      "300628"
+    ],
+    [
+      "0",
+      "300635"
+    ],
+    [
+      "0",
+      "300648"
+    ],
+    [
+      "0",
+      "300669"
+    ],
+    [
+      "0",
+      "300671"
+    ],
+    [
+      "0",
+      "300673"
+    ],
+    [
+      "0",
+      "300679"
+    ],
+    [
+      "0",
+      "300684"
+    ],
+    [
+      "0",
+      "300703"
+    ],
+    [
+      "0",
+      "300711"
+    ],
+    [
+      "0",
+      "300713"
+    ],
+    [
+      "0",
+      "300724"
+    ],
+    [
+      "0",
+      "300731"
+    ],
+    [
+      "0",
+      "300738"
+    ],
+    [
+      "0",
+      "300743"
+    ],
+    [
+      "0",
+      "300747"
+    ],
+    [
+      "0",
+      "300766"
+    ],
+    [
+      "0",
+      "300767"
+    ],
+    [
+      "0",
+      "300768"
+    ],
+    [
+      "0",
+      "300770"
+    ],
+    [
+      "0",
+      "300772"
+    ],
+    [
+      "0",
+      "300777"
+    ],
+    [
+      "0",
+      "300779"
+    ],
+    [
+      "0",
+      "300785"
+    ],
+    [
+      "0",
+      "300788"
+    ],
+    [
+      "0",
+      "300792"
+    ],
+    [
+      "0",
+      "300801"
+    ],
+    [
+      "0",
+      "300805"
+    ],
+    [
+      "0",
+      "300813"
+    ],
+    [
+      "0",
+      "300815"
+    ]
+  ],
+  "truncated": false,
+  "timings": {
+    "compileMillis": 56.0133,
+    "queueMillis": 0.0226,
+    "explainMillis": 29.7797,
+    "dorisExecutionMillis": 48.3358,
+    "returnMillis": 0.468,
+    "totalMillis": 399.2577
+  },
+  "limits": {
+    "queryTimeoutSeconds": 10,
+    "maxEstimatedScanRows": 100000000,
+    "estimatedScanRows": 11717037,
+    "maxReturnRows": 10000,
+    "maxExecutionMemoryBytes": 2147483648
+  },
+  "sqlFingerprint": "sha256:a8c9a4d222fb3e69d4e52d82278cf86e7f33f1c972e7e93ef6fb34c0010f0076",
+  "dataVersion": {
+    "snapshotId": "stock-20060104-20260414-v1",
+    "contractVersion": "1.0.0",
+    "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95"
+  },
+  "compilerVersion": "0.1.0",
+  "explain": [
+    "PLAN FRAGMENT 0",
+    "  OUTPUT EXPRS:",
+    "    mktcode[#138]",
+    "    tgtcode[#139]",
+    "  PARTITION: UNPARTITIONED",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  VRESULT SINK",
+    "     MYSQL_PROTOCOL",
+    "",
+    "  5:VMERGING-EXCHANGE",
+    "     offset: 0",
+    "     distribute expr lists: mktcode[#138], tgtcode[#139]",
+    "",
+    "PLAN FRAGMENT 1",
+    "",
+    "  PARTITION: HASH_PARTITIONED: mktcode[#69], tgtcode[#70]",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  STREAM DATA SINK",
+    "    EXCHANGE ID: 05",
+    "    UNPARTITIONED",
+    "IS_MERGE: true",
+    "",
+    "  4:VSORT(664)",
+    "  |  order by: mktcode[#138] ASC, tgtcode[#139] ASC",
+    "  |  algorithm: full sort",
+    "  |  local merge sort",
+    "  |  merge by exchange",
+    "  |  offset: 0",
+    "  |  distribute expr lists: ",
+    "  |  ",
+    "  3:VHASH JOIN(656)",
+    "  |  join op: INNER JOIN(BUCKET_SHUFFLE)[]",
+    "  |  equal join conjunct: (mktcode[#128] = mktcode[#66])",
+    "  |  equal join conjunct: (tgtcode[#129] = tgtcode[#67])",
+    "  |  equal join conjunct: (bizdate[#127] = bizdate[#68])",
+    "  |  cardinality=11,717,037",
+    "  |  vec output tuple id: 5",
+    "  |  output tuple id: 5",
+    "  |  vIntermediate tuple ids: 4 ",
+    "  |  hash output slot ids: 128 129 ",
+    "  |  runtime filters: RF000[min_max] <- mktcode[#66](3/4/1048576), RF001[in_or_bloom] <- mktcode[#66](3/4/1048576), RF002[min_max] <- tgtcode[#67](5724/8192/1048576), RF003[in_or_bloom] <- tgtcode[#67](5724/8192/1048576), RF004[min_max] <- bizdate[#68](1841/2048/1048576), RF005[in_or_bloom] <- bizdate[#68](1841/2048/1048576)",
+    "  |  final projections: mktcode[#131], tgtcode[#132]",
+    "  |  final project output tuple id: 5",
+    "  |  distribute expr lists: mktcode[#128], tgtcode[#129]",
+    "  |  distribute expr lists: mktcode[#66], tgtcode[#67]",
+    "  |  ",
+    "  |----1:VEXCHANGE",
+    "  |       offset: 0",
+    "  |       distribute expr lists: mktcode[#66], tgtcode[#67]",
+    "  |    ",
+    "  2:VOlapScanNode(631)",
+    "     TABLE: newzl.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON",
+    "     PREDICATES: ((date_format(CAST(bizdate[#71] AS datetimev2(0)), '%Y-%m-%d') = '2020-02-03') AND (__DORIS_DELETE_SIGN__[#125] = 0))",
+    "     partitions=1/21 (p20200101000000)",
+    "     tablets=16/16, tabletList=1791094084215,1791094084217,1791094084219 ...",
+    "     cardinality=921840, avgRowSize=129.22223, numNodes=1",
+    "     pushAggOp=NONE",
+    "     runtime filters: RF000[min_max] -> mktcode[#69], RF001[in_or_bloom] -> mktcode[#69], RF002[min_max] -> tgtcode[#70], RF003[in_or_bloom] -> tgtcode[#70], RF004[min_max] -> bizdate[#71], RF005[in_or_bloom] -> bizdate[#71]",
+    "     final projections: bizdate[#71], mktcode[#69], tgtcode[#70]",
+    "     final project output tuple id: 3",
+    "",
+    "PLAN FRAGMENT 2",
+    "",
+    "  PARTITION: HASH_PARTITIONED: mktcode[#0], tgtcode[#1]",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  STREAM DATA SINK",
+    "    EXCHANGE ID: 01",
+    "    BUCKET_SHFFULE_HASH_PARTITIONED: mktcode[#66], tgtcode[#67]",
+    "",
+    "  0:VOlapScanNode(640)",
+    "     TABLE: newzl.hsj_stock_hq_ext(hsj_stock_hq_ext), PREAGGREGATION: ON",
+    "     PREDICATES: (((date_format(CAST(bizdate[#2] AS datetimev2(0)), '%Y-%m-%d') = '2020-02-03') AND (ZJLXMainNetTur[#14] > 0)) AND (__DORIS_DELETE_SIGN__[#64] = 0))",
+    "     partitions=1/9 (p20200101000000)",
+    "     tablets=16/16, tabletList=1791094084679,1791094084681,1791094084683 ...",
+    "     cardinality=518644, avgRowSize=123.19093, numNodes=1",
+    "     pushAggOp=NONE",
+    "     final projections: mktcode[#0], tgtcode[#1], bizdate[#2]",
+    "     final project output tuple id: 1",
+    "",
+    "",
+    "",
+    "========== STATISTICS ==========",
+    "planned with unknown column statistics"
+  ],
+  "queryProfile": {
+    "available": false,
+    "queryId": "e60632273f164e29-8da928709982a751",
+    "taskState": null,
+    "total": null,
+    "user": null,
+    "note": "Profile is asynchronous or not retained"
+  },
+  "dataQuality": {
+    "validationLevel": "PROJECT_SCOPED",
+    "officialAcceptanceEligible": false,
+    "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+    "coverageStatus": "PARTIAL_INPUTS",
+    "evaluationDate": "2020-02-03",
+    "requiredSources": [
+      "basic",
+      "extension"
+    ],
+    "observedSecurities": 3642,
+    "currentMissingExtensionRows": 1621,
+    "inputs": [
+      {
+        "function": "indicator",
+        "indicator": "主力净流入",
+        "unavailableSecurities": 1621
+      }
+    ],
+    "unavailableSamples": [
+      [
+        "0",
+        "001872",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "001914",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "002719",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200011",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200012",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200016",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200017",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200019",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200020",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200025",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200026",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200028",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200030",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200037",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200045",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200055",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200056",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200058",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200429",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "200468",
+        "1",
+        "1"
+      ]
+    ],
+    "snapshotExtensionWithoutBasic": 249480,
+    "snapshotCloseOutsideRange": 3487,
+    "limitations": [
+      "本次使用项目已冻结的字段单位、公式与缺值约定，官方口径未获额外确认。",
+      "证券范围以基础行情为准。无法关联基础行情的衍生记录完整保留，不用于补造基础行情。",
+      "缺失字段、-999999 资金哨兵、零分母、历史不足及平坦 position 区间按原契约返回 NULL。",
+      "行业字段在现有数据中不可用；项目入口拒绝行业查询。财务等缺少来源的功能仍拒绝。",
+      "这是项目内部按依赖验证的运行证据，不登记 VALIDATED 快照，不代表官方验收。",
+      "原始数据按不可变快照管理。运行账户只读；外部装载修改数据后必须重新验证，行数和表/视图定义在每次查询时复核。",
+      "可用性在用户条件、THEN 排名及 LIMIT 之前统计；输入为 NULL 不等于条件为假。历史不足、NULL/哨兵、零分母及平坦区间均可导致输入不可用。各项缺失数量可能重叠，不可相加作为未命中总数。缺失样本最多 20 行，依次为市场、证券、当日衍生缺行标记及各输入缺失标记；窗口内具体缺失日期需进一步检查。"
+    ],
+    "validationMillis": 290.2631
+  }
+}

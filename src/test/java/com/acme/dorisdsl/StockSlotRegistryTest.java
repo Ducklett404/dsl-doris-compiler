@@ -21,7 +21,7 @@ final class StockSlotRegistryTest {
 
     @Test void defaultRegistryIsExecutableAndCarriesCompleteMetadata() {
         StockSlotRegistry registry = new StockSlotRegistryLoader().loadDefault();
-        assertEquals("stock-slot-registry-v1.0.1", registry.version());
+        assertEquals("stock-slot-registry-v1.0.2", registry.version());
         assertEquals("newzl.v_hsj_stock_hq_basic", registry.table("basic").qualifiedName());
         assertEquals("b.closePrice", registry.expression(registry.indicator("收盘价")));
         assertEquals("b.risePct", registry.expression(registry.indicator("涨幅")));
@@ -62,6 +62,20 @@ final class StockSlotRegistryTest {
                 "indicator('', '', '收盘价', '2026-04-14', '', '', '') > "
                         + "config_industry_sum('', '', '收盘价', '2026-04-14', '')").sql();
         assertTrue(functionSql.contains("SUM(`v1`) OVER (PARTITION BY hyBlkRefName,bizdate)"), functionSql);
+    }
+
+    @Test void positionMetadataAcceptsOnlyARegisteredFieldAndBoundedNumericScale() throws Exception {
+        assertMutation("REGISTRY_REFERENCE", root ->
+                ((ObjectNode) root.get("indicators").get(0).get("lowering").get("parameters"))
+                        .put("positionField", "lastPrice); DROP TABLE basic; --"));
+        for (String scale : new String[]{"-1", "19", "1+1", "12)"}) {
+            assertMutation("REGISTRY_RANGE", root ->
+                    ((ObjectNode) root.get("indicators").get(0).get("lowering").get("parameters"))
+                            .put("positionScale", scale));
+        }
+        assertMutation("REGISTRY_UNKNOWN_PARAMETER", root ->
+                ((ObjectNode) root.get("indicators").get(0).get("lowering").get("parameters"))
+                        .put("positionSql", "SELECT evil"));
     }
 
     @Test void loaderRejectsUnknownPlaceholdersDynamicTablesSubqueriesAndRawSql() throws Exception {

@@ -1,0 +1,36 @@
+{
+  "purpose": "SYNTHETIC_REAL_DORIS_INTEGRATION_NOT_OFFICIAL_ACCEPTANCE",
+  "fixtureDatabase": "dsl_executor_fixture_18590079d294",
+  "snapshotId": "synthetic-execution-18590079d294",
+  "originalOfficialRegistryRows": 0,
+  "checks": [
+    {
+      "name": "synthetic-source-validation",
+      "status": "PASS",
+      "actual": [
+        [
+          "18",
+          "18",
+          "6",
+          "0",
+          "0",
+          "18"
+        ]
+      ]
+    },
+    {
+      "name": "unified-real-jdbc-tests",
+      "status": "FAIL",
+      "exitCode": 1
+    }
+  ],
+  "testTransportNotes": [
+    "Queue contention pauses a test-only JDBC transport; successful SELECTs execute actual generated SQL.",
+    "Timeout transport runs SELECT SLEEP(4) once under the actual JDBC timeout; it is not a DSL capability."
+  ],
+  "error": "unified-real-jdbc-tests",
+  "fixtureCleanup": "DONE",
+  "passed": 1,
+  "total": 2,
+  "status": "FAIL"
+}

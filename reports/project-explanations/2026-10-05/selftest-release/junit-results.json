@@ -1,0 +1,2376 @@
+{
+  "main": {
+    "tests": 309,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suites": [
+      {
+        "name": "com.acme.dorisdsl.AccessPathPlannerTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "emitsAllCandidatesWithCostsAndEliminationReasons",
+            "className": "com.acme.dorisdsl.AccessPathPlannerTest",
+            "time": "1.224",
+            "status": "PASS"
+          },
+          {
+            "name": "staleMetadataForcesDetailTableFallback",
+            "className": "com.acme.dorisdsl.AccessPathPlannerTest",
+            "time": "0.042",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.benchmark.CompilerHotPathIoTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "warmedCompilePathPerformsNoFileOrNetworkIo",
+            "className": "com.acme.dorisdsl.benchmark.CompilerHotPathIoTest",
+            "time": "0.978",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.benchmark.JmhPerformanceTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "allBucketsRunAndComplexDslP95IsBelowFiftyMillisecondsAfterWarmup",
+            "className": "com.acme.dorisdsl.benchmark.JmhPerformanceTest",
+            "time": "16.086",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.CatalogSnapshotTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "loadsCompleteImmutableCatalogSnapshot",
+            "className": "com.acme.dorisdsl.CatalogSnapshotTest",
+            "time": "0.009",
+            "status": "PASS"
+          },
+          {
+            "name": "compileReadsCapturedSnapshotOnlyAndCachesByMetadataVersion",
+            "className": "com.acme.dorisdsl.CatalogSnapshotTest",
+            "time": "0.117",
+            "status": "PASS"
+          },
+          {
+            "name": "snapshotDefensivelyCopiesMetadataCollections",
+            "className": "com.acme.dorisdsl.CatalogSnapshotTest",
+            "time": "0.0",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.CliHttpRegressionTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "cliServerStartsAndValidTokenCanCompile(Path)",
+            "className": "com.acme.dorisdsl.CliHttpRegressionTest",
+            "time": "1.312",
+            "status": "PASS"
+          },
+          {
+            "name": "bothServerCommandsRequireConfiguredAuthenticationBeforeStartup(Path)",
+            "className": "com.acme.dorisdsl.CliHttpRegressionTest",
+            "time": "0.683",
+            "status": "PASS"
+          },
+          {
+            "name": "weakConfiguredTokenIsRejected(Path)",
+            "className": "com.acme.dorisdsl.CliHttpRegressionTest",
+            "time": "0.368",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.CliSnapshotContextTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "referenceCompilationRetainsHistoricalWindows(Path)",
+            "className": "com.acme.dorisdsl.CliSnapshotContextTest",
+            "time": "1.961",
+            "status": "PASS"
+          },
+          {
+            "name": "anotherSnapshotUsesHistoricalRowsInsteadOfTheFrozenFeature(Path)",
+            "className": "com.acme.dorisdsl.CliSnapshotContextTest",
+            "time": "1.697",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.competition.SlotCorpusCoverageTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "reportsAcceptedAndRejectedRowsWithoutTreatingThemAsSqlResults",
+            "className": "com.acme.dorisdsl.competition.SlotCorpusCoverageTest",
+            "time": "0.171",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.competition.SlotDslParserTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "keepsThenDistinctFromAndAndPreservesSlots",
+            "className": "com.acme.dorisdsl.competition.SlotDslParserTest",
+            "time": "0.006",
+            "status": "PASS"
+          },
+          {
+            "name": "preservesIntervalPercentAndQuotedApostrophe",
+            "className": "com.acme.dorisdsl.competition.SlotDslParserTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsUnknownFunctionWrongArityAndUnrankedThen",
+            "className": "com.acme.dorisdsl.competition.SlotDslParserTest",
+            "time": "0.015",
+            "status": "PASS"
+          },
+          {
+            "name": "keepsNegativeLimitSentinelUninterpretedAndRejectsMalformedSlot",
+            "className": "com.acme.dorisdsl.competition.SlotDslParserTest",
+            "time": "0.004",
+            "status": "PASS"
+          },
+          {
+            "name": "reportsSyntaxLocation",
+            "className": "com.acme.dorisdsl.competition.SlotDslParserTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "respectsArithmeticPrecedence",
+            "className": "com.acme.dorisdsl.competition.SlotDslParserTest",
+            "time": "0.001",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.competition.SlotSafeSqlCompilerTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "referenceFixtureKeepsMarketCodeAndDateDistinct",
+            "className": "com.acme.dorisdsl.competition.SlotSafeSqlCompilerTest",
+            "time": "0.036",
+            "status": "PASS"
+          },
+          {
+            "name": "emitsOnlyWhitelistedIdentifiersAndBoundRawThresholds",
+            "className": "com.acme.dorisdsl.competition.SlotSafeSqlCompilerTest",
+            "time": "0.012",
+            "status": "PASS"
+          },
+          {
+            "name": "catalogIsExplicitlyReviewedAndAliasesCannotInjectSql",
+            "className": "com.acme.dorisdsl.competition.SlotSafeSqlCompilerTest",
+            "time": "0.003",
+            "status": "PASS"
+          },
+          {
+            "name": "handlesNegativeThresholdAndOrWithoutDroppingNullRowsIntoResults",
+            "className": "com.acme.dorisdsl.competition.SlotSafeSqlCompilerTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsUnknownOrUnverifiedBusinessSemantics",
+            "className": "com.acme.dorisdsl.competition.SlotSafeSqlCompilerTest",
+            "time": "0.003",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsRankMixedDatesAndUnsafeArithmetic",
+            "className": "com.acme.dorisdsl.competition.SlotSafeSqlCompilerTest",
+            "time": "0.001",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.CompilationCacheTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "cachesOnlyStructureAndRebindsSensitiveParametersForEveryRequest",
+            "className": "com.acme.dorisdsl.CompilationCacheTest",
+            "time": "0.06",
+            "status": "PASS"
+          },
+          {
+            "name": "tableMappingChangeProducesNewCatalogVersionAndCacheEntry",
+            "className": "com.acme.dorisdsl.CompilationCacheTest",
+            "time": "0.09",
+            "status": "PASS"
+          },
+          {
+            "name": "everyCompilerEnvironmentVersionNaturallyInvalidatesSharedCache",
+            "className": "com.acme.dorisdsl.CompilationCacheTest",
+            "time": "0.083",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.CompilerTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "rejectsUnknownFunctionsAndSqlInjectionTokens",
+            "className": "com.acme.dorisdsl.CompilerTest",
+            "time": "0.027",
+            "status": "PASS"
+          },
+          {
+            "name": "compilesComplexDslIntoLayeredParameterizedDorisSql",
+            "className": "com.acme.dorisdsl.CompilerTest",
+            "time": "0.024",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsWrongTypesAndExtremeLimit",
+            "className": "com.acme.dorisdsl.CompilerTest",
+            "time": "0.02",
+            "status": "PASS"
+          },
+          {
+            "name": "serializesAstAndRendersMarkdown",
+            "className": "com.acme.dorisdsl.CompilerTest",
+            "time": "0.026",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.ConfigOnlyExtensionAcceptanceTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "acceptsAllConfigOnlyExtensionVectorsWithoutCoreChanges",
+            "className": "com.acme.dorisdsl.ConfigOnlyExtensionAcceptanceTest",
+            "time": "0.185",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.DorisExecutionMarkdownRendererTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "rendersStocksTimingFingerprintVersionExplainAndProfile",
+            "className": "com.acme.dorisdsl.DorisExecutionMarkdownRendererTest",
+            "time": "0.192",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.DorisExecutionPolicyTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "rejectsUnboundedOrInvalidLimits",
+            "className": "com.acme.dorisdsl.DorisExecutionPolicyTest",
+            "time": "0.003",
+            "status": "PASS"
+          },
+          {
+            "name": "controlledDefaultsAreBoundedAndRequireReadOnlyAccount",
+            "className": "com.acme.dorisdsl.DorisExecutionPolicyTest",
+            "time": "0.0",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.DorisExplainIntegrationTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "dorisExplainsLayeredRsiSql",
+            "className": "com.acme.dorisdsl.DorisExplainIntegrationTest",
+            "time": "0.565",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.FeatureDailyLoweringTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "highFrequencyIndicatorsPreferFeatureDailyAndBindVersions",
+            "className": "com.acme.dorisdsl.FeatureDailyLoweringTest",
+            "time": "0.028",
+            "status": "PASS"
+          },
+          {
+            "name": "staleFeatureVersionFallsBackToDetailTable",
+            "className": "com.acme.dorisdsl.FeatureDailyLoweringTest",
+            "time": "0.013",
+            "status": "PASS"
+          },
+          {
+            "name": "exposesVolatilityColumnMappingInSnapshot",
+            "className": "com.acme.dorisdsl.FeatureDailyLoweringTest",
+            "time": "0.001",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.FinancialPitTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "registryRejectsFinancialFunctionWithoutPitMetadata",
+            "className": "com.acme.dorisdsl.FinancialPitTest",
+            "time": "0.005",
+            "status": "PASS"
+          },
+          {
+            "name": "financialIndicatorsUsePointInTimeVisibilityJoin",
+            "className": "com.acme.dorisdsl.FinancialPitTest",
+            "time": "0.018",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.golden.GoldenSnapshotTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "sqlAndAstSnapshotsRemainStable",
+            "className": "com.acme.dorisdsl.golden.GoldenSnapshotTest",
+            "time": "0.018",
+            "status": "PASS"
+          },
+          {
+            "name": "astSnapshotDeclaresSchemaVersion",
+            "className": "com.acme.dorisdsl.golden.GoldenSnapshotTest",
+            "time": "0.001",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.GoldenSqlSnapshotTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "generatedSqlAndBindingsMatchFrozenFingerprints",
+            "className": "com.acme.dorisdsl.GoldenSqlSnapshotTest",
+            "time": "0.111",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.HistoryFeatureTest",
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "lowAndScopeUseCorrectColumnsAndBindings",
+            "className": "com.acme.dorisdsl.HistoryFeatureTest",
+            "time": "0.018",
+            "status": "PASS"
+          },
+          {
+            "name": "unavailableMetricFinitePeriodCountsAndMixedCallsFallBack(String)[1]",
+            "className": "com.acme.dorisdsl.HistoryFeatureTest",
+            "time": "0.021",
+            "status": "PASS"
+          },
+          {
+            "name": "unavailableMetricFinitePeriodCountsAndMixedCallsFallBack(String)[2]",
+            "className": "com.acme.dorisdsl.HistoryFeatureTest",
+            "time": "0.006",
+            "status": "PASS"
+          },
+          {
+            "name": "unavailableMetricFinitePeriodCountsAndMixedCallsFallBack(String)[3]",
+            "className": "com.acme.dorisdsl.HistoryFeatureTest",
+            "time": "0.002",
+            "status": "PASS"
+          },
+          {
+            "name": "unavailableMetricFinitePeriodCountsAndMixedCallsFallBack(String)[4]",
+            "className": "com.acme.dorisdsl.HistoryFeatureTest",
+            "time": "0.002",
+            "status": "PASS"
+          },
+          {
+            "name": "registryFingerprintIsDeterministic",
+            "className": "com.acme.dorisdsl.HistoryFeatureTest",
+            "time": "0.007",
+            "status": "PASS"
+          },
+          {
+            "name": "catalogRoundTripsAndRejectsUnsafeIdentifiers",
+            "className": "com.acme.dorisdsl.HistoryFeatureTest",
+            "time": "0.016",
+            "status": "PASS"
+          },
+          {
+            "name": "staleRegistryAndUnbuiltDateFallBack",
+            "className": "com.acme.dorisdsl.HistoryFeatureTest",
+            "time": "0.003",
+            "status": "PASS"
+          },
+          {
+            "name": "cacheSeparatesSnapshotManifestAndUnboundCompilation",
+            "className": "com.acme.dorisdsl.HistoryFeatureTest",
+            "time": "0.003",
+            "status": "PASS"
+          },
+          {
+            "name": "exactIdentityUsesBoundFeaturesAndPreservesWindowContracts",
+            "className": "com.acme.dorisdsl.HistoryFeatureTest",
+            "time": "0.01",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.HttpSecurityRegressionTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "executionWithPermissionReachesBackendAndRejectsForgedBody",
+            "className": "com.acme.dorisdsl.HttpSecurityRegressionTest",
+            "time": "0.193",
+            "status": "PASS"
+          },
+          {
+            "name": "byteLimitsAlsoApplyToChunkedAndMultibyteBodies",
+            "className": "com.acme.dorisdsl.HttpSecurityRegressionTest",
+            "time": "0.043",
+            "status": "PASS"
+          },
+          {
+            "name": "concurrentRequestLimitIsSharedAndPermitIsReleasedAfterFailure",
+            "className": "com.acme.dorisdsl.HttpSecurityRegressionTest",
+            "time": "0.03",
+            "status": "PASS"
+          },
+          {
+            "name": "malformedJsonAndPrefixRoutesAreRejectedWithoutLeakingInternals",
+            "className": "com.acme.dorisdsl.HttpSecurityRegressionTest",
+            "time": "0.043",
+            "status": "PASS"
+          },
+          {
+            "name": "anonymousExecutionNeverReachesBackend",
+            "className": "com.acme.dorisdsl.HttpSecurityRegressionTest",
+            "time": "0.02",
+            "status": "PASS"
+          },
+          {
+            "name": "authenticatorFailuresReturnGenericServerError",
+            "className": "com.acme.dorisdsl.HttpSecurityRegressionTest",
+            "time": "0.022",
+            "status": "PASS"
+          },
+          {
+            "name": "bearerTokenAndSeparateExecutionPermissionAreEnforced",
+            "className": "com.acme.dorisdsl.HttpSecurityRegressionTest",
+            "time": "0.025",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.HttpServerTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "trustedIdentityStillRejectsAuthorizationFieldsInRequestBody",
+            "className": "com.acme.dorisdsl.HttpServerTest",
+            "time": "0.029",
+            "status": "PASS"
+          },
+          {
+            "name": "defaultServerRejectsForgedClientAuthorizationContext",
+            "className": "com.acme.dorisdsl.HttpServerTest",
+            "time": "0.022",
+            "status": "PASS"
+          },
+          {
+            "name": "executionEndpointDistinguishesSyntaxSemanticDataTimeoutAndDorisFailures",
+            "className": "com.acme.dorisdsl.HttpServerTest",
+            "time": "0.031",
+            "status": "PASS"
+          },
+          {
+            "name": "servesHealthCompileAndStructuredErrors",
+            "className": "com.acme.dorisdsl.HttpServerTest",
+            "time": "0.035",
+            "status": "PASS"
+          },
+          {
+            "name": "routesStockSlotDslByExplicitVersion",
+            "className": "com.acme.dorisdsl.HttpServerTest",
+            "time": "0.03",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.MarketDataSemanticsContractTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "suspensionAndIpoFixtureProducesObservedRowAndFullWindowSemantics",
+            "className": "com.acme.dorisdsl.MarketDataSemanticsContractTest",
+            "time": "0.021",
+            "status": "PASS"
+          },
+          {
+            "name": "semanticViewDerivesScalesAdjustedPricesNullsAndSentinels",
+            "className": "com.acme.dorisdsl.MarketDataSemanticsContractTest",
+            "time": "0.015",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.MinimumSyntaxTest",
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "rejectsMalformedIsNullWithSourceLocation",
+            "className": "com.acme.dorisdsl.MinimumSyntaxTest",
+            "time": "0.014",
+            "status": "PASS"
+          },
+          {
+            "name": "supportsParameterizedQueryContext",
+            "className": "com.acme.dorisdsl.MinimumSyntaxTest",
+            "time": "0.012",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsUnsupportedContextKeyAndNonStringContextValue",
+            "className": "com.acme.dorisdsl.MinimumSyntaxTest",
+            "time": "0.013",
+            "status": "PASS"
+          },
+          {
+            "name": "supportsExplicitTradingDayWindowUnit",
+            "className": "com.acme.dorisdsl.MinimumSyntaxTest",
+            "time": "0.015",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsUnsupportedWindowUnitAndOversizedWindow",
+            "className": "com.acme.dorisdsl.MinimumSyntaxTest",
+            "time": "0.013",
+            "status": "PASS"
+          },
+          {
+            "name": "supportsCrossSectionalRankBy",
+            "className": "com.acme.dorisdsl.MinimumSyntaxTest",
+            "time": "0.014",
+            "status": "PASS"
+          },
+          {
+            "name": "supportsIsNullAndIsNotNullPredicates",
+            "className": "com.acme.dorisdsl.MinimumSyntaxTest",
+            "time": "0.023",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsOverlongInListBeforeSqlGeneration",
+            "className": "com.acme.dorisdsl.MinimumSyntaxTest",
+            "time": "0.022",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsInvalidRankByDirection",
+            "className": "com.acme.dorisdsl.MinimumSyntaxTest",
+            "time": "0.016",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsMaliciousDeepExpression",
+            "className": "com.acme.dorisdsl.MinimumSyntaxTest",
+            "time": "0.011",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.PluginTest",
+        "tests": 9,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "rejectsMalformedTemplatePlaceholder",
+            "className": "com.acme.dorisdsl.PluginTest",
+            "time": "0.027",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsOptionalPlaceholderWithoutConditionalTemplateSupport",
+            "className": "com.acme.dorisdsl.PluginTest",
+            "time": "0.02",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsTemplateThatOmitsARequiredArgument",
+            "className": "com.acme.dorisdsl.PluginTest",
+            "time": "0.03",
+            "status": "PASS"
+          },
+          {
+            "name": "permitsRepeatedUseOfEveryRequiredArgument",
+            "className": "com.acme.dorisdsl.PluginTest",
+            "time": "0.026",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsUnsafePluginSqlFragments",
+            "className": "com.acme.dorisdsl.PluginTest",
+            "time": "0.023",
+            "status": "PASS"
+          },
+          {
+            "name": "addsControlledWindowIndicatorWithoutChangingCompilerCore",
+            "className": "com.acme.dorisdsl.PluginTest",
+            "time": "0.028",
+            "status": "PASS"
+          },
+          {
+            "name": "addsIndicatorWithoutChangingCompilerCore",
+            "className": "com.acme.dorisdsl.PluginTest",
+            "time": "0.025",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsTemplatePlaceholderOutsideDeclaredArity",
+            "className": "com.acme.dorisdsl.PluginTest",
+            "time": "0.02",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsUncontrolledWindowBuilder",
+            "className": "com.acme.dorisdsl.PluginTest",
+            "time": "0.013",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.PrefixDailyLoweringTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "prefixDifferenceMatchesDetailWindowWithoutGap",
+            "className": "com.acme.dorisdsl.PrefixDailyLoweringTest",
+            "time": "0.004",
+            "status": "PASS"
+          },
+          {
+            "name": "suspensionGapReturnsNullInBothPaths",
+            "className": "com.acme.dorisdsl.PrefixDailyLoweringTest",
+            "time": "0.003",
+            "status": "PASS"
+          },
+          {
+            "name": "lowersMovingAverageToTwoPointPrefixDifference",
+            "className": "com.acme.dorisdsl.PrefixDailyLoweringTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "insufficientWindowReturnsNull",
+            "className": "com.acme.dorisdsl.PrefixDailyLoweringTest",
+            "time": "0.0",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+        "tests": 18,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "priceNullIsDatedByActualSparseObservation",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.056",
+            "status": "PASS"
+          },
+          {
+            "name": "sentinelAndMissingExtensionRemainSeparateReasons",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.003",
+            "status": "PASS"
+          },
+          {
+            "name": "pairZeroDenominatorAndPreviousNullHaveDistinctEvidence",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.004",
+            "status": "PASS"
+          },
+          {
+            "name": "rsiUsesPredecessorAndZeroLossRemainsUnavailable",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.006",
+            "status": "PASS"
+          },
+          {
+            "name": "identitiesSurviveUnrelatedCallOrderWhitespaceAndLimitButDistinguishPeriods",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.014",
+            "status": "PASS"
+          },
+          {
+            "name": "crossSecurityLookupIsExplicitlyPartial",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.002",
+            "status": "PASS"
+          },
+          {
+            "name": "insufficientHistoryDoesNotInventAbsentTradingDates",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.002",
+            "status": "PASS"
+          },
+          {
+            "name": "flatWindowContainsEvidenceDatesAndNoMissingValueClaim",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.002",
+            "status": "PASS"
+          },
+          {
+            "name": "lookupBindsSecurityTextAndCapsTransferAndProjection",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.004",
+            "status": "PASS"
+          },
+          {
+            "name": "costlyNestedWindowsStopExplainingWithoutChangingCountFlags",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.65",
+            "status": "PASS"
+          },
+          {
+            "name": "datesAreCappedButTotalIsPreserved",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.005",
+            "status": "PASS"
+          },
+          {
+            "name": "countIdentitiesIncludePredicateAndDiagnosticRole",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.003",
+            "status": "PASS"
+          },
+          {
+            "name": "unboundedPositionRequiresCurrentPriceEvenWhenHistoricalExtremaExist",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.002",
+            "status": "PASS"
+          },
+          {
+            "name": "longHistoryClippingIsPartialAndUnboundedOldNullsAreNotMissingInputs",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.029",
+            "status": "PASS"
+          },
+          {
+            "name": "repeatedValueIdentitiesDoNotDependOnCountShapeOrOrder",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.004",
+            "status": "PASS"
+          },
+          {
+            "name": "serializedInputsExcludeInternalExpressionAndContainStableMetadata",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.008",
+            "status": "PASS"
+          },
+          {
+            "name": "anchoredAggregationReportsItsFullWindow",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.002",
+            "status": "PASS"
+          },
+          {
+            "name": "countInputEvaluatesEarlierIndicatorWindowsWhileCountResultOnlyNeedsObservations",
+            "className": "com.acme.dorisdsl.ProjectAvailabilityDiagnosticsTest",
+            "time": "0.006",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.ProjectDataValidationTest",
+        "tests": 12,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "projectSourcesAndLimitationsCannotBeMutatedAfterValidation",
+            "className": "com.acme.dorisdsl.ProjectDataValidationTest",
+            "time": "0.031",
+            "status": "PASS"
+          },
+          {
+            "name": "countAvailabilityIncludesUnknownHistoricalConditionsWithoutChangingCountResult",
+            "className": "com.acme.dorisdsl.ProjectDataValidationTest",
+            "time": "0.013",
+            "status": "PASS"
+          },
+          {
+            "name": "projectFinitePositionKeepsActualObservationsAndFullReferenceRemainsUnpruned",
+            "className": "com.acme.dorisdsl.ProjectDataValidationTest",
+            "time": "0.011",
+            "status": "PASS"
+          },
+          {
+            "name": "crossSectionAndUnboundedMixedInputsRetainFullHistory",
+            "className": "com.acme.dorisdsl.ProjectDataValidationTest",
+            "time": "0.012",
+            "status": "PASS"
+          },
+          {
+            "name": "projectRsiRetainsAnExtraPriceBeforeComputingDeltas",
+            "className": "com.acme.dorisdsl.ProjectDataValidationTest",
+            "time": "0.011",
+            "status": "PASS"
+          },
+          {
+            "name": "sourceNameInjectionAndChangedRegistryAreRejectedBeforeJdbc",
+            "className": "com.acme.dorisdsl.ProjectDataValidationTest",
+            "time": "0.029",
+            "status": "PASS"
+          },
+          {
+            "name": "basicQueriesDoNotRequireTheBlockedExtensionCapability",
+            "className": "com.acme.dorisdsl.ProjectDataValidationTest",
+            "time": "0.028",
+            "status": "PASS"
+          },
+          {
+            "name": "rankingAvailabilityUsesInputBeforeNullFilteringAndThen",
+            "className": "com.acme.dorisdsl.ProjectDataValidationTest",
+            "time": "0.012",
+            "status": "PASS"
+          },
+          {
+            "name": "unavailableIndustryIsRejectedEvenWhenBasicAndCodeSourcesAreReady",
+            "className": "com.acme.dorisdsl.ProjectDataValidationTest",
+            "time": "0.025",
+            "status": "PASS"
+          },
+          {
+            "name": "projectRsiCountAndMixedWindowsRetainTheirDependencies",
+            "className": "com.acme.dorisdsl.ProjectDataValidationTest",
+            "time": "0.013",
+            "status": "PASS"
+          },
+          {
+            "name": "countedComparisonRetainsHistoryForBothOperands",
+            "className": "com.acme.dorisdsl.ProjectDataValidationTest",
+            "time": "0.011",
+            "status": "PASS"
+          },
+          {
+            "name": "availabilityPreservesWindowBindingsAndUsesValuesBeforePredicateAndLimit",
+            "className": "com.acme.dorisdsl.ProjectDataValidationTest",
+            "time": "0.013",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.reference.DifferentialCorpusTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "p0FinancialPointInTimeCasesPassOneHundredPercent",
+            "className": "com.acme.dorisdsl.reference.DifferentialCorpusTest",
+            "time": "0.129",
+            "status": "PASS"
+          },
+          {
+            "name": "sixHundredDslCasesMatchReferenceExecution",
+            "className": "com.acme.dorisdsl.reference.DifferentialCorpusTest",
+            "time": "0.199",
+            "status": "PASS"
+          },
+          {
+            "name": "futureReportIsInvisibleBeforeAnnouncement",
+            "className": "com.acme.dorisdsl.reference.DifferentialCorpusTest",
+            "time": "0.001",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.ReviewRegressionTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "exportGeneratedQueriesForIndependentResultDifferential",
+            "className": "com.acme.dorisdsl.ReviewRegressionTest",
+            "time": "0.032",
+            "status": "PASS"
+          },
+          {
+            "name": "industryMissingValuesAreNullGuarded",
+            "className": "com.acme.dorisdsl.ReviewRegressionTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "nullChecksRetainFieldAndWindowDependencies",
+            "className": "com.acme.dorisdsl.ReviewRegressionTest",
+            "time": "0.01",
+            "status": "PASS"
+          },
+          {
+            "name": "betweenBindingsFollowSqlOccurrenceOrderInBothPaths",
+            "className": "com.acme.dorisdsl.ReviewRegressionTest",
+            "time": "0.005",
+            "status": "PASS"
+          },
+          {
+            "name": "featureCoverageAndSnapshotMismatchFallBack",
+            "className": "com.acme.dorisdsl.ReviewRegressionTest",
+            "time": "0.002",
+            "status": "PASS"
+          },
+          {
+            "name": "invalidTypesAndNullLiteralsHaveStableDiagnostics",
+            "className": "com.acme.dorisdsl.ReviewRegressionTest",
+            "time": "0.002",
+            "status": "PASS"
+          },
+          {
+            "name": "countClausesCannotDisappearAndBooleanCountsAreLowered",
+            "className": "com.acme.dorisdsl.ReviewRegressionTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "repeatedAndReorderedTemplateArgumentsKeepTheirBindings(Path)",
+            "className": "com.acme.dorisdsl.ReviewRegressionTest",
+            "time": "0.038",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.rewrite.DeclarativeRuleEngineTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "producesDeterministicSqlBindingsAstAndTrace",
+            "className": "com.acme.dorisdsl.rewrite.DeclarativeRuleEngineTest",
+            "time": "0.019",
+            "status": "PASS"
+          },
+          {
+            "name": "loadsDefaultRulesAndEmitsCompleteTrace",
+            "className": "com.acme.dorisdsl.rewrite.DeclarativeRuleEngineTest",
+            "time": "0.01",
+            "status": "PASS"
+          },
+          {
+            "name": "resolvesConflictsByPriorityWithDeterministicTieBreaker",
+            "className": "com.acme.dorisdsl.rewrite.DeclarativeRuleEngineTest",
+            "time": "0.011",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsConfiguredConflictWhenPolicyIsError",
+            "className": "com.acme.dorisdsl.rewrite.DeclarativeRuleEngineTest",
+            "time": "0.01",
+            "status": "PASS"
+          },
+          {
+            "name": "validatesUnknownPropertiesAndCompilerCompatibility",
+            "className": "com.acme.dorisdsl.rewrite.DeclarativeRuleEngineTest",
+            "time": "0.012",
+            "status": "PASS"
+          },
+          {
+            "name": "activatesAndRollsBackImmutableVersions",
+            "className": "com.acme.dorisdsl.rewrite.DeclarativeRuleEngineTest",
+            "time": "0.008",
+            "status": "PASS"
+          },
+          {
+            "name": "stopsAtIterationLimitAndDetectsCycles",
+            "className": "com.acme.dorisdsl.rewrite.DeclarativeRuleEngineTest",
+            "time": "0.016",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.RollingFeatureTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "multiWindowFeaturesKeepStrictContractsAndCorrectIdentity",
+            "className": "com.acme.dorisdsl.RollingFeatureTest",
+            "time": "0.008",
+            "status": "PASS"
+          },
+          {
+            "name": "safeCatalogRoundTripAndIdentifierValidation",
+            "className": "com.acme.dorisdsl.RollingFeatureTest",
+            "time": "0.007",
+            "status": "PASS"
+          },
+          {
+            "name": "legacyMa60MixingNoLongerRejectsValidDsl",
+            "className": "com.acme.dorisdsl.RollingFeatureTest",
+            "time": "0.005",
+            "status": "PASS"
+          },
+          {
+            "name": "staleRegistryFallsBack",
+            "className": "com.acme.dorisdsl.RollingFeatureTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "differentAverageSourceCannotReuseCloseFeature",
+            "className": "com.acme.dorisdsl.RollingFeatureTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "finiteExtremaMixWithAveragesAndKeepWindowContracts",
+            "className": "com.acme.dorisdsl.RollingFeatureTest",
+            "time": "0.004",
+            "status": "PASS"
+          },
+          {
+            "name": "unsupportedWindowCountsRawAndRsiUseCompleteWindows",
+            "className": "com.acme.dorisdsl.RollingFeatureTest",
+            "time": "0.002",
+            "status": "PASS"
+          },
+          {
+            "name": "cacheAndUnpublishedContextsFallBack",
+            "className": "com.acme.dorisdsl.RollingFeatureTest",
+            "time": "0.002",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.RuleEngineTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "rewritesEquivalentPredicatesToGoldenSqlAndTracesRules",
+            "className": "com.acme.dorisdsl.RuleEngineTest",
+            "time": "0.014",
+            "status": "PASS"
+          },
+          {
+            "name": "commonWindowExpressionIsSharedAndMatchesGoldenSql",
+            "className": "com.acme.dorisdsl.RuleEngineTest",
+            "time": "0.01",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.SecurityGateTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "unsafeTokenLocationStillUsesOriginalMultilineSource",
+            "className": "com.acme.dorisdsl.SecurityGateTest",
+            "time": "0.022",
+            "status": "PASS"
+          },
+          {
+            "name": "executionAccountRejectsWritePrivileges",
+            "className": "com.acme.dorisdsl.SecurityGateTest",
+            "time": "0.014",
+            "status": "PASS"
+          },
+          {
+            "name": "permissionGateRequiresIdentityAndCompilePermission",
+            "className": "com.acme.dorisdsl.SecurityGateTest",
+            "time": "0.014",
+            "status": "PASS"
+          },
+          {
+            "name": "scanAndCostGatesRejectExpensivePlans",
+            "className": "com.acme.dorisdsl.SecurityGateTest",
+            "time": "0.03",
+            "status": "PASS"
+          },
+          {
+            "name": "pluginSignatureVersionAndSqlFragmentsAreEnforced",
+            "className": "com.acme.dorisdsl.SecurityGateTest",
+            "time": "0.05",
+            "status": "PASS"
+          },
+          {
+            "name": "dslCannotPassSqlCommentsSubqueriesSemicolonsOrDynamicIdentifiers",
+            "className": "com.acme.dorisdsl.SecurityGateTest",
+            "time": "0.022",
+            "status": "PASS"
+          },
+          {
+            "name": "auditHashesSqlAndNeverContainsSensitiveBindingValues",
+            "className": "com.acme.dorisdsl.SecurityGateTest",
+            "time": "0.03",
+            "status": "PASS"
+          },
+          {
+            "name": "sqlLikeTextInsideStringLiteralsRemainsValidDslData",
+            "className": "com.acme.dorisdsl.SecurityGateTest",
+            "time": "0.022",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.StandardIndicatorPackTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "baseFieldCrossSignalsScanThePreviousTradingDay",
+            "className": "com.acme.dorisdsl.StandardIndicatorPackTest",
+            "time": "0.024",
+            "status": "PASS"
+          },
+          {
+            "name": "standardIndicatorsHaveMetadataSignaturesLoweringAndBoundaryTests",
+            "className": "com.acme.dorisdsl.StandardIndicatorPackTest",
+            "time": "0.004",
+            "status": "PASS"
+          },
+          {
+            "name": "rsiSeparatesLagAndAverageWindowsAndMatchesKnownSequence",
+            "className": "com.acme.dorisdsl.StandardIndicatorPackTest",
+            "time": "0.01",
+            "status": "PASS"
+          },
+          {
+            "name": "windowCrossSignalsScanOneMoreTradingDayThanTheLargestWindow",
+            "className": "com.acme.dorisdsl.StandardIndicatorPackTest",
+            "time": "0.024",
+            "status": "PASS"
+          },
+          {
+            "name": "compilesFirstStandardIndicatorPackAndEmitsVersions",
+            "className": "com.acme.dorisdsl.StandardIndicatorPackTest",
+            "time": "0.02",
+            "status": "PASS"
+          },
+          {
+            "name": "boundaryCasesRejectInvalidStandardIndicatorUsage",
+            "className": "com.acme.dorisdsl.StandardIndicatorPackTest",
+            "time": "0.043",
+            "status": "PASS"
+          },
+          {
+            "name": "emaUsesRecursiveReferenceSemanticsAndNeverDegradesToMovingAverage",
+            "className": "com.acme.dorisdsl.StandardIndicatorPackTest",
+            "time": "0.009",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.stockslot.DorisBenchmarkMatrixTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "percentileUsesNearestRankAndRequiresSamples",
+            "className": "com.acme.dorisdsl.stockslot.DorisBenchmarkMatrixTest",
+            "time": "0.01",
+            "status": "PASS"
+          },
+          {
+            "name": "markdownContainsComparisonColumnsAndFormula",
+            "className": "com.acme.dorisdsl.stockslot.DorisBenchmarkMatrixTest",
+            "time": "0.01",
+            "status": "PASS"
+          },
+          {
+            "name": "everyMatrixDslCompilesForReferenceAndOptimizedPaths",
+            "className": "com.acme.dorisdsl.stockslot.DorisBenchmarkMatrixTest",
+            "time": "0.032",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.stockslot.DorisConnectionLifecycleTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "connectionClosesWhenSessionConfigurationFails",
+            "className": "com.acme.dorisdsl.stockslot.DorisConnectionLifecycleTest",
+            "time": "0.03",
+            "status": "PASS"
+          },
+          {
+            "name": "snapshotRegistrationFollowsTheConfiguredDatasetNamespace",
+            "className": "com.acme.dorisdsl.stockslot.DorisConnectionLifecycleTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "connectionClosesWhenReadOnlyVerificationRejectsTheAccount",
+            "className": "com.acme.dorisdsl.stockslot.DorisConnectionLifecycleTest",
+            "time": "0.028",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.stockslot.DorisControlledExecutionIntegrationTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "scanLimitRejectsBeforeExecutionAndReleasesTheQueueSlot",
+            "className": "com.acme.dorisdsl.stockslot.DorisControlledExecutionIntegrationTest",
+            "time": "0.103",
+            "status": "PASS"
+          },
+          {
+            "name": "returnCapIsEnforcedAndResultResourcesRemainUsable",
+            "className": "com.acme.dorisdsl.stockslot.DorisControlledExecutionIntegrationTest",
+            "time": "0.103",
+            "status": "PASS"
+          },
+          {
+            "name": "accountsWithWritePrivilegeCannotInitializeTheExecutor",
+            "className": "com.acme.dorisdsl.stockslot.DorisControlledExecutionIntegrationTest",
+            "time": "0.033",
+            "status": "PASS"
+          },
+          {
+            "name": "queuedRequestTimesOutWhileFirstRequestHoldsTheSlotAndBothRecover",
+            "className": "com.acme.dorisdsl.stockslot.DorisControlledExecutionIntegrationTest",
+            "time": "0.211",
+            "status": "PASS"
+          },
+          {
+            "name": "executesRealPreparedSelectOnTheValidatedSyntheticDataset",
+            "className": "com.acme.dorisdsl.stockslot.DorisControlledExecutionIntegrationTest",
+            "time": "0.059",
+            "status": "PASS"
+          },
+          {
+            "name": "unvalidatedAndInjectedSnapshotIdsAreRejectedThenAnotherThreadCanExecute",
+            "className": "com.acme.dorisdsl.stockslot.DorisControlledExecutionIntegrationTest",
+            "time": "0.084",
+            "status": "PASS"
+          },
+          {
+            "name": "realDatabaseTimeoutMapsToTimeoutAndTheNextRequestRecovers",
+            "className": "com.acme.dorisdsl.stockslot.DorisControlledExecutionIntegrationTest",
+            "time": "1.425",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.stockslot.DorisExplainEstimateTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "emptySetInTextIsNotAPlanNode",
+            "className": "com.acme.dorisdsl.stockslot.DorisExplainEstimateTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "refusesUnknownExplainShape",
+            "className": "com.acme.dorisdsl.stockslot.DorisExplainEstimateTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "emptySetDoesNotHideUnknownScanOrOperator",
+            "className": "com.acme.dorisdsl.stockslot.DorisExplainEstimateTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "takesLargestRecognizedDorisEstimate",
+            "className": "com.acme.dorisdsl.stockslot.DorisExplainEstimateTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "acceptsExplicitEmptySetWithoutScanEstimate",
+            "className": "com.acme.dorisdsl.stockslot.DorisExplainEstimateTest",
+            "time": "0.0",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.StockSlotCompilerCacheTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "cachesAreBoundedAndStableSqlTemplateIsReused",
+            "className": "com.acme.dorisdsl.StockSlotCompilerCacheTest",
+            "time": "0.029",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.StockSlotCompilerPerformanceTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "complexFormalCorpusStaysBelowCiP95Budget",
+            "className": "com.acme.dorisdsl.StockSlotCompilerPerformanceTest",
+            "time": "0.852",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.StockSlotCorpusAuditorTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "emitsExactlyOneExplainedResultPerInput(Path)",
+            "className": "com.acme.dorisdsl.StockSlotCorpusAuditorTest",
+            "time": "0.043",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.StockSlotDslTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "supportsComparisonsBetweenArithmeticAndThenRule",
+            "className": "com.acme.dorisdsl.StockSlotDslTest",
+            "time": "0.003",
+            "status": "PASS"
+          },
+          {
+            "name": "structuresSetsCountsChineseTimeAndPlaceholders",
+            "className": "com.acme.dorisdsl.StockSlotDslTest",
+            "time": "0.002",
+            "status": "PASS"
+          },
+          {
+            "name": "alwaysReturnsExplainedUnsupportedClassification",
+            "className": "com.acme.dorisdsl.StockSlotDslTest",
+            "time": "0.003",
+            "status": "PASS"
+          },
+          {
+            "name": "preservesFormalPrecedenceAndSelectionLimit",
+            "className": "com.acme.dorisdsl.StockSlotDslTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "parsesAllTwelveCoreFunctionsWithEmptySlots",
+            "className": "com.acme.dorisdsl.StockSlotDslTest",
+            "time": "0.002",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+        "tests": 84,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "fullScenarioMatrix()[1]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.004",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[2]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[3]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[4]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[5]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[6]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[7]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[8]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[9]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[10]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[11]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[12]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[13]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[14]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[15]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[16]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[17]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[18]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[19]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[20]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[21]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[22]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[23]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[24]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[25]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[26]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[27]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[28]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[29]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[30]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[31]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[32]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[33]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[34]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[35]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[36]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[37]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[38]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[39]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[40]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[41]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[42]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[43]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[44]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[45]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[46]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[47]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[48]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[49]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[50]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[51]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[52]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[53]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[54]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[55]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[56]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[57]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[58]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[59]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[60]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[61]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[62]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[63]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[64]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[65]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[66]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[67]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[68]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[69]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[70]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[71]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[72]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[73]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[74]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[75]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[76]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[77]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[78]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[79]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[80]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[81]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[82]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[83]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "fullScenarioMatrix()[84]",
+            "className": "com.acme.dorisdsl.StockSlotFunctionEdgeCaseTest",
+            "time": "0.001",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.StockSlotFunctionSqlTest",
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "consAndExistBecomeExplicitOccurrenceWindows",
+            "className": "com.acme.dorisdsl.StockSlotFunctionSqlTest",
+            "time": "0.003",
+            "status": "PASS"
+          },
+          {
+            "name": "queryDataUsesExactCodeOrNameAndCanParticipateInArithmetic",
+            "className": "com.acme.dorisdsl.StockSlotFunctionSqlTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "crossFunctionsUsePreviousObservedTradingRow",
+            "className": "com.acme.dorisdsl.StockSlotFunctionSqlTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "belongIndustryUsesRealIndustryColumnAndCrossSectionAggregate",
+            "className": "com.acme.dorisdsl.StockSlotFunctionSqlTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "exactSnapshotMa60UsesFrozenFeatureWhileOtherWindowsFallBackSafely",
+            "className": "com.acme.dorisdsl.StockSlotFunctionSqlTest",
+            "time": "0.003",
+            "status": "PASS"
+          },
+          {
+            "name": "rankSupportsAllThreeMethodsIndustryPartitionAndThenPrefilter",
+            "className": "com.acme.dorisdsl.StockSlotFunctionSqlTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "invalidAndUnmappedInputsFailBeforeSql",
+            "className": "com.acme.dorisdsl.StockSlotFunctionSqlTest",
+            "time": "0.002",
+            "status": "PASS"
+          },
+          {
+            "name": "historicalCountsMixedWindowsAndPositionRetainRowWiseEvaluation",
+            "className": "com.acme.dorisdsl.StockSlotFunctionSqlTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "indicatorSupportsStrictMovingAverageRsiAndRangeAggregate",
+            "className": "com.acme.dorisdsl.StockSlotFunctionSqlTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "everyWindowContractPinsNullSuspensionAndIpoPolicies",
+            "className": "com.acme.dorisdsl.StockSlotFunctionSqlTest",
+            "time": "0.002",
+            "status": "PASS"
+          },
+          {
+            "name": "closeTogetherUsesDocumentedOnePercentRelativeDistance",
+            "className": "com.acme.dorisdsl.StockSlotFunctionSqlTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "recordHighLowAndPositionHaveStrictFullWindowSemantics",
+            "className": "com.acme.dorisdsl.StockSlotFunctionSqlTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "historicalAggregateKeepsPointInTimeAndCompositeKeys",
+            "className": "com.acme.dorisdsl.StockSlotFunctionSqlTest",
+            "time": "0.001",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.StockSlotLanguageContractTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "grammarProducesTypedAstForNumberPercentStringAndBoolean",
+            "className": "com.acme.dorisdsl.StockSlotLanguageContractTest",
+            "time": "0.0",
+            "status": "PASS"
+          },
+          {
+            "name": "registryFreezesUnitsScalesAndEnums",
+            "className": "com.acme.dorisdsl.StockSlotLanguageContractTest",
+            "time": "0.015",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.StockSlotRegistryTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "positionMetadataAcceptsOnlyARegisteredFieldAndBoundedNumericScale",
+            "className": "com.acme.dorisdsl.StockSlotRegistryTest",
+            "time": "0.019",
+            "status": "PASS"
+          },
+          {
+            "name": "fieldAndExistingLoweringCanBeAddedUsingOnlyConfigAndVectors",
+            "className": "com.acme.dorisdsl.StockSlotRegistryTest",
+            "time": "0.006",
+            "status": "PASS"
+          },
+          {
+            "name": "loaderRejectsUnknownPlaceholdersDynamicTablesSubqueriesAndRawSql",
+            "className": "com.acme.dorisdsl.StockSlotRegistryTest",
+            "time": "0.016",
+            "status": "PASS"
+          },
+          {
+            "name": "loaderRejectsUnknownSchemaFieldsReferencesAndInvalidScale",
+            "className": "com.acme.dorisdsl.StockSlotRegistryTest",
+            "time": "0.01",
+            "status": "PASS"
+          },
+          {
+            "name": "defaultRegistryIsExecutableAndCarriesCompleteMetadata",
+            "className": "com.acme.dorisdsl.StockSlotRegistryTest",
+            "time": "0.004",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.StockSlotSecurityResourceTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "rejectsSqlInjectionAndNeverCopiesUserValuesIntoSql",
+            "className": "com.acme.dorisdsl.StockSlotSecurityResourceTest",
+            "time": "0.002",
+            "status": "PASS"
+          },
+          {
+            "name": "executionResourcePolicyRejectsUnsafeLimits",
+            "className": "com.acme.dorisdsl.StockSlotSecurityResourceTest",
+            "time": "0.004",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsUnauthorizedFieldsOversizedWindowsAndDslPayloads",
+            "className": "com.acme.dorisdsl.StockSlotSecurityResourceTest",
+            "time": "0.003",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.StockSlotSqlCompilerTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "rejectsMissingDataDefinitionsBeforeSqlGeneration",
+            "className": "com.acme.dorisdsl.StockSlotSqlCompilerTest",
+            "time": "0.001",
+            "status": "PASS"
+          },
+          {
+            "name": "lowersExtensionJoinAndThenRankInSeparateStages",
+            "className": "com.acme.dorisdsl.StockSlotSqlCompilerTest",
+            "time": "0.003",
+            "status": "PASS"
+          },
+          {
+            "name": "lowersAcceptedIndicatorSubsetWithBindingsAndMarketFilter",
+            "className": "com.acme.dorisdsl.StockSlotSqlCompilerTest",
+            "time": "0.002",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.TypeSystemTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "roeTtmCanCompareWithPercent",
+            "className": "com.acme.dorisdsl.TypeSystemTest",
+            "time": "0.008",
+            "status": "PASS"
+          },
+          {
+            "name": "orderByMustResolveToTargetDateScalarValue",
+            "className": "com.acme.dorisdsl.TypeSystemTest",
+            "time": "0.01",
+            "status": "PASS"
+          },
+          {
+            "name": "rejectsArithmeticBetweenRatioSeriesAndTradeDateWithDiagnosticContext",
+            "className": "com.acme.dorisdsl.TypeSystemTest",
+            "time": "0.009",
+            "status": "PASS"
+          },
+          {
+            "name": "crossUpRequiresSymbolTradeDateOrderableSeriesOperands",
+            "className": "com.acme.dorisdsl.TypeSystemTest",
+            "time": "0.009",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.WindowSemanticsTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "noWindowQueryStillFiltersTargetDateInBaseOnly",
+            "className": "com.acme.dorisdsl.WindowSemanticsTest",
+            "time": "0.008",
+            "status": "PASS"
+          },
+          {
+            "name": "fixtureDataDocumentsSuspensionIpoAndShortWindowCases",
+            "className": "com.acme.dorisdsl.WindowSemanticsTest",
+            "time": "0.006",
+            "status": "PASS"
+          },
+          {
+            "name": "emitsWindowSpecsForMaAndLagWithNullPolicies",
+            "className": "com.acme.dorisdsl.WindowSemanticsTest",
+            "time": "0.01",
+            "status": "PASS"
+          },
+          {
+            "name": "baseCteExpandsTradingDayRangeBeforeFinalTargetDateFilter",
+            "className": "com.acme.dorisdsl.WindowSemanticsTest",
+            "time": "0.009",
+            "status": "PASS"
+          }
+        ]
+      }
+    ]
+  },
+  "executor": {
+    "tests": 3,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suites": [
+      {
+        "name": "com.acme.dorisdsl.executor.doris.BenchmarkRunnerTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "producesCompletePerformanceReport",
+            "className": "com.acme.dorisdsl.executor.doris.BenchmarkRunnerTest",
+            "time": "0.026",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.executor.doris.ExplainServiceTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "provesPruningMvIndexAndFeatureTableHits",
+            "className": "com.acme.dorisdsl.executor.doris.ExplainServiceTest",
+            "time": "0.0",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "name": "com.acme.dorisdsl.executor.doris.QueryProfileCollectorTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "cases": [
+          {
+            "name": "extractsRequiredPerformanceMetrics",
+            "className": "com.acme.dorisdsl.executor.doris.QueryProfileCollectorTest",
+            "time": "0.002",
+            "status": "PASS"
+          }
+        ]
+      }
+    ]
+  }
+}

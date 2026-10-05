@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "passed": 2,
+  "total": 2,
+  "checks": [
+    {
+      "name": ".github/workflows/automated-tests.yml",
+      "status": "PASS",
+      "validation": "LOCAL_YAML_PARSE_AND_DEPENDENCY_CONFIGURATION_ONLY"
+    },
+    {
+      "name": ".github/workflows/doris-acceptance.yml",
+      "status": "PASS",
+      "validation": "LOCAL_YAML_PARSE_AND_DEPENDENCY_CONFIGURATION_ONLY"
+    }
+  ],
+  "remoteCiExecuted": false
+}

@@ -1,0 +1,1102 @@
+{
+  "compilation": {
+    "dslVersion": "stock-slot-v1",
+    "semanticModel": {
+      "document": {
+        "expression": {
+          "kind": "Binary",
+          "operator": ">",
+          "left": {
+            "kind": "FunctionCall",
+            "name": "indicator",
+            "arguments": [
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 11,
+                  "endLine": 1,
+                  "endColumn": 13
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 15,
+                  "endLine": 1,
+                  "endColumn": 17
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "振幅",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 19,
+                  "endLine": 1,
+                  "endColumn": 23
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "2018-08-20",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 25,
+                  "endLine": 1,
+                  "endColumn": 37
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 39,
+                  "endLine": 1,
+                  "endColumn": 41
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 43,
+                  "endLine": 1,
+                  "endColumn": 45
+                }
+              },
+              {
+                "kind": "Literal",
+                "value": "",
+                "type": "STRING",
+                "span": {
+                  "line": 1,
+                  "column": 47,
+                  "endLine": 1,
+                  "endColumn": 49
+                }
+              }
+            ],
+            "type": "PERCENT",
+            "span": {
+              "line": 1,
+              "column": 1,
+              "endLine": 1,
+              "endColumn": 50
+            }
+          },
+          "right": {
+            "kind": "Literal",
+            "value": 2.5,
+            "type": "NUMBER",
+            "span": {
+              "line": 1,
+              "column": 53,
+              "endLine": 1,
+              "endColumn": 56
+            }
+          },
+          "type": "BOOLEAN",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 56
+          }
+        },
+        "selectionLimit": null,
+        "span": {
+          "line": 1,
+          "column": 1,
+          "endLine": 1,
+          "endColumn": 61
+        }
+      },
+      "calls": [
+        {
+          "function": "indicator",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 50
+          },
+          "slots": [
+            {
+              "name": "market",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "filter_scope",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "indicator_name",
+              "rawValue": "振幅",
+              "structuredValue": {
+                "value": "振幅",
+                "template": "振幅",
+                "parameters": {}
+              }
+            },
+            {
+              "name": "date",
+              "rawValue": "2018-08-20",
+              "structuredValue": {
+                "raw": "2018-08-20",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "select_type",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "agg_func",
+              "rawValue": "",
+              "structuredValue": ""
+            },
+            {
+              "name": "count_exp",
+              "rawValue": "",
+              "structuredValue": null
+            }
+          ]
+        }
+      ]
+    },
+    "logicalPlan": [
+      {
+        "kind": "Scan",
+        "detail": "newzl.v_hsj_stock_hq_basic"
+      },
+      {
+        "kind": "DateAndMarketFilter",
+        "detail": "2018-08-20"
+      },
+      {
+        "kind": "Sort",
+        "detail": "mktcode, tgtcode"
+      },
+      {
+        "kind": "Project",
+        "detail": "mktcode,tgtcode"
+      }
+    ],
+    "windowContracts": [],
+    "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    (b.amplitude * 1 / 10000) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE DATE_FORMAT(b.bizdate,'%Y-%m-%d') = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+    "bindings": [
+      "2018-08-20",
+      2.5
+    ],
+    "ordered": false,
+    "coveragePlan": {
+      "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    (b.amplitude * 1 / 10000) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE DATE_FORMAT(b.bizdate,'%Y-%m-%d') = ?\n)\nSELECT COUNT(*),COALESCE(SUM(0),0),COALESCE(SUM(CASE WHEN cov.`m1` IS NULL THEN 1 ELSE 0 END),0) FROM base cov;",
+      "samplesSql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    (b.amplitude * 1 / 10000) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE DATE_FORMAT(b.bizdate,'%Y-%m-%d') = ?\n)\nSELECT cov.mktcode,cov.tgtcode,0,CASE WHEN cov.`m1` IS NULL THEN 1 ELSE 0 END FROM base cov WHERE cov.`m1` IS NULL ORDER BY cov.mktcode,cov.tgtcode LIMIT 20;",
+      "bindings": [
+        "2018-08-20"
+      ],
+      "evaluationDate": "2018-08-20",
+      "inputs": [
+        {
+          "function": "indicator",
+          "indicator": "振幅",
+          "alias": "m1",
+          "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+          "window": "1 条观察记录",
+          "role": "VALUE",
+          "requiredObservations": 1,
+          "horizon": 0
+        }
+      ],
+      "extensionRequired": false,
+      "combinedSql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    (b.amplitude * 1 / 10000) AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE DATE_FORMAT(b.bizdate,'%Y-%m-%d') = ?\n),\ncoverage_flags AS (\n  SELECT cov.mktcode,cov.tgtcode,0 AS ext_missing,CASE WHEN cov.`m1` IS NULL THEN 1 ELSE 0 END AS u0 FROM base cov\n),\ncoverage_totals AS (\n  SELECT coverage_flags.*,COUNT(*) OVER () AS observed,SUM(ext_missing) OVER () AS missing,SUM(u0) OVER () AS n0,ROW_NUMBER() OVER (ORDER BY CASE WHEN ext_missing=1 OR u0=1 THEN 0 ELSE 1 END,mktcode,tgtcode) AS sample_rank\n  FROM coverage_flags\n)\nSELECT COALESCE(d.observed,0),COALESCE(d.missing,0),COALESCE(d.n0,0),d.mktcode,d.tgtcode,d.ext_missing,d.u0\nFROM (SELECT 1 AS seed) s LEFT JOIN (SELECT * FROM coverage_totals WHERE sample_rank<=20) d ON TRUE\nORDER BY d.sample_rank;"
+    }
+  },
+  "columns": [
+    "mktcode",
+    "tgtcode"
+  ],
+  "rows": [],
+  "truncated": false,
+  "timings": {
+    "compileMillis": 0.6828,
+    "queueMillis": 0.0042,
+    "explainMillis": 14.7518,
+    "dorisExecutionMillis": 24.135,
+    "returnMillis": 0.0052,
+    "totalMillis": 214.4589
+  },
+  "limits": {
+    "queryTimeoutSeconds": 10,
+    "maxEstimatedScanRows": 100000000,
+    "estimatedScanRows": 787146,
+    "maxReturnRows": 10000,
+    "maxExecutionMemoryBytes": 2147483648
+  },
+  "sqlFingerprint": "sha256:a40b7b8ccfb8c25e7862161beb21923dfd5dacdef5d5e03ece80f7f4ef4fa923",
+  "dataVersion": {
+    "snapshotId": "stock-20060104-20260414-v1",
+    "contractVersion": "1.0.0",
+    "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95"
+  },
+  "compilerVersion": "0.1.0",
+  "explain": [
+    "PLAN FRAGMENT 0",
+    "  OUTPUT EXPRS:",
+    "    mktcode[#60]",
+    "    tgtcode[#61]",
+    "  PARTITION: UNPARTITIONED",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  VRESULT SINK",
+    "     MYSQL_PROTOCOL",
+    "",
+    "  2:VMERGING-EXCHANGE",
+    "     offset: 0",
+    "     distribute expr lists: mktcode[#60], tgtcode[#61]",
+    "",
+    "PLAN FRAGMENT 1",
+    "",
+    "  PARTITION: HASH_PARTITIONED: mktcode[#0], tgtcode[#1]",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  STREAM DATA SINK",
+    "    EXCHANGE ID: 02",
+    "    UNPARTITIONED",
+    "IS_MERGE: true",
+    "",
+    "  1:VSORT(352)",
+    "  |  order by: mktcode[#60] ASC, tgtcode[#61] ASC",
+    "  |  algorithm: full sort",
+    "  |  local merge sort",
+    "  |  merge by exchange",
+    "  |  offset: 0",
+    "  |  distribute expr lists: ",
+    "  |  ",
+    "  0:VOlapScanNode(340)",
+    "     TABLE: newzl.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON",
+    "     PREDICATES: ((((CAST(amplitude[#23] AS double) * 0.0001) > 2.5) AND (date_format(CAST(bizdate[#2] AS datetimev2(0)), '%Y-%m-%d') = '2018-08-20')) AND (__DORIS_DELETE_SIGN__[#56] = 0))",
+    "     partitions=1/21 (p20180101000000)",
+    "     tablets=16/16, tabletList=1791094084281,1791094084283,1791094084285 ...",
+    "     cardinality=787146, avgRowSize=114.07991, numNodes=1",
+    "     pushAggOp=NONE",
+    "     final projections: mktcode[#0], tgtcode[#1]",
+    "     final project output tuple id: 1",
+    "",
+    "",
+    "",
+    "========== STATISTICS ==========",
+    "planned with unknown column statistics"
+  ],
+  "queryProfile": {
+    "available": false,
+    "queryId": "97c2410c58654cc6-9c5cc6a3aa9dee88",
+    "taskState": null,
+    "total": null,
+    "user": null,
+    "note": "Profile is asynchronous or not retained"
+  },
+  "dataQuality": {
+    "validationLevel": "PROJECT_SCOPED",
+    "officialAcceptanceEligible": false,
+    "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+    "coverageStatus": "PARTIAL_INPUTS",
+    "evaluationDate": "2018-08-20",
+    "requiredSources": [
+      "basic"
+    ],
+    "observedSecurities": 3291,
+    "currentMissingExtensionRows": 0,
+    "inputs": [
+      {
+        "function": "indicator",
+        "indicator": "振幅",
+        "unavailableSecurities": 3291,
+        "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+        "window": "1 条观察记录",
+        "role": "VALUE",
+        "requiredObservations": 1
+      }
+    ],
+    "unavailableSamples": [
+      [
+        "0",
+        "000001",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000002",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000004",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000006",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000007",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000008",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000009",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000010",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000011",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000012",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000014",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000016",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000017",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000019",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000020",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000021",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000025",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000026",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000027",
+        "0",
+        "1"
+      ],
+      [
+        "0",
+        "000028",
+        "0",
+        "1"
+      ]
+    ],
+    "snapshotExtensionWithoutBasic": 249480,
+    "snapshotCloseOutsideRange": 3487,
+    "limitations": [
+      "本次使用项目已冻结的字段单位、公式与缺值约定，官方口径未获额外确认。",
+      "证券范围以基础行情为准。无法关联基础行情的衍生记录完整保留，不用于补造基础行情。",
+      "缺失字段、-999999 资金哨兵、零分母、历史不足及平坦 position 区间按原契约返回 NULL。",
+      "行业字段在现有数据中不可用；项目入口拒绝行业查询。财务等缺少来源的功能仍拒绝。",
+      "这是项目内部按依赖验证的运行证据，不登记 VALIDATED 快照，不代表官方验收。",
+      "原始数据按不可变快照管理。运行账户只读；外部装载修改数据后必须重新验证，行数和表/视图定义在每次查询时复核。",
+      "可用性在用户条件、THEN 排名及 LIMIT 之前统计；输入为 NULL 不等于条件为假。各项缺失数量可能重叠，不可相加。样本最多 20 只；每个原因最多展示 20 个实际相关日期。每只证券最多检查 10001 条观察记录，每个输入最多 250000 步解释计算。历史不足只报告观察数，不推测缺少哪些交易日；平坦区间及零分母的相关日期不是缺失日期。跨证券查询、超限或检查失败会明确标记解释不完整，SQL 缺失标记保持有效。"
+    ],
+    "validationMillis": 186.2182,
+    "sampleDetails": [
+      {
+        "marketCode": "0",
+        "securityCode": "000001",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000002",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000004",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000006",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000007",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000008",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000009",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000010",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000011",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000012",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000014",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000016",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000017",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000019",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000020",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000021",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000025",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000026",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000027",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000028",
+        "evaluationDate": "2018-08-20",
+        "currentExtensionMissing": false,
+        "historyTruncated": true,
+        "inputs": [
+          {
+            "inputId": "1cabc52d37b84957d53392bb474265bba8cca85d52834dca552be1aaf5a2de63",
+            "function": "indicator",
+            "indicator": "振幅",
+            "window": "1 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "SOURCE_NULL",
+                "indicator": "振幅",
+                "requiredObservations": 1,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2018-08-20"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

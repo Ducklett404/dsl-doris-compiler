@@ -1,0 +1,1743 @@
+[
+  {
+    "name": "field-last-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "last"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '最新价', '2006-01-04', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-previous-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "previous"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '昨收价', '2006-01-04', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-open-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "open"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '开盘价', '2006-01-04', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-high-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "high"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '最高价', '2006-01-04', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-low-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "low"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '最低价', '2006-01-04', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-close-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '收盘价', '2006-01-04', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-volume-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "volume"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      1000000.0
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '成交量', '2006-01-04', '', '', '') > 1000000.0"
+  },
+  {
+    "name": "field-amount-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "amount"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10000000.0
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '成交额', '2006-01-04', '', '', '') > 10000000.0"
+  },
+  {
+    "name": "field-quantity-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "quantity"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      1.0
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '量比', '2006-01-04', '', '', '') > 1.0"
+  },
+  {
+    "name": "field-turn-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "turn"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      2.5
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '换手率', '2006-01-04', '', '', '') > 2.5"
+  },
+  {
+    "name": "field-trueTurn-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "trueTurn"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      2.5
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '真实换手率', '2006-01-04', '', '', '') > 2.5"
+  },
+  {
+    "name": "field-cap-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "cap"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10000000000.0
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '总市值', '2006-01-04', '', '', '') > 10000000000.0"
+  },
+  {
+    "name": "field-listedCap-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "listedCap"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      5000000000.0
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '流通市值', '2006-01-04', '', '', '') > 5000000000.0"
+  },
+  {
+    "name": "field-rise-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "rise"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      2.5
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '涨跌幅', '2006-01-04', '', '', '') > 2.5"
+  },
+  {
+    "name": "field-average-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '均价', '2006-01-04', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-qfq-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "qfq"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '前复权收盘价', '2006-01-04', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-hfq-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "hfq"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '后复权收盘价', '2006-01-04', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-net-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "net"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      0.0
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '主力净流入', '2006-01-04', '', '', '') > 0.0"
+  },
+  {
+    "name": "field-amplitude-2006-01-04",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "amplitude"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      2.5
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "indicator('', '', '振幅', '2006-01-04', '', '', '') > 2.5"
+  },
+  {
+    "name": "field-last-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "last"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '最新价', '2018-08-20', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-previous-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "previous"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '昨收价', '2018-08-20', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-open-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "open"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '开盘价', '2018-08-20', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-high-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "high"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '最高价', '2018-08-20', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-low-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "low"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '最低价', '2018-08-20', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-close-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '收盘价', '2018-08-20', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-volume-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "volume"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      1000000.0
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '成交量', '2018-08-20', '', '', '') > 1000000.0"
+  },
+  {
+    "name": "field-amount-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "amount"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10000000.0
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '成交额', '2018-08-20', '', '', '') > 10000000.0"
+  },
+  {
+    "name": "field-quantity-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "quantity"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      1.0
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '量比', '2018-08-20', '', '', '') > 1.0"
+  },
+  {
+    "name": "field-turn-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "turn"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      2.5
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '换手率', '2018-08-20', '', '', '') > 2.5"
+  },
+  {
+    "name": "field-trueTurn-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "trueTurn"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      2.5
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '真实换手率', '2018-08-20', '', '', '') > 2.5"
+  },
+  {
+    "name": "field-cap-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "cap"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10000000000.0
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '总市值', '2018-08-20', '', '', '') > 10000000000.0"
+  },
+  {
+    "name": "field-listedCap-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "listedCap"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      5000000000.0
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '流通市值', '2018-08-20', '', '', '') > 5000000000.0"
+  },
+  {
+    "name": "field-rise-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "rise"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      2.5
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '涨跌幅', '2018-08-20', '', '', '') > 2.5"
+  },
+  {
+    "name": "field-average-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '均价', '2018-08-20', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-qfq-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "qfq"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '前复权收盘价', '2018-08-20', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-hfq-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "hfq"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '后复权收盘价', '2018-08-20', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-net-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "net"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      0.0
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '主力净流入', '2018-08-20', '', '', '') > 0.0"
+  },
+  {
+    "name": "field-amplitude-2018-08-20",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "amplitude"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      2.5
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "indicator('', '', '振幅', '2018-08-20', '', '', '') > 2.5"
+  },
+  {
+    "name": "field-last-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "last"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '最新价', '2026-04-14', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-previous-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "previous"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '昨收价', '2026-04-14', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-open-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "open"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '开盘价', '2026-04-14', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-high-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "high"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '最高价', '2026-04-14', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-low-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "low"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '最低价', '2026-04-14', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-close-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-volume-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "volume"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      1000000.0
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '成交量', '2026-04-14', '', '', '') > 1000000.0"
+  },
+  {
+    "name": "field-amount-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "amount"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10000000.0
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '成交额', '2026-04-14', '', '', '') > 10000000.0"
+  },
+  {
+    "name": "field-quantity-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "quantity"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      1.0
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '量比', '2026-04-14', '', '', '') > 1.0"
+  },
+  {
+    "name": "field-turn-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "turn"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      2.5
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '换手率', '2026-04-14', '', '', '') > 2.5"
+  },
+  {
+    "name": "field-trueTurn-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "trueTurn"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      2.5
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '真实换手率', '2026-04-14', '', '', '') > 2.5"
+  },
+  {
+    "name": "field-cap-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "cap"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10000000000.0
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '总市值', '2026-04-14', '', '', '') > 10000000000.0"
+  },
+  {
+    "name": "field-listedCap-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "listedCap"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      5000000000.0
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '流通市值', '2026-04-14', '', '', '') > 5000000000.0"
+  },
+  {
+    "name": "field-rise-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "rise"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      2.5
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '涨跌幅', '2026-04-14', '', '', '') > 2.5"
+  },
+  {
+    "name": "field-average-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '均价', '2026-04-14', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-qfq-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "qfq"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-hfq-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "hfq"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      10.0
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '后复权收盘价', '2026-04-14', '', '', '') > 10.0"
+  },
+  {
+    "name": "field-net-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "net"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      0.0
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', '') > 0.0"
+  },
+  {
+    "name": "field-amplitude-2026-04-14",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "amplitude"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      2.5
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '振幅', '2026-04-14', '', '', '') > 2.5"
+  },
+  {
+    "name": "position-last",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "last",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '最新价', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-previous",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "previous",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '昨收价', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-open",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "open",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '开盘价', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-high",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "high",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '最高价', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-low",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "low",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '最低价', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-close",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "close",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '收盘价', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-volume",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "volume",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '成交量', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-amount",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "amount",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '成交额', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-quantity",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "quantity",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '量比', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-turn",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "turn",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '换手率', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-trueTurn",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "trueTurn",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '真实换手率', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-cap",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "cap",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '总市值', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-listedCap",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "listedCap",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '流通市值', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-rise",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "rise",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '涨跌幅', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-average",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "average",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '均价', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-qfq",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "qfq",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '前复权收盘价', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-hfq",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "hfq",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '后复权收盘价', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-net",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "net",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '主力净流入', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "position-amplitude",
+    "calls": [
+      {
+        "kind": "position",
+        "metric": "amplitude",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      "高"
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "position('', '', '振幅', '3日', '2026-04-14', '', '', '') = '高'"
+  },
+  {
+    "name": "count-cap",
+    "calls": [
+      {
+        "kind": "count",
+        "metric": "cap",
+        "n": 3,
+        "mode": "CONS",
+        "countOp": "=",
+        "op": ">",
+        "threshold": 0
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '总市值', '2026-04-14', '', '', 'CONS=3日') > 0"
+  },
+  {
+    "name": "field-cap-2026-04-10",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "cap"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      0
+    ],
+    "date": "2026-04-10",
+    "market": "",
+    "dsl": "indicator('', '', '总市值', '2026-04-10', '', '', '') > 0"
+  },
+  {
+    "name": "field-cap-2026-04-13",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "cap"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      0
+    ],
+    "date": "2026-04-13",
+    "market": "",
+    "dsl": "indicator('', '', '总市值', '2026-04-13', '', '', '') > 0"
+  },
+  {
+    "name": "count-listedCap",
+    "calls": [
+      {
+        "kind": "count",
+        "metric": "listedCap",
+        "n": 3,
+        "mode": "CONS",
+        "countOp": "=",
+        "op": ">",
+        "threshold": 0
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '流通市值', '2026-04-14', '', '', 'CONS=3日') > 0"
+  },
+  {
+    "name": "field-listedCap-2026-04-10",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "listedCap"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      0
+    ],
+    "date": "2026-04-10",
+    "market": "",
+    "dsl": "indicator('', '', '流通市值', '2026-04-10', '', '', '') > 0"
+  },
+  {
+    "name": "field-listedCap-2026-04-13",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "listedCap"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      0
+    ],
+    "date": "2026-04-13",
+    "market": "",
+    "dsl": "indicator('', '', '流通市值', '2026-04-13', '', '', '') > 0"
+  },
+  {
+    "name": "count-rise",
+    "calls": [
+      {
+        "kind": "count",
+        "metric": "rise",
+        "n": 3,
+        "mode": "CONS",
+        "countOp": "=",
+        "op": ">",
+        "threshold": 0
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '涨跌幅', '2026-04-14', '', '', 'CONS=3日') > 0"
+  },
+  {
+    "name": "field-rise-2026-04-10",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "rise"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      0
+    ],
+    "date": "2026-04-10",
+    "market": "",
+    "dsl": "indicator('', '', '涨跌幅', '2026-04-10', '', '', '') > 0"
+  },
+  {
+    "name": "field-rise-2026-04-13",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "rise"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      0
+    ],
+    "date": "2026-04-13",
+    "market": "",
+    "dsl": "indicator('', '', '涨跌幅', '2026-04-13', '', '', '') > 0"
+  },
+  {
+    "name": "count-average",
+    "calls": [
+      {
+        "kind": "count",
+        "metric": "average",
+        "n": 3,
+        "mode": "CONS",
+        "countOp": "=",
+        "op": ">",
+        "threshold": 0
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '均价', '2026-04-14', '', '', 'CONS=3日') > 0"
+  },
+  {
+    "name": "field-average-2026-04-10",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      0
+    ],
+    "date": "2026-04-10",
+    "market": "",
+    "dsl": "indicator('', '', '均价', '2026-04-10', '', '', '') > 0"
+  },
+  {
+    "name": "field-average-2026-04-13",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      0
+    ],
+    "date": "2026-04-13",
+    "market": "",
+    "dsl": "indicator('', '', '均价', '2026-04-13', '', '', '') > 0"
+  },
+  {
+    "name": "count-qfq",
+    "calls": [
+      {
+        "kind": "count",
+        "metric": "qfq",
+        "n": 3,
+        "mode": "CONS",
+        "countOp": "=",
+        "op": ">",
+        "threshold": 0
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '前复权收盘价', '2026-04-14', '', '', 'CONS=3日') > 0"
+  },
+  {
+    "name": "field-qfq-2026-04-10",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "qfq"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      0
+    ],
+    "date": "2026-04-10",
+    "market": "",
+    "dsl": "indicator('', '', '前复权收盘价', '2026-04-10', '', '', '') > 0"
+  },
+  {
+    "name": "field-qfq-2026-04-13",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "qfq"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      0
+    ],
+    "date": "2026-04-13",
+    "market": "",
+    "dsl": "indicator('', '', '前复权收盘价', '2026-04-13', '', '', '') > 0"
+  },
+  {
+    "name": "count-hfq",
+    "calls": [
+      {
+        "kind": "count",
+        "metric": "hfq",
+        "n": 3,
+        "mode": "CONS",
+        "countOp": "=",
+        "op": ">",
+        "threshold": 0
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      "=",
+      true
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '后复权收盘价', '2026-04-14', '', '', 'CONS=3日') > 0"
+  },
+  {
+    "name": "field-hfq-2026-04-10",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "hfq"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      0
+    ],
+    "date": "2026-04-10",
+    "market": "",
+    "dsl": "indicator('', '', '后复权收盘价', '2026-04-10', '', '', '') > 0"
+  },
+  {
+    "name": "field-hfq-2026-04-13",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "hfq"
+      }
+    ],
+    "expr": [
+      "cmp",
+      0,
+      ">",
+      0
+    ],
+    "date": "2026-04-13",
+    "market": "",
+    "dsl": "indicator('', '', '后复权收盘价', '2026-04-13', '', '', '') > 0"
+  }
+]

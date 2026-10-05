@@ -1,0 +1,47 @@
+{
+  "purpose": "SYNTHETIC_PROJECT_SCOPED_EXECUTION",
+  "officialAcceptanceEligible": false,
+  "jarSha256": "322c0adbfbc3c35d4a3396f8c502444203ee46be77667c1db9dc8bb608ce1dd6",
+  "checks": [
+    {
+      "name": "independent-source-capabilities",
+      "status": "PASS",
+      "details": {
+        "basic": {
+          "expectedRows": 16,
+          "rows": 16,
+          "missingColumns": [],
+          "duplicateKeyGroups": 0,
+          "nullKeys": 0
+        },
+        "extension": {
+          "expectedRows": 16,
+          "rows": 16,
+          "missingColumns": [],
+          "duplicateKeyGroups": 0,
+          "nullKeys": 0
+        },
+        "code": {
+          "expectedRows": 7,
+          "rows": 7,
+          "missingColumns": [],
+          "duplicateKeyGroups": 0,
+          "nullKeys": 0
+        }
+      }
+    },
+    {
+      "name": "basic-positive",
+      "status": "FAIL",
+      "exitCode": 3,
+      "error": "doris_execution_failed: Doris rejected controlled query; code 1105 (SQLState HY000)\n"
+    }
+  ],
+  "diagnostic": "SQL_DIAGNOSTIC: errCode = 2, detailMessage = SHOW CREATE TABLE command denied to user 'dsl_project_read_4fee422d07c2'@'192.168.48.1' for table 'dsl_project_fixture_e5db2d7601d0: v_hsj_stock_hq_basic'\n",
+  "fatalError": "basic-positive",
+  "cleanup": "DONE",
+  "passed": 1,
+  "total": 2,
+  "completedAtUtc": "2026-10-04T17:12:40.897086+00:00",
+  "status": "FAIL"
+}

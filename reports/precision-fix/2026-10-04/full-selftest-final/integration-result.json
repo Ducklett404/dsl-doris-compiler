@@ -1,0 +1,37 @@
+{
+  "purpose": "SYNTHETIC_REAL_DORIS_INTEGRATION_NOT_OFFICIAL_ACCEPTANCE",
+  "fixtureDatabase": "dsl_executor_fixture_ca504bd92de6",
+  "snapshotId": "synthetic-execution-ca504bd92de6",
+  "originalOfficialRegistryRows": 0,
+  "checks": [
+    {
+      "name": "synthetic-source-validation",
+      "status": "PASS",
+      "actual": [
+        [
+          "18",
+          "18",
+          "6",
+          "0",
+          "0",
+          "18"
+        ]
+      ]
+    },
+    {
+      "name": "unified-real-jdbc-tests",
+      "status": "PASS",
+      "exitCode": 0
+    }
+  ],
+  "testTransportNotes": [
+    "Queue contention pauses a test-only JDBC transport; successful SELECTs execute actual generated SQL.",
+    "Timeout transport runs SELECT SLEEP(4) once under the actual JDBC timeout; it is not a DSL capability."
+  ],
+  "compilerJarSha256": "89db17c449c3142abc63e0812ba19836ced420099d4f1e7aeb3df66e6da14363",
+  "error": "main.<locals>.record() got multiple values for argument 'passed'",
+  "fixtureCleanup": "DONE",
+  "passed": 2,
+  "total": 2,
+  "status": "FAIL"
+}

@@ -18,7 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class StockSlotSqlCompiler {
-    public enum AccessPathMode { OPTIMIZED, FULL_SCAN_REFERENCE }
+    public enum AccessPathMode { OPTIMIZED, FULL_SCAN_REFERENCE, PROJECT_REFERENCE }
     private static final int DEFAULT_CACHE_CAPACITY = 256;
     private static final Pattern CHINESE_DATE = Pattern.compile("^(\\d{4})年(\\d{1,2})月(\\d{1,2})日$");
     private static final Pattern RANGE = Pattern.compile("^([\\[(])\\s*(-?\\d+(?:\\.\\d+)?%?)\\s*,\\s*(-?\\d+(?:\\.\\d+)?%?)\\s*([\\])])$");
@@ -146,11 +146,13 @@ public final class StockSlotSqlCompiler {
         if (advanced) {
             try {
                 artifact = new StockSlotAdvancedSqlCompiler(rewritten, registry,
-                        accessPathMode == AccessPathMode.OPTIMIZED, historicalFeatures, rollingFeatures, snapshotId, manifestSha256).generate();
+                        accessPathMode == AccessPathMode.OPTIMIZED, historicalFeatures, rollingFeatures, snapshotId, manifestSha256,
+                        accessPathMode == AccessPathMode.PROJECT_REFERENCE).generate();
             } catch (CompileException error) {
                 if (!error.code().equals("EXECUTION_FEATURE_MIXED")) throw error;
                 artifact = new StockSlotAdvancedSqlCompiler(rewritten, registry, false,
-                        historicalFeatures, rollingFeatures, snapshotId, manifestSha256).generate();
+                        historicalFeatures, rollingFeatures, snapshotId, manifestSha256,
+                        accessPathMode == AccessPathMode.PROJECT_REFERENCE).generate();
             }
         } else artifact = new Generation(rewritten, accessPathMode).generate();
         long sqlNanos = System.nanoTime() - sqlStart;
@@ -224,7 +226,7 @@ public final class StockSlotSqlCompiler {
                     .append(" AND ").append(registry.column("extension", "securityCode")).append('=').append(registry.column("basic", "securityCode"))
                     .append(" AND ").append(registry.column("extension", "tradeDate")).append('=').append(registry.column("basic", "tradeDate")).append("\n");
             String tradeDate = registry.column("basic", "tradeDate");
-            if (accessPathMode == AccessPathMode.FULL_SCAN_REFERENCE)
+            if (accessPathMode != AccessPathMode.OPTIMIZED)
                 tradeDate = "DATE_FORMAT(" + tradeDate + ",'%Y-%m-%d')";
             sql.append("  WHERE ").append(tradeDate).append(" = ?");
             bindings.add(date);
@@ -236,6 +238,14 @@ public final class StockSlotSqlCompiler {
             plan.add(new StockSlotSqlArtifact.PlanNode("DateAndMarketFilter", date + (market.isEmpty() ? "" : " " + market)));
 
             String source = "base";
+            var coverageInputs = new ArrayList<StockSlotCoveragePlan.Input>();
+            callAliases.forEach((call, alias) -> {
+                if (!ranks.containsKey(call)) coverageInputs.add(StockSlotCoveragePlan.describe(call, alias, model));
+            });
+            ranks.forEach((call, rank) -> coverageInputs.add(StockSlotCoveragePlan.describe(call, rank.metricAlias(), model)));
+            coverageInputs.sort(java.util.Comparator.comparing(StockSlotCoveragePlan.Input::alias));
+            var coverage = StockSlotCoveragePlan.create(sql.toString(), bindings, source, date,
+                    coverageInputs, registry, needsExtension);
             if (preFilter != null) {
                 sql.append(",\nprefiltered AS (\n  SELECT * FROM base WHERE ").append(render(preFilter)).append("\n)");
                 source = "prefiltered";
@@ -273,7 +283,7 @@ public final class StockSlotSqlCompiler {
             }
             sql.append(';');
             plan.add(new StockSlotSqlArtifact.PlanNode("Project", "mktcode,tgtcode"));
-            return new StockSlotSqlArtifact(StockSlotCompiler.DSL_VERSION, model, plan, contracts, sql.toString(), bindings, ordered);
+            return new StockSlotSqlArtifact(StockSlotCompiler.DSL_VERSION, model, plan, contracts, sql.toString(), bindings, ordered, coverage);
         }
 
         private void collect(StockSlotAst.Expr expression) {

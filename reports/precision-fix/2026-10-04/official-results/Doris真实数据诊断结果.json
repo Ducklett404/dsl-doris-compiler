@@ -1,0 +1,545 @@
+{
+  "engine": "Apache Doris",
+  "purpose": "DIAGNOSTIC_ONLY",
+  "sourceAuditStatus": "FAIL",
+  "goldenVersion": "stock-slot-executable-v1.0.1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "goldenSha256": "12e149f8c4623496d0a0d3e30979fc7b344024fe9c1b4b3b15fa0195dde103e7",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "jarSha256": "89db17c449c3142abc63e0812ba19836ced420099d4f1e7aeb3df66e6da14363",
+  "results": [
+    {
+      "id": "DEV-001",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 3836,
+      "referenceRows": 3836,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.563
+    },
+    {
+      "id": "DEV-002",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 23,
+      "referenceRows": 23,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.578
+    },
+    {
+      "id": "DEV-003",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 5205,
+      "referenceRows": 5205,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.578
+    },
+    {
+      "id": "DEV-004",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 2413,
+      "referenceRows": 2413,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.547
+    },
+    {
+      "id": "DEV-005",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 2323,
+      "referenceRows": 2323,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.562
+    },
+    {
+      "id": "DEV-006",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 348,
+      "referenceRows": 348,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.578
+    },
+    {
+      "id": "DEV-007",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 3828,
+      "referenceRows": 3828,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.61
+    },
+    {
+      "id": "DEV-008",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 5,
+      "referenceRows": 5,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.562
+    },
+    {
+      "id": "REG-001",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 5573,
+      "referenceRows": 5573,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.625
+    },
+    {
+      "id": "REG-002",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 2247,
+      "referenceRows": 2247,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.594
+    },
+    {
+      "id": "REG-003",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 1726,
+      "referenceRows": 1726,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.594
+    },
+    {
+      "id": "REG-004",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 106,
+      "referenceRows": 106,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.578
+    },
+    {
+      "id": "REG-005",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 5473,
+      "referenceRows": 5473,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.578
+    },
+    {
+      "id": "REG-006",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 1227,
+      "referenceRows": 1227,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.578
+    },
+    {
+      "id": "REG-007",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 10,
+      "referenceRows": 10,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.61
+    },
+    {
+      "id": "REG-008",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 5,
+      "referenceRows": 5,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.593
+    },
+    {
+      "id": "BLIND-001",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 2685,
+      "referenceRows": 2685,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.594
+    },
+    {
+      "id": "BLIND-002",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 1410,
+      "referenceRows": 1410,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.625
+    },
+    {
+      "id": "BLIND-003",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 7,
+      "referenceRows": 7,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.594
+    },
+    {
+      "id": "BLIND-004",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 2963,
+      "referenceRows": 2963,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.625
+    },
+    {
+      "id": "BLIND-005",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 5573,
+      "referenceRows": 5573,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.594
+    },
+    {
+      "id": "BLIND-006",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 825,
+      "referenceRows": 825,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.593
+    },
+    {
+      "id": "BLIND-007",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 8,
+      "referenceRows": 8,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.61
+    },
+    {
+      "id": "BLIND-008",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 6,
+      "referenceRows": 6,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.593
+    },
+    {
+      "id": "PY-MA60",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 300,
+      "referenceRows": 300,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.547
+    },
+    {
+      "id": "PY-MA5",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 5524,
+      "referenceRows": 5524,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 2.313
+    },
+    {
+      "id": "PY-RSI14",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 3851,
+      "referenceRows": 3851,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 3.015
+    },
+    {
+      "id": "PY-BETWEEN_MA5",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 162,
+      "referenceRows": 162,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 2.422
+    },
+    {
+      "id": "PY-CONS3_CLOSE",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 5529,
+      "referenceRows": 5529,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 1.688
+    },
+    {
+      "id": "PY-EXIST3_VOLUME",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 5577,
+      "referenceRows": 5577,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 1.562
+    },
+    {
+      "id": "PY-BOOLEAN_CONS3",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 582,
+      "referenceRows": 582,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 2.797
+    },
+    {
+      "id": "PY-CROSS_ABOVE",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 1053,
+      "referenceRows": 1053,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 2.25
+    },
+    {
+      "id": "PY-NET_SUM5",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 2317,
+      "referenceRows": 2317,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 2.453
+    },
+    {
+      "id": "PY-RANK_CLOSE",
+      "status": "PASS",
+      "resultEqual": true,
+      "structureEqual": true,
+      "rows": 3,
+      "referenceRows": 3,
+      "onlyGenerated": [],
+      "onlyReference": [],
+      "elapsedSeconds": 0.578
+    }
+  ],
+  "mysqlCompatibilityVersion": "5.7.99",
+  "version": "doris version doris-4.1.3-rc02-7126cf65d96",
+  "loadedRows": [
+    [
+      "code",
+      "5686"
+    ],
+    [
+      "ext",
+      "6170822"
+    ],
+    [
+      "basic",
+      "13650347"
+    ]
+  ],
+  "registeredSnapshots": 0,
+  "extensionWithoutBasicByYear": [
+    {
+      "year": 2018,
+      "rows": 89
+    },
+    {
+      "year": 2019,
+      "rows": 8541
+    },
+    {
+      "year": 2020,
+      "rows": 14117
+    },
+    {
+      "year": 2021,
+      "rows": 178495
+    },
+    {
+      "year": 2022,
+      "rows": 13561
+    },
+    {
+      "year": 2023,
+      "rows": 13396
+    },
+    {
+      "year": 2024,
+      "rows": 4434
+    },
+    {
+      "year": 2025,
+      "rows": 15116
+    },
+    {
+      "year": 2026,
+      "rows": 1731
+    }
+  ],
+  "extensionWithoutBasic": 249480,
+  "passed": 34,
+  "total": 34,
+  "functionSmoke": {
+    "results": [
+      {
+        "name": "indicator-ma",
+        "dsl": "indicator('京', '', '5日均线', '2026-04-14', '', '', '') > 1",
+        "status": "PASS",
+        "rows": 304
+      },
+      {
+        "name": "rank-row-number",
+        "dsl": "rank('京', '', '收盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 3",
+        "status": "PASS",
+        "rows": 3
+      },
+      {
+        "name": "queryData",
+        "dsl": "indicator('京', '', '收盘价', '2026-04-14', '', '', '') > queryData('京', '920690', '收盘价', '2026-04-14', '')",
+        "status": "PASS",
+        "rows": 94
+      },
+      {
+        "name": "record-high",
+        "dsl": "record_high('京', '', '最高价', '5日', '2026-04-14', '', '', '') = True",
+        "status": "PASS",
+        "rows": 34
+      },
+      {
+        "name": "record-low",
+        "dsl": "record_low('京', '', '最低价', '5日', '2026-04-14', '', '', '') = True",
+        "status": "PASS",
+        "rows": 45
+      },
+      {
+        "name": "cross-above",
+        "dsl": "cross_above('京', '', '收盘价', '开盘价', '2026-04-14', '', '') = True",
+        "status": "PASS",
+        "rows": 89
+      },
+      {
+        "name": "position",
+        "dsl": "position('京', '', '收盘价', '5日', '2026-04-14', '', '', '') = '高'",
+        "status": "PASS",
+        "rows": 102
+      },
+      {
+        "name": "belong-industry",
+        "dsl": "indicator('京', '', '收盘价', '2026-04-14', '', '', '') > belong_industry('京', '', '收盘价', '2026-04-14', 'AVG')",
+        "status": "PASS",
+        "rows": 0
+      },
+      {
+        "name": "close-together",
+        "dsl": "close_together('京', '', '收盘价', '开盘价', '2026-04-14', '', '') = True",
+        "status": "PASS",
+        "rows": 215
+      },
+      {
+        "name": "reset",
+        "dsl": "reset('京', '', '收盘价', '开盘价', '2026-04-14', '', '') = True",
+        "status": "PASS",
+        "rows": 89
+      },
+      {
+        "name": "golden-cross",
+        "dsl": "golden_cross('京', '', '收盘价', '开盘价', '2026-04-14', '', '') = True",
+        "status": "PASS",
+        "rows": 89
+      },
+      {
+        "name": "CONS",
+        "dsl": "indicator('京', '', '收盘价', '2026-04-14', '', '', 'CONS>=3日') > 1",
+        "status": "PASS",
+        "rows": 305
+      },
+      {
+        "name": "CONS-exact",
+        "dsl": "indicator('京', '', '收盘价', '2026-04-14', '', '', 'CONS=2日') > 1",
+        "status": "PASS",
+        "rows": 0
+      },
+      {
+        "name": "EXIST",
+        "dsl": "indicator('京', '', '成交量', '2026-04-14', '', '', 'EXIST>=3日') > 0",
+        "status": "PASS",
+        "rows": 298
+      },
+      {
+        "name": "EXIST-exact",
+        "dsl": "indicator('京', '', '成交量', '2026-04-14', '', '', 'EXIST=3日') > 0",
+        "status": "PASS",
+        "rows": 0
+      }
+    ],
+    "total": 15,
+    "passed": 15
+  },
+  "explain": {
+    "PY-MA60": "PASS",
+    "PY-RSI14": "PASS",
+    "PY-NET_SUM5": "PASS"
+  }
+}

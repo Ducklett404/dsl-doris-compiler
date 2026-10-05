@@ -1,0 +1,852 @@
+{
+  "purpose": "FROZEN_TOLERANCE_FIELD_DIAGNOSTIC",
+  "acceptanceEligible": false,
+  "oracleSha256": "101f2b54de98cf2265aa7414eca767c6ab1b6c63b424b9216f12a24628678329",
+  "scopeSha256": "37bef121fae9e2c1400a19524467f983510fd7782e83a6d9a7c49e517f7fc277",
+  "absoluteTolerance": "0.000001",
+  "relativeTolerance": "1E-8",
+  "toleranceRule": "abs(actual-expected) <= max(absoluteTolerance, relativeTolerance*abs(expected))",
+  "dates": [
+    {
+      "date": "2006-01-04",
+      "rows": 1079,
+      "valuesChecked": 20501,
+      "mismatches": 13,
+      "status": "FAIL",
+      "fields": [
+        {
+          "field": "最新价",
+          "checked": 1079,
+          "nulls": 1063,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "昨收价",
+          "checked": 1079,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "开盘价",
+          "checked": 1079,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "最高价",
+          "checked": 1079,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "最低价",
+          "checked": 1079,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "收盘价",
+          "checked": 1079,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "成交量",
+          "checked": 1079,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "成交额",
+          "checked": 1079,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "量比",
+          "checked": 1079,
+          "nulls": 2,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "换手率",
+          "checked": 1079,
+          "nulls": 1079,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "真实换手率",
+          "checked": 1079,
+          "nulls": 1079,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "总市值",
+          "checked": 1079,
+          "nulls": 1079,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "流通市值",
+          "checked": 1079,
+          "nulls": 1079,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "涨跌幅",
+          "checked": 1079,
+          "nulls": 1063,
+          "mismatches": 13,
+          "examples": [
+            {
+              "key": [
+                1,
+                "900934"
+              ],
+              "expected": "2.697841726618705035971223022",
+              "actual": "2.69784"
+            },
+            {
+              "key": [
+                1,
+                "900941"
+              ],
+              "expected": "1.764705882352941176470588235",
+              "actual": "1.76470"
+            },
+            {
+              "key": [
+                1,
+                "900945"
+              ],
+              "expected": "1.550387596899224806201550388",
+              "actual": "1.55038"
+            }
+          ]
+        },
+        {
+          "field": "均价",
+          "checked": 1079,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "前复权收盘价",
+          "checked": 1079,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "后复权收盘价",
+          "checked": 1079,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "主力净流入",
+          "checked": 1079,
+          "nulls": 1079,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "振幅",
+          "checked": 1079,
+          "nulls": 1079,
+          "mismatches": 0,
+          "examples": []
+        }
+      ]
+    },
+    {
+      "date": "2018-08-20",
+      "rows": 3291,
+      "valuesChecked": 62529,
+      "mismatches": 18,
+      "status": "FAIL",
+      "fields": [
+        {
+          "field": "最新价",
+          "checked": 3291,
+          "nulls": 3266,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "昨收价",
+          "checked": 3291,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "开盘价",
+          "checked": 3291,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "最高价",
+          "checked": 3291,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "最低价",
+          "checked": 3291,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "收盘价",
+          "checked": 3291,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "成交量",
+          "checked": 3291,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "成交额",
+          "checked": 3291,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "量比",
+          "checked": 3291,
+          "nulls": 11,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "换手率",
+          "checked": 3291,
+          "nulls": 3291,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "真实换手率",
+          "checked": 3291,
+          "nulls": 3291,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "总市值",
+          "checked": 3291,
+          "nulls": 3280,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "流通市值",
+          "checked": 3291,
+          "nulls": 3280,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "涨跌幅",
+          "checked": 3291,
+          "nulls": 3266,
+          "mismatches": 18,
+          "examples": [
+            {
+              "key": [
+                1,
+                "900943"
+              ],
+              "expected": "0.9681881051175656984785615491",
+              "actual": "0.96818"
+            },
+            {
+              "key": [
+                103,
+                "920184"
+              ],
+              "expected": "-2.627939142461964038727524205",
+              "actual": "-2.62793"
+            },
+            {
+              "key": [
+                103,
+                "920198"
+              ],
+              "expected": "3.146853146853146853146853147",
+              "actual": "3.14685"
+            }
+          ]
+        },
+        {
+          "field": "均价",
+          "checked": 3291,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "前复权收盘价",
+          "checked": 3291,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "后复权收盘价",
+          "checked": 3291,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "主力净流入",
+          "checked": 3291,
+          "nulls": 3289,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "振幅",
+          "checked": 3291,
+          "nulls": 3291,
+          "mismatches": 0,
+          "examples": []
+        }
+      ]
+    },
+    {
+      "date": "2026-04-10",
+      "rows": 5618,
+      "valuesChecked": 106742,
+      "mismatches": 4819,
+      "status": "FAIL",
+      "fields": [
+        {
+          "field": "最新价",
+          "checked": 5618,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "昨收价",
+          "checked": 5618,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "开盘价",
+          "checked": 5618,
+          "nulls": 46,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "最高价",
+          "checked": 5618,
+          "nulls": 46,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "最低价",
+          "checked": 5618,
+          "nulls": 46,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "收盘价",
+          "checked": 5618,
+          "nulls": 46,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "成交量",
+          "checked": 5618,
+          "nulls": 46,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "成交额",
+          "checked": 5618,
+          "nulls": 46,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "量比",
+          "checked": 5618,
+          "nulls": 49,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "换手率",
+          "checked": 5618,
+          "nulls": 46,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "真实换手率",
+          "checked": 5618,
+          "nulls": 124,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "总市值",
+          "checked": 5618,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "流通市值",
+          "checked": 5618,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "涨跌幅",
+          "checked": 5618,
+          "nulls": 0,
+          "mismatches": 4819,
+          "examples": [
+            {
+              "key": [
+                0,
+                "000006"
+              ],
+              "expected": "1.877934272300469483568075117",
+              "actual": "1.87793"
+            },
+            {
+              "key": [
+                0,
+                "000019"
+              ],
+              "expected": "-0.7528230865746549560853199498",
+              "actual": "-0.75282"
+            },
+            {
+              "key": [
+                0,
+                "000031"
+              ],
+              "expected": "1.730103806228373702422145329",
+              "actual": "1.73010"
+            }
+          ]
+        },
+        {
+          "field": "均价",
+          "checked": 5618,
+          "nulls": 46,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "前复权收盘价",
+          "checked": 5618,
+          "nulls": 46,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "后复权收盘价",
+          "checked": 5618,
+          "nulls": 46,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "主力净流入",
+          "checked": 5618,
+          "nulls": 351,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "振幅",
+          "checked": 5618,
+          "nulls": 46,
+          "mismatches": 0,
+          "examples": []
+        }
+      ]
+    },
+    {
+      "date": "2026-04-13",
+      "rows": 5614,
+      "valuesChecked": 106666,
+      "mismatches": 4744,
+      "status": "FAIL",
+      "fields": [
+        {
+          "field": "最新价",
+          "checked": 5614,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "昨收价",
+          "checked": 5614,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "开盘价",
+          "checked": 5614,
+          "nulls": 43,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "最高价",
+          "checked": 5614,
+          "nulls": 43,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "最低价",
+          "checked": 5614,
+          "nulls": 43,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "收盘价",
+          "checked": 5614,
+          "nulls": 43,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "成交量",
+          "checked": 5614,
+          "nulls": 43,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "成交额",
+          "checked": 5614,
+          "nulls": 43,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "量比",
+          "checked": 5614,
+          "nulls": 44,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "换手率",
+          "checked": 5614,
+          "nulls": 43,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "真实换手率",
+          "checked": 5614,
+          "nulls": 121,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "总市值",
+          "checked": 5614,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "流通市值",
+          "checked": 5614,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "涨跌幅",
+          "checked": 5614,
+          "nulls": 0,
+          "mismatches": 4744,
+          "examples": [
+            {
+              "key": [
+                0,
+                "000007"
+              ],
+              "expected": "-2.631578947368421052631578947",
+              "actual": "-2.63157"
+            },
+            {
+              "key": [
+                0,
+                "000030"
+              ],
+              "expected": "-0.1953125",
+              "actual": "-0.19531"
+            },
+            {
+              "key": [
+                0,
+                "000066"
+              ],
+              "expected": "2.191235059760956175298804781",
+              "actual": "2.19123"
+            }
+          ]
+        },
+        {
+          "field": "均价",
+          "checked": 5614,
+          "nulls": 43,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "前复权收盘价",
+          "checked": 5614,
+          "nulls": 43,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "后复权收盘价",
+          "checked": 5614,
+          "nulls": 43,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "主力净流入",
+          "checked": 5614,
+          "nulls": 349,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "振幅",
+          "checked": 5614,
+          "nulls": 43,
+          "mismatches": 0,
+          "examples": []
+        }
+      ]
+    },
+    {
+      "date": "2026-04-14",
+      "rows": 5614,
+      "valuesChecked": 106666,
+      "mismatches": 4733,
+      "status": "FAIL",
+      "fields": [
+        {
+          "field": "最新价",
+          "checked": 5614,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "昨收价",
+          "checked": 5614,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "开盘价",
+          "checked": 5614,
+          "nulls": 41,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "最高价",
+          "checked": 5614,
+          "nulls": 41,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "最低价",
+          "checked": 5614,
+          "nulls": 41,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "收盘价",
+          "checked": 5614,
+          "nulls": 41,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "成交量",
+          "checked": 5614,
+          "nulls": 41,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "成交额",
+          "checked": 5614,
+          "nulls": 41,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "量比",
+          "checked": 5614,
+          "nulls": 41,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "换手率",
+          "checked": 5614,
+          "nulls": 41,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "真实换手率",
+          "checked": 5614,
+          "nulls": 119,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "总市值",
+          "checked": 5614,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "流通市值",
+          "checked": 5614,
+          "nulls": 0,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "涨跌幅",
+          "checked": 5614,
+          "nulls": 0,
+          "mismatches": 4733,
+          "examples": [
+            {
+              "key": [
+                0,
+                "000002"
+              ],
+              "expected": "2.813299232736572890025575448",
+              "actual": "2.81329"
+            },
+            {
+              "key": [
+                0,
+                "000063"
+              ],
+              "expected": "0.2519596864501679731243001120",
+              "actual": "0.25195"
+            },
+            {
+              "key": [
+                0,
+                "000400"
+              ],
+              "expected": "0.5455962587685113016367887763",
+              "actual": "0.54559"
+            }
+          ]
+        },
+        {
+          "field": "均价",
+          "checked": 5614,
+          "nulls": 41,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "前复权收盘价",
+          "checked": 5614,
+          "nulls": 41,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "后复权收盘价",
+          "checked": 5614,
+          "nulls": 41,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "主力净流入",
+          "checked": 5614,
+          "nulls": 347,
+          "mismatches": 0,
+          "examples": []
+        },
+        {
+          "field": "振幅",
+          "checked": 5614,
+          "nulls": 41,
+          "mismatches": 0,
+          "examples": []
+        }
+      ]
+    }
+  ],
+  "totalValuesChecked": 403104,
+  "totalMismatches": 14327,
+  "failedFields": [
+    "涨跌幅"
+  ],
+  "status": "FAIL"
+}

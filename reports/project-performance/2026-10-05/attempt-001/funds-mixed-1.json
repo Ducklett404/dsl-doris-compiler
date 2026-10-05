@@ -1,0 +1,5 @@
+{
+  "category": "security_limit",
+  "message": "Estimated scan rows 14715908730 exceed limit 100000000",
+  "error": "SECURITY_LIMIT"
+}

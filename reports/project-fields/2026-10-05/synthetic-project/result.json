@@ -1,0 +1,235 @@
+{
+  "purpose": "SYNTHETIC_PROJECT_SCOPED_EXECUTION",
+  "officialAcceptanceEligible": false,
+  "jarSha256": "a8945a6b2d78064e9f3d0da9bd18ba5a4cd3f756da480e84ae5d2ece1d3c89a6",
+  "checks": [
+    {
+      "name": "independent-source-capabilities",
+      "status": "PASS",
+      "details": {
+        "basic": {
+          "expectedRows": 18,
+          "rows": 18,
+          "missingColumns": [],
+          "duplicateKeyGroups": 0,
+          "nullKeys": 0
+        },
+        "extension": {
+          "expectedRows": 16,
+          "rows": 16,
+          "missingColumns": [],
+          "duplicateKeyGroups": 0,
+          "nullKeys": 0
+        },
+        "code": {
+          "expectedRows": 7,
+          "rows": 7,
+          "missingColumns": [],
+          "duplicateKeyGroups": 0,
+          "nullKeys": 0
+        }
+      }
+    },
+    {
+      "name": "basic-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "basic-results-and-null-coverage",
+      "status": "PASS"
+    },
+    {
+      "name": "extension-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "missing-sentinel-and-null-coverage",
+      "status": "PASS"
+    },
+    {
+      "name": "mixed-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "mixed-retains-three-valued-inputs",
+      "status": "PASS"
+    },
+    {
+      "name": "window-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "window-insufficiency-and-historical-null",
+      "status": "PASS"
+    },
+    {
+      "name": "position-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "position-flat-and-window-gaps",
+      "status": "PASS"
+    },
+    {
+      "name": "position-retains-sparse-observed-rows",
+      "status": "PASS"
+    },
+    {
+      "name": "historical-position-current-null",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "historical-position-null-and-explanation",
+      "status": "PASS"
+    },
+    {
+      "name": "consecutive-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "consecutive-complete-horizon",
+      "status": "PASS"
+    },
+    {
+      "name": "named-security-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "code-source-dependency",
+      "status": "PASS"
+    },
+    {
+      "name": "ranking-positive",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "availability-before-then-rank-and-limit",
+      "status": "PASS"
+    },
+    {
+      "name": "no-observations",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "empty-date-is-labelled",
+      "status": "PASS"
+    },
+    {
+      "name": "strict-still-rejects",
+      "status": "PASS",
+      "exitCode": 3,
+      "error": "doris_execution_failed: Required VALIDATED Doris snapshot is not registered: synthetic-project-v1\n"
+    },
+    {
+      "name": "industry-rejected",
+      "status": "PASS",
+      "exitCode": 3,
+      "error": "doris_execution_failed: Industry capability is not validated by the supplied official data\n"
+    },
+    {
+      "name": "scan-limit-rejected",
+      "status": "PASS",
+      "exitCode": 3,
+      "error": "doris_execution_failed: Estimated scan rows 18 exceed limit 1\n"
+    },
+    {
+      "name": "stale-count",
+      "status": "PASS",
+      "exitCode": 3,
+      "error": "doris_execution_failed: Source rows changed after project validation: basic\n"
+    },
+    {
+      "name": "stale-definition",
+      "status": "PASS",
+      "exitCode": 3,
+      "error": "doris_execution_failed: Source definition changed after project validation: basic\n"
+    },
+    {
+      "name": "basic-with-blocked-extension",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "extension-capability-blocked",
+      "status": "PASS",
+      "exitCode": 3,
+      "error": "doris_execution_failed: Project source capability is not ready: extension\n"
+    },
+    {
+      "name": "basic-with-blocked-code",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "code-capability-blocked",
+      "status": "PASS",
+      "exitCode": 3,
+      "error": "doris_execution_failed: Project source capability is not ready: code\n"
+    },
+    {
+      "name": "project-http-starts",
+      "status": "PASS"
+    },
+    {
+      "name": "project-http-authentication",
+      "status": "PASS"
+    },
+    {
+      "name": "project-http-positive-coverage",
+      "status": "PASS"
+    },
+    {
+      "name": "project-http-snapshot-identity",
+      "status": "PASS"
+    },
+    {
+      "name": "project-http-markdown",
+      "status": "PASS"
+    },
+    {
+      "name": "project-http-recovers",
+      "status": "PASS"
+    },
+    {
+      "name": "live-view-change-rejected",
+      "status": "PASS",
+      "exitCode": 3,
+      "error": "doris_execution_failed: Source definition changed after project validation: basic\n"
+    },
+    {
+      "name": "project-http-live-view-change-rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "official-registry-unchanged",
+      "status": "PASS"
+    }
+  ],
+  "cleanup": "DONE",
+  "passed": 40,
+  "total": 40,
+  "completedAtUtc": "2026-10-05T09:52:21.768902+00:00",
+  "status": "PASS"
+}

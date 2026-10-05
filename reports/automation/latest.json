@@ -1,55 +1,83 @@
 {
   "suiteVersion": "automated-acceptance-v1",
-  "startedAt": "2026-10-04T19:31:06.5852965+08:00",
-  "completedAt": "2026-10-04T19:34:04.5302662+08:00",
+  "startedAt": "2026-10-05T16:55:53.7181809+08:00",
+  "completedAt": "2026-10-05T16:59:12.9260004+08:00",
   "checks": {
     "phase1-scope-freeze": {
       "status": "PASS",
-      "elapsedSeconds": 0.221
+      "elapsedSeconds": 0.282
     },
     "scope-line-ending-regressions": {
       "status": "PASS",
-      "elapsedSeconds": 0.279
+      "elapsedSeconds": 0.316
     },
     "maven-all-tests": {
       "status": "PASS",
-      "elapsedSeconds": 37.786
+      "elapsedSeconds": 40.212
     },
     "executor-module-tests": {
       "status": "PASS",
-      "elapsedSeconds": 3.756
+      "elapsedSeconds": 3.646
     },
     "corpus-python-tests": {
       "status": "PASS",
-      "elapsedSeconds": 0.832
+      "elapsedSeconds": 0.686
     },
     "doris-data-contract-tests": {
       "status": "PASS",
-      "elapsedSeconds": 0.099
+      "elapsedSeconds": 0.111
     },
     "review-sql-result-regressions": {
       "status": "PASS",
-      "elapsedSeconds": 0.177
+      "elapsedSeconds": 0.258
     },
     "versioned-golden-contract-tests": {
       "status": "PASS",
-      "elapsedSeconds": 0.181
+      "elapsedSeconds": 0.205
+    },
+    "project-matrix-reference-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.152
+    },
+    "project-field-reference-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.303
+    },
+    "project-window-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 6.008,
+      "outputPath": "D:\\A_MyProjects\\揭榜挂帅\\dsl-doris-compiler\\target\\project-window-boundaries-1878c273087e4b8e8500689d1f1b4150.json"
+    },
+    "project-rsi-tail-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 2.762,
+      "outputPath": "D:\\A_MyProjects\\揭榜挂帅\\dsl-doris-compiler\\target\\project-rsi-boundaries-53baca8533ca4e909c8cacac32575dc7.json"
+    },
+    "project-availability-explanations": {
+      "status": "PASS",
+      "elapsedSeconds": 6.314,
+      "outputPath": "D:\\A_MyProjects\\揭榜挂帅\\dsl-doris-compiler\\target\\project-availability-78631f56cf2a41e9b2d8da4ddf539c72.json"
+    },
+    "project-field-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 7.42,
+      "outputPath": "D:\\A_MyProjects\\揭榜挂帅\\dsl-doris-compiler\\target\\project-fields-3752179c431c44d79e32bb2fd2ede15d.json"
     },
     "sentinel-window-boundaries": {
       "status": "PASS",
-      "elapsedSeconds": 3.94
+      "elapsedSeconds": 4.177
     },
     "historical-extrema-boundaries": {
       "status": "PASS",
-      "elapsedSeconds": 65.754
+      "elapsedSeconds": 63.236
     },
     "rolling-average-boundaries": {
       "status": "PASS",
-      "elapsedSeconds": 63.158
+      "elapsedSeconds": 60.903
     },
     "formal-compiler-p95": {
       "status": "PASS",
-      "elapsedSeconds": 1.726
+      "elapsedSeconds": 2.175
     },
     "doris-golden-result-differential": {
       "status": "NOT_RUN",

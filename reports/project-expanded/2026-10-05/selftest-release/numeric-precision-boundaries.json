@@ -1,0 +1,875 @@
+{
+  "purpose": "SYNTHETIC_NUMERICAL_REGRESSION_NOT_OFFICIAL_ACCEPTANCE",
+  "startedAtUtc": "2026-10-04T23:02:21.598202+00:00",
+  "fixtureDatabase": "dsl_precision_4c6479d9d4d0",
+  "jarSha256": "1e806df37f01fb8ed9708821c06a503548052d7153c85645865124abd10f7ccb",
+  "semanticViewSha256": "e66260f27bbd3783e490db42e55b904b0fab14ce663189ca693ace8093cea405",
+  "checks": [
+    {
+      "name": "position-收盘价-000001",
+      "status": "PASS",
+      "expected": "低",
+      "actual": "低"
+    },
+    {
+      "name": "position-收盘价-000002",
+      "status": "PASS",
+      "expected": "高",
+      "actual": "高"
+    },
+    {
+      "name": "position-收盘价-000003",
+      "status": "PASS",
+      "expected": "低",
+      "actual": "低"
+    },
+    {
+      "name": "position-收盘价-000004",
+      "status": "PASS",
+      "expected": "中",
+      "actual": "中"
+    },
+    {
+      "name": "position-收盘价-000005",
+      "status": "PASS",
+      "expected": "中",
+      "actual": "中"
+    },
+    {
+      "name": "position-收盘价-000006",
+      "status": "PASS",
+      "expected": "高",
+      "actual": "高"
+    },
+    {
+      "name": "position-收盘价-000007",
+      "status": "PASS",
+      "expected": "低",
+      "actual": "低"
+    },
+    {
+      "name": "position-收盘价-000008",
+      "status": "PASS",
+      "expected": "低",
+      "actual": "低"
+    },
+    {
+      "name": "position-收盘价-000009",
+      "status": "PASS",
+      "expected": "高",
+      "actual": "高"
+    },
+    {
+      "name": "position-收盘价-000010",
+      "status": "PASS",
+      "expected": null,
+      "actual": null
+    },
+    {
+      "name": "position-收盘价-000011",
+      "status": "PASS",
+      "expected": null,
+      "actual": null
+    },
+    {
+      "name": "position-收盘价-000012",
+      "status": "PASS",
+      "expected": null,
+      "actual": null
+    },
+    {
+      "name": "position-收盘价-000013",
+      "status": "PASS",
+      "expected": null,
+      "actual": null
+    },
+    {
+      "name": "position-收盘价-000014",
+      "status": "PASS",
+      "expected": null,
+      "actual": null
+    },
+    {
+      "name": "position-收盘价-000015",
+      "status": "PASS",
+      "expected": null,
+      "actual": null
+    },
+    {
+      "name": "position-成交量-000016",
+      "status": "PASS",
+      "expected": "低",
+      "actual": "低"
+    },
+    {
+      "name": "position-成交量-000017",
+      "status": "PASS",
+      "expected": "中",
+      "actual": "中"
+    },
+    {
+      "name": "position-成交量-000018",
+      "status": "PASS",
+      "expected": "高",
+      "actual": "高"
+    },
+    {
+      "name": "position-成交额-000019",
+      "status": "PASS",
+      "expected": "低",
+      "actual": "低"
+    },
+    {
+      "name": "position-成交额-000020",
+      "status": "PASS",
+      "expected": "中",
+      "actual": "中"
+    },
+    {
+      "name": "position-成交额-000021",
+      "status": "PASS",
+      "expected": "高",
+      "actual": "高"
+    },
+    {
+      "name": "position-总市值-000022",
+      "status": "PASS",
+      "expected": "低",
+      "actual": "低"
+    },
+    {
+      "name": "position-总市值-000023",
+      "status": "PASS",
+      "expected": "中",
+      "actual": "中"
+    },
+    {
+      "name": "position-总市值-000024",
+      "status": "PASS",
+      "expected": "高",
+      "actual": "高"
+    },
+    {
+      "name": "position-均价-000025",
+      "status": "PASS",
+      "expected": "低",
+      "actual": "低"
+    },
+    {
+      "name": "position-均价-000026",
+      "status": "PASS",
+      "expected": "中",
+      "actual": "中"
+    },
+    {
+      "name": "position-均价-000027",
+      "status": "PASS",
+      "expected": "高",
+      "actual": "高"
+    },
+    {
+      "name": "position-主力净流入-000028",
+      "status": "PASS",
+      "expected": "低",
+      "actual": "低"
+    },
+    {
+      "name": "position-主力净流入-000029",
+      "status": "PASS",
+      "expected": null,
+      "actual": null
+    },
+    {
+      "name": "one-row-flat-null",
+      "status": "PASS"
+    },
+    {
+      "name": "historical-null-policy-and-future-cutoff",
+      "status": "PASS",
+      "expected": [
+        [
+          "1",
+          "000001"
+        ],
+        [
+          "1",
+          "000003"
+        ],
+        [
+          "1",
+          "000007"
+        ],
+        [
+          "1",
+          "000008"
+        ],
+        [
+          "1",
+          "000011"
+        ]
+      ],
+      "actual": [
+        [
+          "1",
+          "000001"
+        ],
+        [
+          "1",
+          "000003"
+        ],
+        [
+          "1",
+          "000007"
+        ],
+        [
+          "1",
+          "000008"
+        ],
+        [
+          "1",
+          "000011"
+        ]
+      ]
+    },
+    {
+      "name": "pattern-rejected-5日均线",
+      "status": "PASS"
+    },
+    {
+      "name": "pattern-rejected-RSI(14)",
+      "status": "PASS"
+    },
+    {
+      "name": "rise-positive",
+      "status": "PASS",
+      "expected": "0.8131550415612576797976147452",
+      "actual": "0.8131550415612577"
+    },
+    {
+      "name": "rise-negative",
+      "status": "PASS",
+      "expected": "-0.1803426510369702434625788999",
+      "actual": "-0.1803426510369702"
+    },
+    {
+      "name": "rise-fraction",
+      "status": "PASS",
+      "expected": "1.764705882352941176470588235",
+      "actual": "1.764705882352941"
+    },
+    {
+      "name": "rise-zero-previous",
+      "status": "PASS",
+      "expected": "None",
+      "actual": "None"
+    },
+    {
+      "name": "rise-null-last",
+      "status": "PASS",
+      "expected": "None",
+      "actual": "None"
+    },
+    {
+      "name": "rise-null-previous",
+      "status": "PASS",
+      "expected": "None",
+      "actual": "None"
+    },
+    {
+      "name": "rise-wide-subtraction",
+      "status": "PASS",
+      "expected": "-200",
+      "actual": "-200"
+    },
+    {
+      "name": "out-of-domain-is-explicit-error",
+      "status": "PASS",
+      "error": "w\u0000s\u0000l\u0000:\u0000 \u0000�hKm0R \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006tM�n\f�FO*g\\��P0R \u0000W\u0000S\u0000L\u0000\u00020N\u0000A\u0000T\u0000 \u0000!j\u000f_\u000bN�v \u0000W\u0000S\u0000L\u0000 \u0000\nN/e\u0001c \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006t\u00020\n\u0000\n\u0000ERROR 1105 (HY000) at line 1: errCode = 2, detailMessage = (127.0.0.1)[E-255]Arithmetic overflow: 900000000000000.00000000 multiply 9000000000000000000 = 8100000000000000000000000000000000.000000, result type: Decimal(38, 6)"
+    },
+    {
+      "name": "official-registry-preserved",
+      "status": "PASS"
+    }
+  ],
+  "vectors": [
+    {
+      "name": "low-edge",
+      "metric": "收盘价",
+      "code": "000001",
+      "observations": [
+        "16.2",
+        "16.65",
+        "16.41",
+        "16.51",
+        "16.35"
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "低"
+    },
+    {
+      "name": "high-edge",
+      "metric": "收盘价",
+      "code": "000002",
+      "observations": [
+        "16.2",
+        "16.65",
+        "16.41",
+        "16.51",
+        "16.50"
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "高"
+    },
+    {
+      "name": "below-low-edge",
+      "metric": "收盘价",
+      "code": "000003",
+      "observations": [
+        "16.2",
+        "16.65",
+        "16.41",
+        "16.51",
+        "16.3499"
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "低"
+    },
+    {
+      "name": "above-low-edge",
+      "metric": "收盘价",
+      "code": "000004",
+      "observations": [
+        "16.2",
+        "16.65",
+        "16.41",
+        "16.51",
+        "16.3501"
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "中"
+    },
+    {
+      "name": "below-high-edge",
+      "metric": "收盘价",
+      "code": "000005",
+      "observations": [
+        "16.2",
+        "16.65",
+        "16.41",
+        "16.51",
+        "16.4999"
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "中"
+    },
+    {
+      "name": "above-high-edge",
+      "metric": "收盘价",
+      "code": "000006",
+      "observations": [
+        "16.2",
+        "16.65",
+        "16.41",
+        "16.51",
+        "16.5001"
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "高"
+    },
+    {
+      "name": "official-920895",
+      "metric": "收盘价",
+      "code": "000007",
+      "observations": [
+        "16.51",
+        "16.41",
+        "16.65",
+        "16.20",
+        "16.35"
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "低"
+    },
+    {
+      "name": "negative-low-edge",
+      "metric": "收盘价",
+      "code": "000008",
+      "observations": [
+        "-16.65",
+        "-16.2",
+        "-16.41",
+        "-16.51",
+        "-16.50"
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "低"
+    },
+    {
+      "name": "negative-high-edge",
+      "metric": "收盘价",
+      "code": "000009",
+      "observations": [
+        "-16.65",
+        "-16.2",
+        "-16.41",
+        "-16.51",
+        "-16.35"
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "高"
+    },
+    {
+      "name": "flat",
+      "metric": "收盘价",
+      "code": "000010",
+      "observations": [
+        "16.2",
+        "16.2",
+        "16.2",
+        "16.2",
+        "16.2"
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": null
+    },
+    {
+      "name": "insufficient",
+      "metric": "收盘价",
+      "code": "000011",
+      "observations": [
+        "16.2",
+        "16.65",
+        "16.35"
+      ],
+      "dates": [
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": null
+    },
+    {
+      "name": "null-current",
+      "metric": "收盘价",
+      "code": "000012",
+      "observations": [
+        "16.2",
+        "16.65",
+        "16.41",
+        "16.51",
+        null
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": null
+    },
+    {
+      "name": "null-window",
+      "metric": "收盘价",
+      "code": "000013",
+      "observations": [
+        "16.2",
+        null,
+        "16.41",
+        "16.51",
+        "16.35"
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": null
+    },
+    {
+      "name": "all-null",
+      "metric": "收盘价",
+      "code": "000014",
+      "observations": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": null
+    },
+    {
+      "name": "missing-current",
+      "metric": "收盘价",
+      "code": "000015",
+      "observations": [
+        "16.2",
+        "16.65",
+        "16.41",
+        "16.35"
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13"
+      ],
+      "expectedCategory": null
+    },
+    {
+      "name": "bigint-near-limit-低",
+      "metric": "成交量",
+      "code": "000016",
+      "observations": [
+        9223372036854775000,
+        9223372036854775300,
+        9223372036854775000,
+        9223372036854775300,
+        9223372036854775100
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "低"
+    },
+    {
+      "name": "bigint-near-limit-中",
+      "metric": "成交量",
+      "code": "000017",
+      "observations": [
+        9223372036854775000,
+        9223372036854775300,
+        9223372036854775000,
+        9223372036854775300,
+        9223372036854775101
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "中"
+    },
+    {
+      "name": "bigint-near-limit-高",
+      "metric": "成交量",
+      "code": "000018",
+      "observations": [
+        9223372036854775000,
+        9223372036854775300,
+        9223372036854775000,
+        9223372036854775300,
+        9223372036854775200
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "高"
+    },
+    {
+      "name": "large-amount-低",
+      "metric": "成交额",
+      "code": "000019",
+      "observations": [
+        10000000000000000,
+        10000000000000300,
+        10000000000000000,
+        10000000000000300,
+        10000000000000100
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "低"
+    },
+    {
+      "name": "large-amount-中",
+      "metric": "成交额",
+      "code": "000020",
+      "observations": [
+        10000000000000000,
+        10000000000000300,
+        10000000000000000,
+        10000000000000300,
+        10000000000000101
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "中"
+    },
+    {
+      "name": "large-amount-高",
+      "metric": "成交额",
+      "code": "000021",
+      "observations": [
+        10000000000000000,
+        10000000000000300,
+        10000000000000000,
+        10000000000000300,
+        10000000000000200
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "高"
+    },
+    {
+      "name": "large-cap-低",
+      "metric": "总市值",
+      "code": "000022",
+      "observations": [
+        1000000000000000,
+        1000000000000300,
+        1000000000000000,
+        1000000000000300,
+        1000000000000100
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "低"
+    },
+    {
+      "name": "large-cap-中",
+      "metric": "总市值",
+      "code": "000023",
+      "observations": [
+        1000000000000000,
+        1000000000000300,
+        1000000000000000,
+        1000000000000300,
+        1000000000000101
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "中"
+    },
+    {
+      "name": "large-cap-高",
+      "metric": "总市值",
+      "code": "000024",
+      "observations": [
+        1000000000000000,
+        1000000000000300,
+        1000000000000000,
+        1000000000000300,
+        1000000000000200
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "高"
+    },
+    {
+      "name": "small-mean-低",
+      "metric": "均价",
+      "code": "000025",
+      "observations": [
+        0,
+        3,
+        0,
+        3,
+        1
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "低"
+    },
+    {
+      "name": "small-mean-中",
+      "metric": "均价",
+      "code": "000026",
+      "observations": [
+        0,
+        3,
+        0,
+        3,
+        3
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "中"
+    },
+    {
+      "name": "small-mean-高",
+      "metric": "均价",
+      "code": "000027",
+      "observations": [
+        0,
+        3,
+        0,
+        3,
+        2
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "高"
+    },
+    {
+      "name": "negative-net-edge",
+      "metric": "主力净流入",
+      "code": "000028",
+      "observations": [
+        -300,
+        -3,
+        -300,
+        -3,
+        -201
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": "低"
+    },
+    {
+      "name": "net-sentinel",
+      "metric": "主力净流入",
+      "code": "000029",
+      "observations": [
+        -300,
+        -3,
+        -999999,
+        -3,
+        -201
+      ],
+      "dates": [
+        "2026-04-02",
+        "2026-04-06",
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-14"
+      ],
+      "expectedCategory": null
+    }
+  ],
+  "fixtureCleanup": "DONE",
+  "completedAtUtc": "2026-10-04T23:03:00.635510+00:00",
+  "total": 42,
+  "passed": 42,
+  "status": "PASS"
+}

@@ -1,0 +1,399 @@
+{
+  "purpose": "READ_ONLY_PRECISION_BUG_REPRODUCTION",
+  "changesApplied": false,
+  "oracleSha256": "fd6ecf075e0239f64ae9aeae8df30517ca1d9d0950ffea0c33db598f95aebafb",
+  "jarSha256": "e8eb307686c7937beda7ff878dcbca68d53826499aa42e5241cc959f5caacbe1",
+  "viewRisePctType": [
+    [
+      "risePct",
+      "decimal(28,5)",
+      "Yes",
+      "false",
+      "NULL",
+      ""
+    ]
+  ],
+  "scopeNumericTolerance": {
+    "absolute": "0.000001",
+    "relative": "0.00000001"
+  },
+  "dates": [
+    {
+      "date": "2006-01-04",
+      "rowsChecked": 1079,
+      "existingOutOfTolerance": 13,
+      "explicitDoubleCastOutOfTolerance": 0,
+      "examples": [
+        {
+          "key": [
+            1,
+            "900932"
+          ],
+          "expected": "1.686746987951807228915662651",
+          "actual": "1.68674",
+          "absoluteError": "0.000006987951807228915662651"
+        },
+        {
+          "key": [
+            1,
+            "900934"
+          ],
+          "expected": "2.697841726618705035971223022",
+          "actual": "2.69784",
+          "absoluteError": "0.000001726618705035971223022"
+        },
+        {
+          "key": [
+            1,
+            "900936"
+          ],
+          "expected": "0.3448275862068965517241379310",
+          "actual": "0.34482",
+          "absoluteError": "0.0000075862068965517241379310"
+        },
+        {
+          "key": [
+            1,
+            "900937"
+          ],
+          "expected": "1.923076923076923076923076923",
+          "actual": "1.92307",
+          "absoluteError": "0.000006923076923076923076923"
+        },
+        {
+          "key": [
+            1,
+            "900939"
+          ],
+          "expected": "1.973684210526315789473684211",
+          "actual": "1.97368",
+          "absoluteError": "0.000004210526315789473684211"
+        }
+      ],
+      "boundary": {
+        "dsl": "indicator('', '', '涨跌幅', '2006-01-04', '', '', '') > 1.686743493975903614457831326",
+        "key": [
+          1,
+          "900932"
+        ],
+        "threshold": "1.686743493975903614457831326",
+        "projectGeneratedMatchesRaw": false,
+        "explicitDoubleCastMatchesRaw": true,
+        "onlyGenerated": [],
+        "onlyReference": [
+          [
+            1,
+            "900932"
+          ]
+        ],
+        "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.risePct AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2006-01-04",
+          1.6867434939759036
+        ]
+      }
+    },
+    {
+      "date": "2018-08-20",
+      "rowsChecked": 3291,
+      "existingOutOfTolerance": 18,
+      "explicitDoubleCastOutOfTolerance": 0,
+      "examples": [
+        {
+          "key": [
+            1,
+            "601688"
+          ],
+          "expected": "2.305084745762711864406779661",
+          "actual": "2.30508",
+          "absoluteError": "0.000004745762711864406779661"
+        },
+        {
+          "key": [
+            1,
+            "900934"
+          ],
+          "expected": "0.5386875612144955925563173359",
+          "actual": "0.53868",
+          "absoluteError": "0.0000075612144955925563173359"
+        },
+        {
+          "key": [
+            1,
+            "900936"
+          ],
+          "expected": "-0.4056795131845841784989858012",
+          "actual": "-0.40567",
+          "absoluteError": "0.0000095131845841784989858012"
+        },
+        {
+          "key": [
+            1,
+            "900937"
+          ],
+          "expected": "0.3184713375796178343949044586",
+          "actual": "0.31847",
+          "absoluteError": "0.0000013375796178343949044586"
+        },
+        {
+          "key": [
+            1,
+            "900939"
+          ],
+          "expected": "-0.7874015748031496062992125984",
+          "actual": "-0.78740",
+          "absoluteError": "0.0000015748031496062992125984"
+        }
+      ],
+      "boundary": {
+        "dsl": "indicator('', '', '涨跌幅', '2018-08-20', '', '', '') > 2.305082372881355932203389830",
+        "key": [
+          1,
+          "601688"
+        ],
+        "threshold": "2.305082372881355932203389830",
+        "projectGeneratedMatchesRaw": false,
+        "explicitDoubleCastMatchesRaw": true,
+        "onlyGenerated": [],
+        "onlyReference": [
+          [
+            1,
+            "601688"
+          ]
+        ],
+        "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.risePct AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2018-08-20",
+          2.305082372881356
+        ]
+      }
+    },
+    {
+      "date": "2026-04-10",
+      "rowsChecked": 5618,
+      "existingOutOfTolerance": 4819,
+      "explicitDoubleCastOutOfTolerance": 0,
+      "examples": [
+        {
+          "key": [
+            0,
+            "000002"
+          ],
+          "expected": "0.5167958656330749354005167959",
+          "actual": "0.51679",
+          "absoluteError": "0.0000058656330749354005167959"
+        },
+        {
+          "key": [
+            0,
+            "000004"
+          ],
+          "expected": "-5.074626865671641791044776119",
+          "actual": "-5.07462",
+          "absoluteError": "0.000006865671641791044776119"
+        },
+        {
+          "key": [
+            0,
+            "000006"
+          ],
+          "expected": "1.877934272300469483568075117",
+          "actual": "1.87793",
+          "absoluteError": "0.000004272300469483568075117"
+        },
+        {
+          "key": [
+            0,
+            "000007"
+          ],
+          "expected": "2.089552238805970149253731343",
+          "actual": "2.08955",
+          "absoluteError": "0.000002238805970149253731343"
+        },
+        {
+          "key": [
+            0,
+            "000009"
+          ],
+          "expected": "2.537485582468281430219146482",
+          "actual": "2.53748",
+          "absoluteError": "0.000005582468281430219146482"
+        }
+      ],
+      "boundary": {
+        "dsl": "indicator('', '', '涨跌幅', '2026-04-10', '', '', '') > 0.516792932816537467700258398",
+        "key": [
+          0,
+          "000002"
+        ],
+        "threshold": "0.516792932816537467700258398",
+        "projectGeneratedMatchesRaw": false,
+        "explicitDoubleCastMatchesRaw": true,
+        "onlyGenerated": [],
+        "onlyReference": [
+          [
+            0,
+            "000002"
+          ]
+        ],
+        "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.risePct AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-10",
+          0.5167929328165375
+        ]
+      }
+    },
+    {
+      "date": "2026-04-13",
+      "rowsChecked": 5614,
+      "existingOutOfTolerance": 4744,
+      "explicitDoubleCastOutOfTolerance": 0,
+      "examples": [
+        {
+          "key": [
+            0,
+            "000001"
+          ],
+          "expected": "-0.1803426510369702434625788999",
+          "actual": "-0.18034",
+          "absoluteError": "0.0000026510369702434625788999"
+        },
+        {
+          "key": [
+            0,
+            "000002"
+          ],
+          "expected": "0.5141388174807197943444730077",
+          "actual": "0.51413",
+          "absoluteError": "0.0000088174807197943444730077"
+        },
+        {
+          "key": [
+            0,
+            "000004"
+          ],
+          "expected": "-1.257861635220125786163522013",
+          "actual": "-1.25786",
+          "absoluteError": "0.000001635220125786163522013"
+        },
+        {
+          "key": [
+            0,
+            "000006"
+          ],
+          "expected": "-1.152073732718894009216589862",
+          "actual": "-1.15207",
+          "absoluteError": "0.000003732718894009216589862"
+        },
+        {
+          "key": [
+            0,
+            "000007"
+          ],
+          "expected": "-2.631578947368421052631578947",
+          "actual": "-2.63157",
+          "absoluteError": "0.000008947368421052631578947"
+        }
+      ],
+      "boundary": {
+        "dsl": "indicator('', '', '涨跌幅', '2026-04-13', '', '', '') > -0.1803413255184851217312894500",
+        "key": [
+          0,
+          "000001"
+        ],
+        "threshold": "-0.1803413255184851217312894500",
+        "projectGeneratedMatchesRaw": false,
+        "explicitDoubleCastMatchesRaw": true,
+        "onlyGenerated": [
+          [
+            0,
+            "000001"
+          ]
+        ],
+        "onlyReference": [],
+        "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.risePct AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > (-?))\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-13",
+          0.1803413255184851
+        ]
+      }
+    },
+    {
+      "date": "2026-04-14",
+      "rowsChecked": 5614,
+      "existingOutOfTolerance": 4733,
+      "explicitDoubleCastOutOfTolerance": 0,
+      "examples": [
+        {
+          "key": [
+            0,
+            "000001"
+          ],
+          "expected": "0.8130081300813008130081300813",
+          "actual": "0.81300",
+          "absoluteError": "0.0000081300813008130081300813"
+        },
+        {
+          "key": [
+            0,
+            "000002"
+          ],
+          "expected": "2.813299232736572890025575448",
+          "actual": "2.81329",
+          "absoluteError": "0.000009232736572890025575448"
+        },
+        {
+          "key": [
+            0,
+            "000004"
+          ],
+          "expected": "5.095541401273885350318471338",
+          "actual": "5.09554",
+          "absoluteError": "0.000001401273885350318471338"
+        },
+        {
+          "key": [
+            0,
+            "000006"
+          ],
+          "expected": "3.146853146853146853146853147",
+          "actual": "3.14685",
+          "absoluteError": "0.000003146853146853146853147"
+        },
+        {
+          "key": [
+            0,
+            "000008"
+          ],
+          "expected": "-0.3649635036496350364963503650",
+          "actual": "-0.36496",
+          "absoluteError": "0.0000035036496350364963503650"
+        }
+      ],
+      "boundary": {
+        "dsl": "indicator('', '', '涨跌幅', '2026-04-14', '', '', '') > 0.8130040650406504065040650405",
+        "key": [
+          0,
+          "000001"
+        ],
+        "threshold": "0.8130040650406504065040650405",
+        "projectGeneratedMatchesRaw": false,
+        "explicitDoubleCastMatchesRaw": true,
+        "onlyGenerated": [],
+        "onlyReference": [
+          [
+            0,
+            "000001"
+          ]
+        ],
+        "sql": "WITH base AS (\n  SELECT b.mktcode AS mktcode, b.tgtcode AS tgtcode, b.bizdate AS bizdate,\n    b.risePct AS `m1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate = ?\n)\nSELECT mktcode, tgtcode\nFROM base\nWHERE (`m1` > ?)\nORDER BY mktcode, tgtcode;",
+        "bindings": [
+          "2026-04-14",
+          0.8130040650406504
+        ]
+      }
+    }
+  ],
+  "bugReproduced": true,
+  "proposedExpressionVerified": true
+}

@@ -1,0 +1,47 @@
+{
+  "purpose": "READ_ONLY_POSITION_BOUNDARY_REPRODUCTION",
+  "changesApplied": false,
+  "date": "2026-04-14",
+  "key": [
+    103,
+    "920895"
+  ],
+  "rawLastFiveObservationsDescending": [
+    [
+      "2026-04-14",
+      "163500",
+      "16.35"
+    ],
+    [
+      "2026-04-13",
+      "162000",
+      "16.2"
+    ],
+    [
+      "2026-04-10",
+      "166500",
+      "16.65"
+    ],
+    [
+      "2026-04-09",
+      "164100",
+      "16.41"
+    ],
+    [
+      "2026-04-08",
+      "165100",
+      "16.51"
+    ]
+  ],
+  "rawMin": "162000",
+  "rawMax": "166500",
+  "rawCurrent": "163500",
+  "exactIntegerBoundary": "3*(current-min)==max-min",
+  "expectedCategory": "低",
+  "actualGeneratedCategory": "中",
+  "originalLowResultRows": 130,
+  "referenceLowResultRows": 131,
+  "experimentalLowResultRows": 131,
+  "experimentalIncludesBoundaryKey": true,
+  "experimentLimitation": "Decimal(38,12) experiment only demonstrates the close-price case; general overflow, range and window-indicator behavior must be designed and tested before a compiler fix."
+}

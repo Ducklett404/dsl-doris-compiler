@@ -262,11 +262,18 @@ public final class Main implements Runnable {
             return new DorisExecutionPolicy(timeoutSeconds, maxScanRows, maxReturnRows,
                     maxExecMemoryBytes, maxQueueWaitMillis, true);
         }
+
+        DorisQueryExecutor controlledExecutor(int timeoutSeconds, Path projectValidation) throws Exception {
+            var stock = stockRegistry();
+            return new DorisQueryExecutor(jdbcUrl(), user, password(), stock, controlledPolicy(timeoutSeconds),
+                    projectValidation == null ? null : com.acme.dorisdsl.stockslot.ProjectDataValidation.load(projectValidation, stock));
+        }
     }
 
     @CommandLine.Command(name = "execute-stock-slot-sql",
             description = "Compile stock-slot-v1 and execute its parameterized SELECT on Doris")
     static final class ExecuteStockSlotSqlCommand extends DorisOptions implements Callable<Integer> {
+        @CommandLine.Option(names = "--project-validation", description = "Trusted project-only source validation JSON; preserves full-snapshot gate") Path projectValidation;
         @CommandLine.Parameters(index = "0", description = "stock-slot-v1 DSL file") Path input;
         @CommandLine.Option(names = "--timeout-seconds", defaultValue = "10") int timeoutSeconds;
         @CommandLine.Option(names = "--max-rows", defaultValue = "1000") int maxRows;
@@ -275,7 +282,7 @@ public final class Main implements Runnable {
         @CommandLine.Option(names = {"-o", "--output"}) Path output;
 
         @Override public Integer call() {
-            try (var executor = new DorisQueryExecutor(jdbcUrl(), user, password(), stockRegistry(), controlledPolicy(timeoutSeconds))) {
+            try (var executor = controlledExecutor(timeoutSeconds, projectValidation)) {
                 executor.ping();
                 var result = executor.execute(Files.readString(input, StandardCharsets.UTF_8), snapshotId, timeoutSeconds, maxRows);
                 String rendered = switch (format.toLowerCase()) {
@@ -301,6 +308,7 @@ public final class Main implements Runnable {
 
     @CommandLine.Command(name = "serve-doris", description = "Start compile and controlled Doris execution HTTP APIs")
     static final class ServeDorisCommand extends DorisOptions implements Callable<Integer> {
+        @CommandLine.Option(names = "--project-validation", description = "Trusted project-only source validation JSON; reports query input availability") Path projectValidation;
         @CommandLine.Option(names = "--auth-token-env", defaultValue = "DSL_HTTP_TOKEN") String authTokenEnv;
         @CommandLine.Option(names = "--bind-host", defaultValue = "127.0.0.1") String bindHost;
         @CommandLine.Option(names = "--http-port", defaultValue = "8080") int httpPort;
@@ -308,7 +316,7 @@ public final class Main implements Runnable {
 
         @Override public Integer call() throws Exception {
             var access = BearerTokenAccess.fromEnvironment(authTokenEnv, true);
-            try (var executor = new DorisQueryExecutor(jdbcUrl(), user, password(), stockRegistry(), controlledPolicy(timeoutSeconds));
+            try (var executor = controlledExecutor(timeoutSeconds, projectValidation);
                  var server = new CompileHttpServer(compiler(null, List.of()),
                          (dsl, snapshot, rows) -> executor.execute(dsl, snapshot, timeoutSeconds, rows),
                          bindHost, httpPort, access, access)) {

@@ -1,0 +1,81 @@
+{
+  "suiteVersion": "automated-acceptance-v1",
+  "startedAt": "2026-10-05T09:45:05.8228737+08:00",
+  "completedAt": "2026-10-05T09:48:03.3432324+08:00",
+  "checks": {
+    "phase1-scope-freeze": {
+      "status": "PASS",
+      "elapsedSeconds": 0.208
+    },
+    "scope-line-ending-regressions": {
+      "status": "PASS",
+      "elapsedSeconds": 0.255
+    },
+    "maven-all-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 37.397
+    },
+    "executor-module-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 3.59
+    },
+    "corpus-python-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.716
+    },
+    "doris-data-contract-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.106
+    },
+    "review-sql-result-regressions": {
+      "status": "PASS",
+      "elapsedSeconds": 0.242
+    },
+    "versioned-golden-contract-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.213
+    },
+    "project-matrix-reference-tests": {
+      "status": "PASS",
+      "elapsedSeconds": 0.173
+    },
+    "project-window-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 6.188,
+      "outputPath": "D:\\A_MyProjects\\揭榜挂帅\\dsl-doris-compiler\\target\\project-window-boundaries-1b9a25e7f02e4d88bb10a0846fddde7d.json"
+    },
+    "project-rsi-tail-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 2.758,
+      "outputPath": "D:\\A_MyProjects\\揭榜挂帅\\dsl-doris-compiler\\target\\project-rsi-boundaries-fa97b003a57d44449e89162ac73452eb.json"
+    },
+    "sentinel-window-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 3.746
+    },
+    "historical-extrema-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 60.989
+    },
+    "rolling-average-boundaries": {
+      "status": "PASS",
+      "elapsedSeconds": 59.026
+    },
+    "formal-compiler-p95": {
+      "status": "PASS",
+      "elapsedSeconds": 1.876
+    },
+    "doris-golden-result-differential": {
+      "status": "NOT_RUN",
+      "reason": "Use -WithDoris and set DORIS_PASSWORD"
+    },
+    "doris-12-function-smoke": {
+      "status": "NOT_RUN",
+      "reason": "Use -WithDoris and set DORIS_PASSWORD"
+    },
+    "doris-19-year-matrix": {
+      "status": "NOT_RUN",
+      "reason": "Use -RunNineteenYearBenchmark (long-running: 720 container restarts)"
+    }
+  }
+}

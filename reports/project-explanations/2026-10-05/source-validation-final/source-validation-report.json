@@ -1,0 +1,103 @@
+{
+  "purpose": "PROJECT_SOURCE_CAPABILITY_VALIDATION",
+  "sources": {
+    "basic": {
+      "expectedRows": 13650347,
+      "rows": 13650347,
+      "missingColumns": [],
+      "duplicateKeyGroups": 0,
+      "nullKeys": 0
+    },
+    "extension": {
+      "expectedRows": 6170822,
+      "rows": 6170822,
+      "missingColumns": [],
+      "duplicateKeyGroups": 0,
+      "nullKeys": 0
+    },
+    "code": {
+      "expectedRows": 5686,
+      "rows": 5686,
+      "missingColumns": [],
+      "duplicateKeyGroups": 0,
+      "nullKeys": 0
+    }
+  },
+  "numericChecks": [
+    "0",
+    "3487",
+    "2006-01-04",
+    "2026-04-14"
+  ],
+  "extensionDateRange": [
+    "2018-08-20",
+    "2026-04-14"
+  ],
+  "rawSourceRows": {
+    "basic": 13650347,
+    "extension": 6170822,
+    "code": 5686
+  },
+  "yearlyExtensionWithoutBasic": [
+    {
+      "year": 2018,
+      "rows": 89
+    },
+    {
+      "year": 2019,
+      "rows": 8541
+    },
+    {
+      "year": 2020,
+      "rows": 14117
+    },
+    {
+      "year": 2021,
+      "rows": 178495
+    },
+    {
+      "year": 2022,
+      "rows": 13561
+    },
+    {
+      "year": 2023,
+      "rows": 13396
+    },
+    {
+      "year": 2024,
+      "rows": 4434
+    },
+    {
+      "year": 2025,
+      "rows": 15116
+    },
+    {
+      "year": 2026,
+      "rows": 1731
+    }
+  ],
+  "sourceIntegrity": [
+    {
+      "table": "hsj_stock_code_info",
+      "sha256": "133293b32e8bea7ff351f3e05cc4eba431ce2fe116f2c366b005fcb0801e01cc",
+      "status": "PASS"
+    },
+    {
+      "table": "hsj_stock_hq_basic",
+      "sha256": "9c5fd65c9475c07c7f800cffd5a055925e7eb26c1c78476624805b4231b1d749",
+      "status": "PASS"
+    },
+    {
+      "table": "hsj_stock_hq_ext",
+      "sha256": "18ab00873e9cb5684f1f4dba13c9843acbcd1764f52cecd30336eea0128b4a18",
+      "status": "PASS"
+    }
+  ],
+  "definitionAuthority": "PROJECT_INTERNAL",
+  "officialRegistryUnchanged": true,
+  "jarSha256": "e40b776e27661c9b7737f38ecae38f976287c17ff1f8e3c9770966c994967679",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "completedAtUtc": "2026-10-05T08:02:41.814007+00:00",
+  "status": "PROJECT_READY_WITH_LIMITATIONS",
+  "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080"
+}

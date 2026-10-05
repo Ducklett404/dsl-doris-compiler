@@ -1,0 +1,27 @@
+{
+  "purpose": "SYNTHETIC_VIEW_BACKUP_ROUNDTRIP",
+  "checks": [
+    {
+      "name": "multiline-definition-preserved",
+      "status": "PASS"
+    },
+    {
+      "name": "old-decimal-rise-type",
+      "status": "PASS"
+    },
+    {
+      "name": "new-double-rise-type",
+      "status": "PASS"
+    },
+    {
+      "name": "full-backup-restores-identical-definitions",
+      "status": "FAIL"
+    }
+  ],
+  "rollbackProvenance": "RECONSTRUCTED_FROM_PREVIOUS_FROZEN_GIT_DDL",
+  "rollbackGitCommit": "a0f7260c3dfd1b825a7c6af5f02b859645654a80",
+  "rollbackSha256": "7c59fa83840c5629e89172d42795ba21f976f736df8f6f80617042cea77c2c64",
+  "status": "FAIL",
+  "error": "full-backup-restores-identical-definitions",
+  "fixtureCleanup": "DONE"
+}

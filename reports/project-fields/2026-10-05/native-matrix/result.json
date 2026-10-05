@@ -1,0 +1,2814 @@
+{
+  "purpose": "PROJECT_MIXED_WINDOW_VALIDATION",
+  "officialAcceptanceEligible": false,
+  "startedAtUtc": "2026-10-05T09:33:34.096844+00:00",
+  "jarSha256": "a8945a6b2d78064e9f3d0da9bd18ba5a4cd3f756da480e84ae5d2ece1d3c89a6",
+  "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+  "oracleSha256": "52ee0f87ff108a29b124ea56d43afcc9f3eec68b466721ab4263737880fa3a5b",
+  "runnerSha256": "d7f7d569be7f2a76634c3497e74bb7747d99f8e6f5c394dfb70d6685f8ff1f4e",
+  "policySha256": "18e6fa64c8d2b46a214ed27ef3cbf3bc24e00b3adc593e261cd70916b93efa29",
+  "rounds": 1,
+  "executions": [
+    {
+      "case": "field-last-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 483.99999999674037,
+      "timings": {
+        "compileMillis": 55.2516,
+        "queueMillis": 0.0224,
+        "explainMillis": 21.2303,
+        "dorisExecutionMillis": 27.7284,
+        "returnMillis": 0.1489,
+        "totalMillis": 357.0751
+      },
+      "validationMillis": 267.6571,
+      "artifact": "field-last-2006-01-04-1.json"
+    },
+    {
+      "case": "field-previous-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 172.0000000204891,
+      "timings": {
+        "compileMillis": 1.5611,
+        "queueMillis": 0.0042,
+        "explainMillis": 16.7705,
+        "dorisExecutionMillis": 26.7068,
+        "returnMillis": 0.146,
+        "totalMillis": 171.7705
+      },
+      "validationMillis": 139.0415,
+      "artifact": "field-previous-2006-01-04-1.json"
+    },
+    {
+      "case": "field-open-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 202.9999999795109,
+      "timings": {
+        "compileMillis": 1.5134,
+        "queueMillis": 0.0054,
+        "explainMillis": 17.5007,
+        "dorisExecutionMillis": 24.8125,
+        "returnMillis": 0.0732,
+        "totalMillis": 175.3568
+      },
+      "validationMillis": 144.7599,
+      "artifact": "field-open-2006-01-04-1.json"
+    },
+    {
+      "case": "field-high-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 157.00000000651926,
+      "timings": {
+        "compileMillis": 1.3589,
+        "queueMillis": 0.0243,
+        "explainMillis": 16.2201,
+        "dorisExecutionMillis": 22.6422,
+        "returnMillis": 0.1127,
+        "totalMillis": 160.3295
+      },
+      "validationMillis": 131.5865,
+      "artifact": "field-high-2006-01-04-1.json"
+    },
+    {
+      "case": "field-low-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 171.00000000209548,
+      "timings": {
+        "compileMillis": 0.8441,
+        "queueMillis": 0.0049,
+        "explainMillis": 17.1607,
+        "dorisExecutionMillis": 24.7909,
+        "returnMillis": 0.0712,
+        "totalMillis": 166.3139
+      },
+      "validationMillis": 136.5535,
+      "artifact": "field-low-2006-01-04-1.json"
+    },
+    {
+      "case": "field-close-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 171.99999999138527,
+      "timings": {
+        "compileMillis": 1.3154,
+        "queueMillis": 0.0043,
+        "explainMillis": 16.1382,
+        "dorisExecutionMillis": 22.9842,
+        "returnMillis": 0.079,
+        "totalMillis": 154.7752
+      },
+      "validationMillis": 126.5921,
+      "artifact": "field-close-2006-01-04-1.json"
+    },
+    {
+      "case": "field-volume-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 172.0000000204891,
+      "timings": {
+        "compileMillis": 0.9974,
+        "queueMillis": 0.0044,
+        "explainMillis": 15.4265,
+        "dorisExecutionMillis": 27.1104,
+        "returnMillis": 0.6978,
+        "totalMillis": 159.4338
+      },
+      "validationMillis": 124.5765,
+      "artifact": "field-volume-2006-01-04-1.json"
+    },
+    {
+      "case": "field-amount-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 171.99999999138527,
+      "timings": {
+        "compileMillis": 0.9507,
+        "queueMillis": 0.0044,
+        "explainMillis": 14.6551,
+        "dorisExecutionMillis": 22.0364,
+        "returnMillis": 0.201,
+        "totalMillis": 156.2291
+      },
+      "validationMillis": 129.0313,
+      "artifact": "field-amount-2006-01-04-1.json"
+    },
+    {
+      "case": "field-quantity-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 203.00000000861473,
+      "timings": {
+        "compileMillis": 0.8068,
+        "queueMillis": 0.0047,
+        "explainMillis": 14.7401,
+        "dorisExecutionMillis": 25.1387,
+        "returnMillis": 0.2709,
+        "totalMillis": 197.0614
+      },
+      "validationMillis": 166.98,
+      "artifact": "field-quantity-2006-01-04-1.json"
+    },
+    {
+      "case": "field-turn-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 218.99999998277053,
+      "timings": {
+        "compileMillis": 1.0889,
+        "queueMillis": 0.0042,
+        "explainMillis": 14.2758,
+        "dorisExecutionMillis": 21.1457,
+        "returnMillis": 0.024,
+        "totalMillis": 208.1805
+      },
+      "validationMillis": 181.8148,
+      "artifact": "field-turn-2006-01-04-1.json"
+    },
+    {
+      "case": "field-trueTurn-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 219.00000001187436,
+      "timings": {
+        "compileMillis": 1.0364,
+        "queueMillis": 0.0038,
+        "explainMillis": 15.7529,
+        "dorisExecutionMillis": 23.6154,
+        "returnMillis": 0.0274,
+        "totalMillis": 215.8004
+      },
+      "validationMillis": 186.94,
+      "artifact": "field-trueTurn-2006-01-04-1.json"
+    },
+    {
+      "case": "field-cap-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 203.00000000861473,
+      "timings": {
+        "compileMillis": 1.0886,
+        "queueMillis": 0.0042,
+        "explainMillis": 16.1713,
+        "dorisExecutionMillis": 23.8316,
+        "returnMillis": 0.0247,
+        "totalMillis": 209.9681
+      },
+      "validationMillis": 181.2093,
+      "artifact": "field-cap-2006-01-04-1.json"
+    },
+    {
+      "case": "field-listedCap-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 234.99999998603016,
+      "timings": {
+        "compileMillis": 1.5021,
+        "queueMillis": 0.0046,
+        "explainMillis": 16.2494,
+        "dorisExecutionMillis": 32.39,
+        "returnMillis": 0.033,
+        "totalMillis": 225.5309
+      },
+      "validationMillis": 187.6967,
+      "artifact": "field-listedCap-2006-01-04-1.json"
+    },
+    {
+      "case": "field-rise-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 234.0000000258442,
+      "timings": {
+        "compileMillis": 0.8491,
+        "queueMillis": 0.0041,
+        "explainMillis": 15.7557,
+        "dorisExecutionMillis": 24.3538,
+        "returnMillis": 0.0081,
+        "totalMillis": 209.3699
+      },
+      "validationMillis": 180.4147,
+      "artifact": "field-rise-2006-01-04-1.json"
+    },
+    {
+      "case": "field-average-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 171.99999999138527,
+      "timings": {
+        "compileMillis": 1.0127,
+        "queueMillis": 0.0045,
+        "explainMillis": 17.4484,
+        "dorisExecutionMillis": 24.0255,
+        "returnMillis": 0.0345,
+        "totalMillis": 163.3093
+      },
+      "validationMillis": 134.5363,
+      "artifact": "field-average-2006-01-04-1.json"
+    },
+    {
+      "case": "field-qfq-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 171.99999999138527,
+      "timings": {
+        "compileMillis": 0.9703,
+        "queueMillis": 0.0041,
+        "explainMillis": 16.148,
+        "dorisExecutionMillis": 24.6294,
+        "returnMillis": 0.0415,
+        "totalMillis": 153.7955
+      },
+      "validationMillis": 124.1643,
+      "artifact": "field-qfq-2006-01-04-1.json"
+    },
+    {
+      "case": "field-hfq-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 156.00000001722947,
+      "timings": {
+        "compileMillis": 0.7585,
+        "queueMillis": 0.0042,
+        "explainMillis": 16.9414,
+        "dorisExecutionMillis": 22.2872,
+        "returnMillis": 0.0431,
+        "totalMillis": 154.617
+      },
+      "validationMillis": 127.4995,
+      "artifact": "field-hfq-2006-01-04-1.json"
+    },
+    {
+      "case": "field-net-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 312.9999999946449,
+      "timings": {
+        "compileMillis": 2.3535,
+        "queueMillis": 0.005,
+        "explainMillis": 22.5012,
+        "dorisExecutionMillis": 22.8374,
+        "returnMillis": 0.0045,
+        "totalMillis": 293.1701
+      },
+      "validationMillis": 264.3829,
+      "artifact": "field-net-2006-01-04-1.json"
+    },
+    {
+      "case": "field-amplitude-2006-01-04",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 233.99999999674037,
+      "timings": {
+        "compileMillis": 0.6782,
+        "queueMillis": 0.0043,
+        "explainMillis": 14.722,
+        "dorisExecutionMillis": 24.7941,
+        "returnMillis": 0.0051,
+        "totalMillis": 210.2167
+      },
+      "validationMillis": 181.0575,
+      "artifact": "field-amplitude-2006-01-04-1.json"
+    },
+    {
+      "case": "field-last-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 233.99999999674037,
+      "timings": {
+        "compileMillis": 0.6636,
+        "queueMillis": 0.0038,
+        "explainMillis": 15.7876,
+        "dorisExecutionMillis": 25.356,
+        "returnMillis": 0.0366,
+        "totalMillis": 237.879
+      },
+      "validationMillis": 208.0477,
+      "artifact": "field-last-2018-08-20-1.json"
+    },
+    {
+      "case": "field-previous-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 171.99999999138527,
+      "timings": {
+        "compileMillis": 0.7299,
+        "queueMillis": 0.0047,
+        "explainMillis": 15.9375,
+        "dorisExecutionMillis": 26.4915,
+        "returnMillis": 0.5859,
+        "totalMillis": 165.5201
+      },
+      "validationMillis": 133.5302,
+      "artifact": "field-previous-2018-08-20-1.json"
+    },
+    {
+      "case": "field-open-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 171.99999999138527,
+      "timings": {
+        "compileMillis": 0.6887,
+        "queueMillis": 0.0033,
+        "explainMillis": 16.0984,
+        "dorisExecutionMillis": 33.3379,
+        "returnMillis": 0.62,
+        "totalMillis": 163.4207
+      },
+      "validationMillis": 124.525,
+      "artifact": "field-open-2018-08-20-1.json"
+    },
+    {
+      "case": "field-high-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 172.0000000204891,
+      "timings": {
+        "compileMillis": 0.7471,
+        "queueMillis": 0.0041,
+        "explainMillis": 15.4289,
+        "dorisExecutionMillis": 28.2517,
+        "returnMillis": 0.599,
+        "totalMillis": 160.5427
+      },
+      "validationMillis": 125.8849,
+      "artifact": "field-high-2018-08-20-1.json"
+    },
+    {
+      "case": "field-low-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 155.99999998812564,
+      "timings": {
+        "compileMillis": 0.9051,
+        "queueMillis": 0.0045,
+        "explainMillis": 15.9146,
+        "dorisExecutionMillis": 23.1861,
+        "returnMillis": 0.4999,
+        "totalMillis": 152.1619
+      },
+      "validationMillis": 124.1414,
+      "artifact": "field-low-2018-08-20-1.json"
+    },
+    {
+      "case": "field-close-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 171.99999999138527,
+      "timings": {
+        "compileMillis": 0.6233,
+        "queueMillis": 0.0041,
+        "explainMillis": 15.9527,
+        "dorisExecutionMillis": 29.4212,
+        "returnMillis": 0.6218,
+        "totalMillis": 160.2572
+      },
+      "validationMillis": 125.6082,
+      "artifact": "field-close-2018-08-20-1.json"
+    },
+    {
+      "case": "field-volume-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 172.0000000204891,
+      "timings": {
+        "compileMillis": 1.0486,
+        "queueMillis": 0.0039,
+        "explainMillis": 13.584,
+        "dorisExecutionMillis": 27.5051,
+        "returnMillis": 1.141,
+        "totalMillis": 151.2021
+      },
+      "validationMillis": 117.8202,
+      "artifact": "field-volume-2018-08-20-1.json"
+    },
+    {
+      "case": "field-amount-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 171.99999999138527,
+      "timings": {
+        "compileMillis": 0.6287,
+        "queueMillis": 0.0041,
+        "explainMillis": 15.0605,
+        "dorisExecutionMillis": 26.3413,
+        "returnMillis": 0.9919,
+        "totalMillis": 157.4124
+      },
+      "validationMillis": 125.4425,
+      "artifact": "field-amount-2018-08-20-1.json"
+    },
+    {
+      "case": "field-quantity-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 375.0,
+      "timings": {
+        "compileMillis": 0.6285,
+        "queueMillis": 0.0041,
+        "explainMillis": 16.3934,
+        "dorisExecutionMillis": 26.865,
+        "returnMillis": 0.4918,
+        "totalMillis": 240.7445
+      },
+      "validationMillis": 208.7658,
+      "artifact": "field-quantity-2018-08-20-1.json"
+    },
+    {
+      "case": "field-turn-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 233.99999999674037,
+      "timings": {
+        "compileMillis": 0.7693,
+        "queueMillis": 0.0042,
+        "explainMillis": 15.7998,
+        "dorisExecutionMillis": 25.2032,
+        "returnMillis": 0.0047,
+        "totalMillis": 218.221
+      },
+      "validationMillis": 188.5712,
+      "artifact": "field-turn-2018-08-20-1.json"
+    },
+    {
+      "case": "field-trueTurn-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 233.99999999674037,
+      "timings": {
+        "compileMillis": 0.9082,
+        "queueMillis": 0.0051,
+        "explainMillis": 15.8639,
+        "dorisExecutionMillis": 22.5963,
+        "returnMillis": 0.0047,
+        "totalMillis": 220.6179
+      },
+      "validationMillis": 193.4367,
+      "artifact": "field-trueTurn-2018-08-20-1.json"
+    },
+    {
+      "case": "field-cap-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 219.00000001187436,
+      "timings": {
+        "compileMillis": 0.6419,
+        "queueMillis": 0.0043,
+        "explainMillis": 14.8115,
+        "dorisExecutionMillis": 26.0956,
+        "returnMillis": 0.0138,
+        "totalMillis": 220.8849
+      },
+      "validationMillis": 190.08,
+      "artifact": "field-cap-2018-08-20-1.json"
+    },
+    {
+      "case": "field-listedCap-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 233.99999999674037,
+      "timings": {
+        "compileMillis": 0.874,
+        "queueMillis": 0.0043,
+        "explainMillis": 14.2795,
+        "dorisExecutionMillis": 23.8875,
+        "returnMillis": 0.0078,
+        "totalMillis": 214.4472
+      },
+      "validationMillis": 186.4205,
+      "artifact": "field-listedCap-2018-08-20-1.json"
+    },
+    {
+      "case": "field-rise-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 250.0,
+      "timings": {
+        "compileMillis": 0.7261,
+        "queueMillis": 0.0043,
+        "explainMillis": 27.6734,
+        "dorisExecutionMillis": 30.3265,
+        "returnMillis": 0.0083,
+        "totalMillis": 246.5963
+      },
+      "validationMillis": 211.7016,
+      "artifact": "field-rise-2018-08-20-1.json"
+    },
+    {
+      "case": "field-average-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 171.99999999138527,
+      "timings": {
+        "compileMillis": 0.5186,
+        "queueMillis": 0.004,
+        "explainMillis": 17.0605,
+        "dorisExecutionMillis": 26.4359,
+        "returnMillis": 0.599,
+        "totalMillis": 158.2253
+      },
+      "validationMillis": 127.0835,
+      "artifact": "field-average-2018-08-20-1.json"
+    },
+    {
+      "case": "field-qfq-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 172.0000000204891,
+      "timings": {
+        "compileMillis": 0.5471,
+        "queueMillis": 0.0038,
+        "explainMillis": 17.1281,
+        "dorisExecutionMillis": 25.8494,
+        "returnMillis": 0.5533,
+        "totalMillis": 159.6764
+      },
+      "validationMillis": 128.9754,
+      "artifact": "field-qfq-2018-08-20-1.json"
+    },
+    {
+      "case": "field-hfq-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 187.9999999946449,
+      "timings": {
+        "compileMillis": 0.6527,
+        "queueMillis": 0.0044,
+        "explainMillis": 16.1978,
+        "dorisExecutionMillis": 27.26,
+        "returnMillis": 0.5354,
+        "totalMillis": 168.4601
+      },
+      "validationMillis": 136.667,
+      "artifact": "field-hfq-2018-08-20-1.json"
+    },
+    {
+      "case": "field-net-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 312.0000000053551,
+      "timings": {
+        "compileMillis": 0.7646,
+        "queueMillis": 0.0055,
+        "explainMillis": 26.6915,
+        "dorisExecutionMillis": 44.2203,
+        "returnMillis": 0.0059,
+        "totalMillis": 320.1823
+      },
+      "validationMillis": 271.5137,
+      "artifact": "field-net-2018-08-20-1.json"
+    },
+    {
+      "case": "field-amplitude-2018-08-20",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 219.00000001187436,
+      "timings": {
+        "compileMillis": 0.6828,
+        "queueMillis": 0.0042,
+        "explainMillis": 14.7518,
+        "dorisExecutionMillis": 24.135,
+        "returnMillis": 0.0052,
+        "totalMillis": 214.4589
+      },
+      "validationMillis": 186.2182,
+      "artifact": "field-amplitude-2018-08-20-1.json"
+    },
+    {
+      "case": "field-last-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 203.00000000861473,
+      "timings": {
+        "compileMillis": 0.5637,
+        "queueMillis": 0.006,
+        "explainMillis": 15.6819,
+        "dorisExecutionMillis": 27.8504,
+        "returnMillis": 1.6507,
+        "totalMillis": 180.7323
+      },
+      "validationMillis": 146.5643,
+      "artifact": "field-last-2026-04-14-1.json"
+    },
+    {
+      "case": "field-previous-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 187.0000000053551,
+      "timings": {
+        "compileMillis": 0.6824,
+        "queueMillis": 0.0045,
+        "explainMillis": 19.3987,
+        "dorisExecutionMillis": 23.8222,
+        "returnMillis": 0.7412,
+        "totalMillis": 165.0235
+      },
+      "validationMillis": 135.0686,
+      "artifact": "field-previous-2026-04-14-1.json"
+    },
+    {
+      "case": "field-open-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 265.9999999741558,
+      "timings": {
+        "compileMillis": 0.5485,
+        "queueMillis": 0.0135,
+        "explainMillis": 16.9491,
+        "dorisExecutionMillis": 26.9991,
+        "returnMillis": 0.9724,
+        "totalMillis": 253.5849
+      },
+      "validationMillis": 221.1802,
+      "artifact": "field-open-2026-04-14-1.json"
+    },
+    {
+      "case": "field-high-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 250.0,
+      "timings": {
+        "compileMillis": 0.6004,
+        "queueMillis": 0.0033,
+        "explainMillis": 15.0538,
+        "dorisExecutionMillis": 25.9155,
+        "returnMillis": 0.5914,
+        "totalMillis": 227.9017
+      },
+      "validationMillis": 196.4219,
+      "artifact": "field-high-2026-04-14-1.json"
+    },
+    {
+      "case": "field-low-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 250.0,
+      "timings": {
+        "compileMillis": 0.8226,
+        "queueMillis": 0.0031,
+        "explainMillis": 17.0477,
+        "dorisExecutionMillis": 28.5947,
+        "returnMillis": 0.6418,
+        "totalMillis": 237.2643
+      },
+      "validationMillis": 202.9589,
+      "artifact": "field-low-2026-04-14-1.json"
+    },
+    {
+      "case": "field-close-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 265.00000001396984,
+      "timings": {
+        "compileMillis": 0.624,
+        "queueMillis": 0.0033,
+        "explainMillis": 18.0024,
+        "dorisExecutionMillis": 31.4766,
+        "returnMillis": 0.8154,
+        "totalMillis": 236.435
+      },
+      "validationMillis": 199.6266,
+      "artifact": "field-close-2026-04-14-1.json"
+    },
+    {
+      "case": "field-volume-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 250.0,
+      "timings": {
+        "compileMillis": 0.6215,
+        "queueMillis": 0.0127,
+        "explainMillis": 16.4064,
+        "dorisExecutionMillis": 24.7101,
+        "returnMillis": 0.5862,
+        "totalMillis": 225.2245
+      },
+      "validationMillis": 195.6724,
+      "artifact": "field-volume-2026-04-14-1.json"
+    },
+    {
+      "case": "field-amount-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 234.99999998603016,
+      "timings": {
+        "compileMillis": 0.6414,
+        "queueMillis": 0.0036,
+        "explainMillis": 15.5163,
+        "dorisExecutionMillis": 23.6021,
+        "returnMillis": 0.7371,
+        "totalMillis": 220.2384
+      },
+      "validationMillis": 191.7624,
+      "artifact": "field-amount-2026-04-14-1.json"
+    },
+    {
+      "case": "field-quantity-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 265.00000001396984,
+      "timings": {
+        "compileMillis": 0.6195,
+        "queueMillis": 0.0037,
+        "explainMillis": 18.4327,
+        "dorisExecutionMillis": 26.1621,
+        "returnMillis": 0.4036,
+        "totalMillis": 247.7087
+      },
+      "validationMillis": 216.8043,
+      "artifact": "field-quantity-2026-04-14-1.json"
+    },
+    {
+      "case": "field-turn-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 234.99999998603016,
+      "timings": {
+        "compileMillis": 0.5912,
+        "queueMillis": 0.0035,
+        "explainMillis": 14.0426,
+        "dorisExecutionMillis": 26.4604,
+        "returnMillis": 0.3076,
+        "totalMillis": 225.4327
+      },
+      "validationMillis": 193.8464,
+      "artifact": "field-turn-2026-04-14-1.json"
+    },
+    {
+      "case": "field-trueTurn-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 234.99999998603016,
+      "timings": {
+        "compileMillis": 0.8678,
+        "queueMillis": 0.0035,
+        "explainMillis": 13.7265,
+        "dorisExecutionMillis": 24.2496,
+        "returnMillis": 0.4143,
+        "totalMillis": 224.9712
+      },
+      "validationMillis": 195.7696,
+      "artifact": "field-trueTurn-2026-04-14-1.json"
+    },
+    {
+      "case": "field-cap-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 156.00000001722947,
+      "timings": {
+        "compileMillis": 0.572,
+        "queueMillis": 0.0031,
+        "explainMillis": 15.1041,
+        "dorisExecutionMillis": 24.6043,
+        "returnMillis": 0.3162,
+        "totalMillis": 151.6869
+      },
+      "validationMillis": 122.4633,
+      "artifact": "field-cap-2026-04-14-1.json"
+    },
+    {
+      "case": "field-listedCap-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 171.99999999138527,
+      "timings": {
+        "compileMillis": 0.499,
+        "queueMillis": 0.0027,
+        "explainMillis": 15.3363,
+        "dorisExecutionMillis": 23.4187,
+        "returnMillis": 0.3864,
+        "totalMillis": 150.9298
+      },
+      "validationMillis": 123.3217,
+      "artifact": "field-listedCap-2026-04-14-1.json"
+    },
+    {
+      "case": "field-rise-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 171.99999999138527,
+      "timings": {
+        "compileMillis": 0.5218,
+        "queueMillis": 0.0034,
+        "explainMillis": 18.5135,
+        "dorisExecutionMillis": 26.5108,
+        "returnMillis": 0.1552,
+        "totalMillis": 166.8108
+      },
+      "validationMillis": 135.5682,
+      "artifact": "field-rise-2026-04-14-1.json"
+    },
+    {
+      "case": "field-average-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 234.0000000258442,
+      "timings": {
+        "compileMillis": 0.7188,
+        "queueMillis": 0.004,
+        "explainMillis": 15.5076,
+        "dorisExecutionMillis": 25.0761,
+        "returnMillis": 0.5103,
+        "totalMillis": 219.251
+      },
+      "validationMillis": 188.7648,
+      "artifact": "field-average-2026-04-14-1.json"
+    },
+    {
+      "case": "field-qfq-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 250.0,
+      "timings": {
+        "compileMillis": 0.6393,
+        "queueMillis": 0.0037,
+        "explainMillis": 14.0478,
+        "dorisExecutionMillis": 30.6205,
+        "returnMillis": 0.4909,
+        "totalMillis": 226.5895
+      },
+      "validationMillis": 191.1107,
+      "artifact": "field-qfq-2026-04-14-1.json"
+    },
+    {
+      "case": "field-hfq-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 250.0,
+      "timings": {
+        "compileMillis": 0.59,
+        "queueMillis": 0.0035,
+        "explainMillis": 15.917,
+        "dorisExecutionMillis": 26.8845,
+        "returnMillis": 0.4944,
+        "totalMillis": 232.5143
+      },
+      "validationMillis": 200.7226,
+      "artifact": "field-hfq-2026-04-14-1.json"
+    },
+    {
+      "case": "field-net-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 390.9999999741558,
+      "timings": {
+        "compileMillis": 0.7253,
+        "queueMillis": 0.0034,
+        "explainMillis": 26.9542,
+        "dorisExecutionMillis": 50.7334,
+        "returnMillis": 0.4135,
+        "totalMillis": 371.5825
+      },
+      "validationMillis": 315.7955,
+      "artifact": "field-net-2026-04-14-1.json"
+    },
+    {
+      "case": "field-amplitude-2026-04-14",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 265.00000001396984,
+      "timings": {
+        "compileMillis": 0.8366,
+        "queueMillis": 0.0031,
+        "explainMillis": 17.8165,
+        "dorisExecutionMillis": 27.817,
+        "returnMillis": 0.4587,
+        "totalMillis": 242.1406
+      },
+      "validationMillis": 209.0616,
+      "artifact": "field-amplitude-2026-04-14-1.json"
+    },
+    {
+      "case": "position-last",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2296.9999999913853,
+      "timings": {
+        "compileMillis": 7.833,
+        "queueMillis": 0.0039,
+        "explainMillis": 28.5974,
+        "dorisExecutionMillis": 1048.7536,
+        "returnMillis": 0.5315,
+        "totalMillis": 2281.5823
+      },
+      "validationMillis": 1219.6351,
+      "artifact": "position-last-1.json"
+    },
+    {
+      "case": "position-previous",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2312.999999994645,
+      "timings": {
+        "compileMillis": 0.7764,
+        "queueMillis": 0.0037,
+        "explainMillis": 31.2959,
+        "dorisExecutionMillis": 976.0793,
+        "returnMillis": 0.4538,
+        "totalMillis": 2292.4903
+      },
+      "validationMillis": 1310.2243,
+      "artifact": "position-previous-1.json"
+    },
+    {
+      "case": "position-open",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 1953.0000000086147,
+      "timings": {
+        "compileMillis": 0.7607,
+        "queueMillis": 0.0036,
+        "explainMillis": 23.5391,
+        "dorisExecutionMillis": 800.9829,
+        "returnMillis": 0.5154,
+        "totalMillis": 1943.6548
+      },
+      "validationMillis": 1137.573,
+      "artifact": "position-open-1.json"
+    },
+    {
+      "case": "position-high",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 1875.0,
+      "timings": {
+        "compileMillis": 0.6706,
+        "queueMillis": 0.0032,
+        "explainMillis": 25.0718,
+        "dorisExecutionMillis": 855.3523,
+        "returnMillis": 0.4095,
+        "totalMillis": 1861.393
+      },
+      "validationMillis": 1000.8268,
+      "artifact": "position-high-1.json"
+    },
+    {
+      "case": "position-low",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2108.9999999967404,
+      "timings": {
+        "compileMillis": 0.6257,
+        "queueMillis": 0.0031,
+        "explainMillis": 25.5647,
+        "dorisExecutionMillis": 974.5505,
+        "returnMillis": 0.4475,
+        "totalMillis": 2094.5192
+      },
+      "validationMillis": 1115.1167,
+      "artifact": "position-low-1.json"
+    },
+    {
+      "case": "position-close",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 1983.9999999967404,
+      "timings": {
+        "compileMillis": 0.6902,
+        "queueMillis": 0.0048,
+        "explainMillis": 23.6139,
+        "dorisExecutionMillis": 756.4851,
+        "returnMillis": 0.4472,
+        "totalMillis": 1964.591
+      },
+      "validationMillis": 1203.3847,
+      "artifact": "position-close-1.json"
+    },
+    {
+      "case": "position-volume",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 1844.0000000118744,
+      "timings": {
+        "compileMillis": 0.7841,
+        "queueMillis": 0.0034,
+        "explainMillis": 23.265,
+        "dorisExecutionMillis": 806.136,
+        "returnMillis": 0.2877,
+        "totalMillis": 1826.0341
+      },
+      "validationMillis": 1015.1832,
+      "artifact": "position-volume-1.json"
+    },
+    {
+      "case": "position-amount",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 1796.9999999913853,
+      "timings": {
+        "compileMillis": 0.8955,
+        "queueMillis": 0.0035,
+        "explainMillis": 24.1973,
+        "dorisExecutionMillis": 803.5472,
+        "returnMillis": 0.329,
+        "totalMillis": 1788.5065
+      },
+      "validationMillis": 979.8052,
+      "artifact": "position-amount-1.json"
+    },
+    {
+      "case": "position-quantity",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2312.000000005355,
+      "timings": {
+        "compileMillis": 0.7483,
+        "queueMillis": 0.0032,
+        "explainMillis": 24.2973,
+        "dorisExecutionMillis": 861.5679,
+        "returnMillis": 0.331,
+        "totalMillis": 2295.9652
+      },
+      "validationMillis": 1429.7344,
+      "artifact": "position-quantity-1.json"
+    },
+    {
+      "case": "position-turn",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 1812.999999994645,
+      "timings": {
+        "compileMillis": 0.6584,
+        "queueMillis": 0.0035,
+        "explainMillis": 27.3821,
+        "dorisExecutionMillis": 780.907,
+        "returnMillis": 0.2775,
+        "totalMillis": 1797.3883
+      },
+      "validationMillis": 1011.4249,
+      "artifact": "position-turn-1.json"
+    },
+    {
+      "case": "position-trueTurn",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 1796.9999999913853,
+      "timings": {
+        "compileMillis": 0.6167,
+        "queueMillis": 0.0032,
+        "explainMillis": 25.1751,
+        "dorisExecutionMillis": 817.7433,
+        "returnMillis": 0.2861,
+        "totalMillis": 1776.0623
+      },
+      "validationMillis": 953.4371,
+      "artifact": "position-trueTurn-1.json"
+    },
+    {
+      "case": "position-cap",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2140.00000001397,
+      "timings": {
+        "compileMillis": 0.6271,
+        "queueMillis": 0.0033,
+        "explainMillis": 22.3661,
+        "dorisExecutionMillis": 1003.4249,
+        "returnMillis": 0.4088,
+        "totalMillis": 2126.7622
+      },
+      "validationMillis": 1118.0089,
+      "artifact": "position-cap-1.json"
+    },
+    {
+      "case": "position-listedCap",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 1907.0000000065193,
+      "timings": {
+        "compileMillis": 0.5557,
+        "queueMillis": 0.0033,
+        "explainMillis": 25.3916,
+        "dorisExecutionMillis": 811.2205,
+        "returnMillis": 0.4419,
+        "totalMillis": 1901.443
+      },
+      "validationMillis": 1085.4723,
+      "artifact": "position-listedCap-1.json"
+    },
+    {
+      "case": "position-rise",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2297.000000020489,
+      "timings": {
+        "compileMillis": 0.5991,
+        "queueMillis": 0.0034,
+        "explainMillis": 23.2939,
+        "dorisExecutionMillis": 966.4866,
+        "returnMillis": 0.357,
+        "totalMillis": 2291.8574
+      },
+      "validationMillis": 1320.9886,
+      "artifact": "position-rise-1.json"
+    },
+    {
+      "case": "position-average",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2280.9999999881256,
+      "timings": {
+        "compileMillis": 0.5888,
+        "queueMillis": 0.0032,
+        "explainMillis": 23.158,
+        "dorisExecutionMillis": 977.3216,
+        "returnMillis": 2.3663,
+        "totalMillis": 2263.0607
+      },
+      "validationMillis": 1278.6116,
+      "artifact": "position-average-1.json"
+    },
+    {
+      "case": "position-qfq",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2250.0,
+      "timings": {
+        "compileMillis": 0.644,
+        "queueMillis": 0.0032,
+        "explainMillis": 24.9621,
+        "dorisExecutionMillis": 1074.259,
+        "returnMillis": 0.4032,
+        "totalMillis": 2239.1783
+      },
+      "validationMillis": 1160.0567,
+      "artifact": "position-qfq-1.json"
+    },
+    {
+      "case": "position-hfq",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2125.0,
+      "timings": {
+        "compileMillis": 0.667,
+        "queueMillis": 0.0035,
+        "explainMillis": 25.574,
+        "dorisExecutionMillis": 902.1861,
+        "returnMillis": 0.3914,
+        "totalMillis": 2106.6182
+      },
+      "validationMillis": 1199.9262,
+      "artifact": "position-hfq-1.json"
+    },
+    {
+      "case": "position-net",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2171.9999999913853,
+      "timings": {
+        "compileMillis": 1.0476,
+        "queueMillis": 0.0032,
+        "explainMillis": 31.5949,
+        "dorisExecutionMillis": 883.7566,
+        "returnMillis": 0.3675,
+        "totalMillis": 2159.0602
+      },
+      "validationMillis": 1270.4096,
+      "artifact": "position-net-1.json"
+    },
+    {
+      "case": "position-amplitude",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2062.999999994645,
+      "timings": {
+        "compileMillis": 0.6159,
+        "queueMillis": 0.0037,
+        "explainMillis": 22.6282,
+        "dorisExecutionMillis": 1021.6415,
+        "returnMillis": 0.4221,
+        "totalMillis": 2048.1386
+      },
+      "validationMillis": 1021.6813,
+      "artifact": "position-amplitude-1.json"
+    },
+    {
+      "case": "count-cap",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 1953.0000000086147,
+      "timings": {
+        "compileMillis": 5.6144,
+        "queueMillis": 0.0038,
+        "explainMillis": 23.0485,
+        "dorisExecutionMillis": 843.5145,
+        "returnMillis": 0.0015,
+        "totalMillis": 1928.2288
+      },
+      "validationMillis": 1073.9855,
+      "artifact": "count-cap-1.json"
+    },
+    {
+      "case": "field-cap-2026-04-10",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 203.00000000861473,
+      "timings": {
+        "compileMillis": 0.4971,
+        "queueMillis": 0.0031,
+        "explainMillis": 18.0869,
+        "dorisExecutionMillis": 28.4201,
+        "returnMillis": 0.6579,
+        "totalMillis": 171.4268
+      },
+      "validationMillis": 138.2823,
+      "artifact": "field-cap-2026-04-10-1.json"
+    },
+    {
+      "case": "field-cap-2026-04-13",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 187.9999999946449,
+      "timings": {
+        "compileMillis": 0.5418,
+        "queueMillis": 0.0036,
+        "explainMillis": 17.308,
+        "dorisExecutionMillis": 27.8258,
+        "returnMillis": 0.6781,
+        "totalMillis": 175.0
+      },
+      "validationMillis": 142.0842,
+      "artifact": "field-cap-2026-04-13-1.json"
+    },
+    {
+      "case": "count-listedCap",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 1921.9999999913853,
+      "timings": {
+        "compileMillis": 1.0751,
+        "queueMillis": 0.0045,
+        "explainMillis": 28.063,
+        "dorisExecutionMillis": 831.3441,
+        "returnMillis": 0.0015,
+        "totalMillis": 1920.6043
+      },
+      "validationMillis": 1084.5498,
+      "artifact": "count-listedCap-1.json"
+    },
+    {
+      "case": "field-listedCap-2026-04-10",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 171.99999999138527,
+      "timings": {
+        "compileMillis": 0.5099,
+        "queueMillis": 0.0038,
+        "explainMillis": 14.497,
+        "dorisExecutionMillis": 28.5458,
+        "returnMillis": 0.6669,
+        "totalMillis": 149.7994
+      },
+      "validationMillis": 116.6798,
+      "artifact": "field-listedCap-2026-04-10-1.json"
+    },
+    {
+      "case": "field-listedCap-2026-04-13",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 187.0000000053551,
+      "timings": {
+        "compileMillis": 0.4159,
+        "queueMillis": 0.0097,
+        "explainMillis": 16.1998,
+        "dorisExecutionMillis": 27.007,
+        "returnMillis": 0.9465,
+        "totalMillis": 153.104
+      },
+      "validationMillis": 120.8761,
+      "artifact": "field-listedCap-2026-04-13-1.json"
+    },
+    {
+      "case": "count-rise",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 1907.0000000065193,
+      "timings": {
+        "compileMillis": 0.6969,
+        "queueMillis": 0.0103,
+        "explainMillis": 25.9822,
+        "dorisExecutionMillis": 845.3051,
+        "returnMillis": 0.1493,
+        "totalMillis": 1895.9183
+      },
+      "validationMillis": 1045.8537,
+      "artifact": "count-rise-1.json"
+    },
+    {
+      "case": "field-rise-2026-04-10",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 187.0000000053551,
+      "timings": {
+        "compileMillis": 0.4664,
+        "queueMillis": 0.0034,
+        "explainMillis": 17.5316,
+        "dorisExecutionMillis": 27.8268,
+        "returnMillis": 0.4701,
+        "totalMillis": 166.5319
+      },
+      "validationMillis": 133.9504,
+      "artifact": "field-rise-2026-04-10-1.json"
+    },
+    {
+      "case": "field-rise-2026-04-13",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 187.9999999946449,
+      "timings": {
+        "compileMillis": 0.4278,
+        "queueMillis": 0.0032,
+        "explainMillis": 18.4211,
+        "dorisExecutionMillis": 27.068,
+        "returnMillis": 0.2757,
+        "totalMillis": 169.2171
+      },
+      "validationMillis": 137.7231,
+      "artifact": "field-rise-2026-04-13-1.json"
+    },
+    {
+      "case": "count-average",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2014.999999984866,
+      "timings": {
+        "compileMillis": 0.8514,
+        "queueMillis": 0.0039,
+        "explainMillis": 25.2155,
+        "dorisExecutionMillis": 944.7582,
+        "returnMillis": 0.004,
+        "totalMillis": 2015.7755
+      },
+      "validationMillis": 1066.4758,
+      "artifact": "count-average-1.json"
+    },
+    {
+      "case": "field-average-2026-04-10",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 281.00000001722947,
+      "timings": {
+        "compileMillis": 0.4741,
+        "queueMillis": 0.0036,
+        "explainMillis": 16.0002,
+        "dorisExecutionMillis": 29.8096,
+        "returnMillis": 0.6825,
+        "totalMillis": 260.1521
+      },
+      "validationMillis": 224.8055,
+      "artifact": "field-average-2026-04-10-1.json"
+    },
+    {
+      "case": "field-average-2026-04-13",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 280.99999998812564,
+      "timings": {
+        "compileMillis": 0.6481,
+        "queueMillis": 0.0034,
+        "explainMillis": 16.6705,
+        "dorisExecutionMillis": 28.1981,
+        "returnMillis": 0.7164,
+        "totalMillis": 247.5387
+      },
+      "validationMillis": 214.5173,
+      "artifact": "field-average-2026-04-13-1.json"
+    },
+    {
+      "case": "count-qfq",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2296.9999999913853,
+      "timings": {
+        "compileMillis": 0.7366,
+        "queueMillis": 0.0036,
+        "explainMillis": 22.973,
+        "dorisExecutionMillis": 1105.5914,
+        "returnMillis": 0.0035,
+        "totalMillis": 2283.1098
+      },
+      "validationMillis": 1173.1916,
+      "artifact": "count-qfq-1.json"
+    },
+    {
+      "case": "field-qfq-2026-04-10",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 266.00000000325963,
+      "timings": {
+        "compileMillis": 0.4385,
+        "queueMillis": 0.0034,
+        "explainMillis": 14.942,
+        "dorisExecutionMillis": 27.4532,
+        "returnMillis": 0.6649,
+        "totalMillis": 243.4598
+      },
+      "validationMillis": 210.997,
+      "artifact": "field-qfq-2026-04-10-1.json"
+    },
+    {
+      "case": "field-qfq-2026-04-13",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 250.0,
+      "timings": {
+        "compileMillis": 0.4871,
+        "queueMillis": 0.0052,
+        "explainMillis": 14.685,
+        "dorisExecutionMillis": 29.0759,
+        "returnMillis": 3.437,
+        "totalMillis": 231.8558
+      },
+      "validationMillis": 194.8017,
+      "artifact": "field-qfq-2026-04-13-1.json"
+    },
+    {
+      "case": "count-hfq",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 2203.0000000086147,
+      "timings": {
+        "compileMillis": 0.7225,
+        "queueMillis": 0.0034,
+        "explainMillis": 25.043,
+        "dorisExecutionMillis": 947.9096,
+        "returnMillis": 0.0032,
+        "totalMillis": 2185.6983
+      },
+      "validationMillis": 1233.7439,
+      "artifact": "count-hfq-1.json"
+    },
+    {
+      "case": "field-hfq-2026-04-10",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 280.99999998812564,
+      "timings": {
+        "compileMillis": 0.4521,
+        "queueMillis": 0.0032,
+        "explainMillis": 17.7883,
+        "dorisExecutionMillis": 28.2929,
+        "returnMillis": 0.747,
+        "totalMillis": 258.2346
+      },
+      "validationMillis": 224.7899,
+      "artifact": "field-hfq-2026-04-10-1.json"
+    },
+    {
+      "case": "field-hfq-2026-04-13",
+      "round": 1,
+      "httpStatus": 200,
+      "status": "PASS",
+      "checks": {
+        "keysEqual": true,
+        "inputsEqual": true,
+        "samplesEqual": true,
+        "observedEqual": true,
+        "missingExtensionEqual": true,
+        "coverageStatusEqual": true,
+        "completeResult": true,
+        "internalAuthority": true,
+        "certificateEqual": true,
+        "resourcePolicyEqual": true
+      },
+      "wallMillis": 266.00000000325963,
+      "timings": {
+        "compileMillis": 0.4891,
+        "queueMillis": 0.003,
+        "explainMillis": 16.7216,
+        "dorisExecutionMillis": 27.0271,
+        "returnMillis": 0.6596,
+        "totalMillis": 246.3341
+      },
+      "validationMillis": 214.7031,
+      "artifact": "field-hfq-2026-04-13-1.json"
+    }
+  ],
+  "checks": [
+    {
+      "name": "strict-registry-empty",
+      "status": "PASS"
+    },
+    {
+      "name": "raw-reference-lock",
+      "status": "PASS"
+    },
+    {
+      "name": "http-started",
+      "status": "PASS"
+    },
+    {
+      "name": "sources-unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "environment-unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "artifacts-unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "field-oracle-unchanged",
+      "status": "PASS"
+    }
+  ],
+  "fieldOracleSha256": "d2edb95758c9a692026c2d0dc360ac7e133da658fae9974cd99d1c6fd149a6c7",
+  "sourceStateBefore": [
+    [
+      [
+        "basic",
+        "13650347"
+      ],
+      [
+        "code",
+        "5686"
+      ],
+      [
+        "ext",
+        "6170822"
+      ]
+    ],
+    []
+  ],
+  "environment": {
+    "containerMemoryBytes": 10737418240,
+    "beMemoryShare": "60%"
+  },
+  "sourceStateAfter": [
+    [
+      [
+        "basic",
+        "13650347"
+      ],
+      [
+        "code",
+        "5686"
+      ],
+      [
+        "ext",
+        "6170822"
+      ]
+    ],
+    []
+  ],
+  "cleanup": "DONE",
+  "cleanupErrors": [],
+  "completedAtUtc": "2026-10-05T09:35:47.949790+00:00",
+  "status": "PASS",
+  "passed": 94,
+  "total": 94
+}

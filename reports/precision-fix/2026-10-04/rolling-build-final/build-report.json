@@ -1,0 +1,139 @@
+{
+  "purpose": "DIAGNOSTIC_ONLY",
+  "acceptanceEligible": false,
+  "status": "PASS",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "jarSha256": "89db17c449c3142abc63e0812ba19836ced420099d4f1e7aeb3df66e6da14363",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "registryFingerprint": "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+  "database": "dsl_rolling_diag_2a7d2bb431c5",
+  "sourceCounts": {
+    "hsj_stock_code_info": 5686,
+    "hsj_stock_hq_ext": 6170822,
+    "hsj_stock_hq_basic": 13650347
+  },
+  "nullPolicy": "COUNT(non-NULL closePrice)=N over exactly N observed rows; otherwise NULL",
+  "incrementalPolicy": "immutable snapshot; retain all securities last 249 observed rows including NULL; append all new rows; never calendar-truncate",
+  "floatTolerance": "absolute difference <= 1e-10 * max(1, abs(reference))",
+  "dates": [
+    {
+      "date": "2026-04-10",
+      "mode": "FULL",
+      "rows": 5618,
+      "expectedRows": 5618,
+      "fullWindowDifferences": 0,
+      "previousFeaturesUnchanged": true,
+      "fullHistoryChecks": [
+        {
+          "fieldGroup": "ma20",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "ma60",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "ma120",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "ma250",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "high",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "low",
+          "differences": 0
+        }
+      ],
+      "previousFeaturesDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "tailRows": 1380938,
+      "maxTailRowsPerSecurity": 249,
+      "buildSecondsIncludingWslTransport": 3.1266168000001926
+    },
+    {
+      "date": "2026-04-13",
+      "mode": "INCREMENTAL",
+      "rows": 5614,
+      "expectedRows": 5614,
+      "fullWindowDifferences": 0,
+      "previousFeaturesUnchanged": true,
+      "fullHistoryChecks": [
+        {
+          "fieldGroup": "ma20",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "ma60",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "ma120",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "ma250",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "high",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "low",
+          "differences": 0
+        }
+      ],
+      "previousFeaturesDigest": "c83dbfb90f7820d937960fc0c4a75f2bd66566bf15234c8b82b412e2ffd53078",
+      "tailRows": 1381071,
+      "maxTailRowsPerSecurity": 249,
+      "buildSecondsIncludingWslTransport": 1.799711200001184
+    },
+    {
+      "date": "2026-04-14",
+      "mode": "INCREMENTAL",
+      "rows": 5614,
+      "expectedRows": 5614,
+      "fullWindowDifferences": 0,
+      "previousFeaturesUnchanged": true,
+      "fullHistoryChecks": [
+        {
+          "fieldGroup": "ma20",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "ma60",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "ma120",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "ma250",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "high",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "low",
+          "differences": 0
+        }
+      ],
+      "previousFeaturesDigest": "1542733601aa79f45779193a9d1355966d92ac1bb2f32c445dfd76376aa50f25",
+      "tailRows": 1381203,
+      "maxTailRowsPerSecurity": 249,
+      "buildSecondsIncludingWslTransport": 1.849145200001658
+    }
+  ],
+  "lastDate": "2026-04-14",
+  "tailTable": "dsl_rolling_diag_2a7d2bb431c5.tail_2",
+  "catalogSha256": "953c7b04e040f36adbe491c1013993aaa8940faef490caa5c699582191470f1e",
+  "officialRegistryUnchanged": true,
+  "completedAtUtc": "2026-10-04T16:13:01.582115+00:00"
+}

@@ -1,0 +1,100 @@
+{
+  "purpose": "DIAGNOSTIC_ONLY",
+  "acceptanceEligible": false,
+  "status": "FAIL",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "jarSha256": "89db17c449c3142abc63e0812ba19836ced420099d4f1e7aeb3df66e6da14363",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "registryFingerprint": "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+  "database": "dsl_rolling_diag_15cb9560b7d5",
+  "sourceCounts": {
+    "hsj_stock_code_info": 5686,
+    "hsj_stock_hq_ext": 6170822,
+    "hsj_stock_hq_basic": 13650347
+  },
+  "nullPolicy": "COUNT(non-NULL closePrice)=N over exactly N observed rows; otherwise NULL",
+  "incrementalPolicy": "immutable snapshot; retain all securities last 249 observed rows including NULL; append all new rows; never calendar-truncate",
+  "floatTolerance": "absolute difference <= 1e-10 * max(1, abs(reference))",
+  "dates": [
+    {
+      "date": "2026-04-10",
+      "mode": "FULL",
+      "rows": 5618,
+      "expectedRows": 5618,
+      "fullWindowDifferences": 0,
+      "previousFeaturesUnchanged": true,
+      "fullHistoryChecks": [
+        {
+          "fieldGroup": "ma20",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "ma60",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "ma120",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "ma250",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "high",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "low",
+          "differences": 0
+        }
+      ],
+      "previousFeaturesDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "tailRows": 1380938,
+      "maxTailRowsPerSecurity": 249,
+      "buildSecondsIncludingWslTransport": 3.2290574999933597
+    },
+    {
+      "date": "2026-04-13",
+      "mode": "INCREMENTAL",
+      "rows": 5614,
+      "expectedRows": 5614,
+      "fullWindowDifferences": 0,
+      "previousFeaturesUnchanged": true,
+      "fullHistoryChecks": [
+        {
+          "fieldGroup": "ma20",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "ma60",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "ma120",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "ma250",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "high",
+          "differences": 0
+        },
+        {
+          "fieldGroup": "low",
+          "differences": 0
+        }
+      ],
+      "previousFeaturesDigest": "c83dbfb90f7820d937960fc0c4a75f2bd66566bf15234c8b82b412e2ffd53078",
+      "tailRows": 1381071,
+      "maxTailRowsPerSecurity": 249,
+      "buildSecondsIncludingWslTransport": 2.1283322000090266
+    }
+  ],
+  "error": "w\u0000s\u0000l\u0000:\u0000 \u0000�hKm0R \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006tM�n\f�FO*g\\��P0R \u0000W\u0000S\u0000L\u0000\u00020N\u0000A\u0000T\u0000 \u0000!j\u000f_\u000bN�v \u0000W\u0000S\u0000L\u0000 \u0000\nN/e\u0001c \u0000l\u0000o\u0000c\u0000a\u0000l\u0000h\u0000o\u0000s\u0000t\u0000 \u0000�N\u0006t\u00020\n\u0000\n\u0000ERROR 1105 (HY000) at line 1: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]Cancel Top Memory task: TaskId=4dee92c5424d4383-beda7340e8ff4fd5, Memory(Used=1.27 GB, Limit=4.00 GB, Peak=1.27 GB). because process memory used exceed limit. in backend 127.0.0.1, os physical memory 10.00 GB. process memory used 4.00 GB, limit 4.00 GB. sys available memory 3.38 GB, low water mark 512.00 MB. execute again after enough memory, details see be.INFO.",
+  "failedBuildCleanup": "DONE",
+  "officialRegistryUnchanged": true,
+  "completedAtUtc": "2026-10-04T15:54:24.308079+00:00"
+}

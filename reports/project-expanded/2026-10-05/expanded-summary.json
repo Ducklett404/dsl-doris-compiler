@@ -1,0 +1,154 @@
+{
+  "status": "PROJECT_EXPANDED_PASS_FORMAL_BLOCKED",
+  "officialAcceptanceEligible": false,
+  "completedAtUtc": "2026-10-04T23:43:21.563173+00:00",
+  "jarSha256": "eefdb0ece3f3dbf2352929a4410247bf0453a9d1f64fcd7f9e55ba82c7e164d1",
+  "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "registryFingerprint": "6082c08809e679d4b9273b245a1c99c18bb906152313022c1bc830da36dc444d",
+  "matrixCases": 67,
+  "actualExecutions": 91,
+  "checks": 188,
+  "dates": 7,
+  "markets": [
+    "沪",
+    "深",
+    "京"
+  ],
+  "sourceRows": 19826855,
+  "javaTests": 292,
+  "referenceTests": 11,
+  "projectSyntheticChecks": 38,
+  "rsiTailBoundaryChecks": 16,
+  "numericChecks": 42,
+  "strictIntegrationChecks": 18,
+  "strictNegativeChecks": 9,
+  "diagnosticEnvironment": {
+    "containerMemoryBytes": 10737418240,
+    "beMemoryShare": "60%"
+  },
+  "repeatTimings": {
+    "position3-高": {
+      "samples": 8,
+      "totalMillis": {
+        "p50": 2875.7745,
+        "p95": 3020.5753,
+        "maximum": 3020.5753
+      },
+      "validationMillis": {
+        "p50": 1942.2489,
+        "p95": 2077.4699,
+        "maximum": 2077.4699
+      },
+      "dorisExecutionMillis": {
+        "p50": 873.93145,
+        "p95": 1066.5545,
+        "maximum": 1066.5545
+      }
+    },
+    "seeded-01": {
+      "samples": 8,
+      "totalMillis": {
+        "p50": 392.52105,
+        "p95": 436.7805,
+        "maximum": 436.7805
+      },
+      "validationMillis": {
+        "p50": 338.5016,
+        "p95": 360.0146,
+        "maximum": 360.0146
+      },
+      "dorisExecutionMillis": {
+        "p50": 52.33995,
+        "p95": 70.1981,
+        "maximum": 70.1981
+      }
+    }
+  },
+  "compilerUncachedP95Millis": 0.2568,
+  "evidence": {
+    "matrix": {
+      "path": "matrix-stable/result.json",
+      "sha256": "0472b3dc4190be3f9a8224fc7eb0680136e29c5ff3910e792f74c94921eefbca"
+    },
+    "cases": {
+      "path": "matrix-stable/matrix.json",
+      "sha256": "d8fddd711f9de8e44c9e2e667f45abe43b641b2029a94db1fca6a46a8eb80295"
+    },
+    "expected": {
+      "path": "matrix-stable/independent-expected.json",
+      "sha256": "edb20716e9d5614ad4fa86dedd623fd2327b21aa00ee6cfb9b09bfda12a4ad99"
+    },
+    "sources": {
+      "path": "source-validation-final/source-validation-report.json",
+      "sha256": "4ca82892fc904a69237258fc14699d8c814b4a5308ead70700ddff0783e20717"
+    },
+    "certificate": {
+      "path": "source-validation-final/project-validation.json",
+      "sha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080"
+    },
+    "junit": {
+      "path": "selftest-final/junit-results.json",
+      "sha256": "7c1cdec7feefbe156c15fc9625c63ef144350ed8b3b762d9659140982101bb80"
+    },
+    "integration": {
+      "path": "selftest-final/integration-result.json",
+      "sha256": "cec519bd5e837f7cae9dd8502d2ae83ed0dd142cb7d46e5ba61d29fc887325f6"
+    },
+    "numeric": {
+      "path": "selftest-final/numeric-precision-boundaries.json",
+      "sha256": "03caf1b180d19cae1bfa5f95fc5df91a27d69316f86a83f0fc11cae9a697f987"
+    },
+    "automation": {
+      "path": "selftest-final/automation/latest.json",
+      "sha256": "f441dbe68eb9be5b5fb1cc2885d8268d95540911100d16ea8d054b27a505aa26"
+    },
+    "scope": {
+      "path": "selftest-final/scope/phase1-scope-validation.json",
+      "sha256": "de5bde52b19c6da9a4009370d67224190950094335cdbe7a6c5517884498e5c0"
+    },
+    "compiler": {
+      "path": "selftest-final/compiler-performance/latest.json",
+      "sha256": "7396a6fd41b2f43548b00982fa38c18b8149d15b7741de6671052f6151349dd9"
+    },
+    "reference": {
+      "path": "reference-selftest.json",
+      "sha256": "cb8f58693e295a46f5f48e59db0ddff5f337fa3ab0dc87eadadf027c44d3ae6a"
+    },
+    "rsi": {
+      "path": "rsi-tail-boundaries-final.json",
+      "sha256": "8ce29c6f459dac13bef6614dc39b3091ef70a00fc95bbe5b96751a1b3f057659"
+    },
+    "synthetic": {
+      "path": "synthetic-release/result.json",
+      "sha256": "b8db027d821fab0c0d7c033ebb3f0bcee5b79a411d5b72490003d13870861423"
+    },
+    "strict": {
+      "path": "strict-gates/controlled-execution-gate.json",
+      "sha256": "bf5dc2471ec83aa61c33612d49e40c899f1fb59973730b5c0b5f8033cf902f6e"
+    },
+    "formal": {
+      "path": "formal-gate/result.json",
+      "sha256": "befdab20d8ef777ee8f027ca1cbb403b540b68c5179cc04a0b20aa2f7b1543f6"
+    },
+    "memory": {
+      "path": "memory-budget-final/result.json",
+      "sha256": "09d513d1952cdd09cb14c972ecaa7c660fed0dfe5844264f262e553e9dbb665c"
+    }
+  },
+  "codeHashes": {
+    "scripts\\doris\\project_matrix_reference.py": "c89658fe2c24c6ee9d7f67da237b1c86eb15282b86d9f8af523616c8aa2ecb9a",
+    "scripts\\doris\\check_expanded_project_matrix.py": "5c0f41ef82df1ca725f0d8dfde2e3a19ceea9fec15ef71f5a2d9c3f02d1dfc15",
+    "scripts\\doris\\test_project_matrix_reference.py": "20ef4b8ac30fc624bc1669822fda1778a7fc4614dc5247d4f6b677476e9cd6f7",
+    "scripts\\doris\\ProjectExecutionProbe.java": "3b2c8b939f803c9af0ce210110dba666e0690d8e863fc7fe81108297c6630cd6",
+    "scripts\\test-all.ps1": "e85a7981ccb467d6cbf6bcc3041f7781cde5dc463c612999e9a0853ea5e1cd36",
+    "scripts\\doris\\summarize_expanded_project_matrix.py": "6f1428fb421a9e417d7a895d9fa6a3f6deaba2206cbc75afb17d01e9db8b48c9",
+    "scripts\\doris\\check_project_rsi_tail.py": "531104615bbeaf9d62e9f4428a05facd781f8388fd2b7cd2bd046deb3fa506d5",
+    "scripts\\doris\\ProjectWindowCompile.java": "dd278fefdbcfefdcdee59d12c808deba48d6916d5cd0197a6afe0cde114eab69",
+    "scripts\\doris\\configure_project_be_memory.py": "5fa5b02110cb8d70aded70ac43cf1c1877dc2fc311be3c14106ebc0757203dbe",
+    "src\\main\\java\\com\\acme\\dorisdsl\\stockslot\\StockSlotAdvancedSqlCompiler.java": "0b36b5fe53a3f4675535bc647feb88557974fd4df859e63778f9752db9ff464e",
+    "src\\test\\java\\com\\acme\\dorisdsl\\ProjectDataValidationTest.java": "4d83b4ac48155ce6f92044144792c42b45ef26634c1eeda093780266545053da",
+    "src\\main\\java\\com\\acme\\dorisdsl\\stockslot\\DorisQueryExecutor.java": "1a60eeac2cb67cf51e14b4528956e10db62270058bf646de8a48d948ec342753",
+    "src\\test\\java\\com\\acme\\dorisdsl\\stockslot\\DorisExplainEstimateTest.java": "3626ba201434d3033cbd1d882567edec3c3cbd722b8d2604fc5f74674e9c0433"
+  }
+}

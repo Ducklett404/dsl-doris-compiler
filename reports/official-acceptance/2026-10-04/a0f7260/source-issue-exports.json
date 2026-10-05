@@ -1,0 +1,108 @@
+{
+  "purpose": "EXACT_SOURCE_ISSUE_EXPORT_NO_REPAIR",
+  "exports": [
+    {
+      "path": "D:\\A_MyProjects\\揭榜挂帅\\dsl-doris-compiler\\target\\official-acceptance-a0f7260\\source-issues\\orphan-extension-keys.csv",
+      "rows": 249480,
+      "columns": [
+        "mktcode",
+        "tgtcode",
+        "bizdate"
+      ]
+    },
+    {
+      "path": "D:\\A_MyProjects\\揭榜挂帅\\dsl-doris-compiler\\target\\official-acceptance-a0f7260\\source-issues\\close-outside-high-low.csv",
+      "rows": 3487,
+      "columns": [
+        "mktcode",
+        "tgtcode",
+        "bizdate",
+        "closePx",
+        "highPx",
+        "lowPx"
+      ]
+    }
+  ],
+  "orphanByYearAndMarket": [
+    {
+      "year": 2018,
+      "market": 0,
+      "rows": 89
+    },
+    {
+      "year": 2019,
+      "market": 0,
+      "rows": 8541
+    },
+    {
+      "year": 2020,
+      "market": 0,
+      "rows": 14117
+    },
+    {
+      "year": 2021,
+      "market": 0,
+      "rows": 178495
+    },
+    {
+      "year": 2022,
+      "market": 0,
+      "rows": 13554
+    },
+    {
+      "year": 2022,
+      "market": 1,
+      "rows": 7
+    },
+    {
+      "year": 2023,
+      "market": 0,
+      "rows": 13396
+    },
+    {
+      "year": 2024,
+      "market": 0,
+      "rows": 2143
+    },
+    {
+      "year": 2024,
+      "market": 1,
+      "rows": 2291
+    },
+    {
+      "year": 2025,
+      "market": 0,
+      "rows": 9048
+    },
+    {
+      "year": 2025,
+      "market": 1,
+      "rows": 5242
+    },
+    {
+      "year": 2025,
+      "market": 103,
+      "rows": 826
+    },
+    {
+      "year": 2026,
+      "market": 0,
+      "rows": 490
+    },
+    {
+      "year": 2026,
+      "market": 1,
+      "rows": 1214
+    },
+    {
+      "year": 2026,
+      "market": 103,
+      "rows": 27
+    }
+  ],
+  "latestOrphans": [
+    "2026-04-14",
+    48,
+    48
+  ]
+}

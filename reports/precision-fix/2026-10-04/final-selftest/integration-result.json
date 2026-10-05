@@ -1,0 +1,118 @@
+{
+  "purpose": "SYNTHETIC_REAL_DORIS_INTEGRATION_NOT_OFFICIAL_ACCEPTANCE",
+  "fixtureDatabase": "dsl_executor_fixture_7d1984f0ef6f",
+  "snapshotId": "synthetic-execution-7d1984f0ef6f",
+  "originalOfficialRegistryRows": 0,
+  "checks": [
+    {
+      "name": "synthetic-source-validation",
+      "status": "PASS",
+      "actual": [
+        [
+          "18",
+          "18",
+          "6",
+          "0",
+          "0",
+          "18"
+        ]
+      ]
+    },
+    {
+      "name": "unified-real-jdbc-tests",
+      "status": "PASS",
+      "exitCode": 0
+    },
+    {
+      "name": "numeric-precision-boundaries",
+      "status": "PASS",
+      "exitCode": 0,
+      "precisionPassed": 42,
+      "precisionTotal": 42
+    },
+    {
+      "name": "cli-positive-with-return-cap",
+      "status": "PASS",
+      "exitCode": 0,
+      "rows": 2,
+      "truncated": true
+    },
+    {
+      "name": "http-starts-scan-limit-10000",
+      "status": "PASS"
+    },
+    {
+      "name": "http-auth-required",
+      "status": "PASS",
+      "httpStatus": 401
+    },
+    {
+      "name": "http-positive-with-return-cap",
+      "status": "PASS",
+      "httpStatus": 200,
+      "rows": 2
+    },
+    {
+      "name": "http-markdown-output",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "http-pending-snapshot",
+      "status": "PASS",
+      "httpStatus": 503
+    },
+    {
+      "name": "http-syntax-error",
+      "status": "PASS",
+      "httpStatus": 400
+    },
+    {
+      "name": "http-semantic-error",
+      "status": "PASS",
+      "httpStatus": 422
+    },
+    {
+      "name": "http-invalid-return-limit",
+      "status": "PASS",
+      "httpStatus": 400
+    },
+    {
+      "name": "http-recovers-after-errors",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "http-remains-healthy-10000",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "http-starts-scan-limit-1",
+      "status": "PASS"
+    },
+    {
+      "name": "http-scan-limit-rejected",
+      "status": "PASS",
+      "httpStatus": 429
+    },
+    {
+      "name": "http-remains-healthy-1",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "official-snapshot-registry-preserved",
+      "status": "PASS"
+    }
+  ],
+  "testTransportNotes": [
+    "Queue contention pauses a test-only JDBC transport; successful SELECTs execute actual generated SQL.",
+    "Timeout transport runs SELECT SLEEP(4) once under the actual JDBC timeout; it is not a DSL capability."
+  ],
+  "compilerJarSha256": "89db17c449c3142abc63e0812ba19836ced420099d4f1e7aeb3df66e6da14363",
+  "fixtureCleanup": "DONE",
+  "passed": 18,
+  "total": 18,
+  "status": "PASS"
+}

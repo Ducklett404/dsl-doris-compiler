@@ -1,0 +1,16 @@
+{
+  "policyVersion": "project-data-policy-v1",
+  "definitionAuthority": "PROJECT_INTERNAL",
+  "authorizedAt": "2026-10-05",
+  "purpose": "Run queries supported by supplied data with explicit input availability; retain strict full-snapshot acceptance.",
+  "sourceUniverse": "Actual basic quote rows on evaluation date and requested market",
+  "sourcePublication": ["Immutable CSV hashes and sizes", "Source row counts and dates", "Registered columns", "Unique and non-NULL join keys", "Price/volume/turnover checks", "Disclosed full-snapshot relationship and price-range warnings"],
+  "runtimeIdentity": "Per required source: row count and project-source-definition-v1 metadata hash. VIEW hash includes SHA2(VIEW_DEFINITION,256); all sources include ordered COLUMN_NAME,COLUMN_TYPE,IS_NULLABLE,ORDINAL_POSITION. External data writes require fresh publication.",
+  "queryAvailability": "Before predicates, ranking and LIMIT: observed securities, missing current extension rows, computed NULL inputs, count-horizon unknown conditions and up to 20 missing-input samples.",
+  "countHandling": "Keep frozen CONS/EXIST behavior: unknown conditions do not count as hits; insufficient observed rows produce NULL count result. Report unknown horizon inputs separately.",
+  "unmatchedExtensionHandling": "Retain all raw rows. Do not manufacture basic prices or map to another date; cross-source query population is anchored on basic quotes.",
+  "unsupported": ["Industry and membership without a validated source", "Financial indicators without a source", "Already unsupported compiler forms"],
+  "execution": "Explicit trusted local --project-validation flag on execute/serve; read-only account, scan estimates, memory/query/queue/return limits remain enforced; raw access without unvalidated feature materializations. Finite position-only queries retain the maximum required actual observations, including NULLs, before expensive decimal windows; unbounded/mixed/counted queries keep full reference lowering.",
+  "officialAcceptanceEligible": false,
+  "strictAcceptance": "No change to full-snapshot gates, VALIDATED registry or formal benchmark entry points. External blind tests and official field definitions remain unverified."
+}

@@ -1,0 +1,65 @@
+{
+  "purpose": "PROJECT_SCOPED_SINGLE_CASE_DIAGNOSTIC",
+  "officialAcceptanceEligible": false,
+  "jarSha256": "55f497ac2ab0e6637c55d64c5d80a1cc2749f0ad04fe10eddfd476a95b9cdcbb",
+  "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "checks": [
+    {
+      "name": "independent-source-lock",
+      "status": "PASS"
+    },
+    {
+      "name": "position3-cli",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "position3-keys-and-coverage",
+      "status": "PASS",
+      "rows": 3299,
+      "expectedRows": 3299,
+      "observedSecurities": 5614,
+      "currentMissingExtensionRows": 0,
+      "actualInputs": [
+        {
+          "function": "position",
+          "indicator": "收盘价",
+          "unavailable": 53
+        }
+      ],
+      "expectedInputs": [
+        {
+          "function": "position",
+          "indicator": "收盘价",
+          "unavailable": 53
+        }
+      ]
+    },
+    {
+      "name": "official-registry-unmodified",
+      "status": "PASS"
+    }
+  ],
+  "cases": [
+    {
+      "name": "position3",
+      "dsl": "position('', '', '收盘价', '3日', '2026-04-14', '', '', '') = '高'",
+      "evaluationDate": "2026-04-14",
+      "rows": 3299,
+      "coverageStatus": "PARTIAL_INPUTS",
+      "totalMillis": 3684.3908,
+      "dorisExecutionMillis": 1035.7602,
+      "validationMillis": 2574.651,
+      "wallSeconds": 4.516
+    }
+  ],
+  "selectedCase": "position3",
+  "cleanup": "DONE",
+  "passed": 4,
+  "total": 4,
+  "completedAtUtc": "2026-10-04T17:48:37.139938+00:00",
+  "status": "PASS"
+}

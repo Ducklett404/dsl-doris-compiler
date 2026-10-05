@@ -52,6 +52,29 @@ try {
   Invoke-Checked 'doris-data-contract-tests' { & $PythonExecutable 'scripts/doris/self-test.py' }
   Invoke-Checked 'review-sql-result-regressions' { & $PythonExecutable 'scripts/test_review_regressions.py' }
   Invoke-Checked 'versioned-golden-contract-tests' { & $PythonExecutable 'scripts/accuracy/test_contract_revision.py' }
+  Invoke-Checked 'project-matrix-reference-tests' { & $PythonExecutable 'scripts/doris/test_project_matrix_reference.py' }
+  Invoke-Checked 'project-field-reference-tests' { & $PythonExecutable 'scripts/doris/test_project_field_reference.py' }
+  $projectWindowOutput = Join-Path $repo ('target/project-window-boundaries-' + [Guid]::NewGuid().ToString('N') + '.json')
+  $projectJava = (Get-Command java -ErrorAction Stop).Source
+  Invoke-Checked 'project-window-boundaries' {
+    & $PythonExecutable 'scripts/doris/check_project_window_boundaries.py' '--output' $projectWindowOutput '--java' $projectJava
+  }
+  $checks['project-window-boundaries']['outputPath'] = $projectWindowOutput
+  $projectRsiOutput = Join-Path $repo ('target/project-rsi-boundaries-' + [Guid]::NewGuid().ToString('N') + '.json')
+  Invoke-Checked 'project-rsi-tail-boundaries' {
+    & $PythonExecutable 'scripts/doris/check_project_rsi_tail.py' '--output' $projectRsiOutput '--java' $projectJava
+  }
+  $checks['project-rsi-tail-boundaries']['outputPath'] = $projectRsiOutput
+  $projectAvailabilityOutput = Join-Path $repo ('target/project-availability-' + [Guid]::NewGuid().ToString('N') + '.json')
+  Invoke-Checked 'project-availability-explanations' {
+    & $PythonExecutable 'scripts/doris/check_project_availability.py' '--output' $projectAvailabilityOutput '--java' $projectJava
+  }
+  $checks['project-availability-explanations']['outputPath'] = $projectAvailabilityOutput
+  $projectFieldsOutput = Join-Path $repo ('target/project-fields-' + [Guid]::NewGuid().ToString('N') + '.json')
+  Invoke-Checked 'project-field-boundaries' {
+    & $PythonExecutable 'scripts/doris/check_project_fields.py' '--output' $projectFieldsOutput '--java' $projectJava
+  }
+  $checks['project-field-boundaries']['outputPath'] = $projectFieldsOutput
   Invoke-Checked 'sentinel-window-boundaries' { & $PythonExecutable 'scripts/accuracy/check_contract_boundaries.py' }
   Invoke-Checked 'historical-extrema-boundaries' { & $PythonExecutable 'scripts/accuracy/check_historical_extrema.py' }
   Invoke-Checked 'rolling-average-boundaries' { & $PythonExecutable 'scripts/accuracy/check_rolling_averages.py' }

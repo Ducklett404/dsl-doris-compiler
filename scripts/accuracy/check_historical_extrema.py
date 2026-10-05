@@ -56,10 +56,11 @@ def main():
             original_registry=client.query('SELECT * FROM newzl.data_snapshot_registry')
             database='dsl_extrema_fixture_'+uuid.uuid4().hex[:12]
             client.query('CREATE DATABASE '+database);created=True
-            client.query(f"CREATE TABLE {database}.v_hsj_stock_hq_basic(mktcode INT,tgtcode VARCHAR(64),bizdate DATE,closePrice DOUBLE) UNIQUE KEY(mktcode,tgtcode,bizdate) DISTRIBUTED BY HASH(tgtcode) BUCKETS 1 PROPERTIES('replication_num'='1')")
+            client.query(f"CREATE TABLE {database}.v_hsj_stock_hq_basic(mktcode INT,tgtcode VARCHAR(64),bizdate DATE,closePrice DOUBLE,closePricePosition DOUBLE) UNIQUE KEY(mktcode,tgtcode,bizdate) DISTRIBUTED BY HASH(tgtcode) BUCKETS 1 PROPERTIES('replication_num'='1')")
             client.query(f"CREATE TABLE {database}.hsj_stock_code_info(mktcode INT,tgtcode VARCHAR(64),name VARCHAR(128),hyBlkRefName VARCHAR(64)) UNIQUE KEY(mktcode,tgtcode) DISTRIBUTED BY HASH(tgtcode) BUCKETS 1 PROPERTIES('replication_num'='1')")
             values=','.join('('+','.join(sql_literal(v) for v in row)+')' for row in rows)
-            client.query(f'INSERT INTO {database}.v_hsj_stock_hq_basic VALUES '+values)
+            client.query(f'INSERT INTO {database}.v_hsj_stock_hq_basic(mktcode,tgtcode,bizdate,closePrice) VALUES '+values)
+            client.query(f'UPDATE {database}.v_hsj_stock_hq_basic SET closePricePosition=closePrice')
             values=','.join('('+','.join(sql_literal(v) for v in row)+')' for row in codes)
             client.query(f'INSERT INTO {database}.hsj_stock_code_info VALUES '+values)
             catalog['qualifiedTable']=database+'.history_extrema_v1'
@@ -71,6 +72,8 @@ def main():
             con=sqlite3.connect(':memory:');con.execute("ATTACH DATABASE ':memory:' AS newzl")
             con.execute('CREATE TABLE newzl.v_hsj_stock_hq_basic(mktcode INT,tgtcode TEXT,bizdate TEXT,closePrice REAL)')
             con.executemany('INSERT INTO newzl.v_hsj_stock_hq_basic VALUES(?,?,?,?)',rows)
+            con.execute('ALTER TABLE newzl.v_hsj_stock_hq_basic ADD COLUMN closePricePosition REAL')
+            con.execute('UPDATE newzl.v_hsj_stock_hq_basic SET closePricePosition=closePrice')
             con.execute('CREATE TABLE newzl.hsj_stock_code_info(mktcode INT,tgtcode TEXT,name TEXT,hyBlkRefName TEXT)')
             con.executemany('INSERT INTO newzl.hsj_stock_code_info VALUES(?,?,?,?)',codes)
             con.execute('CREATE TABLE newzl.history_extrema_v1(snapshot_id TEXT,manifest_sha256 TEXT,registry_fingerprint TEXT,bizdate TEXT,mktcode INT,tgtcode TEXT,close_current REAL,close_min REAL,close_max REAL)')

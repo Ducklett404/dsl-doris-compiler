@@ -1,0 +1,28 @@
+{
+  "purpose": "PROJECT_SCOPED_OFFICIAL_DATA_EXECUTION",
+  "officialAcceptanceEligible": false,
+  "jarSha256": "9f65c1ed3da975bba8a936ccf7fe875b4455dbde85c86363f78141e052ff3504",
+  "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "checks": [
+    {
+      "name": "independent-source-lock",
+      "status": "PASS"
+    },
+    {
+      "name": "position3-cli",
+      "status": "FAIL",
+      "exitCode": 3,
+      "error": "doris_execution_failed: Doris rejected controlled query; code 1105 (SQLState HY000)\n"
+    }
+  ],
+  "cases": [],
+  "diagnostic": "SOURCE_IDENTITY_OK\nCOVERAGE_AGGREGATE\nSQL_DIAGNOSTIC: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]PreCatch error code:11, [E11] Allocator mem tracker check failed, [MEM_LIMIT_EXCEEDED]failed alloc size 64.00 MB, memory tracker limit exceeded, tracker label:Query#Id=cb05c69973b74925-8a648805741659f6, type:query, limit 2.00 GB, peak used 2.00 GB, current used 1.96 GB. backend 127.0.0.1, process memory used 3.81 GB. exec node:<ScopedPeakMem:474fc2f0f99c2504-3861c655c2792c95>, can `set exec_mem_limit` to change limit, details see be.INFO.\n\n\t0#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&, bool)\n\t1#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&)\n\t2#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::memory_tracker_check(unsigned long) const\n\t3#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::realloc(void*, unsigned long, unsigned long, unsigned long)\n\t4#  doris::ColumnDecimal<(doris::PrimitiveType)30>::insert_range_from(doris::IColumn const&, unsigned long, unsigned long)\n\t5#  doris::AnalyticSinkOperatorX::_insert_range_column(doris::Block*, std::shared_ptr<doris::VExprContext> const&, doris::IColumn*, unsigned long)\n\t6#  doris::AnalyticSinkOperatorX::_add_input_block(doris::RuntimeState*, doris::Block*)\n\t7#  doris::AnalyticSinkOperatorX::sink_impl(doris::RuntimeState*, doris::Block*, bool)\n\t8#  doris::DataSinkOperatorXBase::sink(doris::RuntimeState*, doris::Block*, bool)\n\t9#  doris::PipelineTask::execute(bool*)\n\t10# doris::TaskScheduler::_do_work(int)\n\t11# doris::ThreadPool::dispatch_thread()\n\t12# doris::Thread::supervise_thread(void*)\n\t13# ?\n\t14# __clone\n, __FILE__:/home/zcp/repo_center/doris_release/doris/be/src/exec/pipeline/task_scheduler.cpp, __LINE__:172, __FUNCTION__:void doris::TaskScheduler::_do_work(int)\n",
+  "fatalError": "position3-cli",
+  "cleanup": "DONE",
+  "passed": 1,
+  "total": 2,
+  "completedAtUtc": "2026-10-04T17:39:24.558633+00:00",
+  "status": "FAIL"
+}

@@ -1,0 +1,56 @@
+{
+  "status": "DIAGNOSTIC_FAILURES_FORMAL_BLOCKED",
+  "acceptanceEligible": false,
+  "head": "a0f7260c3dfd1b825a7c6af5f02b859645654a80",
+  "jarSha256": "e8eb307686c7937beda7ff878dcbca68d53826499aa42e5241cc959f5caacbe1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "sourceRows": 19826855,
+  "unmatchedExtensionRows": 249480,
+  "closeOutsideRangeWarningRows": 3487,
+  "freshResults": {
+    "local": 34,
+    "doris": 34,
+    "smokeExecutionOnly": 15,
+    "executionGate": 9,
+    "independentFeatureValues": 168460,
+    "fieldValues": 403104,
+    "fieldOutOfTolerance": 14327,
+    "resultCases": 233,
+    "resultPassed": 231,
+    "failedResultCases": [
+      "position-低-2026-04-14",
+      "position-中-2026-04-14"
+    ]
+  },
+  "newProjectBugs": [
+    "risePct-decimal-scale-truncation",
+    "position-third-boundary-floating-point"
+  ],
+  "fullExtractedCorpusSqlCoverage": {
+    "total": 5799,
+    "compiledNotExecuted": 1,
+    "rejected": 5798
+  },
+  "reusedEvidence": {
+    "purpose": "REVERIFIED_EXISTING_EVIDENCE_NOT_FRESH_EXECUTION",
+    "junit": {
+      "junit-main": {
+        "tests": 275,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "junit-executor": {
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "performanceCases": 28,
+    "timedQueries": 1680,
+    "concurrentRequests": 60
+  },
+  "evidenceConsistency": "PASS",
+  "completedAtUtc": "2026-10-04T14:02:50.236942+00:00"
+}

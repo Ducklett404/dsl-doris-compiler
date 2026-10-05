@@ -107,6 +107,9 @@ public final class StockSlotRegistryLoader {
             for (String field : indicator.source().requiredFields())
                 require(table.fields().containsKey(field), "REGISTRY_REFERENCE", "Unknown required field " + field + " for " + indicator.name());
             validateIndicatorLowering(indicator.lowering(), indicator.sentinelValues(), indicator.name());
+            String positionField = indicator.lowering().parameters().get("positionField");
+            require(positionField == null || table.fields().containsKey(positionField),
+                    "REGISTRY_REFERENCE", "Unknown position field for " + indicator.name());
         }
 
         Set<String> patternNames = new HashSet<>();
@@ -207,7 +210,11 @@ public final class StockSlotRegistryLoader {
             require(placeholders.equals(Set.of("alias", "field", "sentinel")) && sentinels.size() == 1,
                     "REGISTRY_SENTINEL", "NULLIF lowering requires one sentinel for " + owner);
         } else throw invalid("REGISTRY_UNSAFE_TEMPLATE", "Uncontrolled SQL template for " + owner);
-        require(lowering.parameters().isEmpty(), "REGISTRY_UNKNOWN_PARAMETER", "FIELD lowering does not accept template parameters");
+        require(Set.of("positionField", "positionScale").containsAll(lowering.parameters().keySet()),
+                "REGISTRY_UNKNOWN_PARAMETER", "Unknown FIELD lowering parameter for " + owner);
+        String positionScale = lowering.parameters().get("positionScale");
+        require(positionScale == null || positionScale.matches("0|[1-9]|1[0-8]"),
+                "REGISTRY_RANGE", "positionScale must be an integer from 0 to 18 for " + owner);
     }
 
     private void validateFunctionParameters(StockSlotRegistryConfig.FunctionDefinition function) {

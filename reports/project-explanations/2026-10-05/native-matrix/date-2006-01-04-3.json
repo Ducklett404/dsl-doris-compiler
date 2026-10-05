@@ -1,0 +1,1881 @@
+{
+  "compilation": {
+    "dslVersion": "stock-slot-v1",
+    "semanticModel": {
+      "document": {
+        "expression": {
+          "kind": "Binary",
+          "operator": "OR",
+          "left": {
+            "kind": "Binary",
+            "operator": ">",
+            "left": {
+              "kind": "FunctionCall",
+              "name": "indicator",
+              "arguments": [
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 12,
+                    "endLine": 1,
+                    "endColumn": 14
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 16,
+                    "endLine": 1,
+                    "endColumn": 18
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "RSI(5)",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 20,
+                    "endLine": 1,
+                    "endColumn": 28
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "2006-01-04",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 30,
+                    "endLine": 1,
+                    "endColumn": 42
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 44,
+                    "endLine": 1,
+                    "endColumn": 46
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 48,
+                    "endLine": 1,
+                    "endColumn": 50
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 52,
+                    "endLine": 1,
+                    "endColumn": 54
+                  }
+                }
+              ],
+              "type": "NUMBER",
+              "span": {
+                "line": 1,
+                "column": 2,
+                "endLine": 1,
+                "endColumn": 55
+              }
+            },
+            "right": {
+              "kind": "Literal",
+              "value": 50,
+              "type": "NUMBER",
+              "span": {
+                "line": 1,
+                "column": 58,
+                "endLine": 1,
+                "endColumn": 60
+              }
+            },
+            "type": "BOOLEAN",
+            "span": {
+              "line": 1,
+              "column": 2,
+              "endLine": 1,
+              "endColumn": 60
+            }
+          },
+          "right": {
+            "kind": "Binary",
+            "operator": ">",
+            "left": {
+              "kind": "FunctionCall",
+              "name": "indicator",
+              "arguments": [
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 76,
+                    "endLine": 1,
+                    "endColumn": 78
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 80,
+                    "endLine": 1,
+                    "endColumn": 82
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "20日均线",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 84,
+                    "endLine": 1,
+                    "endColumn": 91
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "2006-01-04",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 93,
+                    "endLine": 1,
+                    "endColumn": 105
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 107,
+                    "endLine": 1,
+                    "endColumn": 109
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 111,
+                    "endLine": 1,
+                    "endColumn": 113
+                  }
+                },
+                {
+                  "kind": "Literal",
+                  "value": "",
+                  "type": "STRING",
+                  "span": {
+                    "line": 1,
+                    "column": 115,
+                    "endLine": 1,
+                    "endColumn": 117
+                  }
+                }
+              ],
+              "type": "NUMBER",
+              "span": {
+                "line": 1,
+                "column": 66,
+                "endLine": 1,
+                "endColumn": 118
+              }
+            },
+            "right": {
+              "kind": "Literal",
+              "value": 1,
+              "type": "NUMBER",
+              "span": {
+                "line": 1,
+                "column": 121,
+                "endLine": 1,
+                "endColumn": 122
+              }
+            },
+            "type": "BOOLEAN",
+            "span": {
+              "line": 1,
+              "column": 66,
+              "endLine": 1,
+              "endColumn": 122
+            }
+          },
+          "type": "BOOLEAN",
+          "span": {
+            "line": 1,
+            "column": 1,
+            "endLine": 1,
+            "endColumn": 123
+          }
+        },
+        "selectionLimit": null,
+        "span": {
+          "line": 1,
+          "column": 1,
+          "endLine": 1,
+          "endColumn": 128
+        }
+      },
+      "calls": [
+        {
+          "function": "indicator",
+          "span": {
+            "line": 1,
+            "column": 2,
+            "endLine": 1,
+            "endColumn": 55
+          },
+          "slots": [
+            {
+              "name": "market",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "filter_scope",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "indicator_name",
+              "rawValue": "RSI(5)",
+              "structuredValue": {
+                "value": "RSI(5)",
+                "template": "RSI(N)",
+                "parameters": {
+                  "N": "5"
+                }
+              }
+            },
+            {
+              "name": "date",
+              "rawValue": "2006-01-04",
+              "structuredValue": {
+                "raw": "2006-01-04",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "select_type",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "agg_func",
+              "rawValue": "",
+              "structuredValue": ""
+            },
+            {
+              "name": "count_exp",
+              "rawValue": "",
+              "structuredValue": null
+            }
+          ]
+        },
+        {
+          "function": "indicator",
+          "span": {
+            "line": 1,
+            "column": 66,
+            "endLine": 1,
+            "endColumn": 118
+          },
+          "slots": [
+            {
+              "name": "market",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "filter_scope",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "indicator_name",
+              "rawValue": "20日均线",
+              "structuredValue": {
+                "value": "20日均线",
+                "template": "X日均线",
+                "parameters": {
+                  "X": "20"
+                }
+              }
+            },
+            {
+              "name": "date",
+              "rawValue": "2006-01-04",
+              "structuredValue": {
+                "raw": "2006-01-04",
+                "reportPeriod": null,
+                "offsets": []
+              }
+            },
+            {
+              "name": "select_type",
+              "rawValue": "",
+              "structuredValue": {
+                "value": ""
+              }
+            },
+            {
+              "name": "agg_func",
+              "rawValue": "",
+              "structuredValue": ""
+            },
+            {
+              "name": "count_exp",
+              "rawValue": "",
+              "structuredValue": null
+            }
+          ]
+        }
+      ]
+    },
+    "logicalPlan": [
+      {
+        "kind": "HistoryScan",
+        "detail": "newzl.v_hsj_stock_hq_basic through 2006-01-04"
+      },
+      {
+        "kind": "ObservedTail",
+        "detail": "Keep the latest 20 actual observed rows per security, including NULLs and predecessors required by nested occurrence windows"
+      },
+      {
+        "kind": "Lag",
+        "detail": "close delta over observed trading rows"
+      },
+      {
+        "kind": "Window",
+        "detail": "2 contract(s)"
+      },
+      {
+        "kind": "EvaluationDateFilter",
+        "detail": "2006-01-04"
+      },
+      {
+        "kind": "Sort",
+        "detail": "mktcode,tgtcode"
+      },
+      {
+        "kind": "Project",
+        "detail": "mktcode,tgtcode"
+      }
+    ],
+    "windowContracts": [
+      {
+        "function": "indicator:RSI",
+        "partitionKeys": [
+          "mktcode",
+          "tgtcode"
+        ],
+        "orderKeys": [
+          "bizdate"
+        ],
+        "unit": "TRADING_DAY",
+        "lookback": 5,
+        "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+        "insufficientHistoryPolicy": "NULL",
+        "nullPolicy": "STRICT_NO_IMPUTATION",
+        "requireFullWindow": true
+      },
+      {
+        "function": "indicator:MA",
+        "partitionKeys": [
+          "mktcode",
+          "tgtcode"
+        ],
+        "orderKeys": [
+          "bizdate"
+        ],
+        "unit": "TRADING_DAY",
+        "lookback": 20,
+        "suspensionPolicy": "OBSERVED_ROWS_SKIP_SUSPENSION",
+        "insufficientHistoryPolicy": "NULL",
+        "nullPolicy": "STRICT_NO_IMPUTATION",
+        "requireFullWindow": true
+      }
+    ],
+    "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistory_ranked AS (\n  SELECT history.*, ROW_NUMBER() OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate DESC) AS observation_rank\n  FROM history\n),\nobserved_tail AS (\n  SELECT * FROM history_ranked WHERE observation_rank<=20\n),\ndeltas AS (\n  SELECT observed_tail.*, `v1` - LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) AS `price_delta`\n  FROM observed_tail\n),\nfeatures AS (\n  SELECT deltas.*,\n    CASE WHEN COUNT(price_delta) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) = 5 THEN 100 - 100 / (1 + (AVG(GREATEST(price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)) / NULLIF(AVG(GREATEST(-price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW),0)) ELSE NULL END AS `f1`,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)=20 THEN AVG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f2`\n  FROM deltas\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE ((`f1` > ?) OR (`f2` > ?))\nORDER BY mktcode,tgtcode;",
+    "bindings": [
+      "2006-01-04",
+      "2006-01-04",
+      50,
+      1
+    ],
+    "ordered": false,
+    "coveragePlan": {
+      "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistory_ranked AS (\n  SELECT history.*, ROW_NUMBER() OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate DESC) AS observation_rank\n  FROM history\n),\nobserved_tail AS (\n  SELECT * FROM history_ranked WHERE observation_rank<=20\n),\ndeltas AS (\n  SELECT observed_tail.*, `v1` - LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) AS `price_delta`\n  FROM observed_tail\n),\nfeatures AS (\n  SELECT deltas.*,\n    CASE WHEN COUNT(price_delta) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) = 5 THEN 100 - 100 / (1 + (AVG(GREATEST(price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)) / NULLIF(AVG(GREATEST(-price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW),0)) ELSE NULL END AS `f1`,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)=20 THEN AVG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f2`\n  FROM deltas\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT COUNT(*),COALESCE(SUM(0),0),COALESCE(SUM(CASE WHEN cov.`f1` IS NULL THEN 1 ELSE 0 END),0),COALESCE(SUM(CASE WHEN cov.`f2` IS NULL THEN 1 ELSE 0 END),0) FROM current_rows cov;",
+      "samplesSql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistory_ranked AS (\n  SELECT history.*, ROW_NUMBER() OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate DESC) AS observation_rank\n  FROM history\n),\nobserved_tail AS (\n  SELECT * FROM history_ranked WHERE observation_rank<=20\n),\ndeltas AS (\n  SELECT observed_tail.*, `v1` - LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) AS `price_delta`\n  FROM observed_tail\n),\nfeatures AS (\n  SELECT deltas.*,\n    CASE WHEN COUNT(price_delta) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) = 5 THEN 100 - 100 / (1 + (AVG(GREATEST(price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)) / NULLIF(AVG(GREATEST(-price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW),0)) ELSE NULL END AS `f1`,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)=20 THEN AVG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f2`\n  FROM deltas\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n)\nSELECT cov.mktcode,cov.tgtcode,0,CASE WHEN cov.`f1` IS NULL THEN 1 ELSE 0 END,CASE WHEN cov.`f2` IS NULL THEN 1 ELSE 0 END FROM current_rows cov WHERE cov.`f1` IS NULL OR cov.`f2` IS NULL ORDER BY cov.mktcode,cov.tgtcode LIMIT 20;",
+      "bindings": [
+        "2006-01-04",
+        "2006-01-04"
+      ],
+      "evaluationDate": "2006-01-04",
+      "inputs": [
+        {
+          "function": "indicator",
+          "indicator": "RSI(5)",
+          "alias": "f1",
+          "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+          "window": "6 条观察记录",
+          "role": "VALUE",
+          "requiredObservations": 6,
+          "horizon": 0
+        },
+        {
+          "function": "indicator",
+          "indicator": "20日均线",
+          "alias": "f2",
+          "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+          "window": "20 条观察记录",
+          "role": "VALUE",
+          "requiredObservations": 20,
+          "horizon": 0
+        }
+      ],
+      "extensionRequired": false,
+      "combinedSql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n),\nhistory_ranked AS (\n  SELECT history.*, ROW_NUMBER() OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate DESC) AS observation_rank\n  FROM history\n),\nobserved_tail AS (\n  SELECT * FROM history_ranked WHERE observation_rank<=20\n),\ndeltas AS (\n  SELECT observed_tail.*, `v1` - LAG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) AS `price_delta`\n  FROM observed_tail\n),\nfeatures AS (\n  SELECT deltas.*,\n    CASE WHEN COUNT(price_delta) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) = 5 THEN 100 - 100 / (1 + (AVG(GREATEST(price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)) / NULLIF(AVG(GREATEST(-price_delta,0)) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW),0)) ELSE NULL END AS `f1`,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)=20 THEN AVG(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f2`\n  FROM deltas\n),\ncurrent_rows AS (\n  SELECT * FROM features WHERE bizdate = ?\n),\ncoverage_flags AS (\n  SELECT cov.mktcode,cov.tgtcode,0 AS ext_missing,CASE WHEN cov.`f1` IS NULL THEN 1 ELSE 0 END AS u0,CASE WHEN cov.`f2` IS NULL THEN 1 ELSE 0 END AS u1 FROM current_rows cov\n),\ncoverage_totals AS (\n  SELECT coverage_flags.*,COUNT(*) OVER () AS observed,SUM(ext_missing) OVER () AS missing,SUM(u0) OVER () AS n0,SUM(u1) OVER () AS n1,ROW_NUMBER() OVER (ORDER BY CASE WHEN ext_missing=1 OR u0=1 OR u1=1 THEN 0 ELSE 1 END,mktcode,tgtcode) AS sample_rank\n  FROM coverage_flags\n)\nSELECT COALESCE(d.observed,0),COALESCE(d.missing,0),COALESCE(d.n0,0),COALESCE(d.n1,0),d.mktcode,d.tgtcode,d.ext_missing,d.u0,d.u1\nFROM (SELECT 1 AS seed) s LEFT JOIN (SELECT * FROM coverage_totals WHERE sample_rank<=20) d ON TRUE\nORDER BY d.sample_rank;"
+    }
+  },
+  "columns": [
+    "mktcode",
+    "tgtcode"
+  ],
+  "rows": [],
+  "truncated": false,
+  "timings": {
+    "compileMillis": 0.0246,
+    "queueMillis": 0.0039,
+    "explainMillis": 30.0691,
+    "dorisExecutionMillis": 49.5982,
+    "returnMillis": 0.0013,
+    "totalMillis": 307.7965
+  },
+  "limits": {
+    "queryTimeoutSeconds": 10,
+    "maxEstimatedScanRows": 100000000,
+    "estimatedScanRows": 227321,
+    "maxReturnRows": 10000,
+    "maxExecutionMemoryBytes": 2147483648
+  },
+  "sqlFingerprint": "sha256:a7913bcd373aced7d52ff8f025793f090b1bfa546e5d9e98aba74bbc53859d2a",
+  "dataVersion": {
+    "snapshotId": "stock-20060104-20260414-v1",
+    "contractVersion": "1.0.0",
+    "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95"
+  },
+  "compilerVersion": "0.1.0",
+  "explain": [
+    "PLAN FRAGMENT 0",
+    "  OUTPUT EXPRS:",
+    "    mktcode[#107]",
+    "    tgtcode[#108]",
+    "  PARTITION: UNPARTITIONED",
+    "",
+    "  HAS_COLO_PLAN_NODE: false",
+    "",
+    "  VRESULT SINK",
+    "     MYSQL_PROTOCOL",
+    "",
+    "  10:VMERGING-EXCHANGE",
+    "     offset: 0",
+    "     distribute expr lists: mktcode[#107], tgtcode[#108]",
+    "",
+    "PLAN FRAGMENT 1",
+    "",
+    "  PARTITION: HASH_PARTITIONED: mktcode[#0], tgtcode[#1]",
+    "",
+    "  HAS_COLO_PLAN_NODE: true",
+    "",
+    "  STREAM DATA SINK",
+    "    EXCHANGE ID: 10",
+    "    UNPARTITIONED",
+    "IS_MERGE: true",
+    "",
+    "  9:VSORT(1329)",
+    "  |  order by: mktcode[#107] ASC, tgtcode[#108] ASC",
+    "  |  algorithm: full sort",
+    "  |  local merge sort",
+    "  |  merge by exchange",
+    "  |  offset: 0",
+    "  |  distribute expr lists: ",
+    "  |  ",
+    "  8:VANALYTIC(1317)",
+    "  |  functions: [count(price_delta[#97])], [avg(greatest(price_delta, 0.0)[#98])], [avg(greatest((0.0 - price_delta), 0.0)[#99])]",
+    "  |  partition by: mktcode[#93], tgtcode[#94]",
+    "  |  order by: bizdate[#95] ASC NULLS FIRST",
+    "  |  window: ROWS BETWEEN 4 PRECEDING AND CURRENT ROW",
+    "  |  predicates: (((count(price_delta) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)[#102] = 5) AND ((100 / ((avg(greatest(price_delta, 0.0)) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)[#103] / nullif(avg(greatest((0.0 - price_delta), 0.0)) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)[#104], 0)) + 1)) < 50)) OR ((count(v1) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)[#100] = 20) AND (avg(v1) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)[#101] > 1))), (bizdate[#95] = '2006-01-04')",
+    "  |  final projections: mktcode[#93], tgtcode[#94]",
+    "  |  final project output tuple id: 13",
+    "  |  distribute expr lists: mktcode[#93], tgtcode[#94]",
+    "  |  ",
+    "  7:VANALYTIC(1313)",
+    "  |  functions: [count(v1[#96])], [avg(v1[#96])]",
+    "  |  partition by: mktcode[#93], tgtcode[#94]",
+    "  |  order by: bizdate[#95] ASC NULLS FIRST",
+    "  |  window: ROWS BETWEEN 19 PRECEDING AND CURRENT ROW",
+    "  |  distribute expr lists: mktcode[#93], tgtcode[#94]",
+    "  |  ",
+    "  6:VSORT(1309)",
+    "  |  order by: mktcode[#93] ASC, tgtcode[#94] ASC, bizdate[#95] ASC",
+    "  |  algorithm: full sort",
+    "  |  offset: 0",
+    "  |  distribute expr lists: mktcode[#86], tgtcode[#87]",
+    "  |  ",
+    "  5:VANALYTIC(1301)",
+    "  |  functions: [lag(v1[#78], 1, NULL)]",
+    "  |  partition by: mktcode[#75], tgtcode[#76]",
+    "  |  order by: bizdate[#77] ASC NULLS FIRST",
+    "  |  window: ROWS BETWEEN UNBOUNDED PRECEDING AND 1 PRECEDING",
+    "  |  final projections: mktcode[#80], tgtcode[#81], bizdate[#82], v1[#83], (v1 - lag(v1, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first))[#85], greatest((v1 - lag(v1, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first))[#85], 0), greatest(((0 - v1[#83]) + lag(v1, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#84]), 0)",
+    "  |  final project output tuple id: 9",
+    "  |  intermediate projections: mktcode[#75], tgtcode[#76], bizdate[#77], v1[#78], lag(v1, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#79], (v1[#78] - lag(v1, 1, NULL) OVER(PARTITION BY mktcode, tgtcode ORDER BY bizdate asc null first)[#79])",
+    "  |  intermediate tuple id: 8",
+    "  |  distribute expr lists: mktcode[#75], tgtcode[#76]",
+    "  |  ",
+    "  4:VSORT(1297)",
+    "  |  order by: mktcode[#75] ASC, tgtcode[#76] ASC, bizdate[#77] ASC",
+    "  |  algorithm: full sort",
+    "  |  offset: 0",
+    "  |  distribute expr lists: mktcode[#71], tgtcode[#72]",
+    "  |  ",
+    "  3:VANALYTIC(1285)",
+    "  |  functions: [row_number()]",
+    "  |  partition by: mktcode[#66], tgtcode[#67]",
+    "  |  order by: bizdate[#68] DESC NULLS LAST",
+    "  |  window: ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW",
+    "  |  predicates: (observation_rank[#70] <= 20)",
+    "  |  final projections: mktcode[#66], tgtcode[#67], bizdate[#68], closePrice[#69]",
+    "  |  final project output tuple id: 5",
+    "  |  distribute expr lists: mktcode[#66], tgtcode[#67]",
+    "  |  ",
+    "  2:VSORT(1281)",
+    "  |  order by: mktcode[#66] ASC, tgtcode[#67] ASC, bizdate[#68] DESC",
+    "  |  algorithm: full sort",
+    "  |  offset: 0",
+    "  |  distribute expr lists: mktcode[#62], tgtcode[#63]",
+    "  |  ",
+    "  1:VPartitionTopN(1277)",
+    "  |  functions: row_number",
+    "  |  partition by: mktcode[#58], tgtcode[#59]",
+    "  |  order by: bizdate[#64] DESC",
+    "  |  has global limit: false",
+    "  |  partition limit: 20",
+    "  |  partition topn phase: TWO_PHASE_LOCAL_PTOPN",
+    "  |  distribute expr lists: mktcode[#58], tgtcode[#59]",
+    "  |  ",
+    "  0:VOlapScanNode(1265)",
+    "     TABLE: newzl.hsj_stock_hq_basic(hsj_stock_hq_basic), PREAGGREGATION: ON",
+    "     PREDICATES: ((bizdate[#2] <= '2006-01-04') AND (__DORIS_DELETE_SIGN__[#56] = 0))",
+    "     partitions=1/21 (p20060101000000)",
+    "     tablets=16/16, tabletList=1791094084083,1791094084085,1791094084087 ...",
+    "     cardinality=227321, avgRowSize=116.215485, numNodes=1",
+    "     pushAggOp=NONE",
+    "     final projections: mktcode[#0], tgtcode[#1], bizdate[#2], (CAST(closePx[#8] AS double) / 10000)",
+    "     final project output tuple id: 1",
+    "",
+    "",
+    "",
+    "========== STATISTICS ==========",
+    "planned with unknown column statistics"
+  ],
+  "queryProfile": {
+    "available": false,
+    "queryId": "9a8e803adae24f25-b0977249279c1356",
+    "taskState": null,
+    "total": null,
+    "user": null,
+    "note": "Profile is asynchronous or not retained"
+  },
+  "dataQuality": {
+    "validationLevel": "PROJECT_SCOPED",
+    "officialAcceptanceEligible": false,
+    "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+    "coverageStatus": "PARTIAL_INPUTS",
+    "evaluationDate": "2006-01-04",
+    "requiredSources": [
+      "basic"
+    ],
+    "observedSecurities": 1079,
+    "currentMissingExtensionRows": 0,
+    "inputs": [
+      {
+        "function": "indicator",
+        "indicator": "RSI(5)",
+        "unavailableSecurities": 1079,
+        "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+        "window": "6 条观察记录",
+        "role": "VALUE",
+        "requiredObservations": 6
+      },
+      {
+        "function": "indicator",
+        "indicator": "20日均线",
+        "unavailableSecurities": 1079,
+        "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+        "window": "20 条观察记录",
+        "role": "VALUE",
+        "requiredObservations": 20
+      }
+    ],
+    "unavailableSamples": [
+      [
+        "0",
+        "000001",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000002",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000004",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000007",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000008",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000010",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000012",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000014",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000016",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000020",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000021",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000025",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000026",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000027",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000028",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000030",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000031",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000034",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000035",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "0",
+        "000036",
+        "0",
+        "1",
+        "1"
+      ]
+    ],
+    "snapshotExtensionWithoutBasic": 249480,
+    "snapshotCloseOutsideRange": 3487,
+    "limitations": [
+      "本次使用项目已冻结的字段单位、公式与缺值约定，官方口径未获额外确认。",
+      "证券范围以基础行情为准。无法关联基础行情的衍生记录完整保留，不用于补造基础行情。",
+      "缺失字段、-999999 资金哨兵、零分母、历史不足及平坦 position 区间按原契约返回 NULL。",
+      "行业字段在现有数据中不可用；项目入口拒绝行业查询。财务等缺少来源的功能仍拒绝。",
+      "这是项目内部按依赖验证的运行证据，不登记 VALIDATED 快照，不代表官方验收。",
+      "原始数据按不可变快照管理。运行账户只读；外部装载修改数据后必须重新验证，行数和表/视图定义在每次查询时复核。",
+      "可用性在用户条件、THEN 排名及 LIMIT 之前统计；输入为 NULL 不等于条件为假。各项缺失数量可能重叠，不可相加。样本最多 20 只；每个原因最多展示 20 个实际相关日期。每只证券最多检查 10001 条观察记录，每个输入最多 250000 步解释计算。历史不足只报告观察数，不推测缺少哪些交易日；平坦区间及零分母的相关日期不是缺失日期。跨证券查询、超限或检查失败会明确标记解释不完整，SQL 缺失标记保持有效。"
+    ],
+    "validationMillis": 254.1145,
+    "sampleDetails": [
+      {
+        "marketCode": "0",
+        "securityCode": "000001",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000002",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000004",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000007",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000008",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000010",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000012",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000014",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000016",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000020",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000021",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000025",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000026",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000027",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000028",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000030",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000031",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000034",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000035",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "marketCode": "0",
+        "securityCode": "000036",
+        "evaluationDate": "2006-01-04",
+        "currentExtensionMissing": false,
+        "historyTruncated": false,
+        "inputs": [
+          {
+            "inputId": "a6d44b3f8b286a44934e0fdb28cd9bef67ec0aa60b62d7c81c159de632adf305",
+            "function": "indicator",
+            "indicator": "RSI(5)",
+            "window": "6 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 6,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          },
+          {
+            "inputId": "36d6f6992da955d2acc8a936c4c502dbd08f153d2bcdefecb896115a178b379a",
+            "function": "indicator",
+            "indicator": "20日均线",
+            "window": "20 条观察记录",
+            "role": "VALUE",
+            "status": "EXPLAINED",
+            "reasons": [
+              {
+                "code": "INSUFFICIENT_OBSERVATIONS",
+                "indicator": "收盘价",
+                "requiredObservations": 20,
+                "minimumObserved": 1,
+                "maximumObserved": 1,
+                "relatedDates": [
+                  "2006-01-04"
+                ],
+                "totalRelatedDates": 1,
+                "datesTruncated": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "formatVersion": "project-data-validation-v1",
+  "status": "PROJECT_READY_WITH_LIMITATIONS",
+  "snapshotId": "synthetic-project-v1",
+  "contractVersion": "fixture-v1",
+  "manifestSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "registryFingerprint": "bcba94500fa6af99fa75c2e4d99d924c7c25808e8348994b8ed49ee31a682aca",
+  "definitionAuthority": "PROJECT_INTERNAL",
+  "sources": {
+    "basic": {
+      "qualifiedName": "dsl_project_fixture_45bc80d50afc.v_hsj_stock_hq_basic",
+      "kind": "VIEW",
+      "status": "PROJECT_READY",
+      "rows": 16,
+      "definitionSha256": "1556e38f425257396f7042f0d01cbb69f88179656226b718dc2719ac658d0960"
+    },
+    "extension": {
+      "qualifiedName": "dsl_project_fixture_45bc80d50afc.v_hsj_stock_hq_ext",
+      "kind": "VIEW",
+      "status": "PROJECT_READY",
+      "rows": 16,
+      "definitionSha256": "7cc486b089a400d2f9ba7e06ed1d8f24959dcc48cec62b603180a604ce7bf7a5"
+    },
+    "code": {
+      "qualifiedName": "dsl_project_fixture_45bc80d50afc.hsj_stock_code_info",
+      "kind": "TABLE",
+      "status": "PROJECT_READY",
+      "rows": 7,
+      "definitionSha256": "948f577a0fe0a9ec5b5a58887415de5e665ec0dd7fe55f22b437335a0dc74601"
+    }
+  },
+  "extensionWithoutBasic": 1,
+  "closeOutsideRange": 0,
+  "limitations": [
+    "手工标注合成数据；不代表官方数据或官方验收。"
+  ]
+}

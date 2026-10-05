@@ -33,6 +33,7 @@ final class StockSlotAdvancedSqlCompiler {
     private final StockSlotAst.SemanticModel model;
     private final StockSlotRegistry registry;
     private final boolean allowFeatureAccess;
+    private final boolean retainFiniteWindowTail;
     private final HistoricalExtremaFeatureCatalog historicalFeatures;
     private final RollingAverageFeatureCatalog rollingFeatures;
     private final Map<String,Integer> rollingAverages = new LinkedHashMap<>();
@@ -43,6 +44,7 @@ final class StockSlotAdvancedSqlCompiler {
     private String materializedMarketColumn;
     private final LinkedHashMap<String, RawMetric> rawMetrics = new LinkedHashMap<>();
     private final IdentityHashMap<StockSlotAst.FunctionCall, CallSpec> calls = new IdentityHashMap<>();
+    private final IdentityHashMap<StockSlotAst.FunctionCall, Integer> priceRows = new IdentityHashMap<>();
     private final List<CallSpec> featureCalls = new ArrayList<>();
     private final Map<String, HistoricalExtremum> historicalExtrema = new LinkedHashMap<>();
     private final LinkedHashMap<StockSlotAst.FunctionCall, RankSpec> ranks = new LinkedHashMap<>();
@@ -63,10 +65,11 @@ final class StockSlotAdvancedSqlCompiler {
 
     StockSlotAdvancedSqlCompiler(StockSlotAst.SemanticModel model, StockSlotRegistry registry, boolean allowFeatureAccess,
                                  HistoricalExtremaFeatureCatalog historicalFeatures, RollingAverageFeatureCatalog rollingFeatures,
-                                 String snapshotId, String manifestSha256) {
+                                 String snapshotId, String manifestSha256, boolean retainFiniteWindowTail) {
         this.model = model;
         this.registry = registry;
         this.allowFeatureAccess = allowFeatureAccess;
+        this.retainFiniteWindowTail = retainFiniteWindowTail;
         this.historicalFeatures = historicalFeatures;
         this.rollingFeatures = rollingFeatures;
         this.snapshotId = snapshotId;
@@ -154,6 +157,9 @@ final class StockSlotAdvancedSqlCompiler {
             }
             appendFeatureLookup(sql,rollingFeatures.qualifiedTable(),"RollingFeatureScan");
         } else {
+        int keep = retainedObservationRows();
+        boolean prune = retainFiniteWindowTail && !needsCode && !needsFeature && keep > 0;
+        boolean deferredExtension = prune && needsExt;
         var basic = registry.table("basic");
         var extension = registry.table("extension");
         var code = registry.table("code");
@@ -165,7 +171,8 @@ final class StockSlotAdvancedSqlCompiler {
                 .append(registry.column(scanKey, "tradeDate")).append(" AS bizdate");
         if (needsCode) sql.append(',').append(registry.column("code", "name")).append(" AS name,")
                 .append(registry.column("code", "industry")).append(" AS hyBlkRefName");
-        rawMetrics.values().forEach(raw -> sql.append(",\n    ").append(raw.metric.expression()).append(" AS `").append(raw.alias).append('`'));
+        rawMetrics.values().stream().filter(raw -> !deferredExtension || !raw.metric.extension)
+                .forEach(raw -> sql.append(",\n    ").append(raw.metric.expression()).append(" AS `").append(raw.alias).append('`'));
         if (aggregateHistory) {
             sql.append(",\n    CASE WHEN ").append(registry.column(scanKey, "tradeDate"))
                     .append(" = ? THEN 1 ELSE 0 END AS is_current");
@@ -175,7 +182,7 @@ final class StockSlotAdvancedSqlCompiler {
         if (needsCode) sql.append("  LEFT JOIN ").append(code.qualifiedName()).append(' ').append(code.alias())
                 .append(" ON ").append(registry.column("code", "marketCode")).append('=').append(registry.column(scanKey, "marketCode"))
                 .append(" AND ").append(registry.column("code", "securityCode")).append('=').append(registry.column(scanKey, "securityCode")).append("\n");
-        if (needsExt) sql.append("  LEFT JOIN ").append(extension.qualifiedName()).append(' ').append(extension.alias())
+        if (needsExt && !deferredExtension) sql.append("  LEFT JOIN ").append(extension.qualifiedName()).append(' ').append(extension.alias())
                 .append(" ON ").append(registry.column("extension", "marketCode")).append('=').append(registry.column("basic", "marketCode"))
                 .append(" AND ").append(registry.column("extension", "securityCode")).append('=').append(registry.column("basic", "securityCode"))
                 .append(" AND ").append(registry.column("extension", "tradeDate")).append('=').append(registry.column("basic", "tradeDate")).append("\n");
@@ -192,13 +199,31 @@ final class StockSlotAdvancedSqlCompiler {
         sql.append("\n)");
         plan.add(new StockSlotSqlArtifact.PlanNode(needsFeature ? "FeatureScan" : "HistoryScan", scan.qualifiedName() + " through " + targetDate));
         if (needsCode) plan.add(new StockSlotSqlArtifact.PlanNode("CodeJoin", code.qualifiedName() + " on (mktcode,tgtcode)"));
-        if (needsExt) plan.add(new StockSlotSqlArtifact.PlanNode("LeftJoin", extension.qualifiedName() + " on (mktcode,tgtcode,bizdate)"));
+        if (needsExt && !deferredExtension) plan.add(new StockSlotSqlArtifact.PlanNode("LeftJoin", extension.qualifiedName() + " on (mktcode,tgtcode,bizdate)"));
 
         String source = "history";
+        if (prune) {
+            sql.append(",\nhistory_ranked AS (\n  SELECT history.*, ROW_NUMBER() OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate DESC) AS observation_rank\n  FROM history\n),\nobserved_tail AS (\n  SELECT * FROM history_ranked WHERE observation_rank<=")
+                    .append(keep).append("\n)");
+            source = "observed_tail";
+            plan.add(new StockSlotSqlArtifact.PlanNode("ObservedTail", "Keep the latest " + keep
+                    + " actual observed rows per security, including NULLs and predecessors required by nested occurrence windows"));
+        }
+        if (deferredExtension) {
+            sql.append(",\nhistory_enriched AS (\n  SELECT observed_tail.*");
+            rawMetrics.values().stream().filter(raw -> raw.metric.extension).forEach(raw ->
+                    sql.append(",\n    ").append(raw.metric.expression()).append(" AS `").append(raw.alias).append('`'));
+            sql.append("\n  FROM observed_tail LEFT JOIN ").append(extension.qualifiedName()).append(' ').append(extension.alias())
+                    .append(" ON ").append(registry.column("extension", "marketCode")).append("=observed_tail.mktcode")
+                    .append(" AND ").append(registry.column("extension", "securityCode")).append("=observed_tail.tgtcode")
+                    .append(" AND ").append(registry.column("extension", "tradeDate")).append("=observed_tail.bizdate\n)");
+            source = "history_enriched";
+            plan.add(new StockSlotSqlArtifact.PlanNode("LeftJoin", extension.qualifiedName() + " after observed tail on (mktcode,tgtcode,bizdate)"));
+        }
         if (needsDelta) {
             RawMetric close = rawMetric(metric("收盘价"));
-            sql.append(",\ndeltas AS (\n  SELECT history.*, `").append(close.alias).append("` - LAG(`")
-                    .append(close.alias).append("`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) AS `price_delta`\n  FROM history\n)");
+            sql.append(",\ndeltas AS (\n  SELECT ").append(source).append(".*, `").append(close.alias).append("` - LAG(`")
+                    .append(close.alias).append("`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate) AS `price_delta`\n  FROM ").append(source).append("\n)");
             source = "deltas";
             plan.add(new StockSlotSqlArtifact.PlanNode("Lag", "close delta over observed trading rows"));
         }
@@ -246,12 +271,43 @@ final class StockSlotAdvancedSqlCompiler {
             plan.add(new StockSlotSqlArtifact.PlanNode("OccurrenceWindow", counts.size() + " CONS/EXIST expression(s)"));
         }
 
+        int currentRowsOffset = sql.length();
+        String historySource = source;
         sql.append(",\ncurrent_rows AS (\n  SELECT * FROM ").append(source);
         if (aggregateHistory) sql.append(" WHERE has_current=1");
         else { sql.append(" WHERE bizdate = ?"); bindings.add(targetDate); }
         sql.append("\n)");
         source = "current_rows";
         plan.add(new StockSlotSqlArtifact.PlanNode("EvaluationDateFilter", targetDate.toString()));
+
+        var coverageInputs = new ArrayList<StockSlotCoveragePlan.Input>();
+        calls.forEach((call, spec) -> coverageInputs.add(StockSlotCoveragePlan.describe(call,
+                spec.rank ? ranks.get(call).metricAlias : spec.alias, model)));
+        counts.values().forEach(count -> coverageInputs.add(new StockSlotCoveragePlan.Input(
+                count.mode, "完整 " + count.horizon + " 条观察记录的次数条件", count.resultAlias,
+                count.comparison, "COUNT_RESULT", count.horizon)));
+        coverageInputs.sort(java.util.Comparator.comparing(StockSlotCoveragePlan.Input::alias));
+        String coveragePrefix = sql.toString();
+        if (!counts.isEmpty()) {
+            // Diagnose unknown predicates throughout the horizon separately from the frozen count result.
+            var diagnostic = new StringBuilder(sql.substring(0, currentRowsOffset))
+                    .append(",\ncoverage_counted AS (\n  SELECT ").append(historySource).append(".*");
+            for (CountSpec count : counts.values()) {
+                String alias = "availability_" + count.resultAlias;
+                diagnostic.append(",\n    CASE WHEN COUNT(`").append(count.predicateAlias).append("`) OVER ")
+                        .append(over(frame(count.horizon))).append("=").append(count.horizon)
+                        .append(" THEN 1 ELSE NULL END AS `").append(alias).append('`');
+                coverageInputs.add(new StockSlotCoveragePlan.Input(count.mode + "（窗口输入）",
+                        "完整 " + count.horizon + " 条观察记录的条件输入", alias,
+                        count.comparison, "COUNT_INPUT", count.horizon));
+            }
+            diagnostic.append("\n  FROM ").append(historySource).append("\n),\ncoverage_current_rows AS (\n  SELECT * FROM coverage_counted WHERE bizdate=?\n)");
+            coveragePrefix = diagnostic.toString();
+            source = "coverage_current_rows";
+        }
+        var coverage = StockSlotCoveragePlan.create(coveragePrefix, bindings, source, targetDate,
+                coverageInputs, registry, needsExt);
+        source = "current_rows";
 
         if (pre != null) {
             sql.append(",\nprefiltered AS (\n  SELECT * FROM current_rows WHERE ").append(render(pre)).append("\n)");
@@ -287,7 +343,7 @@ final class StockSlotAdvancedSqlCompiler {
         }
         sql.append(';');
         plan.add(new StockSlotSqlArtifact.PlanNode("Project", "mktcode,tgtcode"));
-        return new StockSlotSqlArtifact(StockSlotCompiler.DSL_VERSION, model, plan, contracts, sql.toString(), bindings, ordered);
+        return new StockSlotSqlArtifact(StockSlotCompiler.DSL_VERSION, model, plan, contracts, sql.toString(), bindings, ordered, coverage);
     }
 
     private StringBuilder historicalFeatureSql() {
@@ -363,6 +419,45 @@ final class StockSlotAdvancedSqlCompiler {
             case INDUSTRY_AGGREGATE -> industry(call, function);
             default -> fail("EXECUTION_FUNCTION_UNSUPPORTED", "No SQL lowering for function: " + call.name());
         }
+        priceRows.put(call, requiredObservationRows(call));
+    }
+
+    // Cross-sectional lookups and unbounded windows must retain their complete history.
+    private int requiredObservationRows(StockSlotAst.FunctionCall call) {
+        return switch (registry.function(call.name()).lowering().kind()) {
+            case INDICATOR -> {
+                var indicator = registry.indicator(arg(call, 2, "indicator_name"));
+                yield switch (indicator.lowering().kind()) {
+                    case WINDOW_AVG -> Integer.parseInt(indicator.parameters().get("N"));
+                    case RSI -> Integer.parseInt(indicator.parameters().get("N")) + 1;
+                    default -> arg(call, 5, "agg_func").isEmpty() ? 1 : date(arg(call, 3, "date")).lookback;
+                };
+            }
+            case RANGE_WINDOW -> { var p = period(arg(call, 3, "period")); yield p.unbounded ? 0 : p.length; }
+            case PAIR_WINDOW -> registry.function(call.name()).lowering().parameters().get("mode").equals("CLOSE_TOGETHER") ? 1 : 2;
+            case RANK -> 1;
+            default -> 0;
+        };
+    }
+
+    private int retainedObservationRows() {
+        if (priceRows.isEmpty() || priceRows.values().stream().anyMatch(n -> n <= 0)) return 0;
+        int keep = priceRows.values().stream().mapToInt(Integer::intValue).max().orElseThrow();
+        for (CountSpec count : counts.values()) {
+            // A comparison can reference another function as well as the counted call.
+            // All its operands are evaluated at each historical row of the count horizon.
+            keep = Math.max(keep, dependencyRows(count.comparison) + count.horizon - 1);
+        }
+        return keep;
+    }
+
+    private int dependencyRows(StockSlotAst.Expr expression) {
+        return switch (expression) {
+            case StockSlotAst.FunctionCall call -> priceRows.getOrDefault(call, 0);
+            case StockSlotAst.Binary binary -> Math.max(dependencyRows(binary.left()), dependencyRows(binary.right()));
+            case StockSlotAst.Unary unary -> dependencyRows(unary.operand());
+            default -> 1;
+        };
     }
 
     private void indicator(StockSlotAst.FunctionCall call) {
@@ -460,7 +555,8 @@ final class StockSlotAdvancedSqlCompiler {
         String mode = definition.lowering().parameters().get("mode");
         String indicator = arg(call, 2, "indicator_name");
         if (indicator.isEmpty()) indicator = definition.lowering().parameters().get("defaultIndicator");
-        RawMetric raw = rawMetric(metric(indicator));
+        var resolved = registry.indicator(indicator);
+        RawMetric raw = rawMetric(mode.equals("POSITION") ? positionMetric(resolved) : metric(indicator));
         PeriodSpec period = period(arg(call, 3, "period"));
         mergeDate(date(arg(call, 4, "date")).date);
         rejectSelectType(arg(call, 5, "select_type"));
@@ -472,11 +568,16 @@ final class StockSlotAdvancedSqlCompiler {
                 : "COUNT(`" + raw.alias + "`) OVER " + over + " = " + period.length;
         String expression;
         if (mode.equals("POSITION")) {
-            String min = "MIN(`" + raw.alias + "`) OVER " + over;
-            String max = "MAX(`" + raw.alias + "`) OVER " + over;
-            expression = "CASE WHEN NOT (" + complete + ") OR " + max + "=" + min + " THEN NULL "
-                    + "WHEN `" + raw.alias + "` <= " + min + "+(" + max + "-" + min + ")/3 THEN '低' "
-                    + "WHEN `" + raw.alias + "` >= " + min + "+2*(" + max + "-" + min + ")/3 THEN '高' ELSE '中' END";
+            // Canonical decimal values remove binary representation noise in
+            // scaled prices. Cross multiplication keeps both thirds inclusive
+            // without rounding a division by three. BIGINT inputs stay exact.
+            int scale = Integer.parseInt(resolved.lowering().parameters().getOrDefault("positionScale", "12"));
+            String value = "CAST(`" + raw.alias + "` AS DECIMAL(36," + scale + "))";
+            String min = "MIN(" + value + ") OVER " + over;
+            String max = "MAX(" + value + ") OVER " + over;
+            expression = "CASE WHEN `" + raw.alias + "` IS NULL OR NOT (" + complete + ") OR " + max + "=" + min + " THEN NULL "
+                    + "WHEN CAST(3 AS DECIMAL(1,0))*(" + value + "-" + min + ") <= (" + max + "-" + min + ") THEN '低' "
+                    + "WHEN CAST(3 AS DECIMAL(1,0))*(" + value + "-" + min + ") >= CAST(2 AS DECIMAL(1,0))*(" + max + "-" + min + ") THEN '高' ELSE '中' END";
         } else {
             String fn = mode;
             expression = "CASE WHEN " + complete + " THEN `" + raw.alias + "` = " + fn + "(`" + raw.alias + "`) OVER " + over + " ELSE NULL END";
@@ -647,7 +748,10 @@ final class StockSlotAdvancedSqlCompiler {
     private String over(String frame) {
         return "(PARTITION BY mktcode,tgtcode ORDER BY bizdate" + (frame.isEmpty() ? "" : " " + frame) + ")";
     }
-    private String frame(int n) { return "ROWS BETWEEN " + (n - 1) + " PRECEDING AND CURRENT ROW"; }
+    private String frame(int n) {
+        return n == 1 ? "ROWS BETWEEN CURRENT ROW AND CURRENT ROW"
+                : "ROWS BETWEEN " + (n - 1) + " PRECEDING AND CURRENT ROW";
+    }
 
     private void contract(String function, int lookback, boolean full) {
         contracts.add(new StockSlotWindowContract(function, List.of("mktcode", "tgtcode"), List.of("bizdate"),
@@ -674,6 +778,15 @@ final class StockSlotAdvancedSqlCompiler {
         var indicator = registry.indicator(name);
         if (indicator.pattern() != null) fail("EXECUTION_INDICATOR_WINDOW", "Pattern indicator cannot be used as a raw field: " + name);
         return new Metric(registry.expression(indicator), registry.requiresTable(indicator, "extension"));
+    }
+
+    private Metric positionMetric(StockSlotRegistry.ResolvedIndicator indicator) {
+        if (indicator.pattern() != null)
+            fail("EXECUTION_INDICATOR_WINDOW", "Pattern indicator cannot be used as a raw field: " + indicator.name());
+        String field = indicator.lowering().parameters().get("positionField");
+        String expression = field == null ? registry.expression(indicator)
+                : registry.column(indicator.exact().source().table(), field);
+        return new Metric(expression, registry.requiresTable(indicator, "extension"));
     }
 
     private String alias() { return "f" + (calls.size() + 1); }

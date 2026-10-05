@@ -1,0 +1,5 @@
+{
+  "message": "Doris rejected controlled query; code 1105 (SQLState HY000)",
+  "error": "DORIS_ERROR",
+  "category": "doris_error"
+}

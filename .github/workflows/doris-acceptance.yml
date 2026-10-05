@@ -16,6 +16,12 @@ jobs:
       DORIS_PASSWORD: ${{ secrets.DORIS_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned Python test dependencies
+        shell: pwsh
+        run: python -m pip install -r scripts/doris/requirements-selftest.txt
       - name: Run fixed-snapshot differential suite
         if: ${{ !inputs.runNineteenYearBenchmark }}
         shell: pwsh
@@ -32,3 +38,7 @@ jobs:
             reports/automation/
             reports/accuracy/
             reports/benchmark-matrix/
+            target/project-window-boundaries-*.json
+            target/project-rsi-boundaries-*.json
+            target/project-availability-*.json
+            target/project-fields-*.json

@@ -1,0 +1,461 @@
+{
+  "purpose": "PROJECT_SCOPED_OFFICIAL_DATA_EXECUTION",
+  "officialAcceptanceEligible": false,
+  "jarSha256": "55f497ac2ab0e6637c55d64c5d80a1cc2749f0ad04fe10eddfd476a95b9cdcbb",
+  "certificateSha256": "2a265658f06c4bef65ebd84549e32dc0f369968e792aaa37a071e1cee4d71080",
+  "snapshotId": "stock-20060104-20260414-v1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "checks": [
+    {
+      "name": "independent-source-lock",
+      "status": "PASS"
+    },
+    {
+      "name": "close-cli",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "close-keys-and-coverage",
+      "status": "PASS",
+      "rows": 5535,
+      "expectedRows": 5535,
+      "observedSecurities": 5614,
+      "currentMissingExtensionRows": 0,
+      "actualInputs": [
+        {
+          "function": "indicator",
+          "indicator": "收盘价",
+          "unavailable": 41
+        }
+      ],
+      "expectedInputs": [
+        {
+          "function": "indicator",
+          "indicator": "收盘价",
+          "unavailable": 41
+        }
+      ]
+    },
+    {
+      "name": "net-cli",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "net-keys-and-coverage",
+      "status": "PASS",
+      "rows": 2247,
+      "expectedRows": 2247,
+      "observedSecurities": 5614,
+      "currentMissingExtensionRows": 0,
+      "actualInputs": [
+        {
+          "function": "indicator",
+          "indicator": "主力净流入",
+          "unavailable": 347
+        }
+      ],
+      "expectedInputs": [
+        {
+          "function": "indicator",
+          "indicator": "主力净流入",
+          "unavailable": 347
+        }
+      ]
+    },
+    {
+      "name": "mixed-cli",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "mixed-keys-and-coverage",
+      "status": "PASS",
+      "rows": 2241,
+      "expectedRows": 2241,
+      "observedSecurities": 5614,
+      "currentMissingExtensionRows": 0,
+      "actualInputs": [
+        {
+          "function": "indicator",
+          "indicator": "收盘价",
+          "unavailable": 41
+        },
+        {
+          "function": "indicator",
+          "indicator": "主力净流入",
+          "unavailable": 347
+        }
+      ],
+      "expectedInputs": [
+        {
+          "function": "indicator",
+          "indicator": "收盘价",
+          "unavailable": 41
+        },
+        {
+          "function": "indicator",
+          "indicator": "主力净流入",
+          "unavailable": 347
+        }
+      ]
+    },
+    {
+      "name": "ma5-cli",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "ma5-keys-and-coverage",
+      "status": "PASS",
+      "rows": 5524,
+      "expectedRows": 5524,
+      "observedSecurities": 5614,
+      "currentMissingExtensionRows": 0,
+      "actualInputs": [
+        {
+          "function": "indicator",
+          "indicator": "5日均线",
+          "unavailable": 52
+        }
+      ],
+      "expectedInputs": [
+        {
+          "function": "indicator",
+          "indicator": "5日均线",
+          "unavailable": 52
+        }
+      ]
+    },
+    {
+      "name": "cons3-cli",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "cons3-keys-and-coverage",
+      "status": "PASS",
+      "rows": 5529,
+      "expectedRows": 5529,
+      "observedSecurities": 5614,
+      "currentMissingExtensionRows": 0,
+      "actualInputs": [
+        {
+          "function": "CONS（窗口输入）",
+          "indicator": "完整 3 条观察记录的条件输入",
+          "unavailable": 47
+        },
+        {
+          "function": "CONS",
+          "indicator": "完整 3 条观察记录的次数条件",
+          "unavailable": 1
+        },
+        {
+          "function": "indicator",
+          "indicator": "收盘价",
+          "unavailable": 41
+        }
+      ],
+      "expectedInputs": [
+        {
+          "function": "indicator",
+          "indicator": "收盘价",
+          "unavailable": 41
+        },
+        {
+          "function": "CONS",
+          "indicator": "完整 3 条观察记录的次数条件",
+          "unavailable": 1
+        },
+        {
+          "function": "CONS（窗口输入）",
+          "indicator": "完整 3 条观察记录的条件输入",
+          "unavailable": 47
+        }
+      ]
+    },
+    {
+      "name": "exist3-cli",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "exist3-keys-and-coverage",
+      "status": "PASS",
+      "rows": 5577,
+      "expectedRows": 5577,
+      "observedSecurities": 5614,
+      "currentMissingExtensionRows": 0,
+      "actualInputs": [
+        {
+          "function": "EXIST（窗口输入）",
+          "indicator": "完整 20 条观察记录的条件输入",
+          "unavailable": 391
+        },
+        {
+          "function": "EXIST",
+          "indicator": "完整 20 条观察记录的次数条件",
+          "unavailable": 16
+        },
+        {
+          "function": "indicator",
+          "indicator": "成交量",
+          "unavailable": 41
+        }
+      ],
+      "expectedInputs": [
+        {
+          "function": "indicator",
+          "indicator": "成交量",
+          "unavailable": 41
+        },
+        {
+          "function": "EXIST",
+          "indicator": "完整 20 条观察记录的次数条件",
+          "unavailable": 16
+        },
+        {
+          "function": "EXIST（窗口输入）",
+          "indicator": "完整 20 条观察记录的条件输入",
+          "unavailable": 391
+        }
+      ]
+    },
+    {
+      "name": "position3-cli",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "position3-keys-and-coverage",
+      "status": "PASS",
+      "rows": 3299,
+      "expectedRows": 3299,
+      "observedSecurities": 5614,
+      "currentMissingExtensionRows": 0,
+      "actualInputs": [
+        {
+          "function": "position",
+          "indicator": "收盘价",
+          "unavailable": 53
+        }
+      ],
+      "expectedInputs": [
+        {
+          "function": "position",
+          "indicator": "收盘价",
+          "unavailable": 53
+        }
+      ]
+    },
+    {
+      "name": "cross-cli",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "cross-keys-and-coverage",
+      "status": "PASS",
+      "rows": 1053,
+      "expectedRows": 1053,
+      "observedSecurities": 5614,
+      "currentMissingExtensionRows": 0,
+      "actualInputs": [
+        {
+          "function": "cross_above",
+          "indicator": "收盘价 / 开盘价",
+          "unavailable": 44
+        }
+      ],
+      "expectedInputs": [
+        {
+          "function": "cross_above",
+          "indicator": "收盘价 / 开盘价",
+          "unavailable": 44
+        }
+      ]
+    },
+    {
+      "name": "rank-cli",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "rank-keys-and-coverage",
+      "status": "PASS",
+      "rows": 3,
+      "expectedRows": 3,
+      "observedSecurities": 5614,
+      "currentMissingExtensionRows": 0,
+      "actualInputs": [
+        {
+          "function": "rank",
+          "indicator": "收盘价",
+          "unavailable": 41
+        }
+      ],
+      "expectedInputs": [
+        {
+          "function": "rank",
+          "indicator": "收盘价",
+          "unavailable": 41
+        }
+      ]
+    },
+    {
+      "name": "queryData-cli",
+      "status": "PASS",
+      "exitCode": 0,
+      "error": ""
+    },
+    {
+      "name": "queryData-keys-and-coverage",
+      "status": "FAIL",
+      "rows": 3824,
+      "expectedRows": 3824,
+      "observedSecurities": 5614,
+      "currentMissingExtensionRows": 0,
+      "actualInputs": [
+        {
+          "function": "indicator",
+          "indicator": "收盘价",
+          "unavailable": 41
+        },
+        {
+          "function": "querydata",
+          "indicator": "收盘价",
+          "unavailable": 0
+        }
+      ],
+      "expectedInputs": [
+        {
+          "function": "indicator",
+          "indicator": "收盘价",
+          "unavailable": 41
+        },
+        {
+          "function": "queryData",
+          "indicator": "收盘价",
+          "unavailable": 0
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "name": "close",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', '') > 1",
+      "evaluationDate": "2026-04-14",
+      "rows": 5535,
+      "coverageStatus": "PARTIAL_INPUTS",
+      "totalMillis": 287.551,
+      "dorisExecutionMillis": 35.044,
+      "validationMillis": 184.4752,
+      "wallSeconds": 1.156
+    },
+    {
+      "name": "net",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', '') > 0",
+      "evaluationDate": "2026-04-14",
+      "rows": 2247,
+      "coverageStatus": "PARTIAL_INPUTS",
+      "totalMillis": 403.1123,
+      "dorisExecutionMillis": 50.7388,
+      "validationMillis": 282.6557,
+      "wallSeconds": 1.235
+    },
+    {
+      "name": "mixed",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', '') > 1 and indicator('', '', '主力净流入', '2026-04-14', '', '', '') > 0",
+      "evaluationDate": "2026-04-14",
+      "rows": 2241,
+      "coverageStatus": "PARTIAL_INPUTS",
+      "totalMillis": 414.5468,
+      "dorisExecutionMillis": 51.8021,
+      "validationMillis": 297.3451,
+      "wallSeconds": 1.265
+    },
+    {
+      "name": "ma5",
+      "dsl": "indicator('', '', '5日均线', '2026-04-14', '', '', '') > 1",
+      "evaluationDate": "2026-04-14",
+      "rows": 5524,
+      "coverageStatus": "PARTIAL_INPUTS",
+      "totalMillis": 5402.5207,
+      "dorisExecutionMillis": 1735.9103,
+      "validationMillis": 3590.2207,
+      "wallSeconds": 6.266
+    },
+    {
+      "name": "cons3",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', 'CONS>=3日') > 1",
+      "evaluationDate": "2026-04-14",
+      "rows": 5529,
+      "coverageStatus": "PARTIAL_INPUTS",
+      "totalMillis": 5119.0854,
+      "dorisExecutionMillis": 1086.0387,
+      "validationMillis": 3951.5705,
+      "wallSeconds": 6.031
+    },
+    {
+      "name": "exist3",
+      "dsl": "indicator('', '', '成交量', '2026-04-14', '', '', 'EXIST>=3日') > 0",
+      "evaluationDate": "2026-04-14",
+      "rows": 5577,
+      "coverageStatus": "PARTIAL_INPUTS",
+      "totalMillis": 5166.5193,
+      "dorisExecutionMillis": 1018.5282,
+      "validationMillis": 4069.676,
+      "wallSeconds": 6.031
+    },
+    {
+      "name": "position3",
+      "dsl": "position('', '', '收盘价', '3日', '2026-04-14', '', '', '') = '高'",
+      "evaluationDate": "2026-04-14",
+      "rows": 3299,
+      "coverageStatus": "PARTIAL_INPUTS",
+      "totalMillis": 3589.6149,
+      "dorisExecutionMillis": 1080.9179,
+      "validationMillis": 2433.8803,
+      "wallSeconds": 4.5
+    },
+    {
+      "name": "cross",
+      "dsl": "cross_above('', '', '收盘价', '开盘价', '2026-04-14', '', '') = True",
+      "evaluationDate": "2026-04-14",
+      "rows": 1053,
+      "coverageStatus": "PARTIAL_INPUTS",
+      "totalMillis": 5143.9796,
+      "dorisExecutionMillis": 1720.7958,
+      "validationMillis": 3355.93,
+      "wallSeconds": 5.985
+    },
+    {
+      "name": "rank",
+      "dsl": "rank('', '', '收盘价', 'desc:dense_rank', '2026-04-14', '', '', '') <= 3",
+      "evaluationDate": "2026-04-14",
+      "rows": 3,
+      "coverageStatus": "PARTIAL_INPUTS",
+      "totalMillis": 282.4226,
+      "dorisExecutionMillis": 27.4127,
+      "validationMillis": 193.1599,
+      "wallSeconds": 1.093
+    }
+  ],
+  "fatalError": "queryData-keys-and-coverage",
+  "cleanup": "DONE",
+  "passed": 20,
+  "total": 21,
+  "completedAtUtc": "2026-10-04T17:59:48.256658+00:00",
+  "status": "FAIL"
+}
