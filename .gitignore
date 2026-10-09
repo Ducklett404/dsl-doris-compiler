@@ -20,6 +20,10 @@ __pycache__/
 /reports/reference-rebuild/
 /reports/wsl-integration/
 
+# Generated aggregate run status is local evidence, not source delivery.
+/reports/automation/latest.json
+/reports/automation/latest.md
+
 # Accidental empty local file.
 /=
 
