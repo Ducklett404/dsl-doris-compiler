@@ -1,9 +1,10 @@
 # 项目交付清单
 
-整理日期：2026-10-10。`competition-v1.0` 已合并到 `main`，当前项目入口和历史证据分开说明。
+整理日期：2026-10-10。本轮文档修改后需重新绑定源码身份并生成交付包；下列已记录自测不因此变成新批次真实验收。`competition-v1.0` 已合并到 `main`，当前项目入口和历史证据分开说明。统一状态见 [项目状态](../project-status.md)，提交要求见 [赛题对照](competition-readiness.md)。
 
 | 交付内容 | 入口 | 当前状态 |
 |---|---|---|
+| 比赛要求与统一状态 | [赛题对照](competition-readiness.md)、[项目状态](../project-status.md) | 实现、历史证据、当前缺口分别披露 |
 | 项目概览与目录 | [README](../../README.md)、[目录说明](../project-layout.md) | 已整理 |
 | 源码与测试 | `src/`、`executor-doris/` | 已合入 main |
 | Windows／Unix 构建 | `mvnw.cmd`／`mvnw`，`scripts/build-test-start.ps1` | Java 21、Maven 3.9+ |

@@ -1,8 +1,10 @@
-# 首期数据指标范围冻结书（stock-slot-phase1-scope-v1.0.0）
+# 首期数据指标范围冻结书（stock-slot-phase1-scope-v1.0.4）
 
-状态：**已批准并冻结生效（无需签字）**  
-生效日期：2026-09-29  
-DSL：`stock-slot-v1`  
+项目内部批准生效，不表示比赛组织方认证。v1.0.4 修订六个 BIGINT 价格字段及均价的精度边界；历史 v1.0.0—v1.0.3 在 `config/acceptance/history/`。真实执行前须应用现行语义视图并生成新证书；当前验证状态见 [项目状态](project-status.md)。机器清单哈希按冻结校验的文本换行口径计算，不沿用历史报告中的原字节 manifest 哈希。
+
+状态：**已批准并冻结生效（无需签字）**<br>
+初始批准日期：2026-09-29；现行修订生效日期：2026-10-10<br>
+DSL：`stock-slot-v1`<br>
 机器清单：`config/acceptance/stock-slot-phase1-scope-v1.json`
 
 ## 1. 冻结结论
@@ -20,11 +22,11 @@ DSL：`stock-slot-v1`
 | 对象 | 固定值 |
 |---|---|
 | Snapshot | `stock-20060104-20260414-v1` |
-| Manifest SHA-256 | `306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95` |
+| Manifest SHA-256 | `a4f509b7bcaeae96df40ebf97fa2e18c8d7c131a078562f898f94d00d05c091c` |
 | 代码表 | 5,686行，SHA-256 `133293...e01cc` |
 | 基础行情 | 13,650,347行，2006-01-04至2026-04-14，SHA-256 `9c5fd6...1d749` |
 | 扩展行情 | 6,170,822行，2018-08-20至2026-04-14，SHA-256 `18ab00...b4a18` |
-| 注册表 | `stock-slot-registry-v1.0.0`，SHA-256 `743110...bd4cc` |
+| 注册表 | `stock-slot-registry-v1.0.2`，SHA-256 `401c7f5073d2a4ee4f29231b679e44fc56e90df75226cb05851c28bc9b6f3071` |
 
 CSV、注册表、建表语句、语义视图、验证门禁和性能特征脚本的完整哈希均记录在机器清单中。
 任何哈希变化都会使自动校验失败。
@@ -47,7 +49,7 @@ CSV、注册表、建表语句、语义视图、验证门禁和性能特征脚�
 | 总市值 | - | NUMBER/CNY | `(lastPx/10000) * totalShare` | 基础表范围 | 任一输入NULL则NULL | MAX/MIN/AVG/SUM |
 | 流通市值 | - | NUMBER/CNY | `(lastPx/10000) * listedShare` | 基础表范围 | 任一输入NULL则NULL | MAX/MIN/AVG/SUM |
 | 涨跌幅 | 涨幅 | PERCENT/PERCENT_POINT | `(lastPx-preClosePx)*100/preClosePx` | 基础表范围 | 昨收为空或0则NULL | MAX/MIN/AVG |
-| 均价 | - | NUMBER/CNY | `(turnover/100)/volume` | 基础表范围 | 成交量为空或0则NULL | MAX/MIN/AVG |
+| 均价 | - | NUMBER/CNY | `turnover/(100*volume)`（按现行视图显式 DECIMAL 边界计算） | 基础表范围 | 成交量为空或0则NULL | MAX/MIN/AVG |
 | 前复权收盘价 | - | NUMBER/CNY | `(closePx/10000)*qfqMulti+qfqAdd` | 基础表范围 | 保留NULL | MAX/MIN/AVG |
 | 后复权收盘价 | - | NUMBER/CNY | `(closePx/10000)*hfqMulti+hfqAdd` | 基础表范围 | 保留NULL | MAX/MIN/AVG |
 | 主力净流入 | - | NUMBER/CNY | `NULLIF(ZJLXMainNetTur,-999999)` | 2018-08-20至2026-04-14 | `-999999`转NULL，保留其他NULL | MAX/MIN/AVG/SUM |

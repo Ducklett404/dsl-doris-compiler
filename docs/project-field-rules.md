@@ -1,5 +1,7 @@
 # 已映射指标的项目字段规则
 
+当前修订为 v1.0.4，实际视图定义见 `data/doris/ddl/002_semantic_view.sql`；统一验证状态见 [项目状态](project-status.md)。表格给出数学公式，SQL 精度边界以下文和现行视图为准。
+
 这些是项目现有契约的计算规则，独立参考实现按原始行手工编写。现有文件没有提供足以确认全部单位、复权口径和资金哨兵含义的官方字典；下表不代表官方确认。全部原始记录保持不变。
 
 | 指标 | 原始字段及项目公式 | 项目单位 | NULL 规则 |
@@ -18,7 +20,7 @@
 | 总市值 | `lastPx / 10000 * totalShare` | 元 | 任一计算字段 NULL 则 NULL |
 | 流通市值 | `lastPx / 10000 * listedShare` | 元 | 任一计算字段 NULL 则 NULL |
 | 涨跌幅（别名涨幅） | `(lastPx - preClosePx) * 100 / preClosePx` | 百分点 | 任一计算字段 NULL 或昨收为 0 则 NULL |
-| 均价 | `turnover / 100 / volume` | 元 | 任一计算字段 NULL 或成交量为 0 则 NULL |
+| 均价 | `turnover / (100 * volume)`（执行按显式 DECIMAL 边界） | 元 | 任一计算字段 NULL 或成交量为 0 则 NULL |
 | 前复权收盘价 | `closePx / 10000 * qfqMulti + qfqAdd` | 元 | 价格、乘数、加数任一 NULL 则 NULL |
 | 后复权收盘价 | `closePx / 10000 * hfqMulti + hfqAdd` | 元 | 价格、乘数、加数任一 NULL 则 NULL |
 | 主力净流入 | `ZJLXMainNetTur` | 项目资金金额口径 | NULL、项目约定的 `-999999` 或当日缺少衍生行则 NULL；其他负数保留 |

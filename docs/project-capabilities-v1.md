@@ -1,5 +1,7 @@
 # 当前项目能力、演示与交付 v1
 
+当前实现与本批／历史验证状态分别见 [项目状态](project-status.md)和[当前自测](delivery/self-test.md)。本页描述能力契约及复跑方式，命令示例和状态名称不表示已经取得本轮真实通过报告。
+
 版本：`project-capabilities-v1`；DSL：`stock-slot-v1`；范围冻结：`stock-slot-phase1-scope-v1.0.4`（注册表仍为 v1.0.2）。本表描述收到的三份 CSV 和项目内部计算契约。v1.0.4 将六个 BIGINT 价格字段及均价通过显式 DECIMAL 边界规范化，避免精确源倍率经 DOUBLE 舍入；真实运行前须重建语义视图并生成新证书。原始快照与数学定义不变。它不改变正式 `VALIDATED` 门禁；正式数据认可、独立外部盲测和正式目标环境性能验收仍为 `BLOCKED`。
 
 ## 数据与 19 项指标
@@ -22,7 +24,7 @@
 | 总市值 | `lastPx/10000*totalShare` | 元 | 任一计算字段 NULL 则 NULL |
 | 流通市值 | `lastPx/10000*listedShare` | 元 | 任一计算字段 NULL 则 NULL |
 | 涨跌幅／涨幅 | `(lastPx-preClosePx)*100/preClosePx` | 百分点 | 任一字段 NULL 或昨收 0 则 NULL |
-| 均价 | `turnover/(100*volume)` | 元 | 任一字段 NULL 或成交量 0 则 NULL；分母先按 DOUBLE 计算，避免分步除法的额外舍入 |
+| 均价 | `turnover/(100*volume)` | 元 | 任一字段 NULL 或成交量 0 则 NULL；金额先经显式 DECIMAL 边界转为元，再除以十进制成交量，输出 DECIMAL(38,21) |
 | 前复权收盘价 | `closePx/10000*qfqMulti+qfqAdd` | 元 | 任一价格／乘数／加数 NULL 则 NULL |
 | 后复权收盘价 | `closePx/10000*hfqMulti+hfqAdd` | 元 | 任一价格／乘数／加数 NULL 则 NULL |
 | 主力净流入 | `ZJLXMainNetTur` | 项目资金金额口径 | 衍生；缺行、NULL、`-999999` 转 NULL；其他负值有效 |

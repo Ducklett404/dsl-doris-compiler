@@ -1,10 +1,12 @@
 # CLI、HTTP、Docker 与数据装载运行手册
 
-## 现有数据按查询依赖运行（2026-10-05）
+更新口径：2026-10-10，当前范围 v1.0.4、注册表 v1.0.2。当前状态见 [项目状态](project-status.md)，旧日期章节保留原批次部署和诊断过程；不能用旧视图／证书运行新版本并宣称复测通过。
+
+## 当前项目运行入口
 
 数据无法继续补充时，`execute-stock-slot-sql` 与 `serve-doris` 可显式使用可信本地 `--project-validation` JSON。按基础、衍生和证券代码来源分别验证，并返回筛选前的指标/窗口缺失统计。权限与资源限制继续有效，不写入 `VALIDATED`，正式验收入口保持完整快照门禁。配置、结果字段及限制见 [按查询依赖验证指南](project-scoped-validation.md)。
 
-当前能力、19 指标单位、MA/RSI 参数、组合与资源限制、演示及交付恢复统一在 [项目能力与交付 v1](project-capabilities-v1.md)。新的项目验收入口使用 `scripts/doris/run_project_acceptance.py --report-dir 新目录`；默认便携执行不会声称真实 Doris 已通过，真实环境须显式 `--with-doris`。完成验收后用 `scripts/doris/package_project_delivery.py --evidence-dir 本批目录 --output-dir 新交付目录` 固定交付哈希。
+当前能力、19 指标单位、MA/RSI 参数、组合与资源限制、演示及交付恢复统一在 [项目能力与交付 v1](project-capabilities-v1.md)。新的项目验收入口使用 `scripts/doris/run_project_acceptance.py --report-dir 新目录`；默认便携执行不会声称真实 Doris 已通过，完整真实验收须显式 `--with-doris --restart` 并准备原始文件、独立参考和专用容器。完成验收后用 `scripts/doris/package_project_delivery.py --evidence-dir 本批目录 --output-dir 新交付目录` 固定交付哈希。
 
 ## 环境
 
@@ -31,16 +33,18 @@ $env:DORIS_PASSWORD = '<装载账号密码>'
 
 ## 一键构建、测试和启动
 
-前台 HTTP：
+前台 HTTP（启动前配置随机认证令牌）：
 
 ```powershell
-./scripts/build-test-start.ps1 -MavenExecutable mvn.cmd -Mode Http
+$env:DSL_HTTP_TOKEN = [Convert]::ToHexString([Security.Cryptography.RandomNumberGenerator]::GetBytes(32))
+./scripts/build-test-start.ps1 -MavenExecutable .\mvnw.cmd -Mode Http
 ```
 
 Docker 后台：
 
 ```powershell
-./scripts/build-test-start.ps1 -MavenExecutable mvn.cmd -Mode Docker
+$env:DSL_HTTP_TOKEN = [Convert]::ToHexString([Security.Cryptography.RandomNumberGenerator]::GetBytes(32))
+./scripts/build-test-start.ps1 -MavenExecutable .\mvnw.cmd -Mode Docker
 docker compose logs -f compiler
 docker compose down
 ```
@@ -59,7 +63,7 @@ $env:DORIS_PASSWORD = '<只读账号密码>'
 java -jar target/dsl-doris-compiler.jar execute-stock-slot-sql `
   examples/registry-smoke.dsl --user dsl_runtime_reader `
   --snapshot-id stock-20060104-20260414-v1 --format markdown `
-  -o reports/final/query.md
+  -o build/formal-query-new.md
 
 # 复杂正式语料编译性能
 java -jar target/dsl-doris-compiler.jar benchmark-stock-slot-compiler `
@@ -105,7 +109,13 @@ curl.exe http://127.0.0.1:8080/health
 容器为只读根文件系统并仅挂载临时 `/tmp`。`docker-compose.yml` 固定暴露 `8080`，
 `Dockerfile` 固定使用 JRE 21 和已构建的 fat JAR。
 
-## 2026-10-04 修复升级
+## 当前 v1.0.4 部署前检查
+
+当前活动冻结清单是 `stock-slot-phase1-scope-v1.0.4`，注册表是 v1.0.2。六个 BIGINT 价格字段的规范化列使用显式 DECIMAL 精度，主均价列使用 `DECIMAL(38,21)`；公式和 NULL 规则仍按项目契约。升级已有数据库前保存完整旧视图定义，由装载账号应用 `data/doris/ddl/002_semantic_view.sql`，再重新验证来源、发布证书并核对结果。旧证书／特征目录指纹不匹配时重新构建，不手工改哈希。
+
+以下是早期修复的历史过程，不能替代上述当前部署步骤。
+
+## 历史：2026-10-04 修复升级
 
 注册表升级为 `1.0.2`，数值修复后的活动范围冻结为 `stock-slot-phase1-scope-v1.0.2`；历史冻结保存在
 `config/acceptance/history/`。冻结校验只统一 CRLF 为 LF，其他内容变化仍会失败。
@@ -154,7 +164,7 @@ Windows 本机自测可运行：
 从项目目录运行已准备好的实例：
 
 ```powershell
-$wslRepo = '/mnt/c/Users/scx/Desktop/Dsl-Doris-Compiler/dsl-doris-compiler'
+$wslRepo = '/mnt/d/A_MyProjects/揭榜挂帅/dsl-doris-compiler' # 按实际 Windows 仓库位置调整
 wsl -d dsl-doris-official-01a104f9 --exec /bin/bash "$wslRepo/scripts/doris/start-wsl-doris.sh" $wslRepo
 .tools/data-audit-venv/Scripts/python.exe scripts/doris/check_local_results.py
 .tools/data-audit-venv/Scripts/python.exe scripts/doris/check_wsl_results.py
@@ -166,7 +176,7 @@ python scripts/doris/check_wsl_execution_gate.py
 停止/重启方式和完整复跑步骤见
 [全量检查与虚拟环境自测报告](../reports/data-inspection/2026-10-04/全量检查与虚拟环境自测报告.md)。
 
-新一轮结果输出到 `reports/route-implementation/2026-10-04/`。本地诊断支持显式 `--manifest`、`--golden`、`--audit-report`、`--evaluation-date`、`--report-dir` 和 `--reference-output`；Doris 诊断支持 `--manifest`、`--report-dir`、`--reference-results`。日期、行数、用例数从配置读取；执行前核对快照与清单、黄金集、JAR 的哈希。必须先生成本地参考结果，再运行 Doris；编译器重建后需重新生成参考结果。
+历史批次结果位于 `reports/route-implementation/2026-10-04/`；新运行必须另选新目录。本地诊断支持显式 `--manifest`、`--golden`、`--audit-report`、`--evaluation-date`、`--report-dir` 和 `--reference-output`；Doris 诊断支持 `--manifest`、`--report-dir`、`--reference-results`。日期、行数、用例数从配置读取；执行前核对快照与清单、黄金集、JAR 的哈希。必须先生成本地参考结果，再运行 Doris；编译器重建后需重新生成参考结果。
 
 `compile-stock-slot-sql --snapshot-id <ID>` 会选择与快照相符的特征表；其他快照自动使用明细窗口。更换数据时仍需创建新的 manifest、审计数据库及黄金集快照引用，不能仅改 ID。
 
@@ -174,7 +184,7 @@ python scripts/doris/check_wsl_execution_gate.py
 
 ```powershell
 python scripts/accuracy/run_correctness.py --wsl-distribution dsl-doris-official-01a104f9 `
-  --container dsl-doris-official --output-dir reports/route-implementation/2026-10-04/formal-gate
+  --container dsl-doris-official --output-dir build/formal-gate-new
 ```
 
 只读接口诊断临时创建 SELECT 账号，检查写入拒绝、CLI 拒绝未验证快照、HTTP 401/503 和进程释放后删除账号；不登记快照。完整实施记录见 [路线实施与自测报告](../reports/route-implementation/2026-10-04/路线实施与自测报告.md)。
@@ -197,11 +207,11 @@ Java 集成测试另覆盖数据库超时分类、排队等待上限和异常后
 
 ```powershell
 .tools/data-audit-venv/Scripts/python.exe scripts/doris/check_local_results.py `
-  --report-dir reports/continuation/2026-10-04 `
-  --reference-output target/data-audit/reference-results-continuation.json
+  --report-dir build/continuation-new `
+  --reference-output build/reference-results-continuation-new.json
 .tools/data-audit-venv/Scripts/python.exe scripts/doris/check_wsl_results.py `
-  --report-dir reports/continuation/2026-10-04 `
-  --reference-results target/data-audit/reference-results-continuation.json
+  --report-dir build/continuation-new `
+  --reference-results build/reference-results-continuation-new.json
 ```
 
 普通离线自测没有上述连接环境时，会明确跳过依赖 Doris 的集成测试；使用此脚本可在本机运行全部主模块测试。最新结果见 [继续推进与自测报告](../reports/continuation/2026-10-04/继续推进与自测报告.md)。

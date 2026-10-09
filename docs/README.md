@@ -1,9 +1,10 @@
 # 文档索引
 
-项目说明统一在 `docs/`，测量结果与验收证据放在 `reports/`。从 [交付清单](delivery/README.md)、[当前自测报告](delivery/self-test.md)和[目录说明](project-layout.md)开始阅读。
+项目说明统一在 `docs/`，测量结果与验收证据放在 `reports/`。当前结论统一见 [项目状态](project-status.md)与[赛题对照](delivery/competition-readiness.md)。从 [交付清单](delivery/README.md)、[当前自测报告](delivery/self-test.md)和[目录说明](project-layout.md)开始阅读。
 
 | 主题 | 文档入口 |
 |---|---|
+| 当前状态与比赛要求 | [项目状态](project-status.md)、[赛题对照](delivery/competition-readiness.md) |
 | 交付与当前验证 | [交付清单](delivery/README.md)、[当前自测](delivery/self-test.md) |
 | 项目结构与运行 | [目录说明](project-layout.md)、[运行手册](runtime-guide.md)、[演示说明](final-demo.md) |
 | 编译器设计 | [架构](compiler-architecture.md)、[规则引擎](declarative-rule-engine.md)、[执行链路](end-to-end-execution.md) |
@@ -11,7 +12,7 @@
 | 项目范围与验收 | [能力范围](project-capabilities-v1.md)、[冻结范围](phase1-data-indicator-scope-v1.md)、[项目验证](project-scoped-validation.md)、[字段规则](project-field-rules.md) |
 | 测试与性能 | [自动测试](automated-testing.md)、[编译性能](compiler-performance.md)、[配置扩展验收](config-only-extension-acceptance.md) |
 | 数据与环境 | [独立参考数据库](independent-reference-duckdb.md)、[Doris 环境记录](recovered-doris-environment.md) |
-| 后续事项 | [正式验收问题](正式验收问题解决路线图.md)、[项目待优化清单](项目待优化清单.md)、[V1 优化规划](V1_OPTIMIZATION_ROADMAP.md) |
+| 后续事项 | [正式验收问题](正式验收问题解决路线图.md)、[项目待优化清单](项目待优化清单.md)、[历史 V1 优化建议](V1_OPTIMIZATION_ROADMAP.md) |
 | 历史记录 | [早期自测](history/self-test-2026-08-09.md)、[缺陷检查](history/bug-review-2026-08-12.md)、[实施路线图](history/implementation-roadmap.md)、[比赛演进记录](competition/WEEK1_BASELINE.md) |
 
 ## 文件归放约定

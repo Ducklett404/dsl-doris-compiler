@@ -1,5 +1,7 @@
 # 正式 DSL 编译性能门禁
 
+基准只验证 SQL 编译，不验证行业等指标的数据可用性或查询结果正确率。归档性能报告按其原工件使用，当前记录见 [项目状态](project-status.md)。复跑前确认输出路径不存在，避免覆盖旧证据。
+
 ## 验收口径
 
 性能门禁使用 `stock-slot-complex-v1` 语料，而不是 `SCREEN ON` 演示语法。语料固定在
@@ -26,8 +28,8 @@ CI 的硬门禁为预热后、缓存旁路的端到端编译 `P95 < 50ms`。缓�
 java -jar target/dsl-doris-compiler.jar benchmark-stock-slot-compiler `
   --corpus benchmarks/compiler/stock-slot-complex-v1.json `
   --warmup 1000 --iterations 5000 --p95-threshold-ms 50 `
-  --json-output reports/compiler-performance/latest.json `
-  --markdown-output reports/compiler-performance/latest.md
+  --json-output build/compiler-performance-new.json `
+  --markdown-output build/compiler-performance-new.md
 ```
 
 命令在不达标时返回退出码 `4`，输入或执行错误返回 `3`。报告中的绝对耗时只代表该次 JVM、

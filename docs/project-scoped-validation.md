@@ -1,8 +1,8 @@
 # 按查询依赖验证现有官方数据
 
-日期：2026-10-05。数据提供方无法继续补充文件时，仍可使用现有数据计算并说明限制。此入口使用**项目内部规则**，不代表官方认可字段口径或正式验收通过。
+更新：2026-10-10；首次实现：2026-10-05。状态见 [项目状态](project-status.md)。数据提供方无法继续补充文件时，仍可使用现有数据计算并说明限制。此入口使用**项目内部规则**，不代表官方认可字段口径或正式验收通过。
 
-新项目验收统一使用 `scripts/doris/run_project_acceptance.py --report-dir 新目录`；真实模式显式 `--with-doris --distribution 环境名 --data-root 原始目录 --reference-database 独立DuckDB`。它绑定实际源码、JAR、配置、矩阵和输出哈希，核对各阶段退出码与报告状态；`--resume` 只复用校验通过的工件。普通便携结果为 `PASS_OFFLINE_REAL_NOT_RUN`，真实项目全程通过才为 `PROJECT_PASS_FORMAL_BLOCKED`，缺少环境为 `NOT_RUN`，真实错误为 `FAIL`。命令、能力边界、交付及恢复见 [项目能力与交付 v1](project-capabilities-v1.md)。
+新项目验收统一使用 `scripts/doris/run_project_acceptance.py --report-dir 新目录`；完整真实模式显式 `--with-doris --restart --distribution 环境名 --data-root 原始目录 --reference-database 独立DuckDB`。它绑定实际源码、JAR、配置、矩阵和输出哈希，核对各阶段退出码与报告状态；`--resume` 只复用校验通过的工件。普通便携结果为 `PASS_OFFLINE_REAL_NOT_RUN`，真实项目全程通过才为 `PROJECT_PASS_FORMAL_BLOCKED`，缺少环境为 `NOT_RUN`，真实错误为 `FAIL`。命令、能力边界、交付及恢复见 [项目能力与交付 v1](project-capabilities-v1.md)。
 
 ## 运行规则
 
@@ -18,7 +18,7 @@
 
 ```powershell
 & .tools/data-audit-venv/Scripts/python.exe -X utf8 scripts/doris/validate_project_sources.py `
-  --output-dir reports/project-scoped/2026-10-05/source-validation-release
+  --output-dir build/project-sources/new-run
 ```
 
 输出目录必须是新的。脚本核对原始 CSV 哈希与大小，再检查 Doris 行数、日期、主键和注册字段，记录未关联行及价格警告。发布 `project-validation.json`，不写入快照登记表。
@@ -32,12 +32,12 @@
 ```powershell
 java -jar target/dsl-doris-compiler.jar execute-stock-slot-sql examples/project-basic.dsl `
   --host HOST --user USER --password-env DORIS_PASSWORD `
-  --project-validation reports/project-scoped/2026-10-05/source-validation-release/project-validation.json `
+  --project-validation build/project-sources/new-run/project-validation.json `
   --max-scan-rows 100000000 --max-exec-memory-bytes 2147483648
 
 java -jar target/dsl-doris-compiler.jar serve-doris `
   --host HOST --user USER --password-env DORIS_PASSWORD --auth-token-env DSL_HTTP_TOKEN `
-  --project-validation reports/project-scoped/2026-10-05/source-validation-release/project-validation.json `
+  --project-validation build/project-sources/new-run/project-validation.json `
   --max-scan-rows 100000000 --max-exec-memory-bytes 2147483648
 ```
 
@@ -113,7 +113,7 @@ python scripts/doris/check_project_rank_combinations.py --java java --output tar
 ```powershell
 & .tools/data-audit-venv/Scripts/python.exe -X utf8 scripts/doris/test_project_matrix_reference.py
 & .tools/data-audit-venv/Scripts/python.exe -X utf8 scripts/doris/check_expanded_project_matrix.py `
-  --certificate reports/project-scoped/2026-10-05/source-validation-release/project-validation.json `
+  --certificate build/project-sources/new-run/project-validation.json `
   --output-dir reports/project-expanded/新批次/matrix --restart
 ```
 

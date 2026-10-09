@@ -1,5 +1,7 @@
 # 自动化测试与验收
 
+本页说明测试入口；当前数量和运行边界见 [当前自测](delivery/self-test.md)、[项目状态](project-status.md)。正式函数基准含编译器可表达的概念，不能据此宣称现有数据覆盖 12 类函数；当前项目执行范围是 11 类。完整项目真实验收另用 `run_project_acceptance.py --with-doris --restart`，以新批次 JSON 为准。
+
 ## 覆盖矩阵
 
 | 要求 | 自动化入口 | 失败条件 |
@@ -36,7 +38,7 @@ $env:DORIS_PASSWORD = '<只读验收账号密码>'
 ```
 
 最后一种模式会进行 12 类查询 × 2 种缓存模式 × 30 次测量，并为 process-cold 样本重启
-Doris 容器，共约 720 次重启。它适合发布前或专用夜间机器，不应放进普通 PR 的快速门禁。
+Doris 容器，720 次重启（12 类 × 30 轮 × 参考／优化两条 SQL；冷、热合计 1,440 次计时执行，预热另计）。它适合发布前或专用夜间机器，不应放进普通 PR 的快速门禁。
 
 脚本输出 `reports/automation/latest.json` 和 `latest.md`。没有提供 Doris 凭据时，数据库项目明确记录为
 `NOT_RUN`，不会伪装为通过。普通 GitHub CI 执行全部离线合同；真实 Doris 差分通过带固定

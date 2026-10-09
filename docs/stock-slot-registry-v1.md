@@ -1,11 +1,13 @@
 # stock-slot-v1 真实表注册表与类型系统
 
+随程序发布的注册表为 `stock-slot-registry-v1.0.2`；项目实际执行由 `stock-slot-phase1-scope-v1.0.4` 限定。注册表内可编译概念不等于现有数据能够验收，行业等排除项见 [能力说明](project-capabilities-v1.md)。
+
 正式 DSL 的表、字段、市场、指标类型、函数签名和 lowering 元数据统一保存在
 `src/main/resources/stock-slot-registry-v1.json`。运行时可通过：
 
 ```powershell
-java -jar target/dsl-doris-compiler-0.1.0.jar compile-stock-slot-sql query.dsl `
-  --registry .\config\stock-slot-registry-v1.json --format sql
+java -jar target/dsl-doris-compiler.jar compile-stock-slot-sql query.dsl `
+  --registry src/main/resources/stock-slot-registry-v1.json --format sql
 ```
 
 加载外部文件。未指定 `--registry` 时使用随程序发布的版本。

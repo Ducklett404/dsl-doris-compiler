@@ -1,5 +1,7 @@
 # Doris 行情数据装载与快照
 
+当前执行范围为 v1.0.4，需应用现行语义视图后重新验证来源；当前收到的原始数据关联门禁仍受限制。状态和新批次运行方式见 [项目状态](../../docs/project-status.md)、[运行手册](../../docs/runtime-guide.md)。固定 manifest 不在本轮文档更新中重新生成。
+
 本目录把原始 CSV、Doris 物理表和查询语义分成三层：
 
 1. `raw` 表逐列接收 CSV，列名以 CSV 为准（`quantRatio`、`ahFlag`）。空字符串装载为 `NULL`。
@@ -24,7 +26,8 @@
 
 ```powershell
 $env:DORIS_PASSWORD = '<password>'
-python scripts/doris/snapshot_tool.py profile --data-root '<Doris A股行情数据集目录>' --output data/doris/snapshots/stock-20060104-20260414-v1/manifest.json
+# 仅在准备新来源快照时生成候选清单；不覆盖当前冻结清单
+python scripts/doris/snapshot_tool.py profile --data-root '<Doris A股行情数据集目录>' --output build/candidate-snapshot-manifest-new.json
 pwsh scripts/doris/load-csv.ps1 -DataRoot '<Doris A股行情数据集目录>' -SnapshotId 'stock-20060104-20260414-v1' -FeHost localhost
 pwsh scripts/doris/validate-snapshot.ps1 -Manifest data/doris/snapshots/stock-20060104-20260414-v1/manifest.json -FeHost localhost
 ```

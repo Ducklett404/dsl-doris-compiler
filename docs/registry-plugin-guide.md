@@ -1,5 +1,7 @@
 # 指标注册与插件开发说明
 
+实际可执行范围见 [能力说明](project-capabilities-v1.md)。以下三类样例主要验证已有类型／lowering 的配置扩展；全新语义的 SPI 是扩展约束，不表示任意新函数的实现和结果已验证。
+
 ## 正式指标注册
 
 正式表、字段、指标和函数配置位于 `src/main/resources/stock-slot-registry-v1.json`。每个指标必须
