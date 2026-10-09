@@ -224,7 +224,11 @@ class CombinationReferenceTest(unittest.TestCase):
                     value(dict(kind='ma', n=20), history))
                 float_gain = sum(float(Decimal(max(d, 0)) / 10000) for d in changes) / 5
                 float_loss = sum(float(Decimal(max(-d, 0)) / 10000) for d in changes) / 5
-                self.assertLess(100 - 100 / (1 + float_gain / float_loss), 50)
+                # Float summation may round below or exactly to 50 depending on
+                # the Python runtime. The Decimal oracle and result assertions
+                # remain exact on every supported runtime.
+                self.assertAlmostEqual(100 - 100 / (1 + float_gain / float_loss),
+                    50, delta=1e-12)
         actual = reference(frozen, dict(histories=histories, names={}))
         self.assertEqual(actual['rows'], [['0', '000903'], ['0', '300135']])
         self.assertEqual(actual['coverageStatus'], 'COMPLETE_QUERY_INPUTS')
