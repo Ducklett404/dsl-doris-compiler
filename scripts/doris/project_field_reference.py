@@ -1,6 +1,7 @@
 """Manual project formulas, units and NULL operands, independent of registry/view/SQL output."""
 from collections import defaultdict
 from decimal import Decimal, localcontext, ROUND_HALF_UP
+from pathlib import Path
 from check_official_field_acceptance import FIELDS, RAW_COLUMNS, raw_values
 from project_matrix_reference import METRICS, render
 
@@ -12,6 +13,18 @@ OPERANDS={'cap':['lastPx','totalShare'],'listedCap':['lastPx','listedShare'],
     'qfq':['closePx','qfqMulti','qfqAdd'],'hfq':['closePx','hfqMulti','hfqAdd']}
 SCALES=dict.fromkeys(KEYS,4)
 SCALES.update(volume=0,net=0,amount=2,rise=18,average=18,qfq=12,hfq=12)
+
+
+def configure_reference_connection(con,database):
+    """Bound RAW oracle resources, with spill beside the read-only D-drive file.
+
+    This only controls the independent reference, not Doris query budgets or
+    the observed-row selection / mathematical definitions. Python RSS is extra.
+    """
+    settings=dict(memory_limit='1GB',threads=1,preserve_insertion_order=False,
+                  temp_directory=str(Path(database).resolve())+'.tmp')
+    for name,value in settings.items():con.execute('SET '+name+' = ?', [value])
+    return settings
 
 
 def observation(day,raw,extension=True):
@@ -46,9 +59,18 @@ def null_causes(row,metric):
 
 def load(con,date,retained_rows=64):
     if not isinstance(retained_rows,int) or retained_rows<1:raise ValueError('Invalid row budget')
-    rows=con.execute('WITH tail AS (SELECT mktcode,tgtcode,bizdate,'+','.join(RAW_COLUMNS)+
+    # The independently audited raw tables have unique, non-NULL composite keys.
+    # Materialize only those keys while ranking the full observed history: carrying
+    # every raw operand through this sort exhausts memory on the 13.65M-row source.
+    # Fetch operands after selecting keys; never synthesize dates, remove NULL
+    # observations, or narrow the security universe before the existing eligibility
+    # check below. MATERIALIZED also prevents a wide projection from being inlined
+    # back into the window by the optimizer.
+    rows=con.execute('WITH tail_keys AS MATERIALIZED (SELECT mktcode,tgtcode,bizdate'+
         ' FROM newzl.hsj_stock_hq_basic WHERE bizdate<=CAST(? AS DATE) QUALIFY ROW_NUMBER() OVER(PARTITION BY mktcode,tgtcode ORDER BY bizdate DESC)<=?) '+
-        'SELECT b.*,e.tgtcode,e.ZJLXMainNetTur FROM tail b LEFT JOIN newzl.hsj_stock_hq_ext e USING(mktcode,tgtcode,bizdate) ORDER BY b.mktcode,b.tgtcode,b.bizdate',[date,retained_rows]).fetchall()
+        'SELECT b.mktcode,b.tgtcode,b.bizdate,'+','.join('b.'+column for column in RAW_COLUMNS)+
+        ',e.tgtcode,e.ZJLXMainNetTur FROM tail_keys k JOIN newzl.hsj_stock_hq_basic b USING(mktcode,tgtcode,bizdate) '+
+        'LEFT JOIN newzl.hsj_stock_hq_ext e USING(mktcode,tgtcode,bizdate) ORDER BY b.mktcode,b.tgtcode,b.bizdate',[date,retained_rows]).fetchall()
     histories=defaultdict(list)
     for m,code,day,*values in rows:
         ext,net=values[-2:];raw=dict(zip(RAW_COLUMNS,values[:-2]));raw['net']=net

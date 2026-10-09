@@ -13,7 +13,7 @@ final class StockSlotFunctionSqlTest {
 
     @Test void indicatorSupportsStrictMovingAverageRsiAndRangeAggregate() {
         var ma = compile("indicator('', '', '5日均线', '2026-04-14', '', '', '') > 10");
-        assertSql(ma.sql(), "AVG(`v1`) OVER", "COUNT(`v1`) OVER", "ROWS BETWEEN 4 PRECEDING");
+        assertSql(ma.sql(), "AVG(CAST(`v1` AS DECIMAL(38,18))) OVER", "COUNT(`v1`) OVER", "ROWS BETWEEN 4 PRECEDING");
         assertContract(ma, "indicator:MA", 5);
 
         var rsi = compile("indicator('', '', 'RSI(14)', '2026-04-14', '', '', '') > 50");
@@ -31,12 +31,12 @@ final class StockSlotFunctionSqlTest {
         assertTrue(accelerated.logicalPlan().stream().anyMatch(node -> node.kind().equals("FeatureScan")));
 
         var fallback = compile("indicator('沪', '', '5日均线', '2026-04-14', '', '', '') > 1");
-        assertSql(fallback.sql(), "v_hsj_stock_hq_basic", "AVG(`v1`) OVER");
+        assertSql(fallback.sql(), "v_hsj_stock_hq_basic", "AVG(CAST(`v1` AS DECIMAL(38,18))) OVER");
         assertFalse(fallback.sql().contains("stock_daily_features_v2"));
 
         var mixed=compile("indicator('沪', '', '60日均线', '2026-04-14', '', '', '') > "
                 + "indicator('沪', '', '收盘价', '2026-04-14', '', '', '')");
-        assertSql(mixed.sql(),"v_hsj_stock_hq_basic","AVG(`v1`) OVER","COUNT(`v1`) OVER");
+        assertSql(mixed.sql(),"v_hsj_stock_hq_basic","AVG(CAST(`v1` AS DECIMAL(38,18))) OVER","COUNT(`v1`) OVER");
         assertFalse(mixed.sql().contains("stock_daily_features_v2"));
     }
 

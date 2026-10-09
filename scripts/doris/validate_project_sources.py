@@ -32,7 +32,7 @@ def definition(client, qualified, kind):
     if not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*\.[A-Za-z_][A-Za-z0-9_]*', qualified) or kind not in ('VIEW', 'TABLE'):
         raise ValueError('Unsafe source identifier')
     result = subprocess.run(client.prefix + ['exec', '-i', 'dsl-doris-official', 'mysql',
-        '--defaults-extra-file=/run/dsl-client.cnf', '--batch', '--skip-column-names'],
+        '--defaults-extra-file=/run/dsl-client.cnf', '--port=' + str(client.query_port), '--batch', '--skip-column-names'],
         input='SHOW CREATE ' + kind + ' ' + qualified + ';\n', capture_output=True,
         text=True, encoding='utf-8', errors='replace', timeout=30)
     if result.returncode:
@@ -93,7 +93,9 @@ def main():
     parser.add_argument('--output-dir', type=Path, required=True)
     parser.add_argument('--manifest', type=Path, default=ROOT / 'data/doris/snapshots/stock-20060104-20260414-v1/manifest.json')
     parser.add_argument('--distribution', default='dsl-doris-official-01a104f9')
-    parser.add_argument('--java', default='D:/Java/jdk-21/bin/java.exe')
+    parser.add_argument('--java', default='java')
+    parser.add_argument('--data-root', type=Path, default=ROOT.parent,
+                        help='Directory containing the three manifest relative paths')
     args = parser.parse_args()
     folder = args.output_dir.resolve()
     if (folder / 'project-validation.json').exists() or (folder / 'source-validation-report.json').exists():
@@ -102,7 +104,7 @@ def main():
     manifest = json.loads(args.manifest.read_text(encoding='utf-8'))
     integrity = []
     for name, item in manifest['files'].items():
-        path = ROOT.parent / item['relativePath']
+        path = args.data_root.resolve() / item['relativePath']
         actual = digest(path)
         if actual != item['sha256'] or path.stat().st_size != item['bytes']:
             raise ValueError('Immutable source CSV mismatch: ' + name)

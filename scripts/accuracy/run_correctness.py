@@ -105,14 +105,52 @@ class Doris:
 
 class WslDoris:
     """Use the private client configuration of the owned diagnostic instance."""
+    @staticmethod
+    def _port(value: str, name: str) -> int:
+        text = value.strip()
+        if re.fullmatch(r'[0-9]{1,5}', text) is None or not 1 <= int(text) <= 65535:
+            # Do not echo untrusted configuration, which may contain secrets.
+            raise ValueError('Invalid diagnostic ' + name + ' port')
+        return int(text)
+
     def __init__(self, distribution: str, container: str):
         self.prefix = ["wsl.exe", "-d", distribution, "--exec", "docker"]
         inspected = run(self.prefix + ["inspect", "-f",
             '{{.State.Running}} {{index .Config.Labels "com.acme.dorisdsl.purpose"}}', container])
         if inspected.returncode or inspected.stdout.strip() != "true official-data-diagnostic":
             raise RuntimeError("Expected the running, owned official-data diagnostic container")
+        # Select only the non-secret [client] port. Never cat or print the
+        # private client configuration (which also contains the password).
+        selected = run(self.prefix + ['exec', container, 'awk',
+            r'/^[[:space:]]*\[/ {client=($0 ~ /^[[:space:]]*\[client\][[:space:]]*$/); next} '
+            r'client && /^[[:space:]]*port[[:space:]]*=/ {sub(/^[^=]*=/, ""); print}',
+            '/run/dsl-client.cnf'])
+        if selected.returncode:
+            raise RuntimeError('Cannot read the diagnostic client port')
+        ports = selected.stdout.splitlines()
+        if len(ports) > 1:
+            raise ValueError('Ambiguous diagnostic query port')
+        self.query_port = self._port(ports[0], 'query') if ports else 9030
+        # Filter inside Docker's formatter, so unrelated environment variables
+        # (including any credentials) never reach this subprocess's stdout.
+        http_ports = run(self.prefix + ['inspect', '-f',
+            '{{range .Config.Env}}{{if or (eq (index (split . "=") 0) "DSL_DORIS_BE_HTTP_PORT") '
+            '(eq (index (split . "=") 0) "DSL_DORIS_FE_HTTP_PORT")}}{{println .}}{{end}}{{end}}', container])
+        if http_ports.returncode:
+            raise RuntimeError('Cannot read the diagnostic HTTP ports')
+        values = {}
+        for line in http_ports.stdout.splitlines():
+            if not line.strip():
+                continue
+            name, separator, value = line.partition('=')
+            if not separator or name not in ('DSL_DORIS_BE_HTTP_PORT', 'DSL_DORIS_FE_HTTP_PORT') or name in values:
+                raise ValueError('Unexpected or ambiguous diagnostic HTTP port')
+            values[name] = self._port(value, 'HTTP')
+        self.be_http_port = values.get('DSL_DORIS_BE_HTTP_PORT', 8040)
+        self.fe_http_port = values.get('DSL_DORIS_FE_HTTP_PORT', 8030)
         self.command = self.prefix + ["exec", "-i", container, "mysql",
-            "--defaults-extra-file=/run/dsl-client.cnf", "--batch", "--skip-column-names", "--raw"]
+            "--defaults-extra-file=/run/dsl-client.cnf", "--port=" + str(self.query_port),
+            "--batch", "--skip-column-names", "--raw"]
 
     def query(self, sql: str) -> list[tuple[str, ...]]:
         completed = subprocess.run(self.command, input=sql.rstrip(";\n") + ";\n",

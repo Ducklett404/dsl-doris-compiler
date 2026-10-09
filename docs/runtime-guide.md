@@ -4,6 +4,8 @@
 
 数据无法继续补充时，`execute-stock-slot-sql` 与 `serve-doris` 可显式使用可信本地 `--project-validation` JSON。按基础、衍生和证券代码来源分别验证，并返回筛选前的指标/窗口缺失统计。权限与资源限制继续有效，不写入 `VALIDATED`，正式验收入口保持完整快照门禁。配置、结果字段及限制见 [按查询依赖验证指南](project-scoped-validation.md)。
 
+当前能力、19 指标单位、MA/RSI 参数、组合与资源限制、演示及交付恢复统一在 [项目能力与交付 v1](project-capabilities-v1.md)。新的项目验收入口使用 `scripts/doris/run_project_acceptance.py --report-dir 新目录`；默认便携执行不会声称真实 Doris 已通过，真实环境须显式 `--with-doris`。完成验收后用 `scripts/doris/package_project_delivery.py --evidence-dir 本批目录 --output-dir 新交付目录` 固定交付哈希。
+
 ## 环境
 
 - JDK 21；Maven 3.9+；Python 3.12；Windows PowerShell 5.1+。
@@ -13,8 +15,8 @@
 
 ## 一键建表、导入和快照验收
 
-以下命令会校验三份 CSV 的 SHA-256，重建三张真实表，规范化空值，使用严格 Stream Load
-导入，创建语义视图，校验行数、日期范围、唯一键和表间关联，最后登记 `VALIDATED` 快照。
+以下命令校验三份 CSV 的 SHA-256，重建三张真实表，规范化空值，使用严格 Stream Load
+导入，创建语义视图，再校验行数、日期范围、唯一键和表间关联。只有全部正式门禁通过才登记 `VALIDATED`；当前收到的原始快照存在 249,480 条未关联衍生行，严格验证预计拒绝，不能承诺该命令结束即登记成功。
 默认重建会删除同名旧表；保留表结构时显式使用 `-NoRebuild`。
 
 ```powershell
@@ -145,14 +147,15 @@ Windows 本机自测可运行：
 
 ## 本机虚拟环境诊断
 
-2026-10-04 已在本机建立 `.tools/data-audit-venv` 和独立 WSL2 发行版
+2026-10-04 的历史执行曾建立 `.tools/data-audit-venv` 和独立 WSL2 发行版
 `dsl-doris-official-01a104f9`，容器名为 `dsl-doris-official`。三张官方数据表完整导入，
-原始 CSV 保留。虚拟磁盘、镜像缓存、导入副本和本机依赖位于忽略目录 `.tools/`。
+原始 CSV 保留。虚拟磁盘、镜像缓存、导入副本和本机依赖位于忽略目录 `.tools/`，不会随 Git 克隆或小型交付包出现。当前电脑是否仍具备该环境须重新核对 `wsl -l -v`、容器和原始文件；此前报告不能证明当前连接有效。
 
 从项目目录运行已准备好的实例：
 
 ```powershell
-wsl -d dsl-doris-official-01a104f9 --exec /bin/bash '/mnt/d/A_MyProjects/揭榜挂帅/dsl-doris-compiler/scripts/doris/start-wsl-doris.sh' '/mnt/d/A_MyProjects/揭榜挂帅/dsl-doris-compiler'
+$wslRepo = '/mnt/c/Users/scx/Desktop/Dsl-Doris-Compiler/dsl-doris-compiler'
+wsl -d dsl-doris-official-01a104f9 --exec /bin/bash "$wslRepo/scripts/doris/start-wsl-doris.sh" $wslRepo
 .tools/data-audit-venv/Scripts/python.exe scripts/doris/check_local_results.py
 .tools/data-audit-venv/Scripts/python.exe scripts/doris/check_wsl_results.py
 python scripts/accuracy/check_contract_boundaries.py --wsl
@@ -287,4 +290,4 @@ java -jar target/dsl-doris-compiler.jar compile-stock-slot-sql query.dsl `
 
 本机最终证据见 [官方数据路线执行与自测报告](../reports/official-route/2026-10-04/final/官方数据路线执行与自测报告.md)。`DIAGNOSTIC_PASS_FORMAL_BLOCKED` 表示当前项目规则下的计算诊断通过，正式源验收未通过；249,480 条未关联衍生记录以及官方字段口径仍须按解决路线图处理。原始数据、正式 CLI/HTTP 快照门禁和失败证据保留。
 
-项目来源验证入口现提供稳定输入标识、观察窗口和最多 20 个缺失样本的原因与实际相关日期。次数输入、次数结果和当前指标分别披露；解释超限或失败标为不完整，主查询仍沿用原有门禁与资源预算。字段说明和复跑入口见 [项目验证指南](project-scoped-validation.md)。19 项已映射指标的逐字段核对已完成，证据见 [逐字段验证与自测报告](../reports/project-fields/2026-10-05/逐字段验证与自测报告.md)。下一步进行多指标组合验收并收敛项目复跑入口，剩余工作见 [项目待优化清单](项目待优化清单.md)。
+项目来源验证入口提供稳定输入标识、观察窗口和最多 20 个缺失样本的原因与实际相关日期。次数输入、次数结果和当前指标分别披露；解释超限或失败标为不完整，主查询沿用门禁与资源预算。19 项逐字段历史证据见 [逐字段验证与自测报告](../reports/project-fields/2026-10-05/逐字段验证与自测报告.md)。新的多指标／排名／查找／次数组合边界已纳入统一自测和普通 CI，最终矩阵与真实复跑入口见 [项目能力与交付](project-capabilities-v1.md)；真实结果状态以新目录 `project-summary.json` 为准。

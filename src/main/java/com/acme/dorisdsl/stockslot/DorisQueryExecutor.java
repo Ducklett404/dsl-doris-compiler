@@ -18,7 +18,17 @@ public final class DorisQueryExecutor implements AutoCloseable {
     private static final Pattern EXPLAIN_ROWS = Pattern.compile(
             "(?i)(?:cardinality|rowcount|rows|estimated rows)\\s*[:=]\\s*([0-9][0-9,]*)");
     private static final Pattern EXPLAIN_NODE = Pattern.compile(
-            "^\\s*[|+\\- ]*\\d+:([A-Za-z][A-Za-z0-9_]*)\\b");
+            "^\\s*(?:\\|[- ]*)?\\d+:([A-Za-z][A-Za-z0-9_-]*)(?:\\(\\d+\\))?\\s*$");
+    private static final Pattern EXPLAIN_NODE_CANDIDATE = Pattern.compile(
+            "^\\s*[|+\\- ]*\\d");
+    private static final Pattern EXPLAIN_LABEL = Pattern.compile("^\\s*[|+\\- ]*([^:\\r\\n]*):");
+    private static final Set<String> EMPTY_SOURCE_WRAPPERS = Set.of(
+            "VSORT", "VANALYTIC", "VPARTITIONTOPN", "VEXCHANGE", "VMERGING-EXCHANGE");
+    private static final Set<String> EMPTY_PLAN_METADATA = Set.of(
+            "OUTPUT EXPRS", "PARTITION", "HAS_COLO_PLAN_NODE", "ORDER BY", "PARTITION BY", "ALGORITHM", "OFFSET", "LIMIT",
+            "FINAL PROJECTIONS", "FINAL PROJECT OUTPUT TUPLE ID", "INTERMEDIATE PROJECTIONS", "INTERMEDIATE TUPLE ID",
+            "DISTRIBUTE EXPR LISTS", "FUNCTIONS", "WINDOW", "PREDICATES", "HAS GLOBAL LIMIT", "PARTITION LIMIT",
+            "PARTITION TOPN PHASE", "EXCHANGE ID", "HASH_PARTITIONED", "IS_MERGE");
     private static final List<String> WRITE_PRIVILEGES = List.of(
             "ADMIN_PRIV", "NODE_PRIV", "GRANT_PRIV", "LOAD_PRIV", "ALTER_PRIV", "CREATE_PRIV", "DROP_PRIV");
 
@@ -84,6 +94,10 @@ public final class DorisQueryExecutor implements AutoCloseable {
         try (var statement = connection.createStatement()) {
             statement.execute("SET enable_sql_cache=false");
             statement.execute("SET enable_profile=true");
+            // Leave process-memory headroom for diagnostics and allocator
+            // retention in the owned four-core runtime. This changes only
+            // scheduling, not window semantics or the memory/timeout budgets.
+            statement.execute("SET parallel_pipeline_task_num=2");
             statement.execute("SET query_timeout=" + policy.queryTimeoutSeconds());
             statement.execute("SET exec_mem_limit=" + policy.maxExecutionMemoryBytes());
         }
@@ -137,6 +151,7 @@ public final class DorisQueryExecutor implements AutoCloseable {
             var required = projectValidation == null ? Set.<String>of() : projectValidation.requiredSources(artifact);
             var snapshot = projectValidation == null ? requireValidatedSnapshot(snapshotId)
                     : projectValidation.verify(connection, snapshotId, required, timeoutSeconds);
+            double sourceValidationMillis = millis(System.nanoTime() - validationStart);
             long explainStart = System.nanoTime();
             var explained = explain(artifact);
             double explainMillis = millis(System.nanoTime() - explainStart);
@@ -147,7 +162,8 @@ public final class DorisQueryExecutor implements AutoCloseable {
                 throw new DorisExecutionException(DorisExecutionException.Category.SECURITY_LIMIT,
                         "Estimated scan rows " + explained.estimatedRows() + " exceed limit " + policy.maxEstimatedScanRows());
 
-            var quality = projectValidation == null ? null : assessCoverage(artifact, required, timeoutSeconds, validationStart);
+            var quality = projectValidation == null ? null : assessCoverage(artifact, required, timeoutSeconds,
+                    validationStart, sourceValidationMillis, explainMillis);
 
             List<String> columns = new ArrayList<>();
             List<List<String>> rows = new ArrayList<>();
@@ -155,6 +171,7 @@ public final class DorisQueryExecutor implements AutoCloseable {
             long executeStart = System.nanoTime();
             double executionMillis;
             double returnMillis;
+            String queryId;
             try (PreparedStatement statement = connection.prepareStatement(artifact.sql())) {
                 statement.setQueryTimeout(timeoutSeconds);
                 statement.setMaxRows(maxRows + 1);
@@ -172,9 +189,13 @@ public final class DorisQueryExecutor implements AutoCloseable {
                     }
                     returnMillis = millis(System.nanoTime() - returnStart);
                 }
+                // Connector/J applies each SELECT's setMaxRows through a session
+                // SET sql_select_limit. A default Statement would reset that
+                // limit and overwrite Doris LAST_QUERY_ID before it is read.
+                // Keep the same limit while the main statement is still open.
+                queryId = lastQueryId(connection, timeoutSeconds, maxRows + 1);
             }
-            String queryId = lastQueryId();
-            var profile = profileSummary(queryId);
+            var profile = profileSummary(connection, queryId, timeoutSeconds);
             double totalMillis = millis(System.nanoTime() - totalStart);
             return new DorisExecutionArtifact(artifact, columns, rows, truncated,
                     new DorisExecutionArtifact.Timings(compileMillis, queueMillis, explainMillis,
@@ -195,17 +216,21 @@ public final class DorisQueryExecutor implements AutoCloseable {
     }
 
     private DorisExecutionArtifact.DataQuality assessCoverage(StockSlotSqlArtifact artifact, Set<String> required,
-                                                               int timeout, long start) throws SQLException {
+                                                               int timeout, long start, double sourceValidationMillis,
+                                                               double mainExplainMillis) throws SQLException {
         var plan = artifact.coveragePlan();
         var coverageArtifact = new StockSlotSqlArtifact(artifact.dslVersion(), artifact.semanticModel(), List.of(), List.of(),
                 plan.combinedSql(), plan.bindings(), false);
         validateGeneratedSelect(plan.combinedSql());
+        long coverageExplainStart = System.nanoTime();
         var estimate = explain(coverageArtifact);
+        double availabilityExplainMillis = millis(System.nanoTime() - coverageExplainStart);
         if (estimate.estimatedRows() < 0 || estimate.estimatedRows() > policy.maxEstimatedScanRows())
             throw new DorisExecutionException(DorisExecutionException.Category.SECURITY_LIMIT, "Availability scan exceeds controlled limits");
         long observed, missing;
         var inputs = new ArrayList<DorisExecutionArtifact.InputAvailability>();
         var samples = new ArrayList<List<String>>();
+        long statisticsStart = System.nanoTime();
         try (var statement = connection.prepareStatement(plan.combinedSql())) {
             statement.setQueryTimeout(timeout); statement.setMaxRows(21); bind(statement, plan.bindings());
             try (var rows = statement.executeQuery()) {
@@ -231,16 +256,21 @@ public final class DorisQueryExecutor implements AutoCloseable {
                 } while (rows.next());
             }
         }
+        double missingStatisticsMillis = millis(System.nanoTime() - statisticsStart);
         var limitations = new ArrayList<>(projectValidation.certificate().limitations());
         if (plan.inputs().stream().anyMatch(i -> i.function().endsWith("（窗口输入）")))
             limitations.add("CONS/EXIST 沿用冻结次数规则：NULL 条件不计为命中；完整观察行不足时次数结果为 NULL。另列的窗口输入检查会披露窗口内无法判定的条件，不改变次数计算结果。");
+        long detailStart = System.nanoTime();
         var details = sampleDetails(artifact, samples, timeout);
+        double sampleDetailsMillis = millis(System.nanoTime() - detailStart);
         limitations.add("可用性在用户条件、THEN 排名及 LIMIT 之前统计；输入为 NULL 不等于条件为假。各项缺失数量可能重叠，不可相加。样本最多 20 只；每个原因最多展示 20 个实际相关日期。每只证券最多检查 10001 条观察记录，每个输入最多 250000 步解释计算。历史不足只报告观察数，不推测缺少哪些交易日；平坦区间及零分母的相关日期不是缺失日期。跨证券查询、超限或检查失败会明确标记解释不完整，SQL 缺失标记保持有效。");
         return new DorisExecutionArtifact.DataQuality("PROJECT_SCOPED", false, projectValidation.certificateSha256(),
                 observed == 0 ? "NO_OBSERVATIONS" : missing > 0 || inputs.stream().anyMatch(i -> i.unavailableSecurities() > 0)
                         ? "PARTIAL_INPUTS" : "COMPLETE_QUERY_INPUTS", plan.evaluationDate().toString(), List.copyOf(required),
                 observed, missing, inputs, samples, projectValidation.certificate().extensionWithoutBasic(),
-                projectValidation.certificate().closeOutsideRange(), limitations, millis(System.nanoTime() - start), details);
+                projectValidation.certificate().closeOutsideRange(), limitations, millis(System.nanoTime() - start), details,
+                new DorisExecutionArtifact.DiagnosticTimings(sourceValidationMillis, mainExplainMillis,
+                        availabilityExplainMillis, missingStatisticsMillis, sampleDetailsMillis));
     }
 
     private List<StockSlotAvailabilityDiagnostics.SampleDetail> sampleDetails(StockSlotSqlArtifact artifact,
@@ -347,34 +377,57 @@ public final class DorisQueryExecutor implements AutoCloseable {
         public BaselineMeasurement { rows = rows.stream().map(List::copyOf).toList(); }
     }
 
-    private String lastQueryId() throws SQLException {
-        try (var statement = connection.createStatement(); var result = statement.executeQuery("SELECT LAST_QUERY_ID()")) {
-            return result.next() ? result.getString(1) : null;
+    static String lastQueryId(Connection connection, int timeoutSeconds, int sessionMaxRows) throws SQLException {
+        try (var statement = connection.createStatement()) {
+            statement.setQueryTimeout(timeoutSeconds);
+            statement.setMaxRows(sessionMaxRows);
+            try (var result = statement.executeQuery("SELECT LAST_QUERY_ID()")) {
+                return result.next() ? result.getString(1) : null;
+            }
         }
     }
 
-    private DorisExecutionArtifact.QueryProfileSummary profileSummary(String queryId) {
+    static DorisExecutionArtifact.QueryProfileSummary profileSummary(Connection connection, String queryId, int timeoutSeconds) {
         if (queryId == null || !queryId.matches("[0-9a-fA-F-]{16,80}"))
             return unavailableProfile(queryId, "LAST_QUERY_ID unavailable");
-        try (var statement = connection.createStatement(); var result = statement.executeQuery("SHOW QUERY PROFILE")) {
-            var metadata = result.getMetaData();
-            while (result.next()) {
-                String id = column(result, metadata, "Profile ID");
-                if (!queryId.equalsIgnoreCase(id)) continue;
-                return new DorisExecutionArtifact.QueryProfileSummary(true, queryId,
-                        column(result, metadata, "Task State"), column(result, metadata, "Total"),
-                        column(result, metadata, "User"), "Doris SHOW QUERY PROFILE summary");
+        try (var statement = connection.createStatement()) {
+            statement.setQueryTimeout(timeoutSeconds);
+            try (var result = statement.executeQuery("SHOW QUERY PROFILE")) {
+                var metadata = result.getMetaData();
+                // These headers are shared by the verified Doris 3.x/4.x layout.
+                // Do not report success for an unknown or incomplete layout.
+                for (String wanted : List.of("Profile ID", "Task State", "Total", "User"))
+                    if (columnIndex(metadata, wanted) == 0)
+                        return unavailableProfile(queryId, "Unsupported SHOW QUERY PROFILE layout");
+                int inspected = 0;
+                while (result.next() && inspected++ < 1_000) {
+                    String id = column(result, metadata, "Profile ID");
+                    if (!queryId.equalsIgnoreCase(id)) continue;
+                    String state = column(result, metadata, "Task State");
+                    String total = column(result, metadata, "Total");
+                    String user = column(result, metadata, "User");
+                    if (state == null || state.isBlank() || total == null || total.isBlank()
+                            || user == null || user.isBlank())
+                        return unavailableProfile(queryId, "Incomplete SHOW QUERY PROFILE summary");
+                    return new DorisExecutionArtifact.QueryProfileSummary(true, queryId,
+                            state, total, user, "Doris SHOW QUERY PROFILE summary");
+                }
+                return unavailableProfile(queryId, "Profile is asynchronous or not retained");
             }
-            return unavailableProfile(queryId, "Profile is asynchronous or not retained");
         } catch (SQLException e) {
             return unavailableProfile(queryId, "Profile unavailable: " + safeMessage(e));
         }
     }
 
     private static String column(ResultSet result, ResultSetMetaData metadata, String wanted) throws SQLException {
+        int index = columnIndex(metadata, wanted);
+        return index == 0 ? null : result.getString(index);
+    }
+
+    private static int columnIndex(ResultSetMetaData metadata, String wanted) throws SQLException {
         for (int i = 1; i <= metadata.getColumnCount(); i++)
-            if (wanted.equalsIgnoreCase(metadata.getColumnLabel(i))) return result.getString(i);
-        return null;
+            if (wanted.equalsIgnoreCase(metadata.getColumnLabel(i))) return i;
+        return 0;
     }
 
     private static DorisExecutionArtifact.QueryProfileSummary unavailableProfile(String id, String note) {
@@ -425,22 +478,33 @@ public final class DorisQueryExecutor implements AutoCloseable {
     static long parseEstimatedRows(List<String> lines) {
         long estimate = -1;
         boolean hasEmptySet = false;
-        boolean onlyEmptySetNodes = true;
+        boolean onlyEmptySourcesAndWrappers = true;
         for (String line : lines) {
             var matcher = EXPLAIN_ROWS.matcher(line);
             while (matcher.find()) estimate = Math.max(estimate,
                     Long.parseLong(matcher.group(1).replace(",", "")));
             var node = EXPLAIN_NODE.matcher(line);
-            if (node.find()) {
-                boolean empty = node.group(1).equalsIgnoreCase("VEMPTYSET")
-                        || node.group(1).equalsIgnoreCase("EMPTYSET");
+            if (node.matches()) {
+                String name = node.group(1).toUpperCase(Locale.ROOT);
+                boolean empty = name.equals("VEMPTYSET") || name.equals("EMPTYSET");
                 hasEmptySet |= empty;
-                onlyEmptySetNodes &= empty;
+                onlyEmptySourcesAndWrappers &= empty || EMPTY_SOURCE_WRAPPERS.contains(name);
+            } else {
+                var label = EXPLAIN_LABEL.matcher(line);
+                // Unknown colon headers are suspicious even if the identifier is
+                // non-numeric and the operator has no V prefix. Only exact known
+                // EXPLAIN attribute labels are metadata, never operator prefixes.
+                if (EXPLAIN_NODE_CANDIDATE.matcher(line).find()
+                        || (label.find() && !EMPTY_PLAN_METADATA.contains(label.group(1).strip().toUpperCase(Locale.ROOT))))
+                    onlyEmptySourcesAndWrappers = false;
             }
         }
-        // Doris folds impossible predicates to a pure EMPTYSET plan without cardinality.
-        // A join, scan or unfamiliar operator beside EMPTYSET still requires an estimate.
-        if (estimate < 0 && hasEmptySet && onlyEmptySetNodes) return 0;
+        // Doris can retain pure ranking/window/sort/exchange wrappers after replacing
+        // every data source with EMPTYSET. These exact unary operators cannot read
+        // another source. Do not extend this proof to joins, unions, table functions,
+        // unknown names or malformed node headers. Execution and its limits remain
+        // unchanged: zero is a scan estimate, not a synthesized empty query result.
+        if (estimate < 0 && hasEmptySet && onlyEmptySourcesAndWrappers) return 0;
         return estimate;
     }
 

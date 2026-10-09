@@ -3,6 +3,8 @@ package com.acme.dorisdsl.stockslot;
 import org.junit.jupiter.api.Test;
 import java.lang.reflect.Proxy;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Logger;
@@ -30,6 +32,26 @@ final class DorisConnectionLifecycleTest {
         }
     }
 
+    @Test void sessionParallelismIsBoundedWithoutChangingConfiguredQueryBudgets() throws Exception {
+        try(var driver=new TestDriver(false,"SELECT_PRIV");
+            var executor=driver.open(new DorisExecutionPolicy(10,100000000,10000,2147483648L,10000,true))) {
+            assertEquals(List.of("SET enable_sql_cache=false", "SET enable_profile=true",
+                    "SET parallel_pipeline_task_num=2", "SET query_timeout=10",
+                    "SET exec_mem_limit=2147483648"),driver.sessionStatements);
+            assertFalse(driver.closed.get());
+        }
+    }
+
+    @Test void connectionClosesWhenBoundedParallelismConfigurationFails() throws Exception {
+        try(var driver=new TestDriver(false,"SELECT_PRIV")) {
+            driver.failingStatement="SET parallel_pipeline_task_num=2";
+            assertThrows(SQLException.class,()->driver.open());
+            assertTrue(driver.closed.get());
+            assertEquals(List.of("SET enable_sql_cache=false", "SET enable_profile=true",
+                    "SET parallel_pipeline_task_num=2"),driver.sessionStatements);
+        }
+    }
+
     private static <T> T proxy(Class<T> type,java.lang.reflect.InvocationHandler handler) {
         return type.cast(Proxy.newProxyInstance(type.getClassLoader(),new Class<?>[]{type},handler));
     }
@@ -37,14 +59,24 @@ final class DorisConnectionLifecycleTest {
     private static final class TestDriver implements Driver,AutoCloseable {
         final AtomicBoolean closed=new AtomicBoolean();
         final boolean failConfiguration;
+        final String grants;
+        final List<String> sessionStatements=new ArrayList<>();
+        String failingStatement;
         final String url="jdbc:lifecycle-test:"+java.util.UUID.randomUUID();
         TestDriver(boolean failConfiguration) throws SQLException {
+            this(failConfiguration,"SELECT_PRIV LOAD_PRIV");
+        }
+        TestDriver(boolean failConfiguration,String grants) throws SQLException {
             this.failConfiguration=failConfiguration;
+            this.grants=grants;
             DriverManager.registerDriver(this);
         }
         DorisQueryExecutor open() throws SQLException {
+            return open(DorisExecutionPolicy.controlledDefaults());
+        }
+        DorisQueryExecutor open(DorisExecutionPolicy policy) throws SQLException {
             return new DorisQueryExecutor(url,"test","test",new StockSlotRegistryLoader().loadDefault(),
-                    DorisExecutionPolicy.controlledDefaults());
+                    policy);
         }
         @Override public Connection connect(String candidate,Properties properties) {
             if(!acceptsURL(candidate))return null;
@@ -54,7 +86,9 @@ final class DorisConnectionLifecycleTest {
                 case "createStatement" -> proxy(Statement.class,(statement,operation,values)->switch(operation.getName()) {
                     case "close" -> null;
                     case "execute" -> {
-                        if(failConfiguration)throw new SQLException("session configuration failed");
+                        String sql=(String)values[0];
+                        sessionStatements.add(sql);
+                        if(failConfiguration || sql.equals(failingStatement))throw new SQLException("session configuration failed");
                         yield true;
                     }
                     case "executeQuery" -> {
@@ -62,7 +96,7 @@ final class DorisConnectionLifecycleTest {
                         yield proxy(ResultSet.class,(result,read,arguments)->switch(read.getName()) {
                             case "close" -> null;
                             case "next" -> first.getAndSet(false);
-                            case "getString" -> "SELECT_PRIV LOAD_PRIV";
+                            case "getString" -> grants;
                             case "getMetaData" -> proxy(ResultSetMetaData.class,(metadata,property,index)->1);
                             default -> throw new UnsupportedOperationException(read.getName());
                         });

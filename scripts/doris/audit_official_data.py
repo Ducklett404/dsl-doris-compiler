@@ -43,7 +43,12 @@ def ddl_columns():
     return output
 
 
-def run_audit(data_root, manifest_path, database, output_dir):
+def run_audit(data_root, manifest_path, database, output_dir, *, memory_limit='4GB', threads=4,
+              temp_directory=None):
+    if not re.fullmatch(r'[1-9][0-9]*(?:MB|GB)', memory_limit):
+        raise ValueError('Use an explicit positive MB/GB memory limit')
+    if isinstance(threads, bool) or not isinstance(threads, int) or not 1 <= threads <= 32:
+        raise ValueError('Threads must be an integer between 1 and 32')
     output_dir.mkdir(parents=True, exist_ok=True)
     database.parent.mkdir(parents=True, exist_ok=True)
     manifest = json.loads(manifest_path.read_text(encoding="utf-8-sig"))
@@ -53,8 +58,10 @@ def run_audit(data_root, manifest_path, database, output_dir):
                   "Observed market dates are not an authoritative trading calendar; missing observations do not establish suspension.",
                   "Local audit and SQL evaluation do not validate the Doris dialect or execution environment."]}
     con = duckdb.connect(str(database))
-    con.execute("SET memory_limit='4GB'")
-    con.execute("SET threads=4")
+    con.execute("SET memory_limit='" + memory_limit + "'")
+    con.execute("SET threads=" + str(threads))
+    if temp_directory is not None:
+        con.execute("SET temp_directory='" + Path(temp_directory).resolve().as_posix().replace("'", "''") + "'")
     con.execute("SET preserve_insertion_order=false")
     con.execute("CREATE SCHEMA IF NOT EXISTS newzl")
     schema = ddl_columns()
@@ -176,6 +183,7 @@ def run_audit(data_root, manifest_path, database, output_dir):
         report["status"] = "FAIL" if any(x["status"] == "FAIL" for x in report["checks"]) else "PASS_WITH_LIMITATIONS"
         con.execute("CREATE OR REPLACE TABLE audit_source_lock(snapshot_id VARCHAR, manifest_sha256 VARCHAR, checked_at TIMESTAMP, status VARCHAR)")
         con.execute("INSERT INTO audit_source_lock VALUES(?,?,CURRENT_TIMESTAMP,?)", [manifest["snapshotId"], digest(manifest_path), report["status"]])
+        con.execute("CHECKPOINT")
     except Exception as error:
         report["status"] = "ERROR"
         report["error"] = str(error)

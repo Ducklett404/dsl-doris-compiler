@@ -52,6 +52,16 @@ public final class DorisExecutionMarkdownRenderer {
             out.append("\n数量按用户条件、排名及返回上限之前的查询范围统计；各输入可能影响同一证券，不能相加。无法计算不等于不符合条件。\n\n");
             quality.limitations().forEach(note -> out.append("- ").append(escape(note)).append("\n"));
             out.append("\n- 数据验证及可用性检查：").append(f(quality.validationMillis())).append(" ms\n\n");
+            var diagnostic = quality.diagnosticTimings();
+            if (diagnostic != null) {
+                out.append("| 数据诊断阶段 | 毫秒 |\n|---|---:|\n")
+                        .append("| 来源身份核验 | ").append(f(diagnostic.sourceValidationMillis())).append(" |\n")
+                        .append("| 主查询 EXPLAIN | ").append(f(diagnostic.mainExplainMillis())).append(" |\n")
+                        .append("| 可用性 EXPLAIN | ").append(f(diagnostic.availabilityExplainMillis())).append(" |\n")
+                        .append("| 缺值统计及样本标记 | ").append(f(diagnostic.missingStatisticsMillis())).append(" |\n")
+                        .append("| 样本历史读取与解释 | ").append(f(diagnostic.sampleDetailsMillis())).append(" |\n\n")
+                        .append("以上阶段包含在数据验证及总耗时中，不重复相加。样本解释为 0 时可能没有缺值样本。\n\n");
+            }
         }
         out.append("## 分阶段耗时\n\n")
                 .append("| 阶段 | 毫秒 |\n|---|---:|\n")

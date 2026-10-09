@@ -1,0 +1,3775 @@
+{
+  "formatVersion": "project-rank-matrix-v1",
+  "definitionAuthority": "PROJECT_INTERNAL_FROZEN_FUNCTION_SEMANTICS",
+  "officialAcceptanceEligible": false,
+  "snapshotId": "stock-20060104-20260414-v1",
+  "contracts": {
+    "rankDefault": "DENSE_RANK",
+    "rankNULL": "EXCLUDE_BEFORE_ALL_RANKS",
+    "tieKey": [
+      "mktcode(INT)",
+      "tgtcode(TEXT)"
+    ],
+    "selectionLimit": "MINIMUM_METADATA_MAXIMUM_CLIP_NO_OFFSET",
+    "countUnknown": "NOT_A_HIT_SEPARATE_INPUT_DISCLOSURE",
+    "countInsufficient": "NULL_RESULT",
+    "queryMissing": "NULL_SCALAR",
+    "queryExplanation": "PARTIAL_DETAIL_DETAIL_NOT_SUPPORTED"
+  },
+  "cases": [
+    {
+      "name": "rank-last-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "last",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '最新价', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-last-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "last",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '最新价', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-last-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "last",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '最新价', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-last-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "last",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '最新价', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-last-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "last",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '最新价', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-previous-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "previous",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '昨收价', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-previous-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "previous",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '昨收价', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-previous-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "previous",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '昨收价', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-previous-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "previous",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '昨收价', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-previous-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "previous",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '昨收价', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-open-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "open",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '开盘价', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-open-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "open",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '开盘价', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-open-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "open",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '开盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-open-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "open",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '开盘价', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-open-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "open",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '开盘价', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-high-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "high",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '最高价', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-high-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "high",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '最高价', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-high-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "high",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '最高价', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-high-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "high",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '最高价', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-high-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "high",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '最高价', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-low-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "low",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '最低价', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-low-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "low",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '最低价', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-low-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "low",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '最低价', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-low-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "low",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '最低价', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-low-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "low",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '最低价', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-close-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "close",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '收盘价', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-close-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "close",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '收盘价', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-close-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "close",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '收盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-close-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "close",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '收盘价', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-close-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "close",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '收盘价', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-volume-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "volume",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '成交量', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-volume-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "volume",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '成交量', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-volume-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "volume",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '成交量', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-volume-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "volume",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '成交量', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-volume-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "volume",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '成交量', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-amount-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "amount",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '成交额', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-amount-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "amount",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '成交额', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-amount-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "amount",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '成交额', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-amount-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "amount",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '成交额', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-amount-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "amount",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '成交额', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-quantity-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "quantity",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '量比', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-quantity-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "quantity",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '量比', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-quantity-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "quantity",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '量比', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-quantity-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "quantity",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '量比', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-quantity-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "quantity",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '量比', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-turn-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "turn",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '换手率', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-turn-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "turn",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '换手率', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-turn-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "turn",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '换手率', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-turn-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "turn",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '换手率', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-turn-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "turn",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '换手率', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-trueTurn-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "trueTurn",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '真实换手率', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-trueTurn-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "trueTurn",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '真实换手率', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-trueTurn-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "trueTurn",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '真实换手率', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-trueTurn-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "trueTurn",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '真实换手率', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-trueTurn-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "trueTurn",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '真实换手率', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-cap-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "cap",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '总市值', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-cap-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "cap",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '总市值', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-cap-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "cap",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '总市值', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-cap-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "cap",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '总市值', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-cap-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "cap",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '总市值', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-listedCap-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "listedCap",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '流通市值', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-listedCap-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "listedCap",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '流通市值', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-listedCap-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "listedCap",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '流通市值', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-listedCap-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "listedCap",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '流通市值', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-listedCap-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "listedCap",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '流通市值', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-rise-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "rise",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '涨跌幅', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-rise-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "rise",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '涨跌幅', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-rise-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "rise",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '涨跌幅', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-rise-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "rise",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '涨跌幅', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-rise-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "rise",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '涨跌幅', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-average-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '均价', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-average-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '均价', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-average-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '均价', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-average-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '均价', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-average-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '均价', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-qfq-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "qfq",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '前复权收盘价', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-qfq-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "qfq",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '前复权收盘价', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-qfq-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "qfq",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '前复权收盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-qfq-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "qfq",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '前复权收盘价', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-qfq-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "qfq",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '前复权收盘价', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-hfq-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "hfq",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '后复权收盘价', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-hfq-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "hfq",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '后复权收盘价', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-hfq-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "hfq",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '后复权收盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-hfq-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "hfq",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '后复权收盘价', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-hfq-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "hfq",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '后复权收盘价', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-net-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "net",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '主力净流入', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-net-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "net",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '主力净流入', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-net-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "net",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '主力净流入', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-net-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "net",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '主力净流入', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-net-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "net",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '主力净流入', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-amplitude-asc-rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "amplitude",
+          "direction": "asc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '振幅', 'asc:rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-amplitude-desc-dense_rank",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "amplitude",
+          "direction": "desc:dense_rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '振幅', 'desc:dense_rank', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-amplitude-desc-row_number",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "amplitude",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '振幅', 'desc:row_number', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-amplitude-asc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "amplitude",
+          "direction": "asc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '振幅', 'asc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "rank-amplitude-desc",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "amplitude",
+          "direction": "desc"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '振幅', 'desc', '2026-04-14', '', '', '') <= 5 limit 0,9",
+      "limit": 9
+    },
+    {
+      "name": "market-rank-沪-2018-08-20",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2018-08-20",
+      "market": "沪",
+      "dsl": "rank('沪', '', '均价', 'asc:row_number', '2018-08-20', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-沪-2026-04-13",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-13",
+      "market": "沪",
+      "dsl": "rank('沪', '', '均价', 'asc:row_number', '2026-04-13', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-沪-2026-04-14",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-14",
+      "market": "沪",
+      "dsl": "rank('沪', '', '均价', 'asc:row_number', '2026-04-14', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-深-2018-08-20",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2018-08-20",
+      "market": "深",
+      "dsl": "rank('深', '', '均价', 'asc:row_number', '2018-08-20', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-深-2026-04-13",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-13",
+      "market": "深",
+      "dsl": "rank('深', '', '均价', 'asc:row_number', '2026-04-13', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-深-2026-04-14",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-14",
+      "market": "深",
+      "dsl": "rank('深', '', '均价', 'asc:row_number', '2026-04-14', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-京-2018-08-20",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2018-08-20",
+      "market": "京",
+      "dsl": "rank('京', '', '均价', 'asc:row_number', '2018-08-20', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-京-2026-04-13",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-13",
+      "market": "京",
+      "dsl": "rank('京', '', '均价', 'asc:row_number', '2026-04-13', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-京-2026-04-14",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-14",
+      "market": "京",
+      "dsl": "rank('京', '', '均价', 'asc:row_number', '2026-04-14', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-沪|深-2018-08-20",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2018-08-20",
+      "market": "沪|深",
+      "dsl": "rank('沪|深', '', '均价', 'asc:row_number', '2018-08-20', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-沪|深-2026-04-13",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-13",
+      "market": "沪|深",
+      "dsl": "rank('沪|深', '', '均价', 'asc:row_number', '2026-04-13', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-沪|深-2026-04-14",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-14",
+      "market": "沪|深",
+      "dsl": "rank('沪|深', '', '均价', 'asc:row_number', '2026-04-14', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-^京-2018-08-20",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2018-08-20",
+      "market": "^京",
+      "dsl": "rank('^京', '', '均价', 'asc:row_number', '2018-08-20', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-^京-2026-04-13",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-13",
+      "market": "^京",
+      "dsl": "rank('^京', '', '均价', 'asc:row_number', '2026-04-13', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-^京-2026-04-14",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-14",
+      "market": "^京",
+      "dsl": "rank('^京', '', '均价', 'asc:row_number', '2026-04-14', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-沪|深|京-2018-08-20",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2018-08-20",
+      "market": "沪|深|京",
+      "dsl": "rank('沪|深|京', '', '均价', 'asc:row_number', '2018-08-20', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-沪|深|京-2026-04-13",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-13",
+      "market": "沪|深|京",
+      "dsl": "rank('沪|深|京', '', '均价', 'asc:row_number', '2026-04-13', '', '', '') <= 10000"
+    },
+    {
+      "name": "market-rank-沪|深|京-2026-04-14",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-14",
+      "market": "沪|深|京",
+      "dsl": "rank('沪|深|京', '', '均价', 'asc:row_number', '2026-04-14', '', '', '') <= 10000"
+    },
+    {
+      "name": "selection-limit-0-0",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "close",
+          "direction": "desc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '收盘价', 'desc:rank', '2026-04-14', '', '', '') <= 10000 limit 0,0",
+      "limit": 0,
+      "limitMinimum": 0
+    },
+    {
+      "name": "selection-limit-0-1",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "close",
+          "direction": "desc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '收盘价', 'desc:rank', '2026-04-14', '', '', '') <= 10000 limit 0,1",
+      "limit": 1,
+      "limitMinimum": 0
+    },
+    {
+      "name": "selection-limit-2-3",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "close",
+          "direction": "desc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '收盘价', 'desc:rank', '2026-04-14', '', '', '') <= 10000 limit 2,3",
+      "limit": 3,
+      "limitMinimum": 2
+    },
+    {
+      "name": "selection-limit-0-10000",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "close",
+          "direction": "desc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '收盘价', 'desc:rank', '2026-04-14', '', '', '') <= 10000 limit 0,10000",
+      "limit": 10000,
+      "limitMinimum": 0
+    },
+    {
+      "name": "selection-limit-0--1",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "close",
+          "direction": "desc:rank"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "rank('', '', '收盘价', 'desc:rank', '2026-04-14', '', '', '') <= 10000 limit 0,-1",
+      "limit": -1,
+      "limitMinimum": 0
+    },
+    {
+      "name": "then-negative-net-rank-qfq",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "net"
+        },
+        {
+          "kind": "rank",
+          "metric": "qfq",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        1,
+        "<=",
+        7
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', '') < 0 then rank('', '', '前复权收盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 7 limit 0,4",
+      "pre": [
+        "cmp",
+        0,
+        "<",
+        0
+      ],
+      "limit": 4
+    },
+    {
+      "name": "two-ranks-NULL-intersection",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "desc:rank"
+        },
+        {
+          "kind": "rank",
+          "metric": "net",
+          "direction": "asc:row_number"
+        }
+      ],
+      "expr": [
+        "and",
+        [
+          "cmp",
+          0,
+          "<=",
+          8
+        ],
+        [
+          "cmp",
+          1,
+          "<=",
+          8
+        ]
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "(rank('', '', '均价', 'desc:rank', '2026-04-14', '', '', '') <= 8) and (rank('', '', '主力净流入', 'asc:row_number', '2026-04-14', '', '', '') <= 8) limit 0,6",
+      "limit": 6
+    },
+    {
+      "name": "repeated-rank-stable-input",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "desc:row_number"
+        },
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "and",
+        [
+          "cmp",
+          0,
+          "<=",
+          5
+        ],
+        [
+          "cmp",
+          1,
+          "<=",
+          7
+        ]
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "(rank('', '', '均价', 'desc:row_number', '2026-04-14', '', '', '') <= 5) and (rank('', '', '均价', 'desc:row_number', '2026-04-14', '', '', '') <= 7)"
+    },
+    {
+      "name": "repeated-lookup-stable-input",
+      "calls": [
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "不存在证券"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "不存在证券"
+        }
+      ],
+      "expr": [
+        "or",
+        [
+          "cmp",
+          0,
+          ">",
+          0
+        ],
+        [
+          "cmp",
+          1,
+          "<",
+          0
+        ]
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "(queryData('', '不存在证券', '收盘价', '2026-04-14', '') > 0) or (queryData('', '不存在证券', '收盘价', '2026-04-14', '') < 0)"
+    },
+    {
+      "name": "lookup-leading-zero-union-2026-04-13",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "000001"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-13",
+      "market": "",
+      "dsl": "indicator('', '', '收盘价', '2026-04-13', '', '', '') > queryData('', '000001', '收盘价', '2026-04-13', '')"
+    },
+    {
+      "name": "lookup-leading-zero-union-2026-04-14",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "000001"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', '') > queryData('', '000001', '收盘价', '2026-04-14', '')"
+    },
+    {
+      "name": "lookup-exact-shenzhen-2026-04-13",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "000001"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-13",
+      "market": "深",
+      "dsl": "indicator('深', '', '收盘价', '2026-04-13', '', '', '') > queryData('深', '000001', '收盘价', '2026-04-13', '')"
+    },
+    {
+      "name": "lookup-exact-shenzhen-2026-04-14",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "000001"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-14",
+      "market": "深",
+      "dsl": "indicator('深', '', '收盘价', '2026-04-14', '', '', '') > queryData('深', '000001', '收盘价', '2026-04-14', '')"
+    },
+    {
+      "name": "lookup-exact-shanghai-2026-04-13",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "000001"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-13",
+      "market": "沪",
+      "dsl": "indicator('沪', '', '收盘价', '2026-04-13', '', '', '') > queryData('沪', '000001', '收盘价', '2026-04-13', '')"
+    },
+    {
+      "name": "lookup-exact-shanghai-2026-04-14",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "000001"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-14",
+      "market": "沪",
+      "dsl": "indicator('沪', '', '收盘价', '2026-04-14', '', '', '') > queryData('沪', '000001', '收盘价', '2026-04-14', '')"
+    },
+    {
+      "name": "lookup-exact-beijing-2026-04-13",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "000001"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-13",
+      "market": "京",
+      "dsl": "indicator('京', '', '收盘价', '2026-04-13', '', '', '') > queryData('京', '000001', '收盘价', '2026-04-13', '')"
+    },
+    {
+      "name": "lookup-exact-beijing-2026-04-14",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "000001"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-14",
+      "market": "京",
+      "dsl": "indicator('京', '', '收盘价', '2026-04-14', '', '', '') > queryData('京', '000001', '收盘价', '2026-04-14', '')"
+    },
+    {
+      "name": "lookup-no-coercion-2026-04-13",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "1"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-13",
+      "market": "",
+      "dsl": "indicator('', '', '收盘价', '2026-04-13', '', '', '') > queryData('', '1', '收盘价', '2026-04-13', '')"
+    },
+    {
+      "name": "lookup-no-coercion-2026-04-14",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "1"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', '') > queryData('', '1', '收盘价', '2026-04-14', '')"
+    },
+    {
+      "name": "lookup-missing-target-2026-04-13",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "不存在证券"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-13",
+      "market": "",
+      "dsl": "indicator('', '', '收盘价', '2026-04-13', '', '', '') > queryData('', '不存在证券', '收盘价', '2026-04-13', '')"
+    },
+    {
+      "name": "lookup-missing-target-2026-04-14",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "不存在证券"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', '') > queryData('', '不存在证券', '收盘价', '2026-04-14', '')"
+    },
+    {
+      "name": "lookup-exact-name-2026-04-13",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "目标深零一"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-13",
+      "market": "",
+      "dsl": "indicator('', '', '收盘价', '2026-04-13', '', '', '') > queryData('', '目标深零一', '收盘价', '2026-04-13', '')"
+    },
+    {
+      "name": "lookup-exact-name-2026-04-14",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "目标深零一"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', '') > queryData('', '目标深零一', '收盘价', '2026-04-14', '')"
+    },
+    {
+      "name": "lookup-name-wrong-market-2026-04-13",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "目标深零一"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-13",
+      "market": "沪",
+      "dsl": "indicator('沪', '', '收盘价', '2026-04-13', '', '', '') > queryData('沪', '目标深零一', '收盘价', '2026-04-13', '')"
+    },
+    {
+      "name": "lookup-name-wrong-market-2026-04-14",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "目标深零一"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-14",
+      "market": "沪",
+      "dsl": "indicator('沪', '', '收盘价', '2026-04-14', '', '', '') > queryData('沪', '目标深零一', '收盘价', '2026-04-14', '')"
+    },
+    {
+      "name": "lookup-target-current-NULL-2026-04-13",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "000002"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-13",
+      "market": "",
+      "dsl": "indicator('', '', '收盘价', '2026-04-13', '', '', '') > queryData('', '000002', '收盘价', '2026-04-13', '')"
+    },
+    {
+      "name": "lookup-target-current-NULL-2026-04-14",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "000002"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', '') > queryData('', '000002', '收盘价', '2026-04-14', '')"
+    },
+    {
+      "name": "lookup-target-date-gap-2026-04-13",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "000003"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-13",
+      "market": "",
+      "dsl": "indicator('', '', '收盘价', '2026-04-13', '', '', '') > queryData('', '000003', '收盘价', '2026-04-13', '')"
+    },
+    {
+      "name": "lookup-target-date-gap-2026-04-14",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "close"
+        },
+        {
+          "kind": "query",
+          "metric": "close",
+          "keyword": "000003"
+        }
+      ],
+      "expr": [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '收盘价', '2026-04-14', '', '', '') > queryData('', '000003', '收盘价', '2026-04-14', '')"
+    },
+    {
+      "name": "lookup-mixed-average",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "average"
+        },
+        {
+          "kind": "query",
+          "metric": "average",
+          "keyword": "000001"
+        },
+        {
+          "kind": "field",
+          "metric": "volume"
+        }
+      ],
+      "expr": [
+        "and",
+        [
+          "callcmp",
+          0,
+          ">=",
+          1
+        ],
+        [
+          "cmp",
+          2,
+          ">",
+          0
+        ]
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "(indicator('', '', '均价', '2026-04-14', '', '', '') >= queryData('', '000001', '均价', '2026-04-14', '')) and (indicator('', '', '成交量', '2026-04-14', '', '', '') > 0)"
+    },
+    {
+      "name": "lookup-mixed-qfq",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "qfq"
+        },
+        {
+          "kind": "query",
+          "metric": "qfq",
+          "keyword": "000001"
+        },
+        {
+          "kind": "field",
+          "metric": "volume"
+        }
+      ],
+      "expr": [
+        "and",
+        [
+          "callcmp",
+          0,
+          ">=",
+          1
+        ],
+        [
+          "cmp",
+          2,
+          ">",
+          0
+        ]
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "(indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') >= queryData('', '000001', '前复权收盘价', '2026-04-14', '')) and (indicator('', '', '成交量', '2026-04-14', '', '', '') > 0)"
+    },
+    {
+      "name": "lookup-mixed-hfq",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "hfq"
+        },
+        {
+          "kind": "query",
+          "metric": "hfq",
+          "keyword": "000001"
+        },
+        {
+          "kind": "field",
+          "metric": "volume"
+        }
+      ],
+      "expr": [
+        "and",
+        [
+          "callcmp",
+          0,
+          ">=",
+          1
+        ],
+        [
+          "cmp",
+          2,
+          ">",
+          0
+        ]
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "(indicator('', '', '后复权收盘价', '2026-04-14', '', '', '') >= queryData('', '000001', '后复权收盘价', '2026-04-14', '')) and (indicator('', '', '成交量', '2026-04-14', '', '', '') > 0)"
+    },
+    {
+      "name": "lookup-mixed-cap",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "cap"
+        },
+        {
+          "kind": "query",
+          "metric": "cap",
+          "keyword": "000001"
+        },
+        {
+          "kind": "field",
+          "metric": "volume"
+        }
+      ],
+      "expr": [
+        "and",
+        [
+          "callcmp",
+          0,
+          ">=",
+          1
+        ],
+        [
+          "cmp",
+          2,
+          ">",
+          0
+        ]
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "(indicator('', '', '总市值', '2026-04-14', '', '', '') >= queryData('', '000001', '总市值', '2026-04-14', '')) and (indicator('', '', '成交量', '2026-04-14', '', '', '') > 0)"
+    },
+    {
+      "name": "lookup-mixed-turn",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "turn"
+        },
+        {
+          "kind": "query",
+          "metric": "turn",
+          "keyword": "000001"
+        },
+        {
+          "kind": "field",
+          "metric": "volume"
+        }
+      ],
+      "expr": [
+        "and",
+        [
+          "callcmp",
+          0,
+          ">=",
+          1
+        ],
+        [
+          "cmp",
+          2,
+          ">",
+          0
+        ]
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "(indicator('', '', '换手率', '2026-04-14', '', '', '') >= queryData('', '000001', '换手率', '2026-04-14', '')) and (indicator('', '', '成交量', '2026-04-14', '', '', '') > 0)"
+    },
+    {
+      "name": "lookup-mixed-net",
+      "calls": [
+        {
+          "kind": "field",
+          "metric": "net"
+        },
+        {
+          "kind": "query",
+          "metric": "net",
+          "keyword": "000001"
+        },
+        {
+          "kind": "field",
+          "metric": "volume"
+        }
+      ],
+      "expr": [
+        "and",
+        [
+          "callcmp",
+          0,
+          ">=",
+          1
+        ],
+        [
+          "cmp",
+          2,
+          ">",
+          0
+        ]
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "(indicator('', '', '主力净流入', '2026-04-14', '', '', '') >= queryData('', '000001', '主力净流入', '2026-04-14', '')) and (indicator('', '', '成交量', '2026-04-14', '', '', '') > 0)"
+    },
+    {
+      "name": "count-CONS>=-net-<",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "net",
+          "mode": "CONS",
+          "countOp": ">=",
+          "n": 3,
+          "op": "<",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', 'CONS>=3日') < 0"
+    },
+    {
+      "name": "count-CONS>=-net->=",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "net",
+          "mode": "CONS",
+          "countOp": ">=",
+          "n": 3,
+          "op": ">=",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', 'CONS>=3日') >= 0"
+    },
+    {
+      "name": "count-CONS>=-average->",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "average",
+          "mode": "CONS",
+          "countOp": ">=",
+          "n": 3,
+          "op": ">",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '均价', '2026-04-14', '', '', 'CONS>=3日') > 0"
+    },
+    {
+      "name": "count-CONS>=-qfq->",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "qfq",
+          "mode": "CONS",
+          "countOp": ">=",
+          "n": 3,
+          "op": ">",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '前复权收盘价', '2026-04-14', '', '', 'CONS>=3日') > 0"
+    },
+    {
+      "name": "count-rank-CONS>=",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "net",
+          "mode": "CONS",
+          "countOp": ">=",
+          "n": 3,
+          "op": "<",
+          "threshold": 0
+        },
+        {
+          "kind": "rank",
+          "metric": "listedCap",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        1,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', 'CONS>=3日') < 0 then rank('', '', '流通市值', 'desc:row_number', '2026-04-14', '', '', '') <= 10000 limit 0,5",
+      "pre": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "limit": 5
+    },
+    {
+      "name": "count-CONS=-net-<",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "net",
+          "mode": "CONS",
+          "countOp": "=",
+          "n": 3,
+          "op": "<",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', 'CONS=3日') < 0"
+    },
+    {
+      "name": "count-CONS=-net->=",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "net",
+          "mode": "CONS",
+          "countOp": "=",
+          "n": 3,
+          "op": ">=",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', 'CONS=3日') >= 0"
+    },
+    {
+      "name": "count-CONS=-average->",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "average",
+          "mode": "CONS",
+          "countOp": "=",
+          "n": 3,
+          "op": ">",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '均价', '2026-04-14', '', '', 'CONS=3日') > 0"
+    },
+    {
+      "name": "count-CONS=-qfq->",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "qfq",
+          "mode": "CONS",
+          "countOp": "=",
+          "n": 3,
+          "op": ">",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '前复权收盘价', '2026-04-14', '', '', 'CONS=3日') > 0"
+    },
+    {
+      "name": "count-rank-CONS=",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "net",
+          "mode": "CONS",
+          "countOp": "=",
+          "n": 3,
+          "op": "<",
+          "threshold": 0
+        },
+        {
+          "kind": "rank",
+          "metric": "listedCap",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        1,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', 'CONS=3日') < 0 then rank('', '', '流通市值', 'desc:row_number', '2026-04-14', '', '', '') <= 10000 limit 0,5",
+      "pre": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "limit": 5
+    },
+    {
+      "name": "count-EXIST>=-net-<",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "net",
+          "mode": "EXIST",
+          "countOp": ">=",
+          "n": 3,
+          "op": "<",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', 'EXIST>=3日') < 0"
+    },
+    {
+      "name": "count-EXIST>=-net->=",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "net",
+          "mode": "EXIST",
+          "countOp": ">=",
+          "n": 3,
+          "op": ">=",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', 'EXIST>=3日') >= 0"
+    },
+    {
+      "name": "count-EXIST>=-average->",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "average",
+          "mode": "EXIST",
+          "countOp": ">=",
+          "n": 3,
+          "op": ">",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '均价', '2026-04-14', '', '', 'EXIST>=3日') > 0"
+    },
+    {
+      "name": "count-EXIST>=-qfq->",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "qfq",
+          "mode": "EXIST",
+          "countOp": ">=",
+          "n": 3,
+          "op": ">",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '前复权收盘价', '2026-04-14', '', '', 'EXIST>=3日') > 0"
+    },
+    {
+      "name": "count-rank-EXIST>=",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "net",
+          "mode": "EXIST",
+          "countOp": ">=",
+          "n": 3,
+          "op": "<",
+          "threshold": 0
+        },
+        {
+          "kind": "rank",
+          "metric": "listedCap",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        1,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', 'EXIST>=3日') < 0 then rank('', '', '流通市值', 'desc:row_number', '2026-04-14', '', '', '') <= 10000 limit 0,5",
+      "pre": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "limit": 5
+    },
+    {
+      "name": "count-EXIST=-net-<",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "net",
+          "mode": "EXIST",
+          "countOp": "=",
+          "n": 3,
+          "op": "<",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', 'EXIST=3日') < 0"
+    },
+    {
+      "name": "count-EXIST=-net->=",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "net",
+          "mode": "EXIST",
+          "countOp": "=",
+          "n": 3,
+          "op": ">=",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', 'EXIST=3日') >= 0"
+    },
+    {
+      "name": "count-EXIST=-average->",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "average",
+          "mode": "EXIST",
+          "countOp": "=",
+          "n": 3,
+          "op": ">",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '均价', '2026-04-14', '', '', 'EXIST=3日') > 0"
+    },
+    {
+      "name": "count-EXIST=-qfq->",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "qfq",
+          "mode": "EXIST",
+          "countOp": "=",
+          "n": 3,
+          "op": ">",
+          "threshold": 0
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '前复权收盘价', '2026-04-14', '', '', 'EXIST=3日') > 0"
+    },
+    {
+      "name": "count-rank-EXIST=",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "net",
+          "mode": "EXIST",
+          "countOp": "=",
+          "n": 3,
+          "op": "<",
+          "threshold": 0
+        },
+        {
+          "kind": "rank",
+          "metric": "listedCap",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        1,
+        "<=",
+        10000
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', 'EXIST=3日') < 0 then rank('', '', '流通市值', 'desc:row_number', '2026-04-14', '', '', '') <= 10000 limit 0,5",
+      "pre": [
+        "cmp",
+        0,
+        "=",
+        true
+      ],
+      "limit": 5
+    },
+    {
+      "name": "absent-2000-01-01-",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2000-01-01",
+      "market": "",
+      "dsl": "rank('', '', '均价', 'desc:row_number', '2000-01-01', '', '', '') <= 5"
+    },
+    {
+      "name": "absent-2006-01-04-京",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2006-01-04",
+      "market": "京",
+      "dsl": "rank('京', '', '均价', 'desc:row_number', '2006-01-04', '', '', '') <= 5"
+    },
+    {
+      "name": "absent-2026-04-12-沪|深|京",
+      "calls": [
+        {
+          "kind": "rank",
+          "metric": "average",
+          "direction": "desc:row_number"
+        }
+      ],
+      "expr": [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      "date": "2026-04-12",
+      "market": "沪|深|京",
+      "dsl": "rank('沪|深|京', '', '均价', 'desc:row_number', '2026-04-12', '', '', '') <= 5"
+    },
+    {
+      "name": "count-shares-direct-value-input",
+      "calls": [
+        {
+          "kind": "count",
+          "metric": "net",
+          "mode": "CONS",
+          "countOp": ">=",
+          "n": 3,
+          "op": "<",
+          "threshold": 0
+        },
+        {
+          "kind": "field",
+          "metric": "net"
+        }
+      ],
+      "expr": [
+        "and",
+        [
+          "cmp",
+          0,
+          "=",
+          true
+        ],
+        [
+          "cmp",
+          1,
+          "<",
+          0
+        ]
+      ],
+      "date": "2026-04-14",
+      "market": "",
+      "dsl": "(indicator('', '', '主力净流入', '2026-04-14', '', '', 'CONS>=3日') < 0) and (indicator('', '', '主力净流入', '2026-04-14', '', '', '') < 0)"
+    }
+  ]
+}

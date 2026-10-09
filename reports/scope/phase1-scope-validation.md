@@ -1,12 +1,12 @@
 # 首期数据指标范围自动校验
 
-- Freeze: `stock-slot-phase1-scope-v1.0.2`
+- Freeze: `stock-slot-phase1-scope-v1.0.4`
 - Result: **PASS**
 - Approval: **DIRECT_PROJECT_APPROVAL**（无需签字）
 
 | Check | Status | Detail |
 |---|---|---|
-| freeze-status | PASS | stock-slot-phase1-scope-v1.0.2 / APPROVED |
+| freeze-status | PASS | stock-slot-phase1-scope-v1.0.4 / APPROVED |
 | registry-lock | PASS | stock-slot-registry-v1.0.2 sha256=401c7f5073d2a4ee4f29231b679e44fc56e90df75226cb05851c28bc9b6f3071 |
 | snapshot-lock | PASS | stock-20060104-20260414-v1, 3 source files verified |
 | ddl-lock | PASS | 4 DDL/semantic contracts verified |

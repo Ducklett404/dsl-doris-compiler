@@ -1,2 +1,4 @@
 -r ../requirements-corpus.txt
 -r requirements-data-audit.txt
+# DuckDB Python decimal UDFs in in-memory portable fixtures.
+numpy==2.2.6

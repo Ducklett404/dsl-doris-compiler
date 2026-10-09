@@ -1,0 +1,125 @@
+{
+  "freezeId": "stock-slot-phase1-scope-v1.0.3",
+  "status": "APPROVED",
+  "effectiveDate": "2026-10-06",
+  "dslVersion": "stock-slot-v1",
+  "registryVersion": "stock-slot-registry-v1.0.2",
+  "registrySha256": "401c7f5073d2a4ee4f29231b679e44fc56e90df75226cb05851c28bc9b6f3071",
+  "snapshot": {
+    "snapshotId": "stock-20060104-20260414-v1",
+    "contractVersion": "1.0.0",
+    "manifestSha256": "a4f509b7bcaeae96df40ebf97fa2e18c8d7c131a078562f898f94d00d05c091c",
+    "tables": [
+      {"name":"hsj_stock_code_info","rows":5686,"dateMin":null,"dateMax":null,"sha256":"133293b32e8bea7ff351f3e05cc4eba431ce2fe116f2c366b005fcb0801e01cc"},
+      {"name":"hsj_stock_hq_basic","rows":13650347,"dateMin":"2006-01-04","dateMax":"2026-04-14","sha256":"9c5fd65c9475c07c7f800cffd5a055925e7eb26c1c78476624805b4231b1d749"},
+      {"name":"hsj_stock_hq_ext","rows":6170822,"dateMin":"2018-08-20","dateMax":"2026-04-14","sha256":"18ab00873e9cb5684f1f4dba13c9843acbcd1764f52cecd30336eea0128b4a18"}
+    ]
+  },
+  "ddlHashes": {
+    "data/doris/ddl/001_rebuild_tables.sql": "2a690ed5d4e3c398d517471d083c4e11eea405b39281a90ba5d55fa901c91372",
+    "data/doris/ddl/002_semantic_view.sql": "476d105334146097b09b40ae220ae7065260b413f1d63ce8fc136c61a8d87d23",
+    "data/doris/ddl/004_validation_gate.sql": "d0050a34eb908185ab95326601c9cd369efbe2004a678c62cb27de4b4bf9cf7e",
+    "data/doris/ddl/005_performance_features.sql": "9d5c78aac69ad12697265676122d176ca481b2ae23db93a8f2fd921af48e5e57"
+  },
+  "acceptanceDenominator": {
+    "policy": "A DSL enters the phase-1 correctness denominator only when every referenced market, indicator, function, date form, aggregation, scope and security type is included by this freeze and the fixed snapshot contains the required source tables.",
+    "unsupportedHandling": "Reject before SQL execution with a stable diagnostic; do not count it as a failed executable case and do not invent a mapping.",
+    "resultContract": {
+      "identityColumns": ["mktcode", "tgtcode"],
+      "unordered": "set equality",
+      "ordered": "sequence equality",
+      "absoluteTolerance": 0.000001,
+      "relativeTolerance": 0.00000001
+    }
+  },
+  "markets": {
+    "included": [
+      {"name":"深","mktcode":0},
+      {"name":"沪","mktcode":1},
+      {"name":"京","mktcode":103}
+    ],
+    "emptyMarketMeaning": "all securities present in the frozen snapshot",
+    "setOperators": ["|", "&", "^"],
+    "excluded": ["港", "美", "新三板", "沪主板", "深主板", "科创板", "创业板", "日", "韩", "德", "法", "英", "其他"]
+  },
+  "dateForms": {
+    "included": ["YYYY-MM-DD", "YYYY年M月D日", "explicit-date近N日 with an allowed aggregation"],
+    "excluded": ["今天/昨日 and other runtime-relative dates", "财报期日期", "开始/前/后偏移", "multiple evaluation dates"]
+  },
+  "scopeRestrictions": {
+    "filterScope": "must be empty",
+    "selectType": "must be empty",
+    "securityUniverse": "A-share-like securities physically present under mktcode 0/1/103; no fund, bond, ETF or index type claim",
+    "codeMetadata": "name/code lookup uses the current code snapshot only; no historical effective-time membership semantics"
+  },
+  "includedIndicators": [
+    {"name":"最新价","aliases":[],"type":"NUMBER","unit":"CNY","expression":"b.lastPrice","rawDefinition":"lastPx / 10000","source":"basic.lastPrice","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG"],"adjustment":"SOURCE_DEFINED","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"昨收价","aliases":[],"type":"NUMBER","unit":"CNY","expression":"b.preClosePrice","rawDefinition":"preClosePx / 10000","source":"basic.preClosePrice","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG"],"adjustment":"SOURCE_DEFINED","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"开盘价","aliases":[],"type":"NUMBER","unit":"CNY","expression":"b.openPrice","rawDefinition":"openPx / 10000","source":"basic.openPrice","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG"],"adjustment":"SOURCE_DEFINED","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"最高价","aliases":[],"type":"NUMBER","unit":"CNY","expression":"b.highPrice","rawDefinition":"highPx / 10000","source":"basic.highPrice","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG"],"adjustment":"SOURCE_DEFINED","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"最低价","aliases":[],"type":"NUMBER","unit":"CNY","expression":"b.lowPrice","rawDefinition":"lowPx / 10000","source":"basic.lowPrice","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG"],"adjustment":"SOURCE_DEFINED","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"收盘价","aliases":[],"type":"NUMBER","unit":"CNY","expression":"b.closePrice","rawDefinition":"closePx / 10000","source":"basic.closePrice","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG"],"adjustment":"SOURCE_DEFINED","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"成交量","aliases":[],"type":"NUMBER","unit":"SHARE","expression":"b.volume","rawDefinition":"volume","source":"basic.volume","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG","SUM"],"adjustment":"NONE","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"成交额","aliases":[],"type":"NUMBER","unit":"CNY","expression":"b.turnoverAmount","rawDefinition":"turnover / 100","source":"basic.turnoverAmount","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG","SUM"],"adjustment":"NONE","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"量比","aliases":[],"type":"NUMBER","unit":"RATIO","expression":"b.quantityRatio","rawDefinition":"quantRatio / 10000","source":"basic.quantityRatio","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG"],"adjustment":"NONE","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"换手率","aliases":[],"type":"PERCENT","unit":"PERCENT_POINT","expression":"b.turnoverRatio","rawDefinition":"turnRatio / 10000","source":"basic.turnoverRatio","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG"],"adjustment":"NONE","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"真实换手率","aliases":[],"type":"PERCENT","unit":"PERCENT_POINT","expression":"b.trueTurnoverRatio","rawDefinition":"trueTurnRatio / 10000","source":"basic.trueTurnoverRatio","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG"],"adjustment":"NONE","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"总市值","aliases":[],"type":"NUMBER","unit":"CNY","expression":"b.marketValue","rawDefinition":"(lastPx / 10000) * totalShare","source":"basic.marketValue","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG","SUM"],"adjustment":"NONE","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"流通市值","aliases":[],"type":"NUMBER","unit":"CNY","expression":"b.listedMarketValue","rawDefinition":"(lastPx / 10000) * listedShare","source":"basic.listedMarketValue","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG","SUM"],"adjustment":"NONE","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"涨跌幅","aliases":["涨幅"],"type":"PERCENT","unit":"PERCENT_POINT","expression":"b.risePct","rawDefinition":"CASE preClosePx IS NULL OR 0 THEN NULL ELSE (lastPx-preClosePx)*100/preClosePx END","source":"basic.risePct","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG"],"adjustment":"NONE","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"均价","aliases":[],"type":"NUMBER","unit":"CNY","expression":"b.avgPx","rawDefinition":"CASE volume IS NULL OR 0 THEN NULL ELSE (turnover/100)/volume END","source":"basic.avgPx","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG"],"adjustment":"SOURCE_DEFINED","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"前复权收盘价","aliases":[],"type":"NUMBER","unit":"CNY","expression":"b.closeQfq","rawDefinition":"(closePx/10000)*qfqMulti+qfqAdd","source":"basic.closeQfq","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG"],"adjustment":"QFQ","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"后复权收盘价","aliases":[],"type":"NUMBER","unit":"CNY","expression":"b.closeHfq","rawDefinition":"(closePx/10000)*hfqMulti+hfqAdd","source":"basic.closeHfq","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG"],"adjustment":"HFQ","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true},
+    {"name":"主力净流入","aliases":[],"type":"NUMBER","unit":"CNY","expression":"NULLIF(e.ZJLXMainNetTur,-999999)","rawDefinition":"ZJLXMainNetTur; sentinel -999999 becomes NULL","source":"extension.mainNetTurnover","dateRange":"2018-08-20..2026-04-14","aggregations":["","MAX","MIN","AVG","SUM"],"adjustment":"NONE","nullPolicy":"PRESERVE","sentinels":[-999999],"dataAvailable":true},
+    {"name":"振幅","aliases":[],"type":"PERCENT","unit":"PERCENT_POINT","expression":"(b.amplitude * 1 / 10000)","rawDefinition":"amplitude / 10000","source":"basic.amplitude","dateRange":"2006-01-04..2026-04-14","aggregations":["","MAX","MIN","AVG"],"adjustment":"NONE","nullPolicy":"PRESERVE","sentinels":[],"dataAvailable":true}
+  ],
+  "includedIndicatorPatterns": [
+    {"name":"X日均线","syntax":"<N>日均线","nMin":1,"nMax":5000,"baseIndicator":"收盘价","definition":"AVG over N observed trading rows; a complete non-null window is required","optimization":"only 60日均线 at 2026-04-14 in snapshot stock-20060104-20260414-v1 may use stock_daily_features_v2.ma60; other cases use the identical history definition"},
+    {"name":"RSI(N)","syntax":"RSI(<N>)","nMin":1,"nMax":5000,"baseIndicator":"收盘价","definition":"100-100/(1+AVG(max(delta,0))/AVG(max(-delta,0))); requires N complete deltas","optimization":"history path only in phase 1"}
+  ],
+  "includedFunctions": [
+    {"name":"indicator","restrictions":"included indicators/patterns only; absolute evaluation date; allowed aggregation only"},
+    {"name":"rank","restrictions":"RANK, DENSE_RANK or ROW_NUMBER; null metric rows excluded; no industry partition"},
+    {"name":"queryData","restrictions":"one exact code or current-snapshot name"},
+    {"name":"record_high","restrictions":"N observed trading rows or 历史; complete non-null window"},
+    {"name":"record_low","restrictions":"N observed trading rows or 历史; complete non-null window"},
+    {"name":"position","restrictions":"N observed trading rows or 历史; fixed inclusive 低/中/高 thirds; exact companion fields when declared; DECIMAL(36,S) with per-indicator scale S (0..18), cross multiplication with DECIMAL(1,0) constants; out-of-domain arithmetic is an execution error"},
+    {"name":"cross_above","restrictions":"current and previous observed trading row must be non-null"},
+    {"name":"cross_down","restrictions":"current and previous observed trading row must be non-null"},
+    {"name":"close_together","restrictions":"relative difference <=1%; zero denominator returns NULL"},
+    {"name":"reset","restrictions":"frozen as cross_above semantics"},
+    {"name":"golden_cross","restrictions":"short series crosses above long series; caller supplies short then long"}
+  ],
+  "excludedFunctions": [
+    {"name":"belong_industry","reason":"hyBlkRefName is NULL for every code row in the frozen snapshot"},
+    {"name":"industry_max","reason":"hyBlkRefName is NULL for every code row in the frozen snapshot"}
+  ],
+  "occurrenceExpressions": {
+    "included": ["CONS>=N日", "CONS=N日", "EXIST>=N日", "EXIST=N日"],
+    "excluded": ["<", "<=", "!=", "每", "natural-day filling"]
+  },
+  "excludedCapabilities": [
+    {"category":"financial","examples":["归母净利润","每股收益","ROE","PE from financial statements"],"reason":"no point-in-time financial source table"},
+    {"category":"membership","examples":["概念板块","指数成分"],"reason":"no effective-dated membership table"},
+    {"category":"industry","examples":["行业过滤","belong_industry","industry_max"],"reason":"hyBlkRefName is NULL for all 5686 code rows in the frozen snapshot"},
+    {"category":"security-type","examples":["基金","ETF","债券","指数"],"reason":"majorType has no frozen, tested enumeration and no complete source coverage"},
+    {"category":"market","examples":["港","美","新三板及海外市场"],"reason":"no executable market-code mapping in the frozen registry"},
+    {"category":"time","examples":["今天","财报期","开始/前/后偏移","多评价日期"],"reason":"no frozen evaluation-date or point-in-time contract"},
+    {"category":"aggregation","examples":["GROWTH_RISE","GROWTH_FALL"],"reason":"growth formula and comparison base are not frozen"},
+    {"category":"unregistered-indicator","examples":["any corpus indicator not listed above"],"reason":"no unique tested source mapping; must return UNKNOWN_INDICATOR"}
+  ],
+  "changeControl": {
+    "previousFreezeId": "stock-slot-phase1-scope-v1.0.2",
+    "revisionReason": "Fix avgPx floating division order to turnover/(100*volume), avoiding an extra rounding step at exact comparison boundaries. Mathematical definition, source snapshot, included/excluded capabilities and result tolerances are unchanged. Reapply the semantic view and generate a new project certificate before real execution; no real Doris validation is claimed by this revision.",
+    "rule": "Any change to an included/excluded item, expression, scale, source, date range, snapshot, DDL hash or result contract requires a new freezeId and renewed approval. In-place edits are forbidden.",
+    "requiredEvidence": ["source-table contract", "positive and negative vectors", "golden SQL", "Doris result differential", "snapshot validation"],
+    "externalSignoffRequired": false,
+    "approval": {
+      "mode": "DIRECT_PROJECT_APPROVAL",
+      "approvedAt": "2026-10-06",
+      "approvedBy": "project requester",
+      "note": "Project requester authorized resolving the uploaded optimization checklist and self-testing. This numerical implementation correction does not expand the approved data or semantic scope. Previous freeze v1.0.2 is preserved in history. Project approval is not official data acceptance; real database checks remain NOT_RUN until the environment is restored."
+    }
+  },
+  "hashEncoding": "UTF8_LF_SHA256_V1"
+}

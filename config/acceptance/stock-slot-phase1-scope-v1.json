@@ -1,7 +1,7 @@
 {
-  "freezeId": "stock-slot-phase1-scope-v1.0.2",
+  "freezeId": "stock-slot-phase1-scope-v1.0.4",
   "status": "APPROVED",
-  "effectiveDate": "2026-10-04",
+  "effectiveDate": "2026-10-10",
   "dslVersion": "stock-slot-v1",
   "registryVersion": "stock-slot-registry-v1.0.2",
   "registrySha256": "401c7f5073d2a4ee4f29231b679e44fc56e90df75226cb05851c28bc9b6f3071",
@@ -17,7 +17,7 @@
   },
   "ddlHashes": {
     "data/doris/ddl/001_rebuild_tables.sql": "2a690ed5d4e3c398d517471d083c4e11eea405b39281a90ba5d55fa901c91372",
-    "data/doris/ddl/002_semantic_view.sql": "27df95d601bc64a67c0d2b943312d4b44714fe98322642575f7561abcf35043d",
+    "data/doris/ddl/002_semantic_view.sql": "02006aae84cd9a72f137225632d84e68f00ed0ff3f3f7fb71e77584f1f3a7ef4",
     "data/doris/ddl/004_validation_gate.sql": "d0050a34eb908185ab95326601c9cd369efbe2004a678c62cb27de4b4bf9cf7e",
     "data/doris/ddl/005_performance_features.sql": "9d5c78aac69ad12697265676122d176ca481b2ae23db93a8f2fd921af48e5e57"
   },
@@ -109,16 +109,16 @@
     {"category":"unregistered-indicator","examples":["any corpus indicator not listed above"],"reason":"no unique tested source mapping; must return UNKNOWN_INDICATOR"}
   ],
   "changeControl": {
-    "previousFreezeId": "stock-slot-phase1-scope-v1.0.1",
-    "revisionReason": "Fix risePct DECIMAL division truncation using explicit DOUBLE arithmetic; fix inclusive position third boundaries using canonical decimal cross multiplication. Required capabilities, source snapshot and result tolerances are unchanged.",
+    "previousFreezeId": "stock-slot-phase1-scope-v1.0.3",
+    "revisionReason": "Normalize the six BIGINT price fields and avgPx through explicit DECIMAL boundaries so exact source scales do not round through DOUBLE. Mathematical definitions, source snapshot, included/excluded capabilities and result tolerances are unchanged. Reapply the semantic view and generate a new project certificate before real execution; no real Doris validation is claimed by this revision.",
     "rule": "Any change to an included/excluded item, expression, scale, source, date range, snapshot, DDL hash or result contract requires a new freezeId and renewed approval. In-place edits are forbidden.",
     "requiredEvidence": ["source-table contract", "positive and negative vectors", "golden SQL", "Doris result differential", "snapshot validation"],
     "externalSignoffRequired": false,
     "approval": {
       "mode": "DIRECT_PROJECT_APPROVAL",
-      "approvedAt": "2026-10-04",
+      "approvedAt": "2026-10-10",
       "approvedBy": "project requester",
-      "note": "Project requester explicitly requested fixes for the two numerical defects and their self-tests on 2026-10-04. Previous freeze v1.0.1 is preserved in history; this project approval is not official data acceptance."
+      "note": "This revision records the exact DECIMAL normalization already implemented for the requested real-table scale corrections. It does not expand the approved data or semantic scope. Previous freezes v1.0.2 and v1.0.3 are preserved in history. Project approval is not official data acceptance; real database checks remain separately evidenced."
     }
   },
   "hashEncoding": "UTF8_LF_SHA256_V1"

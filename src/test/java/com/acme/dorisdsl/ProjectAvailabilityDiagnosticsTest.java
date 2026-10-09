@@ -175,9 +175,16 @@ final class ProjectAvailabilityDiagnosticsTest {
         var b=plan(indicator("RSI(2)","EXIST>=2日")+">2 AND "+indicator("RSI(2)","CONS>=2日")+">1");
         var av=a.inputs().stream().filter(i->i.role().equals("VALUE")).toList();
         var bv=b.inputs().stream().filter(i->i.role().equals("VALUE")).toList();
-        assertEquals(2,av.size()); assertEquals(2,bv.size());
+        // The same scalar RSI input is now diagnosed once, independent of the
+        // two distinct count predicates; COUNT_INPUT/COUNT_RESULT remain separate.
+        assertEquals(1,av.size()); assertEquals(1,bv.size());
         assertEquals(1,av.stream().map(StockSlotCoveragePlan.Input::inputId).distinct().count());
         assertEquals(av.getFirst().inputId(),bv.getFirst().inputId());
+        for (var p : List.of(a,b)) {
+            assertEquals(2,p.inputs().stream().filter(i->i.role().equals("COUNT_INPUT")).count());
+            assertEquals(2,p.inputs().stream().filter(i->i.role().equals("COUNT_RESULT")).count());
+            assertEquals(p.inputs().size(),p.inputs().stream().map(StockSlotCoveragePlan.Input::inputId).distinct().count());
+        }
     }
     @Test void costlyNestedWindowsStopExplainingWithoutChangingCountFlags() {
         var p=plan(indicator("RSI(5000)","CONS=5000日")+">0");

@@ -41,7 +41,7 @@ def main():
     environment.update(DSL_PROJECT_PASSWORD=password, DSL_PROJECT_TOKEN=token)
     command = [args.java, '-Dfile.encoding=UTF-8', '-Dsun.stdout.encoding=UTF-8', '-Dsun.stderr.encoding=UTF-8',
         '-Djdk.net.unixdomain.tmpdir=target/disabled-unix-sockets', '-jar', str(ROOT / 'target/dsl-doris-compiler.jar')]
-    connection = ['--host',host,'--database',database,'--user',reader,'--password-env','DSL_PROJECT_PASSWORD','--registry',str(registry_path),'--max-scan-rows','10000','--max-exec-memory-bytes','134217728']
+    connection = ['--host',host,'--port',str(client.query_port),'--database',database,'--user',reader,'--password-env','DSL_PROJECT_PASSWORD','--registry',str(registry_path),'--max-scan-rows','10000','--max-exec-memory-bytes','134217728']
     created = account = False
     server = None
     report = dict(purpose='SYNTHETIC_PROJECT_SCOPED_EXECUTION', officialAcceptanceEligible=False,
@@ -116,7 +116,7 @@ def main():
                     env=environment,capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=40)
                 if result.returncode and expected==0:
                     probe=subprocess.run([args.java,'-Dfile.encoding=UTF-8','-cp',str(ROOT/'target/dsl-doris-compiler.jar'),str(ROOT/'scripts/doris/ProjectExecutionProbe.java'),
-                        f'jdbc:mysql://{host}:9030/{database}',reader,str(registry_path),str(cert),str(source)],env=environment,capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=40)
+                        f'jdbc:mysql://{host}:{client.query_port}/{database}',reader,str(registry_path),str(cert),str(source)],env=environment,capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=40)
                     report['diagnostic']=probe.stdout.replace(password,'[REDACTED]').replace(token,'[REDACTED]')
                 check(name,result.returncode==expected,exitCode=result.returncode,
                     error=result.stderr[:600].replace(password,'[REDACTED]').replace(token,'[REDACTED]') if result.returncode else '')

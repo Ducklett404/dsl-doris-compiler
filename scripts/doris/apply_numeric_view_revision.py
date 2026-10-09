@@ -19,7 +19,7 @@ def view_definition(client, name, database='newzl'):
         raise ValueError('Unexpected semantic view')
     # Batch escaping keeps multiline definitions inside a single result cell.
     command = client.prefix + ['exec', '-i', 'dsl-doris-official', 'mysql',
-        '--defaults-extra-file=/run/dsl-client.cnf', '--batch', '--skip-column-names']
+        '--defaults-extra-file=/run/dsl-client.cnf', '--port=' + str(client.query_port), '--batch', '--skip-column-names']
     completed = subprocess.run(command, input='SHOW CREATE VIEW ' + database + '.' + name + ';\n',
         text=True, encoding='utf-8', errors='replace', capture_output=True, timeout=30)
     if completed.returncode:
@@ -49,17 +49,26 @@ def main():
     originals={name:view_definition(client,name) for name in names}
     counts_sql="SELECT 'basic',COUNT(*) FROM newzl.hsj_stock_hq_basic UNION ALL SELECT 'ext',COUNT(*) FROM newzl.hsj_stock_hq_ext UNION ALL SELECT 'code',COUNT(*) FROM newzl.hsj_stock_code_info"
     counts=dict(client.query(counts_sql));registry=client.query('SELECT * FROM newzl.data_snapshot_registry')
+    dates_sql="SELECT 'basic',MIN(bizdate),MAX(bizdate) FROM newzl.hsj_stock_hq_basic UNION ALL SELECT 'ext',MIN(bizdate),MAX(bizdate) FROM newzl.hsj_stock_hq_ext"
+    dates=sorted(client.query(dates_sql))
     if registry:raise ValueError('Expected an unregistered official diagnostic snapshot')
     backup={'purpose':'SEMANTIC_VIEW_ROLLBACK_BACKUP','capturedAtUtc':datetime.now(timezone.utc).isoformat(),
-            'originalViews':originals,'sourceCounts':counts,'registryRows':registry}
+            'originalViews':originals,'sourceCounts':counts,'sourceDates':dates,'registryRows':registry}
     (args.output_dir/'views-before.json').write_text(json.dumps(backup,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     source=ROOT/'data/doris/ddl/002_semantic_view.sql'
     report={'purpose':'OWNED_DIAGNOSTIC_VIEW_UPGRADE_NO_SOURCE_REWRITE','ddlSha256':hashlib.sha256(source.read_bytes()).hexdigest()}
     try:
         client.query(source.read_text(encoding='utf-8'))
         after=dict(client.query(counts_sql));registered=client.query('SELECT * FROM newzl.data_snapshot_registry')
-        if counts!=after or registered!=registry:raise ValueError('Source counts or snapshot registry changed')
-        report.update(status='PASS',sourceCountsAfter=after,registeredSnapshotCount=len(registered),
+        dates_after=sorted(client.query(dates_sql))
+        if counts!=after or registered!=registry or dates_after!=dates:raise ValueError('Source counts, dates or snapshot registry changed')
+        numeric_types={r[0]:r[1].lower().replace(' ','') for r in client.query('DESCRIBE newzl.v_hsj_stock_hq_basic')
+                       if r[0] in ('lastPrice','preClosePrice','openPrice','highPrice','lowPrice','closePrice','avgPx')}
+        expected_types={name:'decimal(19,4)' for name in ('lastPrice','preClosePrice','openPrice','highPrice','lowPrice','closePrice')}
+        expected_types['avgPx']='decimal(38,21)'
+        if numeric_types!=expected_types:raise ValueError('Unexpected normalized price precision')
+        report.update(status='PASS',sourceCountsAfter=after,sourceDatesAfter=dates_after,
+                      normalizedNumericTypes=numeric_types,registeredSnapshotCount=len(registered),
                       viewRisePctType=[r for r in client.query('DESCRIBE newzl.v_hsj_stock_hq_basic') if r[0]=='risePct'],
                       upgradedViews={name:view_definition(client,name) for name in names})
     except Exception as error:

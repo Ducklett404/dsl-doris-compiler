@@ -14,7 +14,9 @@ final class MarketDataSemanticsContractTest {
         String ddl = Files.readString(Path.of("data/doris/ddl/002_semantic_view.sql"));
         assertAll(
                 () -> assertTrue(ddl.contains("b.quantRatio AS quanRatio")),
-                () -> assertTrue(ddl.contains("CAST(b.closePx AS DOUBLE) / 10000.0 AS closePrice")),
+                () -> assertTrue(ddl.contains("CAST(CAST(b.closePx AS DECIMAL(24,4)) / 10000 AS DECIMAL(19,4)) AS closePrice")),
+                () -> assertTrue(ddl.contains("CAST(b.turnover AS DECIMAL(24,2)) / 100 AS DECIMAL(36,19)")),
+                () -> assertTrue(ddl.contains("/ CAST(b.volume AS DECIMAL(20,0)) AS DECIMAL(38,21)) END AS avgPx")),
                 () -> assertTrue(ddl.contains("CAST(b.closePx AS DOUBLE) / 10000.0 * b.qfqMulti + b.qfqAdd AS closeQfq")),
                 () -> assertTrue(ddl.contains("CAST(b.closePx AS DOUBLE) / 10000.0 * b.hfqMulti + b.hfqAdd AS closeHfq")),
                 () -> assertTrue(ddl.contains("CASE WHEN b.volume IS NULL OR b.volume = 0 THEN NULL")),

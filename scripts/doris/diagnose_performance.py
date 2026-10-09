@@ -100,7 +100,7 @@ def main():
             client.query(f"GRANT SELECT_PRIV ON {features['qualifiedTable']} TO '{username}'")
         if rolling: client.query(f"GRANT SELECT_PRIV ON {rolling['qualifiedTable']} TO '{username}'")
         environment = os.environ.copy()
-        environment.update(DORIS_DIAGNOSTIC_URL=f'jdbc:mysql://{hosts[0]}:9030/newzl?useSSL=false&allowPublicKeyRetrieval=true&connectTimeout=5000&socketTimeout=70000',
+        environment.update(DORIS_DIAGNOSTIC_URL=f'jdbc:mysql://{hosts[0]}:{client.query_port}/newzl?useSSL=false&allowPublicKeyRetrieval=true&connectTimeout=5000&socketTimeout=70000',
             DORIS_DIAGNOSTIC_USER=username, DORIS_DIAGNOSTIC_PASSWORD=password)
         command = [str(java), '-Dfile.encoding=UTF-8', '-Dsun.stdout.encoding=UTF-8', '-Dsun.stderr.encoding=UTF-8',
             '-cp', str(ROOT/'target/dsl-doris-compiler.jar'),

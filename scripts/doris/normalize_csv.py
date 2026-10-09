@@ -18,7 +18,7 @@ def main() -> int:
     rows = 0
     nulls = 0
     with args.input.open("r", encoding="utf-8-sig", newline="") as source, args.output.open(
-        "w", encoding="utf-8", newline=""
+        "x", encoding="utf-8", newline=""
     ) as target:
         reader = csv.reader(source)
         writer = csv.writer(target, lineterminator="\n")

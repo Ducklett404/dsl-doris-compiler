@@ -2,11 +2,13 @@
 
 日期：2026-10-05。数据提供方无法继续补充文件时，仍可使用现有数据计算并说明限制。此入口使用**项目内部规则**，不代表官方认可字段口径或正式验收通过。
 
+新项目验收统一使用 `scripts/doris/run_project_acceptance.py --report-dir 新目录`；真实模式显式 `--with-doris --distribution 环境名 --data-root 原始目录 --reference-database 独立DuckDB`。它绑定实际源码、JAR、配置、矩阵和输出哈希，核对各阶段退出码与报告状态；`--resume` 只复用校验通过的工件。普通便携结果为 `PASS_OFFLINE_REAL_NOT_RUN`，真实项目全程通过才为 `PROJECT_PASS_FORMAL_BLOCKED`，缺少环境为 `NOT_RUN`，真实错误为 `FAIL`。命令、能力边界、交付及恢复见 [项目能力与交付 v1](project-capabilities-v1.md)。
+
 ## 运行规则
 
 以评价日、指定市场中实际存在的基础行情证券为筛选范围。基础价格、成交量等查询只验证基础行情；资金等查询另验证衍生行情；按名称读取证券时再验证证券代码表。未关联基础行情的衍生记录完整保留，不能补造价格，也不挪用其他日期的行情。
 
-字段单位、公式和资金哨兵规则继续使用冻结契约 v1.0.2。行业字段全空、无来源的财务字段等明确拒绝。缺失指标与不足窗口遵守既有 NULL 规则。CONS/EXIST 中 NULL 条件不计为命中，观察行不足时次数结果为 NULL；同时另列窗口条件缺失统计。
+字段单位、数学公式和资金哨兵规则不变；现行冻结修订为 v1.0.4（注册表仍为 v1.0.2），将六个 BIGINT 价格字段和均价通过显式 DECIMAL 边界规范化，并保留 v1.0.2、v1.0.3 历史范围。真实执行前需重建语义视图并生成新证书。行业字段全空、无来源的财务字段等明确拒绝。缺失指标与不足窗口遵守既有 NULL 规则。CONS/EXIST 中 NULL 条件不计为命中，观察行不足时次数结果为 NULL；同时另列窗口条件缺失统计。
 
 政策单独保存为 [project-data-policy-v1.json](../config/acceptance/project-data-policy-v1.json)，没有变更正式快照门禁。
 
@@ -41,6 +43,8 @@ java -jar target/dsl-doris-compiler.jar serve-doris `
 
 扫描和内存配置来自本次本地验证范围，部署时应按资源调整。默认不加新参数的执行入口仍要求完整快照 `VALIDATED`；正式正确性和性能入口没有这个参数。
 
+Windows 上的统一长时验收入口在进程存续期间申请 `ES_CONTINUOUS | ES_SYSTEM_REQUIRED`，只阻止因空闲计时触发的系统自动休眠，并在正常退出或异常退出的 `finally` 作用域中清除。该请求不要求显示器常亮，也不能覆盖用户手动休眠、合盖策略、关机或断电；因此机器报告将此项记为运行条件，不把它当作查询正确性证据。非 Windows 明确记录为不适用。
+
 ## 如何理解结果
 
 JSON 新增 `dataQuality`，Markdown 新增“数据可用性”。
@@ -67,7 +71,7 @@ JSON 新增 `dataQuality`，Markdown 新增“数据可用性”。
 
 观察不足只报告所需数、已有数及实际评价记录日期，不推测不存在于数据中的交易日。`relatedDates` 是真实相关日期：对 NULL/哨兵/衍生缺行，它表示对应观察日；对平坦或零分母，它表示证据区间，不能称为缺失日期。每个原因展示前 20 个日期，并保留总数与截断标记。
 
-Doris 将不可能命中的条件优化成仅包含 `EMPTYSET` 节点的计划时，执行器按零扫描处理，仍核验来源并计算条件之前的输入可用性。空结果节点与扫描或未知算子同时出现、且没有资源估算时，继续拒绝执行。
+Doris 将不可能命中的条件优化为空源计划时，只对完整识别的 `EMPTYSET/VEMPTYSET` 和已知纯排序、窗口、PartitionTopN、交换包装器判定零扫描；节点名称必须严格匹配，不能按前缀放行。仍核验来源、计算条件之前的输入可用性，并真实执行参数化查询，不直接合成空结果。含 Scan、Join、Union、表函数、未知算子、未知后缀或畸形编号节点且没有资源估算时，继续拒绝执行；资源预算不变。
 
 ## 核验强度与限制
 
@@ -87,7 +91,18 @@ Doris 将不可能命中的条件优化成仅包含 `EMPTYSET` 节点的计划�
 
 官方单位、哨兵及价格范围口径未获额外确认；外部盲测与正式完整快照验收仍未完成。
 
-## 自测与下一阶段
+## 分项自测与组合矩阵
+
+统一 `scripts/test-all.ps1` 和普通 GitHub CI 现在执行独立多指标与排名／queryData／CONS/EXIST 参考，以及便携组合 SQL 边界；原 94 组逐字段场景保留。正式的两份组合矩阵固定在 `config/acceptance/project-combination-matrix-v1.json` 和 `config/acceptance/project-rank-matrix-v1.json`，其哈希与实际执行工件同时保存。需要真实官方行时显式触发 `project-data-acceptance` 工作流或上述统一真实命令；没有环境时保存 `NOT_RUN`，不把普通 CI 成功当成真实数据通过。
+
+```powershell
+python scripts/doris/test_project_combination_reference.py
+python scripts/doris/test_project_rank_reference.py
+python scripts/doris/check_project_combinations.py --java java --output target/new-combinations.json
+python scripts/doris/check_project_rank_combinations.py --java java --output target/new-rank-combinations.json
+```
+
+每个输出路径须新建。两种边界入口增加 `--native-fixture --distribution 环境名` 时使用隔离原生 Doris 夹具，清理失败保留为失败。对已保存真实执行结果使用 `--execution-dir` 及本轮证书独立核对；统一入口组织这些步骤和结果汇总，便携／夹具／真实数据的证据类型分别注明。
 
 临时库测试：`scripts/doris/check_project_execution.py --output-dir 新目录`。
 
@@ -151,4 +166,4 @@ Doris 将不可能命中的条件优化成仅包含 `EMPTYSET` 节点的计划�
 
 94 组场景包含全部 19 项指标的三个日期点查询、全部指标的 3 条观察 position、6 项派生指标的计数及另外两个日期的点查询。隔离边界额外覆盖零分母、每个原始计算字段 NULL、非平凡复权乘加数、合法负资金、哨兵、未来行和观察不足。真实数据数值对比采用相对容差 `1e-10 * max(1, abs(expected))`；结果证券列表、顺序、NULL、缺值标记、原因和日期要求完全一致。五个日期的数值检查不表示全历史逐行验算。
 
-证据见 [分能力验收与自测报告](../reports/project-scoped/2026-10-05/分能力验收与自测报告.md)、[扩展官方数据验证与自测报告](../reports/project-expanded/2026-10-05/扩展官方数据验证与自测报告.md)、[窗口性能优化与自测报告](../reports/project-performance/2026-10-05/窗口性能优化与自测报告.md)、[逐字段验证与自测报告](../reports/project-fields/2026-10-05/逐字段验证与自测报告.md)。下一阶段扩展多个已验证指标的组合筛选、排名、跨证券查询与次数，保留正式门禁和缺失解释。
+此前证据见 [分能力验收与自测报告](../reports/project-scoped/2026-10-05/分能力验收与自测报告.md)、[扩展官方数据验证与自测报告](../reports/project-expanded/2026-10-05/扩展官方数据验证与自测报告.md)、[窗口性能优化与自测报告](../reports/project-performance/2026-10-05/窗口性能优化与自测报告.md)、[逐字段验证与自测报告](../reports/project-fields/2026-10-05/逐字段验证与自测报告.md)。这些为当时版本的历史结果；当前新增组合及实时环境的最终结论需读取新批次 `project-summary.json`，正式门禁保持不变。
