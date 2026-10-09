@@ -7,16 +7,60 @@ import os
 from pathlib import Path
 import re
 import secrets
+import shutil
 import subprocess
 import sys
 import tempfile
 import time
 import urllib.error
 import urllib.request
+import xml.etree.ElementTree as ET
 
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'scripts/accuracy'))
 from run_correctness import WslDoris,sql_literal
+
+REQUIRED_CASES={
+    'com.acme.dorisdsl.DorisExplainIntegrationTest':{'dorisExplainsLayeredRsiSql'},
+    'com.acme.dorisdsl.stockslot.DorisControlledExecutionIntegrationTest':{
+        'executesRealPreparedSelectOnTheValidatedSyntheticDataset',
+        'returnCapIsEnforcedAndResultResourcesRemainUsable',
+        'unvalidatedAndInjectedSnapshotIdsAreRejectedThenAnotherThreadCanExecute',
+        'scanLimitRejectsBeforeExecutionAndReleasesTheQueueSlot',
+        'accountsWithWritePrivilegeCannotInitializeTheExecutor',
+        'queuedRequestTimesOutWhileFirstRequestHoldsTheSlotAndBothRecover',
+        'realDatabaseTimeoutMapsToTimeoutAndTheNextRequestRecovers'}}
+REQUIRED_SUITES={name:len(cases) for name,cases in REQUIRED_CASES.items()}
+
+
+def summarize_required_junit(folder):
+    report=dict(status='FAIL',tests=0,passed=0,failures=0,errors=0,skipped=0,suites=[])
+    try:
+        for name,expected_count in REQUIRED_SUITES.items():
+            path=Path(folder)/('TEST-'+name+'.xml')
+            suite=ET.parse(path).getroot()
+            if suite.tag!='testsuite' or suite.attrib.get('name')!=name:
+                raise ValueError('Unexpected required JUnit suite')
+            nodes=suite.findall('testcase')
+            names=[node.attrib.get('name') for node in nodes]
+            if len(nodes)!=expected_count or set(names)!=REQUIRED_CASES[name] or len(names)!=len(set(names)):
+                raise ValueError('Required test methods missing, duplicated or replaced')
+            counts={key:int(suite.attrib[key]) for key in ('tests','failures','errors','skipped')}
+            actual=dict(tests=len(nodes),failures=sum(node.find('failure') is not None for node in nodes),
+                        errors=sum(node.find('error') is not None for node in nodes),
+                        skipped=sum(node.find('skipped') is not None for node in nodes))
+            if counts!=actual or any(node.attrib.get('classname')!=name for node in nodes):
+                raise ValueError('JUnit counters / testcase class identity disagree')
+            cases=[dict(name=node.attrib['name'],status='SKIP' if node.find('skipped') is not None else
+                   'FAIL' if node.find('failure') is not None else 'ERROR' if node.find('error') is not None else 'PASS') for node in nodes]
+            report['suites'].append(dict(name=name,**counts,testcases=cases))
+            for key in actual:report[key]+=actual[key]
+        report['passed']=sum(c['status']=='PASS' for suite in report['suites'] for c in suite['testcases'])
+        if report['tests']==8 and report['passed']==8 and report['failures']==report['errors']==report['skipped']==0:
+            report['status']='PASS'
+    except (OSError,ValueError,KeyError,ET.ParseError) as error:
+        report['error']=str(error)
+    return report
 
 
 def verify_test_environment():
@@ -26,18 +70,27 @@ def verify_test_environment():
     if dependencies.returncode:raise RuntimeError('Chosen Python environment needs scripts/doris/requirements-selftest.txt dependencies: '+dependencies.stderr.strip())
 
 
-def main():
+def main(argv=None):
     parser=argparse.ArgumentParser()
     parser.add_argument('--distribution',default='dsl-doris-official-01a104f9')
     parser.add_argument('--report-dir',type=Path,default=ROOT/'reports/continuation/2026-10-04')
     parser.add_argument('--maven',default=str(ROOT/'.tools/apache-maven-3.9.16/bin/mvn.cmd'))
     parser.add_argument('--maven-repository',default='.mvn-cache')
-    args=parser.parse_args()
+    parser.add_argument('--junit-only',action='store_true',help='Prepare the same isolated fixture but run only the eight formerly skipped JUnit integration tests')
+    args=parser.parse_args(argv)
     verify_test_environment()
-    args.report_dir.mkdir(parents=True,exist_ok=True)
+    if args.report_dir.exists():raise FileExistsError('Use a new report directory; preserve earlier evidence')
+    if not Path(args.maven).is_file():raise FileNotFoundError('Provide the installed Maven executable with --maven')
+    args.report_dir.mkdir(parents=True,exist_ok=False)
     client=WslDoris(args.distribution,'dsl-doris-official')
     original_registry=client.query('SELECT * FROM newzl.data_snapshot_registry')
     if original_registry:raise RuntimeError('Expected the existing diagnostic instance with no official validated snapshot')
+    source_identity_sql="""SELECT 'basic',COUNT(*),MIN(bizdate),MAX(bizdate) FROM newzl.hsj_stock_hq_basic
+        UNION ALL SELECT 'extension',COUNT(*),MIN(bizdate),MAX(bizdate) FROM newzl.hsj_stock_hq_ext
+        UNION ALL SELECT 'code',COUNT(*),NULL,NULL FROM newzl.hsj_stock_code_info ORDER BY 1"""
+    view_identity_sql="SELECT TABLE_NAME,SHA2(VIEW_DEFINITION,256) FROM information_schema.views WHERE TABLE_SCHEMA='newzl' ORDER BY TABLE_NAME"
+    original_sources=client.query(source_identity_sql)
+    original_views=client.query(view_identity_sql)
     address=subprocess.run(['wsl.exe','-d',args.distribution,'--exec','hostname','-I'],
         encoding='utf-8',errors='replace',text=True,capture_output=True,timeout=15)
     candidates=[item for item in address.stdout.split() if re.fullmatch(r'\d{1,3}(?:\.\d{1,3}){3}',item)]
@@ -55,13 +108,34 @@ def main():
     checks=[];created_database=False;users=[];server=None
     report={'purpose':'SYNTHETIC_REAL_DORIS_INTEGRATION_NOT_OFFICIAL_ACCEPTANCE',
         'fixtureDatabase':database,'snapshotId':snapshot,'originalOfficialRegistryRows':len(original_registry),
+        'testScope':'REQUIRED_EIGHT_JUNIT_ONLY' if args.junit_only else 'UNIFIED_PLUS_PRECISION_CLI_HTTP',
+        'distribution':args.distribution,'ports':{'query':client.query_port,'feHttp':client.fe_http_port,'beHttp':client.be_http_port},
+        'originalSourcesBefore':original_sources,'originalViewsBefore':original_views,
+        'startedAtUtc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
         'checks':checks,'testTransportNotes':[
             'Queue contention pauses a test-only JDBC transport; successful SELECTs execute actual generated SQL.',
             'Timeout transport runs SELECT SLEEP(4) once under the actual JDBC timeout; it is not a DSL capability.']}
+    def evidence_source_hash():
+        paths=sorted([*ROOT.glob('pom.xml'),*(ROOT/'src/main').rglob('*.java'),
+            *(ROOT/'src/main/antlr4').rglob('*.g4'),*(ROOT/'src/main/resources').rglob('*'),
+            *(ROOT/'src/test').rglob('*Doris*IntegrationTest.java')])
+        return hashlib.sha256(''.join(str(p.relative_to(ROOT))+'\0'+hashlib.sha256(p.read_bytes()).hexdigest()+'\n'
+            for p in paths if p.is_file()).encode()).hexdigest()
+    def class_hash(folder):
+        return hashlib.sha256(''.join(str(p.relative_to(ROOT))+'\0'+hashlib.sha256(p.read_bytes()).hexdigest()+'\n'
+            for p in sorted((ROOT/folder).rglob('*.class'))).encode()).hexdigest()
+    report['sourceSha256']=evidence_source_hash()
+    report['runnerSha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    report['compilerJarBeforeSha256']=hashlib.sha256((ROOT/'target/dsl-doris-compiler.jar').read_bytes()).hexdigest()
+    previous=args.report_dir/'previous-required-junit';previous.mkdir()
+    for name in REQUIRED_SUITES:
+        old=ROOT/'target/surefire-reports'/('TEST-'+name+'.xml')
+        if old.is_file():shutil.copy2(old,previous/old.name)
+    report['previousRequiredJunit']=summarize_required_junit(previous)
 
-    def record(name,passed,**evidence):
-        checks.append({'name':name,'status':'PASS' if passed else 'FAIL',**evidence})
-        if not passed:raise AssertionError(name)
+    def record(name,condition,**evidence):
+        checks.append({'name':name,'status':'PASS' if condition else 'FAIL',**evidence})
+        if not condition:raise AssertionError(name)
 
     def insert(table,values):
         if values:client.query(f'INSERT INTO {database}.{table} VALUES '+','.join(
@@ -140,19 +214,48 @@ def main():
             client.query(f"CREATE USER '{name}' IDENTIFIED BY '{password}'");users.append(name)
             client.query(f"GRANT {privileges} ON {database}.* TO '{name}'")
         environment=os.environ.copy()
-        environment.update(DORIS_JDBC_URL=f'jdbc:mysql://{host}:9030/{database}?useSSL=false&allowPublicKeyRetrieval=true&connectTimeout=5000&socketTimeout=15000',
+        environment.update(DORIS_JDBC_URL=f'jdbc:mysql://{host}:{client.query_port}/{database}?useSSL=false&allowPublicKeyRetrieval=true&connectTimeout=5000&socketTimeout=15000',
             DORIS_JDBC_USER=reader,DORIS_JDBC_PASSWORD=reader_password,DORIS_FIXTURE_REGISTRY=str(registry_path),
             DORIS_FIXTURE_SNAPSHOT_ID=snapshot,DORIS_WRITER_USER=writer,DORIS_WRITER_PASSWORD=writer_password,
             DORIS_SCREEN_TEST_REGISTRY=str(screen_path),DORIS_SCREEN_TEST_CATALOG=str(catalog_path),
             DSL_FIXTURE_PASSWORD=reader_password,DSL_FIXTURE_TOKEN=token)
-        print('Running complete self-test with real JDBC and isolated synthetic data',flush=True)
+        print('Running real JDBC tests with isolated synthetic data',flush=True)
+        launched_ns=time.time_ns()
         with (args.report_dir/'unified-integration.log').open('wb') as output:
-            tested=subprocess.run(['pwsh','-NoProfile','-File',str(ROOT/'scripts/test-all.ps1'),
+            if args.junit_only:
+                command=[args.maven,'-B','--no-transfer-progress','-o',
+                    '-Dmaven.repo.local='+str((ROOT/args.maven_repository).resolve()),
+                    '-Dtest=DorisExplainIntegrationTest,DorisControlledExecutionIntegrationTest',
+                    '-Dtest.jvm.args=-Djdk.net.unixdomain.tmpdir=target/disabled-unix-sockets','test']
+            else:
+                command=['pwsh','-NoProfile','-File',str(ROOT/'scripts/test-all.ps1'),
                 '-MavenExecutable',args.maven,'-MavenRepository',args.maven_repository,'-Offline',
                 '-PythonExecutable',sys.executable,
-                '-TestJvmArgs','-Djdk.net.unixdomain.tmpdir=target/disabled-unix-sockets'],
-                cwd=ROOT,env=environment,stdout=output,stderr=subprocess.STDOUT,timeout=600)
-        record('unified-real-jdbc-tests',tested.returncode==0,exitCode=tested.returncode)
+                '-TestJvmArgs','-Djdk.net.unixdomain.tmpdir=target/disabled-unix-sockets']
+            tested=subprocess.run(command,cwd=ROOT,env=environment,stdout=output,stderr=subprocess.STDOUT,timeout=600)
+        junit_dir=args.report_dir/'required-junit';junit_dir.mkdir()
+        for name in REQUIRED_SUITES:
+            path=ROOT/'target/surefire-reports'/('TEST-'+name+'.xml')
+            if not path.is_file() or path.stat().st_mtime_ns<launched_ns:
+                raise RuntimeError('No fresh JUnit XML for '+name)
+            text=path.read_text(encoding='utf-8')
+            for secret in (reader_password,writer_password,token):text=text.replace(secret,'[REDACTED]')
+            (junit_dir/path.name).write_text(text,encoding='utf-8')
+        required=summarize_required_junit(junit_dir)
+        report['requiredJunit']=required
+        (args.report_dir/'required-eight-result.json').write_text(json.dumps(required,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+        record('required-eight-real-jdbc-tests',tested.returncode==0 and required['status']=='PASS',
+            exitCode=tested.returncode,tests=required['tests'],passed=required['passed'],skipped=required['skipped'],
+            failures=required['failures'],errors=required['errors'])
+        if not args.junit_only:record('unified-real-jdbc-tests',tested.returncode==0,exitCode=tested.returncode)
+        if args.junit_only:
+            report['compilerJarAfterSha256']=hashlib.sha256((ROOT/'target/dsl-doris-compiler.jar').read_bytes()).hexdigest()
+            report['compiledClassesSha256']=class_hash('target/classes')
+            report['compiledTestClassesSha256']=class_hash('target/test-classes')
+            report['compilerJarUsedForTests']=False
+            record('existing-compiler-jar-preserved',report['compilerJarAfterSha256']==report['compilerJarBeforeSha256'])
+            record('official-snapshot-registry-preserved',client.query('SELECT * FROM newzl.data_snapshot_registry')==original_registry)
+            return 0
         report['compilerJarSha256']=hashlib.sha256((ROOT/'target/dsl-doris-compiler.jar').read_bytes()).hexdigest()
         precision_output=args.report_dir/'numeric-precision-boundaries.json'
         with (args.report_dir/'numeric-precision-boundaries.log').open('wb') as output:
@@ -169,7 +272,7 @@ def main():
             source.write_text(dsl,encoding='utf-8')
             java_command=[java,'-Dfile.encoding=UTF-8','-Dsun.stdout.encoding=UTF-8','-Dsun.stderr.encoding=UTF-8',
                 '-Djdk.net.unixdomain.tmpdir='+str(temporary/'nonexistent-sockets'),'-jar',str(ROOT/'target/dsl-doris-compiler.jar')]
-            connection=['--host',host,'--database',database,'--user',reader,'--password-env','DSL_FIXTURE_PASSWORD',
+            connection=['--host',host,'--port',str(client.query_port),'--database',database,'--user',reader,'--password-env','DSL_FIXTURE_PASSWORD',
                 '--registry',str(registry_path),'--max-return-rows','2']
             executed=subprocess.run(java_command+['execute-stock-slot-sql',str(source),'--snapshot-id',snapshot]+connection,
                 env=environment,capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=30)
@@ -214,18 +317,51 @@ def main():
         record('official-snapshot-registry-preserved',client.query('SELECT * FROM newzl.data_snapshot_registry')==original_registry)
     except Exception as error:
         report['error']=str(error).replace(reader_password,'[REDACTED]').replace(writer_password,'[REDACTED]').replace(token,'[REDACTED]')
-        raise
+        raise RuntimeError(report['error']) from None
     finally:
-        stop_server()
-        for name in users:client.query(f"DROP USER '{name}'")
+        cleanup_errors=[]
+        try:stop_server()
+        except Exception as error:cleanup_errors.append('HTTP server: '+str(error))
+        for name in users:
+            try:
+                if not re.fullmatch(r'dsl_fixture_(read|write)_[0-9a-f]{12}',name):raise RuntimeError('Invalid owned fixture user')
+                client.query(f"DROP USER '{name}'")
+                remaining=client.query('SHOW ALL GRANTS')
+                if any(name in row[0] for row in remaining):raise RuntimeError('Created fixture user still exists')
+            except Exception as error:cleanup_errors.append(name+': '+str(error))
         if created_database:
-            if not re.fullmatch(r'dsl_executor_fixture_[0-9a-f]{12}',database):raise RuntimeError('Invalid owned fixture database name')
-            client.query('DROP DATABASE '+database)
-        report['fixtureCleanup']='DONE'
+            try:
+                if not re.fullmatch(r'dsl_executor_fixture_[0-9a-f]{12}',database):raise RuntimeError('Invalid owned fixture database name')
+                client.query('DROP DATABASE '+database)
+                if client.query('SHOW DATABASES LIKE '+sql_literal(database)):raise RuntimeError('Created fixture database still exists')
+            except Exception as error:cleanup_errors.append(database+': '+str(error))
+        try:
+            report['originalSourcesAfter']=client.query(source_identity_sql)
+            report['originalViewsAfter']=client.query(view_identity_sql)
+            if report['originalSourcesAfter']!=original_sources or report['originalViewsAfter']!=original_views:
+                cleanup_errors.append('Original source count / date / semantic view identity changed')
+            if client.query('SELECT * FROM newzl.data_snapshot_registry')!=original_registry:
+                cleanup_errors.append('Original snapshot registry changed')
+        except Exception as error:cleanup_errors.append('Source preservation verification: '+str(error))
+        try:
+            report['sourceAfterSha256']=evidence_source_hash()
+            report['runnerAfterSha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+            if report['sourceAfterSha256']!=report['sourceSha256'] or report['runnerAfterSha256']!=report['runnerSha256']:
+                cleanup_errors.append('Compiler/test sources or integration runner changed during the run')
+            log=args.report_dir/'unified-integration.log'
+            if log.exists():
+                log_text=log.read_text(encoding='utf-8',errors='replace')
+                for secret in (reader_password,writer_password,token):log_text=log_text.replace(secret,'[REDACTED]')
+                log.write_text(log_text,encoding='utf-8')
+        except Exception as error:cleanup_errors.append('Evidence identity / sanitization: '+str(error))
+        report['fixtureCleanup']='FAILED' if cleanup_errors else 'DONE'
+        report['cleanupErrors']=[str(e).replace(reader_password,'[REDACTED]').replace(writer_password,'[REDACTED]').replace(token,'[REDACTED]') for e in cleanup_errors]
         report['passed']=sum(item['status']=='PASS' for item in checks);report['total']=len(checks)
-        report['status']='PASS' if checks and 'error' not in report and report['passed']==report['total'] else 'FAIL'
+        report['status']='PASS' if checks and 'error' not in report and not cleanup_errors and report['passed']==report['total'] else 'FAIL'
+        report['completedAtUtc']=datetime.datetime.now(datetime.timezone.utc).isoformat()
         (args.report_dir/'integration-result.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
         print(json.dumps({'status':report['status'],'passed':report['passed'],'total':report['total']}),flush=True)
+        if cleanup_errors:raise RuntimeError('Fixture cleanup / source preservation failed; see new report')
     return 0
 
 

@@ -1,14 +1,14 @@
 {
-  "freezeId": "stock-slot-phase1-scope-v1.0.2",
+  "freezeId": "stock-slot-phase1-scope-v1.0.4",
   "status": "PASS",
   "freezeStatus": "APPROVED",
   "approval": "DIRECT_PROJECT_APPROVAL",
-  "validatedAt": "2026-10-05T16:55:53.9879035+08:00",
+  "validatedAt": "2026-10-10T00:30:59.0111637+08:00",
   "checks": [
     {
       "name": "freeze-status",
       "status": "PASS",
-      "detail": "stock-slot-phase1-scope-v1.0.2 / APPROVED"
+      "detail": "stock-slot-phase1-scope-v1.0.4 / APPROVED"
     },
     {
       "name": "registry-lock",

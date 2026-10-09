@@ -144,7 +144,7 @@ def main():
         print(label+' PASS '+str(details['rows'])+' rows '+str(round(details['totalMillis']))+'ms', flush=True)
     def probe(source, host):
         completed = subprocess.run([args.java, '-Dfile.encoding=UTF-8', '-cp', str(ROOT/'target/dsl-doris-compiler.jar'),
-            str(ROOT/'scripts/doris/ProjectExecutionProbe.java'), f'jdbc:mysql://{host}:9030/newzl', reader,
+            str(ROOT/'scripts/doris/ProjectExecutionProbe.java'), f'jdbc:mysql://{host}:{client.query_port}/newzl', reader,
             str(ROOT/'src/main/resources/stock-slot-registry-v1.json'), str(args.certificate.resolve()), str(source)],
             env=env, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=80)
         (folder/'failure-diagnostic.log').write_text(redact(completed.stdout+'\n'+completed.stderr), encoding='utf-8')
@@ -156,7 +156,7 @@ def main():
         container = subprocess.run(client.prefix+['inspect','-f','{{.HostConfig.Memory}}','dsl-doris-official'], capture_output=True,
             text=True, encoding='utf-8', errors='replace', timeout=20)
         backend = subprocess.run(client.prefix+['exec','dsl-doris-official','curl','-fsS','--max-time','10',
-            'http://127.0.0.1:8040/api/show_config'], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=20)
+            f'http://127.0.0.1:{client.be_http_port}/api/show_config'], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=20)
         if container.returncode or backend.returncode: raise RuntimeError('Cannot verify diagnostic container/BE memory configuration')
         share = next(row[2] for row in json.loads(backend.stdout) if row[0] == 'mem_limit')
         return dict(containerMemoryBytes=int(container.stdout.strip()), beMemoryShare=share)
@@ -204,7 +204,7 @@ def main():
         hosts = re.findall(r'\b\d{1,3}(?:\.\d{1,3}){3}\b', address.stdout)
         if address.returncode or not hosts: raise RuntimeError('WSL IPv4 unavailable')
         host = hosts[0]
-        connection = ['--host', host, '--database', 'newzl', '--user', reader, '--password-env', 'DSL_PROJECT_PASSWORD',
+        connection = ['--host', host, '--port', str(client.query_port), '--database', 'newzl', '--user', reader, '--password-env', 'DSL_PROJECT_PASSWORD',
             '--max-scan-rows', '100000000', '--max-exec-memory-bytes', '2147483648', '--max-return-rows', '10000']
         client.query(f"CREATE USER '{reader}' IDENTIFIED BY '{password}'"); account = True
         client.query(f"GRANT SELECT_PRIV ON newzl.* TO '{reader}'")

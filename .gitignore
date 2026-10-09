@@ -5,6 +5,25 @@
 /.mvn-cache/
 /.tools/
 /build/
+*.duckdb
+*.duckdb.wal
+*.duckdb.tmp/
+*.duckdb.build-lock.json
 __pycache__/
+
+# Local Doris acceptance evidence. Keep it on this machine; do not upload it.
+/reports/doris-recovery/
+/reports/environment-recovery/
+/reports/environment/
+/reports/optimization/
+/reports/project-acceptance/
+/reports/reference-rebuild/
+/reports/wsl-integration/
+
+# Accidental empty local file.
+/=
+
+# Machine-specific Doris daemon metadata.
+/config/doris/private-daemon.json
 *.log
 __pycache__/

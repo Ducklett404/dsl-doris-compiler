@@ -5,12 +5,14 @@ CREATE VIEW v_hsj_stock_hq_basic AS
 SELECT
   b.*,
   b.quantRatio AS quanRatio,
-  CAST(b.lastPx AS DOUBLE) / 10000.0 AS lastPrice,
-  CAST(b.preClosePx AS DOUBLE) / 10000.0 AS preClosePrice,
-  CAST(b.openPx AS DOUBLE) / 10000.0 AS openPrice,
-  CAST(b.highPx AS DOUBLE) / 10000.0 AS highPrice,
-  CAST(b.lowPx AS DOUBLE) / 10000.0 AS lowPrice,
-  CAST(b.closePx AS DOUBLE) / 10000.0 AS closePrice,
+  -- BIGINT prices are exact ten-thousandths; never round through DOUBLE.
+  -- DECIMAL(19,4) covers the entire signed BIGINT / 10000 source domain.
+  CAST(CAST(b.lastPx AS DECIMAL(24,4)) / 10000 AS DECIMAL(19,4)) AS lastPrice,
+  CAST(CAST(b.preClosePx AS DECIMAL(24,4)) / 10000 AS DECIMAL(19,4)) AS preClosePrice,
+  CAST(CAST(b.openPx AS DECIMAL(24,4)) / 10000 AS DECIMAL(19,4)) AS openPrice,
+  CAST(CAST(b.highPx AS DECIMAL(24,4)) / 10000 AS DECIMAL(19,4)) AS highPrice,
+  CAST(CAST(b.lowPx AS DECIMAL(24,4)) / 10000 AS DECIMAL(19,4)) AS lowPrice,
+  CAST(CAST(b.closePx AS DECIMAL(24,4)) / 10000 AS DECIMAL(19,4)) AS closePrice,
   CAST(b.turnover AS DOUBLE) / 100.0 AS turnoverAmount,
   CAST(b.quantRatio AS DOUBLE) / 10000.0 AS quantityRatio,
   CAST(b.turnRatio AS DOUBLE) / 10000.0 AS turnoverRatio,
@@ -21,7 +23,11 @@ SELECT
        ELSE (CAST(b.lastPx AS DOUBLE) - CAST(b.preClosePx AS DOUBLE))
             * 100.0 / CAST(b.preClosePx AS DOUBLE) END AS risePct,
   CASE WHEN b.volume IS NULL OR b.volume = 0 THEN NULL
-       ELSE (CAST(b.turnover AS DOUBLE) / 100.0) / b.volume END AS avgPx,
+       -- Normalize the exact cents before division; the explicit decimal
+       -- boundary also prevents the optimizer's DOUBLE division reassociation.
+       -- 17 integer + 21 fractional digits cover signed BIGINT cents / volume.
+       ELSE CAST(CAST(CAST(b.turnover AS DECIMAL(24,2)) / 100 AS DECIMAL(36,19))
+                 / CAST(b.volume AS DECIMAL(20,0)) AS DECIMAL(38,21)) END AS avgPx,
   CAST(b.openPx AS DOUBLE) / 10000.0 * b.qfqMulti + b.qfqAdd AS openQfq,
   CAST(b.highPx AS DOUBLE) / 10000.0 * b.qfqMulti + b.qfqAdd AS highQfq,
   CAST(b.lowPx AS DOUBLE) / 10000.0 * b.qfqMulti + b.qfqAdd AS lowQfq,

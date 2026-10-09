@@ -1,0 +1,2705 @@
+[
+  {
+    "name": "edge-average-eq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "=",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '均价', '2026-04-14', '', '', '') = 1) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-average-lt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "<",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '均价', '2026-04-14', '', '', '') < 1) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-average-gt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '均价', '2026-04-14', '', '', '') > 1) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-average-lteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "<=",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '均价', '2026-04-14', '', '', '') <= 1) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-average-gteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">=",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '均价', '2026-04-14', '', '', '') >= 1) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "or-average-close",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        ">",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        1
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '均价', '2026-04-14', '', '', '') > 1) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 1)"
+  },
+  {
+    "name": "mixed-average-ma3-rsi2",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      },
+      {
+        "kind": "ma",
+        "n": 3
+      },
+      {
+        "kind": "rsi",
+        "n": 2
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        1
+      ],
+      [
+        "or",
+        [
+          "cmp",
+          1,
+          ">=",
+          1
+        ],
+        [
+          "cmp",
+          2,
+          ">",
+          50
+        ]
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '均价', '2026-04-14', '', '', '') > 1) and ((indicator('', '', '3日均线', '2026-04-14', '', '', '') >= 1) or (indicator('', '', 'RSI(2)', '2026-04-14', '', '', '') > 50))"
+  },
+  {
+    "name": "edge-qfq-eq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "qfq"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "=",
+        5
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') = 5) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-qfq-lt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "qfq"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "<",
+        5
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') < 5) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-qfq-gt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "qfq"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        5
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') > 5) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-qfq-lteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "qfq"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "<=",
+        5
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') <= 5) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-qfq-gteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "qfq"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">=",
+        5
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') >= 5) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "or-qfq-close",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "qfq"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        ">",
+        5
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        1
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') > 5) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 1)"
+  },
+  {
+    "name": "mixed-qfq-ma3-rsi2",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "qfq"
+      },
+      {
+        "kind": "ma",
+        "n": 3
+      },
+      {
+        "kind": "rsi",
+        "n": 2
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        5
+      ],
+      [
+        "or",
+        [
+          "cmp",
+          1,
+          ">=",
+          1
+        ],
+        [
+          "cmp",
+          2,
+          ">",
+          50
+        ]
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') > 5) and ((indicator('', '', '3日均线', '2026-04-14', '', '', '') >= 1) or (indicator('', '', 'RSI(2)', '2026-04-14', '', '', '') > 50))"
+  },
+  {
+    "name": "edge-hfq-eq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "hfq"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "=",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '后复权收盘价', '2026-04-14', '', '', '') = 1) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-hfq-lt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "hfq"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "<",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '后复权收盘价', '2026-04-14', '', '', '') < 1) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-hfq-gt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "hfq"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '后复权收盘价', '2026-04-14', '', '', '') > 1) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-hfq-lteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "hfq"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "<=",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '后复权收盘价', '2026-04-14', '', '', '') <= 1) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-hfq-gteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "hfq"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">=",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '后复权收盘价', '2026-04-14', '', '', '') >= 1) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "or-hfq-close",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "hfq"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        ">",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        1
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '后复权收盘价', '2026-04-14', '', '', '') > 1) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 1)"
+  },
+  {
+    "name": "mixed-hfq-ma3-rsi2",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "hfq"
+      },
+      {
+        "kind": "ma",
+        "n": 3
+      },
+      {
+        "kind": "rsi",
+        "n": 2
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        1
+      ],
+      [
+        "or",
+        [
+          "cmp",
+          1,
+          ">=",
+          1
+        ],
+        [
+          "cmp",
+          2,
+          ">",
+          50
+        ]
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '后复权收盘价', '2026-04-14', '', '', '') > 1) and ((indicator('', '', '3日均线', '2026-04-14', '', '', '') >= 1) or (indicator('', '', 'RSI(2)', '2026-04-14', '', '', '') > 50))"
+  },
+  {
+    "name": "edge-turn-eq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "turn"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "=",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '换手率', '2026-04-14', '', '', '') = 1) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-turn-lt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "turn"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "<",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '换手率', '2026-04-14', '', '', '') < 1) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-turn-gt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "turn"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '换手率', '2026-04-14', '', '', '') > 1) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-turn-lteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "turn"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "<=",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '换手率', '2026-04-14', '', '', '') <= 1) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-turn-gteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "turn"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">=",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '换手率', '2026-04-14', '', '', '') >= 1) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "or-turn-close",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "turn"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        ">",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        1
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '换手率', '2026-04-14', '', '', '') > 1) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 1)"
+  },
+  {
+    "name": "mixed-turn-ma3-rsi2",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "turn"
+      },
+      {
+        "kind": "ma",
+        "n": 3
+      },
+      {
+        "kind": "rsi",
+        "n": 2
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        1
+      ],
+      [
+        "or",
+        [
+          "cmp",
+          1,
+          ">=",
+          1
+        ],
+        [
+          "cmp",
+          2,
+          ">",
+          50
+        ]
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '换手率', '2026-04-14', '', '', '') > 1) and ((indicator('', '', '3日均线', '2026-04-14', '', '', '') >= 1) or (indicator('', '', 'RSI(2)', '2026-04-14', '', '', '') > 50))"
+  },
+  {
+    "name": "edge-cap-eq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "cap"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "=",
+        1000000
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '总市值', '2026-04-14', '', '', '') = 1000000) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-cap-lt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "cap"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "<",
+        1000000
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '总市值', '2026-04-14', '', '', '') < 1000000) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-cap-gt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "cap"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        1000000
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '总市值', '2026-04-14', '', '', '') > 1000000) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-cap-lteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "cap"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "<=",
+        1000000
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '总市值', '2026-04-14', '', '', '') <= 1000000) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-cap-gteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "cap"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">=",
+        1000000
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '总市值', '2026-04-14', '', '', '') >= 1000000) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "or-cap-close",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "cap"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        ">",
+        1000000
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        1
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '总市值', '2026-04-14', '', '', '') > 1000000) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 1)"
+  },
+  {
+    "name": "mixed-cap-ma3-rsi2",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "cap"
+      },
+      {
+        "kind": "ma",
+        "n": 3
+      },
+      {
+        "kind": "rsi",
+        "n": 2
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        1000000
+      ],
+      [
+        "or",
+        [
+          "cmp",
+          1,
+          ">=",
+          1
+        ],
+        [
+          "cmp",
+          2,
+          ">",
+          50
+        ]
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '总市值', '2026-04-14', '', '', '') > 1000000) and ((indicator('', '', '3日均线', '2026-04-14', '', '', '') >= 1) or (indicator('', '', 'RSI(2)', '2026-04-14', '', '', '') > 50))"
+  },
+  {
+    "name": "edge-listedCap-eq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "listedCap"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "=",
+        500000
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '流通市值', '2026-04-14', '', '', '') = 500000) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-listedCap-lt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "listedCap"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "<",
+        500000
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '流通市值', '2026-04-14', '', '', '') < 500000) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-listedCap-gt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "listedCap"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        500000
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '流通市值', '2026-04-14', '', '', '') > 500000) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-listedCap-lteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "listedCap"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "<=",
+        500000
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '流通市值', '2026-04-14', '', '', '') <= 500000) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-listedCap-gteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "listedCap"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">=",
+        500000
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '流通市值', '2026-04-14', '', '', '') >= 500000) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "or-listedCap-close",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "listedCap"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        ">",
+        500000
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        1
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '流通市值', '2026-04-14', '', '', '') > 500000) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 1)"
+  },
+  {
+    "name": "mixed-listedCap-ma3-rsi2",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "listedCap"
+      },
+      {
+        "kind": "ma",
+        "n": 3
+      },
+      {
+        "kind": "rsi",
+        "n": 2
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        500000
+      ],
+      [
+        "or",
+        [
+          "cmp",
+          1,
+          ">=",
+          1
+        ],
+        [
+          "cmp",
+          2,
+          ">",
+          50
+        ]
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '流通市值', '2026-04-14', '', '', '') > 500000) and ((indicator('', '', '3日均线', '2026-04-14', '', '', '') >= 1) or (indicator('', '', 'RSI(2)', '2026-04-14', '', '', '') > 50))"
+  },
+  {
+    "name": "edge-net-eq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "net"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "=",
+        0
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '主力净流入', '2026-04-14', '', '', '') = 0) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-net-lt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "net"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "<",
+        0
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '主力净流入', '2026-04-14', '', '', '') < 0) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-net-gt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "net"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        0
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '主力净流入', '2026-04-14', '', '', '') > 0) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-net-lteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "net"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        "<=",
+        0
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '主力净流入', '2026-04-14', '', '', '') <= 0) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "edge-net-gteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "net"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">=",
+        0
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '主力净流入', '2026-04-14', '', '', '') >= 0) and (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 0)"
+  },
+  {
+    "name": "or-net-close",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "net"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        ">",
+        0
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        1
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '主力净流入', '2026-04-14', '', '', '') > 0) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') >= 1)"
+  },
+  {
+    "name": "mixed-net-ma3-rsi2",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "net"
+      },
+      {
+        "kind": "ma",
+        "n": 3
+      },
+      {
+        "kind": "rsi",
+        "n": 2
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        0
+      ],
+      [
+        "or",
+        [
+          "cmp",
+          1,
+          ">=",
+          1
+        ],
+        [
+          "cmp",
+          2,
+          ">",
+          50
+        ]
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '主力净流入', '2026-04-14', '', '', '') > 0) and ((indicator('', '', '3日均线', '2026-04-14', '', '', '') >= 1) or (indicator('', '', 'RSI(2)', '2026-04-14', '', '', '') > 50))"
+  },
+  {
+    "name": "percent-turn-eq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "turn"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        "=",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        2
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '换手率', '2026-04-14', '', '', '') = 1%) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') > 2)"
+  },
+  {
+    "name": "percent-turn-lt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "turn"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        "<",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        2
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '换手率', '2026-04-14', '', '', '') < 1%) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') > 2)"
+  },
+  {
+    "name": "percent-turn-gteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "turn"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        ">=",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        2
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '换手率', '2026-04-14', '', '', '') >= 1%) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') > 2)"
+  },
+  {
+    "name": "percent-rise-eq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "rise"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        "=",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        2
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '涨跌幅', '2026-04-14', '', '', '') = 1%) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') > 2)"
+  },
+  {
+    "name": "percent-rise-lt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "rise"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        "<",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        2
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '涨跌幅', '2026-04-14', '', '', '') < 1%) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') > 2)"
+  },
+  {
+    "name": "percent-rise-gteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "rise"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        ">=",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        2
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '涨跌幅', '2026-04-14', '', '', '') >= 1%) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') > 2)"
+  },
+  {
+    "name": "percent-amplitude-eq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "amplitude"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        "=",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        2
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '振幅', '2026-04-14', '', '', '') = 1%) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') > 2)"
+  },
+  {
+    "name": "percent-amplitude-lt",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "amplitude"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        "<",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        2
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '振幅', '2026-04-14', '', '', '') < 1%) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') > 2)"
+  },
+  {
+    "name": "percent-amplitude-gteq",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "amplitude"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        ">=",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        2
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '振幅', '2026-04-14', '', '', '') >= 1%) or (indicator('', '', '收盘价', '2026-04-14', '', '', '') > 2)"
+  },
+  {
+    "name": "unit-cny-cap-amount",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "cap"
+      },
+      {
+        "kind": "field",
+        "metric": "amount"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">=",
+        1000000
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        100
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '总市值', '2026-04-14', '', '', '') >= 1000000) and (indicator('', '', '成交额', '2026-04-14', '', '', '') >= 100)"
+  },
+  {
+    "name": "unit-share-volume-cap",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "volume"
+      },
+      {
+        "kind": "field",
+        "metric": "listedCap"
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        ">=",
+        100
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        500000
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '成交量', '2026-04-14', '', '', '') >= 100) or (indicator('', '', '流通市值', '2026-04-14', '', '', '') > 500000)"
+  },
+  {
+    "name": "adjustments-all-three",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "qfq"
+      },
+      {
+        "kind": "field",
+        "metric": "hfq"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "callcmp",
+        0,
+        ">",
+        2
+      ],
+      [
+        "callcmp",
+        1,
+        "<=",
+        0
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') > indicator('', '', '收盘价', '2026-04-14', '', '', '')) and (indicator('', '', '后复权收盘价', '2026-04-14', '', '', '') <= indicator('', '', '前复权收盘价', '2026-04-14', '', '', ''))"
+  },
+  {
+    "name": "average-vs-close",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "callcmp",
+      0,
+      ">=",
+      1
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "indicator('', '', '均价', '2026-04-14', '', '', '') >= indicator('', '', '收盘价', '2026-04-14', '', '', '')"
+  },
+  {
+    "name": "average-plus-close",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      },
+      {
+        "kind": "field",
+        "metric": "close"
+      }
+    ],
+    "expr": [
+      "sumcmp",
+      0,
+      1,
+      2
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '均价', '2026-04-14', '', '', '')+indicator('', '', '收盘价', '2026-04-14', '', '', '')) > 2"
+  },
+  {
+    "name": "windows-average-ma3-rsi5",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      },
+      {
+        "kind": "ma",
+        "n": 3
+      },
+      {
+        "kind": "rsi",
+        "n": 5
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "and",
+        [
+          "cmp",
+          0,
+          ">",
+          0
+        ],
+        [
+          "cmp",
+          1,
+          ">",
+          1
+        ]
+      ],
+      [
+        "cmp",
+        2,
+        ">",
+        50
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "((indicator('', '', '均价', '2026-04-14', '', '', '') > 0) and (indicator('', '', '3日均线', '2026-04-14', '', '', '') > 1)) or (indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50)"
+  },
+  {
+    "name": "windows-qfq-ma5-rsi5",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "qfq"
+      },
+      {
+        "kind": "ma",
+        "n": 5
+      },
+      {
+        "kind": "rsi",
+        "n": 5
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "and",
+        [
+          "cmp",
+          0,
+          ">",
+          0
+        ],
+        [
+          "cmp",
+          1,
+          ">",
+          1
+        ]
+      ],
+      [
+        "cmp",
+        2,
+        ">",
+        50
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "((indicator('', '', '前复权收盘价', '2026-04-14', '', '', '') > 0) and (indicator('', '', '5日均线', '2026-04-14', '', '', '') > 1)) or (indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50)"
+  },
+  {
+    "name": "windows-hfq-ma20-rsi5",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "hfq"
+      },
+      {
+        "kind": "ma",
+        "n": 20
+      },
+      {
+        "kind": "rsi",
+        "n": 5
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "and",
+        [
+          "cmp",
+          0,
+          ">",
+          0
+        ],
+        [
+          "cmp",
+          1,
+          ">",
+          1
+        ]
+      ],
+      [
+        "cmp",
+        2,
+        ">",
+        50
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "((indicator('', '', '后复权收盘价', '2026-04-14', '', '', '') > 0) and (indicator('', '', '20日均线', '2026-04-14', '', '', '') > 1)) or (indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50)"
+  },
+  {
+    "name": "windows-turn-ma5-rsi5",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "turn"
+      },
+      {
+        "kind": "ma",
+        "n": 5
+      },
+      {
+        "kind": "rsi",
+        "n": 5
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "and",
+        [
+          "cmp",
+          0,
+          ">",
+          0
+        ],
+        [
+          "cmp",
+          1,
+          ">",
+          1
+        ]
+      ],
+      [
+        "cmp",
+        2,
+        ">",
+        50
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "((indicator('', '', '换手率', '2026-04-14', '', '', '') > 0) and (indicator('', '', '5日均线', '2026-04-14', '', '', '') > 1)) or (indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50)"
+  },
+  {
+    "name": "windows-cap-ma20-rsi5",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "cap"
+      },
+      {
+        "kind": "ma",
+        "n": 20
+      },
+      {
+        "kind": "rsi",
+        "n": 5
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "and",
+        [
+          "cmp",
+          0,
+          ">",
+          0
+        ],
+        [
+          "cmp",
+          1,
+          ">",
+          1
+        ]
+      ],
+      [
+        "cmp",
+        2,
+        ">",
+        50
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "((indicator('', '', '总市值', '2026-04-14', '', '', '') > 0) and (indicator('', '', '20日均线', '2026-04-14', '', '', '') > 1)) or (indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50)"
+  },
+  {
+    "name": "windows-listedCap-ma3-rsi5",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "listedCap"
+      },
+      {
+        "kind": "ma",
+        "n": 3
+      },
+      {
+        "kind": "rsi",
+        "n": 5
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "and",
+        [
+          "cmp",
+          0,
+          ">",
+          0
+        ],
+        [
+          "cmp",
+          1,
+          ">",
+          1
+        ]
+      ],
+      [
+        "cmp",
+        2,
+        ">",
+        50
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "((indicator('', '', '流通市值', '2026-04-14', '', '', '') > 0) and (indicator('', '', '3日均线', '2026-04-14', '', '', '') > 1)) or (indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50)"
+  },
+  {
+    "name": "windows-net-ma20-rsi5",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "net"
+      },
+      {
+        "kind": "ma",
+        "n": 20
+      },
+      {
+        "kind": "rsi",
+        "n": 5
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "and",
+        [
+          "cmp",
+          0,
+          ">",
+          0
+        ],
+        [
+          "cmp",
+          1,
+          ">",
+          1
+        ]
+      ],
+      [
+        "cmp",
+        2,
+        ">",
+        50
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "((indicator('', '', '主力净流入', '2026-04-14', '', '', '') > 0) and (indicator('', '', '20日均线', '2026-04-14', '', '', '') > 1)) or (indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50)"
+  },
+  {
+    "name": "three-windows-and",
+    "calls": [
+      {
+        "kind": "ma",
+        "n": 3
+      },
+      {
+        "kind": "ma",
+        "n": 5
+      },
+      {
+        "kind": "ma",
+        "n": 20
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      [
+        "callcmp",
+        1,
+        ">=",
+        2
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '3日均线', '2026-04-14', '', '', '') > indicator('', '', '5日均线', '2026-04-14', '', '', '')) and (indicator('', '', '5日均线', '2026-04-14', '', '', '') >= indicator('', '', '20日均线', '2026-04-14', '', '', ''))"
+  },
+  {
+    "name": "three-windows-or",
+    "calls": [
+      {
+        "kind": "ma",
+        "n": 3
+      },
+      {
+        "kind": "ma",
+        "n": 20
+      },
+      {
+        "kind": "rsi",
+        "n": 5
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "callcmp",
+        0,
+        ">",
+        1
+      ],
+      [
+        "cmp",
+        2,
+        ">=",
+        50
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "(indicator('', '', '3日均线', '2026-04-14', '', '', '') > indicator('', '', '20日均线', '2026-04-14', '', '', '')) or (indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') >= 50)"
+  },
+  {
+    "name": "window-funds-four-way",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      },
+      {
+        "kind": "field",
+        "metric": "net"
+      },
+      {
+        "kind": "ma",
+        "n": 20
+      },
+      {
+        "kind": "rsi",
+        "n": 5
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "or",
+        [
+          "cmp",
+          0,
+          ">",
+          1
+        ],
+        [
+          "cmp",
+          1,
+          "<",
+          0
+        ]
+      ],
+      [
+        "or",
+        [
+          "cmp",
+          2,
+          ">",
+          1
+        ],
+        [
+          "cmp",
+          3,
+          ">",
+          50
+        ]
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "",
+    "dsl": "((indicator('', '', '均价', '2026-04-14', '', '', '') > 1) or (indicator('', '', '主力净流入', '2026-04-14', '', '', '') < 0)) and ((indicator('', '', '20日均线', '2026-04-14', '', '', '') > 1) or (indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50))"
+  },
+  {
+    "name": "date-2006-01-04-funds-average-ma",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      },
+      {
+        "kind": "field",
+        "metric": "net"
+      },
+      {
+        "kind": "ma",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "and",
+        [
+          "cmp",
+          0,
+          ">",
+          0
+        ],
+        [
+          "cmp",
+          1,
+          ">",
+          0
+        ]
+      ],
+      [
+        "cmp",
+        2,
+        ">",
+        1
+      ]
+    ],
+    "date": "2006-01-04",
+    "market": "",
+    "dsl": "((indicator('', '', '均价', '2006-01-04', '', '', '') > 0) and (indicator('', '', '主力净流入', '2006-01-04', '', '', '') > 0)) or (indicator('', '', '3日均线', '2006-01-04', '', '', '') > 1)"
+  },
+  {
+    "name": "date-2018-08-20-funds-average-ma",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      },
+      {
+        "kind": "field",
+        "metric": "net"
+      },
+      {
+        "kind": "ma",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "and",
+        [
+          "cmp",
+          0,
+          ">",
+          0
+        ],
+        [
+          "cmp",
+          1,
+          ">",
+          0
+        ]
+      ],
+      [
+        "cmp",
+        2,
+        ">",
+        1
+      ]
+    ],
+    "date": "2018-08-20",
+    "market": "",
+    "dsl": "((indicator('', '', '均价', '2018-08-20', '', '', '') > 0) and (indicator('', '', '主力净流入', '2018-08-20', '', '', '') > 0)) or (indicator('', '', '3日均线', '2018-08-20', '', '', '') > 1)"
+  },
+  {
+    "name": "date-2026-04-13-funds-average-ma",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      },
+      {
+        "kind": "field",
+        "metric": "net"
+      },
+      {
+        "kind": "ma",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "and",
+        [
+          "cmp",
+          0,
+          ">",
+          0
+        ],
+        [
+          "cmp",
+          1,
+          ">",
+          0
+        ]
+      ],
+      [
+        "cmp",
+        2,
+        ">",
+        1
+      ]
+    ],
+    "date": "2026-04-13",
+    "market": "",
+    "dsl": "((indicator('', '', '均价', '2026-04-13', '', '', '') > 0) and (indicator('', '', '主力净流入', '2026-04-13', '', '', '') > 0)) or (indicator('', '', '3日均线', '2026-04-13', '', '', '') > 1)"
+  },
+  {
+    "name": "date-2026-04-12-funds-average-ma",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "average"
+      },
+      {
+        "kind": "field",
+        "metric": "net"
+      },
+      {
+        "kind": "ma",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "and",
+        [
+          "cmp",
+          0,
+          ">",
+          0
+        ],
+        [
+          "cmp",
+          1,
+          ">",
+          0
+        ]
+      ],
+      [
+        "cmp",
+        2,
+        ">",
+        1
+      ]
+    ],
+    "date": "2026-04-12",
+    "market": "",
+    "dsl": "((indicator('', '', '均价', '2026-04-12', '', '', '') > 0) and (indicator('', '', '主力净流入', '2026-04-12', '', '', '') > 0)) or (indicator('', '', '3日均线', '2026-04-12', '', '', '') > 1)"
+  },
+  {
+    "name": "market-union-qfq-turn",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "qfq"
+      },
+      {
+        "kind": "field",
+        "metric": "turn"
+      }
+    ],
+    "expr": [
+      "and",
+      [
+        "cmp",
+        0,
+        ">",
+        1
+      ],
+      [
+        "cmp",
+        1,
+        ">=",
+        1
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "沪|深",
+    "dsl": "(indicator('沪|深', '', '前复权收盘价', '2026-04-14', '', '', '') > 1) and (indicator('沪|深', '', '换手率', '2026-04-14', '', '', '') >= 1)"
+  },
+  {
+    "name": "market-exclude-net-ma",
+    "calls": [
+      {
+        "kind": "field",
+        "metric": "net"
+      },
+      {
+        "kind": "ma",
+        "n": 3
+      }
+    ],
+    "expr": [
+      "or",
+      [
+        "cmp",
+        0,
+        "<",
+        0
+      ],
+      [
+        "cmp",
+        1,
+        ">",
+        1
+      ]
+    ],
+    "date": "2026-04-14",
+    "market": "^京",
+    "dsl": "(indicator('^京', '', '主力净流入', '2026-04-14', '', '', '') < 0) or (indicator('^京', '', '3日均线', '2026-04-14', '', '', '') > 1)"
+  }
+]

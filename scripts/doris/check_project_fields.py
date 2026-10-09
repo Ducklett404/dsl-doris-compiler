@@ -7,13 +7,14 @@ import secrets
 from pathlib import Path
 import duckdb
 from validate_project_sources import ROOT,WslDoris,digest
-from project_field_reference import KEYS,OPERANDS,observation,load,cases
+from project_field_reference import KEYS,OPERANDS,observation,load,cases,configure_reference_connection
 from check_official_field_acceptance import FIELDS,RAW_COLUMNS,raw_values,compare_values
 from project_matrix_reference import reference,assess
 from check_project_availability import probe,verify
+from project_portable_decimal import install_semantic_views,adapt_compiler_sql
 
 
-def portable(suite,java,native=None):
+def portable(suite,java,native=None,adapter_evidence=None):
     source_rows=[];extension_rows=[];histories={}
     # Hand fixtures: sparse dates, legal negatives, sentinel, missing ext, zero divisors,
     # every raw NULL operand, nontrivial adjustment and all 19 scales.
@@ -49,9 +50,13 @@ def portable(suite,java,native=None):
         con.executemany('INSERT INTO newzl.hsj_stock_hq_ext(mktcode,tgtcode,bizdate,ZJLXMainNetTur) VALUES(?,?,?,?)',extension_rows)
         ddl=(ROOT/'data/doris/ddl/002_semantic_view.sql').read_text(encoding='utf-8').replace('USE newzl;','')
         con.execute("SET schema='newzl'")
-        con.execute(ddl)
         if native is None:
-            def query(sql,bindings):return [[str(v) if v is not None else 'NULL' for v in row] for row in con.execute(sql.replace('`','"').replace('DATE_FORMAT(','STRFTIME('),bindings).fetchall()]
+            metadata=install_semantic_views(con,ddl)
+            if adapter_evidence is not None:adapter_evidence.update(metadata)
+        else:
+            con.execute(ddl)
+        if native is None:
+            def query(sql,bindings):return [[str(v) if v is not None else 'NULL' for v in row] for row in con.execute(adapt_compiler_sql(con,sql,adapter_evidence).replace('`','"').replace('DATE_FORMAT(','STRFTIME('),bindings).fetchall()]
         else:
             client,database=native
             from run_correctness import sql_literal,bind_sql
@@ -104,12 +109,16 @@ def values_native(client,con):
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--matrix-output',type=Path)
-    p.add_argument('--execution-dir',type=Path);p.add_argument('--values-native',action='store_true');p.add_argument('--native-fixture',action='store_true');p.add_argument('--java',default='D:/Java/jdk-21/bin/java.exe')
+    p.add_argument('--execution-dir',type=Path);p.add_argument('--values-native',action='store_true');p.add_argument('--native-fixture',action='store_true');p.add_argument('--java',default='java')
+    p.add_argument('--reference-database',type=Path,default=ROOT/'target/data-audit/acceptance-a0f7260.duckdb')
     p.add_argument('--certificate',type=Path);p.add_argument('--distribution',default='dsl-doris-official-01a104f9');args=p.parse_args()
     if args.output.exists():raise ValueError('Use a fresh immutable output file')
     suite=cases();report=dict(purpose='PROJECT_19_FIELD_VALIDATION',officialAcceptanceEligible=False,
         definitionAuthority='PROJECT_INTERNAL_OFFICIAL_DICTIONARY_UNAVAILABLE',jarSha256=digest(ROOT/'target/dsl-doris-compiler.jar'),
-        oracleSha256=digest(ROOT/'scripts/doris/project_field_reference.py'),valueOracleSha256=digest(ROOT/'scripts/doris/check_official_field_acceptance.py'),runnerSha256=digest(Path(__file__)),checks=[])
+        oracleSha256=digest(ROOT/'scripts/doris/project_field_reference.py'),valueOracleSha256=digest(ROOT/'scripts/doris/check_official_field_acceptance.py'),runnerSha256=digest(Path(__file__)),checks=[],
+        portableDecimalAdapter=dict(used=not(args.native_fixture or args.execution_dir or args.values_native),
+            implementationSha256=digest(ROOT/'scripts/doris/project_portable_decimal.py'),
+            evidenceType='PORTABLE_DORIS_DECIMAL_EMULATION',notNativeDorisProof=True))
     try:
         registry=json.loads((ROOT/'src/main/resources/stock-slot-registry-v1.json').read_text(encoding='utf-8'))
         if {i['name'] for i in registry['indicators']}!={v[0] for v in FIELDS}:raise AssertionError('Manual field inventory mismatch')
@@ -131,8 +140,8 @@ def main():
         elif args.execution_dir or args.values_native:
             if args.certificate is None:raise ValueError('Certificate required for raw source identity')
             cert=json.loads(args.certificate.read_text(encoding='utf-8'));report['certificateSha256']=digest(args.certificate)
-            with duckdb.connect(str(ROOT/'target/data-audit/acceptance-a0f7260.duckdb'),read_only=True) as con:
-                con.execute("SET memory_limit='4GB'");con.execute('SET threads=4')
+            with duckdb.connect(str(args.reference_database),read_only=True) as con:
+                report['referenceResources']=configure_reference_connection(con,args.reference_database)
                 if con.execute('SELECT snapshot_id,manifest_sha256,status FROM audit_source_lock').fetchone()!=(cert['snapshotId'],cert['manifestSha256'],'FAIL'):raise AssertionError('Raw audit identity')
                 if args.values_native:
                     client=WslDoris(args.distribution,'dsl-doris-official')
@@ -154,8 +163,9 @@ def main():
                             data=json.loads((args.execution_dir/execution['artifact']).read_text(encoding='utf-8'))
                             checks=verify(data['dataQuality'],case,histories)
                             report['checks'].append(dict(name=case['name'],round=execution['round'],status='PASS',checks=checks,samples=len(data['dataQuality']['unavailableSamples'])))
+                        del histories
                     report['executionSha256']=digest(args.execution_dir/'result.json')
-        else:report['checks']=portable(suite,args.java)
+        else:report['checks']=portable(suite,args.java,adapter_evidence=report['portableDecimalAdapter'])
         if digest(ROOT/'target/dsl-doris-compiler.jar')!=report['jarSha256']:raise AssertionError('Compiler changed during validation')
     except Exception as error:report['fatalError']=str(error);raise
     finally:

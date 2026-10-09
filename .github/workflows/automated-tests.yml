@@ -28,14 +28,34 @@ jobs:
           mvn -B -f executor-doris/pom.xml test
           python scripts/test_prepare_competition_corpus.py
           python scripts/doris/self-test.py
+          python scripts/doris/test_data_audit.py
+          python scripts/doris/test_reference_rebuild.py
+          python scripts/doris/test_wsl_integration_reports.py
           python scripts/test_review_regressions.py
           python scripts/accuracy/test_contract_revision.py
           python scripts/doris/test_project_matrix_reference.py
           python scripts/doris/test_project_field_reference.py
+          python scripts/doris/test_project_reference_loading.py
+          python scripts/doris/test_project_combination_reference.py
+          python scripts/doris/test_project_numeric_comparisons.py
+          python scripts/doris/test_project_portable_decimal.py
+          python scripts/doris/test_project_be_memory.py
+          python scripts/doris/test_project_be_runtime.py
+          python scripts/doris/test_project_runtime_evidence.py
+          python scripts/doris/test_project_ma_precision.py
+          python scripts/doris/test_project_rsi_precision.py
+          python scripts/doris/test_wsl_transport.py --bash /bin/bash --output target/wsl-transport-ci.json
+          python scripts/doris/test_project_rank_reference.py
+          python scripts/doris/test_project_acceptance.py
+          python scripts/doris/test_project_performance_evidence.py
+          python scripts/doris/test_project_resource_stability.py
+          python scripts/doris/test_package_project_delivery.py
           python scripts/doris/check_project_window_boundaries.py --java java --output target/project-window-boundaries-ci.json
           python scripts/doris/check_project_rsi_tail.py --java java --output target/project-rsi-boundaries-ci.json
           python scripts/doris/check_project_availability.py --java java --output target/project-availability-ci.json
           python scripts/doris/check_project_fields.py --java java --output target/project-fields-ci.json
+          python scripts/doris/check_project_combinations.py --java java --output target/project-combinations-ci.json
+          python scripts/doris/check_project_rank_combinations.py --java java --output target/project-rank-combinations-ci.json
           python scripts/accuracy/check_contract_boundaries.py
           python scripts/accuracy/check_historical_extrema.py
           python scripts/accuracy/check_rolling_averages.py
@@ -48,6 +68,11 @@ jobs:
         run: >-
           java -jar target/dsl-doris-compiler.jar benchmark-stock-slot-compiler
           --warmup 1000 --iterations 5000 --p95-threshold-ms 50
+      - name: State real-data evidence boundary
+        run: |
+          mkdir -p target
+          printf '%s\n' '{"status":"NOT_RUN","reason":"Ordinary hosted CI has no supplied immutable CSVs, raw reference database or project WSL/Doris environment","officialAcceptanceEligible":false,"formalStatus":"BLOCKED"}' > target/project-real-data-not-run.json
+          printf '%s\n' '### Real Doris project acceptance: NOT_RUN' 'This job verifies portable oracles and boundary SQL only. Trigger project-data-acceptance on the prepared self-hosted runner for real-data evidence.' >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -61,3 +86,6 @@ jobs:
             target/project-rsi-boundaries-ci.json
             target/project-availability-ci.json
             target/project-fields-ci.json
+            target/project-combinations-ci.json
+            target/project-rank-combinations-ci.json
+            target/project-real-data-not-run.json

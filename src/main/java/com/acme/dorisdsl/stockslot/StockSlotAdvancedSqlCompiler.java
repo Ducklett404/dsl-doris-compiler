@@ -210,14 +210,29 @@ final class StockSlotAdvancedSqlCompiler {
                     + " actual observed rows per security, including NULLs and predecessors required by nested occurrence windows"));
         }
         if (deferredExtension) {
-            sql.append(",\nhistory_enriched AS (\n  SELECT observed_tail.*");
+            // Keep the nullable left join, but do not build its hash table from the
+            // complete extension history. EXISTS is a bag-preserving semijoin on
+            // exact observed keys (not an approximation by calendar dates).
+            // Every projected name comes from the startup-validated registry;
+            // avoid '*' and never parse a metric expression as a field whitelist.
+            List<String> extensionColumns = extension.fields().values().stream().distinct().sorted()
+                    .map(field -> extension.alias() + "." + field).toList();
+            sql.append(",\nextension_tail AS (\n  SELECT ").append(String.join(",", extensionColumns))
+                    .append("\n  FROM ").append(extension.qualifiedName()).append(' ').append(extension.alias())
+                    .append("\n  WHERE EXISTS (SELECT 1 FROM observed_tail extension_keys WHERE ")
+                    .append(registry.column("extension", "marketCode")).append("=extension_keys.mktcode")
+                    .append(" AND ").append(registry.column("extension", "securityCode")).append("=extension_keys.tgtcode")
+                    .append(" AND ").append(registry.column("extension", "tradeDate")).append("=extension_keys.bizdate)\n)")
+                    .append(",\nhistory_enriched AS (\n  SELECT observed_tail.*");
             rawMetrics.values().stream().filter(raw -> raw.metric.extension).forEach(raw ->
                     sql.append(",\n    ").append(raw.metric.expression()).append(" AS `").append(raw.alias).append('`'));
-            sql.append("\n  FROM observed_tail LEFT JOIN ").append(extension.qualifiedName()).append(' ').append(extension.alias())
+            sql.append("\n  FROM observed_tail LEFT JOIN extension_tail ").append(extension.alias())
                     .append(" ON ").append(registry.column("extension", "marketCode")).append("=observed_tail.mktcode")
                     .append(" AND ").append(registry.column("extension", "securityCode")).append("=observed_tail.tgtcode")
                     .append(" AND ").append(registry.column("extension", "tradeDate")).append("=observed_tail.bizdate\n)");
             source = "history_enriched";
+            plan.add(new StockSlotSqlArtifact.PlanNode("SemiJoin", extension.qualifiedName()
+                    + " restricted by EXISTS to exact observed tail (mktcode,tgtcode,bizdate); preserve extension duplicates and NULLs"));
             plan.add(new StockSlotSqlArtifact.PlanNode("LeftJoin", extension.qualifiedName() + " after observed tail on (mktcode,tgtcode,bizdate)"));
         }
         if (needsDelta) {
@@ -482,7 +497,7 @@ final class StockSlotAdvancedSqlCompiler {
             } else {
                 needsHistory = true;
                 RawMetric raw = rawMetric(metric(resolved.parameters().get("baseIndicator")));
-                expression = strictWindow("AVG", raw.alias, n);
+                expression = strictMovingAverage(raw.alias, n);
             }
             contract("indicator:MA", n, true);
         } else if (resolved.lowering().kind() == StockSlotRegistryConfig.LoweringKind.RSI) {
@@ -491,9 +506,19 @@ final class StockSlotAdvancedSqlCompiler {
             rawMetric(metric(resolved.parameters().get("baseIndicator")));
             needsDelta = true;
             String frame = frame(n);
+            // Sum exact decimal price deltas. AVG at price scale loses tiny
+            // changes, while DOUBLE accumulation can turn an exact RSI=50 into
+            // 49.99999999999999 and change the selected security set.
+            // 100*gain/(gain+loss) is the same frozen ratio when loss>0. These
+            // bounded decimal operands keep BIGINT/10000, <=5000 deltas safe
+            // and produce DECIMAL(38,12) without session precision overrides.
+            String gain = "SUM(GREATEST(price_delta,0)) OVER " + over(frame);
+            String loss = "SUM(GREATEST(-price_delta,0)) OVER " + over(frame);
+            String movement = "SUM(ABS(price_delta)) OVER " + over(frame);
             expression = "CASE WHEN COUNT(price_delta) OVER " + over(frame) + " = " + n
-                    + " THEN 100 - 100 / (1 + (AVG(GREATEST(price_delta,0)) OVER " + over(frame)
-                    + ") / NULLIF(AVG(GREATEST(-price_delta,0)) OVER " + over(frame) + ",0)) ELSE NULL END";
+                    + " AND (" + loss + ") > 0 THEN CAST((" + gain
+                    + ") * 100 AS DECIMAL(30,8)) / NULLIF(CAST(" + movement
+                    + " AS DECIMAL(24,4)),0) ELSE NULL END";
             contract("indicator:RSI", n, true);
         } else {
             RawMetric raw = rawMetric(metric(name));
@@ -741,8 +766,22 @@ final class StockSlotAdvancedSqlCompiler {
     }
 
     private String strictWindow(String fn, String alias, int n) {
+        return strictWindow(fn, alias, n, "`" + alias + "`");
+    }
+
+    private String strictMovingAverage(String alias, int n) {
+        // AVG on the normalized DECIMAL(19,4) price otherwise truncates the
+        // intermediate mean to four places: 0.353666... becomes 0.3536 and
+        // loses a strict MA3 > MA5 comparison. Keep a decimal accumulator;
+        // DOUBLE would make equality depend on floating-point accumulation.
+        // A BIGINT raw price / 10000 over at most 5000 observations fits this
+        // accumulator (19 integer + 18 fractional digits <= precision 38).
+        return strictWindow("AVG", alias, n, "CAST(`" + alias + "` AS DECIMAL(38,18))");
+    }
+
+    private String strictWindow(String fn, String alias, int n, String operand) {
         String over = over(frame(n));
-        return "CASE WHEN COUNT(`" + alias + "`) OVER " + over + "=" + n + " THEN " + fn + "(`" + alias + "`) OVER " + over + " ELSE NULL END";
+        return "CASE WHEN COUNT(`" + alias + "`) OVER " + over + "=" + n + " THEN " + fn + "(" + operand + ") OVER " + over + " ELSE NULL END";
     }
 
     private String over(String frame) {

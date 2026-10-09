@@ -21,10 +21,14 @@ public record StockSlotCoveragePlan(String sql, String samplesSql, List<Object> 
 
     static StockSlotCoveragePlan create(String prefix, List<Object> values, String source,
                                         LocalDate date, List<Input> inputs, StockSlotRegistry registry, boolean extension) {
-        // Keep the original alias/function/label de-duplication; AST spans are diagnostic internals.
+        // Repeated expressions may have different SQL aliases. Availability is a
+        // semantic input identity, not an occurrence count; retain the first alias.
         var unique = new java.util.LinkedHashMap<String, Input>();
-        for (Input input : inputs) unique.putIfAbsent(input.alias() + "|" + input.function() + "|" + input.indicator(), input);
-        inputs = unique.values().stream().map(i -> StockSlotAvailabilityDiagnostics.describe(i, registry, date)).sorted(java.util.Comparator.comparing(Input::alias)
+        for (Input input : inputs) {
+            var described = StockSlotAvailabilityDiagnostics.describe(input, registry, date);
+            unique.putIfAbsent(described.inputId(), described);
+        }
+        inputs = unique.values().stream().sorted(java.util.Comparator.comparing(Input::alias)
                 .thenComparing(Input::function).thenComparing(Input::indicator)).toList();
         var bindings = new ArrayList<>(values);
         String from = " FROM " + source + " cov";

@@ -11,7 +11,7 @@ class ProjectPlanExplain {
         var json = JsonSupport.MAPPER.valueToTree(artifact);
         var output = new LinkedHashMap<String,Object>();
         try(var connection=DriverManager.getConnection(args[0],args[1],System.getenv("DSL_PROJECT_PASSWORD"))) {
-            try(var session=connection.createStatement()) { session.execute("SET query_timeout=10");session.execute("SET exec_mem_limit=2147483648"); }
+            try(var session=connection.createStatement()) { session.execute("SET parallel_pipeline_task_num=2");session.execute("SET query_timeout=10");session.execute("SET exec_mem_limit=2147483648"); }
             for(String name:List.of("main","sql","samplesSql","combinedSql")) {
                 var node=name.equals("main")?json:json.get("coveragePlan");
                 var sql=node.get(name.equals("main")?"sql":name);

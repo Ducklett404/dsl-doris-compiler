@@ -67,7 +67,7 @@ def main():
         created=True
         admin.query(f"GRANT SELECT_PRIV ON newzl.* TO '{reader}'")
         reader_command=admin.prefix+['exec','-i','-e','MYSQL_PWD='+password,'dsl-doris-official',
-            'mysql','-h','127.0.0.1','-P','9030','-u',reader,'--batch','--skip-column-names','--raw']
+            'mysql','-h','127.0.0.1','-P',str(admin.query_port),'-u',reader,'--batch','--skip-column-names','--raw']
         selected=subprocess.run(reader_command,input='SELECT COUNT(*) FROM newzl.data_snapshot_registry;\n',
             text=True,encoding='utf-8',errors='replace',capture_output=True,timeout=30)
         check('readonly-select',selected.returncode==0 and selected.stdout.strip()=='0')
@@ -85,7 +85,7 @@ def main():
             java=[args.java,'-Dfile.encoding=UTF-8','-Dsun.stdout.encoding=UTF-8','-Dsun.stderr.encoding=UTF-8',
                 '-Djdk.net.unixdomain.tmpdir='+str(temp/'nonexistent-socket-directory'),
                 '-jar',str(ROOT/'target/dsl-doris-compiler.jar')]
-            database=['--host',args.host,'--user',reader,'--password-env','DSL_GATE_PASSWORD']
+            database=['--host',args.host,'--port',str(admin.query_port),'--user',reader,'--password-env','DSL_GATE_PASSWORD']
             executed=subprocess.run(java+['execute-stock-slot-sql',str(source)]+database,
                 env=environment,text=True,encoding='utf-8',errors='replace',capture_output=True,timeout=30)
             check('cli-unvalidated-snapshot-rejected',executed.returncode==3 and

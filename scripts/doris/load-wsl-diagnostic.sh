@@ -8,7 +8,11 @@ root=/var/lib/dsl-doris
 purpose=$(docker inspect -f '{{index .Config.Labels "com.acme.dorisdsl.purpose"}}' "$container")
 [ "$purpose" = official-data-diagnostic ] || { echo 'Refusing a container without the diagnostic ownership label'; exit 1; }
 sql() { docker exec -i "$container" mysql --defaults-extra-file=/run/dsl-client.cnf --batch --raw; }
-run_dir="$repo/reports/data-inspection/2026-10-04/wsl-doris"
+run_dir=${2:-"$repo/reports/data-inspection/$(date +%Y-%m-%d_%H%M%S)/wsl-doris"}
+[ "$(docker info --format '{{.DockerRootDir}}')" = "$root/docker" ] || { echo 'Refusing a non-project daemon'; exit 1; }
+[ ! -e "$run_dir" ] || { echo 'Refusing to overwrite prior evidence'; exit 1; }
+objects=$(printf "SELECT COUNT(*) FROM information_schema.tables WHERE TABLE_SCHEMA='newzl';\n" | sql | tail -n 1)
+[ "$objects" = 0 ] || { echo 'Refusing to rebuild a non-empty database; use the guarded recovery workflow'; exit 1; }
 mkdir -p "$run_dir"
 umask 077
 password=$(sed -n 's/^password=//p' "$root/client.cnf")

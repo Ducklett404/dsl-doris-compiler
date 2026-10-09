@@ -1,0 +1,83 @@
+name: project-data-acceptance
+
+on:
+  workflow_dispatch:
+    inputs:
+      distribution:
+        description: 'Existing dedicated WSL distribution with the immutable project Doris container'
+        required: true
+        default: 'dsl-doris-official-01a104f9'
+        type: string
+      dataRoot:
+        description: 'Runner-local directory containing the three immutable supplied CSVs'
+        required: true
+        type: string
+      referenceDatabase:
+        description: 'Runner-local independently audited raw DuckDB database'
+        required: true
+        type: string
+      rounds:
+        description: 'Hot-process repetitions per final combination (30 recommended)'
+        required: true
+        default: '30'
+        type: string
+      restart:
+        description: 'Restart only the dedicated project container and verify results'
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  project-data:
+    runs-on: [self-hosted, Windows, X64, doris-snapshot-v1]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Install pinned portable dependencies and build exact checkout
+        shell: pwsh
+        run: |
+          python -m pip install -r scripts/doris/requirements-selftest.txt
+          if ($LASTEXITCODE -ne 0) { throw 'Dependency installation failed' }
+          mvn -B --no-transfer-progress test package
+          if ($LASTEXITCODE -ne 0) { throw 'Build failed' }
+      - name: Precheck and run unified project acceptance
+        id: project
+        shell: pwsh
+        env:
+          PROJECT_DISTRIBUTION: ${{ inputs.distribution }}
+          PROJECT_DATA_ROOT: ${{ inputs.dataRoot }}
+          PROJECT_REFERENCE_DATABASE: ${{ inputs.referenceDatabase }}
+          PROJECT_ROUNDS: ${{ inputs.rounds }}
+          PROJECT_RESTART: ${{ inputs.restart }}
+        run: |
+          $report = 'reports/project-acceptance/ci-${{ github.run_id }}-${{ github.run_attempt }}'
+          $arguments = @('scripts/doris/run_project_acceptance.py', '--with-doris', '--report-dir', $report,
+            '--java', 'java', '--distribution', $env:PROJECT_DISTRIBUTION, '--data-root', $env:PROJECT_DATA_ROOT,
+            '--reference-database', $env:PROJECT_REFERENCE_DATABASE, '--rounds', $env:PROJECT_ROUNDS)
+          if ($env:PROJECT_RESTART -eq 'true') { $arguments += '--restart' }
+          python @arguments
+          $runExit = $LASTEXITCODE
+          $summary = Get-Content -LiteralPath "$report/project-summary.json" -Raw | ConvertFrom-Json
+          "status=$($summary.status)" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "### Project real-data status: $($summary.status)" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append
+          'Formal acceptance remains BLOCKED; project evidence does not register VALIDATED.' | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append
+          if ($runExit -eq 2 -and $summary.status -eq 'NOT_RUN') {
+            Write-Host '::warning::Real-data environment is unavailable. Evidence is NOT_RUN, not PASS.'
+            exit 0
+          }
+          if ($runExit -ne 0 -or $summary.status -ne 'PROJECT_PASS_FORMAL_BLOCKED') { throw "Project acceptance failed or exit/status contract mismatch: $runExit / $($summary.status)" }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: project-real-data-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/project-acceptance/ci-${{ github.run_id }}-${{ github.run_attempt }}/

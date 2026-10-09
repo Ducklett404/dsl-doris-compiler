@@ -39,13 +39,18 @@ public record DorisExecutionArtifact(
                               long observedSecurities, long currentMissingExtensionRows, List<InputAvailability> inputs,
                               List<List<String>> unavailableSamples, long snapshotExtensionWithoutBasic,
                               long snapshotCloseOutsideRange, List<String> limitations, double validationMillis,
-                              List<StockSlotAvailabilityDiagnostics.SampleDetail> sampleDetails) {
+                              List<StockSlotAvailabilityDiagnostics.SampleDetail> sampleDetails,
+                              DiagnosticTimings diagnosticTimings) {
         public DataQuality {
             requiredSources = List.copyOf(requiredSources); inputs = List.copyOf(inputs);
             unavailableSamples = unavailableSamples.stream().map(List::copyOf).toList();
             limitations = List.copyOf(limitations); sampleDetails = List.copyOf(sampleDetails);
         }
     }
+    /** Disjoint project diagnostic stages; validationMillis also includes the main EXPLAIN. */
+    public record DiagnosticTimings(double sourceValidationMillis, double mainExplainMillis,
+                                    double availabilityExplainMillis, double missingStatisticsMillis,
+                                    double sampleDetailsMillis) {}
     public record InputAvailability(String function, String indicator, long unavailableSecurities,
                                     String inputId, String window, String role, int requiredObservations) {}
     public DorisExecutionArtifact(StockSlotSqlArtifact compilation, List<String> columns, List<List<String>> rows,

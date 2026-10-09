@@ -99,7 +99,7 @@ def main():
     reader='dsl_project_official_'+secrets.token_hex(6);password=secrets.token_hex(24);token=secrets.token_hex(24)
     env=os.environ.copy();env.update(DSL_PROJECT_PASSWORD=password,DSL_PROJECT_TOKEN=token)
     java=[args.java,'-Dfile.encoding=UTF-8','-Dsun.stdout.encoding=UTF-8','-Dsun.stderr.encoding=UTF-8','-Djdk.net.unixdomain.tmpdir=target/disabled-unix-sockets','-jar',str(ROOT/'target/dsl-doris-compiler.jar')]
-    connection=['--host',host,'--database','newzl','--user',reader,'--password-env','DSL_PROJECT_PASSWORD',
+    connection=['--host',host,'--port',str(client.query_port),'--database','newzl','--user',reader,'--password-env','DSL_PROJECT_PASSWORD',
         '--max-scan-rows','100000000','--max-exec-memory-bytes','2147483648','--max-return-rows','10000']
     report=dict(purpose='PROJECT_SCOPED_OFFICIAL_DATA_EXECUTION',officialAcceptanceEligible=False,
         jarSha256=digest(ROOT/'target/dsl-doris-compiler.jar'),certificateSha256=digest(args.certificate),snapshotId=snapshot,
@@ -157,7 +157,7 @@ def main():
                 executed=subprocess.run(java+['execute-stock-slot-sql',str(source),'--snapshot-id',snapshot,'--max-rows','10000']+connection+['--project-validation',str(args.certificate.resolve())],env=env,capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=90)
                 if executed.returncode:
                     probe=subprocess.run([args.java,'-Dfile.encoding=UTF-8','-cp',str(ROOT/'target/dsl-doris-compiler.jar'),str(ROOT/'scripts/doris/ProjectExecutionProbe.java'),
-                        f'jdbc:mysql://{host}:9030/newzl',reader,str(ROOT/'src/main/resources/stock-slot-registry-v1.json'),str(args.certificate.resolve()),str(source)],env=env,capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=80)
+                        f'jdbc:mysql://{host}:{client.query_port}/newzl',reader,str(ROOT/'src/main/resources/stock-slot-registry-v1.json'),str(args.certificate.resolve()),str(source)],env=env,capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=80)
                     report['diagnostic']=probe.stdout.replace(password,'[REDACTED]').replace(token,'[REDACTED]')
                 check(name+'-cli',executed.returncode==0,exitCode=executed.returncode,error=executed.stderr[:400].replace(password,'[REDACTED]').replace(token,'[REDACTED]'))
                 data=json.loads(executed.stdout);compare(name,data,references[day],key,extension)

@@ -6,6 +6,13 @@ param(
   [string]$TestJvmArgs = '',
   [string]$PythonExecutable = 'python',
   [switch]$WithDoris,
+  [switch]$WithProjectDoris,
+  [string]$ProjectReportDir = '',
+  [string]$ProjectDistribution = 'dsl-doris-official-01a104f9',
+  [string]$ProjectDataRoot = '',
+  [string]$ProjectReferenceDatabase = '',
+  [int]$ProjectRounds = 30,
+  [switch]$ProjectRestart,
   [switch]$RunNineteenYearBenchmark,
   [string]$DorisUser = 'dsl_loader',
   [string]$BenchmarkUser = 'dsl_benchmark_reader',
@@ -50,10 +57,27 @@ try {
   Invoke-Checked 'executor-module-tests' { & $MavenExecutable @mavenArgs '-f' 'executor-doris/pom.xml' 'test' }
   Invoke-Checked 'corpus-python-tests' { & $PythonExecutable 'scripts/test_prepare_competition_corpus.py' }
   Invoke-Checked 'doris-data-contract-tests' { & $PythonExecutable 'scripts/doris/self-test.py' }
+  Invoke-Checked 'raw-csv-audit-regressions' { & $PythonExecutable 'scripts/doris/test_data_audit.py' }
+  Invoke-Checked 'independent-reference-rebuild-contracts' { & $PythonExecutable 'scripts/doris/test_reference_rebuild.py' }
+  Invoke-Checked 'exact-eight-junit-report-contracts' { & $PythonExecutable 'scripts/doris/test_wsl_integration_reports.py' }
   Invoke-Checked 'review-sql-result-regressions' { & $PythonExecutable 'scripts/test_review_regressions.py' }
   Invoke-Checked 'versioned-golden-contract-tests' { & $PythonExecutable 'scripts/accuracy/test_contract_revision.py' }
   Invoke-Checked 'project-matrix-reference-tests' { & $PythonExecutable 'scripts/doris/test_project_matrix_reference.py' }
   Invoke-Checked 'project-field-reference-tests' { & $PythonExecutable 'scripts/doris/test_project_field_reference.py' }
+  Invoke-Checked 'project-reference-loading-regressions' { & $PythonExecutable 'scripts/doris/test_project_reference_loading.py' }
+  Invoke-Checked 'project-combination-reference-tests' { & $PythonExecutable 'scripts/doris/test_project_combination_reference.py' }
+  Invoke-Checked 'project-numeric-comparison-contract-tests' { & $PythonExecutable 'scripts/doris/test_project_numeric_comparisons.py' }
+  Invoke-Checked 'project-portable-decimal-adapter-tests' { & $PythonExecutable 'scripts/doris/test_project_portable_decimal.py' }
+  Invoke-Checked 'project-be-memory-configuration-tests' { & $PythonExecutable 'scripts/doris/test_project_be_memory.py' }
+  Invoke-Checked 'project-be-bounded-runtime-tests' { & $PythonExecutable 'scripts/doris/test_project_be_runtime.py' }
+  Invoke-Checked 'project-runtime-evidence-tests' { & $PythonExecutable 'scripts/doris/test_project_runtime_evidence.py' }
+  Invoke-Checked 'project-ma-precision-tests' { & $PythonExecutable 'scripts/doris/test_project_ma_precision.py' }
+  Invoke-Checked 'project-rsi-precision-tests' { & $PythonExecutable 'scripts/doris/test_project_rsi_precision.py' }
+  Invoke-Checked 'project-rank-reference-tests' { & $PythonExecutable 'scripts/doris/test_project_rank_reference.py' }
+  Invoke-Checked 'project-acceptance-contract-tests' { & $PythonExecutable 'scripts/doris/test_project_acceptance.py' }
+  Invoke-Checked 'project-performance-evidence-tests' { & $PythonExecutable 'scripts/doris/test_project_performance_evidence.py' }
+  Invoke-Checked 'project-resource-stability-contract-tests' { & $PythonExecutable 'scripts/doris/test_project_resource_stability.py' }
+  Invoke-Checked 'project-delivery-integrity-tests' { & $PythonExecutable 'scripts/doris/test_package_project_delivery.py' }
   $projectWindowOutput = Join-Path $repo ('target/project-window-boundaries-' + [Guid]::NewGuid().ToString('N') + '.json')
   $projectJava = (Get-Command java -ErrorAction Stop).Source
   Invoke-Checked 'project-window-boundaries' {
@@ -75,6 +99,16 @@ try {
     & $PythonExecutable 'scripts/doris/check_project_fields.py' '--output' $projectFieldsOutput '--java' $projectJava
   }
   $checks['project-field-boundaries']['outputPath'] = $projectFieldsOutput
+  $projectCombinationsOutput = Join-Path $repo ('target/project-combinations-' + [Guid]::NewGuid().ToString('N') + '.json')
+  Invoke-Checked 'project-combination-boundaries' {
+    & $PythonExecutable 'scripts/doris/check_project_combinations.py' '--output' $projectCombinationsOutput '--java' $projectJava
+  }
+  $checks['project-combination-boundaries']['outputPath'] = $projectCombinationsOutput
+  $projectRankOutput = Join-Path $repo ('target/project-rank-combinations-' + [Guid]::NewGuid().ToString('N') + '.json')
+  Invoke-Checked 'project-rank-combination-boundaries' {
+    & $PythonExecutable 'scripts/doris/check_project_rank_combinations.py' '--output' $projectRankOutput '--java' $projectJava
+  }
+  $checks['project-rank-combination-boundaries']['outputPath'] = $projectRankOutput
   Invoke-Checked 'sentinel-window-boundaries' { & $PythonExecutable 'scripts/accuracy/check_contract_boundaries.py' }
   Invoke-Checked 'historical-extrema-boundaries' { & $PythonExecutable 'scripts/accuracy/check_historical_extrema.py' }
   Invoke-Checked 'rolling-average-boundaries' { & $PythonExecutable 'scripts/accuracy/check_rolling_averages.py' }
@@ -113,13 +147,44 @@ try {
   } else {
     $checks['doris-19-year-matrix'] = [ordered]@{ status = 'NOT_RUN'; reason = 'Use -RunNineteenYearBenchmark (long-running: 720 container restarts)' }
   }
+
+  if ($WithProjectDoris) {
+    $projectTransportOutput = Join-Path $repo ('target/wsl-transport-' + [Guid]::NewGuid().ToString('N') + '.json')
+    Invoke-Checked 'wsl-authentication-and-be-memory-shell-tests' {
+      & $PythonExecutable 'scripts/doris/test_wsl_transport.py' '--shell-distribution' $ProjectDistribution '--output' $projectTransportOutput
+    }
+    $checks['wsl-authentication-and-be-memory-shell-tests']['outputPath'] = $projectTransportOutput
+    if (-not $ProjectReportDir) {
+      $ProjectReportDir = Join-Path $repo ('reports/project-acceptance/selftest-' + [Guid]::NewGuid().ToString('N'))
+    }
+    $projectArgs = @('scripts/doris/run_project_acceptance.py', '--with-doris', '--report-dir', $ProjectReportDir,
+      '--distribution', $ProjectDistribution, '--java', $projectJava, '--rounds', "$ProjectRounds")
+    if ($ProjectDataRoot) { $projectArgs += @('--data-root', $ProjectDataRoot) }
+    if ($ProjectReferenceDatabase) { $projectArgs += @('--reference-database', $ProjectReferenceDatabase) }
+    if ($ProjectRestart) { $projectArgs += '--restart' }
+    & $PythonExecutable @projectArgs
+    $projectExit = $LASTEXITCODE
+    $projectSummaryPath = Join-Path $ProjectReportDir 'project-summary.json'
+    if (-not (Test-Path -LiteralPath $projectSummaryPath)) { throw 'Project acceptance did not publish its machine summary' }
+    $projectSummary = Get-Content -LiteralPath $projectSummaryPath -Raw | ConvertFrom-Json
+    if ($projectExit -eq 2 -and $projectSummary.status -eq 'NOT_RUN') {
+      $checks['project-real-acceptance'] = [ordered]@{ status = 'NOT_RUN'; reason = 'Explicit project environment precheck failed; see retained summary'; outputPath = $projectSummaryPath }
+    } elseif ($projectExit -eq 0 -and $projectSummary.status -eq 'PROJECT_PASS_FORMAL_BLOCKED') {
+      $checks['project-real-acceptance'] = [ordered]@{ status = 'PASS'; reason = 'Project scope passed; formal acceptance remains BLOCKED'; outputPath = $projectSummaryPath }
+    } else {
+      throw "Project acceptance exit/status mismatch or failure: exit=$projectExit status=$($projectSummary.status)"
+    }
+    $global:LASTEXITCODE = 0
+  } else {
+    $checks['project-real-acceptance'] = [ordered]@{ status = 'NOT_RUN'; reason = 'Use -WithProjectDoris with immutable source files, raw reference database and the explicit WSL/Doris environment' }
+  }
 } catch {
   $checks['failure'] = [ordered]@{ status = 'FAIL'; message = $_.Exception.Message }
   throw
 } finally {
   Pop-Location
   $summary = [ordered]@{
-    suiteVersion = 'automated-acceptance-v1'
+    suiteVersion = 'automated-acceptance-v2-project-combinations'
     startedAt = $started.ToString('o')
     completedAt = (Get-Date).ToString('o')
     checks = $checks
