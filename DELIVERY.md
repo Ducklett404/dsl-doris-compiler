@@ -1,21 +1,33 @@
-# 固定交付清单
+# 项目交付清单
 
-| 交付物 | 固定入口 | 状态 |
+整理日期：2026-10-10。`competition-v1.0` 已合并到 `main`，当前项目入口和历史证据分开说明。
+
+| 交付内容 | 入口 | 当前状态 |
 |---|---|---|
-| 一键建表、导入、校验、登记快照 | `scripts/doris/setup-load-validate.ps1` | 已完成 |
-| 一键构建、测试和启动 | `scripts/build-test-start.ps1` | 已完成 |
-| CLI、HTTP、Docker 运行说明 | `docs/runtime-guide.md` | 已完成 |
-| 文法、AST、类型、规则、计划、访问路径 | `docs/compiler-architecture.md` | 已完成 |
-| 指标注册与插件开发 | `docs/registry-plugin-guide.md` | 已完成 |
-| 首期数据指标范围冻结书 | `docs/phase1-data-indicator-scope-v1.md`、`config/acceptance/stock-slot-phase1-scope-v1.json` | 已直接批准并冻结，无需签字 |
-| 正确率报告 | `reports/accuracy/stock-slot-executable-v1/REPORT.md` | 固定快照历史实测 |
-| 编译性能报告 | `reports/compiler-performance/latest.md` | 本轮实测 |
-| Doris 性能及 EXPLAIN/Profile 证据 | `reports/performance/`、`reports/benchmark-matrix/evidence/` | 已有历史实测；本轮矩阵未运行 |
-| 自动化测试样例和结果 | `src/test/`、`reports/automation/latest.md` | 147/147 通过 |
-| Markdown 最终编译和查询结果 | `reports/final/compilation-and-query.md` | 可重复生成 |
-| 最终七步演示脚本和报告 | `scripts/run-final-demo.ps1`、`reports/demo/latest.md` | 脚本已自测；实时 Doris 待环境复测 |
+| 项目概览与目录 | [README](README.md)、[目录说明](docs/project-layout.md) | 已整理 |
+| 源码与测试 | `src/`、`executor-doris/` | 已合入 main |
+| Windows／Unix 构建 | `mvnw.cmd`／`mvnw`，`scripts/build-test-start.ps1` | Java 21、Maven 3.9+ |
+| 当前自测与 JAR 身份 | [SELF_TEST_REPORT](SELF_TEST_REPORT.md) | 334 项通过、8 项真实数据库测试未运行 |
+| CLI／HTTP／Docker | [运行手册](docs/runtime-guide.md) | 可构建、可演示；数据库需准备环境 |
+| 架构与扩展 | [编译器架构](docs/compiler-architecture.md)、[插件指南](docs/registry-plugin-guide.md) | 已实现 |
+| 项目能力与语义边界 | [能力说明](docs/project-capabilities-v1.md)、[冻结范围](docs/phase1-data-indicator-scope-v1.md) | 以冻结范围为准 |
+| 示例 | `examples/project-basic.dsl`、`examples/final-demo-complex.dsl`、`examples/basic.dsl` | 本轮 JAR 编译通过 |
+| 项目便携验收与打包 | `scripts/doris/run_project_acceptance.py`、`scripts/doris/package_project_delivery.py` | 按源码与 JAR 哈希绑定证据 |
+| GitHub 可下载 JAR／ZIP | `.github/workflows/project-delivery.yml` | 推送后自动构建，成功运行生成 Artifacts |
+| 真实数据与正式验收 | [项目验收说明](docs/project-scoped-validation.md)、[正式问题路线图](docs/正式验收问题解决路线图.md) | 当前重建未复测；正式验收限制继续保留 |
+| 历史测试与诊断 | `reports/`、`docs/history/` | 保留原日期和原工件身份，不作为本轮结果 |
 
-统一验收流程：先运行 `scripts/test-all.ps1`，需要真实数据库时追加 `-WithDoris`，发布前专用
-机器追加 `-RunNineteenYearBenchmark`。最终结果用 `scripts/generate-final-output.ps1` 重新生成。
+## 取得可运行成果
 
-交付物中的历史 Doris 数字保留执行日期、快照和原始 JSON，不得作为当前环境复测结果冒用。
+本机构建输出为 `target/dsl-doris-compiler.jar`。GitHub 的 `project-delivery` 工作流成功后，在该次运行的 Artifacts 下载 `project-delivery-<提交 SHA>`，包含 JAR、`project-delivery.zip`、`delivery-manifest.json` 和外层 `SHA256SUMS`。
+
+ZIP 内含实际源码、配置、脚本、文档、与本批证据匹配的 JAR，以及本批便携验收结果。它不携带原始 CSV、审计数据库、工具缓存或私有凭据。便携验收不声称真实数据和正式验收已通过。下载和恢复步骤见 [目录与交付说明](docs/project-layout.md)、[项目能力说明](docs/project-capabilities-v1.md)。
+
+## 复测顺序
+
+1. 运行 `mvnw.cmd -B package`（Unix 使用 `./mvnw -B package`）。
+2. 安装 `scripts/doris/requirements-selftest.txt`，运行项目便携验收。
+3. 准备原始数据、独立参考和专用 Doris 环境后，再显式运行真实项目验收；具体参数见能力说明。
+4. 选定完成的本批证据，执行交付脚本并核对逐文件校验和。
+
+历史正式演示说明仍见 [final-demo.md](docs/final-demo.md)；历史的“最终交付报告”已注明其原批次口径，不替代当前自测与正式验收。

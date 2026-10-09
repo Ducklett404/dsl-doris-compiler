@@ -1,0 +1,17 @@
+{
+  "formatVersion": "local-jar-build-v1",
+  "sourceCommit": "8c202a12712f800a1aab60580d313b350904bcf6",
+  "branch": "main",
+  "builtAt": "2026-10-10T02:07:51.5798544+08:00",
+  "javaVersion": "21.0.8",
+  "mavenVersion": "3.9.16",
+  "jarPath": "target/dsl-doris-compiler.jar",
+  "jarBytes": 8460142,
+  "sha256": "da6daa3e577f2fd9519c9fbf06d9307643794513c6c35e7ef804d4e58f7afe1d",
+  "tests": {"total": 342, "passed": 334, "failures": 0, "errors": 0, "skipped": 8},
+  "complexScreenDslJmhP95Millis": 0.365,
+  "smokeChecks": ["CLI --help", "project-basic.dsl compile-stock-slot-sql", "final-demo-complex.dsl compile-stock-slot-sql", "basic.dsl compile"],
+  "realDorisAcceptance": "NOT_RUN",
+  "testEnvironment": "Writable ASCII temporary path; -Djdk.net.unixdomain.tmpdir=target/disabled-unix-sockets -Djava.net.preferIPv4Stack=true",
+  "localEvidenceDirectory": "build/jar-rebuild-20261010-020451/"
+}

@@ -1,5 +1,7 @@
 # GitHub 更新代码 Bug 清单
 
+> 本文是 2026-08-12 分支集成前的检查记录，保留原始缺陷证据。当前版本和回归结果见 [交付清单](../../DELIVERY.md)，下述分支状态不代表当前 main。
+
 检查日期：2026-08-12
 仓库：`Ducklett404/dsl-doris-compiler`
 远端主分支基线：`origin/main @ 679e42e`

@@ -1,42 +1,34 @@
-# V1 自测报告
+# 当前构建与自测报告
 
-测试时间：2026-08-09 16:06（Asia/Shanghai）  
-运行环境：macOS arm64、Oracle JDK 24（以 `--release 21` 编译）、Maven 3.9.16  
-被测版本：0.1.0
+验证时间：2026-10-10（Asia/Shanghai）。被测 Java 源码：`main` 合并提交 `8c202a12712f800a1aab60580d313b350904bcf6`；应用版本 `0.1.0`。后续文档、包装脚本和交付工作流整理不改变编译器 Java 源码。
 
-## 结论
+## 本机重建结果
 
-`./scripts/self-test.sh` 完整执行成功，最终标记为 `SELF_TEST_OK`。
+| 项目 | 结果 |
+|---|---|
+| JDK／Maven | Oracle JDK 21.0.8／Maven 3.9.16 |
+| 构建 | 重新生成文法、编译主代码与测试，离线 `package` 成功 |
+| JUnit | 342 项：334 通过，0 失败，0 错误，8 跳过 |
+| 跳过项 | 1 项 Doris EXPLAIN 和 7 项受控执行集成测试；本轮未启用真实数据库测试 |
+| 编译热路径 I/O | JFR 检查通过 |
+| 复杂 SCREEN DSL JMH P95 | 约 0.365 ms，低于 50 ms；本机测试桶结果 |
+| JAR 黑盒检查 | `--help` 和 3 个示例编译通过 |
 
-| 检查项 | 结果 |
-|---|---:|
-| JUnit 测试 | 7/7 通过 |
-| 编译器核心测试 | 4/4 通过 |
-| JSON 插件零核心改动 | 通过 |
-| HTTP `/health` 与 `/compile` | 通过 |
-| 安全与错误诊断 | 通过 |
-| fat JAR CLI 黑盒编译 | 通过 |
-| 1,000 次编译 P50 | 0.047 ms |
-| 1,000 次编译 P95 | 0.110 ms |
-| 1,000 次编译 P99 | 0.265 ms |
+示例分别为 `project-basic.dsl`、`final-demo-complex.dsl` 的 `compile-stock-slot-sql`，以及 `basic.dsl` 的 `compile`。
 
-## 覆盖范围
+本机最初的沙箱测试不能建立回环连接；允许本机测试后，使用英文临时目录、禁用不可用 Unix socket 临时路径、优先 IPv4，全部非数据库测试通过。这些属于运行环境参数，没有放宽产品权限或验收门禁。
 
-- 复杂示例 DSL 被解析为 Typed AST。
-- 生成 SQL 包含 `base`、`metrics`、`signals` 分层，两个 MA 只计算一次。
-- `CROSS_UP` 使用独立 `LAG` 层，未生成嵌套窗口函数。
-- 字符串、百分比、日期和数值均进入绑定参数，未拼入 SQL。
-- 未注册函数、类型不匹配、超大 LIMIT 和 SQL 注入字符会被拒绝。
-- 外部 JSON 新增 `ABS_CHANGE` 后可直接编译，编译核心无需修改。
-- HTTP 成功响应和结构化 400 错误均经本机回环请求验证。
-- Markdown、JSON、SQL 三种 CLI 输出均通过 fat JAR 黑盒运行。
+## 本机 JAR
 
-## 构建产物
+- 文件：`target/dsl-doris-compiler.jar`，8,460,142 字节。
+- 构建时间：2026-10-10 02:07:51 +08:00。
+- SHA-256：`da6daa3e577f2fd9519c9fbf06d9307643794513c6c35e7ef804d4e58f7afe1d`。
+- 机器摘要：[build-verification.json](reports/build/2026-10-10/build-verification.json)。完整日志和示例输出保留在本机 `build/jar-rebuild-20261010-020451/`。
 
-- 文件：`target/dsl-doris-compiler.jar`
-- 大小：约 3.2 MB
-- SHA-256：`e534235d1b4b026571b85efbd60e26f092821a451d7ce42df68e860fbde16883`
+GitHub 会针对整理后的每个提交重新构建并执行便携验收。该 JAR 的哈希以相应下载包 manifest 为准，不能沿用上述本机 JAR 哈希。
 
-## 尚未验证
+## 验收边界与历史记录
 
-当前工作区没有比赛数据和 Doris 集群，因此没有执行 Doris 方言解析、`EXPLAIN`、Query Profile、19 年数据查询或 10 倍加速验收。V1 对这些指标只提供 SQL 结构、访问路径接口和可重复基准入口，不将其标记为已达成。
+本轮重建没有执行真实 Doris 数据验收、SQL 10 秒门禁或 19 年查询加速复测。历史查询加速及官方数据诊断见 [2026-10-04 路线报告](reports/official-route/2026-10-04/final/官方数据路线执行与自测报告.md)，仅适用于其原始工件和数据环境。正式验收仍受数据契约与外部证据条件限制。
+
+早期 V1 的 7 项测试报告已归档到 [2026-08-09 历史自测](docs/history/self-test-2026-08-09.md)，不能作为当前测试数量。当前交付入口见 [DELIVERY.md](DELIVERY.md)。

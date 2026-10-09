@@ -1,5 +1,7 @@
 # 行情选股 DSL → Doris SQL 编译器 V1
 
+当前源码入口为 `main`，已合并 `competition-v1.0`。2026-10-10 已重建本机 JAR：334 项 Java 测试通过，8 项真实 Doris 集成测试未运行。请先阅读 [交付清单](DELIVERY.md)、[当前自测报告](SELF_TEST_REPORT.md)和[项目目录说明](docs/project-layout.md)。GitHub `project-delivery` 工作流会为每次推送生成绑定提交与证据的 JAR／源码 ZIP；真实数据与正式验收状态另行披露。
+
 项目包含两个隔离的版本化入口：正式提槽 DSL 使用 `stock-slot-v1`，原有
 `SCREEN ON` 方言保留为 `screen-v1` 兼容模式。兼容模式的完整编译链路为：
 
@@ -23,7 +25,9 @@
 ## 最终交付入口
 
 - 交付物总索引：[`DELIVERY.md`](DELIVERY.md)
-- 最终验收摘要：[`reports/final/FINAL_DELIVERY.md`](reports/final/FINAL_DELIVERY.md)
+- 当前自测摘要：[`SELF_TEST_REPORT.md`](SELF_TEST_REPORT.md)
+- 当前项目能力与恢复：[`docs/project-capabilities-v1.md`](docs/project-capabilities-v1.md)
+- 历史正式演示交付摘要：[`reports/final/FINAL_DELIVERY.md`](reports/final/FINAL_DELIVERY.md)
 - CLI、HTTP、Docker 运行说明：[`docs/runtime-guide.md`](docs/runtime-guide.md)
 - 编译器架构说明：[`docs/compiler-architecture.md`](docs/compiler-architecture.md)
 - 指标注册与插件开发：[`docs/registry-plugin-guide.md`](docs/registry-plugin-guide.md)

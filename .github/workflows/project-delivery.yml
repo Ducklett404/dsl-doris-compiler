@@ -1,0 +1,57 @@
+name: project-delivery
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install portable acceptance dependencies
+        run: python -m pip install -r scripts/doris/requirements-selftest.txt
+      - name: Build and test executable JAR
+        run: mvn -B --no-transfer-progress package
+      - name: Verify delivery guards
+        run: python scripts/doris/test_package_project_delivery.py
+      - name: Run acceptance for this exact source tree and JAR
+        run: >-
+          python scripts/doris/run_project_acceptance.py
+          --report-dir build/project-acceptance --java java
+      - name: Package and verify source, JAR and selected evidence
+        run: |
+          python scripts/doris/package_project_delivery.py --evidence-dir build/project-acceptance --output-dir build/project-delivery --label project-${{ github.sha }}
+          python scripts/doris/package_project_delivery.py --verify-dir build/project-delivery
+          mkdir -p build/downloads
+          cp target/dsl-doris-compiler.jar build/downloads/
+          cp build/project-delivery/project-delivery.zip build/project-delivery/delivery-manifest.json build/downloads/
+          cd build/downloads
+          sha256sum dsl-doris-compiler.jar project-delivery.zip delivery-manifest.json > SHA256SUMS
+      - name: Upload downloadable project delivery
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-delivery-${{ github.sha }}
+          path: build/downloads/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Upload diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-delivery-checks-${{ github.sha }}
+          path: |
+            target/surefire-reports/
+            build/project-acceptance/
