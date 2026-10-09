@@ -480,6 +480,9 @@ class AcceptanceContracts(unittest.TestCase):
                     resume=False, runtime_observed=None):
         """Exercise orchestration only: no Java, subprocess, WSL or database."""
         commands, calls = [], []
+        sleep_flags = []
+        sleep_guard = acceptance.AutomaticSleepPrevention(
+            'nt', lambda flags: sleep_flags.append(flags) or 1)
         counts = acceptance.RAW_PRECHECK_CONTRACT['caseCounts']
         portable_counts = dict(zip(('portable-fields', 'portable-combinations', 'portable-rank-combinations'), counts.values()))
         run_identity = dict(self.identity)
@@ -520,9 +523,12 @@ class AcceptanceContracts(unittest.TestCase):
              patch.object(acceptance, 'capture_doris_environment',
                           return_value=runtime_observed or self.runtime_snapshot(), side_effect=runtime_error), \
              patch.object(acceptance, 'digest', side_effect=fake_digest), \
+             patch.object(acceptance, 'AutomaticSleepPrevention', return_value=sleep_guard), \
              patch.object(StageRunner, 'stage', autospec=True, side_effect=fake_stage), \
              patch.object(acceptance.subprocess, 'run', side_effect=AssertionError('No external execution')):
             code = acceptance.main()
+        self.assertEqual([acceptance.ES_CONTINUOUS | acceptance.ES_SYSTEM_REQUIRED,
+                          acceptance.ES_CONTINUOUS], sleep_flags)
         return code, calls, commands, json.loads((self.folder / 'project-summary.json').read_text())
 
     def test_all_three_raw_prechecks_precede_any_complete_30_round_matrix(self):
