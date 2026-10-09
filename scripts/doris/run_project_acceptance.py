@@ -20,7 +20,7 @@ import time
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_DIRS = ('src', 'scripts', 'config', 'docs', 'benchmarks', 'accuracy', '.github', 'plugins', 'examples',
                'data/doris/ddl', 'data/doris/config', 'data/doris/snapshots')
-SOURCE_FILES = ('pom.xml', 'executor-doris/pom.xml', 'README.md', 'DELIVERY.md', 'SELF_TEST_REPORT.md', 'mvnw', 'mvnw.cmd', 'AGENTS.md', '.gitignore',
+SOURCE_FILES = ('pom.xml', 'executor-doris/pom.xml', 'README.md', 'mvnw', 'mvnw.cmd', 'AGENTS.md', '.gitignore',
                 '.gitattributes', 'Dockerfile', 'docker-compose.yml', 'docker-compose.yaml',
                 'data/doris/data-contract.json', 'data/doris/README.md')
 MATRICES = ('config/acceptance/project-combination-matrix-v1.json',

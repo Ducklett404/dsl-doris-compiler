@@ -1,14 +1,17 @@
 # 项目目录与阅读顺序
 
-当前源码统一在 `main`。先读 [交付清单](../DELIVERY.md)、[当前自测报告](../SELF_TEST_REPORT.md)和[项目能力范围](project-capabilities-v1.md)，再按用途进入对应目录。
+当前源码统一在 `main`。先读 [交付清单](delivery/README.md)、[当前自测报告](delivery/self-test.md)和[项目能力范围](project-capabilities-v1.md)，再按用途进入对应目录。
 
 | 目录／文件 | 用途 |
 |---|---|
+| `README.md` | 根目录项目入口，链接到文档索引与交付说明 |
+| `AGENTS.md` | 自动工具读取的协作约定，按约定保留在根目录 |
 | `src/` | 编译器、CLI、HTTP、JDBC 执行层、文法、注册表及 Java 测试 |
 | `executor-doris/` | 独立 Doris 执行器模块及测试 |
 | `config/` | 冻结验收范围、查询矩阵、规则与模板配置 |
 | `examples/` | 可编译 DSL 和演示输出 |
-| `docs/` | 架构、运行、函数语义、项目能力和恢复说明 |
+| `docs/` | 全部项目说明；从 [文档索引](README.md)进入 |
+| `docs/delivery/` | 交付清单和当前自测报告 |
 | `docs/history/` | 历史自测、缺陷检查与规划；不作为当前验收结论 |
 | `scripts/` | 构建、自测、审计、验收、打包及恢复入口 |
 | `accuracy/`、`benchmarks/` | 正确性基准和编译／查询性能定义 |

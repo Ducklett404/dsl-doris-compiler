@@ -23,12 +23,12 @@
 - 文件：`target/dsl-doris-compiler.jar`，8,460,142 字节。
 - 构建时间：2026-10-10 02:07:51 +08:00。
 - SHA-256：`da6daa3e577f2fd9519c9fbf06d9307643794513c6c35e7ef804d4e58f7afe1d`。
-- 机器摘要：[build-verification.json](reports/build/2026-10-10/build-verification.json)。完整日志和示例输出保留在本机 `build/jar-rebuild-20261010-020451/`。
+- 机器摘要：[build-verification.json](../../reports/build/2026-10-10/build-verification.json)。完整日志和示例输出保留在本机 `build/jar-rebuild-20261010-020451/`。
 
 GitHub 会针对整理后的每个提交重新构建并执行便携验收。该 JAR 的哈希以相应下载包 manifest 为准，不能沿用上述本机 JAR 哈希。
 
 ## 验收边界与历史记录
 
-本轮重建没有执行真实 Doris 数据验收、SQL 10 秒门禁或 19 年查询加速复测。历史查询加速及官方数据诊断见 [2026-10-04 路线报告](reports/official-route/2026-10-04/final/官方数据路线执行与自测报告.md)，仅适用于其原始工件和数据环境。正式验收仍受数据契约与外部证据条件限制。
+本轮重建没有执行真实 Doris 数据验收、SQL 10 秒门禁或 19 年查询加速复测。历史查询加速及官方数据诊断见 [2026-10-04 路线报告](../../reports/official-route/2026-10-04/final/官方数据路线执行与自测报告.md)，仅适用于其原始工件和数据环境。正式验收仍受数据契约与外部证据条件限制。
 
-早期 V1 的 7 项测试报告已归档到 [2026-08-09 历史自测](docs/history/self-test-2026-08-09.md)，不能作为当前测试数量。当前交付入口见 [DELIVERY.md](DELIVERY.md)。
+早期 V1 的 7 项测试报告已归档到 [2026-08-09 历史自测](../history/self-test-2026-08-09.md)，不能作为当前测试数量。当前交付入口见 [交付清单](README.md)。
