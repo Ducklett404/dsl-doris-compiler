@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SOURCE_PREFIXES = ("src/", "executor-doris/", "plugins/", "config/", "examples/",
                    "docs/", "scripts/", ".github/", "benchmarks/", "accuracy/", "data/doris/ddl/", "data/doris/config/",
                    "data/doris/snapshots/")
-SOURCE_FILES = {"AGENTS.md", "README.md", "mvnw", "mvnw.cmd", "pom.xml", "Dockerfile",
+SOURCE_FILES = {"AGENTS.md", "LICENSE", "README.md", "mvnw", "mvnw.cmd", "pom.xml", "Dockerfile",
                 "docker-compose.yml", "docker-compose.yaml", ".gitignore", ".gitattributes",
                 "data/doris/data-contract.json", "data/doris/README.md"}
 EXCLUDED_PARTS = {".git", ".mvn-cache", ".tools", "target", "__pycache__", "node_modules"}
