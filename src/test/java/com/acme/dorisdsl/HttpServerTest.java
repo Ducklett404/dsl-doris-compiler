@@ -4,7 +4,9 @@ import com.acme.dorisdsl.compiler.DslCompiler;
 import com.acme.dorisdsl.compiler.CompileException;
 import com.acme.dorisdsl.registry.RegistryLoader;
 import com.acme.dorisdsl.server.AuthenticatedIdentity;
+import com.acme.dorisdsl.server.BearerTokenAccess;
 import com.acme.dorisdsl.server.CompileHttpServer;
+import com.acme.dorisdsl.server.PermissionGate;
 import com.acme.dorisdsl.stockslot.DorisExecutionException;
 import com.acme.dorisdsl.util.JsonSupport;
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,42 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HttpServerTest {
+    @Test void servesWorkbenchWithoutBypassingAuthenticationForStockSlotSql() throws Exception {
+        String token = "workbench-test-token-0123456789abcdef";
+        var access = new BearerTokenAccess(token, Set.of(PermissionGate.COMPILE_PERMISSION));
+        var compiler = new DslCompiler(new RegistryLoader().loadDefault(List.of()));
+        try (var client = HttpClient.newHttpClient();
+             var server = new CompileHttpServer(compiler, "127.0.0.1", 0, access, access)) {
+            server.start();
+            String base = "http://127.0.0.1:" + server.port();
+            for (String route : List.of("/", "/workbench.css", "/workbench.js")) {
+                var response = client.send(HttpRequest.newBuilder(URI.create(base + route)).GET().build(),
+                        HttpResponse.BodyHandlers.ofString());
+                assertEquals(200, response.statusCode());
+                assertTrue(response.headers().firstValue("Content-Security-Policy").isPresent());
+                assertFalse(response.body().contains(token));
+            }
+            var state = client.send(HttpRequest.newBuilder(URI.create(base + "/workbench/status")).GET().build(),
+                    HttpResponse.BodyHandlers.ofString());
+            assertEquals(200, state.statusCode());
+            assertFalse(JsonSupport.MAPPER.readTree(state.body()).get("executionEnabled").asBoolean());
+
+            String source = "indicator('沪', '', '收盘价', '2026-04-14', '', '', '') > 42 limit 0,10";
+            String json = JsonSupport.MAPPER.writeValueAsString(Map.of("dsl", source));
+            var request = HttpRequest.newBuilder(URI.create(base + "/compile-sql"))
+                    .header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(json));
+            var anonymous = client.send(request.build(), HttpResponse.BodyHandlers.ofString());
+            assertEquals(401, anonymous.statusCode());
+            var response = client.send(request.header("Authorization", "Bearer " + token).build(),
+                    HttpResponse.BodyHandlers.ofString());
+            assertEquals(200, response.statusCode(), response.body());
+            var artifact = JsonSupport.MAPPER.readTree(response.body());
+            assertTrue(artifact.get("sql").asText().contains("?"));
+            assertTrue(artifact.get("bindings").toString().contains("42"));
+            assertTrue(artifact.path("semanticModel").path("document").isObject());
+        }
+    }
+
     @Test void defaultServerRejectsForgedClientAuthorizationContext() throws Exception {
         var compiler = new DslCompiler(new RegistryLoader().loadDefault(List.of()));
         try (var server = new CompileHttpServer(compiler, "127.0.0.1", 0)) {

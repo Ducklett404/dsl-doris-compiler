@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="行情选股 DSL 编译与 Doris 查询工作台">
+  <title>行情选股工作台</title>
+  <link rel="stylesheet" href="/workbench.css">
+  <script src="/workbench.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="shell top-inner">
+    <a class="brand" href="/"><span class="brand-icon" aria-hidden="true">&lt;/&gt;</span> DSL <span class="slash">/</span> Doris</a>
+    <span id="service-state" class="status" role="status">正在检查服务</span>
+  </div>
+</header>
+
+<main class="shell">
+  <div class="intro">
+    <h1>行情选股工作台</h1>
+    <p>将选股条件编译为参数化 SQL，并在连接 Doris 后查看实际筛选结果。</p>
+  </div>
+  <div class="workspace">
+    <section class="pane" aria-labelledby="editor-heading">
+      <div class="pane-heading">
+        <div><h2 id="editor-heading">查询输入</h2><p>输入选股 DSL，或加载一个示例。</p></div>
+        <span class="tag">stock-slot-v1</span>
+      </div>
+      <div class="editor-body">
+        <label for="token">HTTP 令牌</label>
+        <input id="token" type="password" maxlength="4096" spellcheck="false" autocomplete="off" placeholder="启动服务时设置的 DSL_HTTP_TOKEN">
+        <label for="example">可用示例</label>
+        <select id="example">
+          <option value="basic">基础收盘价</option>
+          <option value="history">沪市历史新高</option>
+          <option value="ranking">多指标与排名</option>
+        </select>
+        <label for="dsl">选股 DSL</label>
+        <textarea id="dsl" required spellcheck="false" autocapitalize="off" autocomplete="off" maxlength="100000"></textarea>
+        <div class="fields">
+          <div><label for="snapshot">快照 ID</label><input id="snapshot" value="stock-20060104-20260414-v1" maxlength="128" spellcheck="false"></div>
+          <div><label for="max-rows">结果上限</label><select id="max-rows"><option>20</option><option selected>100</option><option>1000</option><option>10000</option></select></div>
+        </div>
+        <div class="actions">
+          <button type="button" class="button primary" id="run" disabled>执行查询</button>
+          <button type="button" class="button secondary" id="compile" disabled>编译 DSL</button>
+        </div>
+        <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="pane output" aria-labelledby="output-heading">
+      <div class="pane-heading">
+        <div><h2 id="output-heading">查询与编译产物</h2><p id="output-summary">执行查询后在这里查看 Doris 返回。</p></div>
+        <span id="output-tag" class="tag" hidden></span>
+      </div>
+      <div class="tabs" role="tablist" aria-label="输出类型">
+        <button type="button" role="tab" aria-controls="output-panel" id="tab-result" data-tab="result">结果</button>
+        <button type="button" role="tab" aria-controls="output-panel" id="tab-sql" data-tab="sql">SQL</button>
+        <button type="button" role="tab" aria-controls="output-panel" id="tab-ast" data-tab="ast">AST</button>
+        <button type="button" role="tab" aria-controls="output-panel" id="tab-plan" data-tab="plan">计划</button>
+      </div>
+      <div id="output-panel" class="output-body" role="tabpanel" tabindex="0"></div>
+    </section>
+  </div>
+</main>
+</body>
+</html>

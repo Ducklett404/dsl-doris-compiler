@@ -21,6 +21,7 @@ import com.acme.dorisdsl.stockslot.DorisBenchmarkMatrixRunner;
 import com.acme.dorisdsl.stockslot.DorisExecutionMarkdownRenderer;
 import com.acme.dorisdsl.stockslot.DorisExecutionPolicy;
 import com.acme.dorisdsl.stockslot.DorisQueryExecutor;
+import com.acme.dorisdsl.stockslot.StockSlotRegistry;
 import com.acme.dorisdsl.stockslot.StockSlotRegistryLoader;
 import com.acme.dorisdsl.stockslot.StockSlotSqlCompiler;
 import com.acme.dorisdsl.util.JsonSupport;
@@ -253,7 +254,7 @@ public final class Main implements Runnable {
                     + "&connectTimeout=5000&socketTimeout=125000";
         }
 
-        com.acme.dorisdsl.stockslot.StockSlotRegistry stockRegistry() {
+        StockSlotRegistry stockRegistry() {
             var loader = new StockSlotRegistryLoader();
             return registry == null ? loader.loadDefault() : loader.load(registry);
         }
@@ -263,8 +264,7 @@ public final class Main implements Runnable {
                     maxExecMemoryBytes, maxQueueWaitMillis, true);
         }
 
-        DorisQueryExecutor controlledExecutor(int timeoutSeconds, Path projectValidation) throws Exception {
-            var stock = stockRegistry();
+        DorisQueryExecutor controlledExecutor(int timeoutSeconds, Path projectValidation, StockSlotRegistry stock) throws Exception {
             return new DorisQueryExecutor(jdbcUrl(), user, password(), stock, controlledPolicy(timeoutSeconds),
                     projectValidation == null ? null : com.acme.dorisdsl.stockslot.ProjectDataValidation.load(projectValidation, stock));
         }
@@ -282,7 +282,7 @@ public final class Main implements Runnable {
         @CommandLine.Option(names = {"-o", "--output"}) Path output;
 
         @Override public Integer call() {
-            try (var executor = controlledExecutor(timeoutSeconds, projectValidation)) {
+            try (var executor = controlledExecutor(timeoutSeconds, projectValidation, stockRegistry())) {
                 executor.ping();
                 var result = executor.execute(Files.readString(input, StandardCharsets.UTF_8), snapshotId, timeoutSeconds, maxRows);
                 String rendered = switch (format.toLowerCase()) {
@@ -316,13 +316,14 @@ public final class Main implements Runnable {
 
         @Override public Integer call() throws Exception {
             var access = BearerTokenAccess.fromEnvironment(authTokenEnv, true);
-            try (var executor = controlledExecutor(timeoutSeconds, projectValidation);
-                 var server = new CompileHttpServer(compiler(null, List.of()),
+            var stock = stockRegistry();
+            try (var executor = controlledExecutor(timeoutSeconds, projectValidation, stock);
+                 var server = new CompileHttpServer(compiler(null, List.of()), new StockSlotSqlCompiler(stock),
                          (dsl, snapshot, rows) -> executor.execute(dsl, snapshot, timeoutSeconds, rows),
                          bindHost, httpPort, access, access)) {
                 executor.ping();
                 server.start();
-                System.out.printf("Listening on http://%s:%d (/compile, /execute)%n", bindHost, server.port());
+                System.out.printf("Listening on http://%s:%d (/compile, /compile-sql, /execute)%n", bindHost, server.port());
                 Thread.currentThread().join();
             }
             return 0;

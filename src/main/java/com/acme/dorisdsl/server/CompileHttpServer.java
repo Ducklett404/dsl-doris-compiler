@@ -4,6 +4,7 @@ import com.acme.dorisdsl.compiler.CompileException;
 import com.acme.dorisdsl.compiler.DslCompiler;
 import com.acme.dorisdsl.stockslot.DorisExecutionException;
 import com.acme.dorisdsl.stockslot.DorisExecutionMarkdownRenderer;
+import com.acme.dorisdsl.stockslot.StockSlotSqlCompiler;
 import com.acme.dorisdsl.util.JsonSupport;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
@@ -54,6 +55,21 @@ public final class CompileHttpServer implements AutoCloseable {
     public CompileHttpServer(DslCompiler compiler, DorisExecutionEndpoint execution, String host, int port,
                               RequestAuthenticator authenticator, PermissionService permissionService,
                               int maxBodyBytes, int maxConcurrentRequests) throws IOException {
+        this(compiler, new StockSlotSqlCompiler(), execution, host, port, authenticator, permissionService,
+                maxBodyBytes, maxConcurrentRequests);
+    }
+
+    public CompileHttpServer(DslCompiler compiler, StockSlotSqlCompiler stockCompiler,
+                             DorisExecutionEndpoint execution, String host, int port,
+                             RequestAuthenticator authenticator, PermissionService permissionService) throws IOException {
+        this(compiler, stockCompiler, execution, host, port, authenticator, permissionService,
+                DEFAULT_MAX_BODY_BYTES, DEFAULT_MAX_CONCURRENT_REQUESTS);
+    }
+
+    private CompileHttpServer(DslCompiler compiler, StockSlotSqlCompiler stockCompiler,
+                              DorisExecutionEndpoint execution, String host, int port,
+                              RequestAuthenticator authenticator, PermissionService permissionService,
+                              int maxBodyBytes, int maxConcurrentRequests) throws IOException {
         if (maxBodyBytes < 1 || maxBodyBytes > DEFAULT_MAX_BODY_BYTES || maxConcurrentRequests < 1 || maxConcurrentRequests > 256)
             throw new IllegalArgumentException("Invalid HTTP resource limits");
         this.maxBodyBytes = maxBodyBytes;
@@ -71,8 +87,11 @@ public final class CompileHttpServer implements AutoCloseable {
         });
         server.createContext("/compile", exchange -> guard(exchange, "/compile", PermissionGate.COMPILE_PERMISSION,
                 authenticator, permissionGate, () -> compile(exchange, compiler)));
+        server.createContext("/compile-sql", exchange -> guard(exchange, "/compile-sql", PermissionGate.COMPILE_PERMISSION,
+                authenticator, permissionGate, () -> compileStockSql(exchange, stockCompiler)));
         if (execution != null) server.createContext("/execute", exchange -> guard(exchange, "/execute", PermissionGate.EXECUTE_PERMISSION,
                 authenticator, permissionGate, () -> execute(exchange, execution)));
+        server.createContext("/", exchange -> serveWorkbench(exchange, execution != null));
         server.setExecutor(workers);
     }
 
@@ -189,6 +208,55 @@ public final class CompileHttpServer implements AutoCloseable {
                     "column", e.column(), "fragment", e.fragment(), "suggestion", e.suggestion()));
         } catch (Exception e) {
             respond(exchange, 500, Map.of("error", "internal_error", "message", "Unexpected server failure"));
+        }
+    }
+
+    private void compileStockSql(HttpExchange exchange, StockSlotSqlCompiler compiler) throws IOException {
+        try {
+            var input = readInput(exchange, Set.of("dsl"));
+            if (!(input.get("dsl") instanceof String dsl))
+                throw new CompileException("MISSING_DSL", "JSON field 'dsl' is required", 1, 1);
+            respond(exchange, 200, compiler.compile(dsl));
+        } catch (CompileException error) {
+            respond(exchange, statusFor(error), Map.of("error", error.code(), "message", error.getMessage(),
+                    "line", error.line(), "column", error.column()));
+        }
+    }
+
+    private static void serveWorkbench(HttpExchange exchange, boolean executionEnabled) throws IOException {
+        String path = exchange.getRequestURI().getPath();
+        try {
+            String file;
+            String type;
+            switch (path) {
+                case "/", "/index.html" -> { file = "index.html"; type = "text/html; charset=utf-8"; }
+                case "/workbench.css" -> { file = "workbench.css"; type = "text/css; charset=utf-8"; }
+                case "/workbench.js" -> { file = "workbench.js"; type = "text/javascript; charset=utf-8"; }
+                case "/workbench/status" -> { file = null; type = null; }
+                default -> { respond(exchange, 404, Map.of("error", "not_found")); return; }
+            }
+            if (!"GET".equals(exchange.getRequestMethod())) {
+                respond(exchange, 405, Map.of("error", "method_not_allowed"));
+                return;
+            }
+            var headers = exchange.getResponseHeaders();
+            headers.set("Cache-Control", "no-store");
+            headers.set("Referrer-Policy", "no-referrer");
+            headers.set("Content-Security-Policy", "default-src 'none'; script-src 'self'; style-src 'self'; "
+                    + "connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'");
+            if (file == null) {
+                respond(exchange, 200, Map.of("executionEnabled", executionEnabled));
+                return;
+            }
+            try (var resource = CompileHttpServer.class.getResourceAsStream("/workbench/" + file)) {
+                if (resource == null) {
+                    respond(exchange, 404, Map.of("error", "not_found"));
+                    return;
+                }
+                respondBytes(exchange, 200, type, resource.readAllBytes());
+            }
+        } finally {
+            exchange.close();
         }
     }
 

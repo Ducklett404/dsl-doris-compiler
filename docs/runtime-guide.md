@@ -72,6 +72,40 @@ java -jar target/dsl-doris-compiler.jar benchmark-stock-slot-compiler `
 
 ## HTTP
 
+### 浏览器工作台
+
+项目 JAR 自带网页。打开服务根地址即可编辑选股 DSL、查看 AST、SQL 和计划。在
+`serve-doris` 模式下还可以执行选股查询，并将本次实际结果导出为 Markdown 表格。
+浏览器输入的是 HTTP 令牌。Doris 的只读账号和密码由 Java 服务持有。
+
+在项目根目录的 PowerShell 启动编译工作台：
+
+```powershell
+.\mvnw.cmd -B -DskipTests package
+$env:DSL_HTTP_TOKEN = [Convert]::ToHexString([Security.Cryptography.RandomNumberGenerator]::GetBytes(32))
+Set-Clipboard -Value $env:DSL_HTTP_TOKEN
+java -jar target/dsl-doris-compiler.jar serve --host 127.0.0.1 --port 8080
+```
+
+打开 http://127.0.0.1:8080/，将剪贴板中的令牌粘贴到「HTTP 令牌」栏。
+网页、编译接口和执行接口共用 Java 服务。浏览器刷新后需要重新输入令牌。
+
+如需执行真实查询，先启动项目的 [专用 Doris 环境](recovered-doris-environment.md)，
+按 [项目数据验证](project-scoped-validation.md) 准备来源证书。用同一终端的
+`DSL_HTTP_TOKEN` 和只读账号密码环境变量启动执行模式：
+
+```powershell
+java -jar target/dsl-doris-compiler.jar serve-doris `
+  --bind-host 127.0.0.1 --http-port 8080 `
+  --host <Doris-host> --port 19030 --user dsl_project_reader `
+  --password-env DORIS_PASSWORD --project-validation <project-validation.json> `
+  --max-scan-rows 100000000 --max-exec-memory-bytes 2147483648
+```
+
+用实际 Doris 地址和证书文件路径替换命令中的占位符。执行模式继续使用只读检查、
+查询资源限制及原有快照门禁。工作台的 SQL 编译请求是 `POST /compile-sql`，
+接受 `{"dsl":"…"}` 并返回参数化 SQL、绑定参数和语义产物。
+
 编译服务：
 
 ```powershell
