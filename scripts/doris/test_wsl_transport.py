@@ -2,7 +2,7 @@
 
 Run with ``python scripts/doris/test_wsl_transport.py --output NEW_REPORT.json``.
 WslDoris process calls are mocked. Optional shell tests execute only Bash with
-every mysql binary replaced by a synthetic mock; no Docker or database is used.
+synthetic mysql and Docker mocks; no Docker daemon or database is used.
 Pass --shell-distribution EXISTING_WSL or --bash BASH_PATH for shell tests.
 Generated shell fixtures are preserved under target, never deleted by this test.
 """
@@ -227,6 +227,7 @@ esac
         image.write_text('''#!/usr/bin/env bash
 set -eu
 [ -n "${MYSQL_PWD:-}" ] || exit 77
+printf '%s\\n' "${FE_CONFIG_EXTRA:-}" > "$MOCK_FE_LOG"
 printf '%s\\n' "${BE_CONFIG_EXTRA:-}" > "$MOCK_BE_LOG"
 printf 'entrypoint-credential-ready\\n'
 exec mysql -uroot -h127.0.0.1 -P19030 -e 'SHOW FRONTENDS'
@@ -244,8 +245,13 @@ exec mysql -uroot -h127.0.0.1 -P19030 -e 'SHOW FRONTENDS'
                                 'export PATH=' + shlex.quote(self.shell_path(installed.parent)) + ':"$PATH"')
         for old, new in replacements.items():
             source = source.replace(old, new)
+        # The Linux entrypoint uses GNU install -D; prepare its parent for BSD install too.
+        installed.parent.mkdir()
+        source = source.replace('install -D -m 700 ', 'install -m 700 ')
         self.assertNotIn('/usr/bin/mysql', source)
         prelude = self.prelude(mode, credential=False) + 'chmod 700 ' + shlex.quote(self.shell_path(image)) + '\n'
+        prelude += 'export MOCK_FE_LOG=' + shlex.quote(self.shell_path(self.folder/'fe-config.log')) + '\n'
+        prelude += "export FE_CONFIG_EXTRA='query_port = 19030'\n"
         prelude += 'unset DSL_DORIS_BE_MEMORY_PERCENT\nexport MOCK_BE_LOG=' + shlex.quote(self.shell_path(self.folder/'be-config.log')) + '\n'
         prelude += 'export BE_CONFIG_EXTRA=' + shlex.quote('webserver_port = 18040\nmem_limit = 40%\nheartbeat_service_port = 19050') + '\n'
         return self.invoke(prelude + source, [])
@@ -339,6 +345,15 @@ exec mysql -uroot -h127.0.0.1 -P19030 -e 'SHOW FRONTENDS'
         lines=(self.folder/'be-config.log').read_text(encoding='utf-8').splitlines()
         self.assertEqual([line for line in lines if line.startswith('mem_limit')],['mem_limit = 40%'])
 
+    def test_entrypoint_limits_fe_and_be_logs_while_preserving_query_port(self):
+        result, _ = self.entrypoint('password')
+        self.assertEqual(0, result.returncode, result.stderr)
+        fe = (self.folder/'fe-config.log').read_text(encoding='utf-8').splitlines()
+        be = (self.folder/'be-config.log').read_text(encoding='utf-8').splitlines()
+        self.assertTrue({'query_port = 19030', 'log_roll_size_mb = 16', 'sys_log_roll_num = 2',
+            'sys_log_delete_age = 3d', 'audit_log_roll_num = 3', 'audit_log_delete_age = 3d'} <= set(fe))
+        self.assertTrue({'sys_log_roll_mode = SIZE-MB-16', 'sys_log_roll_num = 3'} <= set(be))
+
     def test_entrypoint_unknown_be_share_is_rejected_without_echoing_value(self):
         result, attempts = self.entrypoint('password',memory_percent='60; synthetic-untrusted')
         self.assertNotEqual(0,result.returncode)
@@ -355,6 +370,84 @@ exec mysql -uroot -h127.0.0.1 -P19030 -e 'SHOW FRONTENDS'
         result, attempts = self.entrypoint('password', marker='initialized\n')
         self.assertEqual(0, result.returncode, result.stderr)
         self.assertEqual(['present'], attempts)
+
+
+class WslStartupTest(unittest.TestCase):
+    def test_bounds_restarts_and_logs(self):
+        if SHELL_PREFIX is None:
+            self.skipTest('Specify --shell-distribution or --bash to execute offline Bash mocks')
+        version = subprocess.run(SHELL_PREFIX + ['-c', '(( BASH_VERSINFO[0] >= 4 ))'], capture_output=True)
+        if version.returncode:
+            self.skipTest('The WSL startup script uses Bash associative arrays')
+        base = ROOT / 'target/wsl-transport-shell-fixtures'
+        base.mkdir(parents=True, exist_ok=True)
+        for scenario, states in (
+            ('new', ['created ', 'restarting starting', 'running healthy']),
+            ('retained', ['running healthy']),
+            ('foreign', []),
+            ('exited', ['restarting starting', 'exited unhealthy']),
+            ('timeout', ['running unhealthy']),
+        ):
+            with self.subTest(scenario=scenario):
+                folder = Path(tempfile.mkdtemp(prefix='startup-' + scenario + '-', dir=base))
+                path = folder.as_posix()
+                if SHELL_USES_WSL and path[1:3] == ':/':
+                    path = '/mnt/' + path[0].lower() + path[2:]
+                (folder/'states').write_text('\n'.join(states) + '\n', encoding='utf-8', newline='\n')
+                (folder/'client.cnf').write_text('[client]\nport=9030\n', encoding='utf-8', newline='\n')
+                (folder/'credentials-initialized').write_text('initialized\n', encoding='utf-8', newline='\n')
+                prelude = 'fixture=' + shlex.quote(path) + '\nscenario=' + shlex.quote(scenario) + '\n'
+                prelude += '''
+sysctl() { :; }
+ss() { :; }
+sleep() { :; }
+docker() {
+  case "$1:${2-}" in
+    info:--format) printf '%s\\n' "$fixture/docker" ;;
+    info:|image:inspect) return 0 ;;
+    container:inspect) [ "$scenario" != new ] ;;
+    inspect:-f)
+      case "$3" in
+        *Config.Labels*)
+          if [ "$scenario" = foreign ]; then echo other; else echo official-data-diagnostic; fi ;;
+        *RestartPolicy*) echo unless-stopped:0 ;;
+        *LogConfig*) printf 'json-file \\n' ;;
+        *State.Status*)
+          echo probe >>"$fixture/calls"
+          count=$(grep -c '^probe$' "$fixture/calls")
+          if [ "$scenario" = timeout ]; then count=1; fi
+          sed -n "${count}p" "$fixture/states" ;;
+        *) return 98 ;;
+      esac ;;
+    run:*|start:*|update:*|logs:*|exec:*) printf '%s\\n' "$*" >>"$fixture/calls" ;;
+    *) return 99 ;;
+  esac
+}
+'''
+                source = (ROOT / 'scripts/doris/start-wsl-doris.sh').read_text(encoding='utf-8')
+                source = source.replace('root=/var/lib/dsl-doris', 'root="$fixture"')
+                source = source.replace('/var/log/dsl-doris', '"$fixture/log"')
+                result = subprocess.run(SHELL_PREFIX + ['--noprofile', '--norc', '-s', '--', path],
+                    input=(prelude + source).encode('utf-8'), capture_output=True, timeout=20)
+                stderr = result.stderr.decode('utf-8', errors='replace')
+                trace = folder/'calls'
+                calls = trace.read_text(encoding='utf-8').splitlines() if trace.exists() else []
+                if scenario == 'new':
+                    self.assertEqual(0, result.returncode, stderr)
+                    self.assertIn('--restart on-failure:3 --log-driver local --log-opt max-size=10m --log-opt max-file=3', calls[0])
+                    self.assertEqual(3, calls.count('probe'))
+                elif scenario == 'retained':
+                    self.assertEqual(0, result.returncode, stderr)
+                    self.assertEqual(['update --restart=on-failure:3 dsl-doris-official', 'start dsl-doris-official'], calls[:2])
+                    self.assertIn('requires recreating the container', stderr)
+                elif scenario == 'foreign':
+                    self.assertNotEqual(0, result.returncode)
+                    self.assertEqual([], calls)
+                else:
+                    self.assertNotEqual(0, result.returncode)
+                    self.assertEqual(120 if scenario == 'timeout' else 2, calls.count('probe'))
+                    self.assertEqual(1, calls.count('logs --tail 30 dsl-doris-official'))
+                    self.assertIn('did not become healthy', stderr)
 
 
 def test_names(suite):
@@ -397,7 +490,8 @@ def main():
             errors=[dict(test=str(test), error=error) for test, error in result.errors],
             sourceSha256={str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
                 for path in (Path(__file__).resolve(), ROOT / 'scripts/accuracy/run_correctness.py',
-                             ROOT / 'scripts/doris/wsl-doris-internal-mysql.sh', ROOT / 'scripts/doris/wsl-doris-entrypoint.sh')},
+                             ROOT / 'scripts/doris/wsl-doris-internal-mysql.sh', ROOT / 'scripts/doris/wsl-doris-entrypoint.sh',
+                             ROOT / 'scripts/doris/start-wsl-doris.sh')},
             shellMockExecuted=SHELL_PREFIX is not None, realMysqlExecuted=False,
             databaseMutationExecuted=False, nativeDatabaseEvidence=False,
             userFilesDeleted=False, generatedFixturesPreserved='target/wsl-transport-shell-fixtures')

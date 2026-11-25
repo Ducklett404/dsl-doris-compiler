@@ -5,6 +5,7 @@ repo=${1:?Pass the project path as a WSL /mnt path}
 container=dsl-doris-official
 image=apache/doris:all-in-one-4.1.3
 root=/var/lib/dsl-doris
+restart_policy=on-failure:3
 query_port=${DSL_DORIS_QUERY_PORT:-9030}
 fe_http_port=${DSL_DORIS_FE_HTTP_PORT:-8030}
 be_http_port=${DSL_DORIS_BE_HTTP_PORT:-8040}
@@ -48,6 +49,15 @@ if docker container inspect "$container" >/dev/null 2>&1; then
   purpose=$(docker inspect -f '{{index .Config.Labels "com.acme.dorisdsl.purpose"}}' "$container")
   [ "$purpose" = official-data-diagnostic ] || { echo 'Refusing a container without the diagnostic ownership label'; exit 1; }
   [ "$(sed -n 's/^port=//p' "$root/client.cnf")" = "$query_port" ] || { echo 'Existing query port differs; use start-project-environment.ps1 or the matching explicit port settings'; exit 1; }
+  policy=$(docker inspect -f '{{.HostConfig.RestartPolicy.Name}}:{{.HostConfig.RestartPolicy.MaximumRetryCount}}' "$container")
+  if [ "$policy" != "$restart_policy" ]; then
+    docker update --restart="$restart_policy" "$container" >/dev/null
+  fi
+  case "$(docker inspect -f '{{.HostConfig.LogConfig.Type}} {{index .HostConfig.LogConfig.Config "max-size"}}' "$container")" in
+    'json-file '|'json-file -1')
+      echo 'Existing Docker logs have no size limit. Applying Docker log rotation requires recreating the container.' >&2
+      ;;
+  esac
   docker start "$container" >/dev/null
 else
   for port in "$query_port" "$fe_http_port" "$be_http_port" "$((9010+port_offset))" "$((9020+port_offset))" "$((9050+port_offset))" "$((9060+port_offset))" "$((8060+port_offset))" "$((8070+port_offset))" "$((8050+port_offset))"; do
@@ -56,7 +66,7 @@ else
   [ -e "$root/credentials-initialized" ] || install -m 600 /dev/null "$root/credentials-initialized"
   docker run -d --name "$container" --network host --memory="$memory" --cpus="$cpus" \
     --label com.acme.dorisdsl.purpose=official-data-diagnostic \
-    --restart unless-stopped \
+    --restart "$restart_policy" --log-driver local --log-opt max-size=10m --log-opt max-file=3 \
     --env "DSL_DORIS_FE_HTTP_PORT=$fe_http_port" --env "DSL_DORIS_BE_HTTP_PORT=$be_http_port" \
     --env "FE_QUERY_PORT=$query_port" --env "FE_HTTP_PORT=$fe_http_port" \
     --env "FE_EDIT_LOG_PORT=$((9010+port_offset))" \
@@ -74,16 +84,20 @@ else
     --mount "type=bind,source=$repo/scripts/doris/wsl-doris-internal-mysql.sh,target=/run/dsl-internal-mysql.sh,readonly" \
     --entrypoint /usr/bin/tini "$image" -- bash /run/dsl-entrypoint.sh
 fi
-for attempt in $(seq 1 120); do
-  status=$(docker inspect -f '{{.State.Status}} {{.State.Health.Status}}' "$container")
-  if [ "$status" = 'running healthy' ]; then break; fi
-  if [[ "$status" != running* ]]; then
-    docker logs --tail 30 "$container"
-    exit 1
-  fi
+for ((attempt=0; attempt<120; attempt++)); do
+  status=$(docker inspect -f '{{.State.Status}} {{if .State.Health}}{{.State.Health.Status}}{{end}}' "$container") || break
+  case "$status" in
+    'running healthy') break ;;
+    running\ *|created\ *|restarting\ *) ;;
+    *) break ;;
+  esac
   sleep 1
 done
-[ "$(docker inspect -f '{{.State.Health.Status}}' "$container")" = healthy ]
+if [ "$status" != 'running healthy' ]; then
+  echo "Project Doris did not become healthy (last state: ${status:-unknown})." >&2
+  docker logs --tail 30 "$container" >&2 || true
+  exit 1
+fi
 if [ ! -s "$root/credentials-initialized" ]; then
   # First startup: replace the official image's empty root password.
   password=$(sed -n 's/^password=//p' "$root/client.cnf")

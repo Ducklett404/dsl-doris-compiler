@@ -19,8 +19,14 @@ fi
 be_memory_percent=${be_memory_percent%$'\r'}
 case "$be_memory_percent" in 40|60) ;; *) echo 'Invalid project BE process memory percentage' >&2; exit 1 ;; esac
 be_extra=$(printf '%s\n' "${BE_CONFIG_EXTRA:-}" | sed '/^[[:space:]]*mem_limit[[:space:]]*=/d')
-export BE_CONFIG_EXTRA
-BE_CONFIG_EXTRA=$(printf '%s\nmem_limit = %s%%\n' "$be_extra" "$be_memory_percent")
+# The image appends these overrides on every boot, including retained containers.
+export FE_CONFIG_EXTRA BE_CONFIG_EXTRA
+FE_CONFIG_EXTRA=$(printf '%s\n' "${FE_CONFIG_EXTRA:-}" \
+  'log_roll_size_mb = 16' 'log_rollover_strategy = age' \
+  'sys_log_roll_interval = DAY' 'sys_log_roll_num = 2' 'sys_log_delete_age = 3d' 'sys_log_enable_compress = true' \
+  'audit_log_roll_interval = DAY' 'audit_log_roll_num = 3' 'audit_log_delete_age = 3d' 'audit_log_enable_compress = true')
+BE_CONFIG_EXTRA=$(printf '%s\n' "$be_extra" "mem_limit = $be_memory_percent%" \
+  'sys_log_roll_mode = SIZE-MB-16' 'sys_log_roll_num = 3')
 # Opt-in small-container profile. No user SQL, data, or memory budget changes.
 # DSL_BE_BOUNDED_RUNTIME_PROFILE_V1
 runtime_profile=disabled-v1

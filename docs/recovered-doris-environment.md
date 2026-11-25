@@ -51,7 +51,9 @@
 & .\scripts\doris\start-project-environment.ps1
 ```
 
-脚本启动一个隐藏的 `wsl --exec sleep infinity` 保活进程，防止 WSL 在所有前台命令结束后退出；WSL 内 Docker 为 systemd 服务，容器为 `unless-stopped`。仅 systemd 服务本身不能保证 WSL 保活。没有新增登录计划任务。电脑重新启动后再执行上述命令即可。
+启动成功后，脚本启动一个隐藏的 `wsl --exec sleep infinity` 保活进程，防止 WSL 在所有前台命令结束后退出。同一 Windows 会话内，同一发行版的启动命令一次只执行一份。启动失败时会返回错误并输出最近 30 行容器日志（如可读取）。电脑重新启动后，在 PowerShell 重新执行启动命令。
+
+专用 Doris 容器异常退出后由 Docker 最多自动重启 3 次。启动脚本会原地更新已存在的专用容器的重启策略。新建容器使用 Docker 的 `local` 日志驱动，控制台日志按每份 10 MB、最多 3 份轮转。Docker 日志驱动由容器创建时的配置决定，旧容器若使用无上限的 `json-file`，启动脚本会提示。Doris 下次启动时会应用 FE 和 BE 的日志文件轮转，单文件按 16 MB 轮转，FE 系统日志和审计历史保留 3 天。既有容器含有私有运行配置，处理旧 Docker 控制台日志前应先备份并核对这些配置。
 
 Windows 访问使用实际 WSL IPv4 地址。本机这次检查中 `127.0.0.1:18030` 不通，WSL IPv4 的 HTTP 和 JDBC 均通过；没有修改防火墙或建立端口代理。IP 可能在重启后改变，不要把本次的 `172.19.184.174` 写死：
 

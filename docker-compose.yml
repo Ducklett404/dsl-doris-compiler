@@ -8,4 +8,9 @@ services:
     read_only: true
     tmpfs:
       - /tmp
-    restart: unless-stopped
+    restart: "on-failure:3"
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"

@@ -4,12 +4,27 @@ if ($Distribution -notmatch '^dsl-doris-official-[a-z0-9]+$') { throw 'Expected 
 $taskRepo=(Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..')).Path
 if ($taskRepo -notmatch '^([A-Za-z]):\\(.+)$') { throw 'Project must be on a Windows drive mounted in WSL' }
 $taskWslRepo='/mnt/'+$Matches[1].ToLower()+'/'+$Matches[2].Replace('\','/')
-# Systemd services alone do not keep a WSL distribution alive after commands exit.
-$taskKeeper=Get-CimInstance Win32_Process -Filter "Name='wsl.exe'" | Where-Object {
-  $_.CommandLine -like "*-d $Distribution --exec sleep infinity*"
+$taskStartLock=[System.Threading.Mutex]::new($false, "Local\dsl-doris-start-$Distribution")
+$taskHasLock=$false
+try {
+  try {
+    $taskHasLock=$taskStartLock.WaitOne(0)
+  } catch [System.Threading.AbandonedMutexException] {
+    $taskHasLock=$true
+  }
+  if (-not $taskHasLock) { throw 'Project Doris startup is already in progress' }
+
+  & wsl.exe -d $Distribution --exec env DSL_DORIS_QUERY_PORT=19030 DSL_DORIS_FE_HTTP_PORT=18030 DSL_DORIS_BE_HTTP_PORT=18040 DSL_DORIS_PORT_OFFSET=10000 DSL_DORIS_MEMORY=5g DSL_DORIS_CPUS=4 DSL_DORIS_FE_HEAP=768m DSL_DORIS_BE_HEAP=128m bash "$taskWslRepo/scripts/doris/start-wsl-doris.sh" $taskWslRepo
+  if ($LASTEXITCODE -ne 0) { throw 'Project Doris readiness failed; existing data is preserved' }
+
+  # Systemd services alone do not keep WSL alive. Keep only successful starts alive.
+  $taskKeeper=Get-CimInstance Win32_Process -Filter "Name='wsl.exe'" | Where-Object {
+    $_.CommandLine -like "*-d $Distribution --exec sleep infinity*"
+  }
+  if (-not $taskKeeper) {
+    Start-Process -FilePath 'wsl.exe' -ArgumentList @('-d',$Distribution,'--exec','sleep','infinity') -WindowStyle Hidden | Out-Null
+  }
+} finally {
+  if ($taskHasLock) { $taskStartLock.ReleaseMutex() }
+  $taskStartLock.Dispose()
 }
-if (-not $taskKeeper) {
-  Start-Process -FilePath 'wsl.exe' -ArgumentList @('-d',$Distribution,'--exec','sleep','infinity') -WindowStyle Hidden | Out-Null
-}
-& wsl.exe -d $Distribution --exec env DSL_DORIS_QUERY_PORT=19030 DSL_DORIS_FE_HTTP_PORT=18030 DSL_DORIS_BE_HTTP_PORT=18040 DSL_DORIS_PORT_OFFSET=10000 DSL_DORIS_MEMORY=5g DSL_DORIS_CPUS=4 DSL_DORIS_FE_HEAP=768m DSL_DORIS_BE_HEAP=128m bash "$taskWslRepo/scripts/doris/start-wsl-doris.sh" $taskWslRepo
-if ($LASTEXITCODE -ne 0) { throw 'Project Doris readiness failed; existing data is preserved' }
