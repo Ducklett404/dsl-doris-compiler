@@ -5,6 +5,7 @@
 | 交付内容 | 入口 | 当前状态 |
 |---|---|---|
 | 比赛要求与统一状态 | [赛题对照](competition-readiness.md)、[项目状态](../project-status.md) | 实现、历史证据、当前缺口分别披露 |
+| 本机提交材料第3至6项 | [技术报告 数据说明 算法说明 测试结果与案例](../../../提交文档/README.md) | 位于揭榜挂帅目录下，与源码同级；含Word、Markdown、辅助脚本及生成记录，需单独提交 |
 | 项目概览与目录 | [README](../../README.md)、[目录说明](../project-layout.md) | 已整理 |
 | 源码与测试 | `src/`、`executor-doris/` | 已合入 main |
 | Windows／Unix 构建 | `mvnw.cmd`／`mvnw`，`scripts/build-test-start.ps1` | Java 21、Maven 3.9+ |

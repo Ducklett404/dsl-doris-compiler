@@ -11,6 +11,7 @@
 |---|---|
 | 查看统一状态与证据日期 | [项目状态](docs/project-status.md) |
 | 对照比赛要求、准备提交 | [赛题要求与证据对照](docs/delivery/competition-readiness.md) |
+| 本机提交材料第3至6项 | [源码同级的提交文档](../提交文档/README.md)，独立于本源码仓库保存 |
 | 取得 JAR、源码包与自测记录 | [交付清单](docs/delivery/README.md)、[当前自测](docs/delivery/self-test.md) |
 | 了解实际支持范围 | [能力说明](docs/project-capabilities-v1.md)、[冻结范围](docs/phase1-data-indicator-scope-v1.md) |
 | 构建、运行和展示 | [运行手册](docs/runtime-guide.md)、[演示说明](docs/final-demo.md) |
