@@ -18,7 +18,7 @@ let service = null;
 let pending = null;
 let compiled = null;
 let result = null;
-let active = "result";
+let active = "sql";
 
 function create(tag, text, className) {
   const node = document.createElement(tag);
@@ -68,7 +68,7 @@ function clearArtifacts() {
 function selectExample() {
   $("dsl").value = examples[$("example").value];
   clearArtifacts();
-  changeTab("result");
+  changeTab(service?.executionEnabled ? "result" : "sql");
 }
 
 function markdownCell(value) {
@@ -181,7 +181,8 @@ function render() {
   badge.hidden = !result && !compiled;
   badge.textContent = result ? "Doris 实时执行" : "已编译";
   $("output-summary").textContent = result ? "快照 " + result.dataVersion.snapshotId
-    : compiled ? "已由当前项目编译器生成。" : "执行查询后在这里查看 Doris 返回。";
+    : compiled ? "已由当前项目编译器生成。"
+    : service?.executionEnabled ? "执行查询后在这里查看 Doris 返回。" : "编译后可查看 SQL、AST 和计划。";
 
   if (active === "result") {
     if (result) showResults(result);
@@ -208,12 +209,25 @@ function render() {
   }
 }
 
+function focusDslError(line, column) {
+  const editor = $("dsl");
+  const lines = editor.value.split("\n");
+  if (!Number.isInteger(line) || line < 1 || line > lines.length || !Number.isInteger(column) || column < 1) return;
+  const lineStart = lines.slice(0, line - 1).reduce((offset, text) => offset + text.length + 1, 0);
+  // ANTLR counts Unicode code points, while textarea offsets count UTF-16 code units.
+  const columnOffset = Array.from(lines[line - 1]).slice(0, column - 1).join("").length;
+  const offset = lineStart + columnOffset;
+  editor.focus();
+  editor.setSelectionRange(offset, offset);
+}
+
 async function submit(execute) {
   const token = $("token").value.trim();
-  const dsl = $("dsl").value.trim();
+  const dsl = $("dsl").value;
   const snapshot = $("snapshot").value.trim();
-  if (!token || !dsl || (execute && !snapshot)) {
-    const missing = !token ? $("token") : !dsl ? $("dsl") : $("snapshot");
+  const emptyDsl = !dsl.trim();
+  if (!token || emptyDsl || (execute && !snapshot)) {
+    const missing = !token ? $("token") : emptyDsl ? $("dsl") : $("snapshot");
     feedback("请填写" + missing.labels[0].textContent + "。", true);
     missing.focus();
     return;
@@ -232,12 +246,16 @@ async function submit(execute) {
       cache: "no-store"
     });
     const value = await response.json();
+    if (pending !== request) return;
     if (!response.ok) {
       const location = value.line ? "（第 " + value.line + " 行，第 " + value.column + " 列）" : "";
-      throw new Error(response.status === 401 ? "HTTP 令牌无效，请确认与服务配置一致。"
-        : (value.message ?? value.error ?? "请求失败。") + location);
+      feedback(response.status === 401 ? "HTTP 令牌无效，请确认与服务配置一致。"
+        : (value.message ?? value.error ?? "请求失败。") + location, true);
+      if (value.error === "DSL_SYNTAX" || value.error === "STOCK_SLOT_SYNTAX") {
+        focusDslError(value.line, value.column);
+      }
+      return;
     }
-    if (pending !== request) return;
     if (execute) result = value;
     compiled = execute ? value.compilation : value;
     changeTab(execute ? "result" : "sql");
@@ -278,8 +296,12 @@ fetch("/workbench/status", { cache: "no-store" }).then((response) => {
   const status = $("service-state");
   status.textContent = mode.executionEnabled ? "Doris 执行已启用" : "仅编译";
   status.classList.toggle("connected", mode.executionEnabled);
+  $("execution-fields").hidden = !mode.executionEnabled;
+  $("run").hidden = !mode.executionEnabled;
+  $("compile").classList.toggle("primary", !mode.executionEnabled);
+  $("compile").classList.toggle("secondary", mode.executionEnabled);
   refreshControls();
-  render();
+  changeTab(mode.executionEnabled ? "result" : "sql");
 }).catch(() => {
   $("service-state").textContent = "服务不可用";
   feedback("无法读取服务状态，请确认 Java 服务已启动。", true);

@@ -29,7 +29,8 @@
       </div>
       <div class="editor-body">
         <label for="token">HTTP 令牌</label>
-        <input id="token" type="password" maxlength="4096" spellcheck="false" autocomplete="off" placeholder="启动服务时设置的 DSL_HTTP_TOKEN">
+        <input id="token" type="password" maxlength="4096" spellcheck="false" autocomplete="off" aria-describedby="token-help">
+        <p id="token-help" class="field-hint">粘贴启动服务时复制的令牌，或输入启动时设置的 <code>DSL_HTTP_TOKEN</code>。</p>
         <label for="example">可用示例</label>
         <select id="example">
           <option value="basic">基础收盘价</option>
@@ -38,13 +39,13 @@
         </select>
         <label for="dsl">选股 DSL</label>
         <textarea id="dsl" required spellcheck="false" autocapitalize="off" autocomplete="off" maxlength="100000"></textarea>
-        <div class="fields">
+        <div class="fields" id="execution-fields" hidden>
           <div><label for="snapshot">快照 ID</label><input id="snapshot" value="stock-20060104-20260414-v1" maxlength="128" spellcheck="false"></div>
           <div><label for="max-rows">结果上限</label><select id="max-rows"><option>20</option><option selected>100</option><option>1000</option><option>10000</option></select></div>
         </div>
         <div class="actions">
-          <button type="button" class="button primary" id="run" disabled>执行查询</button>
-          <button type="button" class="button secondary" id="compile" disabled>编译 DSL</button>
+          <button type="button" class="button primary" id="run" hidden disabled>执行查询</button>
+          <button type="button" class="button primary" id="compile" disabled>编译 DSL</button>
         </div>
         <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
       </div>
@@ -52,7 +53,7 @@
 
     <section class="pane output" aria-labelledby="output-heading">
       <div class="pane-heading">
-        <div><h2 id="output-heading">查询与编译产物</h2><p id="output-summary">执行查询后在这里查看 Doris 返回。</p></div>
+        <div><h2 id="output-heading">查询与编译产物</h2><p id="output-summary">编译后可查看 SQL、AST 和计划。</p></div>
         <span id="output-tag" class="tag" hidden></span>
       </div>
       <div class="tabs" role="tablist" aria-label="输出类型">

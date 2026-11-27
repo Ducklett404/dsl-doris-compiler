@@ -56,6 +56,20 @@ class HttpServerTest {
             assertTrue(artifact.get("sql").asText().contains("?"));
             assertTrue(artifact.get("bindings").toString().contains("42"));
             assertTrue(artifact.path("semanticModel").path("document").isObject());
+
+            String invalidLine = "  indicator('🚀', '', '收盘价', '2026-04-14', '', '', '') > 42  )";
+            var invalid = client.send(HttpRequest.newBuilder(URI.create(base + "/compile-sql"))
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", "Bearer " + token)
+                    .POST(HttpRequest.BodyPublishers.ofString(
+                            JsonSupport.MAPPER.writeValueAsString(Map.of("dsl", "\n" + invalidLine + "\n")))).build(),
+                    HttpResponse.BodyHandlers.ofString());
+            assertEquals(400, invalid.statusCode());
+            var diagnostic = JsonSupport.MAPPER.readTree(invalid.body());
+            assertEquals("STOCK_SLOT_SYNTAX", diagnostic.get("error").asText());
+            assertEquals(2, diagnostic.get("line").asInt());
+            assertEquals(invalidLine.codePointCount(0, invalidLine.lastIndexOf(')')) + 1,
+                    diagnostic.get("column").asInt());
         }
     }
 

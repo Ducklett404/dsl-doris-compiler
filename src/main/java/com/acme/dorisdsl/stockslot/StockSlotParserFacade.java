@@ -5,6 +5,7 @@ import com.acme.dorisdsl.parser.ThrowingErrorListener;
 import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
 public final class StockSlotParserFacade {
@@ -21,7 +22,10 @@ public final class StockSlotParserFacade {
         } catch (CompileException e) {
             throw e;
         } catch (ParseCancellationException | IllegalArgumentException e) {
-            throw new CompileException("STOCK_SLOT_SYNTAX", "Unsupported stock-slot-v1 syntax", 1, 1);
+            var token = e.getCause() instanceof RecognitionException recognition
+                    ? recognition.getOffendingToken() : null;
+            throw new CompileException("STOCK_SLOT_SYNTAX", "Unsupported stock-slot-v1 syntax",
+                    token == null ? 1 : token.getLine(), token == null ? 1 : token.getCharPositionInLine() + 1);
         }
     }
 }

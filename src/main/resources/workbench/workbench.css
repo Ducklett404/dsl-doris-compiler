@@ -40,6 +40,7 @@ h1 { font-size:clamp(2rem, 4vw, 3.45rem); line-height:1.16; letter-spacing:-.045
 .tag { display:inline-flex; align-items:center; white-space:nowrap; font-size:.8rem; font-weight:700; border-radius:6px; padding:4px 7px; color:#155d53; background:#e5f2ee; }
 .editor-body { padding:0 20px 19px; }
 label { display:block; margin:11px 0 5px; color:#345161; font-size:.88rem; font-weight:740; }
+.field-hint { margin-top:5px; color:var(--muted); font-size:.825rem; line-height:1.5; overflow-wrap:anywhere; }
 input, select, textarea { width:100%; min-width:0; border:1px solid #cfdee3; border-radius:8px; }
 input, select { height:40px; color:var(--ink); background:#f8fbfc; padding:7px 10px; font-size:.94rem; }
 select { appearance:none; padding-right:30px; background-image:linear-gradient(45deg,transparent 50%,#49717c 50%),linear-gradient(135deg,#49717c 50%,transparent 50%); background-position:calc(100% - 16px) 17px,calc(100% - 11px) 17px; background-size:5px 5px; background-repeat:no-repeat; }
