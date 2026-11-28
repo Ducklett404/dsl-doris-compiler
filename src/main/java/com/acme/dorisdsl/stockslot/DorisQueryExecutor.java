@@ -8,8 +8,6 @@ import java.security.MessageDigest;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Pattern;
 
 /** Controlled execution of parameterized SELECT statements emitted by {@link StockSlotSqlCompiler}. */
@@ -34,9 +32,8 @@ public final class DorisQueryExecutor implements AutoCloseable {
 
     private final StockSlotSqlCompiler compiler;
     private final StockSlotRegistry registry;
-    private final Connection connection;
+    private final DorisSessionPool sessions;
     private final DorisExecutionPolicy policy;
-    private final ReentrantLock executionSlot = new ReentrantLock(true);
     private final String fullScanBaselineSql;
     private final String snapshotRegistryTable;
     private final ProjectDataValidation projectValidation;
@@ -52,6 +49,12 @@ public final class DorisQueryExecutor implements AutoCloseable {
 
     public DorisQueryExecutor(String jdbcUrl, String user, String password, StockSlotRegistry registry,
                               DorisExecutionPolicy policy, ProjectDataValidation projectValidation) throws SQLException {
+        this(jdbcUrl, user, password, registry, policy, projectValidation, 1);
+    }
+
+    public DorisQueryExecutor(String jdbcUrl, String user, String password, StockSlotRegistry registry,
+                              DorisExecutionPolicy policy, ProjectDataValidation projectValidation,
+                              int executionSlots) throws SQLException {
         Objects.requireNonNull(jdbcUrl, "jdbcUrl");
         Objects.requireNonNull(user, "user");
         Objects.requireNonNull(password, "password");
@@ -78,32 +81,38 @@ public final class DorisQueryExecutor implements AutoCloseable {
                 + "THEN AVG(close_price) OVER(PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 59 PRECEDING AND CURRENT ROW) ELSE NULL END AS ma60 "
                 + "FROM observed) SELECT mktcode,tgtcode FROM windowed WHERE bizdate=" + featureDate
                 + " AND ma60>1 ORDER BY mktcode,tgtcode LIMIT 100";
-        this.connection = DriverManager.getConnection(jdbcUrl, user, password);
+        this.sessions = new DorisSessionPool(executionSlots, policy.maxQueueWaitMillis(),
+                () -> openSession(jdbcUrl, user, password, executionSlots));
+    }
+
+    private Connection openSession(String jdbcUrl, String user, String password, int executionSlots) throws SQLException {
+        var connection = DriverManager.getConnection(jdbcUrl, user, password);
         try {
-            this.connection.setAutoCommit(true);
-            configureSession();
-            if (policy.requireReadOnlyAccount()) verifyReadOnlyAccount();
+            connection.setAutoCommit(true);
+            configureSession(connection, executionSlots);
+            if (policy.requireReadOnlyAccount()) verifyReadOnlyAccount(connection);
+            return connection;
         } catch (SQLException | RuntimeException | Error failure) {
-            try { this.connection.close(); }
+            try { connection.close(); }
             catch (SQLException closeFailure) { failure.addSuppressed(closeFailure); }
             throw failure;
         }
     }
 
-    private void configureSession() throws SQLException {
+    private void configureSession(Connection connection, int executionSlots) throws SQLException {
         try (var statement = connection.createStatement()) {
             statement.execute("SET enable_sql_cache=false");
+            statement.execute("SET enable_query_cache=false");
             statement.execute("SET enable_profile=true");
-            // Leave process-memory headroom for diagnostics and allocator
-            // retention in the owned four-core runtime. This changes only
-            // scheduling, not window semantics or the memory/timeout budgets.
-            statement.execute("SET parallel_pipeline_task_num=2");
+            // Concurrent sessions already provide inter-query parallelism. Limit each
+            // pipeline to one task to leave shared memory for other requests.
+            statement.execute("SET parallel_pipeline_task_num=" + (executionSlots == 1 ? 2 : 1));
             statement.execute("SET query_timeout=" + policy.queryTimeoutSeconds());
             statement.execute("SET exec_mem_limit=" + policy.maxExecutionMemoryBytes());
         }
     }
 
-    private void verifyReadOnlyAccount() throws SQLException {
+    private void verifyReadOnlyAccount(Connection connection) throws SQLException {
         var grants = new StringBuilder();
         try (var statement = connection.createStatement(); var result = statement.executeQuery("SHOW GRANTS")) {
             while (result.next()) for (int i = 1; i <= result.getMetaData().getColumnCount(); i++)
@@ -135,25 +144,16 @@ public final class DorisQueryExecutor implements AutoCloseable {
         validateGeneratedSelect(artifact.sql());
 
         long queueStart = System.nanoTime();
-        boolean locked;
-        try {
-            locked = executionSlot.tryLock(policy.maxQueueWaitMillis(), TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new DorisExecutionException(DorisExecutionException.Category.TIMEOUT, "Interrupted while waiting for execution slot", e);
-        }
-        double queueMillis = millis(System.nanoTime() - queueStart);
-        if (!locked) throw new DorisExecutionException(DorisExecutionException.Category.TIMEOUT,
-                "Execution queue wait exceeded " + policy.maxQueueWaitMillis() + " ms");
-
-        try {
+        try (var session = sessions.acquire()) {
+            double queueMillis = millis(System.nanoTime() - queueStart);
+            var connection = session.connection();
             long validationStart = System.nanoTime();
             var required = projectValidation == null ? Set.<String>of() : projectValidation.requiredSources(artifact);
-            var snapshot = projectValidation == null ? requireValidatedSnapshot(snapshotId)
+            var snapshot = projectValidation == null ? requireValidatedSnapshot(connection, snapshotId)
                     : projectValidation.verify(connection, snapshotId, required, timeoutSeconds);
             double sourceValidationMillis = millis(System.nanoTime() - validationStart);
             long explainStart = System.nanoTime();
-            var explained = explain(artifact);
+            var explained = explain(connection, artifact);
             double explainMillis = millis(System.nanoTime() - explainStart);
             if (explained.estimatedRows() < 0)
                 throw new DorisExecutionException(DorisExecutionException.Category.SECURITY_LIMIT,
@@ -162,7 +162,7 @@ public final class DorisQueryExecutor implements AutoCloseable {
                 throw new DorisExecutionException(DorisExecutionException.Category.SECURITY_LIMIT,
                         "Estimated scan rows " + explained.estimatedRows() + " exceed limit " + policy.maxEstimatedScanRows());
 
-            var quality = projectValidation == null ? null : assessCoverage(artifact, required, timeoutSeconds,
+            var quality = projectValidation == null ? null : assessCoverage(connection, artifact, required, timeoutSeconds,
                     validationStart, sourceValidationMillis, explainMillis);
 
             List<String> columns = new ArrayList<>();
@@ -210,12 +210,10 @@ public final class DorisQueryExecutor implements AutoCloseable {
             throw new DorisExecutionException(DorisExecutionException.Category.DORIS_ERROR,
                     "Doris rejected controlled query; code " + e.getErrorCode()
                             + " (SQLState " + e.getSQLState() + ")", e);
-        } finally {
-            executionSlot.unlock();
         }
     }
 
-    private DorisExecutionArtifact.DataQuality assessCoverage(StockSlotSqlArtifact artifact, Set<String> required,
+    private DorisExecutionArtifact.DataQuality assessCoverage(Connection connection, StockSlotSqlArtifact artifact, Set<String> required,
                                                                int timeout, long start, double sourceValidationMillis,
                                                                double mainExplainMillis) throws SQLException {
         var plan = artifact.coveragePlan();
@@ -223,7 +221,7 @@ public final class DorisQueryExecutor implements AutoCloseable {
                 plan.combinedSql(), plan.bindings(), false);
         validateGeneratedSelect(plan.combinedSql());
         long coverageExplainStart = System.nanoTime();
-        var estimate = explain(coverageArtifact);
+        var estimate = explain(connection, coverageArtifact);
         double availabilityExplainMillis = millis(System.nanoTime() - coverageExplainStart);
         if (estimate.estimatedRows() < 0 || estimate.estimatedRows() > policy.maxEstimatedScanRows())
             throw new DorisExecutionException(DorisExecutionException.Category.SECURITY_LIMIT, "Availability scan exceeds controlled limits");
@@ -261,7 +259,7 @@ public final class DorisQueryExecutor implements AutoCloseable {
         if (plan.inputs().stream().anyMatch(i -> i.function().endsWith("（窗口输入）")))
             limitations.add("CONS/EXIST 沿用冻结次数规则：NULL 条件不计为命中；完整观察行不足时次数结果为 NULL。另列的窗口输入检查会披露窗口内无法判定的条件，不改变次数计算结果。");
         long detailStart = System.nanoTime();
-        var details = sampleDetails(artifact, samples, timeout);
+        var details = sampleDetails(connection, artifact, samples, timeout);
         double sampleDetailsMillis = millis(System.nanoTime() - detailStart);
         limitations.add("可用性在用户条件、THEN 排名及 LIMIT 之前统计；输入为 NULL 不等于条件为假。各项缺失数量可能重叠，不可相加。样本最多 20 只；每个原因最多展示 20 个实际相关日期。每只证券最多检查 10001 条观察记录，每个输入最多 250000 步解释计算。历史不足只报告观察数，不推测缺少哪些交易日；平坦区间及零分母的相关日期不是缺失日期。跨证券查询、超限或检查失败会明确标记解释不完整，SQL 缺失标记保持有效。");
         return new DorisExecutionArtifact.DataQuality("PROJECT_SCOPED", false, projectValidation.certificateSha256(),
@@ -273,14 +271,14 @@ public final class DorisQueryExecutor implements AutoCloseable {
                         availabilityExplainMillis, missingStatisticsMillis, sampleDetailsMillis));
     }
 
-    private List<StockSlotAvailabilityDiagnostics.SampleDetail> sampleDetails(StockSlotSqlArtifact artifact,
+    private List<StockSlotAvailabilityDiagnostics.SampleDetail> sampleDetails(Connection connection, StockSlotSqlArtifact artifact,
                                                                             List<List<String>> samples, int timeout) {
         if (samples.isEmpty()) return List.of();
         var coverage = artifact.coveragePlan();
         try {
             var fetch = StockSlotAvailabilityDiagnostics.fetchPlan(coverage, registry, samples);
             validateGeneratedSelect(fetch.sql());
-            var estimate = explain(new StockSlotSqlArtifact(artifact.dslVersion(), artifact.semanticModel(), List.of(), List.of(),
+            var estimate = explain(connection, new StockSlotSqlArtifact(artifact.dslVersion(), artifact.semanticModel(), List.of(), List.of(),
                     fetch.sql(), fetch.bindings(), false));
             if (estimate.estimatedRows() < 0 || estimate.estimatedRows() > policy.maxEstimatedScanRows())
                 return StockSlotAvailabilityDiagnostics.unavailable(coverage, samples, "DETAIL_SCAN_LIMIT");
@@ -306,7 +304,7 @@ public final class DorisQueryExecutor implements AutoCloseable {
         }
     }
 
-    private Explained explain(StockSlotSqlArtifact artifact) throws SQLException {
+    private Explained explain(Connection connection, StockSlotSqlArtifact artifact) throws SQLException {
         List<String> lines = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement("EXPLAIN " + artifact.sql())) {
             statement.setQueryTimeout(policy.queryTimeoutSeconds());
@@ -328,12 +326,19 @@ public final class DorisQueryExecutor implements AutoCloseable {
     }
 
     public void ping() throws SQLException {
-        try (var statement = connection.createStatement(); var result = statement.executeQuery("SELECT 1")) {
+        try (var session = sessions.acquire(); var statement = session.connection().createStatement();
+             var result = statement.executeQuery("SELECT 1")) {
             if (!result.next() || result.getInt(1) != 1) throw new SQLException("Doris ping returned an unexpected result");
         }
     }
 
     public DorisExecutionArtifact.SnapshotVersion requireValidatedSnapshot(String snapshotId) throws SQLException {
+        try (var session = sessions.acquire()) {
+            return requireValidatedSnapshot(session.connection(), snapshotId);
+        }
+    }
+
+    private DorisExecutionArtifact.SnapshotVersion requireValidatedSnapshot(Connection connection, String snapshotId) throws SQLException {
         if (snapshotId == null || snapshotId.isBlank()) throw new IllegalArgumentException("snapshotId is required");
         String sql = "SELECT snapshot_id,contract_version,manifest_sha256 FROM " + snapshotRegistryTable + " "
                 + "WHERE snapshot_id=? AND status='VALIDATED'";
@@ -363,7 +368,7 @@ public final class DorisQueryExecutor implements AutoCloseable {
             throw new IllegalArgumentException("baseline timeoutSeconds must be 1..120");
         long start = System.nanoTime();
         List<List<String>> rows = new ArrayList<>();
-        try (var statement = connection.createStatement()) {
+        try (var session = sessions.acquire(); var statement = session.connection().createStatement()) {
             statement.setQueryTimeout(timeoutSeconds);
             try (var result = statement.executeQuery(fullScanBaselineSql)) {
                 if (!result.next()) throw new SQLException("Full-scan baseline returned no row");
@@ -511,5 +516,5 @@ public final class DorisQueryExecutor implements AutoCloseable {
     private static double millis(long nanos) { return nanos / 1_000_000.0; }
     private record Explained(long estimatedRows, List<String> lines) {}
 
-    @Override public void close() throws SQLException { connection.close(); }
+    @Override public void close() throws SQLException { sessions.close(); }
 }

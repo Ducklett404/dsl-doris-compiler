@@ -35,7 +35,7 @@ final class DorisConnectionLifecycleTest {
     @Test void sessionParallelismIsBoundedWithoutChangingConfiguredQueryBudgets() throws Exception {
         try(var driver=new TestDriver(false,"SELECT_PRIV");
             var executor=driver.open(new DorisExecutionPolicy(10,100000000,10000,2147483648L,10000,true))) {
-            assertEquals(List.of("SET enable_sql_cache=false", "SET enable_profile=true",
+            assertEquals(List.of("SET enable_sql_cache=false", "SET enable_query_cache=false", "SET enable_profile=true",
                     "SET parallel_pipeline_task_num=2", "SET query_timeout=10",
                     "SET exec_mem_limit=2147483648"),driver.sessionStatements);
             assertFalse(driver.closed.get());
@@ -47,7 +47,7 @@ final class DorisConnectionLifecycleTest {
             driver.failingStatement="SET parallel_pipeline_task_num=2";
             assertThrows(SQLException.class,()->driver.open());
             assertTrue(driver.closed.get());
-            assertEquals(List.of("SET enable_sql_cache=false", "SET enable_profile=true",
+            assertEquals(List.of("SET enable_sql_cache=false", "SET enable_query_cache=false", "SET enable_profile=true",
                     "SET parallel_pipeline_task_num=2"),driver.sessionStatements);
         }
     }

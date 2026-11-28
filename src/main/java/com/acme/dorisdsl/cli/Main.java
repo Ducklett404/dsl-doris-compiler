@@ -236,7 +236,8 @@ public final class Main implements Runnable {
         @CommandLine.Option(names = "--max-scan-rows", defaultValue = "1000000") long maxScanRows;
         @CommandLine.Option(names = "--max-return-rows", defaultValue = "1000") int maxReturnRows;
         @CommandLine.Option(names = "--max-exec-memory-bytes", defaultValue = "536870912") long maxExecMemoryBytes;
-        @CommandLine.Option(names = "--max-queue-wait-ms", defaultValue = "2000") int maxQueueWaitMillis;
+        @CommandLine.Option(names = "--max-queue-wait-ms", description = "Maximum wait for an exclusive execution session, in milliseconds") Integer maxQueueWaitMillis;
+        int defaultQueueWaitMillis() { return 2000; }
 
         String password() {
             String password = System.getenv(passwordEnv);
@@ -261,12 +262,12 @@ public final class Main implements Runnable {
 
         DorisExecutionPolicy controlledPolicy(int timeoutSeconds) {
             return new DorisExecutionPolicy(timeoutSeconds, maxScanRows, maxReturnRows,
-                    maxExecMemoryBytes, maxQueueWaitMillis, true);
+                    maxExecMemoryBytes, maxQueueWaitMillis == null ? defaultQueueWaitMillis() : maxQueueWaitMillis, true);
         }
 
-        DorisQueryExecutor controlledExecutor(int timeoutSeconds, Path projectValidation, StockSlotRegistry stock) throws Exception {
+        DorisQueryExecutor controlledExecutor(int timeoutSeconds, Path projectValidation, StockSlotRegistry stock, int executionSlots) throws Exception {
             return new DorisQueryExecutor(jdbcUrl(), user, password(), stock, controlledPolicy(timeoutSeconds),
-                    projectValidation == null ? null : com.acme.dorisdsl.stockslot.ProjectDataValidation.load(projectValidation, stock));
+                    projectValidation == null ? null : com.acme.dorisdsl.stockslot.ProjectDataValidation.load(projectValidation, stock), executionSlots);
         }
     }
 
@@ -282,7 +283,7 @@ public final class Main implements Runnable {
         @CommandLine.Option(names = {"-o", "--output"}) Path output;
 
         @Override public Integer call() {
-            try (var executor = controlledExecutor(timeoutSeconds, projectValidation, stockRegistry())) {
+            try (var executor = controlledExecutor(timeoutSeconds, projectValidation, stockRegistry(), 1)) {
                 executor.ping();
                 var result = executor.execute(Files.readString(input, StandardCharsets.UTF_8), snapshotId, timeoutSeconds, maxRows);
                 String rendered = switch (format.toLowerCase()) {
@@ -308,6 +309,9 @@ public final class Main implements Runnable {
 
     @CommandLine.Command(name = "serve-doris", description = "Start compile and controlled Doris execution HTTP APIs")
     static final class ServeDorisCommand extends DorisOptions implements Callable<Integer> {
+        @CommandLine.Option(names = "--execution-slots", defaultValue = "4",
+                description = "Number of independently configured read-only JDBC sessions (1..32, default 4)") int executionSlots;
+        @Override int defaultQueueWaitMillis() { return executionSlots > 1 ? 4000 : super.defaultQueueWaitMillis(); }
         @CommandLine.Option(names = "--project-validation", description = "Trusted project-only source validation JSON; reports query input availability") Path projectValidation;
         @CommandLine.Option(names = "--auth-token-env", defaultValue = "DSL_HTTP_TOKEN") String authTokenEnv;
         @CommandLine.Option(names = "--bind-host", defaultValue = "127.0.0.1") String bindHost;
@@ -317,7 +321,7 @@ public final class Main implements Runnable {
         @Override public Integer call() throws Exception {
             var access = BearerTokenAccess.fromEnvironment(authTokenEnv, true);
             var stock = stockRegistry();
-            try (var executor = controlledExecutor(timeoutSeconds, projectValidation, stock);
+            try (var executor = controlledExecutor(timeoutSeconds, projectValidation, stock, executionSlots);
                  var server = new CompileHttpServer(compiler(null, List.of()), new StockSlotSqlCompiler(stock),
                          (dsl, snapshot, rows) -> executor.execute(dsl, snapshot, timeoutSeconds, rows),
                          bindHost, httpPort, access, access)) {

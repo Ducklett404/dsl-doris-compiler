@@ -167,14 +167,17 @@ final class StockSlotAdvancedSqlCompiler {
         } else {
         int keep = retainedObservationRows();
         boolean prune = (retainFiniteWindowTail || splitLookups) && !historyCode && !needsFeature && keep > 0;
-        boolean deferredExtension = prune && needsExt;
+        boolean dayOnly = prune && keep == 1;
+        boolean splitHistory = prune && keep > 1 && targetDate.getYear() >= 1;
+        boolean deferredExtension = prune && !dayOnly && needsExt;
         var basic = registry.table("basic");
         var extension = registry.table("extension");
         var code = registry.table("code");
         String scanKey = needsFeature ? "features" : "basic";
         var scan = registry.table(scanKey);
-        sql = new StringBuilder("WITH history AS (\n  SELECT ")
-                .append(registry.column(scanKey, "marketCode")).append(" AS mktcode,")
+        sql = new StringBuilder(splitHistory ? "WITH recent_observations AS (\n  " : "WITH history AS (\n  ");
+        int scanStart = sql.length();
+        sql.append("SELECT ").append(registry.column(scanKey, "marketCode")).append(" AS mktcode,")
                 .append(registry.column(scanKey, "securityCode")).append(" AS tgtcode,")
                 .append(registry.column(scanKey, "tradeDate")).append(" AS bizdate");
         if (historyCode) sql.append(',').append(registry.column("code", "name")).append(" AS name,")
@@ -194,8 +197,16 @@ final class StockSlotAdvancedSqlCompiler {
                 .append(" ON ").append(registry.column("extension", "marketCode")).append('=').append(registry.column("basic", "marketCode"))
                 .append(" AND ").append(registry.column("extension", "securityCode")).append('=').append(registry.column("basic", "securityCode"))
                 .append(" AND ").append(registry.column("extension", "tradeDate")).append('=').append(registry.column("basic", "tradeDate")).append("\n");
-        sql.append("  WHERE ").append(registry.column(scanKey, "tradeDate")).append(needsFeature ? " = ?" : " <= ?");
+        String stockScan = splitHistory ? sql.substring(scanStart) : "";
+        sql.append("  WHERE ").append(registry.column(scanKey, "tradeDate")).append(needsFeature || dayOnly ? " = ?" : " <= ?");
         bindings.add(targetDate);
+        LocalDate recentStart = null;
+        if (splitHistory) {
+            recentStart = targetDate.minusDays(Math.max(40L, 3L * keep));
+            if (recentStart.getYear() < 1) recentStart = LocalDate.of(1, 1, 1);
+            sql.append(" AND ").append(registry.column("basic", "tradeDate")).append(" >= ?");
+            bindings.add(recentStart);
+        }
         String marketSql = marketPredicate(market);
         if (!marketSql.isEmpty()) sql.append("\n    AND ").append(marketSql);
         if (!scope.isEmpty() && !scope.equals("行业")) {
@@ -210,7 +221,8 @@ final class StockSlotAdvancedSqlCompiler {
         if (needsExt && !deferredExtension) plan.add(new StockSlotSqlArtifact.PlanNode("LeftJoin", extension.qualifiedName() + " on (mktcode,tgtcode,bizdate)"));
 
         String source = "history";
-        if (prune) {
+        if (splitHistory) appendRecentHistory(sql, keep, stockScan, recentStart);
+        if (prune && !dayOnly) {
             sql.append(",\nhistory_ranked AS (\n  SELECT history.*, ROW_NUMBER() OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate DESC) AS observation_rank\n  FROM history\n),\nobserved_tail AS (\n  SELECT * FROM history_ranked WHERE observation_rank<=")
                     .append(keep).append("\n)");
             source = "observed_tail";
@@ -426,6 +438,21 @@ final class StockSlotAdvancedSqlCompiler {
         sql.append("\n)");
         plan.add(new StockSlotSqlArtifact.PlanNode(kind, qualifiedTable
                 + " snapshot=" + snapshotId + " date=" + targetDate));
+    }
+
+    private void appendRecentHistory(StringBuilder sql, int keep, String stockScan, LocalDate start) {
+        // Keep the older scan independent. Materializing all history in a shared CTE
+        // would defeat storage filtering for both sides of this disjoint union.
+        sql.append(",\nshort_histories AS (\n  SELECT mktcode,tgtcode FROM recent_observations GROUP BY mktcode,tgtcode")
+                .append(" HAVING COUNT(*) < ").append(keep).append(" AND MAX(bizdate) = ?")
+                .append("\n),\nhistory AS (\n  SELECT * FROM recent_observations UNION ALL\n  ")
+                .append(stockScan).append("  WHERE ").append(registry.column("basic", "tradeDate")).append(" < ?")
+                .append(" AND EXISTS (SELECT 1 FROM short_histories k WHERE k.mktcode=").append(registry.column("basic", "marketCode"))
+                .append(" AND k.tgtcode=").append(registry.column("basic", "securityCode")).append(")\n)");
+        bindings.add(targetDate);
+        bindings.add(start);
+        plan.add(new StockSlotSqlArtifact.PlanNode("RecentHistory", "Restore older observations for active securities with fewer than "
+                + keep + " rows since " + start));
     }
 
     // A suspended candidate can need a reference price older than the target's own

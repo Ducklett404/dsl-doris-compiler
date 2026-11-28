@@ -96,6 +96,22 @@ final class ProjectDataValidationTest {
                 StockSlotSqlCompiler.AccessPathMode.PROJECT_REFERENCE).sql().contains("observation_rank<=5"));
     }
 
+    @Test void oneObservationUsesOnlyEvaluationDateAndFiniteWindowsRestoreSparseHistories() {
+        var compiler = new StockSlotSqlCompiler(registry);
+        var mode = StockSlotSqlCompiler.AccessPathMode.PROJECT_REFERENCE;
+        var rank = compiler.compile("indicator('', '', '主力净流入', '2026-04-14', '', '', '') > 0 then "
+                + "rank('', '', '收盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 10", mode);
+        assertTrue(rank.sql().contains("WHERE b.bizdate = ?"));
+        assertFalse(rank.sql().contains("history_ranked"));
+        assertTrue(rank.coveragePlan().combinedSql().contains("WHERE b.bizdate = ?"));
+
+        var ma = compiler.compile("indicator('', '', '20日均线', '2026-04-14', '', '', '') > 1", mode);
+        assertTrue(ma.sql().contains("HAVING COUNT(*) < 20 AND MAX(bizdate) = ?"));
+        assertTrue(ma.sql().contains("b.bizdate < ? AND EXISTS"));
+        assertTrue(ma.sql().contains("k.mktcode=b.mktcode AND k.tgtcode=b.tgtcode"));
+        assertTrue(ma.sql().contains("UNION ALL"));
+    }
+
     @Test void projectRsiRetainsAnExtraPriceBeforeComputingDeltas() {
         var compiler = new StockSlotSqlCompiler(registry);
         String rsi = "indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50";
@@ -158,7 +174,7 @@ final class ProjectDataValidationTest {
         assertFalse(reference.sql().contains("lookup_names AS"));
         assertEquals(reference.windowContracts(), plan.windowContracts());
         assertEquals(reference.coveragePlan().inputs(), plan.coveragePlan().inputs());
-        assertEquals(List.of("2026-04-14","10","2026-04-14","浦发银行","浦发银行","600000","600000","12"),
+        assertEquals(List.of("2026-04-14","2026-02-01","2026-04-14","2026-02-01","10","2026-04-14","浦发银行","浦发银行","600000","600000","12"),
                 plan.bindings().stream().map(Object::toString).toList());
         var coverage = plan.coveragePlan();
         assertTrue(coverage.combinedSql().contains("FROM coverage_counted WHERE bizdate = ?"));

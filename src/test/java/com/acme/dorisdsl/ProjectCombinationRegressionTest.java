@@ -108,9 +108,8 @@ final class ProjectCombinationRegressionTest {
         assertFalse(reference.sql().contains("extension_tail AS"));
         assertFalse(reference.sql().contains("observed_tail AS"));
         assertTrue(reference.sql().contains("LEFT JOIN " + extension.qualifiedName() + " e ON"));
-        assertEquals(reference.bindings(), project.bindings(), "Semijoin adds no user values or placeholders");
-        assertEquals(List.of(LocalDate.of(2026, 4, 14), LocalDate.of(2026, 4, 14),
-                BigDecimal.ONE, BigDecimal.ZERO, BigDecimal.ONE, new BigDecimal("50")), project.bindings());
+        assertEquals(List.of(LocalDate.of(2026, 4, 14), LocalDate.of(2026, 2, 13), LocalDate.of(2026, 4, 14),
+                LocalDate.of(2026, 2, 13), LocalDate.of(2026, 4, 14), BigDecimal.ONE, BigDecimal.ZERO, BigDecimal.ONE, new BigDecimal("50")), project.bindings());
         assertEquals(reference.dslVersion(), project.dslVersion());
         assertEquals(reference.semanticModel(), project.semanticModel());
         assertEquals(reference.windowContracts(), project.windowContracts());
@@ -132,7 +131,8 @@ final class ProjectCombinationRegressionTest {
             assertFalse(sql.contains("WHERE e.bizdate = ?"), "Historical extension rows cannot be restricted to evaluation date");
             assertFalse(sql.contains("WHERE `v1` IS NOT NULL"), "Missing observations must not shrink a strict window");
             assertTrue(sql.contains("NULLIF(e.ZJLXMainNetTur,-999999) AS `v1`"));
-            assertEquals(reference.bindings(), project.bindings());
+            assertEquals(reference.bindings().subList(1, reference.bindings().size()),
+                    project.bindings().subList(4, project.bindings().size()));
             assertEquals(reference.windowContracts(), project.windowContracts());
             assertFalse(reference.sql().contains("extension_tail AS"));
         }

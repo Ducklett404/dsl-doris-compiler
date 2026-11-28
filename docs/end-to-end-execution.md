@@ -8,7 +8,7 @@
 DSL
   → stock-slot-v1 解析/语义/lowering
   → 仅 SELECT 的参数化 SQL
-  → 等待单连接执行槽（有超时）
+  → 借用一条独占的只读 JDBC 会话（有等待上限）
   → 正式 VALIDATED 门禁，或显式可信本地项目来源证书
   → 参数化 EXPLAIN 与估算扫描行门禁
   → Doris Workload Policy 实际扫描量/时间门禁
@@ -30,10 +30,16 @@ DSL
 - 显式可信本地 `--project-validation` 使用按查询依赖的项目来源证书；不登记正式快照，HTTP 请求不能自行选择证书。详见 [项目验证](project-scoped-validation.md)。
 - SQL 指纹基于规范化的带 `?` SQL，不包含用户参数。
 
+## 工作台并发
+
+`serve-doris` 默认打开 4 条独立的只读 JDBC 会话，每条连接在启动时校验权限和资源设置。一次请求从快照检查到结果取回、查询 ID 与 Profile 读取都独占同一条连接。多会话模式下每条 SQL 的流水线任务并行度为 1。SQL 和查询结果缓存均关闭。
+
+`--execution-slots` 可设置 1 至 32 条会话。`--max-queue-wait-ms` 可单独设置等待可用会话的时限。工作台多会话的默认值为 4,000 ms，单会话为 2,000 ms。等待超时返回 HTTP 504。客户端的 10 秒交付目标按发送请求至收完整个响应的实际耗时验收。
+
 ## 时间口径
 
 - `compileMillis`：DSL 到 SQL 编译。
-- `queueMillis`：等待本服务单连接执行槽；不是伪造的 Doris 内部排队时间。
+- `queueMillis` 记录本服务等待可用 JDBC 会话的时长。
 - `explainMillis`：快照确认后的 EXPLAIN 及扫描量门禁。
 - `dorisExecutionMillis`：`executeQuery` 提交到结果集可读取。
 - `returnMillis`：读取、限流和构造返回股票列表。
