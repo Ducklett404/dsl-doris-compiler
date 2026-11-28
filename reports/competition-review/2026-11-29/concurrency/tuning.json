@@ -1,0 +1,349 @@
+[
+  {
+    "run": "pilot4",
+    "plan": "共享全历史 CTE，近端仅基础字段，旧扩展路径",
+    "executionSlots": 4,
+    "pipelineTasksPerSession": 2,
+    "queueWaitMs": 2000,
+    "results": [
+      {
+        "workload": "mixed",
+        "workers": 4,
+        "round": 1,
+        "attempts": 30,
+        "complete": 29,
+        "within10s": 29,
+        "over10s": 0,
+        "completeOver10s": 0,
+        "allLatency": {
+          "p95Ms": 4724.628708,
+          "maxMs": 5091.616333
+        },
+        "completeLatency": {
+          "p95Ms": 4724.628708,
+          "maxMs": 5091.616333
+        },
+        "wallSeconds": 22.254764958,
+        "attemptsPerSecond": 1.3480259196903266,
+        "correctPerSecond": 1.3030917223673157,
+        "within10sPerSecond": 1.3030917223673157,
+        "peakWorkers": 4,
+        "errors": {
+          "Doris rejected controlled query; code 1105 (SQLState HY000)": 1
+        }
+      },
+      {
+        "workload": "mixed",
+        "workers": 8,
+        "round": 1,
+        "attempts": 30,
+        "complete": 17,
+        "within10s": 17,
+        "over10s": 0,
+        "completeOver10s": 0,
+        "allLatency": {
+          "p95Ms": 6840.055875,
+          "maxMs": 7344.949333
+        },
+        "completeLatency": {
+          "p95Ms": 7344.949333,
+          "maxMs": 7344.949333
+        },
+        "wallSeconds": 14.843051042,
+        "attemptsPerSecond": 2.0211478027739576,
+        "correctPerSecond": 1.145317088238576,
+        "within10sPerSecond": 1.145317088238576,
+        "peakWorkers": 8,
+        "errors": {
+          "Execution queue wait exceeded 2000 ms": 12,
+          "Doris rejected controlled query; code 1105 (SQLState HY000)": 1
+        }
+      }
+    ]
+  },
+  {
+    "run": "pilot8",
+    "plan": "共享全历史 CTE，近端仅基础字段，旧扩展路径",
+    "executionSlots": 8,
+    "pipelineTasksPerSession": 1,
+    "queueWaitMs": 2000,
+    "results": [
+      {
+        "workload": "distinct",
+        "workers": 8,
+        "round": 1,
+        "attempts": 30,
+        "complete": 17,
+        "within10s": 14,
+        "over10s": 5,
+        "completeOver10s": 3,
+        "allLatency": {
+          "p95Ms": 12755.86775,
+          "maxMs": 16796.49625
+        },
+        "completeLatency": {
+          "p95Ms": 11779.933959,
+          "maxMs": 11779.933959
+        },
+        "wallSeconds": 29.235611875,
+        "attemptsPerSecond": 1.0261457885084884,
+        "correctPerSecond": 0.5814826134881433,
+        "within10sPerSecond": 0.47886803463729455,
+        "peakWorkers": 8,
+        "errors": {
+          "Doris rejected controlled query; code 1105 (SQLState HY000)": 13
+        }
+      },
+      {
+        "workload": "mixed",
+        "workers": 8,
+        "round": 1,
+        "attempts": 30,
+        "complete": 13,
+        "within10s": 13,
+        "over10s": 1,
+        "completeOver10s": 0,
+        "allLatency": {
+          "p95Ms": 9895.912875,
+          "maxMs": 12822.322416
+        },
+        "completeLatency": {
+          "p95Ms": 8440.849625,
+          "maxMs": 8440.849625
+        },
+        "wallSeconds": 22.667111041,
+        "attemptsPerSecond": 1.3235034648101542,
+        "correctPerSecond": 0.5735181680844001,
+        "within10sPerSecond": 0.5735181680844001,
+        "peakWorkers": 8,
+        "errors": {
+          "Doris rejected controlled query; code 1105 (SQLState HY000)": 15,
+          "Data quality differs from validated serial run": 2
+        }
+      }
+    ]
+  },
+  {
+    "run": "pilot2q",
+    "plan": "历史与近期分开扫描，近端仅基础字段，旧扩展路径",
+    "executionSlots": 2,
+    "pipelineTasksPerSession": 1,
+    "queueWaitMs": 7500,
+    "results": [
+      {
+        "workload": "distinct",
+        "workers": 8,
+        "round": 1,
+        "attempts": 30,
+        "complete": 24,
+        "within10s": 22,
+        "over10s": 2,
+        "completeOver10s": 2,
+        "allLatency": {
+          "p95Ms": 10675.357875,
+          "maxMs": 11240.919208
+        },
+        "completeLatency": {
+          "p95Ms": 10675.357875,
+          "maxMs": 11240.919208
+        },
+        "wallSeconds": 27.388816709,
+        "attemptsPerSecond": 1.0953375722194658,
+        "correctPerSecond": 0.8762700577755727,
+        "within10sPerSecond": 0.8032475529609416,
+        "peakWorkers": 8,
+        "errors": {
+          "Execution queue wait exceeded 7500 ms": 6
+        }
+      },
+      {
+        "workload": "mixed",
+        "workers": 8,
+        "round": 1,
+        "attempts": 30,
+        "complete": 30,
+        "within10s": 30,
+        "over10s": 0,
+        "completeOver10s": 0,
+        "allLatency": {
+          "p95Ms": 3957.594083,
+          "maxMs": 4470.662333
+        },
+        "completeLatency": {
+          "p95Ms": 3957.594083,
+          "maxMs": 4470.662333
+        },
+        "wallSeconds": 10.537593667,
+        "attemptsPerSecond": 2.8469497826576236,
+        "correctPerSecond": 2.8469497826576236,
+        "within10sPerSecond": 2.8469497826576236,
+        "peakWorkers": 8,
+        "errors": {}
+      }
+    ]
+  },
+  {
+    "run": "extended4",
+    "plan": "分开扫描并纳入衍生字段窗口",
+    "executionSlots": 4,
+    "pipelineTasksPerSession": 1,
+    "queueWaitMs": 2000,
+    "results": [
+      {
+        "workload": "distinct",
+        "workers": 4,
+        "round": 1,
+        "attempts": 30,
+        "complete": 30,
+        "within10s": 30,
+        "over10s": 0,
+        "completeOver10s": 0,
+        "allLatency": {
+          "p95Ms": 2278.590792,
+          "maxMs": 2367.208
+        },
+        "completeLatency": {
+          "p95Ms": 2278.590792,
+          "maxMs": 2367.208
+        },
+        "wallSeconds": 11.051292167,
+        "attemptsPerSecond": 2.7146146845689487,
+        "correctPerSecond": 2.7146146845689487,
+        "within10sPerSecond": 2.7146146845689487,
+        "peakWorkers": 4,
+        "errors": {}
+      },
+      {
+        "workload": "distinct",
+        "workers": 8,
+        "round": 1,
+        "attempts": 30,
+        "complete": 29,
+        "within10s": 29,
+        "over10s": 0,
+        "completeOver10s": 0,
+        "allLatency": {
+          "p95Ms": 3265.754,
+          "maxMs": 3785.937541
+        },
+        "completeLatency": {
+          "p95Ms": 3265.754,
+          "maxMs": 3785.937541
+        },
+        "wallSeconds": 9.545615708,
+        "attemptsPerSecond": 3.1428040807108513,
+        "correctPerSecond": 3.038043944687156,
+        "within10sPerSecond": 3.038043944687156,
+        "peakWorkers": 8,
+        "errors": {
+          "Execution queue wait exceeded 2000 ms": 1
+        }
+      },
+      {
+        "workload": "mixed",
+        "workers": 4,
+        "round": 1,
+        "attempts": 30,
+        "complete": 30,
+        "within10s": 30,
+        "over10s": 0,
+        "completeOver10s": 0,
+        "allLatency": {
+          "p95Ms": 2250.85625,
+          "maxMs": 2259.276417
+        },
+        "completeLatency": {
+          "p95Ms": 2250.85625,
+          "maxMs": 2259.276417
+        },
+        "wallSeconds": 8.976197334,
+        "attemptsPerSecond": 3.3421725128931974,
+        "correctPerSecond": 3.3421725128931974,
+        "within10sPerSecond": 3.3421725128931974,
+        "peakWorkers": 4,
+        "errors": {}
+      },
+      {
+        "workload": "mixed",
+        "workers": 8,
+        "round": 1,
+        "attempts": 30,
+        "complete": 30,
+        "within10s": 30,
+        "over10s": 0,
+        "completeOver10s": 0,
+        "allLatency": {
+          "p95Ms": 2918.471333,
+          "maxMs": 3001.997625
+        },
+        "completeLatency": {
+          "p95Ms": 2918.471333,
+          "maxMs": 3001.997625
+        },
+        "wallSeconds": 8.0068335,
+        "attemptsPerSecond": 3.7467995306758906,
+        "correctPerSecond": 3.7467995306758906,
+        "within10sPerSecond": 3.7467995306758906,
+        "peakWorkers": 8,
+        "errors": {}
+      }
+    ]
+  },
+  {
+    "run": "extended8",
+    "plan": "分开扫描并纳入衍生字段窗口",
+    "executionSlots": 8,
+    "pipelineTasksPerSession": 1,
+    "queueWaitMs": 2000,
+    "results": [
+      {
+        "workload": "distinct",
+        "workers": 8,
+        "round": 1,
+        "attempts": 30,
+        "complete": 30,
+        "within10s": 30,
+        "over10s": 0,
+        "completeOver10s": 0,
+        "allLatency": {
+          "p95Ms": 4393.818667,
+          "maxMs": 4680.091125
+        },
+        "completeLatency": {
+          "p95Ms": 4393.818667,
+          "maxMs": 4680.091125
+        },
+        "wallSeconds": 11.028892083,
+        "attemptsPerSecond": 2.7201281664766834,
+        "correctPerSecond": 2.7201281664766834,
+        "within10sPerSecond": 2.7201281664766834,
+        "peakWorkers": 8,
+        "errors": {}
+      },
+      {
+        "workload": "mixed",
+        "workers": 8,
+        "round": 1,
+        "attempts": 30,
+        "complete": 30,
+        "within10s": 30,
+        "over10s": 0,
+        "completeOver10s": 0,
+        "allLatency": {
+          "p95Ms": 3663.781166,
+          "maxMs": 3929.84325
+        },
+        "completeLatency": {
+          "p95Ms": 3663.781166,
+          "maxMs": 3929.84325
+        },
+        "wallSeconds": 8.98324275,
+        "attemptsPerSecond": 3.339551299557167,
+        "correctPerSecond": 3.339551299557167,
+        "within10sPerSecond": 3.339551299557167,
+        "peakWorkers": 8,
+        "errors": {}
+      }
+    ]
+  }
+]

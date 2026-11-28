@@ -52,6 +52,7 @@ jobs:
           python scripts/doris/test_package_project_delivery.py
           python scripts/doris/check_project_window_boundaries.py --java java --output target/project-window-boundaries-ci.json
           python scripts/doris/check_project_rsi_tail.py --java java --output target/project-rsi-boundaries-ci.json
+          python scripts/doris/test_project_recent_history.py
           python scripts/doris/check_project_availability.py --java java --output target/project-availability-ci.json
           python scripts/doris/check_project_fields.py --java java --output target/project-fields-ci.json
           python scripts/doris/check_project_combinations.py --java java --output target/project-combinations-ci.json

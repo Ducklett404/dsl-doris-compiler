@@ -1,0 +1,106 @@
+[
+  {
+    "workload": "distinct",
+    "workers": 4,
+    "round": 1,
+    "attempts": 30,
+    "complete": 11,
+    "within10s": 11,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 3965.639208,
+      "maxMs": 4072.102208
+    },
+    "completeLatency": {
+      "p95Ms": 4072.102208,
+      "maxMs": 4072.102208
+    },
+    "wallSeconds": 17.815543292,
+    "attemptsPerSecond": 1.6839228256076468,
+    "correctPerSecond": 0.6174383693894705,
+    "within10sPerSecond": 0.6174383693894705,
+    "peakWorkers": 4,
+    "errors": {
+      "Execution queue wait exceeded 2000 ms": 19
+    }
+  },
+  {
+    "workload": "distinct",
+    "workers": 8,
+    "round": 1,
+    "attempts": 30,
+    "complete": 3,
+    "within10s": 3,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 4471.162292,
+      "maxMs": 5957.331625
+    },
+    "completeLatency": {
+      "p95Ms": 5957.331625,
+      "maxMs": 5957.331625
+    },
+    "wallSeconds": 11.223974084,
+    "attemptsPerSecond": 2.6728500774752857,
+    "correctPerSecond": 0.26728500774752856,
+    "within10sPerSecond": 0.26728500774752856,
+    "peakWorkers": 8,
+    "errors": {
+      "Execution queue wait exceeded 2000 ms": 27
+    }
+  },
+  {
+    "workload": "mixed",
+    "workers": 4,
+    "round": 1,
+    "attempts": 30,
+    "complete": 5,
+    "within10s": 5,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 5813.046291,
+      "maxMs": 5924.529875
+    },
+    "completeLatency": {
+      "p95Ms": 5924.529875,
+      "maxMs": 5924.529875
+    },
+    "wallSeconds": 19.2341005,
+    "attemptsPerSecond": 1.559729814243198,
+    "correctPerSecond": 0.259954969040533,
+    "within10sPerSecond": 0.259954969040533,
+    "peakWorkers": 4,
+    "errors": {
+      "Execution queue wait exceeded 2000 ms": 25
+    }
+  },
+  {
+    "workload": "mixed",
+    "workers": 8,
+    "round": 1,
+    "attempts": 30,
+    "complete": 4,
+    "within10s": 4,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 2819.868708,
+      "maxMs": 3397.711333
+    },
+    "completeLatency": {
+      "p95Ms": 3397.711333,
+      "maxMs": 3397.711333
+    },
+    "wallSeconds": 8.320917917,
+    "attemptsPerSecond": 3.605371462529235,
+    "correctPerSecond": 0.48071619500389795,
+    "within10sPerSecond": 0.48071619500389795,
+    "peakWorkers": 8,
+    "errors": {
+      "Execution queue wait exceeded 2000 ms": 26
+    }
+  }
+]

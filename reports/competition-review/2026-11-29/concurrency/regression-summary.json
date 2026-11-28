@@ -1,0 +1,38 @@
+{
+  "regression": {
+    "HTTP": {
+      "attempts": 112,
+      "matched": 112,
+      "within10s": 112,
+      "medianMs": 468.259,
+      "p95Ms": 1493.124,
+      "maxMs": 4505.147
+    },
+    "JDBC": {
+      "attempts": 112,
+      "matched": 112,
+      "within10s": 112,
+      "medianMs": 85.538,
+      "p95Ms": 222.757,
+      "maxMs": 362.694
+    }
+  },
+  "edges": {
+    "HTTP": {
+      "attempts": 8,
+      "matched": 8,
+      "within10s": 8,
+      "medianMs": 797.185,
+      "p95Ms": 3918.566,
+      "maxMs": 3918.566
+    },
+    "JDBC": {
+      "attempts": 8,
+      "matched": 8,
+      "within10s": 8,
+      "medianMs": 509.906,
+      "p95Ms": 1249.44,
+      "maxMs": 1249.44
+    }
+  }
+}

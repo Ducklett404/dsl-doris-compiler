@@ -1,0 +1,13 @@
+{
+  "workloads": [
+    "mixed",
+    "distinct"
+  ],
+  "workers": [
+    1,
+    4,
+    8
+  ],
+  "rounds": 3,
+  "shuffleSeed": 87
+}

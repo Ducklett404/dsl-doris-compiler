@@ -1,0 +1,31 @@
+{
+  "cpuNano": 4000000000,
+  "memoryBytes": 7516192768,
+  "doris": "Apache Doris 4.1.3",
+  "arch": "arm64",
+  "java": "java version \"24\" 2025-03-18",
+  "sourceRows": {
+    "basic": 13650347,
+    "extension": 6170822,
+    "code": 5686
+  },
+  "snapshotId": "stock-20060104-20260414-v1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "containerImageId": "sha256:76839a1beea086888529b042b5bc97a2116f63108365b00faa167f015ba1934c",
+  "previousRevision": "16ee92cbee51fa7e7e36ccefc014408b481557e1",
+  "previousJarSha256": "961f181a771fb3396886bf941aaf19f089ed54fee5d0bff74a92b3d6c3cc3ca2",
+  "revision": "878f652ad7b1bfd9443be841445324c3ffdd9049",
+  "jarSha256": "011870e94e1ad9aeb22f915489717683118f1c0b6540490283e280c3bcf8790a",
+  "queueWaitMs": 4000,
+  "executionSlots": 4,
+  "pipelineTasksPerSession": 1,
+  "queryTimeoutSeconds": 10,
+  "maxReturnRows": 10000,
+  "maxEstimatedScanRows": 100000000,
+  "maxExecutionMemoryBytes": 2147483648,
+  "queryCache": false,
+  "sqlCache": false,
+  "resultReuse": false,
+  "priorQueueWaitMs": 2000,
+  "priorExecutionSlots": 1
+}

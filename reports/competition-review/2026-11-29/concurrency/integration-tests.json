@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "tests": 8,
+  "passed": 8,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "suites": [
+    {
+      "name": "com.acme.dorisdsl.DorisExplainIntegrationTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "testcases": [
+        {
+          "name": "dorisExplainsLayeredRsiSql",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "name": "com.acme.dorisdsl.stockslot.DorisControlledExecutionIntegrationTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "testcases": [
+        {
+          "name": "scanLimitRejectsBeforeExecutionAndReleasesTheQueueSlot",
+          "status": "PASS"
+        },
+        {
+          "name": "returnCapIsEnforcedAndResultResourcesRemainUsable",
+          "status": "PASS"
+        },
+        {
+          "name": "accountsWithWritePrivilegeCannotInitializeTheExecutor",
+          "status": "PASS"
+        },
+        {
+          "name": "queuedRequestTimesOutWhileFirstRequestHoldsTheSlotAndBothRecover",
+          "status": "PASS"
+        },
+        {
+          "name": "executesRealPreparedSelectOnTheValidatedSyntheticDataset",
+          "status": "PASS"
+        },
+        {
+          "name": "unvalidatedAndInjectedSnapshotIdsAreRejectedThenAnotherThreadCanExecute",
+          "status": "PASS"
+        },
+        {
+          "name": "realDatabaseTimeoutMapsToTimeoutAndTheNextRequestRecovers",
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}

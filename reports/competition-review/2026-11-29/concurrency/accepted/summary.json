@@ -1,0 +1,434 @@
+[
+  {
+    "workload": "distinct",
+    "workers": 1,
+    "round": 1,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 1141.687333,
+      "maxMs": 1182.538917
+    },
+    "completeLatency": {
+      "p95Ms": 1141.687333,
+      "maxMs": 1182.538917
+    },
+    "wallSeconds": 20.263284959,
+    "attemptsPerSecond": 1.480510196678422,
+    "correctPerSecond": 1.480510196678422,
+    "within10sPerSecond": 1.480510196678422,
+    "peakWorkers": 1,
+    "errors": {}
+  },
+  {
+    "workload": "distinct",
+    "workers": 1,
+    "round": 2,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 1073.726667,
+      "maxMs": 1164.949584
+    },
+    "completeLatency": {
+      "p95Ms": 1073.726667,
+      "maxMs": 1164.949584
+    },
+    "wallSeconds": 17.835812042,
+    "attemptsPerSecond": 1.6820092031333147,
+    "correctPerSecond": 1.6820092031333147,
+    "within10sPerSecond": 1.6820092031333147,
+    "peakWorkers": 1,
+    "errors": {}
+  },
+  {
+    "workload": "distinct",
+    "workers": 1,
+    "round": 3,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 1046.060291,
+      "maxMs": 1057.718166
+    },
+    "completeLatency": {
+      "p95Ms": 1046.060291,
+      "maxMs": 1057.718166
+    },
+    "wallSeconds": 18.810257167,
+    "attemptsPerSecond": 1.5948745268954037,
+    "correctPerSecond": 1.5948745268954037,
+    "within10sPerSecond": 1.5948745268954037,
+    "peakWorkers": 1,
+    "errors": {}
+  },
+  {
+    "workload": "distinct",
+    "workers": 4,
+    "round": 1,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 2706.485375,
+      "maxMs": 2829.831
+    },
+    "completeLatency": {
+      "p95Ms": 2706.485375,
+      "maxMs": 2829.831
+    },
+    "wallSeconds": 12.361115875,
+    "attemptsPerSecond": 2.426965356798745,
+    "correctPerSecond": 2.426965356798745,
+    "within10sPerSecond": 2.426965356798745,
+    "peakWorkers": 4,
+    "errors": {}
+  },
+  {
+    "workload": "distinct",
+    "workers": 4,
+    "round": 2,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 2433.404458,
+      "maxMs": 2491.177125
+    },
+    "completeLatency": {
+      "p95Ms": 2433.404458,
+      "maxMs": 2491.177125
+    },
+    "wallSeconds": 10.456682333,
+    "attemptsPerSecond": 2.8689788065306048,
+    "correctPerSecond": 2.8689788065306048,
+    "within10sPerSecond": 2.8689788065306048,
+    "peakWorkers": 4,
+    "errors": {}
+  },
+  {
+    "workload": "distinct",
+    "workers": 4,
+    "round": 3,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 3443.305042,
+      "maxMs": 3523.025792
+    },
+    "completeLatency": {
+      "p95Ms": 3443.305042,
+      "maxMs": 3523.025792
+    },
+    "wallSeconds": 15.346878833,
+    "attemptsPerSecond": 1.9547948691359815,
+    "correctPerSecond": 1.9547948691359815,
+    "within10sPerSecond": 1.9547948691359815,
+    "peakWorkers": 4,
+    "errors": {}
+  },
+  {
+    "workload": "distinct",
+    "workers": 8,
+    "round": 1,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 4657.433083,
+      "maxMs": 4682.340667
+    },
+    "completeLatency": {
+      "p95Ms": 4657.433083,
+      "maxMs": 4682.340667
+    },
+    "wallSeconds": 13.043738958,
+    "attemptsPerSecond": 2.2999540313247655,
+    "correctPerSecond": 2.2999540313247655,
+    "within10sPerSecond": 2.2999540313247655,
+    "peakWorkers": 8,
+    "errors": {}
+  },
+  {
+    "workload": "distinct",
+    "workers": 8,
+    "round": 2,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 3612.873542,
+      "maxMs": 3817.616584
+    },
+    "completeLatency": {
+      "p95Ms": 3612.873542,
+      "maxMs": 3817.616584
+    },
+    "wallSeconds": 10.499384625,
+    "attemptsPerSecond": 2.8573103159367306,
+    "correctPerSecond": 2.8573103159367306,
+    "within10sPerSecond": 2.8573103159367306,
+    "peakWorkers": 8,
+    "errors": {}
+  },
+  {
+    "workload": "distinct",
+    "workers": 8,
+    "round": 3,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 4552.88175,
+      "maxMs": 5058.859625
+    },
+    "completeLatency": {
+      "p95Ms": 4552.88175,
+      "maxMs": 5058.859625
+    },
+    "wallSeconds": 13.811965,
+    "attemptsPerSecond": 2.172029830657694,
+    "correctPerSecond": 2.172029830657694,
+    "within10sPerSecond": 2.172029830657694,
+    "peakWorkers": 8,
+    "errors": {}
+  },
+  {
+    "workload": "mixed",
+    "workers": 1,
+    "round": 1,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 1726.889709,
+      "maxMs": 2602.414917
+    },
+    "completeLatency": {
+      "p95Ms": 1726.889709,
+      "maxMs": 2602.414917
+    },
+    "wallSeconds": 22.228994583,
+    "attemptsPerSecond": 1.3495887044276402,
+    "correctPerSecond": 1.3495887044276402,
+    "within10sPerSecond": 1.3495887044276402,
+    "peakWorkers": 1,
+    "errors": {}
+  },
+  {
+    "workload": "mixed",
+    "workers": 1,
+    "round": 2,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 1209.497917,
+      "maxMs": 1266.438334
+    },
+    "completeLatency": {
+      "p95Ms": 1209.497917,
+      "maxMs": 1266.438334
+    },
+    "wallSeconds": 16.4147415,
+    "attemptsPerSecond": 1.8276254913913812,
+    "correctPerSecond": 1.8276254913913812,
+    "within10sPerSecond": 1.8276254913913812,
+    "peakWorkers": 1,
+    "errors": {}
+  },
+  {
+    "workload": "mixed",
+    "workers": 1,
+    "round": 3,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 1267.818209,
+      "maxMs": 1305.557875
+    },
+    "completeLatency": {
+      "p95Ms": 1267.818209,
+      "maxMs": 1305.557875
+    },
+    "wallSeconds": 17.325701291,
+    "attemptsPerSecond": 1.7315316416994782,
+    "correctPerSecond": 1.7315316416994782,
+    "within10sPerSecond": 1.7315316416994782,
+    "peakWorkers": 1,
+    "errors": {}
+  },
+  {
+    "workload": "mixed",
+    "workers": 4,
+    "round": 1,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 3628.806875,
+      "maxMs": 4271.925917
+    },
+    "completeLatency": {
+      "p95Ms": 3628.806875,
+      "maxMs": 4271.925917
+    },
+    "wallSeconds": 14.27603025,
+    "attemptsPerSecond": 2.1014245189064376,
+    "correctPerSecond": 2.1014245189064376,
+    "within10sPerSecond": 2.1014245189064376,
+    "peakWorkers": 4,
+    "errors": {}
+  },
+  {
+    "workload": "mixed",
+    "workers": 4,
+    "round": 2,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 2801.766,
+      "maxMs": 2854.396708
+    },
+    "completeLatency": {
+      "p95Ms": 2801.766,
+      "maxMs": 2854.396708
+    },
+    "wallSeconds": 12.031333917,
+    "attemptsPerSecond": 2.493489101620784,
+    "correctPerSecond": 2.493489101620784,
+    "within10sPerSecond": 2.493489101620784,
+    "peakWorkers": 4,
+    "errors": {}
+  },
+  {
+    "workload": "mixed",
+    "workers": 4,
+    "round": 3,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 2857.795,
+      "maxMs": 2888.201166
+    },
+    "completeLatency": {
+      "p95Ms": 2857.795,
+      "maxMs": 2888.201166
+    },
+    "wallSeconds": 10.330650875,
+    "attemptsPerSecond": 2.9039796584936863,
+    "correctPerSecond": 2.9039796584936863,
+    "within10sPerSecond": 2.9039796584936863,
+    "peakWorkers": 4,
+    "errors": {}
+  },
+  {
+    "workload": "mixed",
+    "workers": 8,
+    "round": 1,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 4142.76475,
+      "maxMs": 4431.651958
+    },
+    "completeLatency": {
+      "p95Ms": 4142.76475,
+      "maxMs": 4431.651958
+    },
+    "wallSeconds": 11.502493917,
+    "attemptsPerSecond": 2.6081300469684914,
+    "correctPerSecond": 2.6081300469684914,
+    "within10sPerSecond": 2.6081300469684914,
+    "peakWorkers": 8,
+    "errors": {}
+  },
+  {
+    "workload": "mixed",
+    "workers": 8,
+    "round": 2,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 3841.954042,
+      "maxMs": 4310.018417
+    },
+    "completeLatency": {
+      "p95Ms": 3841.954042,
+      "maxMs": 4310.018417
+    },
+    "wallSeconds": 10.170104208,
+    "attemptsPerSecond": 2.9498222817030157,
+    "correctPerSecond": 2.9498222817030157,
+    "within10sPerSecond": 2.9498222817030157,
+    "peakWorkers": 8,
+    "errors": {}
+  },
+  {
+    "workload": "mixed",
+    "workers": 8,
+    "round": 3,
+    "attempts": 30,
+    "complete": 30,
+    "within10s": 30,
+    "over10s": 0,
+    "completeOver10s": 0,
+    "allLatency": {
+      "p95Ms": 5194.594959,
+      "maxMs": 5322.347208
+    },
+    "completeLatency": {
+      "p95Ms": 5194.594959,
+      "maxMs": 5322.347208
+    },
+    "wallSeconds": 11.637118083,
+    "attemptsPerSecond": 2.577957857437683,
+    "correctPerSecond": 2.577957857437683,
+    "within10sPerSecond": 2.577957857437683,
+    "peakWorkers": 8,
+    "errors": {}
+  }
+]
