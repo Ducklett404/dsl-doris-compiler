@@ -53,6 +53,7 @@ final class StockSlotAdvancedSqlCompiler {
     private final List<StockSlotWindowContract> contracts = new ArrayList<>();
     private final List<StockSlotSqlArtifact.PlanNode> plan = new ArrayList<>();
     private final List<Object> bindings = new ArrayList<>();
+    private final Map<CallSpec, Lookup> lookups = new LinkedHashMap<>();
     private final List<Object> featureBindings = new ArrayList<>();
     private LocalDate targetDate;
     private String market = "";
@@ -139,6 +140,13 @@ final class StockSlotAdvancedSqlCompiler {
             post = binary.right();
         }
 
+        // A lookup outside an occurrence predicate only observes the evaluation-date universe.
+        // Keep that entire cross section until lookup values have been computed, before THEN/rank.
+        boolean splitLookups = (retainFiniteWindowTail || allowFeatureAccess) && needsHistory && !needsFeature
+                && !lookups.isEmpty() && !needsCode;
+        boolean lookupSeries = splitLookups && counts.values().stream().anyMatch(count -> containsLookup(count.comparison));
+        boolean dailyLookups = splitLookups && !lookupSeries;
+        boolean historyCode = needsCode || (!lookups.isEmpty() && !splitLookups);
         StringBuilder sql;
         if (materializedHistory) {
             sql = historicalFeatureSql();
@@ -158,7 +166,7 @@ final class StockSlotAdvancedSqlCompiler {
             appendFeatureLookup(sql,rollingFeatures.qualifiedTable(),"RollingFeatureScan");
         } else {
         int keep = retainedObservationRows();
-        boolean prune = retainFiniteWindowTail && !needsCode && !needsFeature && keep > 0;
+        boolean prune = (retainFiniteWindowTail || splitLookups) && !historyCode && !needsFeature && keep > 0;
         boolean deferredExtension = prune && needsExt;
         var basic = registry.table("basic");
         var extension = registry.table("extension");
@@ -169,7 +177,7 @@ final class StockSlotAdvancedSqlCompiler {
                 .append(registry.column(scanKey, "marketCode")).append(" AS mktcode,")
                 .append(registry.column(scanKey, "securityCode")).append(" AS tgtcode,")
                 .append(registry.column(scanKey, "tradeDate")).append(" AS bizdate");
-        if (needsCode) sql.append(',').append(registry.column("code", "name")).append(" AS name,")
+        if (historyCode) sql.append(',').append(registry.column("code", "name")).append(" AS name,")
                 .append(registry.column("code", "industry")).append(" AS hyBlkRefName");
         rawMetrics.values().stream().filter(raw -> !deferredExtension || !raw.metric.extension)
                 .forEach(raw -> sql.append(",\n    ").append(raw.metric.expression()).append(" AS `").append(raw.alias).append('`'));
@@ -179,7 +187,7 @@ final class StockSlotAdvancedSqlCompiler {
             bindings.add(targetDate);
         }
         sql.append("\n  FROM ").append(scan.qualifiedName()).append(' ').append(scan.alias()).append("\n");
-        if (needsCode) sql.append("  LEFT JOIN ").append(code.qualifiedName()).append(' ').append(code.alias())
+        if (historyCode) sql.append("  LEFT JOIN ").append(code.qualifiedName()).append(' ').append(code.alias())
                 .append(" ON ").append(registry.column("code", "marketCode")).append('=').append(registry.column(scanKey, "marketCode"))
                 .append(" AND ").append(registry.column("code", "securityCode")).append('=').append(registry.column(scanKey, "securityCode")).append("\n");
         if (needsExt && !deferredExtension) sql.append("  LEFT JOIN ").append(extension.qualifiedName()).append(' ').append(extension.alias())
@@ -198,7 +206,7 @@ final class StockSlotAdvancedSqlCompiler {
         }
         sql.append("\n)");
         plan.add(new StockSlotSqlArtifact.PlanNode(needsFeature ? "FeatureScan" : "HistoryScan", scan.qualifiedName() + " through " + targetDate));
-        if (needsCode) plan.add(new StockSlotSqlArtifact.PlanNode("CodeJoin", code.qualifiedName() + " on (mktcode,tgtcode)"));
+        if (historyCode || splitLookups) plan.add(new StockSlotSqlArtifact.PlanNode("CodeJoin", code.qualifiedName() + " on (mktcode,tgtcode)"));
         if (needsExt && !deferredExtension) plan.add(new StockSlotSqlArtifact.PlanNode("LeftJoin", extension.qualifiedName() + " on (mktcode,tgtcode,bizdate)"));
 
         String source = "history";
@@ -265,11 +273,17 @@ final class StockSlotAdvancedSqlCompiler {
             sql.append("\n  FROM historical_extrema a\n)");
             plan.add(new StockSlotSqlArtifact.PlanNode("HistoricalAggregate", "MIN/MAX through evaluation date grouped by (mktcode,tgtcode)"));
         } else {
+            if (lookupSeries) appendLookupSeries(sql);
             sql.append(",\nfeatures AS (\n  SELECT ").append(source).append(".*");
-            for (CallSpec spec : uniqueCalls())
-                if (!spec.rank) sql.append(",\n    ").append(spec.expression).append(" AS `").append(spec.alias).append('`');
-            bindings.addAll(featureBindings);
-            sql.append("\n  FROM ").append(source).append("\n)");
+            for (CallSpec spec : uniqueCalls()) {
+                if (spec.rank || (dailyLookups && lookups.containsKey(spec))) continue;
+                String expression = lookupSeries && lookups.containsKey(spec) ? "lookup_series.`" + spec.alias + "`" : spec.expression;
+                sql.append(",\n    ").append(expression).append(" AS `").append(spec.alias).append('`');
+            }
+            if (!splitLookups) bindings.addAll(featureBindings);
+            sql.append("\n  FROM ").append(source);
+            if (lookupSeries) sql.append(" LEFT JOIN lookup_series ON lookup_series.lookup_date=").append(source).append(".bizdate");
+            sql.append("\n)");
             if (uniqueCalls().stream().anyMatch(c -> !c.rank)) plan.add(new StockSlotSqlArtifact.PlanNode("Window", contracts.size() + " contract(s)"));
         }
         }
@@ -288,10 +302,12 @@ final class StockSlotAdvancedSqlCompiler {
 
         int currentRowsOffset = sql.length();
         String historySource = source;
-        sql.append(",\ncurrent_rows AS (\n  SELECT * FROM ").append(source);
-        if (aggregateHistory) sql.append(" WHERE has_current=1");
-        else { sql.append(" WHERE bizdate = ?"); bindings.add(targetDate); }
-        sql.append("\n)");
+        appendCurrentRows(sql, "current_rows", source, aggregateHistory, dailyLookups);
+        if (!aggregateHistory) bindings.add(targetDate);
+        if (dailyLookups) {
+            bindings.addAll(featureBindings);
+            plan.add(new StockSlotSqlArtifact.PlanNode("EvaluationDateLookup", "Exact code or name over the complete evaluation-date universe"));
+        }
         source = "current_rows";
         plan.add(new StockSlotSqlArtifact.PlanNode("EvaluationDateFilter", targetDate.toString()));
 
@@ -316,7 +332,8 @@ final class StockSlotAdvancedSqlCompiler {
                         "完整 " + count.horizon + " 条观察记录的条件输入", alias,
                         count.comparison, "COUNT_INPUT", count.horizon));
             }
-            diagnostic.append("\n  FROM ").append(historySource).append("\n),\ncoverage_current_rows AS (\n  SELECT * FROM coverage_counted WHERE bizdate=?\n)");
+            diagnostic.append("\n  FROM ").append(historySource).append("\n)");
+            appendCurrentRows(diagnostic, "coverage_current_rows", "coverage_counted", false, dailyLookups);
             coveragePrefix = diagnostic.toString();
             source = "coverage_current_rows";
         }
@@ -411,6 +428,74 @@ final class StockSlotAdvancedSqlCompiler {
                 + " snapshot=" + snapshotId + " date=" + targetDate));
     }
 
+    // A suspended candidate can need a reference price older than the target's own
+    // retained tail. Build target series independently through the evaluation date.
+    private void appendLookupSeries(StringBuilder sql) {
+        var basic = registry.table("basic");
+        var code = registry.table("code");
+        String date = registry.column("basic", "tradeDate");
+        String marketKey = registry.column("basic", "marketCode");
+        String stockKey = registry.column("basic", "securityCode");
+        String target = "(" + stockKey + "=? OR " + registry.column("code", "name") + "=?)";
+        sql.append(",\nlookup_series AS (\n  SELECT ").append(date).append(" AS lookup_date");
+        for (var entry : lookups.entrySet()) {
+            var lookup = entry.getValue();
+            sql.append(",\n    ").append(lookup.aggregate).append("(CASE WHEN ").append(target)
+                    .append(" THEN ").append(lookup.metric.expression).append(" END) AS `").append(entry.getKey().alias).append('`');
+            bindings.add(lookup.keyword);
+            bindings.add(lookup.keyword);
+        }
+        sql.append("\n  FROM ").append(basic.qualifiedName()).append(' ').append(basic.alias())
+                .append(" LEFT JOIN ").append(code.qualifiedName()).append(' ').append(code.alias())
+                .append(" ON ").append(registry.column("code", "marketCode")).append('=').append(marketKey)
+                .append(" AND ").append(registry.column("code", "securityCode")).append('=').append(stockKey);
+        if (lookups.values().stream().anyMatch(lookup -> lookup.metric.extension)) {
+            var ext = registry.table("extension");
+            sql.append(" LEFT JOIN ").append(ext.qualifiedName()).append(' ').append(ext.alias())
+                    .append(" ON ").append(registry.column("extension", "marketCode")).append('=').append(marketKey)
+                    .append(" AND ").append(registry.column("extension", "securityCode")).append('=').append(stockKey)
+                    .append(" AND ").append(registry.column("extension", "tradeDate")).append('=').append(date);
+        }
+        sql.append("\n  WHERE ").append(date).append(" <= ?");
+        bindings.add(targetDate);
+        String markets = marketPredicate(market);
+        if (!markets.isEmpty()) sql.append(" AND ").append(markets);
+        var targets = new ArrayList<String>();
+        for (String keyword : lookups.values().stream().map(Lookup::keyword).distinct().toList()) {
+            targets.add(target);
+            bindings.add(keyword);
+            bindings.add(keyword);
+        }
+        sql.append(" AND (").append(String.join(" OR ", targets)).append(")\n  GROUP BY ").append(date).append("\n)");
+        plan.add(new StockSlotSqlArtifact.PlanNode("HistoricalLookup", "Aggregate matching securities by observed trade date before joining candidate windows"));
+    }
+
+    private void appendCurrentRows(StringBuilder sql, String result, String source, boolean aggregateHistory,
+                                   boolean dailyLookups) {
+        String current = dailyLookups ? "lookup_universe" : result;
+        sql.append(",\n").append(current).append(" AS (\n  SELECT * FROM ").append(source)
+                .append(aggregateHistory ? " WHERE has_current=1" : " WHERE bizdate = ?").append("\n)");
+        if (!dailyLookups) return;
+        var code = registry.table("code");
+        sql.append(",\nlookup_names AS (\n  SELECT u.*,").append(registry.column("code", "name"))
+                .append(" AS name FROM lookup_universe u LEFT JOIN ").append(code.qualifiedName()).append(' ').append(code.alias())
+                .append(" ON ").append(registry.column("code", "marketCode")).append("=u.mktcode AND ")
+                .append(registry.column("code", "securityCode")).append("=u.tgtcode\n)")
+                .append(",\n").append(result).append(" AS (\n  SELECT lookup_names.*");
+        for (CallSpec lookup : lookups.keySet())
+            sql.append(",\n    ").append(lookup.expression).append(" AS `").append(lookup.alias).append('`');
+        sql.append("\n  FROM lookup_names\n)");
+    }
+
+    private boolean containsLookup(StockSlotAst.Expr expression) {
+        return switch (expression) {
+            case StockSlotAst.FunctionCall call -> lookups.containsKey(calls.get(call));
+            case StockSlotAst.Binary binary -> containsLookup(binary.left()) || containsLookup(binary.right());
+            case StockSlotAst.Unary unary -> containsLookup(unary.operand());
+            default -> false;
+        };
+    }
+
     private void collect(StockSlotAst.Expr expression) {
         switch (expression) {
             case StockSlotAst.FunctionCall call -> collectCall(call);
@@ -437,7 +522,7 @@ final class StockSlotAdvancedSqlCompiler {
         priceRows.put(call, requiredObservationRows(call));
     }
 
-    // Cross-sectional lookups and unbounded windows must retain their complete history.
+    // Section-wide history dependencies are also checked before pruning.
     private int requiredObservationRows(StockSlotAst.FunctionCall call) {
         return switch (registry.function(call.name()).lowering().kind()) {
             case INDICATOR -> {
@@ -450,7 +535,7 @@ final class StockSlotAdvancedSqlCompiler {
             }
             case RANGE_WINDOW -> { var p = period(arg(call, 3, "period")); yield p.unbounded ? 0 : p.length; }
             case PAIR_WINDOW -> registry.function(call.name()).lowering().parameters().get("mode").equals("CLOSE_TOGETHER") ? 1 : 2;
-            case RANK -> 1;
+            case RANK, QUERY_DATA -> 1;
             default -> 0;
         };
     }
@@ -558,7 +643,6 @@ final class StockSlotAdvancedSqlCompiler {
     }
 
     private void queryData(StockSlotAst.FunctionCall call) {
-        needsCode = true;
         String keyword = arg(call, 1, "keywords");
         if (keyword.isEmpty() || keyword.contains("|") || keyword.contains("&") || keyword.contains("^"))
             fail("EXECUTION_QUERY_TARGET", "queryData requires one exact security code or name");
@@ -570,6 +654,7 @@ final class StockSlotAdvancedSqlCompiler {
         featureBindings.add(keyword);
         String expression = agg + "(CASE WHEN tgtcode=? OR name=? THEN `" + raw.alias + "` END) OVER (PARTITION BY bizdate)";
         addFeature(call, expression);
+        lookups.put(calls.get(call), new Lookup(keyword, agg, raw.metric));
         contracts.add(new StockSlotWindowContract("queryData:" + agg, List.of("bizdate"), List.of(),
                 "CROSS_SECTION", 1, "NOT_APPLICABLE", "NULL_IF_TARGET_MISSING", "IGNORE_NULL_INPUTS", false));
     }
@@ -929,6 +1014,7 @@ final class StockSlotAdvancedSqlCompiler {
     private static void fail(String code, String message) { throw new CompileException(code, message, 1, 1); }
 
     private record Metric(String expression, boolean extension) {}
+    private record Lookup(String keyword, String aggregate, Metric metric) {}
     private record RawMetric(String alias, Metric metric) {}
     private record CallSpec(String alias, String expression, boolean rank) {}
     private record HistoricalExtremum(String rawAlias, String function) {}

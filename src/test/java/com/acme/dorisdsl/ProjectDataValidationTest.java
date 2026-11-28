@@ -128,11 +128,40 @@ final class ProjectDataValidationTest {
         assertFalse(compiler.compile(dsl, StockSlotSqlCompiler.AccessPathMode.FULL_SCAN_REFERENCE).sql().contains("observed_tail"));
     }
 
-    @Test void crossSectionAndUnboundedMixedInputsRetainFullHistory() {
+    @Test void unboundedWindowKeepsHistoryAndCountedLookupUsesDateSpecificTargets() {
         var compiler = new StockSlotSqlCompiler(registry);
-        String rsi = "indicator('', '', 'RSI(5)', '2026-04-14', '', '', '') > 50";
-        for (String suffix : List.of(" and record_high('', '', '收盘价', '历史', '2026-04-14', '', '', '')",
-                " and queryData('', '600000', '收盘价', '2026-04-14', '')>1"))
-            assertFalse(compiler.compile(rsi+suffix, StockSlotSqlCompiler.AccessPathMode.PROJECT_REFERENCE).sql().contains("observed_tail"));
+        String rsi = "indicator('', '', 'RSI(5)', '2026-04-14', '', '', '')";
+        String lookup = "queryData('', '600000', '收盘价', '2026-04-14', '')";
+        var unbounded = compiler.compile(rsi+" > 50 and record_high('', '', '收盘价', '历史', '2026-04-14', '', '', '')",
+                StockSlotSqlCompiler.AccessPathMode.PROJECT_REFERENCE);
+        assertFalse(unbounded.sql().contains("observed_tail"));
+        String dsl = rsi.replace("'', '')", "'', 'EXIST>=3日')") + " > " + lookup;
+        var plan = compiler.compile(dsl, StockSlotSqlCompiler.AccessPathMode.PROJECT_REFERENCE);
+        assertTrue(plan.sql().contains("observation_rank<=25"));
+        assertTrue(plan.sql().contains("GROUP BY b.bizdate"));
+        assertTrue(plan.sql().contains("LEFT JOIN lookup_series ON lookup_series.lookup_date="));
+        assertFalse(plan.sql().contains("lookup_names"));
+        assertFalse(compiler.compile(dsl, StockSlotSqlCompiler.AccessPathMode.FULL_SCAN_REFERENCE).sql().contains("lookup_series"));
+    }
+
+    @Test void currentLookupsUseWholeDayAfterHistoricalCountsAndBeforeRanking() {
+        String dsl = "indicator('沪', '', '5日均线', '2026-04-14', '', '', 'EXIST>=6日') > 10 and "
+                + "queryData('沪', '浦发银行', '收盘价', '2026-04-14', 'AVG') >= "
+                + "queryData('沪', '600000', '收盘价', '2026-04-14', '') then "
+                + "rank('沪', '', '收盘价', 'asc:dense_rank', '2026-04-14', '', '', '') <= 12";
+        var compiler = new StockSlotSqlCompiler(registry);
+        var plan = compiler.compile(dsl, StockSlotSqlCompiler.AccessPathMode.PROJECT_REFERENCE);
+        var reference = compiler.compile(dsl, StockSlotSqlCompiler.AccessPathMode.FULL_SCAN_REFERENCE);
+        assertTrue(plan.sql().contains("observation_rank<=24"));
+        assertTrue(plan.sql().contains("FROM counted WHERE bizdate = ?"));
+        assertTrue(plan.sql().indexOf("lookup_names AS") < plan.sql().indexOf("prefiltered AS"));
+        assertFalse(reference.sql().contains("lookup_names AS"));
+        assertEquals(reference.windowContracts(), plan.windowContracts());
+        assertEquals(reference.coveragePlan().inputs(), plan.coveragePlan().inputs());
+        assertEquals(List.of("2026-04-14","10","2026-04-14","浦发银行","浦发银行","600000","600000","12"),
+                plan.bindings().stream().map(Object::toString).toList());
+        var coverage = plan.coveragePlan();
+        assertTrue(coverage.combinedSql().contains("FROM coverage_counted WHERE bizdate = ?"));
+        assertEquals(coverage.bindings().size(), coverage.combinedSql().chars().filter(c -> c=='?').count());
     }
 }
