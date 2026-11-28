@@ -1,0 +1,28 @@
+{
+  "jarSha256": "de7b38388af9ebb0158e41e17963bb1e07dfaa7693cdec2983f4b1a9e602ba98",
+  "configCheck": {
+    "changedJavaLines": 0,
+    "sameJarBeforeAndAfter": true,
+    "defaultRegistryRejected": true,
+    "extendedRegistryAccepted": true,
+    "scaledSqlAndBoundThresholdChecked": true
+  },
+  "nativeDorisComparedToCsv": {
+    "orderedRowsEqual": true,
+    "counts": {
+      "original": 306,
+      "registered": 306,
+      "expected": 306
+    },
+    "digestEncoding": "SHA-256 of UTF-8 compact JSON array, preserving row order",
+    "orderedRowsSha256": {
+      "original": "b6d113cd70a4c246d1b430aa9aded46cee8173fed73e24851f938ef83dc7012f",
+      "registered": "b6d113cd70a4c246d1b430aa9aded46cee8173fed73e24851f938ef83dc7012f",
+      "expected": "b6d113cd70a4c246d1b430aa9aded46cee8173fed73e24851f938ef83dc7012f"
+    }
+  },
+  "archiveEntrySha256": {
+    "配置扩展/result.json": "76498c54fc539bba85a451278073c6a9536ad85140c3717f57c00424cdd7af7f",
+    "扩展原生结果.json": "a48c346cbdfec8c45813c2fb7024df9be1b240e03bf898e8296fcde2fc13e358"
+  }
+}

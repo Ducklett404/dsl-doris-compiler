@@ -1,11 +1,12 @@
 # 文档索引
 
-项目说明统一在 `docs/`，测量结果与验收证据放在 `reports/`。当前结论统一见 [项目状态](project-status.md)与[赛题对照](delivery/competition-readiness.md)。从 [交付清单](delivery/README.md)、[当前自测报告](delivery/self-test.md)和[目录说明](project-layout.md)开始阅读。
+项目说明统一在 `docs/`，测量结果与验收证据放在 `reports/`。当前结论统一见 [项目状态](project-status.md)与[赛题对照](delivery/competition-readiness.md)。从 [交付清单](delivery/README.md)、[10 月构建自测](delivery/self-test.md)和[目录说明](project-layout.md)开始阅读。
 
 | 主题 | 文档入口 |
 |---|---|
+| 五项指标、受测版本与原始样本 | [参赛验收总览](../reports/competition-review/2026-11-29/README.md) |
 | 当前状态与比赛要求 | [项目状态](project-status.md)、[赛题对照](delivery/competition-readiness.md) |
-| 交付与当前验证 | [交付清单](delivery/README.md)、[当前自测](delivery/self-test.md) |
+| 交付与当前验证 | [交付清单](delivery/README.md)、[10 月构建自测](delivery/self-test.md) |
 | 项目结构与运行 | [目录说明](project-layout.md)、[运行手册](runtime-guide.md)、[演示说明](final-demo.md) |
 | 编译器设计 | [架构](compiler-architecture.md)、[规则引擎](declarative-rule-engine.md)、[执行链路](end-to-end-execution.md) |
 | 指标与扩展 | [注册表](stock-slot-registry-v1.md)、[函数语义](stock-slot-function-semantics-v1.md)、[插件开发](registry-plugin-guide.md) |

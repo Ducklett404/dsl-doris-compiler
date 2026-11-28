@@ -2,10 +2,7 @@
 
 将正式选股槽位 DSL 编译为参数化 Doris SQL，提供类型检查、窗口与排名计算、受控查询执行、结果解释和可追溯的测试／交付流程。源码入口为 `main`，`competition-v1.0` 已合并。
 
-**跨证券与窗口查询已完成专项优化。** 在同一原生 Doris 快照上，全部 112 条复杂 DSL 均在工作台和主 SQL 两个入口于 10 秒内返回正确名单。原先失败集中的 21 条组合在工作台由 6/21 提高到 21/21，三轮 63 次最慢 4.150 秒。正式赛事正确率待评。[专项验收](reports/competition-review/2026-11-29/lookup-window/验收报告.md) · [复现说明](reports/competition-review/2026-11-29/lookup-window/复现说明.md)
-
-**2026-11-29 随包版已在原生 Doris 复测。** 112 条复杂主 SQL 中 102 条完整匹配，101 条在 10 秒内返回正确名单。正式快照门禁仍受数据契约限制。[验收报告](reports/competition-review/2026-11-29/验收报告.md) · [复现说明](reports/competition-review/2026-11-29/复现说明.md)
-2026-10-10 本机重建：342 项 Java 测试中 334 通过、8 项真实 Doris 集成测试跳过，零失败、零错误。历史数据和性能报告按原批次使用，不作为新 JAR 的实时结果。
+**参赛验收（2026-11-29）。** 跨证券窗口优化版在 112 条复杂 DSL 上均返回完整正确名单，串行工作台最慢 5.099 秒。五项赛题指标的受测版本、随包版对照、并发结果和正式门禁状态汇总在同一入口。[验收总览与离线核对命令](reports/competition-review/2026-11-29/README.md)
 
 ## 阅读入口
 
@@ -13,8 +10,8 @@
 |---|---|
 | 查看统一状态与证据日期 | [项目状态](docs/project-status.md) |
 | 对照比赛要求、准备提交 | [赛题要求与证据对照](docs/delivery/competition-readiness.md) |
-| 本机提交材料第3至6项 | [源码同级的提交文档](../提交文档/README.md)，独立于本源码仓库保存 |
-| 取得 JAR、源码包与自测记录 | [交付清单](docs/delivery/README.md)、[当前自测](docs/delivery/self-test.md) |
+| 查找报告、用例和逐次结果 | [原生 Doris 验收目录](reports/competition-review/2026-11-29/) |
+| 取得 JAR、源码包与自测记录 | [交付清单](docs/delivery/README.md)、[10 月构建自测](docs/delivery/self-test.md) |
 | 了解实际支持范围 | [能力说明](docs/project-capabilities-v1.md)、[冻结范围](docs/phase1-data-indicator-scope-v1.md) |
 | 构建、运行和展示 | [运行手册](docs/runtime-guide.md)、[演示说明](docs/final-demo.md) |
 | 浏览文档与目录 | [文档索引](docs/README.md)、[目录说明](docs/project-layout.md) |

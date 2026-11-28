@@ -1,22 +1,22 @@
 # 项目交付清单
 
-整理日期：2026-10-10。本轮文档修改后需重新绑定源码身份并生成交付包；下列已记录自测不因此变成新批次真实验收。`competition-v1.0` 已合并到 `main`，当前项目入口和历史证据分开说明。统一状态见 [项目状态](../project-status.md)，提交要求见 [赛题对照](competition-readiness.md)。
+11 月 29 日的原生 Doris 测试覆盖随包版和跨证券窗口优化版。验收总览列出每个赛题指标对应的版本、原始样本和复核命令。[验收总览](../../reports/competition-review/2026-11-29/README.md) · [赛题对照](competition-readiness.md)
 
 | 交付内容 | 入口 | 当前状态 |
 |---|---|---|
 | 比赛要求与统一状态 | [赛题对照](competition-readiness.md)、[项目状态](../project-status.md) | 实现、历史证据、当前缺口分别披露 |
-| 本机提交材料第3至6项 | [技术报告 数据说明 算法说明 测试结果与案例](../../../提交文档/README.md) | 位于揭榜挂帅目录下，与源码同级；含Word、Markdown、辅助脚本及生成记录，需单独提交 |
+| 技术报告、数据说明、算法说明、测试结果与案例 | 本机源码同级目录 `提交文档/` | Word 提交材料单独保存；GitHub 上的实测结果见[验收目录](../../reports/competition-review/2026-11-29/) |
 | 项目概览与目录 | [README](../../README.md)、[目录说明](../project-layout.md) | 已整理 |
 | 源码与测试 | `src/`、`executor-doris/` | 已合入 main |
 | Windows／Unix 构建 | `mvnw.cmd`／`mvnw`，`scripts/build-test-start.ps1` | Java 21、Maven 3.9+ |
-| 当前自测与 JAR 身份 | [当前自测报告](self-test.md) | 334 项通过、8 项真实数据库测试未运行 |
+| 构建测试与 JAR 身份 | [专项构建与数据身份](../../reports/competition-review/2026-11-29/lookup-window/environment.json)、[10 月构建自测](self-test.md) | 11 月专项主模块有 336 项在常规构建中通过，另 8 项在真实 Doris 集成环境通过 |
 | CLI／HTTP／Docker | [运行手册](../runtime-guide.md) | 可构建、可演示；数据库需准备环境 |
 | 架构与扩展 | [编译器架构](../compiler-architecture.md)、[插件指南](../registry-plugin-guide.md) | 已实现 |
 | 项目能力与语义边界 | [能力说明](../project-capabilities-v1.md)、[冻结范围](../phase1-data-indicator-scope-v1.md) | 以冻结范围为准 |
 | 示例 | `examples/project-basic.dsl`、`examples/final-demo-complex.dsl`、`examples/basic.dsl` | 本轮 JAR 编译通过 |
 | 项目便携验收与打包 | `scripts/doris/run_project_acceptance.py`、`scripts/doris/package_project_delivery.py` | 按源码与 JAR 哈希绑定证据 |
 | GitHub 可下载 JAR／ZIP | `.github/workflows/project-delivery.yml` | 推送后自动构建，成功运行生成 Artifacts |
-| 真实数据与正式验收 | [项目验收说明](../project-scoped-validation.md)、[正式问题路线图](../正式验收问题解决路线图.md) | 当前重建未复测；正式验收限制继续保留 |
+| 真实数据与正式验收 | [项目验收说明](../project-scoped-validation.md)、[正式问题路线图](../正式验收问题解决路线图.md) | 项目复杂查询已在真实 Doris 复测；赛事正式门禁执行 0 例 |
 | 历史测试与诊断 | `reports/`、`docs/history/` | 保留原日期和原工件身份，不作为本轮结果 |
 
 ## 取得可运行成果
