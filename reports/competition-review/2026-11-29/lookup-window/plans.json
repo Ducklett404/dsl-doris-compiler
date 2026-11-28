@@ -1,0 +1,135 @@
+[
+  {
+    "path": "baseline",
+    "case": "complex-2026-04-14-frequency-ma-rank",
+    "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,c.name AS name,c.hyBlkRefName AS hyBlkRefName,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ?\n    AND (b.mktcode=1 OR b.mktcode=0 OR b.mktcode=103)\n),\nfeatures AS (\n  SELECT history.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)=5 THEN AVG(CAST(`v1` AS DECIMAL(38,18))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`,\n    `v1` AS `f2`,\n    MAX(CASE WHEN tgtcode=? OR name=? THEN `v1` END) OVER (PARTITION BY bizdate) AS `f3`\n  FROM history\n),\npredicates AS (\n  SELECT features.*,\n    (`f1` > ?) AS `pc1`\n  FROM features\n),\ncounted AS (\n  SELECT predicates.*,\n    CASE WHEN COUNT(*) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)=20 THEN (SUM(CASE WHEN `pc1` THEN 1 ELSE 0 END) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)>=6) ELSE NULL END AS `c1`\n  FROM predicates\n),\ncurrent_rows AS (\n  SELECT * FROM counted WHERE bizdate = ?\n),\nprefiltered AS (\n  SELECT * FROM current_rows WHERE (`c1` AND (`f2` >= `f3`))\n),\nrank_input AS (\n  SELECT * FROM prefiltered WHERE `v1` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    DENSE_RANK() OVER (ORDER BY `v1` ASC) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode,tgtcode\nFROM ranked\nWHERE (`r1` <= ?)\nORDER BY `r1`,mktcode,tgtcode\nLIMIT 9;",
+    "bindings": [
+      "2026-04-14",
+      "600000",
+      "600000",
+      10,
+      "2026-04-14",
+      12
+    ],
+    "logicalPlan": null
+  },
+  {
+    "path": "optimized",
+    "case": "complex-2026-04-14-frequency-ma-rank",
+    "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n    AND (b.mktcode=1 OR b.mktcode=0 OR b.mktcode=103)\n),\nhistory_ranked AS (\n  SELECT history.*, ROW_NUMBER() OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate DESC) AS observation_rank\n  FROM history\n),\nobserved_tail AS (\n  SELECT * FROM history_ranked WHERE observation_rank<=24\n),\nfeatures AS (\n  SELECT observed_tail.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)=5 THEN AVG(CAST(`v1` AS DECIMAL(38,18))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`,\n    `v1` AS `f2`\n  FROM observed_tail\n),\npredicates AS (\n  SELECT features.*,\n    (`f1` > ?) AS `pc1`\n  FROM features\n),\ncounted AS (\n  SELECT predicates.*,\n    CASE WHEN COUNT(*) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)=20 THEN (SUM(CASE WHEN `pc1` THEN 1 ELSE 0 END) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)>=6) ELSE NULL END AS `c1`\n  FROM predicates\n),\nlookup_universe AS (\n  SELECT * FROM counted WHERE bizdate = ?\n),\nlookup_names AS (\n  SELECT u.*,c.name AS name FROM lookup_universe u LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=u.mktcode AND c.tgtcode=u.tgtcode\n),\ncurrent_rows AS (\n  SELECT lookup_names.*,\n    MAX(CASE WHEN tgtcode=? OR name=? THEN `v1` END) OVER (PARTITION BY bizdate) AS `f3`\n  FROM lookup_names\n),\nprefiltered AS (\n  SELECT * FROM current_rows WHERE (`c1` AND (`f2` >= `f3`))\n),\nrank_input AS (\n  SELECT * FROM prefiltered WHERE `v1` IS NOT NULL\n),\nranked AS (\n  SELECT rank_input.*,\n    DENSE_RANK() OVER (ORDER BY `v1` ASC) AS `r1`\n  FROM rank_input\n)\nSELECT mktcode,tgtcode\nFROM ranked\nWHERE (`r1` <= ?)\nORDER BY `r1`,mktcode,tgtcode\nLIMIT 9;",
+    "bindings": [
+      "2026-04-14",
+      10,
+      "2026-04-14",
+      "600000",
+      "600000",
+      12
+    ],
+    "logicalPlan": [
+      {
+        "kind": "HistoryScan",
+        "detail": "newzl.v_hsj_stock_hq_basic through 2026-04-14"
+      },
+      {
+        "kind": "CodeJoin",
+        "detail": "newzl.hsj_stock_code_info on (mktcode,tgtcode)"
+      },
+      {
+        "kind": "ObservedTail",
+        "detail": "Keep the latest 24 actual observed rows per security, including NULLs and predecessors required by nested occurrence windows"
+      },
+      {
+        "kind": "Window",
+        "detail": "4 contract(s)"
+      },
+      {
+        "kind": "OccurrenceWindow",
+        "detail": "1 CONS/EXIST expression(s)"
+      },
+      {
+        "kind": "EvaluationDateLookup",
+        "detail": "Exact code or name over the complete evaluation-date universe"
+      },
+      {
+        "kind": "EvaluationDateFilter",
+        "detail": "2026-04-14"
+      },
+      {
+        "kind": "Filter",
+        "detail": "then precondition before ranking"
+      },
+      {
+        "kind": "NullFilter",
+        "detail": "exclude NULL rank metrics"
+      },
+      {
+        "kind": "Rank",
+        "detail": "[DENSE_RANK]"
+      },
+      {
+        "kind": "Sort",
+        "detail": "rank,mktcode,tgtcode"
+      },
+      {
+        "kind": "CardinalityConstraint",
+        "detail": "0,9"
+      },
+      {
+        "kind": "Project",
+        "detail": "mktcode,tgtcode"
+      }
+    ]
+  },
+  {
+    "path": "historical predicate",
+    "case": "count-name",
+    "sql": "WITH history AS (\n  SELECT b.mktcode AS mktcode,b.tgtcode AS tgtcode,b.bizdate AS bizdate,\n    b.closePrice AS `v1`\n  FROM newzl.v_hsj_stock_hq_basic b\n  WHERE b.bizdate <= ?\n    AND (b.mktcode=1 OR b.mktcode=0 OR b.mktcode=103)\n),\nhistory_ranked AS (\n  SELECT history.*, ROW_NUMBER() OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate DESC) AS observation_rank\n  FROM history\n),\nobserved_tail AS (\n  SELECT * FROM history_ranked WHERE observation_rank<=24\n),\nlookup_series AS (\n  SELECT b.bizdate AS lookup_date,\n    MAX(CASE WHEN (b.tgtcode=? OR c.name=?) THEN b.closePrice END) AS `f2`\n  FROM newzl.v_hsj_stock_hq_basic b LEFT JOIN newzl.hsj_stock_code_info c ON c.mktcode=b.mktcode AND c.tgtcode=b.tgtcode\n  WHERE b.bizdate <= ? AND (b.mktcode=1 OR b.mktcode=0 OR b.mktcode=103) AND ((b.tgtcode=? OR c.name=?))\n  GROUP BY b.bizdate\n),\nfeatures AS (\n  SELECT observed_tail.*,\n    CASE WHEN COUNT(`v1`) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW)=5 THEN AVG(CAST(`v1` AS DECIMAL(38,18))) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) ELSE NULL END AS `f1`,\n    lookup_series.`f2` AS `f2`\n  FROM observed_tail LEFT JOIN lookup_series ON lookup_series.lookup_date=observed_tail.bizdate\n),\npredicates AS (\n  SELECT features.*,\n    (`f1` > `f2`) AS `pc1`\n  FROM features\n),\ncounted AS (\n  SELECT predicates.*,\n    CASE WHEN COUNT(*) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)=20 THEN (SUM(CASE WHEN `pc1` THEN 1 ELSE 0 END) OVER (PARTITION BY mktcode,tgtcode ORDER BY bizdate ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)>=6) ELSE NULL END AS `c1`\n  FROM predicates\n),\ncurrent_rows AS (\n  SELECT * FROM counted WHERE bizdate = ?\n)\nSELECT mktcode,tgtcode\nFROM current_rows\nWHERE `c1`\nORDER BY mktcode,tgtcode;",
+    "bindings": [
+      "2026-04-14",
+      "浦发银行",
+      "浦发银行",
+      "2026-04-14",
+      "浦发银行",
+      "浦发银行",
+      "2026-04-14"
+    ],
+    "logicalPlan": [
+      {
+        "kind": "HistoryScan",
+        "detail": "newzl.v_hsj_stock_hq_basic through 2026-04-14"
+      },
+      {
+        "kind": "CodeJoin",
+        "detail": "newzl.hsj_stock_code_info on (mktcode,tgtcode)"
+      },
+      {
+        "kind": "ObservedTail",
+        "detail": "Keep the latest 24 actual observed rows per security, including NULLs and predecessors required by nested occurrence windows"
+      },
+      {
+        "kind": "HistoricalLookup",
+        "detail": "Aggregate matching securities by observed trade date before joining candidate windows"
+      },
+      {
+        "kind": "Window",
+        "detail": "3 contract(s)"
+      },
+      {
+        "kind": "OccurrenceWindow",
+        "detail": "1 CONS/EXIST expression(s)"
+      },
+      {
+        "kind": "EvaluationDateFilter",
+        "detail": "2026-04-14"
+      },
+      {
+        "kind": "Sort",
+        "detail": "mktcode,tgtcode"
+      },
+      {
+        "kind": "Project",
+        "detail": "mktcode,tgtcode"
+      }
+    ]
+  }
+]

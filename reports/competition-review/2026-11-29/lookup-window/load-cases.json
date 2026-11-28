@@ -1,0 +1,38 @@
+[
+  {
+    "id": "date-2026-04-14-京",
+    "dsl": "indicator('京', '', '收盘价', '2026-04-14', '', '', '') > 1",
+    "expectedRows": 306,
+    "expectedDigest": "b6d113cd70a4c246d1b430aa9aded46cee8173fed73e24851f938ef83dc7012f"
+  },
+  {
+    "id": "then-rank-limit",
+    "dsl": "indicator('', '', '主力净流入', '2026-04-14', '', '', '') > 0 then rank('', '', '收盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 10 limit 0,7",
+    "expectedRows": 7,
+    "expectedDigest": "cfcac57312dd88a31833c196d1f86008248778f7acef81798fb494c272d94942"
+  },
+  {
+    "id": "ma20",
+    "dsl": "indicator('', '', '20日均线', '2026-04-14', '', '', '') > 1",
+    "expectedRows": 5186,
+    "expectedDigest": "1ad81824df48531caf11084a77f42affeb6e9fd3674824f3389f6d2ab43a16d4"
+  },
+  {
+    "id": "2025-01-02-price-position-volume",
+    "dsl": "(position('深', '', '收盘价', '7日', '2025-01-02', '', '', '') = '高') and ((indicator('深', '', '收盘价', '2025-01-02', '', '', '') > indicator('深', '', '开盘价', '2025-01-02', '', '', '')) and (indicator('深', '', '成交量', '2025-01-02', '', '', '') > 1000000))",
+    "expectedRows": 174,
+    "expectedDigest": "b88d59396146aa2b777b480178a5d6b61ba2bd06d5bd88999fbdf6cffd0cd760"
+  },
+  {
+    "id": "2026-04-14-interval-and-rsi-rank",
+    "dsl": "((indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') >= indicator('沪|深|京', '', '5日均线', '2026-04-14', '', '', '')) and (indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') < indicator('沪|深|京', '', '12日均线', '2026-04-14', '', '', ''))) and (indicator('沪|深|京', '', 'RSI(6)', '2026-04-14', '', '', '') < 60) then rank('沪|深|京', '', '收盘价', 'asc:dense_rank', '2026-04-14', '', '', '') <= 22 limit 0,15",
+    "expectedRows": 15,
+    "expectedDigest": "ac98f03b84aaab4a4ccff0ffb4ea98e69ba42efef2ad5508e76cd54320d39895"
+  },
+  {
+    "id": "2018-08-20-frequency-ma-rank",
+    "dsl": "(indicator('沪', '', '5日均线', '2018-08-20', '', '', 'EXIST>=6日') > 10) and (indicator('沪', '', '收盘价', '2018-08-20', '', '', '') >= queryData('沪', '600000', '收盘价', '2018-08-20', '')) then rank('沪', '', '收盘价', 'asc:dense_rank', '2018-08-20', '', '', '') <= 12 limit 0,9",
+    "expectedRows": 9,
+    "expectedDigest": "11e0525fd9307caf192d4f708358decb2bd3c0f28ce2193e38f8da954f30b1dd"
+  }
+]

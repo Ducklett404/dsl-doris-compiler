@@ -1,0 +1,497 @@
+{
+  "keys": [
+    "coverageStatus",
+    "observedSecurities",
+    "currentMissingExtensionRows",
+    "inputs",
+    "unavailableSamples",
+    "sampleDetails"
+  ],
+  "cases": [
+    {
+      "id": "complex-2018-08-20-consecutive-breakout",
+      "before": "5b7d80fb876d2c41ebecb92bc13b9fc6a1cdfb80bef5a26e8cafbbab731a98e0",
+      "after": "5b7d80fb876d2c41ebecb92bc13b9fc6a1cdfb80bef5a26e8cafbbab731a98e0"
+    },
+    {
+      "id": "complex-2018-08-20-exact-flow-streak-rank",
+      "before": "7696ebac32c3d40beb28fd523f01d16508b149e2bfdc9702314286fa82f83c4f",
+      "after": "7696ebac32c3d40beb28fd523f01d16508b149e2bfdc9702314286fa82f83c4f"
+    },
+    {
+      "id": "complex-2018-08-20-exact-frequency-cross",
+      "before": "bdb64c571803497c095ac96b67f80b183af7706419465561616627c14c67972e",
+      "after": "bdb64c571803497c095ac96b67f80b183af7706419465561616627c14c67972e"
+    },
+    {
+      "id": "complex-2018-08-20-extreme-reversal",
+      "before": "0027c8ecf4898dcd3ac61c3e91adede868fa6c3f0f6b22bfd1d470754886c511",
+      "after": "0027c8ecf4898dcd3ac61c3e91adede868fa6c3f0f6b22bfd1d470754886c511"
+    },
+    {
+      "id": "complex-2018-08-20-funds-or-cross_then-price-rank",
+      "before": "4537a15627f4f87f919ce6f3aa7bfeb909c658a6ef3920d4057e40f1c7c4d892",
+      "after": "4537a15627f4f87f919ce6f3aa7bfeb909c658a6ef3920d4057e40f1c7c4d892"
+    },
+    {
+      "id": "complex-2018-08-20-interval-and-rsi-rank",
+      "before": "2047503a91159d1a59cef14f0a08c1b8ca5400015202f09476cac4bdf9edb67e",
+      "after": "2047503a91159d1a59cef14f0a08c1b8ca5400015202f09476cac4bdf9edb67e"
+    },
+    {
+      "id": "complex-2018-08-20-lookup-flow-volume-rank",
+      "before": "5469de4625ef20f42bda2922ded42a572f87639f688db167b799ebd8b5f0c0bb",
+      "after": "5469de4625ef20f42bda2922ded42a572f87639f688db167b799ebd8b5f0c0bb"
+    },
+    {
+      "id": "complex-2018-08-20-ma-crossover-flow",
+      "before": "2a5c0786ef1e704fa257c9ec6d96bb59a67ee59e8fa8780e983bf1b3697a08ca",
+      "after": "2a5c0786ef1e704fa257c9ec6d96bb59a67ee59e8fa8780e983bf1b3697a08ca"
+    },
+    {
+      "id": "complex-2018-08-20-price-position-volume",
+      "before": "721c06ccdbb31a5c7bb69be78e9b089694c94cc0b8ceca84653b784c87dcc086",
+      "after": "721c06ccdbb31a5c7bb69be78e9b089694c94cc0b8ceca84653b784c87dcc086"
+    },
+    {
+      "id": "complex-2018-08-20-rsi-ma-turn",
+      "before": "7055423edf0d34c1543433c45ce068a7814f72008c9218f29f1bcbee046111ce",
+      "after": "7055423edf0d34c1543433c45ce068a7814f72008c9218f29f1bcbee046111ce"
+    },
+    {
+      "id": "complex-2018-08-20-rsi-position-funds-rank",
+      "before": "38039903698fbf7493283e5da36bab3afe490cdac99f9cebec613a095d783df6",
+      "after": "38039903698fbf7493283e5da36bab3afe490cdac99f9cebec613a095d783df6"
+    },
+    {
+      "id": "complex-2018-08-20-sum-price-and-lookup",
+      "before": "337074aaefcc3fbaaf0c18c19d191fb1db869b5162d66dd12be4506e8525fcad",
+      "after": "337074aaefcc3fbaaf0c18c19d191fb1db869b5162d66dd12be4506e8525fcad"
+    },
+    {
+      "id": "complex-2018-08-20-two-ranks-after-price-filter",
+      "before": "9e2e510239aa16ea19cae5c5aff740ea9e6686d891a3650c81328aa5a0d99c5f",
+      "after": "9e2e510239aa16ea19cae5c5aff740ea9e6686d891a3650c81328aa5a0d99c5f"
+    },
+    {
+      "id": "complex-2025-01-02-consecutive-breakout",
+      "before": "599491ddeb6c9fd39aec2fa72b05033602e0c0e0a6152bea7a22d37564de0dd4",
+      "after": "599491ddeb6c9fd39aec2fa72b05033602e0c0e0a6152bea7a22d37564de0dd4"
+    },
+    {
+      "id": "complex-2025-01-02-exact-flow-streak-rank",
+      "before": "06a547c9f1e2133fc77e4b3bbf32b01f0253cf48e50c0283605c91a3b462d52c",
+      "after": "06a547c9f1e2133fc77e4b3bbf32b01f0253cf48e50c0283605c91a3b462d52c"
+    },
+    {
+      "id": "complex-2025-01-02-exact-frequency-cross",
+      "before": "bc891b2a0bcd0473f67702ea53d051e0f3de0606b7956d3f886f23197970a418",
+      "after": "bc891b2a0bcd0473f67702ea53d051e0f3de0606b7956d3f886f23197970a418"
+    },
+    {
+      "id": "complex-2025-01-02-extreme-reversal",
+      "before": "4fa49d425a44f6f44891cf105c777dca2b5d2dcc9bf0f0aa7a1746c1c915b713",
+      "after": "4fa49d425a44f6f44891cf105c777dca2b5d2dcc9bf0f0aa7a1746c1c915b713"
+    },
+    {
+      "id": "complex-2025-01-02-funds-or-cross_then-price-rank",
+      "before": "50e7bb68078438dc06ce8ffb49423ed7b4c7b83ba3e97da14a523f3a8115186d",
+      "after": "50e7bb68078438dc06ce8ffb49423ed7b4c7b83ba3e97da14a523f3a8115186d"
+    },
+    {
+      "id": "complex-2025-01-02-interval-and-rsi-rank",
+      "before": "2e5b537d535d9668c921ade8396e7ac3a0972ebd7e1ae8c18640dc1edc1c9597",
+      "after": "2e5b537d535d9668c921ade8396e7ac3a0972ebd7e1ae8c18640dc1edc1c9597"
+    },
+    {
+      "id": "complex-2025-01-02-lookup-flow-volume-rank",
+      "before": "34ea465cb5842e76c2cbdf33ee311ca475543d2895dfc83060926ec1b8b2e711",
+      "after": "34ea465cb5842e76c2cbdf33ee311ca475543d2895dfc83060926ec1b8b2e711"
+    },
+    {
+      "id": "complex-2025-01-02-ma-crossover-flow",
+      "before": "79368e4b926bf89e449865acaf69ebf59752c91ce56ed9b4376d3c15b3e851ec",
+      "after": "79368e4b926bf89e449865acaf69ebf59752c91ce56ed9b4376d3c15b3e851ec"
+    },
+    {
+      "id": "complex-2025-01-02-price-position-volume",
+      "before": "23488c7f7dedaa275bfb4e515441c59b12063ce167ccb4f7c3f19de5de0b7724",
+      "after": "23488c7f7dedaa275bfb4e515441c59b12063ce167ccb4f7c3f19de5de0b7724"
+    },
+    {
+      "id": "complex-2025-01-02-rsi-ma-turn",
+      "before": "e87d7ed23d3ea4158ccf2912e67190247352474c9761137bc9c379f637359f1e",
+      "after": "e87d7ed23d3ea4158ccf2912e67190247352474c9761137bc9c379f637359f1e"
+    },
+    {
+      "id": "complex-2025-01-02-rsi-position-funds-rank",
+      "before": "ead46b59d3c5505e5bf41c73fb4a77def29bfdfa0f07497923751fd6159e22e2",
+      "after": "ead46b59d3c5505e5bf41c73fb4a77def29bfdfa0f07497923751fd6159e22e2"
+    },
+    {
+      "id": "complex-2025-01-02-sum-price-and-lookup",
+      "before": "f8a6b24d33a0dad9d4b9b003201649b36f403283f84b3e6172e91a91cc657ef2",
+      "after": "f8a6b24d33a0dad9d4b9b003201649b36f403283f84b3e6172e91a91cc657ef2"
+    },
+    {
+      "id": "complex-2025-01-02-two-ranks-after-price-filter",
+      "before": "d7d62a3f00c9dc4c057cc893be1ce17bddcda55e4c4d0d35d5a179e50c4a381f",
+      "after": "d7d62a3f00c9dc4c057cc893be1ce17bddcda55e4c4d0d35d5a179e50c4a381f"
+    },
+    {
+      "id": "complex-2026-04-14-consecutive-breakout",
+      "before": "340d86b52e4bc198576cda5ed3cf0d95ab963b007989d258257821da604fd922",
+      "after": "340d86b52e4bc198576cda5ed3cf0d95ab963b007989d258257821da604fd922"
+    },
+    {
+      "id": "complex-2026-04-14-exact-flow-streak-rank",
+      "before": "9d65a6cb80256bc45b81a3e2ce538e0c4ccd6cbc7ef27bba603c80d3948eea4f",
+      "after": "9d65a6cb80256bc45b81a3e2ce538e0c4ccd6cbc7ef27bba603c80d3948eea4f"
+    },
+    {
+      "id": "complex-2026-04-14-exact-frequency-cross",
+      "before": "1cd0d3687de58882aa90e148bb283944b6c77666f5f56033d62af428e1940a78",
+      "after": "1cd0d3687de58882aa90e148bb283944b6c77666f5f56033d62af428e1940a78"
+    },
+    {
+      "id": "complex-2026-04-14-extreme-reversal",
+      "before": "e39f26986a0108cf299892648b7feba31a07657c62f48da5876cfc2a5c245ace",
+      "after": "e39f26986a0108cf299892648b7feba31a07657c62f48da5876cfc2a5c245ace"
+    },
+    {
+      "id": "complex-2026-04-14-funds-or-cross_then-price-rank",
+      "before": "14397922098f7ce78d58b2add7efd300f55d0cc9783fb45c568dce11cee78974",
+      "after": "14397922098f7ce78d58b2add7efd300f55d0cc9783fb45c568dce11cee78974"
+    },
+    {
+      "id": "complex-2026-04-14-interval-and-rsi-rank",
+      "before": "9e2040372980d4a9f0597db7b01741e4cafdc4c1d107525585d87c205f50f541",
+      "after": "9e2040372980d4a9f0597db7b01741e4cafdc4c1d107525585d87c205f50f541"
+    },
+    {
+      "id": "complex-2026-04-14-lookup-flow-volume-rank",
+      "before": "ac6d9919728b9f7747ebb9443080fc9adba5f35073fc3de9861ed79941f31b14",
+      "after": "ac6d9919728b9f7747ebb9443080fc9adba5f35073fc3de9861ed79941f31b14"
+    },
+    {
+      "id": "complex-2026-04-14-ma-crossover-flow",
+      "before": "405ca5370b7f7191748ec1d4050e5dbf9349e272824361a2c24cf18d7e6eef73",
+      "after": "405ca5370b7f7191748ec1d4050e5dbf9349e272824361a2c24cf18d7e6eef73"
+    },
+    {
+      "id": "complex-2026-04-14-price-position-volume",
+      "before": "5e863aad6386ae3a251b45ea3c3f5dd8674a3b9d907e8bf1d6d97ba9f9390da4",
+      "after": "5e863aad6386ae3a251b45ea3c3f5dd8674a3b9d907e8bf1d6d97ba9f9390da4"
+    },
+    {
+      "id": "complex-2026-04-14-rsi-ma-turn",
+      "before": "76c0c1e40eca46fc66544d41aecdc9bef46584a7bef54b6e70da69a0640048c9",
+      "after": "76c0c1e40eca46fc66544d41aecdc9bef46584a7bef54b6e70da69a0640048c9"
+    },
+    {
+      "id": "complex-2026-04-14-rsi-position-funds-rank",
+      "before": "ea0531920f598dbd0193f1c1bd65b453358ae4666d6380de23130947245eb41a",
+      "after": "ea0531920f598dbd0193f1c1bd65b453358ae4666d6380de23130947245eb41a"
+    },
+    {
+      "id": "complex-2026-04-14-sum-price-and-lookup",
+      "before": "fa218d0f28f551409af954b823493c42fb644c4bef5c7fb8ebb8e8296a2761c8",
+      "after": "fa218d0f28f551409af954b823493c42fb644c4bef5c7fb8ebb8e8296a2761c8"
+    },
+    {
+      "id": "complex-2026-04-14-two-ranks-after-price-filter",
+      "before": "ad346f768c5d0089907ef61c588f9ef5ce3313a6a23e64225f78a66d5720984f",
+      "after": "ad346f768c5d0089907ef61c588f9ef5ce3313a6a23e64225f78a66d5720984f"
+    },
+    {
+      "id": "holdout-2006-01-06-consecutive-breakout",
+      "before": "4582abeaf62e746acba25ebe49be8c503d36eef71b5bcc1c05312e492ed1270c",
+      "after": "4582abeaf62e746acba25ebe49be8c503d36eef71b5bcc1c05312e492ed1270c"
+    },
+    {
+      "id": "holdout-2006-01-06-exact-flow-streak-rank",
+      "before": "bc0f7423630fb13595349a7d3315f96137384b949fe7da9db7548d029d0ca35a",
+      "after": "bc0f7423630fb13595349a7d3315f96137384b949fe7da9db7548d029d0ca35a"
+    },
+    {
+      "id": "holdout-2006-01-06-exact-frequency-cross",
+      "before": "7769f10c34baf51553dd33035d3164d09aa6a4fd9b4e5084fca29b067c4dbbd7",
+      "after": "7769f10c34baf51553dd33035d3164d09aa6a4fd9b4e5084fca29b067c4dbbd7"
+    },
+    {
+      "id": "holdout-2006-01-06-extreme-reversal",
+      "before": "2ead9273455054c5db8e2e810fb353079be71c0d8229ff2c3a9b267c72242da3",
+      "after": "2ead9273455054c5db8e2e810fb353079be71c0d8229ff2c3a9b267c72242da3"
+    },
+    {
+      "id": "holdout-2006-01-06-frequency-ma-rank",
+      "before": "a8a9f559fc390e91fe49c92e32846addbc606cb2ef6f2114a7ce353e1a651ba4",
+      "after": "a8a9f559fc390e91fe49c92e32846addbc606cb2ef6f2114a7ce353e1a651ba4"
+    },
+    {
+      "id": "holdout-2006-01-06-funds-or-cross_then-price-rank",
+      "before": "8c1043615c175f1cca11fba08743683e6c561b1bd2199c09ed01dd6caeef785a",
+      "after": "8c1043615c175f1cca11fba08743683e6c561b1bd2199c09ed01dd6caeef785a"
+    },
+    {
+      "id": "holdout-2006-01-06-interval-and-rsi-rank",
+      "before": "2c6794695855c0f82b3adcece268f63034493398d48db276e4f83851faaa9278",
+      "after": "2c6794695855c0f82b3adcece268f63034493398d48db276e4f83851faaa9278"
+    },
+    {
+      "id": "holdout-2006-01-06-lookup-flow-volume-rank",
+      "before": "a004d352562592a4019564dcdd97f205ae088b6da8c009571ec8a4ec56c97ccb",
+      "after": "a004d352562592a4019564dcdd97f205ae088b6da8c009571ec8a4ec56c97ccb"
+    },
+    {
+      "id": "holdout-2006-01-06-lookup-null-conjunction",
+      "before": "e5ea616415dc26df7d59d1a9285477187a291b4f632e39e886e8656e23934603",
+      "after": "e5ea616415dc26df7d59d1a9285477187a291b4f632e39e886e8656e23934603"
+    },
+    {
+      "id": "holdout-2006-01-06-lookup-null-fallback",
+      "before": "e5ea616415dc26df7d59d1a9285477187a291b4f632e39e886e8656e23934603",
+      "after": "e5ea616415dc26df7d59d1a9285477187a291b4f632e39e886e8656e23934603"
+    },
+    {
+      "id": "holdout-2006-01-06-ma-crossover-flow",
+      "before": "723bf3171c0416477f867c2540de367f0b115d473f12d70da9610e86a5175e28",
+      "after": "723bf3171c0416477f867c2540de367f0b115d473f12d70da9610e86a5175e28"
+    },
+    {
+      "id": "holdout-2006-01-06-price-position-volume",
+      "before": "5ea1bcd4c5cec24eb013e4cf2976df07d81ee397f3002f3e29955818bcfbd2b6",
+      "after": "5ea1bcd4c5cec24eb013e4cf2976df07d81ee397f3002f3e29955818bcfbd2b6"
+    },
+    {
+      "id": "holdout-2006-01-06-rsi-ma-turn",
+      "before": "cd3c84d90aa9585c2b47e1c6c216cf10d8ccd2d8889e07279145fdb7d6f58189",
+      "after": "cd3c84d90aa9585c2b47e1c6c216cf10d8ccd2d8889e07279145fdb7d6f58189"
+    },
+    {
+      "id": "holdout-2006-01-06-rsi-position-funds-rank",
+      "before": "49a83d8d31e6f5938977191fc84a4642702bf65ca1093b35cc737434c1277fca",
+      "after": "49a83d8d31e6f5938977191fc84a4642702bf65ca1093b35cc737434c1277fca"
+    },
+    {
+      "id": "holdout-2006-01-06-sum-price-and-lookup",
+      "before": "25e6c766afaa5612a17ae32e1b2718d707c771982a0da9f5be8d7fc34af6be94",
+      "after": "25e6c766afaa5612a17ae32e1b2718d707c771982a0da9f5be8d7fc34af6be94"
+    },
+    {
+      "id": "holdout-2006-01-06-two-ranks-after-price-filter",
+      "before": "e03f9b994b5d6e2fb475794a22afba766ced95a29124c2304f3680d5c47954cb",
+      "after": "e03f9b994b5d6e2fb475794a22afba766ced95a29124c2304f3680d5c47954cb"
+    },
+    {
+      "id": "holdout-2020-02-03-consecutive-breakout",
+      "before": "66f03f47d4abf3b84b21001c020d19d01631c76d9a92604ec43eb95924130d33",
+      "after": "66f03f47d4abf3b84b21001c020d19d01631c76d9a92604ec43eb95924130d33"
+    },
+    {
+      "id": "holdout-2020-02-03-exact-flow-streak-rank",
+      "before": "d80c370fe0e7749c6c0e1ecbef64557d0204edcc7164128b3b34921893dcbf11",
+      "after": "d80c370fe0e7749c6c0e1ecbef64557d0204edcc7164128b3b34921893dcbf11"
+    },
+    {
+      "id": "holdout-2020-02-03-exact-frequency-cross",
+      "before": "bb27d39059c4d854514ccd95cdcd7b99cf802d512c1916d7a9b5bc05e5060588",
+      "after": "bb27d39059c4d854514ccd95cdcd7b99cf802d512c1916d7a9b5bc05e5060588"
+    },
+    {
+      "id": "holdout-2020-02-03-extreme-reversal",
+      "before": "fb53fb5a711f8932bd4441b4dc2f5b4b711387d2da3f078fe0260a11bf2b33f2",
+      "after": "fb53fb5a711f8932bd4441b4dc2f5b4b711387d2da3f078fe0260a11bf2b33f2"
+    },
+    {
+      "id": "holdout-2020-02-03-funds-or-cross_then-price-rank",
+      "before": "29eaabbb7812961d8d002231316088d2a0fbf6e428020713fa0a088bc2a1c3f1",
+      "after": "29eaabbb7812961d8d002231316088d2a0fbf6e428020713fa0a088bc2a1c3f1"
+    },
+    {
+      "id": "holdout-2020-02-03-interval-and-rsi-rank",
+      "before": "8c43bbd13315c2ddf9e9399c5f9515fef0fa8b36dcf320b8476195fdd24fb6ec",
+      "after": "8c43bbd13315c2ddf9e9399c5f9515fef0fa8b36dcf320b8476195fdd24fb6ec"
+    },
+    {
+      "id": "holdout-2020-02-03-lookup-flow-volume-rank",
+      "before": "26259799896be1279d9e8d50ea4e1ceba154f929e4b4184379800f07481580ac",
+      "after": "26259799896be1279d9e8d50ea4e1ceba154f929e4b4184379800f07481580ac"
+    },
+    {
+      "id": "holdout-2020-02-03-ma-crossover-flow",
+      "before": "47bdbd4c8a981620607a6b4ea0bda60c62237d609ab373fd743ae250eb99aa4e",
+      "after": "47bdbd4c8a981620607a6b4ea0bda60c62237d609ab373fd743ae250eb99aa4e"
+    },
+    {
+      "id": "holdout-2020-02-03-price-position-volume",
+      "before": "a5547bbfd50301adaa2b61d9b2094d256853f45c89ad3158b4c45298f44859fa",
+      "after": "a5547bbfd50301adaa2b61d9b2094d256853f45c89ad3158b4c45298f44859fa"
+    },
+    {
+      "id": "holdout-2020-02-03-rsi-ma-turn",
+      "before": "c56eb1d98e8847f3f8a4df8a2d63b2680c9145e34ceb18beefe1075e63ebd5f9",
+      "after": "c56eb1d98e8847f3f8a4df8a2d63b2680c9145e34ceb18beefe1075e63ebd5f9"
+    },
+    {
+      "id": "holdout-2020-02-03-rsi-position-funds-rank",
+      "before": "1b8e33fee76378fe8561923adc5652d04ec69771e40bd4f3af32cea449dd879f",
+      "after": "1b8e33fee76378fe8561923adc5652d04ec69771e40bd4f3af32cea449dd879f"
+    },
+    {
+      "id": "holdout-2020-02-03-sum-price-and-lookup",
+      "before": "cb02c1b2907f8244524ba3d753027c9f50b292965d1779a665d983885a31d5e3",
+      "after": "cb02c1b2907f8244524ba3d753027c9f50b292965d1779a665d983885a31d5e3"
+    },
+    {
+      "id": "holdout-2020-02-03-two-ranks-after-price-filter",
+      "before": "6dc6aeffee4cc682445f5016a0a628db3319cf2fd2bed2f58a053adbcc2117b4",
+      "after": "6dc6aeffee4cc682445f5016a0a628db3319cf2fd2bed2f58a053adbcc2117b4"
+    },
+    {
+      "id": "holdout-2026-04-12-consecutive-breakout",
+      "before": "456e084a534006d543baa1767497d40fbbd39655f1af6f682ac3dc27c89362a1",
+      "after": "456e084a534006d543baa1767497d40fbbd39655f1af6f682ac3dc27c89362a1"
+    },
+    {
+      "id": "holdout-2026-04-12-exact-flow-streak-rank",
+      "before": "7ce8539a018504bca02cbdf43e671629d9f6fc54328737a3f8a49c2ca276a51e",
+      "after": "7ce8539a018504bca02cbdf43e671629d9f6fc54328737a3f8a49c2ca276a51e"
+    },
+    {
+      "id": "holdout-2026-04-12-exact-frequency-cross",
+      "before": "72aaf94717684ad9f46d9162c45eefbfcdb64a04113e2c77958d5571ee8b20de",
+      "after": "72aaf94717684ad9f46d9162c45eefbfcdb64a04113e2c77958d5571ee8b20de"
+    },
+    {
+      "id": "holdout-2026-04-12-extreme-reversal",
+      "before": "f3c123602ed4ae72fd602b49bb26f2214f620a5168838e57475fc20d0717d0dd",
+      "after": "f3c123602ed4ae72fd602b49bb26f2214f620a5168838e57475fc20d0717d0dd"
+    },
+    {
+      "id": "holdout-2026-04-12-funds-or-cross_then-price-rank",
+      "before": "0dc331a2f3000cafba9295796f47b78f80285fd8e3ef85a34b0b182b86d6ab10",
+      "after": "0dc331a2f3000cafba9295796f47b78f80285fd8e3ef85a34b0b182b86d6ab10"
+    },
+    {
+      "id": "holdout-2026-04-12-interval-and-rsi-rank",
+      "before": "a2a7b9ed4a7b30754b3600b0e2000c0ee317d332305b53a638ab26535806ffb3",
+      "after": "a2a7b9ed4a7b30754b3600b0e2000c0ee317d332305b53a638ab26535806ffb3"
+    },
+    {
+      "id": "holdout-2026-04-12-lookup-flow-volume-rank",
+      "before": "c10ae1100dfeaba84184e6b45028cb0b45cce2a9d4645595d5632773e5bf41e2",
+      "after": "c10ae1100dfeaba84184e6b45028cb0b45cce2a9d4645595d5632773e5bf41e2"
+    },
+    {
+      "id": "holdout-2026-04-12-ma-crossover-flow",
+      "before": "dbaf75be9b50f7366199db00e47abd2a57f22e40e4397e523f1fada4a55bd0f3",
+      "after": "dbaf75be9b50f7366199db00e47abd2a57f22e40e4397e523f1fada4a55bd0f3"
+    },
+    {
+      "id": "holdout-2026-04-12-price-position-volume",
+      "before": "d6571b222071381a4e4a3d0753bf7ea1de8bf3039ff266121ae06cc7b5fa0bb4",
+      "after": "d6571b222071381a4e4a3d0753bf7ea1de8bf3039ff266121ae06cc7b5fa0bb4"
+    },
+    {
+      "id": "holdout-2026-04-12-rsi-ma-turn",
+      "before": "e0ce7d58ee8c778fd1c90623e86307ef82d63ccca911e61c0bea0a3296a804a3",
+      "after": "e0ce7d58ee8c778fd1c90623e86307ef82d63ccca911e61c0bea0a3296a804a3"
+    },
+    {
+      "id": "holdout-2026-04-12-rsi-position-funds-rank",
+      "before": "19177a80d07782c461806a65d75fc3f70a277d1e4326e1489e16ad77e1eacf63",
+      "after": "19177a80d07782c461806a65d75fc3f70a277d1e4326e1489e16ad77e1eacf63"
+    },
+    {
+      "id": "holdout-2026-04-12-sum-price-and-lookup",
+      "before": "f1518a686887e4adcd3c95a0d582e42625879cc69d6b2b7866708fd4f60ac393",
+      "after": "f1518a686887e4adcd3c95a0d582e42625879cc69d6b2b7866708fd4f60ac393"
+    },
+    {
+      "id": "holdout-2026-04-12-two-ranks-after-price-filter",
+      "before": "2d3e50b1fc8fc26154551dc0e9b107b819269d65d81da6d4559977b3296bd8ec",
+      "after": "2d3e50b1fc8fc26154551dc0e9b107b819269d65d81da6d4559977b3296bd8ec"
+    },
+    {
+      "id": "holdout-2026-04-13-consecutive-breakout",
+      "before": "a168fab0e11c5c8537289f08aa81948858ae6756b375306f70972d6c0c78869f",
+      "after": "a168fab0e11c5c8537289f08aa81948858ae6756b375306f70972d6c0c78869f"
+    },
+    {
+      "id": "holdout-2026-04-13-exact-flow-streak-rank",
+      "before": "b0e67227e18466fe5657bdb745c1bf7973cb0340a92a4b23eb3a3b369b428f3b",
+      "after": "b0e67227e18466fe5657bdb745c1bf7973cb0340a92a4b23eb3a3b369b428f3b"
+    },
+    {
+      "id": "holdout-2026-04-13-exact-frequency-cross",
+      "before": "f5f36f975ba0cd4444509755d5df6f8cd8cb97e355c4789e679def1ba471ab0b",
+      "after": "f5f36f975ba0cd4444509755d5df6f8cd8cb97e355c4789e679def1ba471ab0b"
+    },
+    {
+      "id": "holdout-2026-04-13-extreme-reversal",
+      "before": "aa294c894c95e3d59a167131403024440597922b190d17c8d12a6c4e899ce26f",
+      "after": "aa294c894c95e3d59a167131403024440597922b190d17c8d12a6c4e899ce26f"
+    },
+    {
+      "id": "holdout-2026-04-13-frequency-ma-rank",
+      "before": "365e1e12db90e1293db48bac495cc0c5a223f0bb2c73ad92b9a59d74e9dfde71",
+      "after": "365e1e12db90e1293db48bac495cc0c5a223f0bb2c73ad92b9a59d74e9dfde71"
+    },
+    {
+      "id": "holdout-2026-04-13-funds-or-cross_then-price-rank",
+      "before": "48d22035c708456ea800a455bacc35960579bb5dba473fec70c76949c266d5e0",
+      "after": "48d22035c708456ea800a455bacc35960579bb5dba473fec70c76949c266d5e0"
+    },
+    {
+      "id": "holdout-2026-04-13-interval-and-rsi-rank",
+      "before": "075ecc686167b302bed4dfc6e090260ad3ca9e0b4cd19056f5241459fa79b562",
+      "after": "075ecc686167b302bed4dfc6e090260ad3ca9e0b4cd19056f5241459fa79b562"
+    },
+    {
+      "id": "holdout-2026-04-13-lookup-flow-volume-rank",
+      "before": "5acccd55da2383e98e0589885e1fbe6d70156d1a7e7f1bc0c006f92e93375440",
+      "after": "5acccd55da2383e98e0589885e1fbe6d70156d1a7e7f1bc0c006f92e93375440"
+    },
+    {
+      "id": "holdout-2026-04-13-lookup-null-conjunction",
+      "before": "4d0c7a9435a5936f63742503afc0e9bc81c466c9a7e9005e36063d9934dc08b0",
+      "after": "4d0c7a9435a5936f63742503afc0e9bc81c466c9a7e9005e36063d9934dc08b0"
+    },
+    {
+      "id": "holdout-2026-04-13-lookup-null-fallback",
+      "before": "4d0c7a9435a5936f63742503afc0e9bc81c466c9a7e9005e36063d9934dc08b0",
+      "after": "4d0c7a9435a5936f63742503afc0e9bc81c466c9a7e9005e36063d9934dc08b0"
+    },
+    {
+      "id": "holdout-2026-04-13-ma-crossover-flow",
+      "before": "52eb934cf8a687f001cebded576d827f0f19e684050a5b20445153010a994e13",
+      "after": "52eb934cf8a687f001cebded576d827f0f19e684050a5b20445153010a994e13"
+    },
+    {
+      "id": "holdout-2026-04-13-price-position-volume",
+      "before": "c2213be3775196c240dc5f770e177b265e9855cf149a3c6815db41c398079ae2",
+      "after": "c2213be3775196c240dc5f770e177b265e9855cf149a3c6815db41c398079ae2"
+    },
+    {
+      "id": "holdout-2026-04-13-rsi-ma-turn",
+      "before": "666e124e6371805810490b1bedb76dfabe274735d2bb475d123f773ff28ea114",
+      "after": "666e124e6371805810490b1bedb76dfabe274735d2bb475d123f773ff28ea114"
+    },
+    {
+      "id": "holdout-2026-04-13-rsi-position-funds-rank",
+      "before": "9ef1ad11f10e771ebefa8fbd192a3a46d07885c94f9c1cd3ca09ca2192c73ba5",
+      "after": "9ef1ad11f10e771ebefa8fbd192a3a46d07885c94f9c1cd3ca09ca2192c73ba5"
+    },
+    {
+      "id": "holdout-2026-04-13-sum-price-and-lookup",
+      "before": "57f93fac58bf676f1f3e32e20bf7e7dac02e0736b58abc52a8a21e347b4404cc",
+      "after": "57f93fac58bf676f1f3e32e20bf7e7dac02e0736b58abc52a8a21e347b4404cc"
+    },
+    {
+      "id": "holdout-2026-04-13-two-ranks-after-price-filter",
+      "before": "62d7c2f57dec13011fd3974cb3063febfa4f1c4e7ad8eeb93706663ea94f476d",
+      "after": "62d7c2f57dec13011fd3974cb3063febfa4f1c4e7ad8eeb93706663ea94f476d"
+    }
+  ]
+}

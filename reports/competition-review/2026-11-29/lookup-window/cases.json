@@ -1,0 +1,786 @@
+[
+  {
+    "id": "complex-2018-08-20-consecutive-breakout",
+    "dsl": "(indicator('沪', '', '成交量', '2018-08-20', '', '', 'CONS>=3日') > 100000) and ((record_high('沪', '', '收盘价', '9日', '2018-08-20', '', '', '') = True) or (indicator('沪', '', '主力净流入', '2018-08-20', '', '', '') > 0))",
+    "target": false,
+    "expectedRows": 63,
+    "expectedDigest": "108ee75e0547efa4f1e3a1dbc0b2468f6ddecc60c3cd7b1dcc149fa2dc1c813c"
+  },
+  {
+    "id": "complex-2018-08-20-exact-flow-streak-rank",
+    "dsl": "(indicator('沪', '', '主力净流入', '2018-08-20', '', '', 'CONS=2日') > 0) and (indicator('沪', '', '收盘价', '2018-08-20', '', '', '') >= indicator('沪', '', '开盘价', '2018-08-20', '', '', '')) then rank('沪', '', '成交量', 'desc:row_number', '2018-08-20', '', '', '') <= 17 limit 0,11",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "complex-2018-08-20-exact-frequency-cross",
+    "dsl": "(indicator('沪', '', '主力净流入', '2018-08-20', '', '', 'EXIST=7日') < 0) and ((cross_above('沪', '', '收盘价', '开盘价', '2018-08-20', '', '') = True) or (indicator('沪', '', 'RSI(6)', '2018-08-20', '', '', '') >= 51))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "complex-2018-08-20-extreme-reversal",
+    "dsl": "((record_high('沪', '', '收盘价', '9日', '2018-08-20', '', '', '') = True) and (cross_down('沪', '', '收盘价', '开盘价', '2018-08-20', '', '') = True)) or ((record_low('沪', '', '收盘价', '9日', '2018-08-20', '', '', '') = True) and (cross_above('沪', '', '收盘价', '开盘价', '2018-08-20', '', '') = True))",
+    "target": false,
+    "expectedRows": 86,
+    "expectedDigest": "8a3d34f0ab7ffd736e3f8a7756ae458fdbf75163e731653a25ef77abda8024c2"
+  },
+  {
+    "id": "complex-2018-08-20-frequency-ma-rank",
+    "dsl": "(indicator('沪', '', '5日均线', '2018-08-20', '', '', 'EXIST>=6日') > 10) and (indicator('沪', '', '收盘价', '2018-08-20', '', '', '') >= queryData('沪', '600000', '收盘价', '2018-08-20', '')) then rank('沪', '', '收盘价', 'asc:dense_rank', '2018-08-20', '', '', '') <= 12 limit 0,9",
+    "target": true,
+    "expectedRows": 9,
+    "expectedDigest": "11e0525fd9307caf192d4f708358decb2bd3c0f28ce2193e38f8da954f30b1dd"
+  },
+  {
+    "id": "complex-2018-08-20-funds-or-cross_then-price-rank",
+    "dsl": "((indicator('沪', '', '主力净流入', '2018-08-20', '', '', '') < 0) and (indicator('沪', '', '收盘价', '2018-08-20', '', '', '') < indicator('沪', '', '开盘价', '2018-08-20', '', '', ''))) or ((cross_down('沪', '', '收盘价', '开盘价', '2018-08-20', '', '') = True) and (indicator('沪', '', '成交量', '2018-08-20', '', '', '') > 1000000)) then rank('沪', '', '收盘价', 'asc:dense_rank', '2018-08-20', '', '', '') <= 14 limit 0,10",
+    "target": false,
+    "expectedRows": 10,
+    "expectedDigest": "d62328b7e6489e4beaaeb4b6d507860fe43d79a305eeaaa6010020cb39ef5710"
+  },
+  {
+    "id": "complex-2018-08-20-interval-and-rsi-rank",
+    "dsl": "((indicator('沪', '', '收盘价', '2018-08-20', '', '', '') >= indicator('沪', '', '5日均线', '2018-08-20', '', '', '')) and (indicator('沪', '', '收盘价', '2018-08-20', '', '', '') < indicator('沪', '', '12日均线', '2018-08-20', '', '', ''))) and (indicator('沪', '', 'RSI(6)', '2018-08-20', '', '', '') < 60) then rank('沪', '', '收盘价', 'asc:dense_rank', '2018-08-20', '', '', '') <= 22 limit 0,15",
+    "target": false,
+    "expectedRows": 15,
+    "expectedDigest": "b1a0f654a8d7e5fb37656dd9a106972780b7f0c7414ce2b4e549f7283d3bc33f"
+  },
+  {
+    "id": "complex-2018-08-20-lookup-flow-volume-rank",
+    "dsl": "(indicator('沪', '', '收盘价', '2018-08-20', '', '', '') > queryData('沪', '600000', '收盘价', '2018-08-20', '')) and ((indicator('沪', '', '主力净流入', '2018-08-20', '', '', '') < 0) or (indicator('沪', '', '成交量', '2018-08-20', '', '', '') > 5000000)) then rank('沪', '', '成交量', 'desc:row_number', '2018-08-20', '', '', '') <= 27 limit 0,17",
+    "target": false,
+    "expectedRows": 17,
+    "expectedDigest": "6432ed6dbf7c638d6fb556315a1d88bb6310587b3e200e1e47e465beed09501e"
+  },
+  {
+    "id": "complex-2018-08-20-lookup-null-conjunction",
+    "dsl": "(indicator('沪', '', '收盘价', '2018-08-20', '', '', '') > queryData('沪', 'NO_SUCH_SECURITY', '收盘价', '2018-08-20', '')) and ((indicator('沪', '', '收盘价', '2018-08-20', '', '', '') > indicator('沪', '', '5日均线', '2018-08-20', '', '', '')) or (indicator('沪', '', '主力净流入', '2018-08-20', '', '', '') < 0))",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "complex-2018-08-20-lookup-null-fallback",
+    "dsl": "(indicator('沪', '', '收盘价', '2018-08-20', '', '', '') > queryData('沪', 'NO_SUCH_SECURITY', '收盘价', '2018-08-20', '')) or ((indicator('沪', '', '收盘价', '2018-08-20', '', '', '') > indicator('沪', '', '5日均线', '2018-08-20', '', '', '')) and (indicator('沪', '', '主力净流入', '2018-08-20', '', '', '') < 0))",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "complex-2018-08-20-ma-crossover-flow",
+    "dsl": "(indicator('沪', '', '5日均线', '2018-08-20', '', '', '') > indicator('沪', '', '12日均线', '2018-08-20', '', '', '')) and ((indicator('沪', '', '主力净流入', '2018-08-20', '', '', '') > 0) or (indicator('沪', '', '收盘价', '2018-08-20', '', '', '') > indicator('沪', '', '开盘价', '2018-08-20', '', '', '')))",
+    "target": false,
+    "expectedRows": 251,
+    "expectedDigest": "682ace96c3a3524f63b3c3cf6d3873f9c0dfd5f9daab25357e05eb1e9e2bb2f0"
+  },
+  {
+    "id": "complex-2018-08-20-price-position-volume",
+    "dsl": "(position('沪', '', '收盘价', '7日', '2018-08-20', '', '', '') = '高') and ((indicator('沪', '', '收盘价', '2018-08-20', '', '', '') > indicator('沪', '', '开盘价', '2018-08-20', '', '', '')) and (indicator('沪', '', '成交量', '2018-08-20', '', '', '') > 1000000))",
+    "target": false,
+    "expectedRows": 106,
+    "expectedDigest": "f68421695d5055c461b5e873007a34025c9fa041d1232a464b335f8c1b996aa3"
+  },
+  {
+    "id": "complex-2018-08-20-rsi-ma-turn",
+    "dsl": "(indicator('沪', '', 'RSI(6)', '2018-08-20', '', '', '') > 47) and ((indicator('沪', '', '收盘价', '2018-08-20', '', '', '') >= indicator('沪', '', '5日均线', '2018-08-20', '', '', '')) and (indicator('沪', '', '主力净流入', '2018-08-20', '', '', '') > 0))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "complex-2018-08-20-rsi-position-funds-rank",
+    "dsl": "(indicator('沪', '', 'RSI(6)', '2018-08-20', '', '', '') > 45) and ((position('沪', '', '收盘价', '7日', '2018-08-20', '', '', '') = '低') or (indicator('沪', '', '主力净流入', '2018-08-20', '', '', '') > 0)) then rank('沪', '', '主力净流入', 'desc:rank', '2018-08-20', '', '', '') <= 21 limit 0,13",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "complex-2018-08-20-sum-price-and-lookup",
+    "dsl": "((indicator('沪', '', '收盘价', '2018-08-20', '', '', '')+indicator('沪', '', '开盘价', '2018-08-20', '', '', '')) > 30) and ((indicator('沪', '', '收盘价', '2018-08-20', '', '', '') > queryData('沪', '600000', '收盘价', '2018-08-20', '')) and (indicator('沪', '', '成交量', '2018-08-20', '', '', '') > 100000))",
+    "target": false,
+    "expectedRows": 368,
+    "expectedDigest": "dbdd5d227829d681b3c695149a2c58de9928e56f20bd158be769650e09f0c715"
+  },
+  {
+    "id": "complex-2018-08-20-two-ranks-after-price-filter",
+    "dsl": "(indicator('沪', '', '收盘价', '2018-08-20', '', '', '') >= indicator('沪', '', '5日均线', '2018-08-20', '', '', '')) and (indicator('沪', '', '成交量', '2018-08-20', '', '', '') > 10000) then (rank('沪', '', '收盘价', 'asc:dense_rank', '2018-08-20', '', '', '') <= 60) and (rank('沪', '', '成交量', 'desc:row_number', '2018-08-20', '', '', '') <= 100) limit 0,19",
+    "target": false,
+    "expectedRows": 19,
+    "expectedDigest": "9ad0055d083391a25afe168577075969dd5109fe413813fa1bb662c28877e38d"
+  },
+  {
+    "id": "complex-2025-01-02-consecutive-breakout",
+    "dsl": "(indicator('深', '', '成交量', '2025-01-02', '', '', 'CONS>=3日') > 100000) and ((record_high('深', '', '收盘价', '9日', '2025-01-02', '', '', '') = True) or (indicator('深', '', '主力净流入', '2025-01-02', '', '', '') > 0))",
+    "target": false,
+    "expectedRows": 816,
+    "expectedDigest": "c3a3911ce3826be940f03f74eb899726e2fbe5ee95432f3dae35155ca0688880"
+  },
+  {
+    "id": "complex-2025-01-02-exact-flow-streak-rank",
+    "dsl": "(indicator('深', '', '主力净流入', '2025-01-02', '', '', 'CONS=2日') > 0) and (indicator('深', '', '收盘价', '2025-01-02', '', '', '') >= indicator('深', '', '开盘价', '2025-01-02', '', '', '')) then rank('深', '', '成交量', 'desc:row_number', '2025-01-02', '', '', '') <= 17 limit 0,11",
+    "target": false,
+    "expectedRows": 11,
+    "expectedDigest": "4b7b60d1e8929dae1f27a96f26e93501ce68aa370ebf01c956b1d7b1b3b12b54"
+  },
+  {
+    "id": "complex-2025-01-02-exact-frequency-cross",
+    "dsl": "(indicator('深', '', '主力净流入', '2025-01-02', '', '', 'EXIST=7日') < 0) and ((cross_above('深', '', '收盘价', '开盘价', '2025-01-02', '', '') = True) or (indicator('深', '', 'RSI(6)', '2025-01-02', '', '', '') >= 51))",
+    "target": false,
+    "expectedRows": 9,
+    "expectedDigest": "4b43726a7f470354ed002d4777509c920b4c1c90036475c09cfa7baebb8e5f11"
+  },
+  {
+    "id": "complex-2025-01-02-extreme-reversal",
+    "dsl": "((record_high('深', '', '收盘价', '9日', '2025-01-02', '', '', '') = True) and (cross_down('深', '', '收盘价', '开盘价', '2025-01-02', '', '') = True)) or ((record_low('深', '', '收盘价', '9日', '2025-01-02', '', '', '') = True) and (cross_above('深', '', '收盘价', '开盘价', '2025-01-02', '', '') = True))",
+    "target": false,
+    "expectedRows": 47,
+    "expectedDigest": "59f75c4919ccf0a1282a4b93fc0189084c33b6121b1e455bcb6c1536f90045ac"
+  },
+  {
+    "id": "complex-2025-01-02-frequency-ma-rank",
+    "dsl": "(indicator('深', '', '5日均线', '2025-01-02', '', '', 'EXIST>=6日') > 10) and (indicator('深', '', '收盘价', '2025-01-02', '', '', '') >= queryData('深', '000001', '收盘价', '2025-01-02', '')) then rank('深', '', '收盘价', 'asc:dense_rank', '2025-01-02', '', '', '') <= 12 limit 0,9",
+    "target": true,
+    "expectedRows": 9,
+    "expectedDigest": "b510f0fc60158aaa1ac63dded1faa581148100ea7501c770757eae19f1c8c64d"
+  },
+  {
+    "id": "complex-2025-01-02-funds-or-cross_then-price-rank",
+    "dsl": "((indicator('深', '', '主力净流入', '2025-01-02', '', '', '') < 0) and (indicator('深', '', '收盘价', '2025-01-02', '', '', '') < indicator('深', '', '开盘价', '2025-01-02', '', '', ''))) or ((cross_down('深', '', '收盘价', '开盘价', '2025-01-02', '', '') = True) and (indicator('深', '', '成交量', '2025-01-02', '', '', '') > 1000000)) then rank('深', '', '收盘价', 'asc:dense_rank', '2025-01-02', '', '', '') <= 14 limit 0,10",
+    "target": false,
+    "expectedRows": 10,
+    "expectedDigest": "c594ae6edcfd314f171c54666defaaa78e958f2dadd3ccb691484adad3b74878"
+  },
+  {
+    "id": "complex-2025-01-02-interval-and-rsi-rank",
+    "dsl": "((indicator('深', '', '收盘价', '2025-01-02', '', '', '') >= indicator('深', '', '5日均线', '2025-01-02', '', '', '')) and (indicator('深', '', '收盘价', '2025-01-02', '', '', '') < indicator('深', '', '12日均线', '2025-01-02', '', '', ''))) and (indicator('深', '', 'RSI(6)', '2025-01-02', '', '', '') < 60) then rank('深', '', '收盘价', 'asc:dense_rank', '2025-01-02', '', '', '') <= 22 limit 0,15",
+    "target": false,
+    "expectedRows": 15,
+    "expectedDigest": "517016e7ac46c4576a6bcfc1d17402bdc40e3580be10cedf32a18f8d914eabd0"
+  },
+  {
+    "id": "complex-2025-01-02-lookup-flow-volume-rank",
+    "dsl": "(indicator('深', '', '收盘价', '2025-01-02', '', '', '') > queryData('深', '000001', '收盘价', '2025-01-02', '')) and ((indicator('深', '', '主力净流入', '2025-01-02', '', '', '') < 0) or (indicator('深', '', '成交量', '2025-01-02', '', '', '') > 5000000)) then rank('深', '', '成交量', 'desc:row_number', '2025-01-02', '', '', '') <= 27 limit 0,17",
+    "target": false,
+    "expectedRows": 17,
+    "expectedDigest": "759a86ee593c2485cd6bbf301ff945d134b0298d0cca81a00e3eece82f59fcb3"
+  },
+  {
+    "id": "complex-2025-01-02-lookup-null-conjunction",
+    "dsl": "(indicator('深', '', '收盘价', '2025-01-02', '', '', '') > queryData('深', 'NO_SUCH_SECURITY', '收盘价', '2025-01-02', '')) and ((indicator('深', '', '收盘价', '2025-01-02', '', '', '') > indicator('深', '', '5日均线', '2025-01-02', '', '', '')) or (indicator('深', '', '主力净流入', '2025-01-02', '', '', '') < 0))",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "complex-2025-01-02-lookup-null-fallback",
+    "dsl": "(indicator('深', '', '收盘价', '2025-01-02', '', '', '') > queryData('深', 'NO_SUCH_SECURITY', '收盘价', '2025-01-02', '')) or ((indicator('深', '', '收盘价', '2025-01-02', '', '', '') > indicator('深', '', '5日均线', '2025-01-02', '', '', '')) and (indicator('深', '', '主力净流入', '2025-01-02', '', '', '') < 0))",
+    "target": true,
+    "expectedRows": 116,
+    "expectedDigest": "d7334c77543169b6b937951a0fdda6dcb149bc1ded443a0cc25964489f00bbea"
+  },
+  {
+    "id": "complex-2025-01-02-ma-crossover-flow",
+    "dsl": "(indicator('深', '', '5日均线', '2025-01-02', '', '', '') > indicator('深', '', '12日均线', '2025-01-02', '', '', '')) and ((indicator('深', '', '主力净流入', '2025-01-02', '', '', '') > 0) or (indicator('深', '', '收盘价', '2025-01-02', '', '', '') > indicator('深', '', '开盘价', '2025-01-02', '', '', '')))",
+    "target": false,
+    "expectedRows": 240,
+    "expectedDigest": "50920f8df9b8e6ea2d37862b009b51e6192a1fa80b8288f71cd1092bc4fe5712"
+  },
+  {
+    "id": "complex-2025-01-02-price-position-volume",
+    "dsl": "(position('深', '', '收盘价', '7日', '2025-01-02', '', '', '') = '高') and ((indicator('深', '', '收盘价', '2025-01-02', '', '', '') > indicator('深', '', '开盘价', '2025-01-02', '', '', '')) and (indicator('深', '', '成交量', '2025-01-02', '', '', '') > 1000000))",
+    "target": false,
+    "expectedRows": 174,
+    "expectedDigest": "b88d59396146aa2b777b480178a5d6b61ba2bd06d5bd88999fbdf6cffd0cd760"
+  },
+  {
+    "id": "complex-2025-01-02-rsi-ma-turn",
+    "dsl": "(indicator('深', '', 'RSI(6)', '2025-01-02', '', '', '') > 47) and ((indicator('深', '', '收盘价', '2025-01-02', '', '', '') >= indicator('深', '', '5日均线', '2025-01-02', '', '', '')) and (indicator('深', '', '主力净流入', '2025-01-02', '', '', '') > 0))",
+    "target": false,
+    "expectedRows": 143,
+    "expectedDigest": "2e152485b050a86f6648fb4282bd24866b218a1fd9037687f4770ffcc122f295"
+  },
+  {
+    "id": "complex-2025-01-02-rsi-position-funds-rank",
+    "dsl": "(indicator('深', '', 'RSI(6)', '2025-01-02', '', '', '') > 45) and ((position('深', '', '收盘价', '7日', '2025-01-02', '', '', '') = '低') or (indicator('深', '', '主力净流入', '2025-01-02', '', '', '') > 0)) then rank('深', '', '主力净流入', 'desc:rank', '2025-01-02', '', '', '') <= 21 limit 0,13",
+    "target": false,
+    "expectedRows": 13,
+    "expectedDigest": "dbc182780ea2f2e100e91b70514c1a6665f691718dccecd0058bf4d72f146355"
+  },
+  {
+    "id": "complex-2025-01-02-sum-price-and-lookup",
+    "dsl": "((indicator('深', '', '收盘价', '2025-01-02', '', '', '')+indicator('深', '', '开盘价', '2025-01-02', '', '', '')) > 30) and ((indicator('深', '', '收盘价', '2025-01-02', '', '', '') > queryData('深', '000001', '收盘价', '2025-01-02', '')) and (indicator('深', '', '成交量', '2025-01-02', '', '', '') > 100000))",
+    "target": false,
+    "expectedRows": 1166,
+    "expectedDigest": "7e295c4759d26a33daf7a0fc590e5b5c6bd322306f5d56c5d178bd4d3d90fa9a"
+  },
+  {
+    "id": "complex-2025-01-02-two-ranks-after-price-filter",
+    "dsl": "(indicator('深', '', '收盘价', '2025-01-02', '', '', '') >= indicator('深', '', '5日均线', '2025-01-02', '', '', '')) and (indicator('深', '', '成交量', '2025-01-02', '', '', '') > 10000) then (rank('深', '', '收盘价', 'asc:dense_rank', '2025-01-02', '', '', '') <= 60) and (rank('深', '', '成交量', 'desc:row_number', '2025-01-02', '', '', '') <= 100) limit 0,19",
+    "target": false,
+    "expectedRows": 19,
+    "expectedDigest": "5b5b77c5952faf127a93bf8709c226db50083ed8188b54df86027fa97e03a911"
+  },
+  {
+    "id": "complex-2026-04-14-consecutive-breakout",
+    "dsl": "(indicator('沪|深|京', '', '成交量', '2026-04-14', '', '', 'CONS>=3日') > 100000) and ((record_high('沪|深|京', '', '收盘价', '9日', '2026-04-14', '', '', '') = True) or (indicator('沪|深|京', '', '主力净流入', '2026-04-14', '', '', '') > 0))",
+    "target": false,
+    "expectedRows": 2922,
+    "expectedDigest": "ad8b40f3b40a6d5e88cff514789318fe177c7c33931a80c84640a6d573409940"
+  },
+  {
+    "id": "complex-2026-04-14-exact-flow-streak-rank",
+    "dsl": "(indicator('沪|深|京', '', '主力净流入', '2026-04-14', '', '', 'CONS=2日') > 0) and (indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') >= indicator('沪|深|京', '', '开盘价', '2026-04-14', '', '', '')) then rank('沪|深|京', '', '成交量', 'desc:row_number', '2026-04-14', '', '', '') <= 17 limit 0,11",
+    "target": false,
+    "expectedRows": 11,
+    "expectedDigest": "a6e7bac39c8a3081d548d9cd39300702b9e13fb167888ac2f5b61b29d6d28ddd"
+  },
+  {
+    "id": "complex-2026-04-14-exact-frequency-cross",
+    "dsl": "(indicator('沪|深|京', '', '主力净流入', '2026-04-14', '', '', 'EXIST=7日') < 0) and ((cross_above('沪|深|京', '', '收盘价', '开盘价', '2026-04-14', '', '') = True) or (indicator('沪|深|京', '', 'RSI(6)', '2026-04-14', '', '', '') >= 51))",
+    "target": false,
+    "expectedRows": 102,
+    "expectedDigest": "370702d7f6cefe39e67671c32d644cdb93d540e702fbbb29649ec8efd7e271b2"
+  },
+  {
+    "id": "complex-2026-04-14-extreme-reversal",
+    "dsl": "((record_high('沪|深|京', '', '收盘价', '9日', '2026-04-14', '', '', '') = True) and (cross_down('沪|深|京', '', '收盘价', '开盘价', '2026-04-14', '', '') = True)) or ((record_low('沪|深|京', '', '收盘价', '9日', '2026-04-14', '', '', '') = True) and (cross_above('沪|深|京', '', '收盘价', '开盘价', '2026-04-14', '', '') = True))",
+    "target": false,
+    "expectedRows": 282,
+    "expectedDigest": "4acf5067d99f1ec00040a02c9f4382b4e3f93ec829ee3dff356d72f277a31b87"
+  },
+  {
+    "id": "complex-2026-04-14-frequency-ma-rank",
+    "dsl": "(indicator('沪|深|京', '', '5日均线', '2026-04-14', '', '', 'EXIST>=6日') > 10) and (indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') >= queryData('沪|深|京', '600000', '收盘价', '2026-04-14', '')) then rank('沪|深|京', '', '收盘价', 'asc:dense_rank', '2026-04-14', '', '', '') <= 12 limit 0,9",
+    "target": true,
+    "expectedRows": 9,
+    "expectedDigest": "f34b6fddb1a8ed59f9cbf409bf23579f21467443b231d704a6ad64b76146c3d9"
+  },
+  {
+    "id": "complex-2026-04-14-funds-or-cross_then-price-rank",
+    "dsl": "((indicator('沪|深|京', '', '主力净流入', '2026-04-14', '', '', '') < 0) and (indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') < indicator('沪|深|京', '', '开盘价', '2026-04-14', '', '', ''))) or ((cross_down('沪|深|京', '', '收盘价', '开盘价', '2026-04-14', '', '') = True) and (indicator('沪|深|京', '', '成交量', '2026-04-14', '', '', '') > 1000000)) then rank('沪|深|京', '', '收盘价', 'asc:dense_rank', '2026-04-14', '', '', '') <= 14 limit 0,10",
+    "target": false,
+    "expectedRows": 10,
+    "expectedDigest": "00a10e71dba44beffeb50316beaa783296dc03bf331a79d64b35e2d1b1cefe5c"
+  },
+  {
+    "id": "complex-2026-04-14-interval-and-rsi-rank",
+    "dsl": "((indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') >= indicator('沪|深|京', '', '5日均线', '2026-04-14', '', '', '')) and (indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') < indicator('沪|深|京', '', '12日均线', '2026-04-14', '', '', ''))) and (indicator('沪|深|京', '', 'RSI(6)', '2026-04-14', '', '', '') < 60) then rank('沪|深|京', '', '收盘价', 'asc:dense_rank', '2026-04-14', '', '', '') <= 22 limit 0,15",
+    "target": false,
+    "expectedRows": 15,
+    "expectedDigest": "ac98f03b84aaab4a4ccff0ffb4ea98e69ba42efef2ad5508e76cd54320d39895"
+  },
+  {
+    "id": "complex-2026-04-14-lookup-flow-volume-rank",
+    "dsl": "(indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') > queryData('沪|深|京', '600000', '收盘价', '2026-04-14', '')) and ((indicator('沪|深|京', '', '主力净流入', '2026-04-14', '', '', '') < 0) or (indicator('沪|深|京', '', '成交量', '2026-04-14', '', '', '') > 5000000)) then rank('沪|深|京', '', '成交量', 'desc:row_number', '2026-04-14', '', '', '') <= 27 limit 0,17",
+    "target": false,
+    "expectedRows": 17,
+    "expectedDigest": "30b72dc1be2a14283b92debb2c627e0329ba8f4a8a1e8d604a5e8a8c638a60e6"
+  },
+  {
+    "id": "complex-2026-04-14-lookup-null-conjunction",
+    "dsl": "(indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') > queryData('沪|深|京', 'NO_SUCH_SECURITY', '收盘价', '2026-04-14', '')) and ((indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') > indicator('沪|深|京', '', '5日均线', '2026-04-14', '', '', '')) or (indicator('沪|深|京', '', '主力净流入', '2026-04-14', '', '', '') < 0))",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "complex-2026-04-14-lookup-null-fallback",
+    "dsl": "(indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') > queryData('沪|深|京', 'NO_SUCH_SECURITY', '收盘价', '2026-04-14', '')) or ((indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') > indicator('沪|深|京', '', '5日均线', '2026-04-14', '', '', '')) and (indicator('沪|深|京', '', '主力净流入', '2026-04-14', '', '', '') < 0))",
+    "target": true,
+    "expectedRows": 1569,
+    "expectedDigest": "765a628f6b59fb5d8d4bb17c7740bbc27d6da92918441de476295c4fc8f8846f"
+  },
+  {
+    "id": "complex-2026-04-14-ma-crossover-flow",
+    "dsl": "(indicator('沪|深|京', '', '5日均线', '2026-04-14', '', '', '') > indicator('沪|深|京', '', '12日均线', '2026-04-14', '', '', '')) and ((indicator('沪|深|京', '', '主力净流入', '2026-04-14', '', '', '') > 0) or (indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') > indicator('沪|深|京', '', '开盘价', '2026-04-14', '', '', '')))",
+    "target": false,
+    "expectedRows": 2612,
+    "expectedDigest": "259ba76704a4f76d42e457fbecb3207745e31b9f106f8e85a770b26e2a92b6e6"
+  },
+  {
+    "id": "complex-2026-04-14-price-position-volume",
+    "dsl": "(position('沪|深|京', '', '收盘价', '7日', '2026-04-14', '', '', '') = '高') and ((indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') > indicator('沪|深|京', '', '开盘价', '2026-04-14', '', '', '')) and (indicator('沪|深|京', '', '成交量', '2026-04-14', '', '', '') > 1000000))",
+    "target": false,
+    "expectedRows": 2062,
+    "expectedDigest": "350c18612327aecbdf4fa997b3e25f6627ff99ca2c292909f76df30d45aeb4f9"
+  },
+  {
+    "id": "complex-2026-04-14-rsi-ma-turn",
+    "dsl": "(indicator('沪|深|京', '', 'RSI(6)', '2026-04-14', '', '', '') > 47) and ((indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') >= indicator('沪|深|京', '', '5日均线', '2026-04-14', '', '', '')) and (indicator('沪|深|京', '', '主力净流入', '2026-04-14', '', '', '') > 0))",
+    "target": false,
+    "expectedRows": 1573,
+    "expectedDigest": "cfcbe8407d19690bdd498df375b27c8339e8c52632be769911ef5de24ad05928"
+  },
+  {
+    "id": "complex-2026-04-14-rsi-position-funds-rank",
+    "dsl": "(indicator('沪|深|京', '', 'RSI(6)', '2026-04-14', '', '', '') > 45) and ((position('沪|深|京', '', '收盘价', '7日', '2026-04-14', '', '', '') = '低') or (indicator('沪|深|京', '', '主力净流入', '2026-04-14', '', '', '') > 0)) then rank('沪|深|京', '', '主力净流入', 'desc:rank', '2026-04-14', '', '', '') <= 21 limit 0,13",
+    "target": false,
+    "expectedRows": 13,
+    "expectedDigest": "5e6fa6063fbee472a070628617aab86f8cb30dd90f44854995fdc939520dabc8"
+  },
+  {
+    "id": "complex-2026-04-14-sum-price-and-lookup",
+    "dsl": "((indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '')+indicator('沪|深|京', '', '开盘价', '2026-04-14', '', '', '')) > 30) and ((indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') > queryData('沪|深|京', '600000', '收盘价', '2026-04-14', '')) and (indicator('沪|深|京', '', '成交量', '2026-04-14', '', '', '') > 100000))",
+    "target": false,
+    "expectedRows": 2953,
+    "expectedDigest": "70e706b46ea845bb777b416d59ca8d2d0cecfc3de4873a12264efe09f8c5f2c6"
+  },
+  {
+    "id": "complex-2026-04-14-two-ranks-after-price-filter",
+    "dsl": "(indicator('沪|深|京', '', '收盘价', '2026-04-14', '', '', '') >= indicator('沪|深|京', '', '5日均线', '2026-04-14', '', '', '')) and (indicator('沪|深|京', '', '成交量', '2026-04-14', '', '', '') > 10000) then (rank('沪|深|京', '', '收盘价', 'asc:dense_rank', '2026-04-14', '', '', '') <= 60) and (rank('沪|深|京', '', '成交量', 'desc:row_number', '2026-04-14', '', '', '') <= 100) limit 0,19",
+    "target": false,
+    "expectedRows": 7,
+    "expectedDigest": "dc2452d1b8b4d6d9016bb166284efc0d3840c22b0786ed048a7dcd85a29aba7c"
+  },
+  {
+    "id": "holdout-2006-01-06-consecutive-breakout",
+    "dsl": "(indicator('沪', '', '成交量', '2006-01-06', '', '', 'CONS>=3日') > 100000) and ((record_high('沪', '', '收盘价', '9日', '2006-01-06', '', '', '') = True) or (indicator('沪', '', '主力净流入', '2006-01-06', '', '', '') > 0))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2006-01-06-exact-flow-streak-rank",
+    "dsl": "(indicator('沪', '', '主力净流入', '2006-01-06', '', '', 'CONS=2日') > 0) and (indicator('沪', '', '收盘价', '2006-01-06', '', '', '') >= indicator('沪', '', '开盘价', '2006-01-06', '', '', '')) then rank('沪', '', '成交量', 'desc:row_number', '2006-01-06', '', '', '') <= 17 limit 0,11",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2006-01-06-exact-frequency-cross",
+    "dsl": "(indicator('沪', '', '主力净流入', '2006-01-06', '', '', 'EXIST=7日') < 0) and ((cross_above('沪', '', '收盘价', '开盘价', '2006-01-06', '', '') = True) or (indicator('沪', '', 'RSI(6)', '2006-01-06', '', '', '') >= 51))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2006-01-06-extreme-reversal",
+    "dsl": "((record_high('沪', '', '收盘价', '9日', '2006-01-06', '', '', '') = True) and (cross_down('沪', '', '收盘价', '开盘价', '2006-01-06', '', '') = True)) or ((record_low('沪', '', '收盘价', '9日', '2006-01-06', '', '', '') = True) and (cross_above('沪', '', '收盘价', '开盘价', '2006-01-06', '', '') = True))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2006-01-06-frequency-ma-rank",
+    "dsl": "(indicator('沪', '', '5日均线', '2006-01-06', '', '', 'EXIST>=6日') > 10) and (indicator('沪', '', '收盘价', '2006-01-06', '', '', '') >= queryData('沪', '600000', '收盘价', '2006-01-06', '')) then rank('沪', '', '收盘价', 'asc:dense_rank', '2006-01-06', '', '', '') <= 12 limit 0,9",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2006-01-06-funds-or-cross_then-price-rank",
+    "dsl": "((indicator('沪', '', '主力净流入', '2006-01-06', '', '', '') < 0) and (indicator('沪', '', '收盘价', '2006-01-06', '', '', '') < indicator('沪', '', '开盘价', '2006-01-06', '', '', ''))) or ((cross_down('沪', '', '收盘价', '开盘价', '2006-01-06', '', '') = True) and (indicator('沪', '', '成交量', '2006-01-06', '', '', '') > 1000000)) then rank('沪', '', '收盘价', 'asc:dense_rank', '2006-01-06', '', '', '') <= 14 limit 0,10",
+    "target": false,
+    "expectedRows": 10,
+    "expectedDigest": "1396330b188c8eb9755b1b7b39eca25401e2e0b52d9385eea938572ffe118443"
+  },
+  {
+    "id": "holdout-2006-01-06-interval-and-rsi-rank",
+    "dsl": "((indicator('沪', '', '收盘价', '2006-01-06', '', '', '') >= indicator('沪', '', '5日均线', '2006-01-06', '', '', '')) and (indicator('沪', '', '收盘价', '2006-01-06', '', '', '') < indicator('沪', '', '12日均线', '2006-01-06', '', '', ''))) and (indicator('沪', '', 'RSI(6)', '2006-01-06', '', '', '') < 60) then rank('沪', '', '收盘价', 'asc:dense_rank', '2006-01-06', '', '', '') <= 22 limit 0,15",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2006-01-06-lookup-flow-volume-rank",
+    "dsl": "(indicator('沪', '', '收盘价', '2006-01-06', '', '', '') > queryData('沪', '600000', '收盘价', '2006-01-06', '')) and ((indicator('沪', '', '主力净流入', '2006-01-06', '', '', '') < 0) or (indicator('沪', '', '成交量', '2006-01-06', '', '', '') > 5000000)) then rank('沪', '', '成交量', 'desc:row_number', '2006-01-06', '', '', '') <= 27 limit 0,17",
+    "target": false,
+    "expectedRows": 9,
+    "expectedDigest": "6ba77e35589baa012c0ef10b9182f43d0643374509d4abf3baf2ce2bb332a21f"
+  },
+  {
+    "id": "holdout-2006-01-06-lookup-null-conjunction",
+    "dsl": "(indicator('沪', '', '收盘价', '2006-01-06', '', '', '') > queryData('沪', 'NO_SUCH_SECURITY', '收盘价', '2006-01-06', '')) and ((indicator('沪', '', '收盘价', '2006-01-06', '', '', '') > indicator('沪', '', '5日均线', '2006-01-06', '', '', '')) or (indicator('沪', '', '主力净流入', '2006-01-06', '', '', '') < 0))",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2006-01-06-lookup-null-fallback",
+    "dsl": "(indicator('沪', '', '收盘价', '2006-01-06', '', '', '') > queryData('沪', 'NO_SUCH_SECURITY', '收盘价', '2006-01-06', '')) or ((indicator('沪', '', '收盘价', '2006-01-06', '', '', '') > indicator('沪', '', '5日均线', '2006-01-06', '', '', '')) and (indicator('沪', '', '主力净流入', '2006-01-06', '', '', '') < 0))",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2006-01-06-ma-crossover-flow",
+    "dsl": "(indicator('沪', '', '5日均线', '2006-01-06', '', '', '') > indicator('沪', '', '12日均线', '2006-01-06', '', '', '')) and ((indicator('沪', '', '主力净流入', '2006-01-06', '', '', '') > 0) or (indicator('沪', '', '收盘价', '2006-01-06', '', '', '') > indicator('沪', '', '开盘价', '2006-01-06', '', '', '')))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2006-01-06-price-position-volume",
+    "dsl": "(position('沪', '', '收盘价', '7日', '2006-01-06', '', '', '') = '高') and ((indicator('沪', '', '收盘价', '2006-01-06', '', '', '') > indicator('沪', '', '开盘价', '2006-01-06', '', '', '')) and (indicator('沪', '', '成交量', '2006-01-06', '', '', '') > 1000000))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2006-01-06-rsi-ma-turn",
+    "dsl": "(indicator('沪', '', 'RSI(6)', '2006-01-06', '', '', '') > 47) and ((indicator('沪', '', '收盘价', '2006-01-06', '', '', '') >= indicator('沪', '', '5日均线', '2006-01-06', '', '', '')) and (indicator('沪', '', '主力净流入', '2006-01-06', '', '', '') > 0))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2006-01-06-rsi-position-funds-rank",
+    "dsl": "(indicator('沪', '', 'RSI(6)', '2006-01-06', '', '', '') > 45) and ((position('沪', '', '收盘价', '7日', '2006-01-06', '', '', '') = '低') or (indicator('沪', '', '主力净流入', '2006-01-06', '', '', '') > 0)) then rank('沪', '', '主力净流入', 'desc:rank', '2006-01-06', '', '', '') <= 21 limit 0,13",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2006-01-06-sum-price-and-lookup",
+    "dsl": "((indicator('沪', '', '收盘价', '2006-01-06', '', '', '')+indicator('沪', '', '开盘价', '2006-01-06', '', '', '')) > 30) and ((indicator('沪', '', '收盘价', '2006-01-06', '', '', '') > queryData('沪', '600000', '收盘价', '2006-01-06', '')) and (indicator('沪', '', '成交量', '2006-01-06', '', '', '') > 100000))",
+    "target": false,
+    "expectedRows": 14,
+    "expectedDigest": "313257778099b2d281b690ecdc92b0b07814e5beb4577d468ddd7f284d3ec724"
+  },
+  {
+    "id": "holdout-2006-01-06-two-ranks-after-price-filter",
+    "dsl": "(indicator('沪', '', '收盘价', '2006-01-06', '', '', '') >= indicator('沪', '', '5日均线', '2006-01-06', '', '', '')) and (indicator('沪', '', '成交量', '2006-01-06', '', '', '') > 10000) then (rank('沪', '', '收盘价', 'asc:dense_rank', '2006-01-06', '', '', '') <= 60) and (rank('沪', '', '成交量', 'desc:row_number', '2006-01-06', '', '', '') <= 100) limit 0,19",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2020-02-03-consecutive-breakout",
+    "dsl": "(indicator('深', '', '成交量', '2020-02-03', '', '', 'CONS>=3日') > 100000) and ((record_high('深', '', '收盘价', '9日', '2020-02-03', '', '', '') = True) or (indicator('深', '', '主力净流入', '2020-02-03', '', '', '') > 0))",
+    "target": false,
+    "expectedRows": 394,
+    "expectedDigest": "7e36f30ae85f0d06f6c4d8d0c174264f4ad335b717be0465a878a8c8218234a3"
+  },
+  {
+    "id": "holdout-2020-02-03-exact-flow-streak-rank",
+    "dsl": "(indicator('深', '', '主力净流入', '2020-02-03', '', '', 'CONS=2日') > 0) and (indicator('深', '', '收盘价', '2020-02-03', '', '', '') >= indicator('深', '', '开盘价', '2020-02-03', '', '', '')) then rank('深', '', '成交量', 'desc:row_number', '2020-02-03', '', '', '') <= 17 limit 0,11",
+    "target": false,
+    "expectedRows": 11,
+    "expectedDigest": "4c0f8bf84dedf34b7030ad1329fc12f43a5ac9099824ba7b9c6c621a95dda18a"
+  },
+  {
+    "id": "holdout-2020-02-03-exact-frequency-cross",
+    "dsl": "(indicator('深', '', '主力净流入', '2020-02-03', '', '', 'EXIST=7日') < 0) and ((cross_above('深', '', '收盘价', '开盘价', '2020-02-03', '', '') = True) or (indicator('深', '', 'RSI(6)', '2020-02-03', '', '', '') >= 51))",
+    "target": false,
+    "expectedRows": 2,
+    "expectedDigest": "3aa409d0da19ccaeb4781576fcde8b2be05a2494c4ce19584fb1e2e4eb082162"
+  },
+  {
+    "id": "holdout-2020-02-03-extreme-reversal",
+    "dsl": "((record_high('深', '', '收盘价', '9日', '2020-02-03', '', '', '') = True) and (cross_down('深', '', '收盘价', '开盘价', '2020-02-03', '', '') = True)) or ((record_low('深', '', '收盘价', '9日', '2020-02-03', '', '', '') = True) and (cross_above('深', '', '收盘价', '开盘价', '2020-02-03', '', '') = True))",
+    "target": false,
+    "expectedRows": 106,
+    "expectedDigest": "09e1b1f897fb08d8cd1fde9433e4b1083d22233f127634d158f704f34ea5d5c1"
+  },
+  {
+    "id": "holdout-2020-02-03-frequency-ma-rank",
+    "dsl": "(indicator('深', '', '5日均线', '2020-02-03', '', '', 'EXIST>=6日') > 10) and (indicator('深', '', '收盘价', '2020-02-03', '', '', '') >= queryData('深', '000001', '收盘价', '2020-02-03', '')) then rank('深', '', '收盘价', 'asc:dense_rank', '2020-02-03', '', '', '') <= 12 limit 0,9",
+    "target": true,
+    "expectedRows": 9,
+    "expectedDigest": "5c7eb46be0f66013ca0839ea4d210bf1f4a18e6f7d13630f702af322cb72fa64"
+  },
+  {
+    "id": "holdout-2020-02-03-funds-or-cross_then-price-rank",
+    "dsl": "((indicator('深', '', '主力净流入', '2020-02-03', '', '', '') < 0) and (indicator('深', '', '收盘价', '2020-02-03', '', '', '') < indicator('深', '', '开盘价', '2020-02-03', '', '', ''))) or ((cross_down('深', '', '收盘价', '开盘价', '2020-02-03', '', '') = True) and (indicator('深', '', '成交量', '2020-02-03', '', '', '') > 1000000)) then rank('深', '', '收盘价', 'asc:dense_rank', '2020-02-03', '', '', '') <= 14 limit 0,10",
+    "target": false,
+    "expectedRows": 10,
+    "expectedDigest": "a3e12b5bf08ec6cf663ebeed5dce3de953cdb95d24c9f37f0de561294a26b43d"
+  },
+  {
+    "id": "holdout-2020-02-03-interval-and-rsi-rank",
+    "dsl": "((indicator('深', '', '收盘价', '2020-02-03', '', '', '') >= indicator('深', '', '5日均线', '2020-02-03', '', '', '')) and (indicator('深', '', '收盘价', '2020-02-03', '', '', '') < indicator('深', '', '12日均线', '2020-02-03', '', '', ''))) and (indicator('深', '', 'RSI(6)', '2020-02-03', '', '', '') < 60) then rank('深', '', '收盘价', 'asc:dense_rank', '2020-02-03', '', '', '') <= 22 limit 0,15",
+    "target": false,
+    "expectedRows": 2,
+    "expectedDigest": "2b10bb4217490136e37074220bd5281e7d56b37477c1ebb0db34e6ba7fdb2549"
+  },
+  {
+    "id": "holdout-2020-02-03-lookup-flow-volume-rank",
+    "dsl": "(indicator('深', '', '收盘价', '2020-02-03', '', '', '') > queryData('深', '000001', '收盘价', '2020-02-03', '')) and ((indicator('深', '', '主力净流入', '2020-02-03', '', '', '') < 0) or (indicator('深', '', '成交量', '2020-02-03', '', '', '') > 5000000)) then rank('深', '', '成交量', 'desc:row_number', '2020-02-03', '', '', '') <= 27 limit 0,17",
+    "target": false,
+    "expectedRows": 17,
+    "expectedDigest": "22e44ef7636e092caf17230b025081eddf1f8aee83cad755d7c71829d1306385"
+  },
+  {
+    "id": "holdout-2020-02-03-lookup-null-conjunction",
+    "dsl": "(indicator('深', '', '收盘价', '2020-02-03', '', '', '') > queryData('深', 'NO_SUCH_SECURITY', '收盘价', '2020-02-03', '')) and ((indicator('深', '', '收盘价', '2020-02-03', '', '', '') > indicator('深', '', '5日均线', '2020-02-03', '', '', '')) or (indicator('深', '', '主力净流入', '2020-02-03', '', '', '') < 0))",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2020-02-03-lookup-null-fallback",
+    "dsl": "(indicator('深', '', '收盘价', '2020-02-03', '', '', '') > queryData('深', 'NO_SUCH_SECURITY', '收盘价', '2020-02-03', '')) or ((indicator('深', '', '收盘价', '2020-02-03', '', '', '') > indicator('深', '', '5日均线', '2020-02-03', '', '', '')) and (indicator('深', '', '主力净流入', '2020-02-03', '', '', '') < 0))",
+    "target": true,
+    "expectedRows": 69,
+    "expectedDigest": "ca78bc5b8f704a74ee42be0b65bf4b02d1d7d42348d8255e556f28e60d821307"
+  },
+  {
+    "id": "holdout-2020-02-03-ma-crossover-flow",
+    "dsl": "(indicator('深', '', '5日均线', '2020-02-03', '', '', '') > indicator('深', '', '12日均线', '2020-02-03', '', '', '')) and ((indicator('深', '', '主力净流入', '2020-02-03', '', '', '') > 0) or (indicator('深', '', '收盘价', '2020-02-03', '', '', '') > indicator('深', '', '开盘价', '2020-02-03', '', '', '')))",
+    "target": false,
+    "expectedRows": 167,
+    "expectedDigest": "ecfa2532b6a72782295313ad6f3fa94895a6079f3dcecee5e89d6c25b78b6d37"
+  },
+  {
+    "id": "holdout-2020-02-03-price-position-volume",
+    "dsl": "(position('深', '', '收盘价', '7日', '2020-02-03', '', '', '') = '高') and ((indicator('深', '', '收盘价', '2020-02-03', '', '', '') > indicator('深', '', '开盘价', '2020-02-03', '', '', '')) and (indicator('深', '', '成交量', '2020-02-03', '', '', '') > 1000000))",
+    "target": false,
+    "expectedRows": 61,
+    "expectedDigest": "2c73d4511172cb302b1bfe83570a739c0c2f13c0794f8a1a70a37f217e5ae867"
+  },
+  {
+    "id": "holdout-2020-02-03-rsi-ma-turn",
+    "dsl": "(indicator('深', '', 'RSI(6)', '2020-02-03', '', '', '') > 47) and ((indicator('深', '', '收盘价', '2020-02-03', '', '', '') >= indicator('深', '', '5日均线', '2020-02-03', '', '', '')) and (indicator('深', '', '主力净流入', '2020-02-03', '', '', '') > 0))",
+    "target": false,
+    "expectedRows": 28,
+    "expectedDigest": "968df8b823c2213981b1dddee7212c4902bb3b7ff4996361efcf3165dfb457c8"
+  },
+  {
+    "id": "holdout-2020-02-03-rsi-position-funds-rank",
+    "dsl": "(indicator('深', '', 'RSI(6)', '2020-02-03', '', '', '') > 45) and ((position('深', '', '收盘价', '7日', '2020-02-03', '', '', '') = '低') or (indicator('深', '', '主力净流入', '2020-02-03', '', '', '') > 0)) then rank('深', '', '主力净流入', 'desc:rank', '2020-02-03', '', '', '') <= 21 limit 0,13",
+    "target": false,
+    "expectedRows": 13,
+    "expectedDigest": "026681195bcb062c876ed00ce44c33c0ebc2c81dfc22eff1cb95b16acde05646"
+  },
+  {
+    "id": "holdout-2020-02-03-sum-price-and-lookup",
+    "dsl": "((indicator('深', '', '收盘价', '2020-02-03', '', '', '')+indicator('深', '', '开盘价', '2020-02-03', '', '', '')) > 30) and ((indicator('深', '', '收盘价', '2020-02-03', '', '', '') > queryData('深', '000001', '收盘价', '2020-02-03', '')) and (indicator('深', '', '成交量', '2020-02-03', '', '', '') > 100000))",
+    "target": false,
+    "expectedRows": 550,
+    "expectedDigest": "8e20d66de08767b8d6e88f5c781c7e49752b0eae386aebc7064a04dfef00edcd"
+  },
+  {
+    "id": "holdout-2020-02-03-two-ranks-after-price-filter",
+    "dsl": "(indicator('深', '', '收盘价', '2020-02-03', '', '', '') >= indicator('深', '', '5日均线', '2020-02-03', '', '', '')) and (indicator('深', '', '成交量', '2020-02-03', '', '', '') > 10000) then (rank('深', '', '收盘价', 'asc:dense_rank', '2020-02-03', '', '', '') <= 60) and (rank('深', '', '成交量', 'desc:row_number', '2020-02-03', '', '', '') <= 100) limit 0,19",
+    "target": false,
+    "expectedRows": 19,
+    "expectedDigest": "3d4d82b0954b88d2ff0b6d786935a33b04e78d446d8e5c36fdd1cbf36d10383e"
+  },
+  {
+    "id": "holdout-2026-04-12-consecutive-breakout",
+    "dsl": "(indicator('沪', '', '成交量', '2026-04-12', '', '', 'CONS>=3日') > 100000) and ((record_high('沪', '', '收盘价', '9日', '2026-04-12', '', '', '') = True) or (indicator('沪', '', '主力净流入', '2026-04-12', '', '', '') > 0))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-12-exact-flow-streak-rank",
+    "dsl": "(indicator('沪', '', '主力净流入', '2026-04-12', '', '', 'CONS=2日') > 0) and (indicator('沪', '', '收盘价', '2026-04-12', '', '', '') >= indicator('沪', '', '开盘价', '2026-04-12', '', '', '')) then rank('沪', '', '成交量', 'desc:row_number', '2026-04-12', '', '', '') <= 17 limit 0,11",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-12-exact-frequency-cross",
+    "dsl": "(indicator('沪', '', '主力净流入', '2026-04-12', '', '', 'EXIST=7日') < 0) and ((cross_above('沪', '', '收盘价', '开盘价', '2026-04-12', '', '') = True) or (indicator('沪', '', 'RSI(6)', '2026-04-12', '', '', '') >= 51))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-12-extreme-reversal",
+    "dsl": "((record_high('沪', '', '收盘价', '9日', '2026-04-12', '', '', '') = True) and (cross_down('沪', '', '收盘价', '开盘价', '2026-04-12', '', '') = True)) or ((record_low('沪', '', '收盘价', '9日', '2026-04-12', '', '', '') = True) and (cross_above('沪', '', '收盘价', '开盘价', '2026-04-12', '', '') = True))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-12-frequency-ma-rank",
+    "dsl": "(indicator('沪', '', '5日均线', '2026-04-12', '', '', 'EXIST>=6日') > 10) and (indicator('沪', '', '收盘价', '2026-04-12', '', '', '') >= queryData('沪', '600000', '收盘价', '2026-04-12', '')) then rank('沪', '', '收盘价', 'asc:dense_rank', '2026-04-12', '', '', '') <= 12 limit 0,9",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-12-funds-or-cross_then-price-rank",
+    "dsl": "((indicator('沪', '', '主力净流入', '2026-04-12', '', '', '') < 0) and (indicator('沪', '', '收盘价', '2026-04-12', '', '', '') < indicator('沪', '', '开盘价', '2026-04-12', '', '', ''))) or ((cross_down('沪', '', '收盘价', '开盘价', '2026-04-12', '', '') = True) and (indicator('沪', '', '成交量', '2026-04-12', '', '', '') > 1000000)) then rank('沪', '', '收盘价', 'asc:dense_rank', '2026-04-12', '', '', '') <= 14 limit 0,10",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-12-interval-and-rsi-rank",
+    "dsl": "((indicator('沪', '', '收盘价', '2026-04-12', '', '', '') >= indicator('沪', '', '5日均线', '2026-04-12', '', '', '')) and (indicator('沪', '', '收盘价', '2026-04-12', '', '', '') < indicator('沪', '', '12日均线', '2026-04-12', '', '', ''))) and (indicator('沪', '', 'RSI(6)', '2026-04-12', '', '', '') < 60) then rank('沪', '', '收盘价', 'asc:dense_rank', '2026-04-12', '', '', '') <= 22 limit 0,15",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-12-lookup-flow-volume-rank",
+    "dsl": "(indicator('沪', '', '收盘价', '2026-04-12', '', '', '') > queryData('沪', '600000', '收盘价', '2026-04-12', '')) and ((indicator('沪', '', '主力净流入', '2026-04-12', '', '', '') < 0) or (indicator('沪', '', '成交量', '2026-04-12', '', '', '') > 5000000)) then rank('沪', '', '成交量', 'desc:row_number', '2026-04-12', '', '', '') <= 27 limit 0,17",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-12-lookup-null-conjunction",
+    "dsl": "(indicator('沪', '', '收盘价', '2026-04-12', '', '', '') > queryData('沪', 'NO_SUCH_SECURITY', '收盘价', '2026-04-12', '')) and ((indicator('沪', '', '收盘价', '2026-04-12', '', '', '') > indicator('沪', '', '5日均线', '2026-04-12', '', '', '')) or (indicator('沪', '', '主力净流入', '2026-04-12', '', '', '') < 0))",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-12-lookup-null-fallback",
+    "dsl": "(indicator('沪', '', '收盘价', '2026-04-12', '', '', '') > queryData('沪', 'NO_SUCH_SECURITY', '收盘价', '2026-04-12', '')) or ((indicator('沪', '', '收盘价', '2026-04-12', '', '', '') > indicator('沪', '', '5日均线', '2026-04-12', '', '', '')) and (indicator('沪', '', '主力净流入', '2026-04-12', '', '', '') < 0))",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-12-ma-crossover-flow",
+    "dsl": "(indicator('沪', '', '5日均线', '2026-04-12', '', '', '') > indicator('沪', '', '12日均线', '2026-04-12', '', '', '')) and ((indicator('沪', '', '主力净流入', '2026-04-12', '', '', '') > 0) or (indicator('沪', '', '收盘价', '2026-04-12', '', '', '') > indicator('沪', '', '开盘价', '2026-04-12', '', '', '')))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-12-price-position-volume",
+    "dsl": "(position('沪', '', '收盘价', '7日', '2026-04-12', '', '', '') = '高') and ((indicator('沪', '', '收盘价', '2026-04-12', '', '', '') > indicator('沪', '', '开盘价', '2026-04-12', '', '', '')) and (indicator('沪', '', '成交量', '2026-04-12', '', '', '') > 1000000))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-12-rsi-ma-turn",
+    "dsl": "(indicator('沪', '', 'RSI(6)', '2026-04-12', '', '', '') > 47) and ((indicator('沪', '', '收盘价', '2026-04-12', '', '', '') >= indicator('沪', '', '5日均线', '2026-04-12', '', '', '')) and (indicator('沪', '', '主力净流入', '2026-04-12', '', '', '') > 0))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-12-rsi-position-funds-rank",
+    "dsl": "(indicator('沪', '', 'RSI(6)', '2026-04-12', '', '', '') > 45) and ((position('沪', '', '收盘价', '7日', '2026-04-12', '', '', '') = '低') or (indicator('沪', '', '主力净流入', '2026-04-12', '', '', '') > 0)) then rank('沪', '', '主力净流入', 'desc:rank', '2026-04-12', '', '', '') <= 21 limit 0,13",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-12-sum-price-and-lookup",
+    "dsl": "((indicator('沪', '', '收盘价', '2026-04-12', '', '', '')+indicator('沪', '', '开盘价', '2026-04-12', '', '', '')) > 30) and ((indicator('沪', '', '收盘价', '2026-04-12', '', '', '') > queryData('沪', '600000', '收盘价', '2026-04-12', '')) and (indicator('沪', '', '成交量', '2026-04-12', '', '', '') > 100000))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-12-two-ranks-after-price-filter",
+    "dsl": "(indicator('沪', '', '收盘价', '2026-04-12', '', '', '') >= indicator('沪', '', '5日均线', '2026-04-12', '', '', '')) and (indicator('沪', '', '成交量', '2026-04-12', '', '', '') > 10000) then (rank('沪', '', '收盘价', 'asc:dense_rank', '2026-04-12', '', '', '') <= 60) and (rank('沪', '', '成交量', 'desc:row_number', '2026-04-12', '', '', '') <= 100) limit 0,19",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-13-consecutive-breakout",
+    "dsl": "(indicator('京', '', '成交量', '2026-04-13', '', '', 'CONS>=3日') > 100000) and ((record_high('京', '', '收盘价', '9日', '2026-04-13', '', '', '') = True) or (indicator('京', '', '主力净流入', '2026-04-13', '', '', '') > 0))",
+    "target": false,
+    "expectedRows": 21,
+    "expectedDigest": "83149da099f0da02dce6931ee2b23daa5058f1ae7457dc0e75dfce18311a1834"
+  },
+  {
+    "id": "holdout-2026-04-13-exact-flow-streak-rank",
+    "dsl": "(indicator('京', '', '主力净流入', '2026-04-13', '', '', 'CONS=2日') > 0) and (indicator('京', '', '收盘价', '2026-04-13', '', '', '') >= indicator('京', '', '开盘价', '2026-04-13', '', '', '')) then rank('京', '', '成交量', 'desc:row_number', '2026-04-13', '', '', '') <= 17 limit 0,11",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-13-exact-frequency-cross",
+    "dsl": "(indicator('京', '', '主力净流入', '2026-04-13', '', '', 'EXIST=7日') < 0) and ((cross_above('京', '', '收盘价', '开盘价', '2026-04-13', '', '') = True) or (indicator('京', '', 'RSI(6)', '2026-04-13', '', '', '') >= 51))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-13-extreme-reversal",
+    "dsl": "((record_high('京', '', '收盘价', '9日', '2026-04-13', '', '', '') = True) and (cross_down('京', '', '收盘价', '开盘价', '2026-04-13', '', '') = True)) or ((record_low('京', '', '收盘价', '9日', '2026-04-13', '', '', '') = True) and (cross_above('京', '', '收盘价', '开盘价', '2026-04-13', '', '') = True))",
+    "target": false,
+    "expectedRows": 2,
+    "expectedDigest": "6e729016edc43bfe3a6bda8fa91e953d518c8218a6e932cdafc7a3de673ef454"
+  },
+  {
+    "id": "holdout-2026-04-13-frequency-ma-rank",
+    "dsl": "(indicator('京', '', '5日均线', '2026-04-13', '', '', 'EXIST>=6日') > 10) and (indicator('京', '', '收盘价', '2026-04-13', '', '', '') >= queryData('京', '920000', '收盘价', '2026-04-13', '')) then rank('京', '', '收盘价', 'asc:dense_rank', '2026-04-13', '', '', '') <= 12 limit 0,9",
+    "target": true,
+    "expectedRows": 9,
+    "expectedDigest": "262fc6edce27a7ee50732075caae35e957fb5f4ff17cecada8ed0617d49ae48e"
+  },
+  {
+    "id": "holdout-2026-04-13-funds-or-cross_then-price-rank",
+    "dsl": "((indicator('京', '', '主力净流入', '2026-04-13', '', '', '') < 0) and (indicator('京', '', '收盘价', '2026-04-13', '', '', '') < indicator('京', '', '开盘价', '2026-04-13', '', '', ''))) or ((cross_down('京', '', '收盘价', '开盘价', '2026-04-13', '', '') = True) and (indicator('京', '', '成交量', '2026-04-13', '', '', '') > 1000000)) then rank('京', '', '收盘价', 'asc:dense_rank', '2026-04-13', '', '', '') <= 14 limit 0,10",
+    "target": false,
+    "expectedRows": 10,
+    "expectedDigest": "c16187723370a156a60df3a2fde30e78e4ef1a94cc75b979722809905020bf98"
+  },
+  {
+    "id": "holdout-2026-04-13-interval-and-rsi-rank",
+    "dsl": "((indicator('京', '', '收盘价', '2026-04-13', '', '', '') >= indicator('京', '', '5日均线', '2026-04-13', '', '', '')) and (indicator('京', '', '收盘价', '2026-04-13', '', '', '') < indicator('京', '', '12日均线', '2026-04-13', '', '', ''))) and (indicator('京', '', 'RSI(6)', '2026-04-13', '', '', '') < 60) then rank('京', '', '收盘价', 'asc:dense_rank', '2026-04-13', '', '', '') <= 22 limit 0,15",
+    "target": false,
+    "expectedRows": 15,
+    "expectedDigest": "e10544a0044862da131f5544cc3130c177f280a602652f655f1e28e39e4b15a1"
+  },
+  {
+    "id": "holdout-2026-04-13-lookup-flow-volume-rank",
+    "dsl": "(indicator('京', '', '收盘价', '2026-04-13', '', '', '') > queryData('京', '920000', '收盘价', '2026-04-13', '')) and ((indicator('京', '', '主力净流入', '2026-04-13', '', '', '') < 0) or (indicator('京', '', '成交量', '2026-04-13', '', '', '') > 5000000)) then rank('京', '', '成交量', 'desc:row_number', '2026-04-13', '', '', '') <= 27 limit 0,17",
+    "target": false,
+    "expectedRows": 13,
+    "expectedDigest": "71280860cab964a4ef9046a0dbfa7cbb2e0574f6eb300226af5aef3ad940caf1"
+  },
+  {
+    "id": "holdout-2026-04-13-lookup-null-conjunction",
+    "dsl": "(indicator('京', '', '收盘价', '2026-04-13', '', '', '') > queryData('京', 'NO_SUCH_SECURITY', '收盘价', '2026-04-13', '')) and ((indicator('京', '', '收盘价', '2026-04-13', '', '', '') > indicator('京', '', '5日均线', '2026-04-13', '', '', '')) or (indicator('京', '', '主力净流入', '2026-04-13', '', '', '') < 0))",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-13-lookup-null-fallback",
+    "dsl": "(indicator('京', '', '收盘价', '2026-04-13', '', '', '') > queryData('京', 'NO_SUCH_SECURITY', '收盘价', '2026-04-13', '')) or ((indicator('京', '', '收盘价', '2026-04-13', '', '', '') > indicator('京', '', '5日均线', '2026-04-13', '', '', '')) and (indicator('京', '', '主力净流入', '2026-04-13', '', '', '') < 0))",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-13-ma-crossover-flow",
+    "dsl": "(indicator('京', '', '5日均线', '2026-04-13', '', '', '') > indicator('京', '', '12日均线', '2026-04-13', '', '', '')) and ((indicator('京', '', '主力净流入', '2026-04-13', '', '', '') > 0) or (indicator('京', '', '收盘价', '2026-04-13', '', '', '') > indicator('京', '', '开盘价', '2026-04-13', '', '', '')))",
+    "target": false,
+    "expectedRows": 66,
+    "expectedDigest": "e17dfb3b8ff9711bc65d04a3d90ccc62f275da4d095392aa697132043ce900ee"
+  },
+  {
+    "id": "holdout-2026-04-13-price-position-volume",
+    "dsl": "(position('京', '', '收盘价', '7日', '2026-04-13', '', '', '') = '高') and ((indicator('京', '', '收盘价', '2026-04-13', '', '', '') > indicator('京', '', '开盘价', '2026-04-13', '', '', '')) and (indicator('京', '', '成交量', '2026-04-13', '', '', '') > 1000000))",
+    "target": false,
+    "expectedRows": 42,
+    "expectedDigest": "448ce2d23e477f5a3a254e9a4b102543eb8782385e30dc0ea3d7e67b993829b3"
+  },
+  {
+    "id": "holdout-2026-04-13-rsi-ma-turn",
+    "dsl": "(indicator('京', '', 'RSI(6)', '2026-04-13', '', '', '') > 47) and ((indicator('京', '', '收盘价', '2026-04-13', '', '', '') >= indicator('京', '', '5日均线', '2026-04-13', '', '', '')) and (indicator('京', '', '主力净流入', '2026-04-13', '', '', '') > 0))",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-13-rsi-position-funds-rank",
+    "dsl": "(indicator('京', '', 'RSI(6)', '2026-04-13', '', '', '') > 45) and ((position('京', '', '收盘价', '7日', '2026-04-13', '', '', '') = '低') or (indicator('京', '', '主力净流入', '2026-04-13', '', '', '') > 0)) then rank('京', '', '主力净流入', 'desc:rank', '2026-04-13', '', '', '') <= 21 limit 0,13",
+    "target": false,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "holdout-2026-04-13-sum-price-and-lookup",
+    "dsl": "((indicator('京', '', '收盘价', '2026-04-13', '', '', '')+indicator('京', '', '开盘价', '2026-04-13', '', '', '')) > 30) and ((indicator('京', '', '收盘价', '2026-04-13', '', '', '') > queryData('京', '920000', '收盘价', '2026-04-13', '')) and (indicator('京', '', '成交量', '2026-04-13', '', '', '') > 100000))",
+    "target": false,
+    "expectedRows": 180,
+    "expectedDigest": "7d3b118578b3a49c3e64937e94ca8fe478f1c650847f52ce3780ee8ac0c7ac1f"
+  },
+  {
+    "id": "holdout-2026-04-13-two-ranks-after-price-filter",
+    "dsl": "(indicator('京', '', '收盘价', '2026-04-13', '', '', '') >= indicator('京', '', '5日均线', '2026-04-13', '', '', '')) and (indicator('京', '', '成交量', '2026-04-13', '', '', '') > 10000) then (rank('京', '', '收盘价', 'asc:dense_rank', '2026-04-13', '', '', '') <= 60) and (rank('京', '', '成交量', 'desc:row_number', '2026-04-13', '', '', '') <= 100) limit 0,19",
+    "target": false,
+    "expectedRows": 19,
+    "expectedDigest": "48f7d6954c29e0c210f0a202c6dd163958a0d472e44060e86cb350e233a1ef47"
+  }
+]

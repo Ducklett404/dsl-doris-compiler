@@ -1,0 +1,137 @@
+{
+  "serial": {
+    "HTTP": {
+      "beforeAll": {
+        "attempts": 112,
+        "matched": 97,
+        "within10s": 97,
+        "medianMs": 691.36,
+        "p95Ms": 2645.815,
+        "maxMs": 4179.54
+      },
+      "beforeTarget": {
+        "attempts": 21,
+        "matched": 6,
+        "within10s": 6,
+        "medianMs": 431.111,
+        "p95Ms": 930.867,
+        "maxMs": 930.867
+      },
+      "afterAll": {
+        "attempts": 112,
+        "matched": 112,
+        "within10s": 112,
+        "medianMs": 1257.449,
+        "p95Ms": 3675.787,
+        "maxMs": 5098.905
+      },
+      "afterTargetFirst": {
+        "attempts": 21,
+        "matched": 21,
+        "within10s": 21,
+        "medianMs": 1322.579,
+        "p95Ms": 3049.007,
+        "maxMs": 3138.204
+      },
+      "afterTargetAllRounds": {
+        "attempts": 63,
+        "matched": 63,
+        "within10s": 63,
+        "medianMs": 1130.641,
+        "p95Ms": 3079.801,
+        "maxMs": 4150.094
+      },
+      "additionalCases": {
+        "attempts": 24,
+        "matched": 24,
+        "within10s": 24,
+        "medianMs": 2931.856,
+        "p95Ms": 4891.469,
+        "maxMs": 6555.665
+      }
+    },
+    "JDBC": {
+      "beforeAll": {
+        "attempts": 112,
+        "matched": 102,
+        "within10s": 101,
+        "medianMs": 279.83,
+        "p95Ms": 1899.219,
+        "maxMs": 10547.1
+      },
+      "beforeTarget": {
+        "attempts": 21,
+        "matched": 11,
+        "within10s": 10,
+        "medianMs": 205.813,
+        "p95Ms": 10547.1,
+        "maxMs": 10547.1
+      },
+      "afterAll": {
+        "attempts": 112,
+        "matched": 112,
+        "within10s": 112,
+        "medianMs": 306.167,
+        "p95Ms": 1538.004,
+        "maxMs": 1968.736
+      },
+      "afterTargetFirst": {
+        "attempts": 21,
+        "matched": 21,
+        "within10s": 21,
+        "medianMs": 376.372,
+        "p95Ms": 1145.929,
+        "maxMs": 1237.41
+      },
+      "afterTargetAllRounds": {
+        "attempts": 63,
+        "matched": 63,
+        "within10s": 63,
+        "medianMs": 376.372,
+        "p95Ms": 1164.009,
+        "maxMs": 1317.703
+      },
+      "additionalCases": {
+        "attempts": 24,
+        "matched": 24,
+        "within10s": 24,
+        "medianMs": 1003.069,
+        "p95Ms": 1720.315,
+        "maxMs": 1752.237
+      }
+    }
+  },
+  "mixedLoad": {
+    "1": {
+      "attempts": 30,
+      "matched": 30,
+      "within10s": 30,
+      "medianMs": 2177.921,
+      "p95Ms": 3308.662,
+      "maxMs": 3448.238,
+      "errors": {}
+    },
+    "4": {
+      "attempts": 30,
+      "matched": 11,
+      "within10s": 11,
+      "medianMs": 3474.863,
+      "p95Ms": 4347.393,
+      "maxMs": 4347.393,
+      "errors": {
+        "TIMEOUT": 19
+      }
+    },
+    "8": {
+      "attempts": 30,
+      "matched": 5,
+      "within10s": 5,
+      "medianMs": 2525.129,
+      "p95Ms": 4570.226,
+      "maxMs": 4570.226,
+      "errors": {
+        "TIMEOUT": 25
+      }
+    }
+  }
+}

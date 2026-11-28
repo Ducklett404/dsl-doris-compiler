@@ -1,0 +1,26 @@
+{
+  "sourceRevision": "dc90b0a90a29656cf8849b54c81141d8c67203da",
+  "originalJarSha256": "de7b38388af9ebb0158e41e17963bb1e07dfaa7693cdec2983f4b1a9e602ba98",
+  "testedJarSha256": "961f181a771fb3396886bf941aaf19f089ed54fee5d0bff74a92b3d6c3cc3ca2",
+  "sourceFileSha256": "fc055267d142128fb68a4e0d598ed94e556ffa6fca1471f2b7b9bcba8db5ec0d",
+  "java": "java version \"24\" 2025-03-18",
+  "hostOS": "26.5.2",
+  "arch": "arm64",
+  "doris": "Apache Doris 4.1.3",
+  "containerImageId": "sha256:76839a1beea086888529b042b5bc97a2116f63108365b00faa167f015ba1934c",
+  "cpuNano": 4000000000,
+  "memoryBytes": 7516192768,
+  "snapshotId": "stock-20060104-20260414-v1",
+  "manifestSha256": "306f333e28c82c9f2c634d8a1eb64eb49d3092937d8ca7d2742d96ecdcf21a95",
+  "certificateSha256": "baa09b7c4b6d79f7b50766fc908eff4dffe9cb839619ec93498a22e239925f59",
+  "snapshotStatus": "PROJECT_READY_WITH_LIMITATIONS",
+  "sourceRows": {
+    "basic": 13650347,
+    "extension": 6170822,
+    "code": 5686
+  },
+  "originalReferenceDatabaseSha256": "817b2c2dadaff622709b96a842a7b270d96aeb2b4c50c4312078908d8ebe5690",
+  "rawInputCasesSha256": "8830334234ab7d6aa97e338b30ac6e63bbc243e73ab9c64d0588ddc381190bd1",
+  "inputCasesSha256": "f82a249ec96a715a720128735733052cd896a45a888d66d108cb5e0ac89d7fe6",
+  "edgeCasesSha256": "b9c3710ca4f4c6961ab1160a691aba560b4011fb10a4d9a85d6eeab0028419c8"
+}

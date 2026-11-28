@@ -1,0 +1,58 @@
+[
+  {
+    "id": "current-name",
+    "dsl": "indicator('沪|深|京', '', '5日均线', '2026-04-14', '', '', '') > (queryData('沪|深|京', '浦发银行', '收盘价', '2026-04-14', 'AVG'))",
+    "target": true,
+    "expectedRows": 3808,
+    "expectedDigest": "9746fe6904620139ee9a16e646bee564e238c249d0ea3c73bab14a786274dd85"
+  },
+  {
+    "id": "current-two-targets",
+    "dsl": "indicator('沪|深|京', '', '5日均线', '2026-04-14', '', '', '') > (queryData('沪|深|京', '600000', '收盘价', '2026-04-14', 'MAX')+queryData('沪|深|京', '平安银行', '开盘价', '2026-04-14', 'SUM'))",
+    "target": true,
+    "expectedRows": 2166,
+    "expectedDigest": "d4c73916a62c68db132dbf91f66551928f442720d2f71cebfb02bb00620880ff"
+  },
+  {
+    "id": "count-name",
+    "dsl": "indicator('沪|深|京', '', '5日均线', '2026-04-14', '', '', 'EXIST>=6日') > (queryData('沪|深|京', '浦发银行', '收盘价', '2026-04-14', 'MAX'))",
+    "target": true,
+    "expectedRows": 3845,
+    "expectedDigest": "52a2d90716d7cc6d531e0b68f9d5b73f5dc7a9787298e2c591d941ffaf410082"
+  },
+  {
+    "id": "count-extension",
+    "dsl": "indicator('沪|深|京', '', '5日均线', '2026-04-14', '', '', 'EXIST>=6日') > (queryData('沪|深|京', '浦发银行', '主力净流入', '2026-04-14', 'MAX'))",
+    "target": true,
+    "expectedRows": 5551,
+    "expectedDigest": "8c38b376c7851a9acd0694380e8ab7ba280ae6fef9cba3a9299e666f3b136fb8"
+  },
+  {
+    "id": "count-market-excludes-target",
+    "dsl": "indicator('深', '', '5日均线', '2025-01-02', '', '', 'EXIST>=6日') > (queryData('深', '600000', '收盘价', '2025-01-02', 'MAX'))",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "count-no-full-window",
+    "dsl": "indicator('沪', '', '5日均线', '2006-01-06', '', '', 'EXIST>=6日') > (queryData('沪', '600000', '收盘价', '2006-01-06', 'MIN'))",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  {
+    "id": "count-two-targets",
+    "dsl": "indicator('沪|深|京', '', '5日均线', '2026-04-14', '', '', 'EXIST>=6日') > (queryData('沪|深|京', '600000', '收盘价', '2026-04-14', 'MAX')+queryData('沪|深|京', '平安银行', '开盘价', '2026-04-14', 'MIN'))",
+    "target": true,
+    "expectedRows": 2209,
+    "expectedDigest": "a752a6a7bf48f81e34cfc6e0024bf1cc1726694b8799bfe53096d43bb633bbc5"
+  },
+  {
+    "id": "count-weekend",
+    "dsl": "indicator('沪', '', '5日均线', '2026-04-12', '', '', 'EXIST>=6日') > (queryData('沪', '浦发银行', '收盘价', '2026-04-12', 'MAX'))",
+    "target": true,
+    "expectedRows": 0,
+    "expectedDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  }
+]
