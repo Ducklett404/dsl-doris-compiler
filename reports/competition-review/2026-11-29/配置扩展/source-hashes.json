@@ -1,0 +1,20 @@
+{
+  "hsj_stock_code_info": {
+    "path": "股票代码表/hsj_stock_code_info.csv",
+    "bytes": 321850,
+    "sha256": "133293b32e8bea7ff351f3e05cc4eba431ce2fe116f2c366b005fcb0801e01cc",
+    "expectedSha256": "133293b32e8bea7ff351f3e05cc4eba431ce2fe116f2c366b005fcb0801e01cc"
+  },
+  "hsj_stock_hq_basic": {
+    "path": "行情基本数据宽表/hsj_stock_hq_basic.csv",
+    "bytes": 2207896192,
+    "sha256": "9c5fd65c9475c07c7f800cffd5a055925e7eb26c1c78476624805b4231b1d749",
+    "expectedSha256": "9c5fd65c9475c07c7f800cffd5a055925e7eb26c1c78476624805b4231b1d749"
+  },
+  "hsj_stock_hq_ext": {
+    "path": "行情衍生数据/hsj_stock_hq_ext.csv",
+    "bytes": 1191539066,
+    "sha256": "18ab00873e9cb5684f1f4dba13c9843acbcd1764f52cecd30336eea0128b4a18",
+    "expectedSha256": "18ab00873e9cb5684f1f4dba13c9843acbcd1764f52cecd30336eea0128b4a18"
+  }
+}

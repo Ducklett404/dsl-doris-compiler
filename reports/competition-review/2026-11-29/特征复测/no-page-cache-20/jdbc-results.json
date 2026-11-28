@@ -1,0 +1,179 @@
+{
+  "purpose" : "OFFICIAL_DATA_HOT_PERFORMANCE_DIAGNOSTIC",
+  "acceptanceEligible" : false,
+  "cacheMode" : "HOT_SQL_RESULT_CACHE_DISABLED",
+  "timingScope" : "JDBC prepare, execute and complete fetch; excludes compilation, EXPLAIN and process startup",
+  "snapshotId" : "stock-20060104-20260414-v1",
+  "matrixVersion" : "history-matrix-v1",
+  "iterationsPerPath" : 20,
+  "results" : [ {
+    "id" : "nineteen-year-history",
+    "category" : "LONG_RANGE",
+    "dsl" : "record_high('沪', '', '最高价', '历史', '2026-04-14', '', '', '') = True limit 0,100",
+    "samples" : [ {
+      "baselineMillis" : 7019.077417,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 17.805167
+    }, {
+      "baselineMillis" : 6666.13625,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 12.619
+    }, {
+      "baselineMillis" : 6374.022209,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 12.238042
+    }, {
+      "baselineMillis" : 7313.209875,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 10.203083
+    }, {
+      "baselineMillis" : 6373.897709,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 18.229
+    }, {
+      "baselineMillis" : 6444.512042,
+      "order" : "optimized-first",
+      "iteration" : 6,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.529459
+    }, {
+      "baselineMillis" : 6371.870541,
+      "order" : "baseline-first",
+      "iteration" : 7,
+      "resultEqual" : true,
+      "optimizedMillis" : 11.058625
+    }, {
+      "baselineMillis" : 6938.127542,
+      "order" : "optimized-first",
+      "iteration" : 8,
+      "resultEqual" : true,
+      "optimizedMillis" : 13.607084
+    }, {
+      "baselineMillis" : 6325.258709,
+      "order" : "baseline-first",
+      "iteration" : 9,
+      "resultEqual" : true,
+      "optimizedMillis" : 14.164792
+    }, {
+      "baselineMillis" : 6467.01425,
+      "order" : "optimized-first",
+      "iteration" : 10,
+      "resultEqual" : true,
+      "optimizedMillis" : 10.894667
+    }, {
+      "baselineMillis" : 6347.319916,
+      "order" : "baseline-first",
+      "iteration" : 11,
+      "resultEqual" : true,
+      "optimizedMillis" : 18.388375
+    }, {
+      "baselineMillis" : 6152.087334,
+      "order" : "optimized-first",
+      "iteration" : 12,
+      "resultEqual" : true,
+      "optimizedMillis" : 14.601208
+    }, {
+      "baselineMillis" : 6951.923542,
+      "order" : "baseline-first",
+      "iteration" : 13,
+      "resultEqual" : true,
+      "optimizedMillis" : 18.465125
+    }, {
+      "baselineMillis" : 6314.754625,
+      "order" : "optimized-first",
+      "iteration" : 14,
+      "resultEqual" : true,
+      "optimizedMillis" : 10.233125
+    }, {
+      "baselineMillis" : 6244.641833,
+      "order" : "baseline-first",
+      "iteration" : 15,
+      "resultEqual" : true,
+      "optimizedMillis" : 18.135708
+    }, {
+      "baselineMillis" : 6269.713459,
+      "order" : "optimized-first",
+      "iteration" : 16,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.051334
+    }, {
+      "baselineMillis" : 6816.761916,
+      "order" : "baseline-first",
+      "iteration" : 17,
+      "resultEqual" : true,
+      "optimizedMillis" : 39.376875
+    }, {
+      "baselineMillis" : 6991.162792,
+      "order" : "optimized-first",
+      "iteration" : 18,
+      "resultEqual" : true,
+      "optimizedMillis" : 12.845417
+    }, {
+      "baselineMillis" : 6181.599541,
+      "order" : "baseline-first",
+      "iteration" : 19,
+      "resultEqual" : true,
+      "optimizedMillis" : 8.228875
+    }, {
+      "baselineMillis" : 6160.307542,
+      "order" : "optimized-first",
+      "iteration" : 20,
+      "resultEqual" : true,
+      "optimizedMillis" : 7.769042
+    } ],
+    "historicalFeatureSelected" : true,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 17,
+    "resultSha256" : "16e0a294fa72161e33fd6ff24430daec982fa214248641ac3f3e899b5c1c8a4f",
+    "baseline" : {
+      "maxMillis" : 7313.209875,
+      "p95Millis" : 7019.077417,
+      "p50Millis" : 6373.897709,
+      "minMillis" : 6152.087334
+    },
+    "optimized" : {
+      "maxMillis" : 39.376875,
+      "p95Millis" : 18.465125,
+      "p50Millis" : 12.619,
+      "minMillis" : 7.769042
+    },
+    "sameSql" : false,
+    "p95Ratio" : 380.1261793245375,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "history-pair",
+    "category" : "LONG_RANGE",
+    "dsl" : "record_high('', '', '最高价', '历史', '2026-04-14', '', '', '') = True or record_low('', '', '最低价', '历史', '2026-04-14', '', '', '') = True",
+    "samples" : [ ],
+    "historicalFeatureSelected" : true,
+    "rollingFeatureSelected" : false,
+    "status" : "FAIL",
+    "error" : "SQLException: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]PreCatch error code:11, [E11] Allocator mem tracker check failed, [MEM_LIMIT_EXCEEDED]failed alloc size 64.00 MB, memory tracker limit exceeded, tracker label:Query#Id=35a6044314574e79-a949eafe21f9115d, type:query, limit 2.00 GB, peak used 2.00 GB, current used 1.97 GB. backend 127.0.0.1, process memory used 4.02 GB. exec node:<ScopedPeakMem:8a4bc1abcdbef346-e621f6be1045e0a4>, can `set exec_mem_limit` to change limit, details see be.INFO.\n\n\t0#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&, bool)\n\t1#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&)\n\t2#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::memory_tracker_check(unsigned long) const\n\t3#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::realloc(void*, unsigned long, unsigned long, unsigned long)\n\t4#  doris::ColumnDecimal<(doris::PrimitiveType)30>::insert_range_from(doris::IColumn const&, unsigned long, unsigned long)\n\t5#  doris::AnalyticSinkOperatorX::_insert_range_column(doris::Block*, std::shared_ptr<doris::VExprContext> const&, doris::IColumn*, unsigned long)\n\t6#  doris::AnalyticSinkOperatorX::_add_input_block(doris::RuntimeState*, doris::Block*)\n\t7#  doris::AnalyticSinkOperatorX::sink_impl(doris::RuntimeState*, doris::Block*, bool)\n\t8#  doris::PipelineTask::execute(bool*)\n\t9#  doris::TaskScheduler::_do_work(int)\n\t10# doris::ThreadPool::dispatch_thread()\n\t11# doris::Thread::supervise_thread(void*)\n\t12# ?\n\t13# ?\n, __FILE__:/home/zcp/repo_center/doris_release/doris/be/src/exec/pipeline/task_scheduler.cpp, __LINE__:172, __FUNCTION__:void doris::TaskScheduler::_do_work(int)"
+  }, {
+    "id" : "history-19y-2d-pair",
+    "category" : "LONG_RANGE",
+    "dsl" : "record_high('', '', '最高价', '历史', '2025-01-06', '', '', '') = True or record_low('', '', '最低价', '历史', '2025-01-06', '', '', '') = True",
+    "samples" : [ ],
+    "historicalFeatureSelected" : true,
+    "rollingFeatureSelected" : false,
+    "status" : "FAIL",
+    "error" : "SQLException: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]PreCatch error code:11, [E11] Allocator mem tracker check failed, [MEM_LIMIT_EXCEEDED]failed alloc size 64.00 MB, memory tracker limit exceeded, tracker label:Query#Id=85624f44221d49a5-851f7ba97c67d559, type:query, limit 2.00 GB, peak used 1.99 GB, current used 1.94 GB. backend 127.0.0.1, process memory used 3.98 GB. exec node:<ScopedPeakMem:e447b002f069d097-dde9d2c880e3d782>, can `set exec_mem_limit` to change limit, details see be.INFO.\n\n\t0#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&, bool)\n\t1#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&)\n\t2#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::memory_tracker_check(unsigned long) const\n\t3#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::realloc(void*, unsigned long, unsigned long, unsigned long)\n\t4#  doris::ColumnDecimal<(doris::PrimitiveType)30>::insert_range_from(doris::IColumn const&, unsigned long, unsigned long)\n\t5#  doris::AnalyticSinkOperatorX::_insert_range_column(doris::Block*, std::shared_ptr<doris::VExprContext> const&, doris::IColumn*, unsigned long)\n\t6#  doris::AnalyticSinkOperatorX::_add_input_block(doris::RuntimeState*, doris::Block*)\n\t7#  doris::AnalyticSinkOperatorX::sink_impl(doris::RuntimeState*, doris::Block*, bool)\n\t8#  doris::PipelineTask::execute(bool*)\n\t9#  doris::TaskScheduler::_do_work(int)\n\t10# doris::ThreadPool::dispatch_thread()\n\t11# doris::Thread::supervise_thread(void*)\n\t12# ?\n\t13# ?\n, __FILE__:/home/zcp/repo_center/doris_release/doris/be/src/exec/pipeline/task_scheduler.cpp, __LINE__:172, __FUNCTION__:void doris::TaskScheduler::_do_work(int)"
+  } ],
+  "registeredSnapshotsBefore" : 0,
+  "registeredSnapshotsAfter" : 0,
+  "completedAtUtc" : "2026-11-28T16:33:40.026709Z",
+  "passed" : 1,
+  "total" : 3
+}

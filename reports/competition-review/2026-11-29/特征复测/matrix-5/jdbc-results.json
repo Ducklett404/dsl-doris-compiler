@@ -1,0 +1,1536 @@
+{
+  "purpose" : "OFFICIAL_DATA_HOT_PERFORMANCE_DIAGNOSTIC",
+  "acceptanceEligible" : false,
+  "cacheMode" : "HOT_SQL_RESULT_CACHE_DISABLED",
+  "timingScope" : "JDBC prepare, execute and complete fetch; excludes compilation, EXPLAIN and process startup",
+  "snapshotId" : "stock-20060104-20260414-v1",
+  "matrixVersion" : "official-route-multi-date-v1",
+  "iterationsPerPath" : 5,
+  "results" : [ {
+    "id" : "single-day-simple-filter",
+    "category" : "SINGLE_DAY",
+    "dsl" : "indicator('沪', '', '收盘价', '2026-04-14', '', '', '') > 10 limit 0,100",
+    "samples" : [ {
+      "baselineMillis" : 22.028958,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 24.548125
+    }, {
+      "baselineMillis" : 18.440417,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 20.121875
+    }, {
+      "baselineMillis" : 17.192666,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 21.545208
+    }, {
+      "baselineMillis" : 23.640584,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 24.882542
+    }, {
+      "baselineMillis" : 17.659625,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 20.025084
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "20c30a34cd291dc90ec433f6476f1d7ed36ddde30c0e36eaa09e5d6cdfc6618b",
+    "baseline" : {
+      "maxMillis" : 23.640584,
+      "p95Millis" : 23.640584,
+      "p50Millis" : 18.440417,
+      "minMillis" : 17.192666
+    },
+    "optimized" : {
+      "maxMillis" : 24.882542,
+      "p95Millis" : 24.882542,
+      "p50Millis" : 21.545208,
+      "minMillis" : 20.025084
+    },
+    "sameSql" : false,
+    "p95Ratio" : 0.9500871735693243,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "multi-indicator-cross-table",
+    "category" : "CROSS_TABLE",
+    "dsl" : "indicator('沪', '', '收盘价', '2026-04-14', '', '', '') > 10 and indicator('沪', '', '主力净流入', '2026-04-14', '', '', '') > 0 limit 0,100",
+    "samples" : [ {
+      "baselineMillis" : 44.034791,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 32.574166
+    }, {
+      "baselineMillis" : 34.564667,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 34.632667
+    }, {
+      "baselineMillis" : 25.638292,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 29.839791
+    }, {
+      "baselineMillis" : 35.654291,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 37.036042
+    }, {
+      "baselineMillis" : 28.233292,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 22.338083
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "a6dd095cb95040ddd0bea171c235c815a23b413968fe760a4b8de0a5cb7f5486",
+    "baseline" : {
+      "maxMillis" : 44.034791,
+      "p95Millis" : 44.034791,
+      "p50Millis" : 34.564667,
+      "minMillis" : 25.638292
+    },
+    "optimized" : {
+      "maxMillis" : 37.036042,
+      "p95Millis" : 37.036042,
+      "p50Millis" : 32.574166,
+      "minMillis" : 22.338083
+    },
+    "sameSql" : false,
+    "p95Ratio" : 1.1889712999029431,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma20",
+    "category" : "WINDOW",
+    "dsl" : "indicator('沪', '', '20日均线', '2026-04-14', '', '', '') > 10 limit 0,100",
+    "samples" : [ {
+      "baselineMillis" : 6158.780334,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 13.474542
+    }, {
+      "baselineMillis" : 6121.918916,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 31.446542
+    }, {
+      "baselineMillis" : 6089.920542,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 11.030042
+    }, {
+      "baselineMillis" : 6482.075375,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 10.636958
+    }, {
+      "baselineMillis" : 6869.85425,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 17.010708
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "b59fbc92e959c26068a7bbd600baf86469cfe10494f0df5aa9150c1fd5dc9105",
+    "baseline" : {
+      "maxMillis" : 6869.85425,
+      "p95Millis" : 6869.85425,
+      "p50Millis" : 6158.780334,
+      "minMillis" : 6089.920542
+    },
+    "optimized" : {
+      "maxMillis" : 31.446542,
+      "p95Millis" : 31.446542,
+      "p50Millis" : 13.474542,
+      "minMillis" : 10.636958
+    },
+    "sameSql" : false,
+    "p95Ratio" : 218.4613573727757,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma60",
+    "category" : "WINDOW",
+    "dsl" : "indicator('沪', '', '60日均线', '2026-04-14', '', '', '') > 10 limit 0,100",
+    "samples" : [ {
+      "baselineMillis" : 6696.726459,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 26.128333
+    }, {
+      "baselineMillis" : 6315.333417,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 10.281583
+    }, {
+      "baselineMillis" : 6885.119,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 11.705542
+    }, {
+      "baselineMillis" : 6172.793125,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 10.057792
+    }, {
+      "baselineMillis" : 6418.171792,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 13.925792
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 49,
+    "resultSha256" : "ae6dca771473ae0b856b6c242973d4f0fbb7491e880e7170156df9e93ef531e9",
+    "baseline" : {
+      "maxMillis" : 6885.119,
+      "p95Millis" : 6885.119,
+      "p50Millis" : 6418.171792,
+      "minMillis" : 6172.793125
+    },
+    "optimized" : {
+      "maxMillis" : 26.128333,
+      "p95Millis" : 26.128333,
+      "p50Millis" : 11.705542,
+      "minMillis" : 10.057792
+    },
+    "sameSql" : false,
+    "p95Ratio" : 263.51160634702563,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma120",
+    "category" : "WINDOW",
+    "dsl" : "indicator('沪', '', '120日均线', '2026-04-14', '', '', '') > 10 limit 0,100",
+    "samples" : [ {
+      "baselineMillis" : 6763.906209,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 19.083958
+    }, {
+      "baselineMillis" : 6894.411334,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 13.558917
+    }, {
+      "baselineMillis" : 6448.487792,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 21.011709
+    }, {
+      "baselineMillis" : 6549.034375,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.158333
+    }, {
+      "baselineMillis" : 6435.904625,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 16.580625
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 44,
+    "resultSha256" : "2bc844a9b89b5baa58b999733b284c40fc8e8918d956ca40f318fdcd98ddd7d9",
+    "baseline" : {
+      "maxMillis" : 6894.411334,
+      "p95Millis" : 6894.411334,
+      "p50Millis" : 6549.034375,
+      "minMillis" : 6435.904625
+    },
+    "optimized" : {
+      "maxMillis" : 21.011709,
+      "p95Millis" : 21.011709,
+      "p50Millis" : 16.580625,
+      "minMillis" : 9.158333
+    },
+    "sameSql" : false,
+    "p95Ratio" : 328.1223499716277,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma250",
+    "category" : "WINDOW",
+    "dsl" : "indicator('沪', '', '250日均线', '2026-04-14', '', '', '') > 10 limit 0,100",
+    "samples" : [ {
+      "baselineMillis" : 7024.891167,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 16.174042
+    }, {
+      "baselineMillis" : 7333.894625,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 8.565875
+    }, {
+      "baselineMillis" : 7281.352291,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 17.244459
+    }, {
+      "baselineMillis" : 8076.263416,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 13.614
+    }, {
+      "baselineMillis" : 7225.995958,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 13.171292
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 41,
+    "resultSha256" : "4775d3f6355e0335db44c41a9ade3616ae699cdb16ec52588a7dfb38398fbc17",
+    "baseline" : {
+      "maxMillis" : 8076.263416,
+      "p95Millis" : 8076.263416,
+      "p50Millis" : 7281.352291,
+      "minMillis" : 7024.891167
+    },
+    "optimized" : {
+      "maxMillis" : 17.244459,
+      "p95Millis" : 17.244459,
+      "p50Millis" : 13.614,
+      "minMillis" : 8.565875
+    },
+    "sameSql" : false,
+    "p95Ratio" : 468.3396223679734,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "cross-above",
+    "category" : "CROSS",
+    "dsl" : "cross_above('沪', '', '收盘价', '开盘价', '2026-04-14', '', '') = True limit 0,100",
+    "samples" : [ {
+      "baselineMillis" : 899.775625,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 748.857542
+    }, {
+      "baselineMillis" : 756.027458,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 721.667333
+    }, {
+      "baselineMillis" : 735.918834,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 683.66975
+    }, {
+      "baselineMillis" : 814.206792,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 754.885875
+    }, {
+      "baselineMillis" : 631.446542,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 821.219375
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "4db1dd17db0d6d1cad74fd2511f744f3cbb0a00fa8263ab59a6d836603e9bb63",
+    "baseline" : {
+      "maxMillis" : 899.775625,
+      "p95Millis" : 899.775625,
+      "p50Millis" : 756.027458,
+      "minMillis" : 631.446542
+    },
+    "optimized" : {
+      "maxMillis" : 821.219375,
+      "p95Millis" : 821.219375,
+      "p50Millis" : 748.857542,
+      "minMillis" : 683.66975
+    },
+    "sameSql" : true,
+    "p95Ratio" : 1.0956580572639314,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  }, {
+    "id" : "record-high",
+    "category" : "WINDOW",
+    "dsl" : "record_high('沪', '', '最高价', '250日', '2026-04-14', '', '', '') = True limit 0,100",
+    "samples" : [ {
+      "baselineMillis" : 8149.486208,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 15.2095
+    }, {
+      "baselineMillis" : 7305.942167,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 7.667875
+    }, {
+      "baselineMillis" : 7402.225,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.119292
+    }, {
+      "baselineMillis" : 7240.137958,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 6.927291
+    }, {
+      "baselineMillis" : 8144.243792,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 16.754459
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 0,
+    "resultSha256" : "5984eac0c5c6d947241e29dd5671b81a1546cedf77e08d38438ac47029969afa",
+    "baseline" : {
+      "maxMillis" : 8149.486208,
+      "p95Millis" : 8149.486208,
+      "p50Millis" : 7402.225,
+      "minMillis" : 7240.137958
+    },
+    "optimized" : {
+      "maxMillis" : 16.754459,
+      "p95Millis" : 16.754459,
+      "p50Millis" : 9.119292,
+      "minMillis" : 6.927291
+    },
+    "sameSql" : false,
+    "p95Ratio" : 486.40700412946785,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "record-low",
+    "category" : "WINDOW",
+    "dsl" : "record_low('沪', '', '最低价', '250日', '2026-04-14', '', '', '') = True limit 0,100",
+    "samples" : [ {
+      "baselineMillis" : 7397.894875,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 11.01475
+    }, {
+      "baselineMillis" : 7621.436625,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 8.297625
+    }, {
+      "baselineMillis" : 7980.645583,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 15.988209
+    }, {
+      "baselineMillis" : 7199.72975,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 12.51075
+    }, {
+      "baselineMillis" : 7232.690083,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.388208
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 1,
+    "resultSha256" : "ae289019c0531b1950c4998f7c81d3add59f9b7871e0d1cd5db8c5fb5ed28cc9",
+    "baseline" : {
+      "maxMillis" : 7980.645583,
+      "p95Millis" : 7980.645583,
+      "p50Millis" : 7397.894875,
+      "minMillis" : 7199.72975
+    },
+    "optimized" : {
+      "maxMillis" : 15.988209,
+      "p95Millis" : 15.988209,
+      "p50Millis" : 11.01475,
+      "minMillis" : 8.297625
+    },
+    "sameSql" : false,
+    "p95Ratio" : 499.15819733154603,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "consecutive-three",
+    "category" : "OCCURRENCE",
+    "dsl" : "indicator('沪', '', '收盘价', '2026-04-14', '', '', 'CONS>=3日') > 10 limit 0,100",
+    "samples" : [ {
+      "baselineMillis" : 362.128166,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 358.379292
+    }, {
+      "baselineMillis" : 395.659542,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 391.339917
+    }, {
+      "baselineMillis" : 399.119042,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 376.498333
+    }, {
+      "baselineMillis" : 341.528625,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 359.370459
+    }, {
+      "baselineMillis" : 369.443333,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 362.409958
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "6fe13cf65d6140551dc68cf2b7b0548a352e5b7c6978847f3f5ba5e525a70978",
+    "baseline" : {
+      "maxMillis" : 399.119042,
+      "p95Millis" : 399.119042,
+      "p50Millis" : 369.443333,
+      "minMillis" : 341.528625
+    },
+    "optimized" : {
+      "maxMillis" : 391.339917,
+      "p95Millis" : 391.339917,
+      "p50Millis" : 362.409958,
+      "minMillis" : 358.379292
+    },
+    "sameSql" : true,
+    "p95Ratio" : 1.0198781792044995,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  }, {
+    "id" : "daily-rank",
+    "category" : "RANK",
+    "dsl" : "rank('沪', '', '收盘价', 'desc:row_number', '2026-04-14', '', '', '') <= 100 limit 0,100",
+    "samples" : [ {
+      "baselineMillis" : 33.189375,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 27.529917
+    }, {
+      "baselineMillis" : 32.849041,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 24.45475
+    }, {
+      "baselineMillis" : 28.449042,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 25.569708
+    }, {
+      "baselineMillis" : 23.050916,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 33.571417
+    }, {
+      "baselineMillis" : 25.508917,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 28.386083
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 100,
+    "resultSha256" : "ef1b95b02cf412324023ded23aef4214ceea2b66eabd0b3625d2eafaa3f3859d",
+    "baseline" : {
+      "maxMillis" : 33.189375,
+      "p95Millis" : 33.189375,
+      "p50Millis" : 28.449042,
+      "minMillis" : 23.050916
+    },
+    "optimized" : {
+      "maxMillis" : 33.571417,
+      "p95Millis" : 33.571417,
+      "p50Millis" : 27.529917,
+      "minMillis" : 24.45475
+    },
+    "sameSql" : true,
+    "p95Ratio" : 0.9886200216094543,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  }, {
+    "id" : "nineteen-year-history",
+    "category" : "LONG_RANGE",
+    "dsl" : "record_high('沪', '', '最高价', '历史', '2026-04-14', '', '', '') = True limit 0,100",
+    "samples" : [ {
+      "baselineMillis" : 5998.269417,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 17.210584
+    }, {
+      "baselineMillis" : 5920.806375,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 8.094375
+    }, {
+      "baselineMillis" : 5865.843166,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 12.254291
+    }, {
+      "baselineMillis" : 5889.757041,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 14.349834
+    }, {
+      "baselineMillis" : 6637.763083,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 20.407417
+    } ],
+    "historicalFeatureSelected" : true,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 17,
+    "resultSha256" : "16e0a294fa72161e33fd6ff24430daec982fa214248641ac3f3e899b5c1c8a4f",
+    "baseline" : {
+      "maxMillis" : 6637.763083,
+      "p95Millis" : 6637.763083,
+      "p50Millis" : 5920.806375,
+      "minMillis" : 5865.843166
+    },
+    "optimized" : {
+      "maxMillis" : 20.407417,
+      "p95Millis" : 20.407417,
+      "p50Millis" : 14.349834,
+      "minMillis" : 8.094375
+    },
+    "sameSql" : false,
+    "p95Ratio" : 325.26228493297316,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma20-2026-04-10-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '20日均线', '2026-04-10', '', '', '') > 10",
+    "samples" : [ {
+      "baselineMillis" : 9627.3835,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 15.176833
+    }, {
+      "baselineMillis" : 10179.943,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 12.903125
+    }, {
+      "baselineMillis" : 9564.588083,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 21.885083
+    }, {
+      "baselineMillis" : 9498.552917,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 32.132291
+    }, {
+      "baselineMillis" : 10103.288917,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 30.918042
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 3542,
+    "resultSha256" : "bad1a403700d7eaf5ac6b1ffb759d7213ea8a03d3aab74f4d9aefe25b906721d",
+    "baseline" : {
+      "maxMillis" : 10179.943,
+      "p95Millis" : 10179.943,
+      "p50Millis" : 9627.3835,
+      "minMillis" : 9498.552917
+    },
+    "optimized" : {
+      "maxMillis" : 32.132291,
+      "p95Millis" : 32.132291,
+      "p50Millis" : 21.885083,
+      "minMillis" : 12.903125
+    },
+    "sameSql" : false,
+    "p95Ratio" : 316.81348211367805,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma60-2026-04-10-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '60日均线', '2026-04-10', '', '', '') > 10",
+    "samples" : [ {
+      "baselineMillis" : 9885.754667,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 12.706625
+    }, {
+      "baselineMillis" : 10529.632583,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 11.847791
+    }, {
+      "baselineMillis" : 9918.362916,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.677417
+    }, {
+      "baselineMillis" : 9889.558458,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 7.838292
+    }, {
+      "baselineMillis" : 10526.896833,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 37.886208
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 161,
+    "resultSha256" : "71e79018148784cf56dc62566e63026bcfe5e2652fbab6fa4614b12d721d34f3",
+    "baseline" : {
+      "maxMillis" : 10529.632583,
+      "p95Millis" : 10529.632583,
+      "p50Millis" : 9918.362916,
+      "minMillis" : 9885.754667
+    },
+    "optimized" : {
+      "maxMillis" : 37.886208,
+      "p95Millis" : 37.886208,
+      "p50Millis" : 11.847791,
+      "minMillis" : 7.838292
+    },
+    "sameSql" : false,
+    "p95Ratio" : 277.9278565698631,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma120-2026-04-10-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '120日均线', '2026-04-10', '', '', '') > 10",
+    "samples" : [ {
+      "baselineMillis" : 11253.599542,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 14.911625
+    }, {
+      "baselineMillis" : 11683.923375,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 11.774584
+    }, {
+      "baselineMillis" : 10836.880917,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.8535
+    }, {
+      "baselineMillis" : 10957.238625,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 7.39225
+    }, {
+      "baselineMillis" : 11772.851709,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 23.960916
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 156,
+    "resultSha256" : "d40ef53de190aace87d2bd2019de2cdb333db535d366d81e40cf17b10433470d",
+    "baseline" : {
+      "maxMillis" : 11772.851709,
+      "p95Millis" : 11772.851709,
+      "p50Millis" : 11253.599542,
+      "minMillis" : 10836.880917
+    },
+    "optimized" : {
+      "maxMillis" : 23.960916,
+      "p95Millis" : 23.960916,
+      "p50Millis" : 11.774584,
+      "minMillis" : 7.39225
+    },
+    "sameSql" : false,
+    "p95Ratio" : 491.3356279451086,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma250-2026-04-10-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '250日均线', '2026-04-10', '', '', '') > 10",
+    "samples" : [ {
+      "baselineMillis" : 14419.128792,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 12.651833
+    }, {
+      "baselineMillis" : 12967.871667,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.321125
+    }, {
+      "baselineMillis" : 13676.407583,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 13.345542
+    }, {
+      "baselineMillis" : 12869.185833,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 7.7435
+    }, {
+      "baselineMillis" : 13886.594834,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 47.338375
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 146,
+    "resultSha256" : "e833abf248e31653610699fab3717f331e7fdcaf8b10bbd5318d571adcd5f796",
+    "baseline" : {
+      "maxMillis" : 14419.128792,
+      "p95Millis" : 14419.128792,
+      "p50Millis" : 13676.407583,
+      "minMillis" : 12869.185833
+    },
+    "optimized" : {
+      "maxMillis" : 47.338375,
+      "p95Millis" : 47.338375,
+      "p50Millis" : 12.651833,
+      "minMillis" : 7.7435
+    },
+    "sameSql" : false,
+    "p95Ratio" : 304.5970376465183,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma20-2026-04-13-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '20日均线', '2026-04-13', '', '', '') > 10",
+    "samples" : [ {
+      "baselineMillis" : 9625.338291,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 19.916416
+    }, {
+      "baselineMillis" : 10711.505333,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 14.470708
+    }, {
+      "baselineMillis" : 9784.733417,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 36.245542
+    }, {
+      "baselineMillis" : 9786.548708,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 14.653709
+    }, {
+      "baselineMillis" : 10288.670292,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 24.981708
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 3538,
+    "resultSha256" : "92724a5411864dccb0c7d4f4488f75d905ecbefdafa271c8cd83f24c67496fe5",
+    "baseline" : {
+      "maxMillis" : 10711.505333,
+      "p95Millis" : 10711.505333,
+      "p50Millis" : 9786.548708,
+      "minMillis" : 9625.338291
+    },
+    "optimized" : {
+      "maxMillis" : 36.245542,
+      "p95Millis" : 36.245542,
+      "p50Millis" : 19.916416,
+      "minMillis" : 14.470708
+    },
+    "sameSql" : false,
+    "p95Ratio" : 295.52614589126574,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma60-2026-04-13-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '60日均线', '2026-04-13', '', '', '') > 10",
+    "samples" : [ {
+      "baselineMillis" : 10060.89525,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 42.702417
+    }, {
+      "baselineMillis" : 11182.027667,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 12.513542
+    }, {
+      "baselineMillis" : 10280.190875,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 28.378791
+    }, {
+      "baselineMillis" : 9831.3165,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 10.680625
+    }, {
+      "baselineMillis" : 10504.715166,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 14.095541
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 161,
+    "resultSha256" : "71e79018148784cf56dc62566e63026bcfe5e2652fbab6fa4614b12d721d34f3",
+    "baseline" : {
+      "maxMillis" : 11182.027667,
+      "p95Millis" : 11182.027667,
+      "p50Millis" : 10280.190875,
+      "minMillis" : 9831.3165
+    },
+    "optimized" : {
+      "maxMillis" : 42.702417,
+      "p95Millis" : 42.702417,
+      "p50Millis" : 14.095541,
+      "minMillis" : 10.680625
+    },
+    "sameSql" : false,
+    "p95Ratio" : 261.85936189513586,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma120-2026-04-13-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '120日均线', '2026-04-13', '', '', '') > 10",
+    "samples" : [ {
+      "baselineMillis" : 10643.136542,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 14.164334
+    }, {
+      "baselineMillis" : 11032.0685,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 12.09225
+    }, {
+      "baselineMillis" : 10267.075625,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.078042
+    }, {
+      "baselineMillis" : 10453.043542,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 10.605875
+    }, {
+      "baselineMillis" : 10868.760167,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 13.715208
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 156,
+    "resultSha256" : "d40ef53de190aace87d2bd2019de2cdb333db535d366d81e40cf17b10433470d",
+    "baseline" : {
+      "maxMillis" : 11032.0685,
+      "p95Millis" : 11032.0685,
+      "p50Millis" : 10643.136542,
+      "minMillis" : 10267.075625
+    },
+    "optimized" : {
+      "maxMillis" : 14.164334,
+      "p95Millis" : 14.164334,
+      "p50Millis" : 12.09225,
+      "minMillis" : 9.078042
+    },
+    "sameSql" : false,
+    "p95Ratio" : 778.8624936407175,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma250-2026-04-13-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '250日均线', '2026-04-13', '', '', '') > 10",
+    "samples" : [ {
+      "baselineMillis" : 12556.241791,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 8.895
+    }, {
+      "baselineMillis" : 11882.818833,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 7.695417
+    }, {
+      "baselineMillis" : 11841.10425,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.697208
+    }, {
+      "baselineMillis" : 12607.997375,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 14.920416
+    }, {
+      "baselineMillis" : 11848.754709,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.190125
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 145,
+    "resultSha256" : "f3c729c380c8e3087b24b0dedb69e0e2c96dcee8ade02bef661435bdb32bd12c",
+    "baseline" : {
+      "maxMillis" : 12607.997375,
+      "p95Millis" : 12607.997375,
+      "p50Millis" : 11882.818833,
+      "minMillis" : 11841.10425
+    },
+    "optimized" : {
+      "maxMillis" : 14.920416,
+      "p95Millis" : 14.920416,
+      "p50Millis" : 9.190125,
+      "minMillis" : 7.695417
+    },
+    "sameSql" : false,
+    "p95Ratio" : 845.0164777577248,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma20-2026-04-14-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '20日均线', '2026-04-14', '', '', '') > 10",
+    "samples" : [ {
+      "baselineMillis" : 9097.37925,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 15.475375
+    }, {
+      "baselineMillis" : 9114.578125,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 10.687541
+    }, {
+      "baselineMillis" : 9691.006,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 12.289584
+    }, {
+      "baselineMillis" : 9189.261041,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 10.393417
+    }, {
+      "baselineMillis" : 9027.091542,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 14.425333
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 3528,
+    "resultSha256" : "1363c56a37dcfae438d876400b5f888c7e591cfff9b97f79b2a6defa25e894f4",
+    "baseline" : {
+      "maxMillis" : 9691.006,
+      "p95Millis" : 9691.006,
+      "p50Millis" : 9114.578125,
+      "minMillis" : 9027.091542
+    },
+    "optimized" : {
+      "maxMillis" : 15.475375,
+      "p95Millis" : 15.475375,
+      "p50Millis" : 12.289584,
+      "minMillis" : 10.393417
+    },
+    "sameSql" : false,
+    "p95Ratio" : 626.2210770336744,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma60-2026-04-14-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '60日均线', '2026-04-14', '', '', '') > 10",
+    "samples" : [ {
+      "baselineMillis" : 10204.494084,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 16.933166
+    }, {
+      "baselineMillis" : 9887.438,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 7.348833
+    }, {
+      "baselineMillis" : 10392.711625,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 26.817834
+    }, {
+      "baselineMillis" : 10262.607042,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 11.022542
+    }, {
+      "baselineMillis" : 9807.616292,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 16.781042
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 160,
+    "resultSha256" : "1fb3dcad62e978c6779b7a321bd0cc175965e9931d7357e3aca5cc225e5b4082",
+    "baseline" : {
+      "maxMillis" : 10392.711625,
+      "p95Millis" : 10392.711625,
+      "p50Millis" : 10204.494084,
+      "minMillis" : 9807.616292
+    },
+    "optimized" : {
+      "maxMillis" : 26.817834,
+      "p95Millis" : 26.817834,
+      "p50Millis" : 16.781042,
+      "minMillis" : 7.348833
+    },
+    "sameSql" : false,
+    "p95Ratio" : 387.52986631955434,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma120-2026-04-14-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '120日均线', '2026-04-14', '', '', '') > 10",
+    "samples" : [ {
+      "baselineMillis" : 10794.149458,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.158541
+    }, {
+      "baselineMillis" : 10569.99275,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 8.658792
+    }, {
+      "baselineMillis" : 11277.656333,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 13.392666
+    }, {
+      "baselineMillis" : 10440.474458,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 6.83975
+    }, {
+      "baselineMillis" : 10380.840541,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 7.335917
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 155,
+    "resultSha256" : "25dad2a79fab14176fc7df747c24312603498a39e63ba49339fc1759d527e59d",
+    "baseline" : {
+      "maxMillis" : 11277.656333,
+      "p95Millis" : 11277.656333,
+      "p50Millis" : 10569.99275,
+      "minMillis" : 10380.840541
+    },
+    "optimized" : {
+      "maxMillis" : 13.392666,
+      "p95Millis" : 13.392666,
+      "p50Millis" : 8.658792,
+      "minMillis" : 6.83975
+    },
+    "sameSql" : false,
+    "p95Ratio" : 842.0770243206244,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "ma250-2026-04-14-all",
+    "category" : "MULTI_DATE_WINDOW",
+    "dsl" : "indicator('', '', '250日均线', '2026-04-14', '', '', '') > 10",
+    "samples" : [ {
+      "baselineMillis" : 12167.618291,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 20.749833
+    }, {
+      "baselineMillis" : 12907.633916,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 7.723375
+    }, {
+      "baselineMillis" : 11944.264709,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.879875
+    }, {
+      "baselineMillis" : 12094.928041,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 8.335583
+    }, {
+      "baselineMillis" : 13287.723208,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.42675
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 145,
+    "resultSha256" : "f3c729c380c8e3087b24b0dedb69e0e2c96dcee8ade02bef661435bdb32bd12c",
+    "baseline" : {
+      "maxMillis" : 13287.723208,
+      "p95Millis" : 13287.723208,
+      "p50Millis" : 12167.618291,
+      "minMillis" : 11944.264709
+    },
+    "optimized" : {
+      "maxMillis" : 20.749833,
+      "p95Millis" : 20.749833,
+      "p50Millis" : 9.42675,
+      "minMillis" : 7.723375
+    },
+    "sameSql" : false,
+    "p95Ratio" : 640.3773566755935,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "record-high-2026-04-14-all",
+    "category" : "STRICT_RANGE",
+    "dsl" : "record_high('', '', '最高价', '250日', '2026-04-14', '', '', '') = True",
+    "samples" : [ {
+      "baselineMillis" : 13339.20225,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 11.098875
+    }, {
+      "baselineMillis" : 13377.641042,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 7.976
+    }, {
+      "baselineMillis" : 15098.4615,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 50.765584
+    }, {
+      "baselineMillis" : 12932.042083,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 8.540208
+    }, {
+      "baselineMillis" : 13272.962042,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 15.834458
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 4,
+    "resultSha256" : "e61471c52316ec143b61e5dd1c24c9160883460bbc52951b1d825878f2ace554",
+    "baseline" : {
+      "maxMillis" : 15098.4615,
+      "p95Millis" : 15098.4615,
+      "p50Millis" : 13339.20225,
+      "minMillis" : 12932.042083
+    },
+    "optimized" : {
+      "maxMillis" : 50.765584,
+      "p95Millis" : 50.765584,
+      "p50Millis" : 11.098875,
+      "minMillis" : 7.976
+    },
+    "sameSql" : false,
+    "p95Ratio" : 297.415302067637,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "record-low-2026-04-14-all",
+    "category" : "STRICT_RANGE",
+    "dsl" : "record_low('', '', '最低价', '250日', '2026-04-14', '', '', '') = True",
+    "samples" : [ {
+      "baselineMillis" : 12666.638208,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 35.788167
+    }, {
+      "baselineMillis" : 13468.703167,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 12.85725
+    }, {
+      "baselineMillis" : 12087.140542,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 17.572417
+    }, {
+      "baselineMillis" : 13173.720584,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 7.300291
+    }, {
+      "baselineMillis" : 11925.290917,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 8.781541
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 4,
+    "resultSha256" : "96fe3f8342c2e14b102ba0b6374afa094b99fb43c23df0acf53a7c6900f747a5",
+    "baseline" : {
+      "maxMillis" : 13468.703167,
+      "p95Millis" : 13468.703167,
+      "p50Millis" : 12666.638208,
+      "minMillis" : 11925.290917
+    },
+    "optimized" : {
+      "maxMillis" : 35.788167,
+      "p95Millis" : 35.788167,
+      "p50Millis" : 12.85725,
+      "minMillis" : 7.300291
+    },
+    "sameSql" : false,
+    "p95Ratio" : 376.3451524913248,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  }, {
+    "id" : "mixed-moving-averages",
+    "category" : "MULTI_WINDOW",
+    "dsl" : "indicator('', '', '20日均线', '2026-04-14', '', '', '') > indicator('', '', '250日均线', '2026-04-14', '', '', '')",
+    "samples" : [ ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : true,
+    "status" : "FAIL",
+    "error" : "SQLException: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]PreCatch error code:11, [E11] Allocator mem tracker check failed, [MEM_LIMIT_EXCEEDED]failed alloc size 32.00 MB, memory tracker limit exceeded, tracker label:Query#Id=556245432b224264-89cb4d84b9d7f8cf, type:query, limit 2.00 GB, peak used 1.99 GB, current used 1.99 GB. backend 127.0.0.1, process memory used 4.16 GB. exec node:<ScopedPeakMem:5a4101b43c99c4a5-2f3e0dc9b8b5ecae>, can `set exec_mem_limit` to change limit, details see be.INFO.\n\n\t0#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&, bool)\n\t1#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&)\n\t2#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::memory_tracker_check(unsigned long) const\n\t3#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::realloc(void*, unsigned long, unsigned long, unsigned long)\n\t4#  doris::ColumnDecimal<(doris::PrimitiveType)30>::insert_range_from(doris::IColumn const&, unsigned long, unsigned long)\n\t5#  doris::AnalyticSinkOperatorX::_insert_range_column(doris::Block*, std::shared_ptr<doris::VExprContext> const&, doris::IColumn*, unsigned long)\n\t6#  doris::AnalyticSinkOperatorX::_add_input_block(doris::RuntimeState*, doris::Block*)\n\t7#  doris::AnalyticSinkOperatorX::sink_impl(doris::RuntimeState*, doris::Block*, bool)\n\t8#  doris::PipelineTask::execute(bool*)\n\t9#  doris::TaskScheduler::_do_work(int)\n\t10# doris::ThreadPool::dispatch_thread()\n\t11# doris::Thread::supervise_thread(void*)\n\t12# ?\n\t13# ?\n, __FILE__:/home/zcp/repo_center/doris_release/doris/be/src/exec/pipeline/task_scheduler.cpp, __LINE__:172, __FUNCTION__:void doris::TaskScheduler::_do_work(int)"
+  }, {
+    "id" : "mixed-ma60-close-fallback",
+    "category" : "REFERENCE_FALLBACK",
+    "dsl" : "indicator('', '', '60日均线', '2026-04-14', '', '', '') > indicator('', '', '收盘价', '2026-04-14', '', '', '')",
+    "samples" : [ {
+      "baselineMillis" : 9614.330833,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 10505.859333
+    }, {
+      "baselineMillis" : 9368.704416,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 9493.431417
+    }, {
+      "baselineMillis" : 10171.479959,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 9462.900375
+    }, {
+      "baselineMillis" : 11334.271667,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 10111.008542
+    }, {
+      "baselineMillis" : 10510.940125,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 10544.593375
+    } ],
+    "historicalFeatureSelected" : false,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 237,
+    "resultSha256" : "032e1c238422aca96e4a1826b674ada08700aa4a01641fa9fcc36bc6cc83658a",
+    "baseline" : {
+      "maxMillis" : 11334.271667,
+      "p95Millis" : 11334.271667,
+      "p50Millis" : 10171.479959,
+      "minMillis" : 9368.704416
+    },
+    "optimized" : {
+      "maxMillis" : 10544.593375,
+      "p95Millis" : 10544.593375,
+      "p50Millis" : 10111.008542,
+      "minMillis" : 9462.900375
+    },
+    "sameSql" : true,
+    "p95Ratio" : 1.0748894019822741,
+    "speedupInterpretation" : "IDENTICAL_SQL_NO_OPTIMIZATION_CLAIM"
+  } ],
+  "registeredSnapshotsBefore" : 0,
+  "registeredSnapshotsAfter" : 0,
+  "completedAtUtc" : "2026-11-28T16:30:52.459334Z",
+  "passed" : 27,
+  "total" : 28
+}

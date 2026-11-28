@@ -1,0 +1,1671 @@
+{
+  "http": {
+    "complex": {
+      "total": 48,
+      "correct": 39,
+      "completeWithin10": 39,
+      "expectedEmpty": 8,
+      "returnedEmpty": 4,
+      "successWall": {
+        "p50": 1164.439,
+        "p95": 2918.060042,
+        "p99": 4179.539542,
+        "max": 4179.539542
+      },
+      "allResponsesWall": {
+        "p50": 1130.942,
+        "p95": 10159.582958,
+        "p99": 10391.190792,
+        "max": 10391.190792
+      },
+      "mainExecuteFetch": {
+        "p50": 473.452,
+        "p95": 1194.043666,
+        "p99": 1580.088876,
+        "max": 1580.088876
+      },
+      "errors": {
+        "TIMEOUT": 3,
+        "DORIS_ERROR": 2,
+        "SECURITY_LIMIT": 4
+      },
+      "failures": [
+        {
+          "id": "2018-08-20-frequency-ma-rank",
+          "error": "TIMEOUT",
+          "httpMs": 10391.190792
+        },
+        {
+          "id": "2018-08-20-lookup-null-conjunction",
+          "error": "TIMEOUT",
+          "httpMs": 10178.1925
+        },
+        {
+          "id": "2018-08-20-lookup-null-fallback",
+          "error": "TIMEOUT",
+          "httpMs": 10159.582958
+        },
+        {
+          "id": "2025-01-02-frequency-ma-rank",
+          "error": "DORIS_ERROR",
+          "httpMs": 5620.01725
+        },
+        {
+          "id": "2025-01-02-lookup-null-conjunction",
+          "error": "SECURITY_LIMIT",
+          "httpMs": 104.477667
+        },
+        {
+          "id": "2025-01-02-lookup-null-fallback",
+          "error": "SECURITY_LIMIT",
+          "httpMs": 110.219875
+        },
+        {
+          "id": "2026-04-14-frequency-ma-rank",
+          "error": "DORIS_ERROR",
+          "httpMs": 1038.759959
+        },
+        {
+          "id": "2026-04-14-lookup-null-conjunction",
+          "error": "SECURITY_LIMIT",
+          "httpMs": 116.280041
+        },
+        {
+          "id": "2026-04-14-lookup-null-fallback",
+          "error": "SECURITY_LIMIT",
+          "httpMs": 130.85925
+        }
+      ]
+    },
+    "expanded": {
+      "total": 67,
+      "correct": 67,
+      "completeWithin10": 67,
+      "expectedEmpty": 15,
+      "returnedEmpty": 15,
+      "successWall": {
+        "p50": 313.1025,
+        "p95": 2525.18,
+        "p99": 4414.559,
+        "max": 4414.559
+      },
+      "allResponsesWall": {
+        "p50": 313.1025,
+        "p95": 2525.18,
+        "p99": 4414.559,
+        "max": 4414.559
+      },
+      "mainExecuteFetch": {
+        "p50": 33.061333999999995,
+        "p95": 1233.273167,
+        "p99": 1834.501541,
+        "max": 1834.501541
+      },
+      "errors": {},
+      "failures": []
+    },
+    "fields": {
+      "total": 94,
+      "correct": 94,
+      "completeWithin10": 94,
+      "expectedEmpty": 13,
+      "returnedEmpty": 13,
+      "successWall": {
+        "p50": 196.358375,
+        "p95": 2419.033834,
+        "p99": 3429.638792,
+        "max": 3429.638792
+      },
+      "allResponsesWall": {
+        "p50": 196.358375,
+        "p95": 2419.033834,
+        "p99": 3429.638792,
+        "max": 3429.638792
+      },
+      "mainExecuteFetch": {
+        "p50": 24.741458,
+        "p95": 1052.713125,
+        "p99": 1335.036541,
+        "max": 1335.036541
+      },
+      "errors": {},
+      "failures": []
+    },
+    "golden": {
+      "total": 24,
+      "correct": 24,
+      "completeWithin10": 24,
+      "expectedEmpty": 0,
+      "returnedEmpty": 0,
+      "successWall": {
+        "p50": 202.568083,
+        "p95": 281.082167,
+        "p99": 363.872625,
+        "max": 363.872625
+      },
+      "allResponsesWall": {
+        "p50": 202.568083,
+        "p95": 281.082167,
+        "p99": 363.872625,
+        "max": 363.872625
+      },
+      "mainExecuteFetch": {
+        "p50": 23.495833,
+        "p95": 35.486417,
+        "p99": 41.187458,
+        "max": 41.187458
+      },
+      "errors": {},
+      "failures": []
+    },
+    "holdout": {
+      "total": 64,
+      "correct": 58,
+      "completeWithin10": 58,
+      "expectedEmpty": 36,
+      "returnedEmpty": 32,
+      "successWall": {
+        "p50": 478.564917,
+        "p95": 2285.284042,
+        "p99": 2739.614792,
+        "max": 2739.614792
+      },
+      "allResponsesWall": {
+        "p50": 435.401,
+        "p95": 2621.55175,
+        "p99": 10123.7855,
+        "max": 10123.7855
+      },
+      "mainExecuteFetch": {
+        "p50": 79.365125,
+        "p95": 1018.451708,
+        "p99": 1169.084709,
+        "max": 1169.084709
+      },
+      "errors": {
+        "TIMEOUT": 1,
+        "SECURITY_LIMIT": 4,
+        "DORIS_ERROR": 1
+      },
+      "failures": [
+        {
+          "id": "2020-02-03-frequency-ma-rank",
+          "error": "TIMEOUT",
+          "httpMs": 10123.7855
+        },
+        {
+          "id": "2020-02-03-lookup-null-conjunction",
+          "error": "SECURITY_LIMIT",
+          "httpMs": 122.550417
+        },
+        {
+          "id": "2020-02-03-lookup-null-fallback",
+          "error": "SECURITY_LIMIT",
+          "httpMs": 386.035
+        },
+        {
+          "id": "2026-04-12-frequency-ma-rank",
+          "error": "DORIS_ERROR",
+          "httpMs": 7328.404208
+        },
+        {
+          "id": "2026-04-12-lookup-null-conjunction",
+          "error": "SECURITY_LIMIT",
+          "httpMs": 134.707792
+        },
+        {
+          "id": "2026-04-12-lookup-null-fallback",
+          "error": "SECURITY_LIMIT",
+          "httpMs": 151.731458
+        }
+      ]
+    },
+    "combination": {
+      "total": 79,
+      "correct": 79,
+      "completeWithin10": 79,
+      "expectedEmpty": 11,
+      "returnedEmpty": 11,
+      "successWall": {
+        "p50": 237.90025,
+        "p95": 2641.65,
+        "p99": 3020.375791,
+        "max": 3020.375791
+      },
+      "allResponsesWall": {
+        "p50": 237.90025,
+        "p95": 2641.65,
+        "p99": 3020.375791,
+        "max": 3020.375791
+      },
+      "mainExecuteFetch": {
+        "p50": 27.858958,
+        "p95": 1162.063792,
+        "p99": 1285.785542,
+        "max": 1285.785542
+      },
+      "errors": {},
+      "failures": []
+    },
+    "rank": {
+      "total": 172,
+      "correct": 172,
+      "completeWithin10": 172,
+      "expectedEmpty": 22,
+      "returnedEmpty": 22,
+      "successWall": {
+        "p50": 1616.318875,
+        "p95": 2365.657458,
+        "p99": 2719.937,
+        "max": 3243.056292
+      },
+      "allResponsesWall": {
+        "p50": 1616.318875,
+        "p95": 2365.657458,
+        "p99": 2719.937,
+        "max": 3243.056292
+      },
+      "mainExecuteFetch": {
+        "p50": 691.101,
+        "p95": 1034.7735830000001,
+        "p99": 1184.506167,
+        "max": 1674.465333
+      },
+      "errors": {},
+      "failures": []
+    }
+  },
+  "quality": {
+    "combination": {
+      "compared": 79,
+      "failures": []
+    },
+    "rank": {
+      "compared": 172,
+      "failures": []
+    }
+  },
+  "direct": {
+    "complex": {
+      "total": 48,
+      "correct": 41,
+      "within10": 41,
+      "successTime": {
+        "p50": 732.117375,
+        "p95": 1899.218792,
+        "p99": 9015.757167,
+        "max": 9015.757167
+      },
+      "failures": [
+        {
+          "id": "complex-2018-08-20-frequency-ma-rank",
+          "error": "com.mysql.cj.jdbc.exceptions.MySQLTimeoutException: Statement cancelled due to timeout or client request",
+          "ms": 60061.23225
+        },
+        {
+          "id": "complex-2018-08-20-lookup-null-conjunction",
+          "error": "com.mysql.cj.jdbc.exceptions.MySQLTimeoutException: Statement cancelled due to timeout or client request",
+          "ms": 60026.33025
+        },
+        {
+          "id": "complex-2018-08-20-lookup-null-fallback",
+          "error": "com.mysql.cj.jdbc.exceptions.MySQLTimeoutException: Statement cancelled due to timeout or client request",
+          "ms": 60063.7165
+        },
+        {
+          "id": "complex-2025-01-02-frequency-ma-rank",
+          "error": "java.sql.SQLException: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]PreCatch error code:11, [E11] Allocator mem tracker check failed, [MEM_LIMIT_EXCEEDED]failed alloc size 16.00 MB, memory tracker limit exceeded, tracker label:Query#Id=692f4524a33d440a-b931761e0d00789a, type:query, limit 2.00 GB, peak used 1.99 GB, current used 1.99 GB. backend 127.0.0.1, process memory used 3.97 GB. exec node:<>, can `set exec_mem_limit` to change limit, details see be.INFO.\n\n\t0#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&, bool)\n\t1#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&)\n\t2#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::memory_tracker_check(unsigned long) const\n\t3#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::alloc(unsigned long, unsigned long)\n\t4#  doris::ColumnDecimal<(doris::PrimitiveType)30>::ColumnDecimal(unsigned long, unsigned int)\n\t5#  doris::ColumnDecimal<(doris::PrimitiveType)30>::permute(doris::PODArray<unsigned long, 4096ul, doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>, 16ul, 15ul> const&, unsigned long) const\n\t6#  doris::ColumnNullable::permute(doris::PODArray<unsigned long, 4096ul, doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>, 16ul, 15ul> const&, unsigned long) const\n\t7#  doris::sort_block(doris::Block&, doris::Block&, std::vector<doris::SortColumnDescription, std::allocator<doris::SortColumnDescription> > const&, doris::HybridSorter&, unsigned long)\n\t8#  doris::Sorter::partial_sort(doris::Block&, doris::Block&, bool)\n\t9#  doris::FullSorter::do_sort()\n\t10# doris::FullSorter::append_block(doris::Block*)\n\t11# doris::SortSinkOperatorX::sink_impl(doris::RuntimeState*, doris::Block*, bool)\n\t12# doris::PipelineTask::execute(bool*)\n\t13# doris::TaskScheduler::_do_work(int)\n\t14# doris::ThreadPool::dispatch_thread()\n\t15# doris::Thread::supervise_thread(void*)\n\t16# ?\n\t17# ?\n, __FILE__:/home/zcp/repo_center/doris_release/doris/be/src/exec/pipeline/task_scheduler.cpp, __LINE__:172, __FUNCTION__:void doris::TaskScheduler::_do_work(int)",
+          "ms": 7610.658542
+        },
+        {
+          "id": "complex-2026-04-14-frequency-ma-rank",
+          "error": "java.sql.SQLException: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]PreCatch error code:11, [E11] Allocator mem tracker check failed, [MEM_LIMIT_EXCEEDED]failed alloc size 64.00 MB, memory tracker limit exceeded, tracker label:Query#Id=4dd532f242104807-ae5fa3bf4783add7, type:query, limit 2.00 GB, peak used 1.98 GB, current used 1.97 GB. backend 127.0.0.1, process memory used 4.00 GB. exec node:<ScopedPeakMem:9b43936daad3f466-1f140b07d5a7878a>, can `set exec_mem_limit` to change limit, details see be.INFO.\n\n\t0#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&, bool)\n\t1#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&)\n\t2#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::memory_tracker_check(unsigned long) const\n\t3#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::realloc(void*, unsigned long, unsigned long, unsigned long)\n\t4#  doris::ColumnDecimal<(doris::PrimitiveType)30>::insert_range_from(doris::IColumn const&, unsigned long, unsigned long)\n\t5#  doris::AnalyticSinkOperatorX::_insert_range_column(doris::Block*, std::shared_ptr<doris::VExprContext> const&, doris::IColumn*, unsigned long)\n\t6#  doris::AnalyticSinkOperatorX::_add_input_block(doris::RuntimeState*, doris::Block*)\n\t7#  doris::AnalyticSinkOperatorX::sink_impl(doris::RuntimeState*, doris::Block*, bool)\n\t8#  doris::PipelineTask::execute(bool*)\n\t9#  doris::TaskScheduler::_do_work(int)\n\t10# doris::ThreadPool::dispatch_thread()\n\t11# doris::Thread::supervise_thread(void*)\n\t12# ?\n\t13# ?\n, __FILE__:/home/zcp/repo_center/doris_release/doris/be/src/exec/pipeline/task_scheduler.cpp, __LINE__:172, __FUNCTION__:void doris::TaskScheduler::_do_work(int)",
+          "ms": 943.784916
+        },
+        {
+          "id": "complex-2026-04-14-lookup-null-conjunction",
+          "error": "java.sql.SQLException: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]PreCatch error code:11, [E11] Allocator mem tracker check failed, [MEM_LIMIT_EXCEEDED]failed alloc size 8.00 MB, memory tracker limit exceeded, tracker label:Query#Id=594b2d05b3404265-b0d4e6df4befd605, type:query, limit 2.00 GB, peak used 1.99 GB, current used 1.99 GB. backend 127.0.0.1, process memory used 3.99 GB. exec node:<>, can `set exec_mem_limit` to change limit, details see be.INFO.\n\n\t0#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&, bool)\n\t1#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&)\n\t2#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::memory_tracker_check(unsigned long) const\n\t3#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::alloc(unsigned long, unsigned long)\n\t4#  doris::ColumnVector<(doris::PrimitiveType)6>::ColumnVector(unsigned long)\n\t5#  doris::ColumnVector<(doris::PrimitiveType)6>::permute(doris::PODArray<unsigned long, 4096ul, doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>, 16ul, 15ul> const&, unsigned long) const\n\t6#  doris::ColumnNullable::permute(doris::PODArray<unsigned long, 4096ul, doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>, 16ul, 15ul> const&, unsigned long) const\n\t7#  doris::sort_block(doris::Block&, doris::Block&, std::vector<doris::SortColumnDescription, std::allocator<doris::SortColumnDescription> > const&, doris::HybridSorter&, unsigned long)\n\t8#  doris::Sorter::partial_sort(doris::Block&, doris::Block&, bool)\n\t9#  doris::FullSorter::do_sort()\n\t10# doris::FullSorter::append_block(doris::Block*)\n\t11# doris::SortSinkOperatorX::sink_impl(doris::RuntimeState*, doris::Block*, bool)\n\t12# doris::PipelineTask::execute(bool*)\n\t13# doris::TaskScheduler::_do_work(int)\n\t14# doris::ThreadPool::dispatch_thread()\n\t15# doris::Thread::supervise_thread(void*)\n\t16# ?\n\t17# ?\n, __FILE__:/home/zcp/repo_center/doris_release/doris/be/src/exec/pipeline/task_scheduler.cpp, __LINE__:172, __FUNCTION__:void doris::TaskScheduler::_do_work(int)",
+          "ms": 1593.358709
+        },
+        {
+          "id": "complex-2026-04-14-lookup-null-fallback",
+          "error": "java.sql.SQLException: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]PreCatch error code:11, [E11] Allocator mem tracker check failed, [MEM_LIMIT_EXCEEDED]failed alloc size 16.00 MB, memory tracker limit exceeded, tracker label:Query#Id=52fcb5de9bc2417e-90a513b90e8dd4cd, type:query, limit 2.00 GB, peak used 2.00 GB, current used 2.00 GB. backend 127.0.0.1, process memory used 4.04 GB. exec node:<>, can `set exec_mem_limit` to change limit, details see be.INFO.\n\n\t0#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&, bool)\n\t1#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&)\n\t2#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::memory_tracker_check(unsigned long) const\n\t3#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::alloc(unsigned long, unsigned long)\n\t4#  doris::ColumnDecimal<(doris::PrimitiveType)30>::ColumnDecimal(unsigned long, unsigned int)\n\t5#  doris::ColumnDecimal<(doris::PrimitiveType)30>::permute(doris::PODArray<unsigned long, 4096ul, doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>, 16ul, 15ul> const&, unsigned long) const\n\t6#  doris::ColumnNullable::permute(doris::PODArray<unsigned long, 4096ul, doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>, 16ul, 15ul> const&, unsigned long) const\n\t7#  doris::sort_block(doris::Block&, doris::Block&, std::vector<doris::SortColumnDescription, std::allocator<doris::SortColumnDescription> > const&, doris::HybridSorter&, unsigned long)\n\t8#  doris::Sorter::partial_sort(doris::Block&, doris::Block&, bool)\n\t9#  doris::FullSorter::do_sort()\n\t10# doris::FullSorter::append_block(doris::Block*)\n\t11# doris::SortSinkOperatorX::sink_impl(doris::RuntimeState*, doris::Block*, bool)\n\t12# doris::PipelineTask::execute(bool*)\n\t13# doris::TaskScheduler::_do_work(int)\n\t14# doris::ThreadPool::dispatch_thread()\n\t15# doris::Thread::supervise_thread(void*)\n\t16# ?\n\t17# ?\n, __FILE__:/home/zcp/repo_center/doris_release/doris/be/src/exec/pipeline/task_scheduler.cpp, __LINE__:172, __FUNCTION__:void doris::TaskScheduler::_do_work(int)",
+          "ms": 1924.985875
+        }
+      ],
+      "slow": [
+        {
+          "id": "complex-2018-08-20-frequency-ma-rank",
+          "ms": 60061.23225
+        },
+        {
+          "id": "complex-2018-08-20-lookup-null-conjunction",
+          "ms": 60026.33025
+        },
+        {
+          "id": "complex-2018-08-20-lookup-null-fallback",
+          "ms": 60063.7165
+        }
+      ]
+    },
+    "holdout": {
+      "total": 64,
+      "correct": 61,
+      "within10": 60,
+      "successTime": {
+        "p50": 175.686875,
+        "p95": 1275.688,
+        "p99": 10547.099833,
+        "max": 10547.099833
+      },
+      "failures": [
+        {
+          "id": "holdout-2020-02-03-frequency-ma-rank",
+          "error": "com.mysql.cj.jdbc.exceptions.MySQLTimeoutException: Statement cancelled due to timeout or client request",
+          "ms": 60027.797542
+        },
+        {
+          "id": "holdout-2020-02-03-lookup-null-conjunction",
+          "error": "com.mysql.cj.jdbc.exceptions.MySQLTimeoutException: Statement cancelled due to timeout or client request",
+          "ms": 60041.184667
+        },
+        {
+          "id": "holdout-2020-02-03-lookup-null-fallback",
+          "error": "com.mysql.cj.jdbc.exceptions.MySQLTimeoutException: Statement cancelled due to timeout or client request",
+          "ms": 60029.323583
+        }
+      ],
+      "slow": [
+        {
+          "id": "holdout-2020-02-03-frequency-ma-rank",
+          "ms": 60027.797542
+        },
+        {
+          "id": "holdout-2020-02-03-lookup-null-conjunction",
+          "ms": 60041.184667
+        },
+        {
+          "id": "holdout-2020-02-03-lookup-null-fallback",
+          "ms": 60029.323583
+        },
+        {
+          "id": "holdout-2026-04-12-frequency-ma-rank",
+          "ms": 10547.099833
+        }
+      ]
+    }
+  },
+  "history": {
+    "history-30": {
+      "cases": [
+        {
+          "id": "nineteen-year-history",
+          "category": "LONG_RANGE",
+          "status": "PASS",
+          "rows": 17,
+          "p95Ratio": 371.49806364948125,
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 5996.608833,
+            "p95": 7341.993875,
+            "p99": 9186.131292,
+            "max": 9186.131292
+          },
+          "optimized": {
+            "p50": 9.65875,
+            "p95": 19.763209,
+            "p99": 29.600209,
+            "max": 29.600209
+          },
+          "pairedSpeedup": {
+            "min": 307.66360852418876,
+            "median": 597.3005608386179,
+            "over10": 30
+          },
+          "independentRowsMatch": true
+        },
+        {
+          "id": "history-high-all-markets",
+          "category": "LONG_RANGE",
+          "status": "PASS",
+          "rows": 48,
+          "p95Ratio": 232.16978504342438,
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 8391.469292,
+            "p95": 9675.724083,
+            "p99": 10212.594583,
+            "max": 10212.594583
+          },
+          "optimized": {
+            "p50": 10.039458,
+            "p95": 41.675208,
+            "p99": 42.231542,
+            "max": 42.231542
+          },
+          "pairedSpeedup": {
+            "min": 227.12434937848116,
+            "median": 768.4931797062992,
+            "over10": 30
+          },
+          "independentRowsMatch": true
+        },
+        {
+          "id": "history-low-all-markets",
+          "category": "LONG_RANGE",
+          "status": "PASS",
+          "rows": 4,
+          "p95Ratio": 317.8374967236628,
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 8556.015,
+            "p95": 9593.077166,
+            "p99": 9732.477542,
+            "max": 9732.477542
+          },
+          "optimized": {
+            "p50": 10.665667,
+            "p95": 30.182333,
+            "p99": 33.932917,
+            "max": 33.932917
+          },
+          "pairedSpeedup": {
+            "min": 244.0083780890396,
+            "median": 782.4885114620056,
+            "over10": 30
+          },
+          "independentRowsMatch": true
+        },
+        {
+          "id": "history-high-earlier-date",
+          "category": "LONG_RANGE",
+          "status": "PASS",
+          "rows": 17,
+          "p95Ratio": 130.18054990341213,
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 5912.920584,
+            "p95": 6530.87075,
+            "p99": 6912.841292,
+            "max": 6912.841292
+          },
+          "optimized": {
+            "p50": 12.116334,
+            "p95": 50.167792,
+            "p99": 51.195959,
+            "max": 51.195959
+          },
+          "pairedSpeedup": {
+            "min": 116.18296936408922,
+            "median": 465.29857643728263,
+            "over10": 30
+          },
+          "independentRowsMatch": true
+        },
+        {
+          "id": "history-pair",
+          "category": "LONG_RANGE",
+          "status": "FAIL",
+          "error": "SQLException: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]PreCatch error code:11, [E11] Allocator mem tracker check failed, [MEM_LIMIT_EXCEEDED]failed alloc size 64.00 MB, memory tracker limit exceeded, tracker label:Query#Id=ed1279419ef243f3-88a35538a88766ee, type:query, limit 2.00 GB, peak used 2.00 GB, current used 1.96 GB. backend 127.0.0.1, process memory used 3.93 GB. exec node:<ScopedPeakMem:fb42e6c34250b8ab-9aef574ab1b81ea0>, can `set exec_mem_limit` to change limit, details see be.INFO.\n\n\t0#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&, bool)\n\t1#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&)\n\t2#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::memory_tracker_check(unsigned long) const\n\t3#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::realloc(void*, unsigned long, unsigned long, unsigned long)\n\t4#  doris::ColumnDecimal<(doris::PrimitiveType)30>::insert_range_from(doris::IColumn const&, unsigned long, unsigned long)\n\t5#  doris::AnalyticSinkOperatorX::_insert_range_column(doris::Block*, std::shared_ptr<doris::VExprContext> const&, doris::IColumn*, unsigned long)\n\t6#  doris::AnalyticSinkOperatorX::_add_input_block(doris::RuntimeState*, doris::Block*)\n\t7#  doris::AnalyticSinkOperatorX::sink_impl(doris::RuntimeState*, doris::Block*, bool)\n\t8#  doris::PipelineTask::execute(bool*)\n\t9#  doris::TaskScheduler::_do_work(int)\n\t10# doris::ThreadPool::dispatch_thread()\n\t11# doris::Thread::supervise_thread(void*)\n\t12# ?\n\t13# ?\n, __FILE__:/home/zcp/repo_center/doris_release/doris/be/src/exec/pipeline/task_scheduler.cpp, __LINE__:172, __FUNCTION__:void doris::TaskScheduler::_do_work(int)",
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false
+        },
+        {
+          "id": "history-19y-2d",
+          "category": "LONG_RANGE",
+          "status": "PASS",
+          "rows": 0,
+          "p95Ratio": 171.00104578299315,
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 5234.122792,
+            "p95": 5977.61225,
+            "p99": 7284.773792,
+            "max": 7284.773792
+          },
+          "optimized": {
+            "p50": 10.326958,
+            "p95": 34.956583,
+            "p99": 38.382625,
+            "max": 38.382625
+          },
+          "pairedSpeedup": {
+            "min": 148.09656284196885,
+            "median": 509.1539704318019,
+            "over10": 30
+          },
+          "independentRowsMatch": true
+        },
+        {
+          "id": "history-19y-2d-pair",
+          "category": "LONG_RANGE",
+          "status": "FAIL",
+          "error": "SQLException: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]PreCatch error code:11, [E11] Allocator mem tracker check failed, [MEM_LIMIT_EXCEEDED]failed alloc size 64.00 MB, memory tracker limit exceeded, tracker label:Query#Id=c8b960420e264292-ae20889da51beb3c, type:query, limit 2.00 GB, peak used 1.99 GB, current used 1.95 GB. backend 127.0.0.1, process memory used 3.90 GB. exec node:<ScopedPeakMem:794b4015090750ff-835314c8b9a791ad>, can `set exec_mem_limit` to change limit, details see be.INFO.\n\n\t0#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&, bool)\n\t1#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&)\n\t2#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::memory_tracker_check(unsigned long) const\n\t3#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::realloc(void*, unsigned long, unsigned long, unsigned long)\n\t4#  doris::ColumnDecimal<(doris::PrimitiveType)30>::insert_range_from(doris::IColumn const&, unsigned long, unsigned long)\n\t5#  doris::AnalyticSinkOperatorX::_insert_range_column(doris::Block*, std::shared_ptr<doris::VExprContext> const&, doris::IColumn*, unsigned long)\n\t6#  doris::AnalyticSinkOperatorX::_add_input_block(doris::RuntimeState*, doris::Block*)\n\t7#  doris::AnalyticSinkOperatorX::sink_impl(doris::RuntimeState*, doris::Block*, bool)\n\t8#  doris::PipelineTask::execute(bool*)\n\t9#  doris::TaskScheduler::_do_work(int)\n\t10# doris::ThreadPool::dispatch_thread()\n\t11# doris::Thread::supervise_thread(void*)\n\t12# ?\n\t13# ?\n, __FILE__:/home/zcp/repo_center/doris_release/doris/be/src/exec/pipeline/task_scheduler.cpp, __LINE__:172, __FUNCTION__:void doris::TaskScheduler::_do_work(int)",
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false
+        }
+      ],
+      "rounds": 30,
+      "concurrent": null
+    },
+    "aggregate-30": {
+      "cases": [
+        {
+          "id": "nineteen-year-history",
+          "category": "LONG_RANGE",
+          "status": "PASS",
+          "rows": 17,
+          "p95Ratio": 15.738197379428188,
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 167.735,
+            "p95": 243.652209,
+            "p99": 419.764333,
+            "max": 419.764333
+          },
+          "optimized": {
+            "p50": 11.675833,
+            "p95": 15.481583,
+            "p99": 23.048291,
+            "max": 23.048291
+          },
+          "pairedSpeedup": {
+            "min": 8.047111906723773,
+            "median": 13.127327656091339,
+            "over10": 29
+          },
+          "independentRowsMatch": true
+        },
+        {
+          "id": "history-high-all-markets",
+          "category": "LONG_RANGE",
+          "status": "PASS",
+          "rows": 48,
+          "p95Ratio": 23.82762679423689,
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 355.730083,
+            "p95": 488.179417,
+            "p99": 574.926958,
+            "max": 574.926958
+          },
+          "optimized": {
+            "p50": 13.269417,
+            "p95": 20.487958,
+            "p99": 21.08175,
+            "max": 21.08175
+          },
+          "pairedSpeedup": {
+            "min": 16.311610373901598,
+            "median": 26.251107351365796,
+            "over10": 30
+          },
+          "independentRowsMatch": true
+        },
+        {
+          "id": "history-low-all-markets",
+          "category": "LONG_RANGE",
+          "status": "PASS",
+          "rows": 4,
+          "p95Ratio": 26.720800811159393,
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 303.141917,
+            "p95": 367.389875,
+            "p99": 382.769375,
+            "max": 382.769375
+          },
+          "optimized": {
+            "p50": 11.014417,
+            "p95": 13.749209,
+            "p99": 13.939791,
+            "max": 13.939791
+          },
+          "pairedSpeedup": {
+            "min": 23.870610146832522,
+            "median": 27.687523965902052,
+            "over10": 30
+          },
+          "independentRowsMatch": true
+        },
+        {
+          "id": "history-high-earlier-date",
+          "category": "LONG_RANGE",
+          "status": "PASS",
+          "rows": 17,
+          "p95Ratio": 14.743858062090256,
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 145.412375,
+            "p95": 205.232042,
+            "p99": 223.273709,
+            "max": 223.273709
+          },
+          "optimized": {
+            "p50": 10.505875,
+            "p95": 13.919833,
+            "p99": 22.49375,
+            "max": 22.49375
+          },
+          "pairedSpeedup": {
+            "min": 7.27436696860239,
+            "median": 13.78953432857479,
+            "over10": 29
+          },
+          "independentRowsMatch": true
+        },
+        {
+          "id": "history-pair",
+          "category": "LONG_RANGE",
+          "status": "PASS",
+          "rows": 52,
+          "p95Ratio": 33.08362747201846,
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 576.84875,
+            "p95": 820.814458,
+            "p99": 1272.023,
+            "max": 1272.023
+          },
+          "optimized": {
+            "p50": 15.65925,
+            "p95": 24.810292,
+            "p99": 33.279458,
+            "max": 33.279458
+          },
+          "pairedSpeedup": {
+            "min": 18.0058195959802,
+            "median": 40.72852510714059,
+            "over10": 30
+          },
+          "independentRowsMatch": true
+        },
+        {
+          "id": "history-19y-2d",
+          "category": "LONG_RANGE",
+          "status": "PASS",
+          "rows": 0,
+          "p95Ratio": 6.485836863238754,
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 156.954208,
+            "p95": 246.053459,
+            "p99": 254.749791,
+            "max": 254.749791
+          },
+          "optimized": {
+            "p50": 11.66125,
+            "p95": 37.937041,
+            "p99": 153.954958,
+            "max": 153.954958
+          },
+          "pairedSpeedup": {
+            "min": 1.6547033905851865,
+            "median": 13.590070361239144,
+            "over10": 26
+          },
+          "independentRowsMatch": true
+        },
+        {
+          "id": "history-19y-2d-pair",
+          "category": "LONG_RANGE",
+          "status": "PASS",
+          "rows": 31,
+          "p95Ratio": 40.19647051676657,
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 446.639333,
+            "p95": 845.636625,
+            "p99": 852.228667,
+            "max": 852.228667
+          },
+          "optimized": {
+            "p50": 11.924667,
+            "p95": 21.037584,
+            "p99": 24.201542,
+            "max": 24.201542
+          },
+          "pairedSpeedup": {
+            "min": 21.59320747097195,
+            "median": 37.40532490082866,
+            "over10": 30
+          },
+          "independentRowsMatch": true
+        }
+      ],
+      "rounds": 30,
+      "concurrent": 20
+    },
+    "matrix-5": {
+      "cases": [
+        {
+          "id": "single-day-simple-filter",
+          "category": "SINGLE_DAY",
+          "status": "PASS",
+          "rows": 100,
+          "p95Ratio": 0.9500871735693243,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 18.440417,
+            "p95": 23.640584,
+            "p99": 23.640584,
+            "max": 23.640584
+          },
+          "optimized": {
+            "p50": 21.545208,
+            "p95": 24.882542,
+            "p99": 24.882542,
+            "max": 24.882542
+          },
+          "pairedSpeedup": {
+            "min": 0.7979809709890013,
+            "median": 0.8973784352165389,
+            "over10": 0
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "multi-indicator-cross-table",
+          "category": "CROSS_TABLE",
+          "status": "PASS",
+          "rows": 100,
+          "p95Ratio": 1.1889712999029431,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 34.564667,
+            "p95": 44.034791,
+            "p99": 44.034791,
+            "max": 44.034791
+          },
+          "optimized": {
+            "p50": 32.574166,
+            "p95": 37.036042,
+            "p99": 37.036042,
+            "max": 37.036042
+          },
+          "pairedSpeedup": {
+            "min": 0.8591981089947982,
+            "median": 0.9980365358521192,
+            "over10": 0
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "ma20",
+          "category": "WINDOW",
+          "status": "PASS",
+          "rows": 100,
+          "p95Ratio": 218.4613573727757,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 6158.780334,
+            "p95": 6869.85425,
+            "p99": 6869.85425,
+            "max": 6869.85425
+          },
+          "optimized": {
+            "p50": 13.474542,
+            "p95": 31.446542,
+            "p99": 31.446542,
+            "max": 31.446542
+          },
+          "pairedSpeedup": {
+            "min": 194.67701459829826,
+            "median": 457.0678791160397,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "ma60",
+          "category": "WINDOW",
+          "status": "PASS",
+          "rows": 49,
+          "p95Ratio": 263.51160634702563,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 6418.171792,
+            "p95": 6885.119,
+            "p99": 6885.119,
+            "max": 6885.119
+          },
+          "optimized": {
+            "p50": 11.705542,
+            "p95": 26.128333,
+            "p99": 26.128333,
+            "max": 26.128333
+          },
+          "pairedSpeedup": {
+            "min": 256.3013284850587,
+            "median": 588.1930969108479,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "ma120",
+          "category": "WINDOW",
+          "status": "PASS",
+          "rows": 44,
+          "p95Ratio": 328.1223499716277,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 6549.034375,
+            "p95": 6894.411334,
+            "p99": 6894.411334,
+            "max": 6894.411334
+          },
+          "optimized": {
+            "p50": 16.580625,
+            "p95": 21.011709,
+            "p99": 21.011709,
+            "max": 21.011709
+          },
+          "pairedSpeedup": {
+            "min": 306.8997287179258,
+            "median": 388.15814391797653,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "ma250",
+          "category": "WINDOW",
+          "status": "PASS",
+          "rows": 41,
+          "p95Ratio": 468.3396223679734,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 7281.352291,
+            "p95": 8076.263416,
+            "p99": 8076.263416,
+            "max": 8076.263416
+          },
+          "optimized": {
+            "p50": 13.614,
+            "p95": 17.244459,
+            "p99": 17.244459,
+            "max": 17.244459
+          },
+          "pairedSpeedup": {
+            "min": 422.24301098689153,
+            "median": 548.6170952705323,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "cross-above",
+          "category": "CROSS",
+          "status": "PASS",
+          "rows": 100,
+          "p95Ratio": 1.0956580572639314,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 756.027458,
+            "p95": 899.775625,
+            "p99": 899.775625,
+            "max": 899.775625
+          },
+          "optimized": {
+            "p50": 748.857542,
+            "p95": 821.219375,
+            "p99": 821.219375,
+            "max": 821.219375
+          },
+          "pairedSpeedup": {
+            "min": 0.7689133515633384,
+            "median": 1.076424449085249,
+            "over10": 0
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "record-high",
+          "category": "WINDOW",
+          "status": "PASS",
+          "rows": 0,
+          "p95Ratio": 486.40700412946785,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 7402.225,
+            "p95": 8149.486208,
+            "p99": 8149.486208,
+            "max": 8149.486208
+          },
+          "optimized": {
+            "p50": 9.119292,
+            "p95": 16.754459,
+            "p99": 16.754459,
+            "max": 16.754459
+          },
+          "pairedSpeedup": {
+            "min": 486.09410736568697,
+            "median": 811.7104924373516,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "record-low",
+          "category": "WINDOW",
+          "status": "PASS",
+          "rows": 1,
+          "p95Ratio": 499.15819733154603,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 7397.894875,
+            "p95": 7980.645583,
+            "p99": 7980.645583,
+            "max": 7980.645583
+          },
+          "optimized": {
+            "p50": 11.01475,
+            "p95": 15.988209,
+            "p99": 15.988209,
+            "max": 15.988209
+          },
+          "pairedSpeedup": {
+            "min": 499.15819733154603,
+            "median": 671.6352958532876,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "consecutive-three",
+          "category": "OCCURRENCE",
+          "status": "PASS",
+          "rows": 100,
+          "p95Ratio": 1.0198781792044995,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 369.443333,
+            "p95": 399.119042,
+            "p99": 399.119042,
+            "max": 399.119042
+          },
+          "optimized": {
+            "p50": 362.409958,
+            "p95": 391.339917,
+            "p99": 391.339917,
+            "max": 391.339917
+          },
+          "pairedSpeedup": {
+            "min": 0.9503525302284237,
+            "median": 1.0110380383200213,
+            "over10": 0
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "daily-rank",
+          "category": "RANK",
+          "status": "PASS",
+          "rows": 100,
+          "p95Ratio": 0.9886200216094543,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 28.449042,
+            "p95": 33.189375,
+            "p99": 33.189375,
+            "max": 33.189375
+          },
+          "optimized": {
+            "p50": 27.529917,
+            "p95": 33.571417,
+            "p99": 33.571417,
+            "max": 33.571417
+          },
+          "pairedSpeedup": {
+            "min": 0.686623266453126,
+            "median": 1.112607230399346,
+            "over10": 0
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "nineteen-year-history",
+          "category": "LONG_RANGE",
+          "status": "PASS",
+          "rows": 17,
+          "p95Ratio": 325.26228493297316,
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 5920.806375,
+            "p95": 6637.763083,
+            "p99": 6637.763083,
+            "max": 6637.763083
+          },
+          "optimized": {
+            "p50": 14.349834,
+            "p95": 20.407417,
+            "p99": 20.407417,
+            "max": 20.407417
+          },
+          "pairedSpeedup": {
+            "min": 325.26228493297316,
+            "median": 410.44077868775344,
+            "over10": 5
+          },
+          "independentRowsMatch": true
+        },
+        {
+          "id": "ma20-2026-04-10-all",
+          "category": "MULTI_DATE_WINDOW",
+          "status": "PASS",
+          "rows": 3542,
+          "p95Ratio": 316.81348211367805,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 9627.3835,
+            "p95": 10179.943,
+            "p99": 10179.943,
+            "max": 10179.943
+          },
+          "optimized": {
+            "p50": 21.885083,
+            "p95": 32.132291,
+            "p99": 32.132291,
+            "max": 32.132291
+          },
+          "pairedSpeedup": {
+            "min": 295.60770867536337,
+            "median": 437.0368658414501,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "ma60-2026-04-10-all",
+          "category": "MULTI_DATE_WINDOW",
+          "status": "PASS",
+          "rows": 161,
+          "p95Ratio": 277.9278565698631,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 9918.362916,
+            "p95": 10529.632583,
+            "p99": 10529.632583,
+            "max": 10529.632583
+          },
+          "optimized": {
+            "p50": 11.847791,
+            "p95": 37.886208,
+            "p99": 37.886208,
+            "max": 37.886208
+          },
+          "pairedSpeedup": {
+            "min": 277.85564691509904,
+            "median": 888.7422628403893,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "ma120-2026-04-10-all",
+          "category": "MULTI_DATE_WINDOW",
+          "status": "PASS",
+          "rows": 156,
+          "p95Ratio": 491.3356279451086,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 11253.599542,
+            "p95": 11772.851709,
+            "p99": 11772.851709,
+            "max": 11772.851709
+          },
+          "optimized": {
+            "p50": 11.774584,
+            "p95": 23.960916,
+            "p99": 23.960916,
+            "max": 23.960916
+          },
+          "pairedSpeedup": {
+            "min": 491.3356279451086,
+            "median": 992.3003118411657,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "ma250-2026-04-10-all",
+          "category": "MULTI_DATE_WINDOW",
+          "status": "PASS",
+          "rows": 146,
+          "p95Ratio": 304.5970376465183,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 13676.407583,
+            "p95": 14419.128792,
+            "p99": 14419.128792,
+            "max": 14419.128792
+          },
+          "optimized": {
+            "p50": 12.651833,
+            "p95": 47.338375,
+            "p99": 47.338375,
+            "max": 47.338375
+          },
+          "pairedSpeedup": {
+            "min": 293.34751845622077,
+            "median": 1139.6869364304762,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "ma20-2026-04-13-all",
+          "category": "MULTI_DATE_WINDOW",
+          "status": "PASS",
+          "rows": 3538,
+          "p95Ratio": 295.52614589126574,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 9786.548708,
+            "p95": 10711.505333,
+            "p99": 10711.505333,
+            "max": 10711.505333
+          },
+          "optimized": {
+            "p50": 19.916416,
+            "p95": 36.245542,
+            "p99": 36.245542,
+            "max": 36.245542
+          },
+          "pairedSpeedup": {
+            "min": 269.9568795798391,
+            "median": 483.2866661853217,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "ma60-2026-04-13-all",
+          "category": "MULTI_DATE_WINDOW",
+          "status": "PASS",
+          "rows": 161,
+          "p95Ratio": 261.85936189513586,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 10280.190875,
+            "p95": 11182.027667,
+            "p99": 11182.027667,
+            "max": 11182.027667
+          },
+          "optimized": {
+            "p50": 14.095541,
+            "p95": 42.702417,
+            "p99": 42.702417,
+            "max": 42.702417
+          },
+          "pairedSpeedup": {
+            "min": 235.60481951173864,
+            "median": 745.2509390026249,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "ma120-2026-04-13-all",
+          "category": "MULTI_DATE_WINDOW",
+          "status": "PASS",
+          "rows": 156,
+          "p95Ratio": 778.8624936407175,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 10643.136542,
+            "p95": 11032.0685,
+            "p99": 11032.0685,
+            "max": 11032.0685
+          },
+          "optimized": {
+            "p50": 12.09225,
+            "p95": 14.164334,
+            "p99": 14.164334,
+            "max": 14.164334
+          },
+          "pairedSpeedup": {
+            "min": 751.4039517848139,
+            "median": 912.3255390849511,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "ma250-2026-04-13-all",
+          "category": "MULTI_DATE_WINDOW",
+          "status": "PASS",
+          "rows": 145,
+          "p95Ratio": 845.0164777577248,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 11882.818833,
+            "p95": 12607.997375,
+            "p99": 12607.997375,
+            "max": 12607.997375
+          },
+          "optimized": {
+            "p50": 9.190125,
+            "p95": 14.920416,
+            "p99": 14.920416,
+            "max": 14.920416
+          },
+          "pairedSpeedup": {
+            "min": 845.0164777577248,
+            "median": 1289.2920073448404,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "ma20-2026-04-14-all",
+          "category": "MULTI_DATE_WINDOW",
+          "status": "PASS",
+          "rows": 3528,
+          "p95Ratio": 626.2210770336744,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 9114.578125,
+            "p95": 9691.006,
+            "p99": 9691.006,
+            "max": 9691.006
+          },
+          "optimized": {
+            "p50": 12.289584,
+            "p95": 15.475375,
+            "p99": 15.475375,
+            "max": 15.475375
+          },
+          "pairedSpeedup": {
+            "min": 587.861635016922,
+            "median": 788.5544376441057,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "ma60-2026-04-14-all",
+          "category": "MULTI_DATE_WINDOW",
+          "status": "PASS",
+          "rows": 160,
+          "p95Ratio": 387.52986631955434,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 10204.494084,
+            "p95": 10392.711625,
+            "p99": 10392.711625,
+            "max": 10392.711625
+          },
+          "optimized": {
+            "p50": 16.781042,
+            "p95": 26.817834,
+            "p99": 26.817834,
+            "max": 26.817834
+          },
+          "pairedSpeedup": {
+            "min": 387.52986631955434,
+            "median": 602.6335585442203,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "ma120-2026-04-14-all",
+          "category": "MULTI_DATE_WINDOW",
+          "status": "PASS",
+          "rows": 155,
+          "p95Ratio": 842.0770243206244,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 10569.99275,
+            "p95": 11277.656333,
+            "p99": 11277.656333,
+            "max": 11277.656333
+          },
+          "optimized": {
+            "p50": 8.658792,
+            "p95": 13.392666,
+            "p99": 13.392666,
+            "max": 13.392666
+          },
+          "pairedSpeedup": {
+            "min": 842.0770243206244,
+            "median": 1220.7237164260325,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "ma250-2026-04-14-all",
+          "category": "MULTI_DATE_WINDOW",
+          "status": "PASS",
+          "rows": 145,
+          "p95Ratio": 640.3773566755935,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 12167.618291,
+            "p95": 13287.723208,
+            "p99": 13287.723208,
+            "max": 13287.723208
+          },
+          "optimized": {
+            "p50": 9.42675,
+            "p95": 20.749833,
+            "p99": 20.749833,
+            "max": 20.749833
+          },
+          "pairedSpeedup": {
+            "min": 586.3959623675045,
+            "median": 1409.5762811149123,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "record-high-2026-04-14-all",
+          "category": "STRICT_RANGE",
+          "status": "PASS",
+          "rows": 4,
+          "p95Ratio": 297.415302067637,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 13339.20225,
+            "p95": 15098.4615,
+            "p99": 15098.4615,
+            "max": 15098.4615
+          },
+          "optimized": {
+            "p50": 11.098875,
+            "p95": 50.765584,
+            "p99": 50.765584,
+            "max": 50.765584
+          },
+          "pairedSpeedup": {
+            "min": 297.415302067637,
+            "median": 1201.851741730581,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "record-low-2026-04-14-all",
+          "category": "STRICT_RANGE",
+          "status": "PASS",
+          "rows": 4,
+          "p95Ratio": 376.3451524913248,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true,
+          "baseline": {
+            "p50": 12666.638208,
+            "p95": 13468.703167,
+            "p99": 13468.703167,
+            "max": 13468.703167
+          },
+          "optimized": {
+            "p50": 12.85725,
+            "p95": 35.788167,
+            "p99": 35.788167,
+            "max": 35.788167
+          },
+          "pairedSpeedup": {
+            "min": 353.93369568215104,
+            "median": 1047.5570722355092,
+            "over10": 5
+          },
+          "independentRowsMatch": null
+        },
+        {
+          "id": "mixed-moving-averages",
+          "category": "MULTI_WINDOW",
+          "status": "FAIL",
+          "error": "SQLException: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]PreCatch error code:11, [E11] Allocator mem tracker check failed, [MEM_LIMIT_EXCEEDED]failed alloc size 32.00 MB, memory tracker limit exceeded, tracker label:Query#Id=556245432b224264-89cb4d84b9d7f8cf, type:query, limit 2.00 GB, peak used 1.99 GB, current used 1.99 GB. backend 127.0.0.1, process memory used 4.16 GB. exec node:<ScopedPeakMem:5a4101b43c99c4a5-2f3e0dc9b8b5ecae>, can `set exec_mem_limit` to change limit, details see be.INFO.\n\n\t0#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&, bool)\n\t1#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&)\n\t2#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::memory_tracker_check(unsigned long) const\n\t3#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::realloc(void*, unsigned long, unsigned long, unsigned long)\n\t4#  doris::ColumnDecimal<(doris::PrimitiveType)30>::insert_range_from(doris::IColumn const&, unsigned long, unsigned long)\n\t5#  doris::AnalyticSinkOperatorX::_insert_range_column(doris::Block*, std::shared_ptr<doris::VExprContext> const&, doris::IColumn*, unsigned long)\n\t6#  doris::AnalyticSinkOperatorX::_add_input_block(doris::RuntimeState*, doris::Block*)\n\t7#  doris::AnalyticSinkOperatorX::sink_impl(doris::RuntimeState*, doris::Block*, bool)\n\t8#  doris::PipelineTask::execute(bool*)\n\t9#  doris::TaskScheduler::_do_work(int)\n\t10# doris::ThreadPool::dispatch_thread()\n\t11# doris::Thread::supervise_thread(void*)\n\t12# ?\n\t13# ?\n, __FILE__:/home/zcp/repo_center/doris_release/doris/be/src/exec/pipeline/task_scheduler.cpp, __LINE__:172, __FUNCTION__:void doris::TaskScheduler::_do_work(int)",
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": true
+        },
+        {
+          "id": "mixed-ma60-close-fallback",
+          "category": "REFERENCE_FALLBACK",
+          "status": "PASS",
+          "rows": 237,
+          "p95Ratio": 1.0748894019822741,
+          "historicalFeatureSelected": false,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 10171.479959,
+            "p95": 11334.271667,
+            "p99": 11334.271667,
+            "max": 11334.271667
+          },
+          "optimized": {
+            "p50": 10111.008542,
+            "p95": 10544.593375,
+            "p99": 10544.593375,
+            "max": 10544.593375
+          },
+          "pairedSpeedup": {
+            "min": 0.9151398784486275,
+            "median": 0.9968084829065301,
+            "over10": 0
+          },
+          "independentRowsMatch": null
+        }
+      ],
+      "rounds": 5,
+      "concurrent": null
+    },
+    "no-page-cache-20": {
+      "cases": [
+        {
+          "id": "nineteen-year-history",
+          "category": "LONG_RANGE",
+          "status": "PASS",
+          "rows": 17,
+          "p95Ratio": 380.1261793245375,
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 6373.897709,
+            "p95": 7019.077417,
+            "p99": 7313.209875,
+            "max": 7313.209875
+          },
+          "optimized": {
+            "p50": 12.619,
+            "p95": 18.465125,
+            "p99": 39.376875,
+            "max": 39.376875
+          },
+          "pairedSpeedup": {
+            "min": 173.11586853959338,
+            "median": 520.8367653093526,
+            "over10": 20
+          },
+          "independentRowsMatch": true
+        },
+        {
+          "id": "history-pair",
+          "category": "LONG_RANGE",
+          "status": "FAIL",
+          "error": "SQLException: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]PreCatch error code:11, [E11] Allocator mem tracker check failed, [MEM_LIMIT_EXCEEDED]failed alloc size 64.00 MB, memory tracker limit exceeded, tracker label:Query#Id=35a6044314574e79-a949eafe21f9115d, type:query, limit 2.00 GB, peak used 2.00 GB, current used 1.97 GB. backend 127.0.0.1, process memory used 4.02 GB. exec node:<ScopedPeakMem:8a4bc1abcdbef346-e621f6be1045e0a4>, can `set exec_mem_limit` to change limit, details see be.INFO.\n\n\t0#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&, bool)\n\t1#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&)\n\t2#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::memory_tracker_check(unsigned long) const\n\t3#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::realloc(void*, unsigned long, unsigned long, unsigned long)\n\t4#  doris::ColumnDecimal<(doris::PrimitiveType)30>::insert_range_from(doris::IColumn const&, unsigned long, unsigned long)\n\t5#  doris::AnalyticSinkOperatorX::_insert_range_column(doris::Block*, std::shared_ptr<doris::VExprContext> const&, doris::IColumn*, unsigned long)\n\t6#  doris::AnalyticSinkOperatorX::_add_input_block(doris::RuntimeState*, doris::Block*)\n\t7#  doris::AnalyticSinkOperatorX::sink_impl(doris::RuntimeState*, doris::Block*, bool)\n\t8#  doris::PipelineTask::execute(bool*)\n\t9#  doris::TaskScheduler::_do_work(int)\n\t10# doris::ThreadPool::dispatch_thread()\n\t11# doris::Thread::supervise_thread(void*)\n\t12# ?\n\t13# ?\n, __FILE__:/home/zcp/repo_center/doris_release/doris/be/src/exec/pipeline/task_scheduler.cpp, __LINE__:172, __FUNCTION__:void doris::TaskScheduler::_do_work(int)",
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false
+        },
+        {
+          "id": "history-19y-2d-pair",
+          "category": "LONG_RANGE",
+          "status": "FAIL",
+          "error": "SQLException: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]PreCatch error code:11, [E11] Allocator mem tracker check failed, [MEM_LIMIT_EXCEEDED]failed alloc size 64.00 MB, memory tracker limit exceeded, tracker label:Query#Id=85624f44221d49a5-851f7ba97c67d559, type:query, limit 2.00 GB, peak used 1.99 GB, current used 1.94 GB. backend 127.0.0.1, process memory used 3.98 GB. exec node:<ScopedPeakMem:e447b002f069d097-dde9d2c880e3d782>, can `set exec_mem_limit` to change limit, details see be.INFO.\n\n\t0#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&, bool)\n\t1#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&)\n\t2#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::memory_tracker_check(unsigned long) const\n\t3#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::realloc(void*, unsigned long, unsigned long, unsigned long)\n\t4#  doris::ColumnDecimal<(doris::PrimitiveType)30>::insert_range_from(doris::IColumn const&, unsigned long, unsigned long)\n\t5#  doris::AnalyticSinkOperatorX::_insert_range_column(doris::Block*, std::shared_ptr<doris::VExprContext> const&, doris::IColumn*, unsigned long)\n\t6#  doris::AnalyticSinkOperatorX::_add_input_block(doris::RuntimeState*, doris::Block*)\n\t7#  doris::AnalyticSinkOperatorX::sink_impl(doris::RuntimeState*, doris::Block*, bool)\n\t8#  doris::PipelineTask::execute(bool*)\n\t9#  doris::TaskScheduler::_do_work(int)\n\t10# doris::ThreadPool::dispatch_thread()\n\t11# doris::Thread::supervise_thread(void*)\n\t12# ?\n\t13# ?\n, __FILE__:/home/zcp/repo_center/doris_release/doris/be/src/exec/pipeline/task_scheduler.cpp, __LINE__:172, __FUNCTION__:void doris::TaskScheduler::_do_work(int)",
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false
+        }
+      ],
+      "rounds": 20,
+      "concurrent": null
+    },
+    "history-recheck-30": {
+      "cases": [
+        {
+          "id": "history-19y-2d-pair",
+          "category": "LONG_RANGE",
+          "status": "FAIL",
+          "error": "SQLException: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]PreCatch error code:11, [E11] Allocator mem tracker check failed, [MEM_LIMIT_EXCEEDED]failed alloc size 64.00 MB, memory tracker limit exceeded, tracker label:Query#Id=36317b8fa08e4796-841ce870c3b9b331, type:query, limit 2.00 GB, peak used 1.98 GB, current used 1.95 GB. backend 127.0.0.1, process memory used 3.94 GB. exec node:<ScopedPeakMem:1d4eac63767a0e2e-a44edc8bd08d57a4>, can `set exec_mem_limit` to change limit, details see be.INFO.\n\n\t0#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&, bool)\n\t1#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&)\n\t2#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::memory_tracker_check(unsigned long) const\n\t3#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::realloc(void*, unsigned long, unsigned long, unsigned long)\n\t4#  doris::ColumnDecimal<(doris::PrimitiveType)30>::insert_range_from(doris::IColumn const&, unsigned long, unsigned long)\n\t5#  doris::AnalyticSinkOperatorX::_insert_range_column(doris::Block*, std::shared_ptr<doris::VExprContext> const&, doris::IColumn*, unsigned long)\n\t6#  doris::AnalyticSinkOperatorX::_add_input_block(doris::RuntimeState*, doris::Block*)\n\t7#  doris::AnalyticSinkOperatorX::sink_impl(doris::RuntimeState*, doris::Block*, bool)\n\t8#  doris::PipelineTask::execute(bool*)\n\t9#  doris::TaskScheduler::_do_work(int)\n\t10# doris::ThreadPool::dispatch_thread()\n\t11# doris::Thread::supervise_thread(void*)\n\t12# ?\n\t13# ?\n, __FILE__:/home/zcp/repo_center/doris_release/doris/be/src/exec/pipeline/task_scheduler.cpp, __LINE__:172, __FUNCTION__:void doris::TaskScheduler::_do_work(int)",
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false
+        },
+        {
+          "id": "history-19y-low",
+          "category": "LONG_RANGE",
+          "status": "PASS",
+          "rows": 30,
+          "p95Ratio": 1405.5983538721343,
+          "historicalFeatureSelected": true,
+          "rollingFeatureSelected": false,
+          "baseline": {
+            "p50": 50037.735375,
+            "p95": 54201.161459,
+            "p99": 59824.367583,
+            "max": 59824.367583
+          },
+          "optimized": {
+            "p50": 17.221334,
+            "p95": 38.560917,
+            "p99": 41.147666,
+            "max": 41.147666
+          },
+          "pairedSpeedup": {
+            "min": 1251.9895204991699,
+            "median": 2658.843907130521,
+            "over10": 30
+          },
+          "independentRowsMatch": true
+        }
+      ],
+      "rounds": 30,
+      "concurrent": null
+    }
+  },
+  "compiler": [
+    {
+      "p50": 0.051917,
+      "p95": 0.276416,
+      "p99": 0.444375,
+      "max": 3.585709
+    },
+    {
+      "p50": 0.055,
+      "p95": 0.152542,
+      "p99": 0.285667,
+      "max": 4.651042
+    },
+    {
+      "p50": 0.054791,
+      "p95": 0.094541,
+      "p99": 0.164292,
+      "max": 2.840625
+    }
+  ],
+  "httpCompile": {
+    "1": {
+      "n": 1000,
+      "passed": 1000,
+      "time": {
+        "p50": 0.446875,
+        "p95": 0.9595,
+        "p99": 1.282208,
+        "max": 3.251791
+      }
+    },
+    "4": {
+      "n": 1000,
+      "passed": 1000,
+      "time": {
+        "p50": 1.351708,
+        "p95": 2.345959,
+        "p99": 2.832458,
+        "max": 4.992625
+      }
+    }
+  },
+  "load": {
+    "1": {
+      "n": 30,
+      "passed": 25,
+      "within10": 25,
+      "successTime": {
+        "p50": 2436.436875,
+        "p95": 3792.078334,
+        "p99": 4167.690583,
+        "max": 4167.690583
+      },
+      "errors": {
+        "TIMEOUT": 5
+      }
+    },
+    "4": {
+      "n": 30,
+      "passed": 8,
+      "within10": 8,
+      "successTime": {
+        "p50": 3533.345208,
+        "p95": 5007.117917,
+        "p99": 5007.117917,
+        "max": 5007.117917
+      },
+      "errors": {
+        "TIMEOUT": 22
+      }
+    },
+    "8": {
+      "n": 30,
+      "passed": 3,
+      "within10": 3,
+      "successTime": {
+        "p50": 4364.489458,
+        "p95": 5211.68925,
+        "p99": 5211.68925,
+        "max": 5211.68925
+      },
+      "errors": {
+        "TIMEOUT": 27
+      }
+    }
+  }
+}

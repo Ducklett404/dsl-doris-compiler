@@ -1,0 +1,230 @@
+{
+  "purpose" : "OFFICIAL_DATA_HOT_PERFORMANCE_DIAGNOSTIC",
+  "acceptanceEligible" : false,
+  "cacheMode" : "HOT_SQL_RESULT_CACHE_DISABLED",
+  "timingScope" : "JDBC prepare, execute and complete fetch; excludes compilation, EXPLAIN and process startup",
+  "snapshotId" : "stock-20060104-20260414-v1",
+  "matrixVersion" : "history-matrix-v1",
+  "iterationsPerPath" : 30,
+  "results" : [ {
+    "id" : "history-19y-2d-pair",
+    "category" : "LONG_RANGE",
+    "dsl" : "record_high('', '', '最高价', '历史', '2025-01-06', '', '', '') = True or record_low('', '', '最低价', '历史', '2025-01-06', '', '', '') = True",
+    "samples" : [ ],
+    "historicalFeatureSelected" : true,
+    "rollingFeatureSelected" : false,
+    "status" : "FAIL",
+    "error" : "SQLException: errCode = 2, detailMessage = (127.0.0.1)[MEM_LIMIT_EXCEEDED]PreCatch error code:11, [E11] Allocator mem tracker check failed, [MEM_LIMIT_EXCEEDED]failed alloc size 64.00 MB, memory tracker limit exceeded, tracker label:Query#Id=36317b8fa08e4796-841ce870c3b9b331, type:query, limit 2.00 GB, peak used 1.98 GB, current used 1.95 GB. backend 127.0.0.1, process memory used 3.94 GB. exec node:<ScopedPeakMem:1d4eac63767a0e2e-a44edc8bd08d57a4>, can `set exec_mem_limit` to change limit, details see be.INFO.\n\n\t0#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&, bool)\n\t1#  doris::Exception::Exception(int, std::basic_string_view<char, std::char_traits<char> > const&)\n\t2#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::memory_tracker_check(unsigned long) const\n\t3#  doris::Allocator<false, false, false, doris::DefaultMemoryAllocator, true>::realloc(void*, unsigned long, unsigned long, unsigned long)\n\t4#  doris::ColumnDecimal<(doris::PrimitiveType)30>::insert_range_from(doris::IColumn const&, unsigned long, unsigned long)\n\t5#  doris::AnalyticSinkOperatorX::_insert_range_column(doris::Block*, std::shared_ptr<doris::VExprContext> const&, doris::IColumn*, unsigned long)\n\t6#  doris::AnalyticSinkOperatorX::_add_input_block(doris::RuntimeState*, doris::Block*)\n\t7#  doris::AnalyticSinkOperatorX::sink_impl(doris::RuntimeState*, doris::Block*, bool)\n\t8#  doris::PipelineTask::execute(bool*)\n\t9#  doris::TaskScheduler::_do_work(int)\n\t10# doris::ThreadPool::dispatch_thread()\n\t11# doris::Thread::supervise_thread(void*)\n\t12# ?\n\t13# ?\n, __FILE__:/home/zcp/repo_center/doris_release/doris/be/src/exec/pipeline/task_scheduler.cpp, __LINE__:172, __FUNCTION__:void doris::TaskScheduler::_do_work(int)"
+  }, {
+    "id" : "history-19y-low",
+    "category" : "LONG_RANGE",
+    "dsl" : "record_low('', '', '最低价', '历史', '2025-01-06', '', '', '') = True",
+    "samples" : [ {
+      "baselineMillis" : 50135.81225,
+      "order" : "baseline-first",
+      "iteration" : 1,
+      "resultEqual" : true,
+      "optimizedMillis" : 34.110416
+    }, {
+      "baselineMillis" : 51710.810666,
+      "order" : "optimized-first",
+      "iteration" : 2,
+      "resultEqual" : true,
+      "optimizedMillis" : 11.647667
+    }, {
+      "baselineMillis" : 50419.561,
+      "order" : "baseline-first",
+      "iteration" : 3,
+      "resultEqual" : true,
+      "optimizedMillis" : 38.560917
+    }, {
+      "baselineMillis" : 50037.735375,
+      "order" : "optimized-first",
+      "iteration" : 4,
+      "resultEqual" : true,
+      "optimizedMillis" : 14.500041
+    }, {
+      "baselineMillis" : 49927.912916,
+      "order" : "baseline-first",
+      "iteration" : 5,
+      "resultEqual" : true,
+      "optimizedMillis" : 36.670041
+    }, {
+      "baselineMillis" : 48895.235917,
+      "order" : "optimized-first",
+      "iteration" : 6,
+      "resultEqual" : true,
+      "optimizedMillis" : 12.192208
+    }, {
+      "baselineMillis" : 48480.151666,
+      "order" : "baseline-first",
+      "iteration" : 7,
+      "resultEqual" : true,
+      "optimizedMillis" : 29.094667
+    }, {
+      "baselineMillis" : 49637.774334,
+      "order" : "optimized-first",
+      "iteration" : 8,
+      "resultEqual" : true,
+      "optimizedMillis" : 11.564458
+    }, {
+      "baselineMillis" : 49403.975208,
+      "order" : "baseline-first",
+      "iteration" : 9,
+      "resultEqual" : true,
+      "optimizedMillis" : 20.180958
+    }, {
+      "baselineMillis" : 49683.058709,
+      "order" : "optimized-first",
+      "iteration" : 10,
+      "resultEqual" : true,
+      "optimizedMillis" : 12.56025
+    }, {
+      "baselineMillis" : 48989.520709,
+      "order" : "baseline-first",
+      "iteration" : 11,
+      "resultEqual" : true,
+      "optimizedMillis" : 28.786208
+    }, {
+      "baselineMillis" : 49032.106833,
+      "order" : "optimized-first",
+      "iteration" : 12,
+      "resultEqual" : true,
+      "optimizedMillis" : 17.221334
+    }, {
+      "baselineMillis" : 49458.152583,
+      "order" : "baseline-first",
+      "iteration" : 13,
+      "resultEqual" : true,
+      "optimizedMillis" : 18.601375
+    }, {
+      "baselineMillis" : 47996.065375,
+      "order" : "optimized-first",
+      "iteration" : 14,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.428875
+    }, {
+      "baselineMillis" : 51516.446625,
+      "order" : "baseline-first",
+      "iteration" : 15,
+      "resultEqual" : true,
+      "optimizedMillis" : 41.147666
+    }, {
+      "baselineMillis" : 54201.161459,
+      "order" : "optimized-first",
+      "iteration" : 16,
+      "resultEqual" : true,
+      "optimizedMillis" : 14.058125
+    }, {
+      "baselineMillis" : 52534.45175,
+      "order" : "baseline-first",
+      "iteration" : 17,
+      "resultEqual" : true,
+      "optimizedMillis" : 29.967
+    }, {
+      "baselineMillis" : 50480.126125,
+      "order" : "optimized-first",
+      "iteration" : 18,
+      "resultEqual" : true,
+      "optimizedMillis" : 11.288208
+    }, {
+      "baselineMillis" : 49674.122,
+      "order" : "baseline-first",
+      "iteration" : 19,
+      "resultEqual" : true,
+      "optimizedMillis" : 19.789
+    }, {
+      "baselineMillis" : 50032.332208,
+      "order" : "optimized-first",
+      "iteration" : 20,
+      "resultEqual" : true,
+      "optimizedMillis" : 11.999292
+    }, {
+      "baselineMillis" : 49823.074792,
+      "order" : "baseline-first",
+      "iteration" : 21,
+      "resultEqual" : true,
+      "optimizedMillis" : 33.116042
+    }, {
+      "baselineMillis" : 49805.542208,
+      "order" : "optimized-first",
+      "iteration" : 22,
+      "resultEqual" : true,
+      "optimizedMillis" : 10.083833
+    }, {
+      "baselineMillis" : 50440.822208,
+      "order" : "baseline-first",
+      "iteration" : 23,
+      "resultEqual" : true,
+      "optimizedMillis" : 21.807916
+    }, {
+      "baselineMillis" : 50900.824,
+      "order" : "optimized-first",
+      "iteration" : 24,
+      "resultEqual" : true,
+      "optimizedMillis" : 8.840958
+    }, {
+      "baselineMillis" : 51764.599541,
+      "order" : "baseline-first",
+      "iteration" : 25,
+      "resultEqual" : true,
+      "optimizedMillis" : 31.145541
+    }, {
+      "baselineMillis" : 51623.528333,
+      "order" : "optimized-first",
+      "iteration" : 26,
+      "resultEqual" : true,
+      "optimizedMillis" : 9.434292
+    }, {
+      "baselineMillis" : 59824.367583,
+      "order" : "baseline-first",
+      "iteration" : 27,
+      "resultEqual" : true,
+      "optimizedMillis" : 31.03325
+    }, {
+      "baselineMillis" : 53471.666209,
+      "order" : "optimized-first",
+      "iteration" : 28,
+      "resultEqual" : true,
+      "optimizedMillis" : 10.595375
+    }, {
+      "baselineMillis" : 52483.518,
+      "order" : "baseline-first",
+      "iteration" : 29,
+      "resultEqual" : true,
+      "optimizedMillis" : 27.254417
+    }, {
+      "baselineMillis" : 52195.899625,
+      "order" : "optimized-first",
+      "iteration" : 30,
+      "resultEqual" : true,
+      "optimizedMillis" : 14.052542
+    } ],
+    "historicalFeatureSelected" : true,
+    "rollingFeatureSelected" : false,
+    "status" : "PASS",
+    "resultEqual" : true,
+    "rows" : 30,
+    "resultSha256" : "c0abbf40320904fe458b18af8d44ae176827bb53363101b5dfe5cee2eafaf357",
+    "baseline" : {
+      "p95Millis" : 54201.161459,
+      "p50Millis" : 50037.735375,
+      "minMillis" : 47996.065375,
+      "maxMillis" : 59824.367583
+    },
+    "optimized" : {
+      "p95Millis" : 38.560917,
+      "p50Millis" : 17.221334,
+      "minMillis" : 8.840958,
+      "maxMillis" : 41.147666
+    },
+    "sameSql" : false,
+    "p95Ratio" : 1405.5983538721343,
+    "speedupInterpretation" : "DIAGNOSTIC_ONLY"
+  } ],
+  "registeredSnapshotsBefore" : 0,
+  "registeredSnapshotsAfter" : 0,
+  "completedAtUtc" : "2026-11-28T17:17:44.546454Z",
+  "passed" : 1,
+  "total" : 2
+}
