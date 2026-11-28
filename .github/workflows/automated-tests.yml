@@ -26,7 +26,7 @@ jobs:
       - name: Test executor module and portable result regressions
         run: |
           mvn -B -f executor-doris/pom.xml test
-          python scripts/test_prepare_competition_corpus.py
+          python scripts/corpus/test_prepare_competition_corpus.py
           python scripts/doris/self-test.py
           python scripts/doris/test_data_audit.py
           python scripts/doris/test_reference_rebuild.py

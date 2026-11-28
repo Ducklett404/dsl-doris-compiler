@@ -25,7 +25,7 @@
 - 文件：`target/dsl-doris-compiler.jar`，8,460,142 字节。
 - 构建时间：2026-10-10 02:07:51 +08:00。
 - SHA-256：`da6daa3e577f2fd9519c9fbf06d9307643794513c6c35e7ef804d4e58f7afe1d`。
-- 机器摘要：[build-verification.json](../../reports/build/2026-10-10/build-verification.json)。完整日志和示例输出保留在本机 `build/jar-rebuild-20261010-020451/`。
+- 机器摘要：[build-verification.json](../../reports/history/build/2026-10-10/build-verification.json)。完整日志和示例输出保留在本机 `build/jar-rebuild-20261010-020451/`。
 
 GitHub 会针对整理后的每个提交重新构建并执行便携验收。该 JAR 的哈希以相应下载包 manifest 为准，不能沿用上述本机 JAR 哈希。
 

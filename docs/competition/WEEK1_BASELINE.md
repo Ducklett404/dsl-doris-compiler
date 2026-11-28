@@ -41,7 +41,7 @@
 
 ## 4. 语料清洗结果和复现
 
-使用 `scripts/prepare_competition_corpus.py` 读取工作表 `训练语料`。只做 Unicode NFC、换行统一、首尾空白去除和问题文本空白折叠；DSL 字符串内部保持原样。按标准化问题的 SHA-256 分配内部 `train/dev/test`，同一问题不会跨集合。该划分仅用于团队研发，不能代替主办方隐藏评测。
+使用 `scripts/corpus/prepare_competition_corpus.py` 读取工作表 `训练语料`。只做 Unicode NFC、换行统一、首尾空白去除和问题文本空白折叠；DSL 字符串内部保持原样。按标准化问题的 SHA-256 分配内部 `train/dev/test`，同一问题不会跨集合。该划分仅用于团队研发，不能代替主办方隐藏评测。
 
 本来源快照的逐行分类：
 
@@ -54,11 +54,11 @@
 
 候选语料内部划分为 train 4613、dev 560、test 532；不同指标名称 1120 个。高频名称包括最新价、涨幅、成交量、涨跌幅、主力净流入、涨停、成分股和总市值。当前没有自动“同义词合并”或“纠错”，全部在 `indicator_inventory.csv` 中标记 `UNMAPPED`。某些名称可能是同义词、实例化指标或标签噪声，需与正式指标台账对齐。
 
-复现命令（Python 环境需安装 `scripts/requirements-corpus.txt` 中的 `openpyxl`，本次用 bundled Python 执行）：
+复现命令（Python 环境需安装 `scripts/corpus/requirements-corpus.txt` 中的 `openpyxl`，本次用 bundled Python 执行）：
 
 ```powershell
-python scripts/prepare_competition_corpus.py --input "E:\2026年大三上\2026.08智能体大赛\DorisSQL的自动化编译系统资料\选股 DSL 规范文档\选股提槽实例.xlsx"
-python -m unittest discover -s scripts -p "test_prepare_competition_corpus.py" -v
+python scripts/corpus/prepare_competition_corpus.py --input "E:\2026年大三上\2026.08智能体大赛\DorisSQL的自动化编译系统资料\选股 DSL 规范文档\选股提槽实例.xlsx"
+python -m unittest discover -s scripts/corpus -p "test_prepare_competition_corpus.py" -v
 ```
 
 输出位于 `build/competition-corpus/`，该目录已忽略版本控制：

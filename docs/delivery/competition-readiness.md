@@ -15,7 +15,7 @@
 |---|---|
 | 源码与可执行 JAR | 对应提交的 `project-delivery` 工作流成功后可下载 Artifacts，并按 manifest 和 SHA-256 核对身份 |
 | 运行与恢复说明 | [运行手册](../runtime-guide.md)、[能力与恢复](../project-capabilities-v1.md) |
-| 核心模块说明 | [编译架构](../compiler-architecture.md)、[执行链路](../end-to-end-execution.md)、[扩展契约](../config-only-extension-acceptance.md) |
+| 核心模块说明 | [编译架构](../architecture/compiler-architecture.md)、[执行链路](../end-to-end-execution.md)、[扩展契约](../testing/config-only-extension-acceptance.md) |
 | 支持范围与限制 | [冻结范围](../phase1-data-indicator-scope-v1.md)、[能力表](../project-capabilities-v1.md) |
 | 示例与展示 | `examples/project-basic.dsl`、`examples/final-demo-complex.dsl`；[演示步骤](../final-demo.md) |
 | 实测结果与复核 | [验收总览及复核命令](../../reports/competition-review/2026-11-29/README.md)、[专项逐次样本](../../reports/competition-review/2026-11-29/lookup-window/samples.jsonl)、[SQL 与参数](../../reports/competition-review/2026-11-29/lookup-window/plans.json) |

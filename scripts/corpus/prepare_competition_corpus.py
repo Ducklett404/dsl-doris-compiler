@@ -2,7 +2,7 @@
 """Prepare the organizer's stock-screening DSL workbook without changing it.
 
 Requires openpyxl. Example:
-  python scripts/prepare_competition_corpus.py --input ".../选股提槽实例.xlsx"
+  python scripts/corpus/prepare_competition_corpus.py --input ".../选股提槽实例.xlsx"
 """
 
 from __future__ import annotations

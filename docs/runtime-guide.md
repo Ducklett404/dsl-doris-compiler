@@ -56,12 +56,12 @@ docker compose down
 ```powershell
 # 编译正式 DSL
 java -jar target/dsl-doris-compiler.jar compile-stock-slot-sql `
-  examples/registry-smoke.dsl --format json
+  examples/stock-slot/registry-smoke.dsl --format json
 
 # 受控执行（只读账号、VALIDATED 快照、EXPLAIN 扫描门禁）
 $env:DORIS_PASSWORD = '<只读账号密码>'
 java -jar target/dsl-doris-compiler.jar execute-stock-slot-sql `
-  examples/registry-smoke.dsl --user dsl_runtime_reader `
+  examples/stock-slot/registry-smoke.dsl --user dsl_runtime_reader `
   --snapshot-id stock-20060104-20260414-v1 --format markdown `
   -o build/formal-query-new.md
 

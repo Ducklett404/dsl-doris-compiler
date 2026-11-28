@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-  [string]$Dsl = 'examples/registry-smoke.dsl',
+  [string]$Dsl = 'examples/stock-slot/registry-smoke.dsl',
   [string]$HistoricalQueryEvidence = 'reports/performance/doris-execution-smoke.json',
   [string]$Output = 'reports/final/compilation-and-query.md'
 )

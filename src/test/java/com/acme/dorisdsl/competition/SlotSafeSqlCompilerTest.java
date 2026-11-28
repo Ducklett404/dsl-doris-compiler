@@ -88,7 +88,7 @@ class SlotSafeSqlCompilerTest {
     }
 
     @Test void catalogIsExplicitlyReviewedAndAliasesCannotInjectSql() throws Exception {
-        Path draft = Path.of("examples/competition_verified_catalog.template.json");
+        Path draft = Path.of("examples/slot-prototype/competition_verified_catalog.template.json");
         assertThrows(IllegalArgumentException.class, () -> VerifiedIndicatorCatalog.load(draft));
         Path fixture = Path.of(getClass().getResource("/verified-slot-catalog.synthetic.json").toURI());
         var loaded = VerifiedIndicatorCatalog.load(fixture);

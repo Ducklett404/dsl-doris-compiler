@@ -12,7 +12,7 @@
 |---|---|---|
 | 源码 | `competition-v1.0` 已合入 `main`；应用版本 `0.1.0` | 构建配置与提交记录 |
 | 执行范围 | DSL `stock-slot-v1`；冻结范围 `stock-slot-phase1-scope-v1.0.4`；注册表 `stock-slot-registry-v1.0.2` | [机器冻结清单](../config/acceptance/stock-slot-phase1-scope-v1.json)、[能力说明](project-capabilities-v1.md) |
-| 本机 Java 重建 | 342 项：334 通过、8 项真实 Doris 测试跳过，0 失败／错误 | [2026-10-10 自测](delivery/self-test.md)、[机器记录](../reports/build/2026-10-10/build-verification.json) |
+| 本机 Java 重建 | 342 项：334 通过、8 项真实 Doris 测试跳过，0 失败／错误 | [2026-10-10 自测](delivery/self-test.md)、[机器记录](../reports/history/build/2026-10-10/build-verification.json) |
 | 上传前项目复核 | 主模块334通过／8跳过、执行器3通过；428项Python覆盖，Bash跳过项已补跑；便携字段／组合／排名94／79／172组全部通过；正式DSL P95 0.2933ms | [10 月构建自测](delivery/self-test.md)的上传前章节；真实Doris未运行 |
 | 本机 JAR | SHA-256 `da6daa3e577f2fd9519c9fbf06d9307643794513c6c35e7ef804d4e58f7afe1d`；被测 Java 源码为合并提交 `8c202a1` | 本机重建报告；不代表其他 CI JAR |
 | 字段、组合与排名矩阵 | 94／79／172 组便携验证本轮通过，检查脚本及便携 CI 入口已存在 | 本轮为合成夹具；真实官方数据上的本批通过数尚未取得 |
@@ -51,4 +51,4 @@
 2. 根据评测认可范围补正确率分母、外部参考及最终性能证据；不以项目内部范围批准代替比赛认可。
 3. 上传最终修改后检查该提交 CI，重新生成匹配身份的交付包；新文档也参与源码身份，旧验收包不能直接改名复用。
 
-当前状态以本页为摘要；能力定义以机器清单／源码为准；是否通过以指定批次 JSON 为准。历史规划仅供追溯，未完成事项见 [收尾清单](项目待优化清单.md)，比赛材料见 [要求对照](delivery/competition-readiness.md)。
+当前状态以本页为摘要；能力定义以机器清单／源码为准；是否通过以指定批次 JSON 为准。历史规划仅供追溯，未完成事项见 [收尾清单](history/项目待优化清单.md)，比赛材料见 [要求对照](delivery/competition-readiness.md)。

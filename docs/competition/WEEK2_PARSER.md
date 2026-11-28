@@ -31,7 +31,7 @@
 ```bash
 ./mvnw test
 ./mvnw -DskipTests package
-java -jar target/dsl-doris-compiler.jar parse-slot examples/competition_slot.dsl
+java -jar target/dsl-doris-compiler.jar parse-slot examples/slot-prototype/competition_slot.dsl
 java -jar target/dsl-doris-compiler.jar measure-slot-corpus build/competition-corpus/corpus.jsonl --max-failures 100 -o build/competition-corpus/slot-parse-coverage.json
 ```
 

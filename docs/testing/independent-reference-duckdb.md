@@ -40,7 +40,7 @@
 
 ## 后续差分使用
 
-本轮库位置以 [本轮构建报告](../reports/reference-rebuild/2026-10-06/build-v1/REPORT.md) 为准。显式传给项目工具：
+重建后的库位置记录在输出目录的 `reference-build.json` 和 `REPORT.md`。原批次在本机使用 `reports/reference-rebuild/2026-10-06/build-v1/`。将实际生成的库路径显式传给项目工具：
 
 ```powershell
 --reference-database 'D:\DorisProjectRuntime\reference\stock-20060104-20260414-v1\raw-20261006-v1.duckdb'

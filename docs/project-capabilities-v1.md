@@ -125,4 +125,4 @@ python scripts/doris/package_project_delivery.py --verify-dir reports/project-de
 
 本次打包自测验证了新目录、ZIP 解压、校验和及损坏拒绝；这不等于另一台机器已完成 3GB 原始数据装载恢复。新机器缺少 WSL、Docker镜像、原始文件或独立原始参考时，真实流程报告 `NOT_RUN`。收到的文件和环境补齐之前，不能声称完全一键恢复或正式验收通过。
 
-核心模块索引：[文法／AST／逻辑计划](compiler-architecture.md)、[类型与指标注册](stock-slot-registry-v1.md)、[函数语义](stock-slot-function-semantics-v1.md)、[声明式规则](declarative-rule-engine.md)、[插件与零核心改动](registry-plugin-guide.md)、[运行入口](runtime-guide.md)、[项目执行／解释](project-scoped-validation.md)。
+核心模块索引：[文法／AST／逻辑计划](architecture/compiler-architecture.md)、[类型与指标注册](architecture/stock-slot-registry-v1.md)、[函数语义](architecture/stock-slot-function-semantics-v1.md)、[声明式规则](architecture/declarative-rule-engine.md)、[插件与零核心改动](architecture/registry-plugin-guide.md)、[运行入口](runtime-guide.md)、[项目执行／解释](project-scoped-validation.md)。

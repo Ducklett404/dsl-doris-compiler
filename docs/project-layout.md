@@ -1,30 +1,33 @@
 # 项目目录与阅读顺序
 
-当前源码统一在 `main`。状态摘要见 [项目状态](project-status.md)，比赛材料见 [赛题对照](delivery/competition-readiness.md)。先读 [交付清单](delivery/README.md)、[当前自测报告](delivery/self-test.md)和[项目能力范围](project-capabilities-v1.md)，再按用途进入对应目录。
+评审比赛结果，从 [参赛验收总览](../reports/competition-review/2026-11-29/README.md) 选择受测版本、报告和复现命令。运行原型，从 [运行手册](runtime-guide.md) 和 [DSL 示例](../examples/README.md) 开始。
 
-| 目录／文件 | 用途 |
+## 开发与运行
+
+| 位置 | 内容 |
 |---|---|
-| `README.md` | 根目录项目入口，链接到文档索引与交付说明 |
-| `AGENTS.md` | 自动工具读取的协作约定，按约定保留在根目录 |
-| `src/` | 编译器、CLI、HTTP、JDBC 执行层、文法、注册表及 Java 测试 |
-| `executor-doris/` | 独立 Doris 执行器模块及测试 |
-| `config/` | 冻结验收范围、查询矩阵、规则与模板配置 |
-| `examples/` | 可编译 DSL 和演示输出 |
-| `docs/` | 全部项目说明；从 [文档索引](README.md)进入 |
-| `docs/delivery/` | 交付清单、当前自测和赛题要求对照 |
-| `docs/history/` | 历史自测、缺陷检查与规划；不作为当前验收结论 |
-| `scripts/` | 构建、自测、审计、验收、打包及恢复入口 |
-| `accuracy/`、`benchmarks/` | 正确性基准和编译／查询性能定义 |
-| `data/doris/` | DDL、数据契约、快照 manifest 和历史装载证据 |
-| `reports/` | 按批次保留的机器报告与说明；以运行日期、JAR 哈希和快照区分 |
-| `outputs/` | 既有输出文件，结合其生成说明使用 |
-| `.github/workflows/` | 自动测试、性能门禁、真实数据验收与交付包构建 |
-| `mvnw`、`mvnw.cmd` | Unix／Windows Maven 入口；优先使用本机 `.tools` 中的 Maven |
-| `target/` | 本机 JAR、编译缓存和已有审计数据库，不提交 Git |
-| `build/` | 本机构建记录、交付包和归档日志，不提交 Git |
-| `.tools/`、`.mvn-cache/` | 本机工具与依赖缓存，不提交 Git |
+| [src/](../src/) | 主 Maven 模块的 Java 实现、ANTLR 文法、工作台资源和测试 |
+| [executor-doris/](../executor-doris/README.md) | 独立 Doris 执行器 Maven 模块及测试 |
+| [config/](../config/) | 验收范围、查询矩阵，以及按类型组织的扩展配置 |
+| [data/doris/](../data/doris/README.md) | Doris DDL、字段契约、快照清单与装载记录 |
+| [examples/](../examples/README.md) | 根层两个正式 DSL 入门示例，子目录按正式方言、SCREEN 方言和早期解析原型归类 |
+| [scripts/](../scripts/README.md) | 构建、自测、语料准备、Doris 验收与打包入口 |
+| [根 POM](../pom.xml)、[Unix](../mvnw) 和 [Windows](../mvnw.cmd) Maven 入口 | 构建编译器并生成可执行 JAR |
+| [Dockerfile](../Dockerfile)、[Compose](../docker-compose.yml) | 启动编译 HTTP 服务 |
 
-本轮根目录日志已归档到 `build/local-logs/2026-10-10/`，没有丢弃历史文件。原始 CSV、数据库、私有配置仍留在本机；发布交付包由白名单脚本选择源码与本批证据。
+## 测试、文档与交付
+
+| 位置 | 内容 |
+|---|---|
+| [accuracy/](../accuracy/README.md) | 正确性测试使用的黄金集和边界夹具 |
+| [benchmarks/](../benchmarks/README.md) | 编译性能语料和 Doris 基准查询矩阵 |
+| [reports/](../reports/README.md) | 按问题查找实测报告、原始样本、SQL 及哈希记录。早期数据盘点见 [指标工作簿](../reports/history/indicator-inventory/DSL指标数据契约.xlsx) |
+| [docs/](README.md) | 运行手册、项目状态与主题索引；架构在 [architecture/](architecture/)，测试方法在 [testing/](testing/) |
+| [docs/delivery/](delivery/README.md) | 交付清单、历史构建自测及赛题要求对照 |
+| [docs/history/](history/) | 历史规划、优化待办和早期检查 |
+| [.github/workflows/](../.github/workflows/) | 自动测试、性能门禁、数据验收与交付包构建 |
+
+构建产物位于 `target/`，临时验收与本地交付包放在 `build/`。`.tools/`、`.mvn-cache/` 和临时导出目录 `outputs/` 由 Git 忽略。比赛证据随批次放入 `reports/`，长期维护的参考资料放入对应文档目录。
 
 ## Windows 构建
 

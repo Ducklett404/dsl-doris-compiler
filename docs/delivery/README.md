@@ -11,9 +11,9 @@
 | Windows／Unix 构建 | `mvnw.cmd`／`mvnw`，`scripts/build-test-start.ps1` | Java 21、Maven 3.9+ |
 | 构建测试与 JAR 身份 | [专项构建与数据身份](../../reports/competition-review/2026-11-29/lookup-window/environment.json)、[10 月构建自测](self-test.md) | 11 月专项主模块有 336 项在常规构建中通过，另 8 项在真实 Doris 集成环境通过 |
 | CLI／HTTP／Docker | [运行手册](../runtime-guide.md) | 可构建、可演示；数据库需准备环境 |
-| 架构与扩展 | [编译器架构](../compiler-architecture.md)、[插件指南](../registry-plugin-guide.md) | 已实现 |
+| 架构与扩展 | [编译器架构](../architecture/compiler-architecture.md)、[插件指南](../architecture/registry-plugin-guide.md) | 已实现 |
 | 项目能力与语义边界 | [能力说明](../project-capabilities-v1.md)、[冻结范围](../phase1-data-indicator-scope-v1.md) | 以冻结范围为准 |
-| 示例 | `examples/project-basic.dsl`、`examples/final-demo-complex.dsl`、`examples/basic.dsl` | 本轮 JAR 编译通过 |
+| 示例 | `examples/project-basic.dsl`、`examples/final-demo-complex.dsl`、`examples/screen-v1/basic.dsl` | 本轮 JAR 编译通过 |
 | 项目便携验收与打包 | `scripts/doris/run_project_acceptance.py`、`scripts/doris/package_project_delivery.py` | 按源码与 JAR 哈希绑定证据 |
 | GitHub 可下载 JAR／ZIP | `.github/workflows/project-delivery.yml` | 推送后自动构建，成功运行生成 Artifacts |
 | 真实数据与正式验收 | [项目验收说明](../project-scoped-validation.md)、[正式问题路线图](../正式验收问题解决路线图.md) | 项目复杂查询已在真实 Doris 复测；赛事正式门禁执行 0 例 |

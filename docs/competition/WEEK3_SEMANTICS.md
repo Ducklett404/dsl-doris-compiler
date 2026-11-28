@@ -4,7 +4,7 @@
 
 ## 交付边界
 
-新增 `VerifiedIndicatorCatalog → SlotSemanticAnalyzer → SlotTypedQuery → SlotSafeSqlCompiler`。比赛槽位 DSL 和旧 `SCREEN ON` 编译器仍为独立入口。仓库没有默认的真实指标映射：`examples/competition_verified_catalog.template.json` 的状态是 `DRAFT`，CLI 拒绝加载。人工核对真实 Doris `SHOW CREATE TABLE`、样本值和指标口径后，才能制作单独的 `VERIFIED` 目录。
+新增 `VerifiedIndicatorCatalog → SlotSemanticAnalyzer → SlotTypedQuery → SlotSafeSqlCompiler`。比赛槽位 DSL 和旧 `SCREEN ON` 编译器仍为独立入口。仓库没有默认的真实指标映射：`examples/slot-prototype/competition_verified_catalog.template.json` 的状态是 `DRAFT`，CLI 拒绝加载。人工核对真实 Doris `SHOW CREATE TABLE`、样本值和指标口径后，才能制作单独的 `VERIFIED` 目录。
 
 可执行的安全子集只接受：
 
@@ -18,7 +18,7 @@
 
 ## 人工核验目录格式
 
-模板位于 `examples/competition_verified_catalog.template.json`。真实目录必须在人工确认后改为 `status: "VERIFIED"`，表名固定 `newzl.hsj_stock_hq_basic`，每个映射提供：
+模板位于 `examples/slot-prototype/competition_verified_catalog.template.json`。真实目录必须在人工确认后改为 `status: "VERIFIED"`，表名固定 `newzl.hsj_stock_hq_basic`，每个映射提供：
 
 ```json
 {

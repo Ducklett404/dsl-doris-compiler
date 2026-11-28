@@ -1,6 +1,6 @@
 # 指标注册与插件开发说明
 
-实际可执行范围见 [能力说明](project-capabilities-v1.md)。以下三类样例主要验证已有类型／lowering 的配置扩展；全新语义的 SPI 是扩展约束，不表示任意新函数的实现和结果已验证。
+实际可执行范围见 [能力说明](../project-capabilities-v1.md)。以下三类样例主要验证已有类型／lowering 的配置扩展；全新语义的 SPI 是扩展约束，不表示任意新函数的实现和结果已验证。
 
 ## 正式指标注册
 
@@ -35,5 +35,5 @@ CI 会拒绝这些扩展同时修改 `src/main/java`、ANTLR 文法或编译流�
 lowering；允许增加插件代码，但不得修改既有编译流水线或核心类。插件仍须使用参数化值、受控
 标识符，并声明类型、单位、窗口及空值语义。
 
-完整注册表字段及加载安全规则见 `docs/stock-slot-registry-v1.md`；零核心改动门禁细节见
-`docs/config-only-extension-acceptance.md`。
+完整注册表字段及加载安全规则见 `docs/architecture/stock-slot-registry-v1.md`；零核心改动门禁细节见
+`docs/testing/config-only-extension-acceptance.md`。

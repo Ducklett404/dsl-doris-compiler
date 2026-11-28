@@ -110,7 +110,7 @@ try {
 
   Write-Host '[4/7] Compare full scan and optimized path with identical results'
   if ($DorisMode -eq 'Live') {
-    Invoke-Checked 'java' @('-jar',$jar,'benchmark-doris','examples/performance-long-cycle.dsl',
+    Invoke-Checked 'java' @('-jar',$jar,'benchmark-doris','examples/stock-slot/performance-long-cycle.dsl',
       '--host',$HostAddress,'--port',"$MySqlPort",'--user',$User,'--snapshot-id',$SnapshotId,
       '--warmup','1','--iterations',"$BenchmarkIterations",'--timeout-seconds','10',
       '--baseline-timeout-seconds','120','-o',$benchmarkJson) 'live Doris benchmark'
@@ -138,7 +138,7 @@ try {
   Set-Content -LiteralPath $changedFiles -Value $pluginPath -Encoding UTF8
   Invoke-Checked 'powershell.exe' @('-NoProfile','-ExecutionPolicy','Bypass','-File',
     (Join-Path $repo 'scripts\ci\verify-config-only-extension.ps1'),'-ChangedFilesFile',$changedFiles,'-Mode','Config') 'zero-core gate'
-  Invoke-Checked 'java' @('-jar',$jar,'compile','examples/final-demo-config-only.dsl','--plugin',$pluginPath,
+  Invoke-Checked 'java' @('-jar',$jar,'compile','examples/screen-v1/plugins/final-demo-config-only.dsl','--plugin',$pluginPath,
     '--format','json','-o',$extensionJson) 'config-only indicator compilation'
   $coreAfter = Get-CoreFingerprint
   if ($coreBefore -ne $coreAfter) { throw 'Core source fingerprint changed during the config-only demonstration.' }

@@ -15,7 +15,7 @@ from prepare_competition_corpus import (
 
 class CompetitionCorpusTest(unittest.TestCase):
     def test_function_arity_matches_contract(self):
-        contract_path = Path(__file__).resolve().parents[1] / "docs" / "competition" / "dsl-contract-draft.v0.1.json"
+        contract_path = Path(__file__).resolve().parents[2] / "docs" / "competition" / "dsl-contract-draft.v0.1.json"
         contract = json.loads(contract_path.read_text(encoding="utf-8"))
         self.assertEqual(FUNCTION_ARITY, {name: len(slots) for name, slots in contract["functions"].items()})
 

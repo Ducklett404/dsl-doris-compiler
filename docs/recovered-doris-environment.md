@@ -118,6 +118,6 @@ wsl -d dsl-doris-official-01a104f9 --exec bash /mnt/c/Users/scx/Desktop/Dsl-Dori
 
 该脚本从 WSL 私有配置读取只读账号密码，通过进程环境传入 Java，不在控制台、报告或命令参数显示密码；动态发现 WSL IPv4 地址与 SQL 端口。它检查 `examples/project-basic.dsl` 的前 20 个股票结果及顺序是否与独立 RAW 参考 SQL 一致。这是恢复连通性测试，不是黄金集正确率或编译 P95 测试。
 
-本次证据见 [恢复与装载自测报告](../reports/environment-recovery/2026-10-06/恢复与装载自测报告.md)。此前跳过的真实 JDBC 测试可用 `run_wsl_integration.py --junit-only` 准备独立合成库补跑：新建随机库与账号、严格验证 8 项且零跳过、最后清理本次夹具；不清空原表、不变更官方快照登记。具体命令及本机 8/8 完成证据见 [隔离集成测试报告](../reports/wsl-integration/2026-10-06/REPORT.md)。提交代码时上传脚本、配置及脱敏报告；不要上传密码、原始 CSV、规范化副本、镜像归档或 VHDX。
+2026-10-06 的本机恢复记录路径为 `reports/environment-recovery/2026-10-06/恢复与装载自测报告.md`。此前跳过的真实 JDBC 测试可用 `run_wsl_integration.py --junit-only` 准备独立合成库补跑：新建随机库与账号、严格验证 8 项且零跳过、最后清理本次夹具；不清空原表、不变更官方快照登记。该次本机集成测试报告路径为 `reports/wsl-integration/2026-10-06/REPORT.md`。后来复测的八项 JDBC 判定已公开。[2026-11-29 逐项测试结果](../reports/competition-review/2026-11-29/lookup-window/integration-tests.json)提交代码时上传脚本、配置及脱敏报告；不要上传密码、原始 CSV、规范化副本、镜像归档或 VHDX。
 
 来源：[Microsoft WSL 导入说明](https://learn.microsoft.com/windows/wsl/use-custom-distro)、[官方 Ubuntu WSL 镜像](https://cloud-images.ubuntu.com/wsl/releases/24.04/current/)、[Apache Doris All-in-One 配置与持久化说明](https://doris.apache.org/community/developer-guide/all-in-one-image/)。

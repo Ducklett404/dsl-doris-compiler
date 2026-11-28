@@ -66,10 +66,10 @@ mvn test
 
 $env:DORIS_PASSWORD = '<只读账号密码>'
 java -jar target/dsl-doris-compiler.jar execute-stock-slot-sql `
-  examples/performance-long-cycle.dsl --user dsl_runtime_reader `
+  examples/stock-slot/performance-long-cycle.dsl --user dsl_runtime_reader `
   --format json -o reports/e2e/doris-execution.json
 
 java -jar target/dsl-doris-compiler.jar execute-stock-slot-sql `
-  examples/performance-long-cycle.dsl --user dsl_runtime_reader `
+  examples/stock-slot/performance-long-cycle.dsl --user dsl_runtime_reader `
   --format markdown -o reports/e2e/doris-execution.md
 ```

@@ -1,6 +1,6 @@
 # stock-slot-v1 函数执行语义（v1）
 
-本页区分编译器语义与实际执行范围：解析／lowering 支持不代表具备真实数据。`belong_industry` 等行业能力在当前项目范围排除；实际指标、日期和业务范围以 [现行冻结范围](phase1-data-indicator-scope-v1.md)及[能力说明](project-capabilities-v1.md)为准。
+本页区分编译器语义与实际执行范围：解析／lowering 支持不代表具备真实数据。`belong_industry` 等行业能力在当前项目范围排除；实际指标、日期和业务范围以 [现行冻结范围](../phase1-data-indicator-scope-v1.md)及[能力说明](../project-capabilities-v1.md)为准。
 
 本文是 `compile-stock-slot-sql` 的执行契约。未列入真实映射的指标和标的类型必须报错，不能猜测字段。
 

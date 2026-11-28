@@ -1,8 +1,8 @@
 # 声明式规则引擎
 
-本页描述 `screen-v1` 兼容流水线的声明式规则引擎；正式 `stock-slot-v1` 当前使用规范化语义模型和稳定 rewrite 扩展点，不应混称两者的规则覆盖。见 [编译架构](compiler-architecture.md)和[统一状态](project-status.md)。
+本页描述 `screen-v1` 兼容流水线的声明式规则引擎；正式 `stock-slot-v1` 当前使用规范化语义模型和稳定 rewrite 扩展点，不应混称两者的规则覆盖。见 [编译架构](compiler-architecture.md)和[统一状态](../project-status.md)。
 
-默认规则目录为 [`src/main/resources/rewrite-rules.json`](../src/main/resources/rewrite-rules.json)。
+默认规则目录为 [`src/main/resources/rewrite-rules.json`](../../src/main/resources/rewrite-rules.json)。
 目录只描述规则，不接受 Java 类名、脚本或 SQL 片段；未知 JSON 字段和未知枚举会在启动时被拒绝。
 
 ## 配置模型
@@ -35,8 +35,8 @@
 命令行可固定规则目录和版本：
 
 ```powershell
-java -jar target/dsl-doris-compiler.jar compile examples/screen.dsl `
-  --rules config/rewrite-rules.json `
+java -jar target/dsl-doris-compiler.jar compile examples/screen-v1/basic.dsl `
+  --rules src/main/resources/rewrite-rules.json `
   --rule-version rules-v0
 ```
 

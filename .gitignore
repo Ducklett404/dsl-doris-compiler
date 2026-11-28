@@ -1,10 +1,11 @@
 **/target/
 /.idea/
 /*.iml
-/.DS_Store
+.DS_Store
 /.mvn-cache/
 /.tools/
 /build/
+/outputs/
 *.duckdb
 *.duckdb.wal
 *.duckdb.tmp/
@@ -30,4 +31,3 @@ __pycache__/
 # Machine-specific Doris daemon metadata.
 /config/doris/private-daemon.json
 *.log
-__pycache__/

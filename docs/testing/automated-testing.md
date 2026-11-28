@@ -1,6 +1,6 @@
 # 自动化测试与验收
 
-本页说明测试入口；当前数量和运行边界见 [当前自测](delivery/self-test.md)、[项目状态](project-status.md)。正式函数基准含编译器可表达的概念，不能据此宣称现有数据覆盖 12 类函数；当前项目执行范围是 11 类。完整项目真实验收另用 `run_project_acceptance.py --with-doris --restart`，以新批次 JSON 为准。
+本页说明测试入口。各版本的测试数量和范围见 [11 月参赛验收](../../reports/competition-review/2026-11-29/README.md)、[10 月构建自测](../delivery/self-test.md)和[项目状态](../project-status.md)。正式函数基准含编译器可表达的概念，不能据此宣称现有数据覆盖 12 类函数；当前项目执行范围是 11 类。完整项目真实验收另用 `run_project_acceptance.py --with-doris --restart`，以新批次 JSON 为准。
 
 ## 覆盖矩阵
 

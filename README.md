@@ -10,7 +10,8 @@
 |---|---|
 | 查看统一状态与证据日期 | [项目状态](docs/project-status.md) |
 | 对照比赛要求、准备提交 | [赛题要求与证据对照](docs/delivery/competition-readiness.md) |
-| 查找报告、用例和逐次结果 | [原生 Doris 验收目录](reports/competition-review/2026-11-29/) |
+| 复核比赛成绩或历史测试 | [报告索引](reports/README.md)、[本次参赛验收](reports/competition-review/2026-11-29/README.md) |
+| 运行 DSL 示例或定位脚本 | [按方言选择示例](examples/README.md)、[构建与验收脚本](scripts/README.md) |
 | 取得 JAR、源码包与自测记录 | [交付清单](docs/delivery/README.md)、[10 月构建自测](docs/delivery/self-test.md) |
 | 了解实际支持范围 | [能力说明](docs/project-capabilities-v1.md)、[冻结范围](docs/phase1-data-indicator-scope-v1.md) |
 | 构建、运行和展示 | [运行手册](docs/runtime-guide.md)、[演示说明](docs/final-demo.md) |

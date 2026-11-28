@@ -1,5 +1,7 @@
 # 工作台和参赛验收优化待办
 
+此清单记录 2026-11-28 的工作状态。次日完成的原生 Doris 测试、并发改进以及仍待确认的正式门禁见[参赛验收总览](../../reports/competition-review/2026-11-29/README.md)。
+
 ## 1 接通 Doris 并完成真实数据验收
 
 先在专用 Doris 环境加载校验过的官方 CSV，应用当前语义视图并生成项目来源证书。沿用独立 DuckDB 参考库核对结果。与命题方确认 249,480 条未关联衍生行情的处理口径、适用快照和评测范围。
@@ -10,7 +12,7 @@
 
 完成条件是工作台能现场执行真实查询，并能用同一批证据复现和说明 ≥95% 正确率、≥10 倍加速和 ≤10 秒返回的实测情况。
 
-参考 [真实数据验收待办](项目待优化清单.md) 和 [Doris 工作台启动说明](runtime-guide.md#浏览器工作台)。
+参考 [真实数据验收待办](项目待优化清单.md) 和 [Doris 工作台启动说明](../runtime-guide.md#浏览器工作台)。
 
 ## 2 展开缺失原因和结果解释
 
@@ -21,7 +23,7 @@
 
 完成条件是完整结果、空结果和部分缺失三类场景都能在页面上正确说明，导出的 Markdown 保留相同的关键解释。
 
-参考 [页面结果逻辑](../src/main/resources/workbench/workbench.js) 和 [后端 Markdown 渲染器](../src/main/java/com/acme/dorisdsl/stockslot/DorisExecutionMarkdownRenderer.java)。
+参考 [页面结果逻辑](../../src/main/resources/workbench/workbench.js) 和 [后端 Markdown 渲染器](../../src/main/java/com/acme/dorisdsl/stockslot/DorisExecutionMarkdownRenderer.java)。
 
 ## 3 给正式 DSL 接入声明式等价重写
 
@@ -32,4 +34,4 @@
 
 完成条件是同一条 DSL 可以复现规则命中和计划变化，差分用例证明结果等价。
 
-参考 [编译器架构](compiler-architecture.md) 和 [正式 DSL 重写入口](../src/main/java/com/acme/dorisdsl/stockslot/StockSlotSqlCompiler.java)。
+参考 [编译器架构](../architecture/compiler-architecture.md) 和 [正式 DSL 重写入口](../../src/main/java/com/acme/dorisdsl/stockslot/StockSlotSqlCompiler.java)。

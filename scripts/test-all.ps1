@@ -55,7 +55,7 @@ try {
   if ($TestJvmArgs) { $mavenArgs += "-Dtest.jvm.args=$TestJvmArgs" }
   Invoke-Checked 'maven-all-tests' { & $MavenExecutable @mavenArgs 'test' 'package' }
   Invoke-Checked 'executor-module-tests' { & $MavenExecutable @mavenArgs '-f' 'executor-doris/pom.xml' 'test' }
-  Invoke-Checked 'corpus-python-tests' { & $PythonExecutable 'scripts/test_prepare_competition_corpus.py' }
+  Invoke-Checked 'corpus-python-tests' { & $PythonExecutable 'scripts/corpus/test_prepare_competition_corpus.py' }
   Invoke-Checked 'doris-data-contract-tests' { & $PythonExecutable 'scripts/doris/self-test.py' }
   Invoke-Checked 'raw-csv-audit-regressions' { & $PythonExecutable 'scripts/doris/test_data_audit.py' }
   Invoke-Checked 'independent-reference-rebuild-contracts' { & $PythonExecutable 'scripts/doris/test_reference_rebuild.py' }
